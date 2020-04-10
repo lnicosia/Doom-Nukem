@@ -13,69 +13,61 @@
 #include "env.h"
 #include "render.h"
 
+void	put_wall_bullet_hole_pixel(t_drawer *drawer, t_render *render,
+t_env *env)
+{
+	Uint32		*sprite_pixels;
+
+	sprite_pixels = env->sprite_textures[35].str;
+	if (!env->options.lighting
+		|| (!drawer->sector->brightness && !drawer->sector->intensity))
+		env->sdl.texture_pixels[drawer->coord] = sprite_pixels[
+		(int)drawer->x + drawer->sprite_w * (int)drawer->y];
+	else if (!drawer->sector->brightness)
+		env->sdl.texture_pixels[drawer->coord] =
+		apply_light_color(sprite_pixels[
+		(int)drawer->x + drawer->sprite_w * (int)drawer->y],
+		drawer->sector->light_color, drawer->sector->intensity);
+	else if (!drawer->sector->intensity)
+		env->sdl.texture_pixels[drawer->coord] =
+		apply_light_brightness(sprite_pixels[
+		(int)drawer->x + drawer->sprite_w * (int)drawer->y],
+		drawer->sector->brightness);
+	else
+		env->sdl.texture_pixels[drawer->coord] =
+		apply_light_both(sprite_pixels[
+		(int)drawer->x + drawer->sprite_w * (int)drawer->y],
+		drawer->sector->light_color, drawer->sector->intensity,
+		drawer->sector->brightness);
+	env->zbuffer[drawer->coord] = render->z;
+}
+
 void	draw_vline_bullet_hole(t_bullet_hole *curr, t_sector *sector,
 t_render *render, t_env *env)
 {
-	int	i;
-	int	coord;
-	int	start;
-	int	end;
-	int	sprite_w;
-	double	*zbuffer;
-	Uint32	*pixels;
-	Uint32	*sprite_pixels;
-	double	yalpha;
-	double	y;
-	double	x;
-	double	pos;
+	t_drawer	drawer;
+	Uint32		*sprite_pixels;
 
-	y = 0.0;
-	i = render->current_ceiling - 1;
-	zbuffer = env->zbuffer;
-	pixels = env->sdl.texture_pixels;
 	sprite_pixels = env->sprite_textures[35].str;
-	sprite_w = env->sprite_textures[35].surface->w;
-	pos = curr->pos.y / (sector->ceiling - sector->floor);
-	start = env->object_sprites[BULLET_HOLE].start[0].y;
-	end = env->object_sprites[BULLET_HOLE].end[0].y;
-	x = render->sprite_x;
-	while (++i <= render->current_floor)
+	drawer.sector = sector;
+	drawer.i = render->current_ceiling - 1;
+	drawer.sprite_w = env->sprite_textures[35].surface->w;
+	drawer.pos = curr->pos.y / (sector->ceiling - sector->floor);
+	drawer.start = env->object_sprites[BULLET_HOLE].start[0].y;
+	drawer.end = env->object_sprites[BULLET_HOLE].end[0].y;
+	drawer.x = render->sprite_x;
+	while (++drawer.i <= render->current_floor)
 	{
-		coord = render->x + env->w * i;
-		if (render->z >= zbuffer[coord])
+		drawer.coord = render->x + env->w * drawer.i;
+		if (render->z >= env->zbuffer[drawer.coord])
 			continue;
-		yalpha = (i - render->no_slope_current_ceiling)
+		drawer.yalpha = (drawer.i - render->no_slope_current_ceiling)
 		/ render->line_height;
-		/*x = yalpha * render->camera->v[render->sector]
-		[render->i].sprite_scale[sprite].y + start;
-		if (x >= start && x < end
-			&& sprite_pixels[(int)x
-			+ sprite_w * (int)y] != 0xFFC10099)*/
-		y = (yalpha - pos)
-		* curr->scale.y
-		+ start;
-		if (y >= start && y < end
-			&& sprite_pixels[(int)x
-			+ sprite_w * (int)y] != 0xFFC10099)
-		{
-			if (!env->options.lighting
-				|| (!sector->brightness && !sector->intensity))
-				pixels[coord] = sprite_pixels[
-				(int)x + sprite_w * (int)y];
-			else if (!sector->brightness)
-				pixels[coord] = apply_light_color(sprite_pixels[
-				(int)x + sprite_w * (int)y],
-				sector->light_color, sector->intensity);
-			else if (!sector->intensity)
-				pixels[coord] = apply_light_brightness(sprite_pixels[
-				(int)x + sprite_w * (int)y],
-				sector->brightness);
-			else
-				pixels[coord] = apply_light_both(sprite_pixels[
-				(int)x + sprite_w * (int)y],
-				sector->light_color, sector->intensity, sector->brightness);
-			zbuffer[coord] = render->z;
-		}
+		drawer.y = (drawer.yalpha - drawer.pos) * curr->scale.y + drawer.start;
+		if (drawer.y >= drawer.start && drawer.y < drawer.end
+			&& sprite_pixels[(int)drawer.x
+			+ drawer.sprite_w * (int)drawer.y] != 0xFFC10099)
+			put_wall_bullet_hole_pixel(&drawer, render, env);
 	}
 }
 
@@ -99,12 +91,9 @@ void	draw_wall_bullet_holes(t_sector *sector, t_render *render, t_env *env)
 			pos *= render->camera->v[render->sector][render->i + 1].vz;
 		else
 			pos *= render->camera->v[render->sector][render->i].clipped_vz2;
-		render->sprite_x = (render->alpha)
-		* curr->scale.x
-		* render->z + start.x
-		- pos;
-		if (render->sprite_x >= start.x
-			&& render->sprite_x < end.x)
+		render->sprite_x = (render->alpha) * curr->scale.x
+		* render->z + start.x - pos;
+		if (render->sprite_x >= start.x && render->sprite_x < end.x)
 			draw_vline_bullet_hole(curr, sector, render, env);
 		bullet_holes = bullet_holes->next;
 	}

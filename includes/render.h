@@ -110,12 +110,15 @@ typedef struct		s_drawer
 	double			yalpha;
 	double			z;
 	double			divider;
+	double			pos;
 	t_sprite		*sprite;
 	t_sector		*sector;
 	int				i;
+	int				start;
 	int				end;
 	int				coord;
 	int				map_lvl;
+	int				sprite_w;
 }					t_drawer;
 
 typedef struct		s_sprite_drawer
