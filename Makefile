@@ -231,7 +231,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
 		   check_vertex_event_utils.c draw_ceiling_utils.c \
 		   draw_enemies2.c draw_enemies3.c draw_vline_projectile.c \
-		   draw_skybox2.c \
+		   draw_skybox2.c draw_floor_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

@@ -42,7 +42,6 @@ void	draw_vline_ceiling(t_sector *sector, t_vline vline, t_render *render,
 {
 	t_drawer	drawer;
 
-	render = render;
 	drawer.sector = sector;
 	drawer.vline = vline;
 	drawer.map_lvl =

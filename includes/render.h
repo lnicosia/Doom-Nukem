@@ -283,6 +283,10 @@ void				get_ceiling_texels(t_drawer *drawer, t_render *render,
 t_env *env);
 void				click_on_ceiling(t_drawer *drawer, t_render *render,
 t_env *env);
+void				get_floor_texels(t_drawer *drawer, t_render *render,
+t_env *env);
+void				click_on_floor(t_drawer *drawer, t_render *render,
+t_env *env);
 void				get_floor_z(t_render *render, t_drawer *drawer,
 t_env *env);
 void				get_texels(t_render *render, t_drawer *drawer);

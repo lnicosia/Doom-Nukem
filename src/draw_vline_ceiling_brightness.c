@@ -43,7 +43,6 @@ t_render *render, t_env *env)
 {
 	t_drawer	drawer;
 
-	render = render;
 	drawer.sector = sector;
 	drawer.vline = vline;
 	drawer.map_lvl =
