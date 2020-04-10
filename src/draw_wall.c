@@ -53,7 +53,6 @@ void		draw_upper_wall(t_sector *sector, t_render *render, t_env *env)
 	t_vline	vline;
 
 	vline.x = render->x;
-	//ft_printf("drawing upper wall\n");
 	vline.start = (int)(render->current_ceiling);
 	vline.end = (int)(render->neighbor_current_ceiling);
 	vline.draw_wall = 1;

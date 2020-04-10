@@ -107,6 +107,7 @@ typedef struct		s_drawer
 	double			text_x;
 	double			text_y;
 	double			alpha;
+	double			yalpha;
 	double			z;
 	double			divider;
 	t_sprite		*sprite;
@@ -338,6 +339,13 @@ void				draw_upper_wall(t_sector *sector, t_render *render,
 t_env *env);
 void				draw_bottom_wall(t_sector *sector, t_render *render,
 t_env *env);
+void				click_on_wall(t_drawer *drawer, t_render *render,
+t_env *env);
+void				new_wall_bullet_hole(t_drawer *drawer, t_render *render,
+t_env *env);
+void				get_wall_x(t_drawer *drawer, t_render *render,
+t_env *env);
+void				get_wall_y(t_drawer *drawer, t_render *render);
 void				draw_skybox(t_render *render, int mode, t_env *env);
 void				precompute_skybox(t_env *env);
 int					get_vertex_nb_in_sector(int vertex, t_sector *sector);
