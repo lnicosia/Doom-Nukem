@@ -231,11 +231,13 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
 		   check_vertex_event_utils.c draw_ceiling_utils.c \
 		   draw_enemies2.c draw_enemies3.c draw_vline_projectile.c \
+		   draw_skybox2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
 		  events_parser.h update_existing_events.h draw_grid_walls.h \
+		  draw_skybox.h \
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \

@@ -12,12 +12,26 @@
 
 #ifndef DRAW_SKYBOX_H
 # define DRAW_SKYBOX_H
-#include "env.h"
+#include "render.h"
 
-void	draw_vline_skybox(t_vline vline, int mode, t_render *skybox, t_env *env);
+typedef struct	s_skybox_drawer
+{
+  	t_render_vertex	v1;
+	t_skybox_data	wall_data;
+	t_render		*skybox;
+	t_render		*render;
+	int				max;
+	int				min;
+	int				x;
+}				t_skybox_drawer;
+
+void	draw_vline_skybox(t_vline vline, int mode, t_render *skybox,
+t_env *env);
 void	draw_vline_floor_skybox(t_vline vline, int mode, t_render *skybox,
 		t_env *env);
 void	draw_vline_ceiling_skybox(t_vline vline, int mode, t_render *skybox,
 		t_env *env);
+void	set_skybox_limits(t_skybox_drawer *drawer, t_env *env);
+void	compute_skybox_vline(t_skybox_drawer *drawer, t_env *env);
 
 #endif
