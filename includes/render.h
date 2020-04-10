@@ -349,6 +349,12 @@ t_env *env);
 void				get_wall_x(t_drawer *drawer, t_render *render,
 t_env *env);
 void				get_wall_y(t_drawer *drawer, t_render *render);
+int					click_on_wall_sprite(t_drawer *drawer, int sprite,
+t_render *render, t_env *env);
+void				apply_wall_sprite_filters(t_drawer *drawer, int sprite,
+t_render *render, t_env *env);
+void				init_drawer(t_drawer *drawer, int sprite,
+t_render *render, t_env *env);
 void				draw_skybox(t_render *render, int mode, t_env *env);
 void				precompute_skybox(t_env *env);
 int					get_vertex_nb_in_sector(int vertex, t_sector *sector);
