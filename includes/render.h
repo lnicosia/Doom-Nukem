@@ -99,10 +99,13 @@ typedef struct		s_render
 
 typedef struct		s_drawer
 {
+  	t_vline			vline;
   	double			x;
 	double			y;
 	double			sprite_x;
 	double			sprite_y;
+	double			text_x;
+	double			text_y;
 	double			alpha;
 	double			z;
 	double			divider;
@@ -111,6 +114,7 @@ typedef struct		s_drawer
 	int				i;
 	int				end;
 	int				coord;
+	int				map_lvl;
 }					t_drawer;
 
 typedef struct		s_sprite_drawer
@@ -274,6 +278,10 @@ t_vline vline, t_render *render, t_env *env);
 void				draw_vline_ceiling_both(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
 void				get_ceiling_z(t_render *render, t_drawer *drawer,
+t_env *env);
+void				get_ceiling_texels(t_drawer *drawer, t_render *render,
+t_env *env);
+void				click_on_ceiling(t_drawer *drawer, t_render *render,
 t_env *env);
 void				get_floor_z(t_render *render, t_drawer *drawer,
 t_env *env);
