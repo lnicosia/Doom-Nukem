@@ -96,6 +96,27 @@ int	floor_sprite_buttons(t_env *env)
 	return (0);
 }
 
+int	wall_general_tab_keys(t_env *env)
+{
+	if (button_keys(&env->editor.next_wall, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_wall, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_scale_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_scale_y, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_align_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_align_y, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.portal, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.add_sprite, env))
+		return (-1);
+	return (0);
+}
+
 int	wall_buttons(t_env *env)
 {
 	if (env->editor.sector_tab.state == DOWN)
@@ -111,23 +132,32 @@ int	wall_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.next_wall, env))
-			return (-1);
-		if (button_keys(&env->editor.previous_wall, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_wall.texture_scale_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_wall.texture_scale_y, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_wall.texture_align_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_wall.texture_align_y, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_wall.portal, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_wall.add_sprite, env))
-			return (-1);
+	  	if (wall_general_tab_keys(env))
+		  	return (-1);
 	}
+	return (0);
+}
+
+int	floor_general_tab_keys(t_env *env)
+{
+	if (button_keys(&env->editor.hud.g_floor.height, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_floor.slope, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_floor.texture_scale_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_floor.texture_scale_y, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_floor.texture_align_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_floor.texture_align_y, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_slope_swap, env))
+		return (-1);
+	if (button_keys(&env->editor.next_slope_swap, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_floor.add_sprite, env))
+		return (-1);
 	return (0);
 }
 
@@ -146,25 +176,32 @@ int	floor_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.hud.g_floor.height, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.slope, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.texture_scale_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.texture_scale_y, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.texture_align_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.texture_align_y, env))
-			return (-1);
-		if (button_keys(&env->editor.previous_slope_swap, env))
-			return (-1);
-		if (button_keys(&env->editor.next_slope_swap, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_floor.add_sprite, env))
-			return (-1);
+	  	if (floor_general_tab_keys(env))
+		  	return (-1);
 	}
+	return (0);
+}
+
+int	ceiling_general_tab_keys(t_env *env)
+{
+	if (button_keys(&env->editor.hud.g_ceilling.height, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_ceilling.slope, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_ceilling.texture_scale_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_ceilling.texture_scale_y, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_ceilling.texture_align_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_ceilling.texture_align_y, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_slope_swap, env))
+		return (-1);
+	if (button_keys(&env->editor.next_slope_swap, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_ceilling.add_sprite, env))
+		return (-1);
 	return (0);
 }
 
@@ -183,24 +220,8 @@ int	ceiling_buttons(t_env *env)
 	}
 	if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.hud.g_ceilling.height, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.slope, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.texture_scale_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.texture_scale_y, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.texture_align_x, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.texture_align_y, env))
-			return (-1);
-		if (button_keys(&env->editor.previous_slope_swap, env))
-			return (-1);
-		if (button_keys(&env->editor.next_slope_swap, env))
-			return (-1);
-		if (button_keys(&env->editor.hud.g_ceilling.add_sprite, env))
-			return (-1);
+	  	if (ceiling_general_tab_keys(env))
+		  	return (-1);
 	}
 	return (0);
 }

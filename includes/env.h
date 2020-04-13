@@ -292,6 +292,8 @@ int					init_array_sprite_buttons(t_env *env);
 int					init_skybox_selection_buttons(t_env *env);
 
 int					editor(t_env *env);
+int					editor_2d(t_env *env);
+void				zoom(t_env *env);
 int					draw_editor_tabs(t_env *env);
 void				print_events_tab(t_env *env);
 void				print_event_selection(t_env *env, size_t nb);

@@ -89,7 +89,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		editor_env_ceilling_buttons.c  change_editor_mode.c \
 		editor_3d_button_keys.c editor_3d_button_keyup.c \
-		init_add_buttons.c editor_env_sector_buttons.c \
+		init_add_buttons.c editor_env_sector_buttons.c editor_2d.c \
 		editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
 		editor_button_keyup.c editor_env_player_buttons.c \
 		editor_player_tab_button.c editor_enemy_tabs.c print_events_tabs2.c \

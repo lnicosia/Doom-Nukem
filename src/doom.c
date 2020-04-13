@@ -70,7 +70,7 @@ int		doom2(t_env *env)
 	return (0);
 }
 
-int		doom1(t_env *env)
+int		doom_poll_event(t_env *env)
 {
 	while (SDL_PollEvent(&env->sdl.event))
 	{
@@ -112,15 +112,15 @@ int		doom(t_env *env)
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
 		if (env->in_game && !env->menu & !env->option)
 		{
-	  		if (doom1(env))
-		  		return (-1);
+	  		if (doom_poll_event(env))
+		  		return (crash("", env));
 	  		if (doom2(env))
-		  		return (-1);
+		  		return (crash("", env));
 	  		if (doom3(env))
-		  		return (-1);
+		  		return (crash("", env));
 		}
 		if (doom4(env))
-		  	return (-1);
+		  	return (crash("", env));
 		FMOD_System_Update(env->sound.system);
 	}
 	free_all(env);
