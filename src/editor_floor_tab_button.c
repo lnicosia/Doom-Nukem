@@ -56,6 +56,22 @@ void	init_floor_sector_buttons(t_env *env)
 	env->editor.hud.s_floor.t_gravity.pos = new_point(170, 640);
 }
 
+void	init_floor_general_buttons2(t_env *env)
+{
+	env->editor.hud.g_floor.texture_align_x.pos = new_point(170, 720);
+	env->editor.hud.g_floor.t_texture_align_x.pos = new_point(170, 720);
+	env->editor.hud.g_floor.texture_align_y = new_hud_button(ON_RELEASE,
+	&change_floor_texture_align,
+	&env->editor.hud.g_floor.t_texture_align_y, env);
+	env->editor.hud.g_floor.texture_align_y.pos = new_point(170, 760);
+	env->editor.hud.g_floor.t_texture_align_y.pos = new_point(170, 760);
+	env->editor.hud.g_floor.add_sprite = new_image_button(ON_RELEASE,
+	&add_sprite, env, env);
+	env->editor.hud.g_floor.add_sprite.str = "ADD SPRITE";
+	env->editor.hud.g_floor.add_sprite.pos = new_point(230, 820);
+	env->editor.hud.g_floor.t_add_sprite.pos = new_point(230, 820);
+}
+
 void	init_floor_general_buttons(t_env *env)
 {
 	env->editor.hud.g_floor.height = new_hud_button(ON_RELEASE,
@@ -79,16 +95,5 @@ void	init_floor_general_buttons(t_env *env)
 	env->editor.hud.g_floor.texture_align_x = new_hud_button(ON_RELEASE,
 	&change_floor_texture_align,
 	&env->editor.hud.g_floor.t_texture_align_x, env);
-	env->editor.hud.g_floor.texture_align_x.pos = new_point(170, 720);
-	env->editor.hud.g_floor.t_texture_align_x.pos = new_point(170, 720);
-	env->editor.hud.g_floor.texture_align_y = new_hud_button(ON_RELEASE,
-	&change_floor_texture_align,
-	&env->editor.hud.g_floor.t_texture_align_y, env);
-	env->editor.hud.g_floor.texture_align_y.pos = new_point(170, 760);
-	env->editor.hud.g_floor.t_texture_align_y.pos = new_point(170, 760);
-	env->editor.hud.g_floor.add_sprite = new_image_button(ON_RELEASE,
-	&add_sprite, env, env);
-	env->editor.hud.g_floor.add_sprite.str = "ADD SPRITE";
-	env->editor.hud.g_floor.add_sprite.pos = new_point(230, 820);
-	env->editor.hud.g_floor.t_add_sprite.pos = new_point(230, 820);
+	init_floor_general_buttons2(env);
 }

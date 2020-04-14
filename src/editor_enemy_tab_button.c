@@ -39,6 +39,22 @@ void	init_enemy_sector_buttons(t_env *env)
 	env->editor.hud.s_enemy.t_gravity.pos = new_point(170, 640);
 }
 
+void	init_enemy_general_buttons2(t_env *env)
+{
+	env->editor.hud.g_enemy.scale = new_hud_button(ON_RELEASE,
+	&change_enemy_scale, &env->editor.hud.g_enemy.t_scale, env);
+	env->editor.hud.g_enemy.scale.pos = new_point(170, 720);
+	env->editor.hud.g_enemy.t_scale.pos = new_point(170, 720);
+	env->editor.hud.g_enemy.damage = new_hud_button(ON_RELEASE,
+	&change_enemy_damage, &env->editor.hud.g_enemy.t_damage, env);
+	env->editor.hud.g_enemy.damage.pos = new_point(170, 760);
+	env->editor.hud.g_enemy.t_damage.pos = new_point(170, 760);
+	env->editor.hud.g_enemy.angle = new_hud_button(ON_RELEASE,
+	&change_angle, &env->editor.hud.g_enemy.t_angle, env);
+	env->editor.hud.g_enemy.angle.pos = new_point(170, 800);
+	env->editor.hud.g_enemy.t_angle.pos = new_point(170, 800);
+}
+
 void	init_enemy_general_buttons(t_env *env)
 {
 	env->editor.hud.g_enemy.pos_x = new_hud_button(ON_RELEASE,
@@ -61,16 +77,5 @@ void	init_enemy_general_buttons(t_env *env)
 	&change_speed, &env->editor.hud.g_enemy.t_speed, env);
 	env->editor.hud.g_enemy.speed.pos = new_point(170, 680);
 	env->editor.hud.g_enemy.t_speed.pos = new_point(170, 680);
-	env->editor.hud.g_enemy.scale = new_hud_button(ON_RELEASE,
-	&change_enemy_scale, &env->editor.hud.g_enemy.t_scale, env);
-	env->editor.hud.g_enemy.scale.pos = new_point(170, 720);
-	env->editor.hud.g_enemy.t_scale.pos = new_point(170, 720);
-	env->editor.hud.g_enemy.damage = new_hud_button(ON_RELEASE,
-	&change_enemy_damage, &env->editor.hud.g_enemy.t_damage, env);
-	env->editor.hud.g_enemy.damage.pos = new_point(170, 760);
-	env->editor.hud.g_enemy.t_damage.pos = new_point(170, 760);
-	env->editor.hud.g_enemy.angle = new_hud_button(ON_RELEASE,
-	&change_angle, &env->editor.hud.g_enemy.t_angle, env);
-	env->editor.hud.g_enemy.angle.pos = new_point(170, 800);
-	env->editor.hud.g_enemy.t_angle.pos = new_point(170, 800);
+	init_enemy_general_buttons2(env);
 }

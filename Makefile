@@ -152,6 +152,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		update_sector_with_deleted_vertex.c check_move_player_conditions.c \
 		editor_buttons_functions2.c editor_buttons_functions3.c \
 		editor_buttons_functions4.c editor_buttons_functions5.c \
+		editor_ceiling_tabs2.c editor_floor_tabs2.c editor_hud2.c \
+		editor_hud3.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
