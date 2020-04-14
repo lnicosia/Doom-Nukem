@@ -56,7 +56,7 @@ int		print_sector_general_tab(t_env *env)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.selected_sector].ceiling),
 	env->sectors[env->editor.selected_sector].ceiling);
-	env->editor.hud.g_sector.t_ceilling.target =
+	env->editor.hud.g_sector.t_ceiling.target =
 	&env->sectors[env->editor.selected_sector].ceiling;
 	draw_button(env, env->editor.hud.g_sector.ceiling, env->snprintf);
 	print_text(new_point(720, 60), new_printable_text("Floor slope",

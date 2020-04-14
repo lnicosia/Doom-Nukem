@@ -111,7 +111,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_action_panel_buttons.c init_conditions_tabs_buttons.c \
 		target_panel_keys.c modify_condition.c init_new_sector_arrays.c \
 		3d_edit_change_floor_slope_start.c delete_selected_event.c \
-		3d_edit_change_ceiling_slope_start.c \
+		3d_edit_change_ceiling_slope_start.c editor_3d_button_keys2.c \
 		action_panel_keys.c conditions_panel_keys.c \
 		event_panel_keys.c modify_event.c delete_action_utils.c \
 		new_event_panel_buttons.c new_event_panel_buttons2.c \
@@ -135,21 +135,23 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		set_new_event_target7.c delete_wall_sprite.c draw_grid_walls_utils.c \
 		condition_event_panel.c init_condition_event_buttons.c \
 		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
-		3d_edit_slopes.c 3d_edit_change_slope_start.c \
+		3d_edit_slopes.c 3d_edit_change_slope_start.c editor_3d_button_keyup2.c\
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
 		3d_edit_right_walls_texture_align.c delete_floor_sprite.c \
 		3d_edit_left_walls_texture_align.c new_target.c \
 		3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
 		editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
-		update_entities.c editor_vertices_tab.c \
+		update_entities.c editor_vertices_tab.c selection_tabs_keyup.c \
 		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
 		delete_sector.c delete_vertex.c weapon_picker.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
 		editor_minimap.c init_editor_options_buttons.c \
 		editor_option_keys.c write_hud.c write_hud2.c \
-		update_sector_with_deleted_vertex.c \
+		update_sector_with_deleted_vertex.c check_move_player_conditions.c \
+		editor_buttons_functions2.c editor_buttons_functions3.c \
+		editor_buttons_functions4.c editor_buttons_functions5.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

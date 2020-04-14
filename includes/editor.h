@@ -123,7 +123,7 @@ typedef struct	s_var_g
 	t_button_tab	t_texture_align_x;
 	t_button_tab	t_texture_align_y;
 	t_button_tab	t_floor;
-	t_button_tab	t_ceilling;
+	t_button_tab	t_ceiling;
 	t_button_tab	t_ceiling_slope;
 	t_button_tab	t_floor_slope;
 	t_button_tab	t_pos_x;
@@ -150,7 +150,7 @@ typedef struct	s_hud
 	t_button	plr;
 	t_var_g		g_wall;
 	t_var_g		g_floor;
-	t_var_g		g_ceilling;
+	t_var_g		g_ceiling;
 	t_var_g		g_sector;
 	t_var_g		g_vertex;
 	t_var_g		g_player;
@@ -159,7 +159,7 @@ typedef struct	s_hud
 	t_var_s		s_wall;
 	t_var_s		s_wall_sprite;
 	t_var_s		s_floor;
-	t_var_s		s_ceilling;
+	t_var_s		s_ceiling;
 	t_var_s		s_sector;
 	t_var_s		s_player;
 	t_var_s		s_enemy;

@@ -12,86 +12,23 @@
 
 #include "env.h"
 
-int	object_buttons_up(t_env *env)
+int	wall_general_tab_keyup(t_env *env)
 {
-	if (env->editor.sector_tab.state == DOWN)
-	{
-		if (button_keyup(&env->editor.hud.s_object.brightness, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.s_object.color, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.s_object.intensity, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.s_object.gravity, env))
-			return (-1);
-	}
-	else if (env->editor.general_tab.state == DOWN)
-	{
-		if (button_keyup(&env->editor.hud.g_object.pos_z, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_object.health, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_object.scale, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_object.damage, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_object.angle, env))
-			return (-1);
-	}
-	return (0);
-}
-
-int	wall_sprite_buttons_up(t_env *env)
-{
-	if (env->editor.sector_tab.state == DOWN)
-	{
-		if (button_keyup(&env->editor.hud.s_wall_sprite.brightness, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.s_wall_sprite.color, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.s_wall_sprite.intensity, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.s_wall_sprite.gravity, env))
-			return (-1);
-	}
-	else if (env->editor.sprite_tab.state == DOWN)
-	{
-		if (button_keyup(&env->editor.hud.sp_wall_sprite.pos_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.sp_wall_sprite.pos_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.sp_wall_sprite.scale_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.sp_wall_sprite.scale_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.sp_wall_sprite.add_sprite, env))
-			return (-1);
-	}
-	return (0);
-}
-
-int	ceiling_sprite_buttons_up(t_env *env)
-{
-	if (button_keyup(&env->editor.hud.sp_ceiling_sprite.pos_x, env))
+	if (button_keyup(&env->editor.next_wall, env))
 		return (-1);
-	if (button_keyup(&env->editor.hud.sp_ceiling_sprite.pos_y, env))
+	if (button_keyup(&env->editor.previous_wall, env))
 		return (-1);
-	if (button_keyup(&env->editor.hud.sp_ceiling_sprite.scale_x, env))
+	if (button_keyup(&env->editor.hud.g_wall.texture_scale_x, env))
 		return (-1);
-	if (button_keyup(&env->editor.hud.sp_ceiling_sprite.scale_y, env))
+	if (button_keyup(&env->editor.hud.g_wall.texture_scale_y, env))
 		return (-1);
-	return (0);	
-}
-
-int	floor_sprite_buttons_up(t_env *env)
-{
-	if (button_keyup(&env->editor.hud.sp_floor_sprite.pos_x, env))
+	if (button_keyup(&env->editor.hud.g_wall.texture_align_x, env))
 		return (-1);
-	if (button_keyup(&env->editor.hud.sp_floor_sprite.pos_y, env))
+	if (button_keyup(&env->editor.hud.g_wall.texture_align_y, env))
 		return (-1);
-	if (button_keyup(&env->editor.hud.sp_floor_sprite.scale_x, env))
+	if (button_keyup(&env->editor.hud.g_wall.portal, env))
 		return (-1);
-	if (button_keyup(&env->editor.hud.sp_floor_sprite.scale_y, env))
+	if (button_keyup(&env->editor.hud.g_wall.add_sprite, env))
 		return (-1);
 	return (0);
 }
@@ -111,23 +48,32 @@ int	wall_buttons_up(t_env *env)
 	}
 	else if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.next_wall, env))
-			return (-1);
-		if (button_keyup(&env->editor.previous_wall, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_wall.texture_scale_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_wall.texture_scale_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_wall.texture_align_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_wall.texture_align_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_wall.portal, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_wall.add_sprite, env))
-			return (-1);
+	  	if (wall_general_tab_keyup(env))
+		  	return (-1);
 	}
+	return (0);
+}
+
+int	floor_general_tab_keyup(t_env *env)
+{
+	if (button_keyup(&env->editor.hud.g_floor.height, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_floor.slope, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_floor.texture_scale_x, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_floor.texture_scale_y, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_floor.texture_align_x, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_floor.texture_align_y, env))
+		return (-1);
+	if (button_keyup(&env->editor.previous_slope_swap, env))
+		return (-1);
+	if (button_keyup(&env->editor.next_slope_swap, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_floor.add_sprite, env))
+		return (-1);
 	return (0);
 }
 
@@ -146,25 +92,32 @@ int	floor_buttons_up(t_env *env)
 	}
 	else if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.hud.g_floor.height, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_floor.slope, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_floor.texture_scale_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_floor.texture_scale_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_floor.texture_align_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_floor.texture_align_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.previous_slope_swap, env))
-			return (-1);
-		if (button_keyup(&env->editor.next_slope_swap, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_floor.add_sprite, env))
-			return (-1);
+	  	if (floor_general_tab_keyup(env))
+		  	return (-1);
 	}
+	return (0);
+}
+
+int	ceiling_general_tab_keyup(t_env *env)
+{
+	if (button_keyup(&env->editor.hud.g_ceiling.height, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_ceiling.slope, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_ceiling.texture_scale_x, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_ceiling.texture_scale_y, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_ceiling.texture_align_x, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_ceiling.texture_align_y, env))
+		return (-1);
+	if (button_keyup(&env->editor.previous_slope_swap, env))
+		return (-1);
+	if (button_keyup(&env->editor.next_slope_swap, env))
+		return (-1);
+	if (button_keyup(&env->editor.hud.g_ceiling.add_sprite, env))
+		return (-1);
 	return (0);
 }
 
@@ -172,35 +125,19 @@ int	ceiling_buttons_up(t_env *env)
 {
 	if (env->editor.sector_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.hud.s_ceilling.brightness, env))
+		if (button_keyup(&env->editor.hud.s_ceiling.brightness, env))
 			return (-1);
-		if (button_keyup(&env->editor.hud.s_ceilling.color, env))
+		if (button_keyup(&env->editor.hud.s_ceiling.color, env))
 			return (-1);
-		if (button_keyup(&env->editor.hud.s_ceilling.intensity, env))
+		if (button_keyup(&env->editor.hud.s_ceiling.intensity, env))
 			return (-1);
-		if (button_keyup(&env->editor.hud.s_ceilling.gravity, env))
+		if (button_keyup(&env->editor.hud.s_ceiling.gravity, env))
 			return (-1);
 	}
 	else if (env->editor.general_tab.state == DOWN)
 	{
-		if (button_keyup(&env->editor.hud.g_ceilling.height, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_ceilling.slope, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_ceilling.texture_scale_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_ceilling.texture_scale_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_ceilling.texture_align_x, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_ceilling.texture_align_y, env))
-			return (-1);
-		if (button_keyup(&env->editor.previous_slope_swap, env))
-			return (-1);
-		if (button_keyup(&env->editor.next_slope_swap, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_ceilling.add_sprite, env))
-			return (-1);
+	  	if (ceiling_general_tab_keyup(env))
+		  	return (-1);
 	}
 	return (0);
 }

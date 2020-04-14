@@ -29,9 +29,9 @@ void	init_sector_general_buttons(t_env *env)
 	env->editor.hud.g_sector.intensity.pos = new_point(170, 600);
 	env->editor.hud.g_sector.t_intensity.pos = new_point(170, 600);
 	env->editor.hud.g_sector.ceiling = new_hud_button(ON_RELEASE,
-	&change_ceiling_height, &env->editor.hud.g_sector.t_ceilling, env);
+	&change_ceiling_height, &env->editor.hud.g_sector.t_ceiling, env);
 	env->editor.hud.g_sector.ceiling.pos = new_point(170, 680);
-	env->editor.hud.g_sector.t_ceilling.pos = new_point(170, 680);
+	env->editor.hud.g_sector.t_ceiling.pos = new_point(170, 680);
 	env->editor.hud.g_sector.floor = new_hud_button(ON_RELEASE,
 	&change_floor_height, &env->editor.hud.g_sector.t_floor, env);
 	env->editor.hud.g_sector.floor.pos = new_point(170, 640);

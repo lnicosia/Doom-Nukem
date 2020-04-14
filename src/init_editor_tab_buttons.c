@@ -45,14 +45,14 @@ void	init_floor_buttons(t_env *env)
 	init_floor_sprite_buttons(env);
 }
 
-void	init_ceilling_buttons(t_env *env)
+void	init_ceiling_buttons(t_env *env)
 {
-	init_ceilling_general_env(env);
-	init_ceilling_sector_env(env);
-	init_ceilling_sprite_env(env);
-	init_ceilling_general_buttons(env);
-	init_ceilling_sector_buttons(env);
-	init_ceilling_sprite_buttons(env);
+	init_ceiling_general_env(env);
+	init_ceiling_sector_env(env);
+	init_ceiling_sprite_env(env);
+	init_ceiling_general_buttons(env);
+	init_ceiling_sector_buttons(env);
+	init_ceiling_sprite_buttons(env);
 }
 
 void	init_player_buttons(t_env *env)
@@ -95,7 +95,7 @@ void	init_editor_tab_buttons(t_env *env)
 {
 	init_wall_buttons(env);
 	init_floor_buttons(env);
-	init_ceilling_buttons(env);
+	init_ceiling_buttons(env);
 	init_sector_buttons(env);
 	init_player_buttons(env);
 	init_enemy_buttons(env);

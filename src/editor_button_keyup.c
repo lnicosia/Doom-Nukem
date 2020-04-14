@@ -12,6 +12,24 @@
 
 #include "env.h"
 
+int	enemy_buttons_up2(t_env *env)
+{
+	if (env->editor.general_tab.state == DOWN)
+	{
+		if (button_keyup(&env->editor.hud.g_enemy.health, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_enemy.speed, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_enemy.scale, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_enemy.damage, env))
+			return (-1);
+		if (button_keyup(&env->editor.hud.g_enemy.angle, env))
+			return (-1);
+	}
+	return (0);
+}
+
 int	enemy_buttons_up(t_env *env)
 {
 	if (button_keyup(&env->editor.enemy_background, env))
@@ -27,20 +45,7 @@ int	enemy_buttons_up(t_env *env)
 		if (button_keyup(&env->editor.hud.s_enemy.gravity, env))
 			return (-1);
 	}
-	if (env->editor.general_tab.state == DOWN)
-	{
-		if (button_keyup(&env->editor.hud.g_enemy.health, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_enemy.speed, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_enemy.scale, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_enemy.damage, env))
-			return (-1);
-		if (button_keyup(&env->editor.hud.g_enemy.angle, env))
-			return (-1);
-	}
-	return (0);
+	return (enemy_buttons_up2(env));
 }
 
 int	player_buttons_up(t_env *env)

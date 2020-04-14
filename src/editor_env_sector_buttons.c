@@ -14,9 +14,9 @@
 
 void	init_sector_general_env(t_env *env)
 {
-	env->editor.hud.g_sector.t_ceilling.env = env;
-	env->editor.hud.g_sector.t_ceilling.pos = new_point(0, 0);
-	env->editor.hud.g_sector.t_ceilling.type = DOUBLE;
+	env->editor.hud.g_sector.t_ceiling.env = env;
+	env->editor.hud.g_sector.t_ceiling.pos = new_point(0, 0);
+	env->editor.hud.g_sector.t_ceiling.type = DOUBLE;
 	env->editor.hud.g_sector.t_floor.env = env;
 	env->editor.hud.g_sector.t_floor.pos = new_point(0, 0);
 	env->editor.hud.g_sector.t_floor.type = DOUBLE;
