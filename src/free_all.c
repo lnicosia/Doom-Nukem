@@ -27,12 +27,6 @@ static void	free_textures(t_env *env)
 
 void		free_event(t_event *event)
 {
-	/*if (event->check_param)
-		ft_memdel((void**)&event->check_param);
-	if (event->exec_param)
-		ft_memdel((void**)&event->exec_param);
-	if (event->update_param)
-		ft_memdel((void**)&event->update_param);*/
 	if (event->exec_param)
 		ft_memdel((void**)&event->exec_param);
 	if (event->launch_conditions)

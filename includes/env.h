@@ -313,6 +313,8 @@ int					editor_3d_keyup(t_env *env);
 int					selection_tabs_keyup(t_env *env);
 int					editor_options_keyup(t_env *env);
 int					editor_mouseup(t_env *env);
+int					change_mode(void *target);
+int					save_button(void *target);
 void				hline(t_env *env, int y);
 void				vline(t_env *env, int x);
 void				draw_hgrid(t_env *env);
