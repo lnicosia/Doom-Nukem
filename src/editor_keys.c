@@ -12,85 +12,56 @@
 
 #include "env.h"
 
-int			editor_keys(t_env *env)
+int		editor_keys5(t_env *env)
 {
-	int		i;
-	int		ret;
-
-	i = 0;
-	if (env->inputs.backspace && !env->confirmation_box.state)
+	if (env->editor.events_tab.state != DOWN)
+	  	return (0);
+	if (!env->editor.selecting_target && !env->editor.selecting_event
+		&& !env->editor.selecting_condition_target
+		&& button_keys(&env->editor.new_event, env))
+		return (-1);
+	if (is_modify_event_button_visible(env))
 	{
-		if (del_last_vertex(env))
+		if (button_keys(&env->editor.modify_event, env))
 			return (-1);
-		env->inputs.backspace = 0;
-	}
-	player_selection(env);
-	starting_player_selection(env);
-	enemy_drag(env);
-	objects_selection(env);
-	vertices_selection(env);
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keys(&env->confirmation_box, env))
+		if (button_keys(&env->editor.delete_event, env))
 			return (-1);
 	}
-	if (env->inputs.right_click)
+	if (are_event_selection_buttons_visible(env))
 	{
-		env->editor.center.x += env->sdl.mouse_x;
-		env->editor.center.y += env->sdl.mouse_y;
-	}
-
-	/*
-	**	Moving the map with arrows
-	*/
-	
-	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
-		env->editor.center.x -= 3;
-	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
-		env->editor.center.x += 3;
-	if (env->inputs.forward && !env->editor.tab && !env->inputs.ctrl)
-		env->editor.center.y -= 3;
-	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
-		env->editor.center.y += 3;
-	if (env->inputs.s && env->inputs.ctrl)
-	{
-		ret = valid_map(env);
-		if (ret == -1)
+		if (button_keys(&env->editor.next_event, env))
 			return (-1);
-		else if (ret)
-			return (0);
-		if (env->editor.creating_event)
-		{
-			if (update_confirmation_box(&env->confirmation_box,
-				"Please save your event before saving the map", ERROR, env))
-				return (-1);
-		}
-		else
-		{
-			if (new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-			STRING, &env->save_file))
-				return (-1);
-			env->input_box.update = &save_map;
-			env->inputs.s = 0;
-			env->inputs.ctrl = 0;
-			env->input_box.text_size = 42;
-		}
+		if (button_keys(&env->editor.previous_event, env))
+			return (-1);
 	}
+	if (are_events_selection_buttons_visible(env)
+		&& (button_keys(&env->editor.next_events, env)
+		|| button_keys(&env->editor.previous_events, env)))
+		return (-1);
+	return (editor_keys6(env));
+}
 
-	/*
-	**	control of the selection the stats in 2D mode editor iwh include:
-	**	floor | ceiling | brightness control on arrows or keybord usual binding (w-a-s-d)
-	**	control of the sector status with +/-
-	*/
+int		editor_keys4(t_env *env)
+{
+	if (button_keys(&env->editor.previous_fighting_music, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_ambiance_music, env))
+		return (-1);
+	if (env->editor.selected_sector != -1 && sector_buttons(env))
+		return (-1);
+	if (env->editor.selected_start_player != -1 && player_buttons(env))
+		return (-1);
+	if (env->selected_enemy != -1 && enemy_buttons(env))
+		return (-1);
+	if (env->selected_object != -1 && object_buttons(env))
+		return (-1);
+	if (button_keys(&env->editor.events_tab, env))
+		return (-1);
+	return (editor_keys5(env));
+}
 
-	if (button_keys(&env->editor.add_enemy, env))
-		return (-1);
-	if (button_keys(&env->editor.add_object, env))
-		return (-1);
-	if (button_keys(&env->editor.save, env))
-		return (-1);
-	if (button_keys(&env->editor.general_tab, env))
-		return (-1);
+int		editor_keys3(t_env *env)
+{
 	if (button_keys(&env->editor.sprite_tab, env))
 		return (-1);
 	if (button_keys(&env->editor.sector_tab, env))
@@ -115,100 +86,59 @@ int			editor_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.next_fighting_music, env))
 		return (-1);
-	if (button_keys(&env->editor.previous_fighting_music, env))
-		return (-1);
-	if (button_keys(&env->editor.previous_ambiance_music, env))
-		return (-1);
-	if (env->editor.selected_sector != -1 && sector_buttons(env))
-		return (-1);
-	if (env->editor.selected_start_player != -1 && player_buttons(env))
-		return (-1);
-	if (env->selected_enemy != -1 && enemy_buttons(env))
-		return (-1);
-	if (env->selected_object != -1 && object_buttons(env))
-		return (-1);
-	if (button_keys(&env->editor.events_tab, env))
-		return (-1);
-	if (env->editor.events_tab.state == DOWN)
+	return (editor_keys4(env));
+}
+
+int		editor_keys2(t_env *env)
+{
+	int		ret;
+
+	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.x -= 3;
+	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.x += 3;
+	if (env->inputs.forward && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.y -= 3;
+	if (env->inputs.backward && !env->editor.tab && !env->inputs.ctrl)
+		env->editor.center.y += 3;
+	if (env->inputs.s && env->inputs.ctrl)
 	{
-		if (!env->editor.selecting_target && !env->editor.selecting_event
-			&& !env->editor.selecting_condition_target
-			&& button_keys(&env->editor.new_event, env))
+	  	if ((ret = save_map_keys(env)) != 1)
+		  	return (ret);
+	}
+	if (button_keys(&env->editor.add_enemy, env))
+		return (-1);
+	if (button_keys(&env->editor.add_object, env))
+		return (-1);
+	if (button_keys(&env->editor.save, env))
+		return (-1);
+	if (button_keys(&env->editor.general_tab, env))
+		return (-1);
+	return (editor_keys3(env));
+}
+
+int		editor_keys(t_env *env)
+{
+	if (env->inputs.backspace && !env->confirmation_box.state)
+	{
+		if (del_last_vertex(env))
 			return (-1);
-		if (is_modify_event_button_visible(env))
-		{
-			if (button_keys(&env->editor.modify_event, env))
-				return (-1);
-			if (button_keys(&env->editor.delete_event, env))
-				return (-1);
-		}
-		if (are_event_selection_buttons_visible(env))
-		{
-			if (button_keys(&env->editor.next_event, env))
-				return (-1);
-			if (button_keys(&env->editor.previous_event, env))
-				return (-1);
-		}
-		if (are_events_selection_buttons_visible(env))
-		{
-			if (button_keys(&env->editor.next_events, env)
-				|| button_keys(&env->editor.previous_events, env))
-				return (-1);
-		}
+		env->inputs.backspace = 0;
 	}
-	if (env->editor.draw_texture_tab)
+	player_selection(env);
+	starting_player_selection(env);
+	enemy_drag(env);
+	objects_selection(env);
+	vertices_selection(env);
+	if (env->confirmation_box.state)
 	{
-		while (i < MAX_WALL_TEXTURE)
-		{
-			if (button_keys(&env->editor.textures[i], env))
-				return (-1);
-			i++;
-		}
-		i = 0;
-		while (i < MAX_SKYBOX)
-		{
-			button_keys(&env->editor.skyboxes[i], env);
-			i++;
-		}
-	}
-	if (env->editor.draw_enemy_tab)
-	{
-		while (i < MAX_ENEMIES)
-		{
-			if (button_keys(&env->editor.enemy_tab[i], env))
-				return (-1);
-			i++;
-		}
-	}
-	if (env->editor.draw_object_tab)
-	{
-		while (i < MAX_OBJECTS)
-		{
-			if (button_keys(&env->editor.object_tab[i], env))
-				return (-1);
-			i++;
-		}
-	}
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keys(env))
+		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
-		&& !env->confirmation_box.state)
+	if (env->inputs.right_click)
 	{
-		if (weapon_picker_keys(env))
-			return (-1);
+		env->editor.center.x += env->sdl.mouse_x;
+		env->editor.center.y += env->sdl.mouse_y;
 	}
-	if ((env->inputs.plus || env->inputs.minus) && !env->editor.in_game && env->editor.selected_sector != -1)
-	{
-		if (!env->time.tick4)
-			env->time.tick4 = SDL_GetTicks();
-	}
-	if (env->inputs.h)
-	{
-		env->editor.options_from_h = 1;
-		env->options.editor_options = 1;
-	}
-	return (0);
+	return (editor_keys2(env));
 }

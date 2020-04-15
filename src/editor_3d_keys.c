@@ -37,7 +37,7 @@ int		change_textures_scales(t_env *env)
 	return (0);
 }
 
-int		save_map_keys(t_env *env)
+int		save_map_3d_keys(t_env *env)
 {
   	int	ret;
 
@@ -84,7 +84,7 @@ int		editor_3d_keys2(t_env *env)
 
 	if (env->inputs.s && env->inputs.ctrl)
 	{
-	  	if ((ret = save_map_keys(env)) != 1)
+	  	if ((ret = save_map_3d_keys(env)) != 1)
 		  	return (ret);
 	}
 	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
