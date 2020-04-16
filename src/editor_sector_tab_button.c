@@ -12,6 +12,22 @@
 
 #include "env.h"
 
+void	init_sector_general_buttons2(t_env *env)
+{
+	env->editor.hud.g_sector.floor_slope = new_hud_button(ON_RELEASE,
+	&change_floor_slope, &env->editor.hud.g_sector.t_floor_slope, env);
+	env->editor.hud.g_sector.t_floor_slope.pos = new_point(170, 720);
+	env->editor.hud.g_sector.floor_slope.pos = new_point(170, 720);
+	env->editor.hud.g_sector.ceiling_slope = new_hud_button(ON_RELEASE,
+	&change_ceiling_slope, &env->editor.hud.g_sector.t_ceiling_slope, env);
+	env->editor.hud.g_sector.ceiling_slope.pos = new_point(170, 760);
+	env->editor.hud.g_sector.t_ceiling_slope.pos = new_point(170, 760);
+	env->editor.hud.g_sector.gravity = new_hud_button(ON_RELEASE,
+	&change_gravity, &env->editor.hud.g_sector.t_gravity, env);
+	env->editor.hud.g_sector.gravity.pos = new_point(170, 800);
+	env->editor.hud.g_sector.t_gravity.pos = new_point(170, 800);
+}
+
 void	init_sector_general_buttons(t_env *env)
 {
 	env->editor.hud.g_sector.brightness = new_hud_button(ON_RELEASE,
@@ -36,16 +52,5 @@ void	init_sector_general_buttons(t_env *env)
 	&change_floor_height, &env->editor.hud.g_sector.t_floor, env);
 	env->editor.hud.g_sector.floor.pos = new_point(170, 640);
 	env->editor.hud.g_sector.t_floor.pos = new_point(170, 640);
-	env->editor.hud.g_sector.floor_slope = new_hud_button(ON_RELEASE,
-	&change_floor_slope, &env->editor.hud.g_sector.t_floor_slope, env);
-	env->editor.hud.g_sector.t_floor_slope.pos = new_point(170, 720);
-	env->editor.hud.g_sector.floor_slope.pos = new_point(170, 720);
-	env->editor.hud.g_sector.ceiling_slope = new_hud_button(ON_RELEASE,
-	&change_ceiling_slope, &env->editor.hud.g_sector.t_ceiling_slope, env);
-	env->editor.hud.g_sector.ceiling_slope.pos = new_point(170, 760);
-	env->editor.hud.g_sector.t_ceiling_slope.pos = new_point(170, 760);
-	env->editor.hud.g_sector.gravity = new_hud_button(ON_RELEASE,
-	&change_gravity, &env->editor.hud.g_sector.t_gravity, env);
-	env->editor.hud.g_sector.gravity.pos = new_point(170, 800);
-	env->editor.hud.g_sector.t_gravity.pos = new_point(170, 800);
+	init_sector_general_buttons2(env);
 }

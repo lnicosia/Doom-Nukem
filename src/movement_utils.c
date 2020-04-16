@@ -23,19 +23,6 @@ t_motion	new_motion(int sector, double size_2d, double eyesight, t_v3 pos)
 	motion.pos = pos;
 	return (motion);
 }
-/*
-t_coll		new_coll(int use, t_v3 move)
-{
-	(void)use;
-	(void)move;
-	t_coll	coll;
-
-	coll.use = use;
-	coll.move.x = move.x;
-	coll.move.y = move.y;
-	coll.move.z = move.z;
-	//return (coll);
-}*/
 
 t_coll_addr			new_coll_addr(t_motion *motion, int *sector, int *vertex)
 {
@@ -70,9 +57,9 @@ double		floor_height(t_env *env, t_motion motion, int sector_dest)
 	double	height;
 
 	height = motion.eyesight + env->sectors[sector_dest].floor +
-		(env->sectors[sector_dest].floor_normal.x * (motion.pos.x - FUTURE_V0X) -
-		env->sectors[sector_dest].floor_normal.y * (motion.pos.y - FUTURE_V0Y)) *
-		env->sectors[sector_dest].floor_slope;
+		(env->sectors[sector_dest].floor_normal.x
+		* (motion.pos.x - FUTURE_V0X) - env->sectors[sector_dest].floor_normal.y
+		* (motion.pos.y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
 	return (height);
 }
 
@@ -139,12 +126,12 @@ int			find_highest_sector(t_env *env, t_motion motion)
 		return (0);
 	iter_sectors(env, motion);
 	tmp = motion.sector;
-	height = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env);
+	height = get_floor_at_pos(&env->sectors[motion.sector], motion.pos, env);
 	while (i < env->nb_sectors)
 	{
 		if (env->sector_list[i])
 		{
-			s_height = get_floor_at_pos(env->sectors[i], motion.pos, env);
+			s_height = get_floor_at_pos(&env->sectors[i], motion.pos, env);
 			if (height < s_height)
 			{
 				height = s_height;
@@ -168,12 +155,12 @@ int			find_lowest_ceiling(t_env *env, t_motion motion)
 		return (0);
 	iter_sectors(env, motion);
 	tmp = motion.sector;
-	height = get_ceiling_at_pos(env->sectors[motion.sector], motion.pos, env);
+	height = get_ceiling_at_pos(&env->sectors[motion.sector], motion.pos, env);
 	while (i < env->nb_sectors)
 	{
 		if (env->sector_list[i])
 		{
-			s_height = get_ceiling_at_pos(env->sectors[i], motion.pos, env);
+			s_height = get_ceiling_at_pos(&env->sectors[i], motion.pos, env);
 			if (height > s_height)
 			{
 				height = s_height;

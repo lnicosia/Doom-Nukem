@@ -30,7 +30,7 @@ void	update_enemy_z(t_env *env, int i)
 	env->enemies[i].sector);
 	if (env->enemies[i].sector != -1)
 		env->enemies[i].pos.z =
-		get_floor_at_pos(env->sectors[env->enemies[i].sector],
+		get_floor_at_pos(&env->sectors[env->enemies[i].sector],
 		env->enemies[i].pos, env) + env->enemies[i].height_on_floor;
 	else
 		env->enemies[i].pos.z = 0;
@@ -42,7 +42,7 @@ void	update_object_z(t_env *env, int i)
 	env->objects[i].sector);
 	if (env->objects[i].sector != -1)
 		env->objects[i].pos.z =
-		get_floor_at_pos(env->sectors[env->objects[i].sector],
+		get_floor_at_pos(&env->sectors[env->objects[i].sector],
 		env->objects[i].pos, env);
 	else
 		env->objects[i].pos.z = 0;

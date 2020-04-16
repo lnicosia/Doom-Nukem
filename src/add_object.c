@@ -21,7 +21,7 @@ void	set_object_sector(t_object *object, t_env *env)
 		object->light_color = env->sectors[object->sector].light_color;
 		object->brightness = env->sectors[object->sector].brightness;
 		object->intensity = env->sectors[object->sector].intensity;
-		object->pos.z = get_floor_at_pos(env->sectors[object->sector],
+		object->pos.z = get_floor_at_pos(&env->sectors[object->sector],
 		object->pos, env);
 	}
 	else

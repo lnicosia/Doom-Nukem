@@ -12,6 +12,23 @@
 
 #include "env.h"
 
+int		editor_render2(t_env *env)
+{
+	draw_crosshair(env);
+	if (env->options.show_fps)
+		fps(env);
+	game_time(env);
+	editor_minimap(env);
+	if (!env->input_box.state && !env->editor.tab)
+		view(env);
+	if ((env->editor.selecting_target || env->editor.selecting_condition_target)
+		&& (env->editor.select || env->editor.select_portal))
+		check_event_creation(env);
+	env->editor.select = 0;
+	env->editor.select_portal = 0;
+	return (0);
+}
+
 int		editor_render(t_env *env)
 {
 	reset_clipped(env);
@@ -36,18 +53,5 @@ int		editor_render(t_env *env)
 		return (crash("Failed to draw enemies\n", env));
 	if (draw_player(&env->player.camera, env->player.starting_pos, env))
 		return (crash("failed to draw player\n", env));
-	draw_crosshair(env);
-	if (env->options.show_fps)
-		fps(env);
-	game_time(env);
-	editor_minimap(env);
-	if (!env->input_box.state && !env->editor.tab)
-		view(env);
-	if ((env->editor.selecting_target || env->editor.selecting_condition_target)
-		&& (env->editor.select || env->editor.select_portal))
-		check_event_creation(env);
-	env->editor.select = 0;
-	env->editor.select_portal = 0;
-	//FMOD_System_Update(env->sound.system);
-	return (0);
+	return (editor_render2(env));
 }

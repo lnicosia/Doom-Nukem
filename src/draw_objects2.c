@@ -9,7 +9,7 @@ void	update_objects_z(t_env *env)
 	{
 		if (env->objects[i].sector == env->sectors[env->selected_floor].num)
 			env->objects[i].pos.z =
-			get_floor_at_pos(env->sectors[env->selected_floor],
+			get_floor_at_pos(&env->sectors[env->selected_floor],
 			new_v3(env->objects[i].pos.x, env->objects[i].pos.y, 0), env);
 		i++;
 	}

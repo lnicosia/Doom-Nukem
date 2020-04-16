@@ -34,6 +34,16 @@ void	init_object_sector_buttons(t_env *env)
 	env->editor.hud.s_object.t_gravity.pos = new_point(170, 640);
 }
 
+void	init_object_general_buttons2(t_env *env)
+{
+	env->editor.hud.g_object.damage.pos = new_point(170, 720);
+	env->editor.hud.g_object.t_damage.pos = new_point(170, 720);
+	env->editor.hud.g_object.angle = new_hud_button(ON_RELEASE,
+	&change_angle, &env->editor.hud.g_object.t_angle, env);
+	env->editor.hud.g_object.angle.pos = new_point(170, 760);
+	env->editor.hud.g_object.t_angle.pos = new_point(170, 760);
+}
+
 void	init_object_general_buttons(t_env *env)
 {
 	env->editor.hud.g_object.pos_x = new_hud_button(ON_RELEASE,
@@ -58,10 +68,5 @@ void	init_object_general_buttons(t_env *env)
 	env->editor.hud.g_object.t_scale.pos = new_point(170, 680);
 	env->editor.hud.g_object.damage = new_hud_button(ON_RELEASE,
 	&change_object_damage, &env->editor.hud.g_object.t_damage, env);
-	env->editor.hud.g_object.damage.pos = new_point(170, 720);
-	env->editor.hud.g_object.t_damage.pos = new_point(170, 720);
-	env->editor.hud.g_object.angle = new_hud_button(ON_RELEASE,
-	&change_angle, &env->editor.hud.g_object.t_angle, env);
-	env->editor.hud.g_object.angle.pos = new_point(170, 760);
-	env->editor.hud.g_object.t_angle.pos = new_point(170, 760);
+	init_object_general_buttons2(env);
 }

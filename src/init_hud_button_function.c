@@ -40,7 +40,7 @@ int		change_slope_direction(void *target)
 				sector->start_ceiling_slope = sector->nb_vertices - 1;
 		}
 		env->sectors[env->selected_ceiling].ceiling_normal =
-		get_sector_normal(env->sectors[env->selected_ceiling],
+		get_sector_normal(&env->sectors[env->selected_ceiling],
 		env, env->sectors[env->selected_ceiling].start_ceiling_slope);
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 		update_player_z(env);
@@ -61,7 +61,7 @@ int		change_slope_direction(void *target)
 				sector->start_floor_slope = sector->nb_vertices - 1;
 		}
 		env->sectors[env->selected_floor].floor_normal =
-		get_sector_normal(env->sectors[env->selected_floor], env,
+		get_sector_normal(&env->sectors[env->selected_floor], env,
 		env->sectors[env->selected_floor]. start_floor_slope);
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_player_z(env);
@@ -86,21 +86,26 @@ int		next_selected_wall(void *target)
 		button = &env->editor.previous_wall_env;
 	if (button->button_type == NEXT)
 	{
-		if (env->editor.selected_wall < env->sectors[env->editor.selected_sector].nb_vertices - 1)
+		if (env->editor.selected_wall < env->sectors[env->editor.
+		  	selected_sector].nb_vertices - 1)
 		{
 			env->editor.selected_wall++;
 			env->selected_wall1 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->editor.selected_wall]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[env->editor.selected_wall]].num;
 			env->selected_wall2 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->editor.selected_wall + 1]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[env->editor.selected_wall + 1]].num;
 		}
 		else
 		{
 			env->editor.selected_wall = 0;
 			env->selected_wall1 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[0]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[0]].num;
 			env->selected_wall2 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[1]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[1]].num;
 		}
 	}
 	else if (button->button_type == PREVIOUS)
@@ -109,17 +114,23 @@ int		next_selected_wall(void *target)
 		{
 			env->editor.selected_wall--;
 			env->selected_wall1 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->editor.selected_wall]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[env->editor.selected_wall]].num;
 			env->selected_wall2 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->editor.selected_wall + 1]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[env->editor.selected_wall + 1]].num;
 		}
 		else
 		{
-			env->editor.selected_wall = env->sectors[env->editor.selected_sector].nb_vertices - 1;
+			env->editor.selected_wall =
+			env->sectors[env->editor.selected_sector].nb_vertices - 1;
 			env->selected_wall1 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->sectors[env->editor.selected_sector].nb_vertices - 1]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[env->sectors[env->editor.selected_sector].
+			nb_vertices - 1]].num;
 			env->selected_wall2 =
-			env->vertices[env->sectors[env->editor.selected_sector].vertices[env->sectors[env->editor.selected_sector].nb_vertices]].num;
+			env->vertices[env->sectors[env->editor.selected_sector].
+			vertices[env->sectors[env->editor.selected_sector].nb_vertices]].num;
 		}
 	}
 	env->editor.next_wall.state = UP;
@@ -328,19 +339,22 @@ int		save_sprite(void *param)
 	if (env->selected_wall_sprite_sprite != -1)
 	{
 		sprite = env->sectors[env->editor.selected_sector].wall_sprites;
-		sprite[env->selected_wall_sprite_wall].sprite[env->selected_wall_sprite_sprite] = env->objects_main_sprites[i];
+		sprite[env->selected_wall_sprite_wall].
+		sprite[env->selected_wall_sprite_sprite] = env->objects_main_sprites[i];
 	}
 	if (env->selected_ceiling_sprite != -1)
 	{
 		sprite = &env->sectors[env->selected_ceiling].ceiling_sprites;
-		sprite->sprite[env->selected_ceiling_sprite] = env->objects_main_sprites[i];
+		sprite->sprite[env->selected_ceiling_sprite] =
+		env->objects_main_sprites[i];
 		precompute_ceiling_sprite_scales(env->selected_ceiling,
 		env->selected_ceiling_sprite, env);
 	}
 	if (env->selected_floor_sprite != -1)
 	{
 		sprite = &env->sectors[env->selected_floor].floor_sprites;
-		sprite->sprite[env->selected_floor_sprite] = env->objects_main_sprites[i];
+		sprite->sprite[env->selected_floor_sprite] =
+		env->objects_main_sprites[i];
 		precompute_floor_sprite_scales(env->selected_floor,
 		env->selected_floor_sprite, env);
 	}

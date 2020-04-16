@@ -46,7 +46,7 @@ int			update_player_z_event(t_event *event, void *penv)
 	(void)event;
 	env = ((t_env*)penv);
 	update_player_pos(env);
-	env->player.pos.z = get_floor_at_pos(env->sectors[env->player.sector],
+	env->player.pos.z = get_floor_at_pos(&env->sectors[env->player.sector],
 	env->player.pos, env);
 	update_player_pos(env);
 	return (0);
@@ -184,7 +184,7 @@ int			update_vertex_event(t_event *event, void *penv)
 				if (env->player.sector == i)
 				{
 					update_player_pos(env);
-					env->player.pos.z = get_floor_at_pos(env->
+					env->player.pos.z = get_floor_at_pos(&env->
 					sectors[env->player.sector], env->player.pos, env);
 					update_player_pos(env);
 				}

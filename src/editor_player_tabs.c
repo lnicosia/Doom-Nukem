@@ -18,6 +18,24 @@ int		printf_player_sprite_tab(t_env *env)
 	return (0);
 }
 
+int		print_player_sector_tab2(t_env *env)
+{
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
+	env->sectors[env->player.sector].intensity);
+	env->editor.hud.s_player.t_intensity.target =
+	&env->sectors[env->player.sector].intensity;
+	draw_button(env, env->editor.hud.s_player.intensity, env->snprintf);
+	print_text(new_point(640, 60), new_printable_text("Gravity",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->sectors[env->player.sector].gravity),
+	env->sectors[env->player.sector].gravity);
+	env->editor.hud.s_player.t_gravity.target =
+	&env->sectors[env->player.sector].gravity;
+	draw_button(env, env->editor.hud.s_player.gravity, env->snprintf);
+	return (0);
+}
+
 int		print_player_sector_tab(t_env *env)
 {
 	t_point		size;
@@ -41,20 +59,43 @@ int		print_player_sector_tab(t_env *env)
 	draw_button(env, env->editor.hud.s_player.color, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Intensity",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->sectors[env->player.sector].intensity);
-	env->editor.hud.s_player.t_intensity.target =
-	&env->sectors[env->player.sector].intensity;
-	draw_button(env, env->editor.hud.s_player.intensity, env->snprintf);
-	print_text(new_point(640, 60), new_printable_text("Gravity",
+	return (print_player_sector_tab2(env));
+}
+
+int		print_player_general_tab3(t_env *env)
+{
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->player.init_data.camera.angle),
+	env->player.init_data.camera.angle);
+	env->editor.hud.g_player.t_angle.target =
+	&env->player.init_data.camera.angle;
+	draw_button(env, env->editor.hud.g_player.angle, env->snprintf);
+	return (0);
+}
+
+int		print_player_general_tab2(t_env *env)
+{
+	env->editor.hud.g_player.t_pos_z.target = &env->player.starting_pos.z;
+	draw_button(env, env->editor.hud.g_player.pos_z, env->snprintf);
+	print_text(new_point(640, 60), new_printable_text("Health ",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->player.health);
+	env->editor.hud.g_player.t_health.target = &env->player.health;
+	draw_button(env, env->editor.hud.g_player.health, env->snprintf);
+	print_text(new_point(680, 60), new_printable_text("Armor ",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->player.armor);
+	env->editor.hud.g_player.t_armor.target = &env->player.armor;
+	draw_button(env, env->editor.hud.g_player.armor, env->snprintf);
+	print_text(new_point(720, 60), new_printable_text("Speed ",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->sectors[env->player.sector].gravity),
-	env->sectors[env->player.sector].gravity);
-	env->editor.hud.s_player.t_gravity.target =
-	&env->sectors[env->player.sector].gravity;
-	draw_button(env, env->editor.hud.s_player.gravity, env->snprintf);
-	return (0);
+	get_decimal_len(env->player.speed), env->player.speed);
+	env->editor.hud.g_player.t_speed.target = &env->player.speed;
+	draw_button(env, env->editor.hud.g_player.speed, env->snprintf);
+	print_text(new_point(760, 60), new_printable_text("Angle ",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
+	return (print_player_general_tab3(env));
 }
 
 int		print_player_general_tab(t_env *env)
@@ -83,31 +124,5 @@ int		print_player_general_tab(t_env *env)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	ft_min(1, get_decimal_len(env->player.starting_pos.z)),
 	env->player.starting_pos.z);
-	env->editor.hud.g_player.t_pos_z.target = &env->player.starting_pos.z;
-	draw_button(env, env->editor.hud.g_player.pos_z, env->snprintf);
-	print_text(new_point(640, 60), new_printable_text("Health ",
-	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->player.health);
-	env->editor.hud.g_player.t_health.target = &env->player.health;
-	draw_button(env, env->editor.hud.g_player.health, env->snprintf);
-	print_text(new_point(680, 60), new_printable_text("Armor ",
-	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->player.armor);
-	env->editor.hud.g_player.t_armor.target = &env->player.armor;
-	draw_button(env, env->editor.hud.g_player.armor, env->snprintf);
-	print_text(new_point(720, 60), new_printable_text("Speed ",
-	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->player.speed), env->player.speed);
-	env->editor.hud.g_player.t_speed.target = &env->player.speed;
-	draw_button(env, env->editor.hud.g_player.speed, env->snprintf);
-	print_text(new_point(760, 60), new_printable_text("Angle ",
-	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->player.init_data.camera.angle),
-	env->player.init_data.camera.angle);
-	env->editor.hud.g_player.t_angle.target =
-	&env->player.init_data.camera.angle;
-	draw_button(env, env->editor.hud.g_player.angle, env->snprintf);
-	return (0);
+	return (print_player_general_tab2(env));
 }

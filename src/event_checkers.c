@@ -13,19 +13,11 @@
 #include "collision.h"
 #include "events_parser.h"
 
-int		check_x_collision_event(t_event *event, void *penv)
+int		check_x_collision_event2(t_event *event, t_motion movement, t_env *env)
 {
-	t_motion	movement;
-	t_v3		move;
-	t_env		*env;
-	int			sector;
+	t_v3	move;
+	int		sector;
 
-	env = (t_env*)penv;
-	ft_bzero(&movement, sizeof(t_motion));
-	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
-	movement = new_motion(env->player.sector, env->player.size_2d,
-			env->player.eyesight, env->player.pos);
-	movement.flight = env->player.state.fly;
 	move.x = event->incr;
 	if (!event->speed)
 	{
@@ -45,12 +37,10 @@ int		check_x_collision_event(t_event *event, void *penv)
 	return (0);
 }
 
-int		check_y_collision_event(t_event *event, void *penv)
+int		check_x_collision_event(t_event *event, void *penv)
 {
 	t_motion	movement;
-	t_v3		move;
 	t_env		*env;
-	int			sector;
 
 	env = (t_env*)penv;
 	ft_bzero(&movement, sizeof(t_motion));
@@ -58,6 +48,14 @@ int		check_y_collision_event(t_event *event, void *penv)
 	movement = new_motion(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
 	movement.flight = env->player.state.fly;
+	return (check_x_collision_event2(event, movement, env));
+}
+
+int		check_y_collision_event2(t_event *event, t_motion movement, t_env *env)
+{
+	t_v3		move;
+	int			sector;
+
 	move.y = event->incr;
 	if (!event->speed)
 	{
@@ -77,12 +75,10 @@ int		check_y_collision_event(t_event *event, void *penv)
 	return (0);
 }
 
-int		check_z_collision_event(t_event *event, void *penv)
+int		check_y_collision_event(t_event *event, void *penv)
 {
 	t_motion	movement;
-	t_v3		move;
 	t_env		*env;
-	int			sector;
 
 	env = (t_env*)penv;
 	ft_bzero(&movement, sizeof(t_motion));
@@ -90,6 +86,14 @@ int		check_z_collision_event(t_event *event, void *penv)
 	movement = new_motion(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
 	movement.flight = env->player.state.fly;
+	return (check_y_collision_event2(event, movement, env));
+}
+
+int		check_z_collision_event2(t_event *event, t_motion movement, t_env *env)
+{
+	t_v3		move;
+	int			sector;
+
 	move.z = event->incr;
 	if (!event->speed)
 	{
@@ -110,10 +114,24 @@ int		check_z_collision_event(t_event *event, void *penv)
 	return (1);
 }
 
+int		check_z_collision_event(t_event *event, void *penv)
+{
+	t_motion	movement;
+	t_env		*env;
+
+	env = (t_env*)penv;
+	ft_bzero(&movement, sizeof(t_motion));
+	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
+	movement = new_motion(env->player.sector, env->player.size_2d,
+			env->player.eyesight, env->player.pos);
+	movement.flight = env->player.state.fly;
+	return (check_z_collision_event2(event, movement, env));
+}
+
 int		check_floor_slope_event(t_event *event, void *penv)
 {
 	t_env		*env;
-	t_sector	sector;
+	t_sector	*sector;
 	double		z;
 	double		prec;
 	Uint32		time;
@@ -122,26 +140,27 @@ int		check_floor_slope_event(t_event *event, void *penv)
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	sector = env->sectors[event->check_param.sector];
-	prec = sector.floor_slope;
-	sector.floor_slope = event->start_value + time * event->incr;
+	sector = &env->sectors[event->check_param.sector];
+	prec = sector->floor_slope;
+	sector->floor_slope = event->start_value + time * event->incr;
 	if (!event->speed)
-		sector.floor_slope = event->goal;
-	update_sector_slope(env, &sector);
-	if (sector.floor_max > sector.ceiling_min)
+		sector->floor_slope = event->goal;
+	update_sector_slope(env, sector);
+	if (sector->floor_max > sector->ceiling_min)
 	{
-		env->sectors[sector.num].floor_slope = prec;
-		update_sector_slope(env, &env->sectors[sector.num]);
+		env->sectors[sector->num].floor_slope = prec;
+		update_sector_slope(env, &env->sectors[sector->num]);
 		return (1);
 	}
+	//return (check_floor_slope_event2(e
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			env->sectors[sector.num].floor_slope = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].floor_slope = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 	}
@@ -152,22 +171,22 @@ int		check_floor_slope_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			env->sectors[sector.num].floor_slope = prec;
-			update_sector_slope(env, &sector);
-		update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].floor_slope = prec;
+			update_sector_slope(env, sector);
+		update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 		i++;
 	}
-	env->sectors[sector.num].floor_slope = prec;
-	update_sector_slope(env, &env->sectors[sector.num]);
+	env->sectors[sector->num].floor_slope = prec;
+	update_sector_slope(env, &env->sectors[sector->num]);
 	return (0);
 }
 
 int		check_ceiling_slope_event(t_event *event, void *penv)
 {
 	t_env		*env;
-	t_sector	sector;
+	t_sector	*sector;
 	double		z;
 	double		prec;
 	Uint32		time;
@@ -176,16 +195,16 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	sector = env->sectors[event->check_param.sector];
-	prec = sector.ceiling_slope;
-	sector.ceiling_slope = event->start_value + time * event->incr;
+	sector = &env->sectors[event->check_param.sector];
+	prec = sector->ceiling_slope;
+	sector->ceiling_slope = event->start_value + time * event->incr;
 	if (!event->speed)
-		sector.ceiling_slope = event->goal;
-	update_sector_slope(env, &sector);
-	if (sector.floor_max > sector.ceiling_min)
+		sector->ceiling_slope = event->goal;
+	update_sector_slope(env, sector);
+	if (sector->floor_max > sector->ceiling_min)
 	{
-		env->sectors[sector.num].ceiling_slope = prec;
-		update_sector_slope(env, &env->sectors[sector.num]);
+		env->sectors[sector->num].ceiling_slope = prec;
+		update_sector_slope(env, &env->sectors[sector->num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -194,8 +213,8 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			env->sectors[sector.num].ceiling_slope = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].ceiling_slope = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 	}
@@ -206,21 +225,21 @@ int		check_ceiling_slope_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			env->sectors[sector.num].ceiling_slope = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].ceiling_slope = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 		i++;
 	}
-	env->sectors[sector.num].ceiling_slope = prec;
-	update_sector_slope(env, &env->sectors[sector.num]);
+	env->sectors[sector->num].ceiling_slope = prec;
+	update_sector_slope(env, &env->sectors[sector->num]);
 	return (0);
 }
 
 int		check_floor_event(t_event *event, void *penv)
 {
 	t_env		*env;
-	t_sector	sector;
+	t_sector	*sector;
 	double		z;
 	double		prec;
 	Uint32		time;
@@ -229,16 +248,16 @@ int		check_floor_event(t_event *event, void *penv)
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	sector = env->sectors[event->check_param.sector];
-	prec = sector.floor;
-	sector.floor = event->start_value + time * event->incr;
+	sector = &env->sectors[event->check_param.sector];
+	prec = sector->floor;
+	sector->floor = event->start_value + time * event->incr;
 	if (!event->speed)
-		sector.floor = event->goal;
-	update_sector_slope(env, &sector);
-	if (sector.floor_max > sector.ceiling_min)
+		sector->floor = event->goal;
+	update_sector_slope(env, sector);
+	if (sector->floor_max > sector->ceiling_min)
 	{
-		env->sectors[sector.num].floor = prec;
-		update_sector_slope(env, &env->sectors[sector.num]);
+		env->sectors[sector->num].floor = prec;
+		update_sector_slope(env, &env->sectors[sector->num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -247,8 +266,8 @@ int		check_floor_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			env->sectors[sector.num].floor = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].floor = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 	}
@@ -259,21 +278,21 @@ int		check_floor_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			env->sectors[sector.num].floor = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].floor = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 		i++;
 	}
-	env->sectors[sector.num].floor = prec;
-	update_sector_slope(env, &env->sectors[sector.num]);
+	env->sectors[sector->num].floor = prec;
+	update_sector_slope(env, &env->sectors[sector->num]);
 	return (0);
 }
 
 int		check_ceiling_event(t_event *event, void *penv)
 {
 	t_env		*env;
-	t_sector	sector;
+	t_sector	*sector;
 	double		z;
 	double		prec;
 	Uint32		time;
@@ -282,16 +301,16 @@ int		check_ceiling_event(t_event *event, void *penv)
 	env = (t_env*)penv;
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
-	sector = env->sectors[event->check_param.sector];
-	prec = sector.ceiling;
-	sector.ceiling = event->start_value + time * event->incr;
+	sector = &env->sectors[event->check_param.sector];
+	prec = sector->ceiling;
+	sector->ceiling = event->start_value + time * event->incr;
 	if (!event->speed)
-		sector.ceiling = event->goal;
-	update_sector_slope(env, &sector);
-	if (sector.floor_max > sector.ceiling_min)
+		sector->ceiling = event->goal;
+	update_sector_slope(env, sector);
+	if (sector->floor_max > sector->ceiling_min)
 	{
-		env->sectors[sector.num].ceiling = prec;
-		update_sector_slope(env, &env->sectors[sector.num]);
+		env->sectors[sector->num].ceiling = prec;
+		update_sector_slope(env, &env->sectors[sector->num]);
 		return (1);
 	}
 	if (env->player.sector == event->check_param.sector)
@@ -300,8 +319,8 @@ int		check_ceiling_event(t_event *event, void *penv)
 		if (z + env->player.eyesight + 1 >= get_ceiling_at_pos(sector,
 					env->player.pos, env))
 		{
-			env->sectors[sector.num].ceiling = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].ceiling = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 	}
@@ -312,14 +331,14 @@ int		check_ceiling_event(t_event *event, void *penv)
 			&& env->enemies[i].pos.z + env->enemies[i].scale >=
 			get_ceiling_at_pos(sector, env->player.pos, env))
 		{
-			env->sectors[sector.num].ceiling = prec;
-			update_sector_slope(env, &env->sectors[sector.num]);
+			env->sectors[sector->num].ceiling = prec;
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 		i++;
 	}
-	env->sectors[sector.num].ceiling = prec;
-	update_sector_slope(env, &env->sectors[sector.num]);
+	env->sectors[sector->num].ceiling = prec;
+	update_sector_slope(env, &env->sectors[sector->num]);
 	return (0);
 }
 
@@ -353,9 +372,8 @@ int		check_scale_event(t_event *event, void *penv)
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
 	if ((event->incr > 0 && event->start_value + time * event->incr > 100)
-			|| (event->incr < 0 && event->start_value + time * event->incr < 0.1)
-			|| (!event->speed && (event->goal > 100
-					|| event->goal < 0.1)))
+		|| (event->incr < 0 && event->start_value + time * event->incr < 0.1)
+		|| (!event->speed && (event->goal > 100 || event->goal < 0.1)))
 		return (1);
 	return (0);
 }
@@ -384,9 +402,8 @@ int		check_brightness_event(t_event *event, void *penv)
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
 	if ((event->incr > 0 && event->start_value + time * event->incr >= 255)
-			|| (event->incr < 0 && event->start_value + time * event->incr <= -255)
-			|| (!event->speed && (event->goal >= 255
-					|| event->goal <= -255)))
+		|| (event->incr < 0 && event->start_value + time * event->incr <= -255)
+		|| (!event->speed && (event->goal >= 255 || event->goal <= -255)))
 		return (1);
 	return (0);
 }
@@ -400,8 +417,8 @@ int		check_color_event(t_event *event, void *penv)
 	time = time == 0 ? 1 : time;
 	if ((event->incr > 0 && event->start_value + time * event->incr >=
 				0xFFFFFFFF)
-			|| (event->incr < 0 && event->start_value + time * event->incr <= 0)
-			|| (!event->speed && ((Uint32)event->goal > 0xFFFFFFFF)))
+		|| (event->incr < 0 && event->start_value + time * event->incr <= 0)
+		|| (!event->speed && ((Uint32)event->goal > 0xFFFFFFFF)))
 		return (1);
 	return (0);
 }
@@ -448,9 +465,8 @@ int		check_gravity_event(t_event *event, void *penv)
 	time = SDL_GetTicks() - event->start_time;
 	time = time == 0 ? 1 : time;
 	if ((event->incr > 0 && event->start_value + time * event->incr > 10)
-			|| (event->incr < 0 && event->start_value + time * event->incr < -10)
-			|| (!event->speed && ((int)event->goal > 10
-					|| (int)event->goal < -10)))
+		|| (event->incr < 0 && event->start_value + time * event->incr < -10)
+		|| (!event->speed && ((int)event->goal > 10 || (int)event->goal < -10)))
 		return (1);
 	return (0);
 }

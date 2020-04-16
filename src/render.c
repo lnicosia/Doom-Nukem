@@ -41,8 +41,10 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 	}
 	else
 	{
-		camera->v[sector->num][i].clipped_vx2 = camera->v[sector->num][i + 1].vx;
-		camera->v[sector->num][i].clipped_vz2 = camera->v[sector->num][i + 1].vz;
+		camera->v[sector->num][i].clipped_vx2 =
+		camera->v[sector->num][i + 1].vx;
+		camera->v[sector->num][i].clipped_vz2 =
+		camera->v[sector->num][i + 1].vz;
 	}
 	camera->v[sector->num][i].clipped_pos_x1 =
 	camera->v[sector->num][i].clipped_vx1 * camera->angle_sin
@@ -51,10 +53,10 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 		camera->v[sector->num][i].clipped_vz1 * camera->angle_sin
 		- camera->v[sector->num][i].clipped_vx1 * camera->angle_cos
 		+ camera->pos.y;
-	camera->v[sector->num][i].clipped_vf1 = get_floor_at_pos(*sector,
+	camera->v[sector->num][i].clipped_vf1 = get_floor_at_pos(sector,
 		new_v3(camera->v[sector->num][i].clipped_pos_x1,
 		camera->v[sector->num][i].clipped_pos_y1, 0), env);
-	camera->v[sector->num][i].clipped_vc1 = get_ceiling_at_pos(*sector,
+	camera->v[sector->num][i].clipped_vc1 = get_ceiling_at_pos(sector,
 		new_v3(camera->v[sector->num][i].clipped_pos_x1,
 		camera->v[sector->num][i].clipped_pos_y1, 0), env);
 	camera->v[sector->num][i].clipped_pos_x2 =
@@ -64,10 +66,10 @@ void		get_intersections2(int i, t_camera *camera, t_sector *sector,
 		camera->v[sector->num][i].clipped_vz2 * camera->angle_sin
 		- camera->v[sector->num][i].clipped_vx2 * camera->angle_cos
 		+ camera->pos.y;
-	camera->v[sector->num][i].clipped_vf2 = get_floor_at_pos(*sector,
+	camera->v[sector->num][i].clipped_vf2 = get_floor_at_pos(sector,
 		new_v3(camera->v[sector->num][i].clipped_pos_x2,
 		camera->v[sector->num][i].clipped_pos_y2, 0), env);
-	camera->v[sector->num][i].clipped_vc2 = get_ceiling_at_pos(*sector,
+	camera->v[sector->num][i].clipped_vc2 = get_ceiling_at_pos(sector,
 		new_v3(camera->v[sector->num][i].clipped_pos_x2,
 		camera->v[sector->num][i].clipped_pos_y2, 0), env);
 }
@@ -166,9 +168,9 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 		//	ft_printf("%d\n", j);
 			if (sector->wall_sprites[i].sprite[j] != -1)
 				camera->v[sector->num][i].sprite_scale[j].x =
-				(env->object_sprites[sector->wall_sprites[i].sprite[j]].size[0].x
-				/ sector->wall_sprites[i].scale[j].x) * sector->wall_width[i]
-				/ camera->v[sector->num][i + 1].vz;
+				(env->object_sprites[sector->wall_sprites[i].sprite[j]].
+				size[0].x / sector->wall_sprites[i].scale[j].x)
+				* sector->wall_width[i] / camera->v[sector->num][i + 1].vz;
 			j++;
 		}
 		wall_bullet_holes = sector->wall_bullet_holes[i];
@@ -217,7 +219,9 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	k = 0;
 	while (k < env->wall_textures[sector->textures[i]].nb_maps)
 	{
-		camera->v[sector->num][i].texture_scale[k].y = (env->wall_textures[sector->textures[i]].maps[k]->h / sector->scale[i].y) * (sector->ceiling - sector->floor);
+		camera->v[sector->num][i].texture_scale[k].y =
+		(env->wall_textures[sector->textures[i]].maps[k]->h
+		/ sector->scale[i].y) * (sector->ceiling - sector->floor);
 		camera->v[sector->num][i].texture_align[k].x = (sector->align[i].x
 			* env->wall_textures[sector->textures[i]].maps[k]->w) / 10.0;
 		camera->v[sector->num][i].texture_align[k].y = (sector->align[i].y
@@ -246,18 +250,21 @@ void		precompute_values(int i, t_camera *camera, t_sector *sector,
 	}
 }
 
-void		get_rendered_neighbors(t_camera *camera, t_sector sector, t_env *env)
+void		get_rendered_neighbors(t_camera *camera, t_sector sector,
+t_env *env)
 {
 	int	i;
 
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
-		if (sector.neighbors[i] != -1 && !camera->sector_computed[sector.neighbors[i]])
+		if (sector.neighbors[i] != -1
+		  	&& !camera->sector_computed[sector.neighbors[i]])
 		{
 			camera->sector_computed[sector.neighbors[i]] = 1;
 			env->visible_sectors++;
-			get_rendered_neighbors(camera, env->sectors[sector.neighbors[i]], env);
+			get_rendered_neighbors(camera, env->sectors[sector.neighbors[i]],
+			env);
 		}
 		i++;
 	}
@@ -291,11 +298,11 @@ void		precompute_sector(t_camera *camera, t_sector *sector, t_env *env)
 	//ft_printf("precomputing sector %d\n", sector->num);
 	i = -1;
 	camera->sector_computed[sector->num] = 1;
-	camera->feet_y[sector->num] = env->h_h + (get_floor_at_pos(*sector,
+	camera->feet_y[sector->num] = env->h_h + (get_floor_at_pos(sector,
 				new_v3(camera->pos.x, camera->pos.y, 0), env)
 			- camera->pos.z + camera->near_z * camera->angle_z)
 		* camera->scale / -camera->near_z;
-	camera->head_y[sector->num] = env->h_h + (get_ceiling_at_pos(*sector,
+	camera->head_y[sector->num] = env->h_h + (get_ceiling_at_pos(sector,
 				new_v3(camera->pos.x, camera->pos.y,0 ), env)
 			- camera->pos.z + camera->near_z * camera->angle_z)
 		* camera->scale / -camera->near_z;

@@ -50,12 +50,12 @@ void	gravity(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
+	slope = get_floor_at_pos(&env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
 	env->gravity.force = env->sectors[env->player.highest_sect].gravity;
-	if ((!env->player.state.fall
-	&& env->player.pos.z > slope + 2)
-	|| (env->player.state.jump && !env->player.state.fall && !env->player.state.fly))
+	if ((!env->player.state.fall && env->player.pos.z > slope + 2)
+		|| (env->player.state.jump && !env->player.state.fall
+		&& !env->player.state.fly))
 	{
 		env->player.state.walk = 0;
 		env->time.last_fall = SDL_GetTicks() / 1000.0;
@@ -67,13 +67,17 @@ void	gravity(t_env *env)
 	{
 		env->time.d_time = time - env->time.last_fall;
 		env->gravity.acceleration = env->gravity.force * 3.3;
-		new_pos = env->player.start_pos +  (env->gravity.velocity * env->time.d_time)
-			+ env->gravity.acceleration * env->time.d_time * env->time.d_time * 0.5;
-		new_velocity = env->player.velocity_start + env->gravity.acceleration * env->time.d_time;
+		new_pos = env->player.start_pos +  (env->gravity.velocity
+		* env->time.d_time) + env->gravity.acceleration * env->time.d_time
+		* env->time.d_time * 0.5;
+		new_velocity = env->player.velocity_start + env->gravity.acceleration
+		* env->time.d_time;
 		env->gravity.velocity = new_velocity;
-		if (new_pos + env->player.eyesight > get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1)
+		if (new_pos + env->player.eyesight > get_ceiling_at_pos(
+		  	&env->sectors[env->player.sector], pos, env) - 1)
 		{
-			new_pos = get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1 - env->player.eyesight;
+			new_pos = get_ceiling_at_pos(&env->sectors[env->player.sector],
+			pos, env) - 1 - env->player.eyesight;
 			env->time.d_time = 0;
 			env->gravity.velocity = 0;
 			env->player.velocity_start = 0;

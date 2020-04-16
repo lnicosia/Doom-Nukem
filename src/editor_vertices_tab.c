@@ -12,6 +12,18 @@
 
 #include "env.h"
 
+int		print_vertices_general_tab2(t_env *env)
+{
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->vertices[env->editor.selected_vertex].y),
+	env->vertices[env->editor.
+	selected_vertex].y);
+	env->editor.hud.g_vertex.t_pos_y.target =
+	&env->vertices[env->editor.selected_vertex].y;
+	draw_button(env, env->editor.hud.g_vertex.pos_y, env->snprintf);
+	return (0);
+}
+
 int		print_vertices_general_tab(t_env *env)
 {
 	t_point		size;
@@ -34,12 +46,5 @@ int		print_vertices_general_tab(t_env *env)
 	draw_button(env, env->editor.hud.g_vertex.pos_x, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Y",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->vertices[env->editor.selected_vertex].y),
-	env->vertices[env->editor.
-	selected_vertex].y);
-	env->editor.hud.g_vertex.t_pos_y.target =
-	&env->vertices[env->editor.selected_vertex].y;
-	draw_button(env, env->editor.hud.g_vertex.pos_y, env->snprintf);
-	return (0);
+	return (print_vertices_general_tab2(env));
 }

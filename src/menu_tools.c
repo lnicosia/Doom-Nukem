@@ -23,8 +23,11 @@ void	add_image(t_env *env, int i, int x, int y)
 		yy = 0;
 		while (yy < env->sprite_textures[i].surface->h && yy < env->h)
 		{
-			if (env->sprite_textures[i].str[xx + env->sprite_textures[i].surface->w * yy] != 0xFFC10099)
-				env->sdl.texture_pixels[(x + (y * env->w)) + xx + env->w * yy] = env->sprite_textures[i].str[xx + env->sprite_textures[i].surface->w * yy];
+			if (env->sprite_textures[i].str[xx + env->sprite_textures[i].
+			  	surface->w * yy] != 0xFFC10099)
+				env->sdl.texture_pixels[(x + (y * env->w)) + xx + env->w * yy] =
+				env->sprite_textures[i].str[xx
+				+ env->sprite_textures[i].surface->w * yy];
 			yy++;
 		}
 		xx++;

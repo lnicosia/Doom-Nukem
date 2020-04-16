@@ -124,9 +124,9 @@ int			add_sector(t_env *env)
 		return (-1);
 	if (fill_new_sector(&sector, env))
 		return (-1);
-	sector.ceiling_normal = get_sector_normal(sector, env,
+	sector.ceiling_normal = get_sector_normal(&sector, env,
 	sector.start_ceiling_slope);
-	sector.floor_normal = get_sector_normal(sector, env,
+	sector.floor_normal = get_sector_normal(&sector, env,
 	sector.start_floor_slope);
 	set_sector_xmax(env, &sector);
 	update_sector_slope(env, &sector);

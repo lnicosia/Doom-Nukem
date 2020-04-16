@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-static void	put_pixel(t_env *env, int x, int y, unsigned int color)
+/*static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 {
 	Uint32		*pixels;
 	t_point		size;
@@ -33,9 +33,9 @@ static void	put_pixel(t_env *env, int x, int y, unsigned int color)
 				pixels[x + env->w * y] = color;
 		}
 	}
-}
+}*/
 
-static void	draw_minimap_player(t_env *env)
+static void	draw_minimap_player_game(t_env *env)
 {
 	t_point	p0;
 	t_point	p1;
@@ -87,7 +87,7 @@ static void	draw_minimap_player(t_env *env)
 	draw_line_minimap(p0, p1, env, 0xFFFFFFFF);
 }
 
-static void	draw_minimap_hud(t_env *env)
+/*static void	draw_minimap_hud(t_env *env)
 {
 	int	x;
 	int	y;
@@ -119,7 +119,7 @@ static void	draw_minimap_hud(t_env *env)
 		}
 		y++;
 	}
-}
+}*/
 
 void		draw_sprites_minimap(t_env *env)
 {
@@ -184,5 +184,5 @@ void		game_minimap(t_env *env)
 		}
 		s++;
 	}
-	draw_minimap_player(env);
+	draw_minimap_player_game(env);
 }

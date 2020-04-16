@@ -25,7 +25,8 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].map_hp = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].map_hp <= 0)
-		return (custom_error_with_line("Enemy must have 1 or more health points", parser));
+		return (custom_error_with_line("Enemy must have 1 or more health"
+		" points", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy speed and damage", parser));
@@ -39,8 +40,10 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 		return (ft_printf("Invalid int for enemy %d speed\n",
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].speed = ft_atoi(*line);
-	if (env->enemies[parser->enemies_count].speed < 0 || env->enemies[parser->enemies_count].speed > 100)
-		return (custom_error_with_line("Enemy must have speed between 0 and 100", parser));
+	if (env->enemies[parser->enemies_count].speed < 0
+	  	|| env->enemies[parser->enemies_count].speed > 100)
+		return (custom_error_with_line("Enemy must have speed"
+		" between 0 and 100", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("enemy damage", parser));
@@ -55,7 +58,8 @@ static int	parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 		parser->enemies_count));
 	env->enemies[parser->enemies_count].damage = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].damage <= 0)
-		return (custom_error_with_line("Enemy must do more than 0 damage", parser));
+		return (custom_error_with_line("Enemy must do more than 0 damage",
+		parser));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after enemy damage", parser));
@@ -101,9 +105,10 @@ static int	parse_enemy_sprite(t_env *env, char **line, t_map_parser *parser)
 	env->enemies[parser->enemies_count].scale = ft_atof(*line);
 	if (env->enemies[parser->enemies_count].scale
 	+ env->enemies[parser->enemies_count].pos.z + 1
-	> get_ceiling_at_pos(env->sectors[env->enemies[parser->enemies_count].sector],
-	env->enemies[parser->enemies_count].pos, env))
-		return (ft_printf("Enemy's head is too high compared to ceiling height\n"));
+	> get_ceiling_at_pos(&env->sectors[env->enemies[parser->enemies_count].
+	sector], env->enemies[parser->enemies_count].pos, env))
+		return (ft_printf("Enemy's head is too high compared to ceiling"
+		" height\n"));
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after enemy scale", parser));
@@ -190,15 +195,16 @@ static int	parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	if (env->enemies[parser->enemies_count].sector >= 0)
 	{
 		if (env->enemies[parser->enemies_count].pos.z
-		< get_floor_at_pos(env->sectors[env->enemies[parser->enemies_count].sector],
-		env->enemies[parser->enemies_count].pos, env))
-			return (ft_printf("Enemy %d is under the floor\n", parser->enemies_count));
+		< get_floor_at_pos(&env->sectors[env->enemies[parser->enemies_count].
+		sector], env->enemies[parser->enemies_count].pos, env))
+			return (ft_printf("Enemy %d is under the floor\n",
+			parser->enemies_count));
 		env->enemies[parser->enemies_count].brightness =
-			env->sectors[env->enemies[parser->enemies_count].sector].brightness;
+		env->sectors[env->enemies[parser->enemies_count].sector].brightness;
 		env->enemies[parser->enemies_count].light_color =
-			env->sectors[env->enemies[parser->enemies_count].sector].light_color;
+		env->sectors[env->enemies[parser->enemies_count].sector].light_color;
 		env->enemies[parser->enemies_count].intensity =
-			env->sectors[env->enemies[parser->enemies_count].sector].intensity;
+		env->sectors[env->enemies[parser->enemies_count].sector].intensity;
 	}
 	else
 	{
@@ -214,12 +220,10 @@ static int	parse_enemy(t_env *env, char *line, t_map_parser *parser)
 	env->enemies[parser->enemies_count].num = parser->enemies_count;
 	if (parse_enemy_pos(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing enemy pos"));
 	if (parse_enemy_sprite(env, &line, parser))
 		return (-1);
 	if (parse_enemy_data(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing enemy pos"));
 	return (0);
 }
 

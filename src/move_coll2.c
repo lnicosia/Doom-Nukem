@@ -12,20 +12,12 @@
 
 #include "env.h"
 #include "collision.h"
-/*
-int		check_ceiling(t_env *env, t_motion motion, int sector_dest)
-{
-	if (motion.future.z + motion.eyesight >
-		get_ceiling_at_pos(env->sectors[sector_dest], motion.future, env) - 1)
-		return (0);
-	return (1);
-}*/
 
 int		check_floor(t_env *env, t_motion motion, int sector_dest)
 {
 	double	floor;
 
-	floor = get_floor_at_pos(env->sectors[sector_dest], motion.future, env);
+	floor = get_floor_at_pos(&env->sectors[sector_dest], motion.future, env);
 	if (floor > motion.future.z + 2 && sector_dest != motion.sector)
 		return (0);
 	else if ((floor > motion.future.z + 0.5 && sector_dest == motion.sector &&

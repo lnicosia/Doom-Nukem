@@ -19,7 +19,8 @@ void	game_time(t_env *env)
 
 	new_time = env->time.milli_s;
 	env->time.milli_s = SDL_GetTicks();
-	env->player.rotation_speed = ((env->time.milli_s - new_time) / 1000.0) * 0.2;
+	env->player.rotation_speed = ((env->time.milli_s - new_time) / 1000.0)
+	* 0.2;
 	env->time.tenth_s = env->time.milli_s / 100.0;
 }
 
@@ -31,7 +32,7 @@ void	climb(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
+	slope = get_floor_at_pos(&env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.climb)
 	{
@@ -61,7 +62,7 @@ void	drop(t_env *env)
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
+	slope = get_floor_at_pos(&env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.drop)
 	{
@@ -86,7 +87,8 @@ void	drop(t_env *env)
 
 void	jump(t_env *env)
 {
-	if (!env->player.state.fall && !env->player.state.jump && !env->player.state.fly)
+	if (!env->player.state.fall && !env->player.state.jump
+	  	&& !env->player.state.fly)
 	{
 		env->gravity.velocity = 25.0;
 		env->player.state.jump = 1;
@@ -124,7 +126,7 @@ void	crouch(t_env *env)
 	if ((env->player.eyesight <= 3 && env->inputs.ctrl)
 	|| (env->player.eyesight >= 6 && !env->inputs.ctrl)
 	|| ((env->player.pos.z + env->player.eyesight >
-	get_ceiling_at_pos(env->sectors[lowest_ceil], pos, env) - 1)
+	get_ceiling_at_pos(&env->sectors[lowest_ceil], pos, env) - 1)
 	&& env->player.eyesight < 6))
 	{
 		if (env->inputs.ctrl)
@@ -132,8 +134,9 @@ void	crouch(t_env *env)
 		else
 		{
 			if (env->player.pos.z + env->player.eyesight >
-			get_ceiling_at_pos(env->sectors[lowest_ceil], pos, env) - 1)
-				env->player.eyesight = get_ceiling_at_pos(env->sectors[lowest_ceil], pos, env) - 1 - env->player.pos.z;
+			get_ceiling_at_pos(&env->sectors[lowest_ceil], pos, env) - 1)
+				env->player.eyesight = get_ceiling_at_pos(
+				&env->sectors[lowest_ceil], pos, env) - 1 - env->player.pos.z;
 			if (env->player.eyesight > 6)
 			{
 				env->player.state.crouch = 0;

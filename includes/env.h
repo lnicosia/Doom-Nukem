@@ -561,7 +561,7 @@ int					change_slopes(t_env *env);
 int					change_texture_alignement(t_env *env);
 int					change_textures_scales(t_env *env);
 int					change_walls_texture(t_env *env);
-int					check_height_at_pos(t_env *env, t_sector sector,
+int					check_height_at_pos(t_env *env, t_sector *sector,
 t_v3 pos, int target_height);
 int					next_ambiance_music(void *target);
 int					previous_ambiance_music(void *target);
@@ -1274,7 +1274,11 @@ int					keyup(t_env *env);
 int					confirmation_box_keys(t_confirmation_box *box, t_env *env);
 int					confirmation_box_keyup(t_confirmation_box *box, t_env *env);
 void				editor_minimap(t_env *e);
-void				game_minimap(t_env *e);
+void				draw_minimap_player(t_env *env);
+void				draw_minimap_sector_num(t_env *env, t_sector *sector);
+void				draw_objects_minimap(t_env *env);
+void				draw_minimap_hud(t_env *env);
+void				game_minimap(t_env *env);
 int					get_angle(t_point p[3]);
 int					get_sector_first_angles(t_sector *sector, t_env *env);
 int					count_sector_angles(t_sector *sector, t_env *env);
@@ -1305,9 +1309,10 @@ int					intersection_check(t_v2 w1, t_v2 w2, t_v2 p1, t_v2 p2);
 
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
-double				get_floor_at_pos(t_sector sector, t_v3 pos, t_env *env);
-double				get_ceiling_at_pos(t_sector sector, t_v3 pos, t_env *env);
-t_v2				get_sector_normal(t_sector sector, t_env *env, int start_slope);
+double				get_floor_at_pos(t_sector *sector, t_v3 pos, t_env *env);
+double				get_ceiling_at_pos(t_sector *sector, t_v3 pos, t_env *env);
+t_v2				get_sector_normal(t_sector *sector, t_env *env,
+int start_slope);
 void				draw_axes(t_env *env);
 void				draw_crosshair(t_env *env);
 void				update_inputs(t_env *env);
