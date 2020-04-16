@@ -47,7 +47,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
 				draw_projectiles.c projectile_on_wall_sprite.c \
-				keys.c weapons.c draw_hud.c game_minimap.c \
+				keys.c weapons.c draw_hud.c game_minimap.c explosion2.c \
 				projectiles_collisions.c projectiles_utils.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
@@ -154,9 +154,11 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_buttons_functions4.c editor_buttons_functions5.c \
 		editor_ceiling_tabs2.c editor_floor_tabs2.c editor_hud2.c \
 		editor_hud3.c launch_game.c editor_hud_buttons2.c editor_hud_buttons3.c\
-		editor_keys2.c editor_keyup2.c editor_keyup3.c editor_keyup4.c\
+		editor_keys2.c editor_keyup2.c editor_keyup3.c editor_keyup4.c \
 		new_vertex.c editor_tab_gestion2.c editor_wall_tabs2.c \
-		editor_wall_tabs3.c \
+		editor_wall_tabs3.c event_panel2.c new_event_panel_value_box.c \
+		new_event_panel_box.c event_panel_keyup.c \
+		are_events_selection_buttons_visible.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -240,6 +242,11 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_enemies2.c draw_enemies3.c draw_vline_projectile.c \
 		   draw_skybox2.c draw_floor_utils.c draw_wall_utils.c \
 		   draw_wall_sprites2.c draw_minimap_player.c minimap2.c minimap3.c \
+		   check_floor_event.c check_ceiling_event.c check_floor_slope_event.c \
+		   check_ceiling_slope_event.c check_x_collision_event.c \
+		   check_y_collision_event.c check_z_collision_event.c \
+		   event_checkers2.c event_checkers3.c event_updaters2.c \
+		   event_updaters3.c event_updaters4.c events_links_protection2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

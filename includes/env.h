@@ -778,6 +778,8 @@ int					wall_sprite_buttons_up(t_env *env);
 */
 
 int					draw_event_panel(t_env *env);
+void				draw_target_tab(t_env *env);
+void				draw_action_tab(t_env *env);
 int					draw_condition_panel(t_env *env);
 void				draw_condition_condition_panel(t_env *env);
 void				draw_condition_type_tab(t_env *env);
@@ -1025,6 +1027,8 @@ t_event				*get_event_array(t_env *env, t_event_trigger trigger);
 int					close_event_panel(void *param);
 void				reset_target_selection(t_target_panel *panel);
 int					new_event_panel_value_box(t_input_box *box,
+int type, void *target, t_env *env);
+int					new_event_panel_box(t_input_box *box,
 int type, void *target, t_env *env);
 int					close_event_panel(void *param);
 int					draw_weapon_picker(t_env *env);
@@ -1301,6 +1305,7 @@ int centered_sprite);
 int					explosion_collision_player(t_env *env);
 int					explosion_collision_objects(t_env *env);
 int					explosion_collision_enemies(t_env *env);
+void				activate_explosions(t_env *env);
 int					projectiles_movement(t_env *env);
 int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);
