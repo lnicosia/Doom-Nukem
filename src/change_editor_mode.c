@@ -18,7 +18,7 @@ int		going_in_3D_mode(t_env *env)
 	new_tabs_position(env);
 	env->editor.in_game = 1;
 	env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
-	free_camera(&env->player.camera, env);
+	free_camera(&env->player.camera);
 	precompute_slopes(env);
 	if (init_camera_arrays(&env->player.camera, env))
 		return (ft_printf("Could not init camera arrays\n"));

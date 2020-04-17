@@ -51,7 +51,7 @@ int			respawn2(t_env *env)
 		env->enemies[i].exists = 1;
 		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
 	}
-	free_camera(&env->player.camera, env);
+	free_camera(&env->player.camera);
 	env->dialog_box = 0;
 	env->next_dialog = 0;
 	if (init_camera(&env->player.camera, env))

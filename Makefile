@@ -73,7 +73,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
 		add_enemy.c enemy_selection.c delete_event.c draw_grid_start_player.c \
 		delete_object.c delete_action.c delete_enemy.c draw_grid_enemies.c \
-		fill_triangle.c editor_3d_keys.c wall_sprites_keys.c \
+		editor_3d_keys.c wall_sprites_keys.c \
 		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
 		editor_3d_keyup.c split_sector.c set_condition_panel_buttons_state.c \
 		write_events.c init_print_target_data.c print_event_condition.c \
@@ -170,7 +170,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_screen_sectors.c view.c init_options.c confirmation_box_keys.c \
 		   fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
-		   fill_triangle_minimap.c color_utils.c camera.c  new_tabs_position.c\
+		   color_utils.c camera.c  new_tabs_position.c\
 		   print_debug.c init_animations.c vertices_utils.c death.c \
 		   map_parse_vertices.c is_in_sector.c add_vertex_in_sector.c \
 		   get_existing_vertex.c ./map_parser_protection_utils.c \
@@ -207,7 +207,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \
 		   draw_vline_wall.c draw_vline_wall_brightness.c bmp_parser_utils2.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c dialog_box_utils.c \
-		   draw_vline_floor.c draw_vline_floor_brightness.c \
+		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c \
 		   free_sector.c init_screen_size.c dialog_parser.c \
 		   print_press_text.c modify_wall_sprite.c realloc_sector_arrays.c \
@@ -247,6 +247,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_y_collision_event.c check_z_collision_event.c \
 		   event_checkers2.c event_checkers3.c event_updaters2.c \
 		   event_updaters3.c event_updaters4.c events_links_protection2.c \
+		   fill_triangle_minimap.c fill_triangle.c free_sector2.c \
+		   free_fonts.c free_camera.c free_all2.c free_all3.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

@@ -30,5 +30,5 @@ void	free_map(t_env *env)
 	free_events(env->global_events, env->nb_global_events);
 	if (env->sectors)
 	  free_sectors(env);
-	free_camera(&env->player.camera, env);
+	free_camera(&env->player.camera);
 }

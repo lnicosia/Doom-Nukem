@@ -360,6 +360,8 @@ int					add_sector(t_env *env);
 int					init_new_sector_arrays(t_sector *sector);
 int					add_object(t_env *env);
 int					fill_new_sector(t_sector *sector, t_env *env);
+int					fill_sector_first_vertex(t_sector *sector, t_env *env);
+int					fill_sector_last_vertex(t_sector *sector, t_env *env);
 int					editor_render(t_env *env);
 int					save_map(void *param);
 void				revert_sector(t_sector *sector, t_env *env);
@@ -1171,6 +1173,7 @@ void				fps(t_env *e);
 void				print_debug(t_env *env);
 void				fill_triangle_minimap(t_v3 v[3], t_env *env);
 void				fill_triangle(t_v3 v[3], Uint32 color, t_env *env);
+float				edge(t_v3 c0, t_v3 c1, t_v3 p);
 unsigned int		blend_alpha(unsigned int src,
 				unsigned int dest, uint8_t alpha);
 unsigned int		blend_add(unsigned int src,
@@ -1583,7 +1586,7 @@ int					update_sectors_slope(int vertex, t_env *env);
 */
 
 void				free_current_vertices(t_env *env);
-void				free_camera(t_camera *camera, t_env *env);
+void				free_camera(t_camera *camera);
 void				free_all(t_env *env);
 void				free_all_sdl_relative(t_env *env);
 void				free_screen_sectors(t_env *env);
@@ -1595,5 +1598,8 @@ void				free_map(t_env *env);
 void				free_enemies(t_env *env);
 void				free_objects(t_env *env);
 void				free_sectors(t_env *env);
+void				free_textures(t_env *env);
+void				free_fonts(t_env *env);
+void				free_audio(t_env *env, int i);
 
 #endif

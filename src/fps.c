@@ -26,10 +26,6 @@ void	fps(t_env *env)
 	}
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->fps);
 	print_text(new_point(0, 10), new_printable_text(
-				env->snprintf,
-				env->sdl.fonts.lato20,
-				0xFFFFFFFF,
-				0),
-			env);
+		env->snprintf, env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
 	env->sdl.time = new_time;
 }

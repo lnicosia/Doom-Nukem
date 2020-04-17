@@ -21,6 +21,26 @@
 **	Add other possibilities
 */
 
+
+static char	keypad_numkey2(int input, char res)
+{
+	if (input == SDLK_KP_9)
+		res = '9';
+	else if (input == SDLK_KP_PERIOD)
+		res = '.';
+	else if (input == SDLK_KP_DIVIDE)
+		res = '/';
+	else if (input == SDLK_KP_MULTIPLY)
+		res = '*';
+	else if (input == SDLK_KP_EQUALS)
+		res = '=';
+	else if (input == SDLK_KP_PLUS)
+		res = '+';
+	else if (input == SDLK_KP_MINUS)
+		res = '-';
+	return (res);
+}
+
 /*
 **	Get keys from keypad
 */
@@ -48,20 +68,36 @@ static char	keypad_numkey(int input)
 		res = '7';
 	else if (input == SDLK_KP_8)
 		res = '8';
-	else if (input == SDLK_KP_9)
-		res = '9';
-	if (input == SDLK_KP_PERIOD)
-		res = '.';
-	if (input == SDLK_KP_DIVIDE)
-		res = '/';
-	if (input == SDLK_KP_MULTIPLY)
-		res = '*';
-	if (input == SDLK_KP_EQUALS)
-		res = '=';
-	if (input == SDLK_KP_PLUS)
+	return (keypad_numkey2(input, res));
+}
+
+
+static char	maj_key2(int input, char res)
+{
+	if (input == '9')
+		res = '(';
+	if (input == '0')
+		res = ')';
+	if (input == '-')
+		res = '_';
+	if (input == '=')
 		res = '+';
-	if (input == SDLK_KP_MINUS)
-		res = '-';
+	if (input == '[')
+		res = '{';
+	if (input == ']')
+		res = '}';
+	if (input == '\\')
+		res = '|';
+	if (input == ';')
+		res = ':';
+	if (input == '\'')
+		res = '"';
+	if (input == ',')
+		res = '<';
+	if (input == '.')
+		res = '>';
+	if (input == '/')
+		res = '?';
 	return (res);
 }
 
@@ -92,31 +128,7 @@ static char	maj_key(int input)
 		res = '&';
 	if (input == '8')
 		res = '*';
-	if (input == '9')
-		res = '(';
-	if (input == '0')
-		res = ')';
-	if (input == '-')
-		res = '_';
-	if (input == '=')
-		res = '+';
-	if (input == '[')
-		res = '{';
-	if (input == ']')
-		res = '}';
-	if (input == '\\')
-		res = '|';
-	if (input == ';')
-		res = ':';
-	if (input == '\'')
-		res = '"';
-	if (input == ',')
-		res = '<';
-	if (input == '.')
-		res = '>';
-	if (input == '/')
-		res = '?';
-	return (res);
+	return (maj_key2(input, res));
 }
 
 char		ft_getchar(int input, int shift)
