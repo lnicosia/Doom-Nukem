@@ -13,50 +13,6 @@
 #include "env.h"
 #include "events_parser.h"
 
-void	set_trigger(t_env *env, t_event_trigger *trigger)
-{
-	if (env->selected_enemy != -1)
-	{
-		if (env->editor.selected_events == 0)
-			trigger->type = ENEMY_COLLISION;
-		else if (env->editor.selected_events == 1)
-			trigger->type = DEATH;
-		trigger->enemy = env->selected_enemy;
-	}
-	else if (env->selected_object != -1)
-	{
-		trigger->type = OBJECT_COLLISION;
-		trigger->object = env->selected_object;
-	}
-	else if (env->selected_wall_sprite_wall != -1)
-	{
-		if (env->editor.selected_events == 0)
-			trigger->type = PRESS;
-		else if (env->editor.selected_events == 1)
-			trigger->type = SHOOT;
-		trigger->sector = env->editor.selected_sector;
-		trigger->wall = env->selected_wall_sprite_wall;
-		trigger->sprite = env->selected_wall_sprite_sprite;
-	}
-	else if (env->selected_wall_sprite_wall == -1
-		&& (env->selected_floor != -1 || env->editor.selected_sector != -1))
-	{
-		if (env->editor.selected_events == 0)
-			trigger->type = STAND;
-		else if (env->editor.selected_events == 1)
-			trigger->type = WALK_IN;
-		else if (env->editor.selected_events == 2)
-			trigger->type = WALK_OUT;
-		if (env->selected_floor != -1)
-			trigger->sector = env->selected_floor;
-		else if (env->editor.selected_sector != -1)
-			trigger->sector = env->editor.selected_sector;
-	}
-	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
-		trigger->type = GLOBAL;
-	trigger->index = env->editor.selected_event;
-}
-
 /*
 **	Select an event when clicking on "Select me"
 */
@@ -126,6 +82,15 @@ int		new_event(void *param)
 	return (0);
 }
 
+void	init_events_creation_buttons2(t_env *env)
+{
+	env->editor.select_event.pos = new_point(140, env->h - 250);
+	env->editor.select_event.size_up = env->editor.new_event.size_up;
+	env->editor.select_event.size_down = env->editor.new_event.size_up;
+	env->editor.select_event.size_pressed = env->editor.new_event.size_up;
+	env->editor.select_event.size_hover = env->editor.new_event.size_up;
+}
+
 void	init_events_creation_buttons(t_env *env)
 {
 	env->editor.new_event = new_dark_panel_button(ON_RELEASE,
@@ -151,9 +116,5 @@ void	init_events_creation_buttons(t_env *env)
 	env->editor.delete_event.size_hover = env->editor.new_event.size_up;
 	env->editor.select_event = new_dark_panel_button(ON_RELEASE,
 	&select_event, env, env);
-	env->editor.select_event.pos = new_point(140, env->h - 250);
-	env->editor.select_event.size_up = env->editor.new_event.size_up;
-	env->editor.select_event.size_down = env->editor.new_event.size_up;
-	env->editor.select_event.size_pressed = env->editor.new_event.size_up;
-	env->editor.select_event.size_hover = env->editor.new_event.size_up;
+	init_events_creation_buttons2(env);
 }

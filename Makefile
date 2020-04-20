@@ -63,17 +63,17 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				add_ceiling_projectile_bullet_hole.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
-		draw_grid.c editor_keys.c grid_tools.c editor_render.c \
+		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
 		draw_grid_walls.c draw_grid_vertices.c event_panel_tab_functions.c \
 		add_vertex.c print_target_functions2.c draw_action_panel_bottom.c \
 		add_player.c editor_hud.c add_sector.c condition_panel2.c \
 		save_map.c write_vertices.c write_sectors.c write_objects.c \
 		write_player.c write_enemies.c add_object.c editor_keyup.c \
-		player_selection.c objects_selection.c object_selection.c\
+		player_selection.c objects_selection.c object_selection.c \
 		draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
 		add_enemy.c enemy_selection.c delete_event.c draw_grid_start_player.c \
 		delete_object.c delete_action.c delete_enemy.c draw_grid_enemies.c \
-		editor_3d_keys.c wall_sprites_keys.c \
+		editor_3d_keys.c wall_sprites_keys.c previous_event.c \
 		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
 		editor_3d_keyup.c split_sector.c set_condition_panel_buttons_state.c \
 		write_events.c init_print_target_data.c print_event_condition.c \
@@ -99,7 +99,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
 		init_events_selection_buttons.c print_event.c init_event_types.c \
 		are_launch_condition_selection_buttons_visible.c \
-		are_exec_condition_selection_buttons_visible.c \
+		are_exec_condition_selection_buttons_visible.c next_launch_condition.c \
 		are_exec_condition_selection_buttons_visible2.c \
 		init_event_links_types.c is_event_tabs_visible.c \
 		print_link_target_functions.c print_condition_target_functions.c \
@@ -112,10 +112,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		target_panel_keys.c modify_condition.c init_new_sector_arrays.c \
 		3d_edit_change_floor_slope_start.c delete_selected_event.c \
 		3d_edit_change_ceiling_slope_start.c editor_3d_button_keys2.c \
-		action_panel_keys.c conditions_panel_keys.c \
+		action_panel_keys.c conditions_panel_keys.c previous_launch_condition.c\
 		event_panel_keys.c modify_event.c delete_action_utils.c \
 		new_event_panel_buttons.c new_event_panel_buttons2.c \
-		editor_tab_gestion.c editor_wall_sprites_keys.c \
+		editor_tab_gestion.c editor_wall_sprites_keys.c next_exec_condition.c \
 		3d_edit_function.c action_panel.c conditions_tabs.c \
 		event_panel_input_box.c 3d_edit_change_ceiling_floor_height.c \
 		init_events_creation_buttons.c reduce_texture_scales_functions.c \
@@ -148,7 +148,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
 		editor_minimap.c init_editor_options_buttons.c \
-		editor_option_keys.c write_hud.c write_hud2.c \
+		editor_option_keys.c write_hud.c write_hud2.c previous_exec_condition.c\
 		update_sector_with_deleted_vertex.c check_move_player_conditions.c \
 		editor_buttons_functions2.c editor_buttons_functions3.c \
 		editor_buttons_functions4.c editor_buttons_functions5.c \
@@ -158,7 +158,13 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		new_vertex.c editor_tab_gestion2.c editor_wall_tabs2.c \
 		editor_wall_tabs3.c event_panel2.c new_event_panel_value_box.c \
 		new_event_panel_box.c event_panel_keyup.c \
-		are_events_selection_buttons_visible.c \
+		are_events_selection_buttons_visible.c init_editor_options_buttons2.c \
+		new_event_panel_dialog_box.c init_change_slope_direction_buttons.c \
+		init_editor_options_buttons3.c set_trigger.c \
+		init_editor_tab_buttons2.c init_enemy_selection_button.c \
+		init_object_selection_button.c init_array_texture_buttons.c \
+		change_slope_direction.c next_selected_wall.c save_selection.c \
+		save_texture.c init_hud_button_function2.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -196,7 +202,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
-		   draw_floor_sprites.c draw_floor_sprites_no_light.c \
+		   draw_floor_sprites.c draw_floor_sprites_no_light.c set_enemies_hp.c \
 		   draw_floor_sprites_color.c draw_floor_sprites_brightness.c \
 		   draw_floor_sprites_both.c bmp_parser_ui.c bmp_parser_ui_skyboxes.c \
 		   draw_ceiling_sprites.c draw_ceiling_sprites_no_light.c \
@@ -251,7 +257,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   free_fonts.c free_camera.c free_all2.c free_all3.c \
 		   game_menu2.c game_menu3.c generate_mipmaps_utils.c \
 		   get_event_array2.c get_event_array3.c get_event_nb2.c \
-		   update_sector_slope.c \
+		   update_sector_slope.c init_selection_tabs.c no_parser.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

@@ -12,6 +12,26 @@
 
 #include "env.h"
 
+void	init_keys2(t_env *env)
+{
+	env->keys.tab = SDLK_TAB;
+	env->keys.comma = SDLK_COMMA;
+	env->keys.period = SDLK_PERIOD;
+	env->keys.minus1 = SDLK_MINUS;
+	env->keys.equals = SDLK_EQUALS;
+	env->keys.p = SDLK_p;
+	env->keys.end = SDLK_END;
+	env->keys.home = SDLK_HOME;
+	env->keys.a = SDLK_a;
+	env->keys.h = SDLK_h;
+	env->keys.nb1 = SDLK_1;
+	env->keys.nb2 = SDLK_2;
+	env->keys.nb3 = SDLK_3;
+	env->keys.nb4 = SDLK_4;
+	env->keys.nb5 = SDLK_5;
+	env->keys.lgui = SDLK_LGUI;
+}
+
 void	init_keys(t_env *env)
 {
 	ft_printf("Initializing player keys..\n");
@@ -36,20 +56,5 @@ void	init_keys(t_env *env)
 	env->keys.enter = SDLK_RETURN;
 	env->keys.backspace = SDLK_BACKSPACE;
 	env->keys.del = SDLK_DELETE;
-	env->keys.tab = SDLK_TAB;
-	env->keys.comma = SDLK_COMMA;
-	env->keys.period = SDLK_PERIOD;
-	env->keys.minus1 = SDLK_MINUS;
-	env->keys.equals = SDLK_EQUALS;
-	env->keys.p = SDLK_p;
-	env->keys.end = SDLK_END;
-	env->keys.home = SDLK_HOME;
-	env->keys.a = SDLK_a;
-	env->keys.h = SDLK_h;
-	env->keys.nb1 = SDLK_1;
-	env->keys.nb2 = SDLK_2;
-	env->keys.nb3 = SDLK_3;
-	env->keys.nb4 = SDLK_4;
-	env->keys.nb5 = SDLK_5;
-	env->keys.lgui = SDLK_LGUI;
+	init_keys2(env);
 }

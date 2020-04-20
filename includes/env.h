@@ -233,10 +233,20 @@ int					sector_error(const char *message, int sector, t_map_parser *parser);
 
 int					init_editor(int ac, char **av);
 int					init_editor_hud(t_env *env);
+int					init_enemy_selection_button(t_env *env);
+int					init_object_selection_button(t_env *env);
+int					init_array_texture_buttons(t_env *env);
 void				init_editor_options_buttons(t_env *env);
+void				init_quit_options_button(t_env *env);
+int					light_option(void *param);
+int					zbuffer_option(void *param);
+int					fps_option(void *param);
+int					quit_options(void *param);
+int					mipmapping_option(void *param);
 void				init_editor_data(t_env *env);
 void				init_selection_data(t_env *env);
 void				init_editor_tab_buttons(t_env *env);
+void				init_player_buttons(t_env *env);
 void				init_floor_buttons(t_env *env);
 void				init_ceiling_buttons(t_env *env);
 void				init_wall_buttons(t_env *env);
@@ -264,6 +274,7 @@ void				init_ceiling_general_buttons(t_env *env);
 void				init_ceiling_sector_buttons(t_env *env);
 void				init_ceiling_sprite_buttons(t_env *env);
 void				init_add_buttons(t_env *env);
+void				init_change_slope_direction_buttons(t_env *env);
 void				init_add_enemy_buttons(t_env *env);
 void				init_add_object_buttons(t_env *env);
 void				init_sector_general_env(t_env *env);
@@ -288,6 +299,7 @@ void				init_object_sprite_env(t_env *env);
 void				init_object_general_buttons(t_env *env);
 void				init_object_sector_buttons(t_env *env);
 void				init_object_sprite_buttons(t_env *env);
+void				init_selection_tabs(t_env *env);
 int					init_array_sprite_buttons(t_env *env);
 int					init_skybox_selection_buttons(t_env *env);
 
@@ -410,8 +422,6 @@ int					new_input_box(t_input_box *box, t_point pos,
 						int type, void *target);
 int					new_input_var(t_input_box *box, t_point pos,
 						int type, void *target);
-/*int					new_event_panel_box(t_input_box *box, t_point pos,
-						int type, void *target);*/
 int					set_double_stats(t_input_box *box);
 int					validate_input(t_input_box *box, t_env *env);
 int					del_char(t_input_box *box, int mode);
@@ -1032,6 +1042,8 @@ int					new_event_panel_value_box(t_input_box *box,
 int type, void *target, t_env *env);
 int					new_event_panel_box(t_input_box *box,
 int type, void *target, t_env *env);
+int					new_event_panel_dialog_box(t_input_box *box,
+int type, void *target, t_env *env);
 int					close_event_panel(void *param);
 int					draw_weapon_picker(t_env *env);
 void				init_weapon_picker(t_env *env);
@@ -1074,6 +1086,7 @@ int					init_screen_pos(t_env *env);
 void				init_options(t_env *env);
 void				init_keys(t_env *env);
 void				init_inputs(t_env *env);
+void				set_enemies_hp(t_env *env);
 int					init_camera(t_camera *camera, t_env *env);
 int					init_camera_arrays(t_camera *camera, t_env *env);
 void				init_player(t_env *env);
@@ -1448,6 +1461,12 @@ void				play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 void				player_combat_state(t_env *env);
 void				init_events_selection_buttons(t_env *env);
+int					next_event(void *param);
+int					previous_event(void *param);
+int					next_launch_condition(void *param);
+int					previous_launch_condition(void *param);
+int					next_exec_condition(void *param);
+int					previous_exec_condition(void *param);
 void				init_events_creation_buttons(t_env *env);
 void				set_trigger(t_env *env, t_event_trigger *trigger);
 int					precompute_floor_sprite_scales(int sector, int sprite,

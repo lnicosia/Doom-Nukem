@@ -41,6 +41,7 @@ void	init_events_parser_target_types3(t_events_parser *eparser)
 
 void	init_events_parser_target_types2(t_events_parser *eparser)
 {
+	eparser->target_types[SECTOR_WALL_SPRITES_SCALE_Y] = DOUBLE;
 	eparser->target_types[SECTOR_FLOOR_SPRITES_SPRITE] = INT;
 	eparser->target_types[SECTOR_FLOOR_SPRITES_POS_X] = DOUBLE;
 	eparser->target_types[SECTOR_FLOOR_SPRITES_POS_Y] = DOUBLE;
@@ -91,6 +92,5 @@ void	init_events_parser_target_types(t_events_parser *eparser)
 	eparser->target_types[SECTOR_WALL_SPRITES_POS_X] = DOUBLE;
 	eparser->target_types[SECTOR_WALL_SPRITES_POS_Y] = DOUBLE;
 	eparser->target_types[SECTOR_WALL_SPRITES_SCALE_X] = DOUBLE;
-	eparser->target_types[SECTOR_WALL_SPRITES_SCALE_Y] = DOUBLE;
 	init_events_parser_target_types2(eparser);
 }
