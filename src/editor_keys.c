@@ -14,30 +14,31 @@
 
 int		editor_keys5(t_env *env)
 {
-	if (env->editor.events_tab.state != DOWN)
-	  	return (0);
-	if (!env->editor.selecting_target && !env->editor.selecting_event
-		&& !env->editor.selecting_condition_target
-		&& button_keys(&env->editor.new_event, env))
-		return (-1);
-	if (is_modify_event_button_visible(env))
+	if (env->editor.events_tab.state == DOWN)
 	{
-		if (button_keys(&env->editor.modify_event, env))
+		if (!env->editor.selecting_target && !env->editor.selecting_event
+			&& !env->editor.selecting_condition_target
+			&& button_keys(&env->editor.new_event, env))
 			return (-1);
-		if (button_keys(&env->editor.delete_event, env))
+		if (is_modify_event_button_visible(env))
+		{
+			if (button_keys(&env->editor.modify_event, env))
+				return (-1);
+			if (button_keys(&env->editor.delete_event, env))
+				return (-1);
+		}
+		if (are_event_selection_buttons_visible(env))
+		{
+			if (button_keys(&env->editor.next_event, env))
+				return (-1);
+			if (button_keys(&env->editor.previous_event, env))
+				return (-1);
+		}
+		if (are_events_selection_buttons_visible(env)
+			&& (button_keys(&env->editor.next_events, env)
+			|| button_keys(&env->editor.previous_events, env)))
 			return (-1);
 	}
-	if (are_event_selection_buttons_visible(env))
-	{
-		if (button_keys(&env->editor.next_event, env))
-			return (-1);
-		if (button_keys(&env->editor.previous_event, env))
-			return (-1);
-	}
-	if (are_events_selection_buttons_visible(env)
-		&& (button_keys(&env->editor.next_events, env)
-		|| button_keys(&env->editor.previous_events, env)))
-		return (-1);
 	return (editor_keys6(env));
 }
 
