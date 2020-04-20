@@ -12,13 +12,8 @@
 
 #include "events_parser.h"
 
-void	init_print_target_data3(t_env *env)
+void	init_print_target_data4(t_env *env)
 {
-	env->print_target_data[PLAYER_SPEED] = &print_nothing_target;
-	env->print_target_data[PLAYER_INVINCIBLE] = &print_nothing_target;
-	env->print_target_data[PLAYER_INFINITE_AMMO] = &print_nothing_target;
-	env->print_target_data[PLAYER_SECTOR] = &print_nothing_target;
-	env->print_target_data[WEAPON_DAMAGE] = &print_weapon_target;
 	env->print_target_data[WEAPON_RANGE] = &print_weapon_target;
 	env->print_target_data[ENEMY_SPRITE] = &print_enemy_target;
 	env->print_target_data[ENEMY_SCALE] = &print_enemy_target;
@@ -39,22 +34,8 @@ void	init_print_target_data3(t_env *env)
 	env->print_target_data[DIALOG] = &print_nothing_target;
 }
 
-void	init_print_target_data2(t_env *env)
+void	init_print_target_data3(t_env *env)
 {
-	env->print_target_data[SECTOR_FLOOR_SPRITES_SPRITE] =
-	&print_floor_sprite_target;
-	env->print_target_data[SECTOR_FLOOR_SPRITES_POS_X] =
-	&print_floor_sprite_target;
-	env->print_target_data[SECTOR_FLOOR_SPRITES_POS_Y] =
-	&print_floor_sprite_target;
-	env->print_target_data[SECTOR_FLOOR_SPRITES_SCALE_X] =
-	&print_floor_sprite_target;
-	env->print_target_data[SECTOR_FLOOR_SPRITES_SCALE_Y] =
-	&print_floor_sprite_target;
-	env->print_target_data[SECTOR_CEILING_SPRITES_SPRITE] =
-	&print_ceiling_sprite_target;
-	env->print_target_data[SECTOR_CEILING_SPRITES_POS_X] =
-	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_POS_Y] =
 	&print_ceiling_sprite_target;
 	env->print_target_data[SECTOR_CEILING_SPRITES_SCALE_X] =
@@ -72,7 +53,38 @@ void	init_print_target_data2(t_env *env)
 	env->print_target_data[PLAYER_Z] = &print_nothing_target;
 	env->print_target_data[PLAYER_HP] = &print_nothing_target;
 	env->print_target_data[PLAYER_ARMOR] = &print_nothing_target;
+	env->print_target_data[PLAYER_SPEED] = &print_nothing_target;
+	env->print_target_data[PLAYER_INVINCIBLE] = &print_nothing_target;
+	env->print_target_data[PLAYER_INFINITE_AMMO] = &print_nothing_target;
+	env->print_target_data[PLAYER_SECTOR] = &print_nothing_target;
+	env->print_target_data[WEAPON_DAMAGE] = &print_weapon_target;
+	init_print_target_data4(env);
+}
 
+void	init_print_target_data2(t_env *env)
+{
+	env->print_target_data[SECTOR_WALL_SPRITES_POS_X] =
+	&print_wall_sprite_target;
+	env->print_target_data[SECTOR_WALL_SPRITES_POS_Y] =
+	&print_wall_sprite_target;
+	env->print_target_data[SECTOR_WALL_SPRITES_SCALE_X] =
+	&print_wall_sprite_target;
+	env->print_target_data[SECTOR_WALL_SPRITES_SCALE_Y] =
+	&print_wall_sprite_target;
+	env->print_target_data[SECTOR_FLOOR_SPRITES_SPRITE] =
+	&print_floor_sprite_target;
+	env->print_target_data[SECTOR_FLOOR_SPRITES_POS_X] =
+	&print_floor_sprite_target;
+	env->print_target_data[SECTOR_FLOOR_SPRITES_POS_Y] =
+	&print_floor_sprite_target;
+	env->print_target_data[SECTOR_FLOOR_SPRITES_SCALE_X] =
+	&print_floor_sprite_target;
+	env->print_target_data[SECTOR_FLOOR_SPRITES_SCALE_Y] =
+	&print_floor_sprite_target;
+	env->print_target_data[SECTOR_CEILING_SPRITES_SPRITE] =
+	&print_ceiling_sprite_target;
+	env->print_target_data[SECTOR_CEILING_SPRITES_POS_X] =
+	&print_ceiling_sprite_target;
 	init_print_target_data3(env);
 }
 
@@ -99,14 +111,6 @@ void	init_print_target_data(t_env *env)
 	env->print_target_data[SECTOR_WALL_SCALE_Y] = &print_wall_target;
 	env->print_target_data[SECTOR_WALL_PORTAL] = &print_wall_target;
 	env->print_target_data[SECTOR_WALL_SPRITES_SPRITE] =
-	&print_wall_sprite_target;
-	env->print_target_data[SECTOR_WALL_SPRITES_POS_X] =
-	&print_wall_sprite_target;
-	env->print_target_data[SECTOR_WALL_SPRITES_POS_Y] =
-	&print_wall_sprite_target;
-	env->print_target_data[SECTOR_WALL_SPRITES_SCALE_X] =
-	&print_wall_sprite_target;
-	env->print_target_data[SECTOR_WALL_SPRITES_SCALE_Y] =
 	&print_wall_sprite_target;
 	init_print_target_data2(env);
 }

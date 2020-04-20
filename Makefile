@@ -165,6 +165,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_object_selection_button.c init_array_texture_buttons.c \
 		change_slope_direction.c next_selected_wall.c save_selection.c \
 		save_texture.c init_hud_button_function2.c \
+		init_print_condition_target_data2.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -193,7 +194,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   precompute_neighbors.c skybox_draw_functions.c wall_hack.c \
 		   movement_utils.c update_sprites_state.c set_event_function.c \
 		   select_line.c draw_wall_sprites.c input_box.c get_pixel.c \
-		   init_obj_enemies_data.c reset_selection.c events_tab_conditions.c \
+		   init_objects_data.c reset_selection.c events_tab_conditions.c \
 		   draw_circle_free.c draw_circle.c ft_getchar.c new_button.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
@@ -258,6 +259,16 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   game_menu2.c game_menu3.c generate_mipmaps_utils.c \
 		   get_event_array2.c get_event_array3.c get_event_nb2.c \
 		   update_sector_slope.c init_selection_tabs.c no_parser.c \
+		   init_enemies_data.c init_objects_data2.c init_objects_data3.c \
+		   init_lost_soul_sprite.c init_lost_soul_rest.c \
+		   init_lost_soul_pursuit.c \
+		   init_lost_soul_pursuit_two.c \
+		   init_lost_soul_death.c init_cyber_demon_pursuit.c \
+		   init_cyber_demon_pursuit_two.c init_cyber_demon_pursuit_three.c \
+		   init_cyber_demon_pursuit_four.c init_cyber_demon_firing_anim.c \
+		   init_cyber_demon_firing_anim_two.c init_cyber_demon_death.c \
+		   init_cyber_demon_firing_anim_three.c \
+
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

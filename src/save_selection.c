@@ -5,7 +5,6 @@ int		save_enemy(void *param)
 	t_env	*env;
 	int		i;
 
-	ft_printf("cc\n");
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
 	env->editor.current_enemy = env->enemies_main_sprites[i];

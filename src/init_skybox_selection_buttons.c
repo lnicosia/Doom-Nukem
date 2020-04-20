@@ -12,11 +12,44 @@
 
 #include "env.h"
 
-int	init_skybox_selection_buttons(t_env *env)
+void	init_skybox_big(int i, t_env *env)
+{
+	env->editor.skyboxes[i] = new_image_button(ON_RELEASE,
+	&save_texture, new_button_target(env, (-i -1)), env);
+	env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].img_down = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].size_up = new_point(128, 128);
+	env->editor.skyboxes[i].size_hover = new_point(128, 128);
+	env->editor.skyboxes[i].size_pressed = new_point(128, 128);
+	env->editor.skyboxes[i].size_down = new_point(128, 128);
+}
+
+void	init_skybox_small(int i, int mod, int mod_e, t_env *env)
+{
+	env->editor.skyboxes[i] = new_image_button(ON_RELEASE,
+	&save_texture, new_button_target(env, (-i -1)), env);
+	env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].img_down = env->mini_skyboxes[i].surface;
+	env->editor.skyboxes[i].size_up = new_point(64, 64);
+	env->editor.skyboxes[i].size_hover = new_point(64, 64);
+	env->editor.skyboxes[i].size_pressed = new_point(64, 64);
+	env->editor.skyboxes[i].size_down = new_point(64, 64);
+	env->editor.skyboxes[i].pos =
+	new_point(300 + (66 * (i % mod)) + 7,
+	(150 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64))
+	+ 64 * (i / mod) + 5);
+}
+
+int		init_skybox_selection_buttons(t_env *env)
 {
 	int	i;
 	int	mod;
 	int	mod_e;
+
 	if (MAX_WALL_TEXTURE > 20)
 		mod_e = 10;
 	else
@@ -29,36 +62,9 @@ int	init_skybox_selection_buttons(t_env *env)
 	while (i < MAX_SKYBOX + MAX_SKYBOX)
 	{
 		if (i < MAX_SKYBOX)
-		{
-			env->editor.skyboxes[i] = new_image_button(ON_RELEASE,
-			&save_texture, new_button_target(env, (-i -1)), env);
-			env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].img_down = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].size_up = new_point(64, 64);
-			env->editor.skyboxes[i].size_hover = new_point(64, 64);
-			env->editor.skyboxes[i].size_pressed = new_point(64, 64);
-			env->editor.skyboxes[i].size_down = new_point(64, 64);
-			env->editor.skyboxes[i].pos =
-			new_point(300 + (66 * (i % mod)) + 7,
-			(150 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64))
-			+ 64 * (i / mod) + 5);
-		}
+		  	init_skybox_small(i, mod, mod_e, env);
 		else
-		{
-			env->editor.skyboxes[i] = new_image_button(ON_RELEASE,
-			&save_texture, new_button_target(env, (-i -1)), env);
-			env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].img_down = env->mini_skyboxes[i].surface;
-			env->editor.skyboxes[i].size_up = new_point(128, 128);
-			env->editor.skyboxes[i].size_hover = new_point(128, 128);
-			env->editor.skyboxes[i].size_pressed = new_point(128, 128);
-			env->editor.skyboxes[i].size_down = new_point(128, 128);
-		}
-		
+		  	init_skybox_big(i, env);
 		i++;
 	}
 	return (0);

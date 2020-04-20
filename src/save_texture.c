@@ -52,7 +52,6 @@ int		save_texture(void *param)
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
 	env->editor.current_texture = i;
-	ft_printf("cc\n");
 	if (i >= 0)
 	{
 		env->editor.current_texture_selection.img_down =

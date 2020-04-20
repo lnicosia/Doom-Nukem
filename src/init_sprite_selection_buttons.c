@@ -12,29 +12,8 @@
 
 #include "env.h"
 
-int	init_array_sprite_buttons(t_env *env)
+void	init_array_sprite_buttons2(int i, t_env *env)
 {
-	int	i;
-	int	mod;
-
-	if (MAX_OBJECTS > 25)
-		mod = 10;
-	else
-		mod = 5;
-	i = 0;
-	while (i < MAX_OBJECTS)
-	{
-		// NE PAS OUBLIER DE FREE LES NEW_BUTTON_TARGET
-		env->editor.sprite_selection[i] = new_image_button(ON_RELEASE,
-		&save_sprite, new_button_target(env, i), env);
-		env->editor.sprite_selection[i].size_up = new_point(64, 64);
-		env->editor.sprite_selection[i].size_down = new_point(64, 64);
-		env->editor.sprite_selection[i].size_hover = new_point(64, 64);
-		env->editor.sprite_selection[i].size_pressed = new_point(64, 64);
-		env->editor.sprite_selection[i].pos =
-		new_point(180 + (66 * (i % mod)) + 8, 490 + 8 + (66 * (i / mod)));
-		i++;
-	}
     env->editor.current_sprite_selection =
 	new_image_button(ON_RELEASE, &open_wall_sprite_selection,
 	new_button_target(env, i), env);
@@ -46,5 +25,30 @@ int	init_array_sprite_buttons(t_env *env)
 	env->editor.sprite_background = new_background_button(WHEN_DOWN, &nothing,
 	&env->editor.texture_background, env);
 	env->editor.sprite_background.pos = new_point(168, 468);
+}
+
+int		init_array_sprite_buttons(t_env *env)
+{
+	int	i;
+	int	mod;
+
+	if (MAX_OBJECTS > 25)
+		mod = 10;
+	else
+		mod = 5;
+	i = 0;
+	while (i < MAX_OBJECTS)
+	{
+		env->editor.sprite_selection[i] = new_image_button(ON_RELEASE,
+		&save_sprite, new_button_target(env, i), env);
+		env->editor.sprite_selection[i].size_up = new_point(64, 64);
+		env->editor.sprite_selection[i].size_down = new_point(64, 64);
+		env->editor.sprite_selection[i].size_hover = new_point(64, 64);
+		env->editor.sprite_selection[i].size_pressed = new_point(64, 64);
+		env->editor.sprite_selection[i].pos =
+		new_point(180 + (66 * (i % mod)) + 8, 490 + 8 + (66 * (i / mod)));
+		i++;
+	}
+	init_array_sprite_buttons2(i, env);
 	return (1);
 }
