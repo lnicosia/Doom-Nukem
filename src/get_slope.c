@@ -41,13 +41,9 @@ t_sector	rotate_vertices(t_env *env, int i, int index)
 		}
 	}
 	if (i == 1)
-	{
 		sector.vertices[sector.nb_vertices] = sector.vertices[0];
-	}
 	else if (i == -1)
-	{
 		sector.vertices[0] = sector.vertices[sector.nb_vertices];
-	}
 	return (sector);
 }
 
@@ -102,62 +98,6 @@ double	get_ceiling_at_pos(t_sector *sector, t_v3 pos, t_env *env)
 	* (pos.y - v0.y);
 	res = res * sector->ceiling_slope * CONVERT_RADIANS + sector->ceiling;
 	return (res);
-}
-
-void	update_sector_slope(t_env *env, t_sector *sector)
-{
-	int			i;
-	t_vertex	v1;
-
-	if (sector->num < 0 || sector->num > env->nb_sectors)
-	{
-		ft_printf("Error when updating sector %d slope:"
-		" sector does not exist\n");
-	}
-	sector->floor_max = sector->floor;
-	sector->floor_min = sector->floor;
-	sector->ceiling_max = sector->ceiling;
-	sector->ceiling_min = sector->ceiling;
-	i = 0;
-	while (i < sector->nb_vertices)
-	{
-		v1 = env->vertices[sector->vertices[i]];
-		if (sector->floor_slope != 0)
-			sector->floors[i] = get_floor_at_pos(sector,
-				new_v3(v1.x, v1.y, 0), env);
-		else
-			 sector->floors[i] = sector->floor;
-		if (sector->ceiling_slope != 0)
-			sector->ceilings[i] = get_ceiling_at_pos(sector,
-				new_v3(v1.x, v1.y, 0), env);
-		else
-			sector->ceilings[i] = sector->ceiling;
-		if (sector->floors[i]
-				< sector->floor_min)
-			sector->floor_min
-				= sector->floors[i];
-		if (sector->floors[i] 
-			> sector->floor_max)
-			sector->floor_max
-				= sector->floors[i];
-		if (sector->ceilings[i]
-				> sector->ceiling_max)
-			sector->ceiling_max
-				= sector->ceilings[i];
-		if (sector->ceilings[i]
-				< sector->ceiling_min)
-			sector->ceiling_min
-				= sector->ceilings[i];
-		sector->wall_width[i] = sqrt(
-				pow(env->vertices[sector->vertices[i + 1]].x
-					- env->vertices[sector->vertices[i]].x, 2)
-				+ pow(env->vertices[sector->vertices[i + 1]].y
-					- env->vertices[sector->vertices[i]].y, 2));
-		i++;
-	}
-	sector->floors[i] = sector->floors[0];
-	sector->ceilings[i] = sector->ceilings[0];
-	set_sector_xmax(env, sector);
 }
 
 void	precompute_slopes(t_env *env)

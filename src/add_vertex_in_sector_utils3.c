@@ -41,7 +41,7 @@ int		modify_walls_map_lvl(t_env *env, int sector)
 	while(j < env->sectors[sector].nb_vertices)
 	{
 		set_sector_wall_map_array(&env->sectors[sector],
-		env->wall_textures[env->sectors[sector].textures[j]], j, env);
+		&env->wall_textures[env->sectors[sector].textures[j]], j, env);
 		j++;
 	}
 	return (0);

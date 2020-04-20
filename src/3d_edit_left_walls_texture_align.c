@@ -27,7 +27,7 @@ int		left_ceiling_texture_alignement(t_env *env)
 	else if (env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000 )
 		env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-	env->wall_textures[env->sectors[env->selected_ceiling].ceiling_texture],
+	&env->wall_textures[env->sectors[env->selected_ceiling].ceiling_texture],
 	env))
 		return (-1);
 	return (0);
@@ -48,7 +48,7 @@ int		left_floor_texture_alignement(t_env *env)
 	else if (env->sectors[env->selected_floor].floor_map_align.x > -1000 )
 		env->sectors[env->selected_floor].floor_map_align.x -= 1;
 	if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
-	env->wall_textures[env->sectors[env->selected_floor].floor_texture],
+	&env->wall_textures[env->sectors[env->selected_floor].floor_texture],
 	env))
 		return (-1);
 	return (0);

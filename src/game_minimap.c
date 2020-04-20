@@ -12,50 +12,35 @@
 
 #include "env.h"
 
-/*static void	put_pixel(t_env *env, int x, int y, unsigned int color)
+void	draw_minimap_player_game3(t_point p0, t_point p1,
+t_env *env)
 {
-	Uint32		*pixels;
-	t_point		size;
+	p0.x = env->player.camera.angle_cos * env->player.camera.near_z
+	* env->options.minimap_scale + env->minimap_pos.x;
+	p0.y = env->player.camera.angle_sin * env->player.camera.near_z
+	* env->options.minimap_scale + env->minimap_pos.y;
+	p1.x = p0.x + env->player.camera.perp_cos * env->w
+	* env->options.minimap_scale;
+	p1.y = p0.y + env->player.camera.perp_sin * env->w
+	* env->options.minimap_scale;
+	p0.x = p0.x - env->player.camera.perp_cos * env->w
+	* env->options.minimap_scale;
+	p0.y = p0.y - env->player.camera.perp_sin * env->w
+	* env->options.minimap_scale;
+	p0.x = env->minimap_pos.x;
+	p0.y = env->minimap_pos.y;
+	p1.x = env->player.camera.angle_cos * env->player.camera.near_z
+	* env->options.minimap_scale + p0.x;
+	p1.y = env->player.camera.angle_sin * env->player.camera.near_z
+	* env->options.minimap_scale + p0.y;
+	draw_line_minimap(p0, p1, env, 0xFFFFFFFF);
+}
 
-	size.x = env->minimap_size.x / 2;
-	size.y = env->minimap_size.y / 2;
-	pixels = env->sdl.texture_pixels;
-	if (x >= 0 && x < env->w && y >= 0 && y < env->h
-		&& x >= env->minimap_pos.x - size.x
-		&& x <= env->minimap_pos.x + size.x
-		&& y >= env->minimap_pos.y - size.y
-		&& y <= env->minimap_pos.y + size.y)
-	{
-		if (color == 0xFFFF0000 || (pixels[x + env->w * y] != 0xFF00FF00
-			&& pixels[x + env->w * y] != 0xFFFFFFF))
-		{
-			if (x >= 0 && x < env->w && y >= 0 && y <= env->h)
-				pixels[x + env->w * y] = color;
-		}
-	}
-}*/
-
-static void	draw_minimap_player_game(t_env *env)
+void	draw_minimap_player_game2(t_v3 triangle[3], t_env *env)
 {
 	t_point	p0;
 	t_point	p1;
-	t_v3	triangle[3];
 
-	apply_sprite(env->object_sprites[DOOM_GUY_FACE],
-		new_point(env->minimap_pos.y - 7, env->minimap_pos.x - 7),
-		new_point(14, 14), env);
-	triangle[2] = new_v3(
-			(env->player.camera.near_left_pos.x - env->player.pos.x) * env->options.minimap_scale + env->minimap_pos.x,
-			(env->player.camera.near_left_pos.y - env->player.pos.y) * env->options.minimap_scale + env->minimap_pos.y,
-			0);
-	triangle[1] = new_v3(
-			(env->player.camera.angle_cos * env->player.camera.far_z - env->player.camera.angle_sin * env->player.camera.far_left) * env->options.minimap_scale + env->minimap_pos.x,
-			(env->player.camera.angle_sin * env->player.camera.far_z + env->player.camera.angle_cos * env->player.camera.far_left) * env->options.minimap_scale + env->minimap_pos.y,
-			0);
-	triangle[0] = new_v3(
-			(env->player.camera.near_right_pos.x - env->player.pos.x) * env->options.minimap_scale + env->minimap_pos.x,
-			(env->player.camera.near_right_pos.y - env->player.pos.y) * env->options.minimap_scale + env->minimap_pos.y,
-			0);
 	fill_triangle_minimap(triangle, env);
 	p0.x = triangle[2].x;
 	p0.y = triangle[2].y;
@@ -63,123 +48,81 @@ static void	draw_minimap_player_game(t_env *env)
 	p1.y = triangle[1].y;
 	draw_line_minimap(p0, p1, env, 0xFFFFFF00);
 	triangle[2] = new_v3(
-			(env->player.camera.angle_cos * env->player.camera.far_z - env->player.camera.angle_sin * env->player.camera.far_right) * env->options.minimap_scale + env->minimap_pos.x,
-			(env->player.camera.angle_sin * env->player.camera.far_z + env->player.camera.angle_cos * env->player.camera.far_right) * env->options.minimap_scale + env->minimap_pos.y,
-			0);
+		(env->player.camera.angle_cos * env->player.camera.far_z
+		- env->player.camera.angle_sin * env->player.camera.far_right)
+		* env->options.minimap_scale + env->minimap_pos.x,
+		(env->player.camera.angle_sin * env->player.camera.far_z
+		+ env->player.camera.angle_cos * env->player.camera.far_right)
+		* env->options.minimap_scale + env->minimap_pos.y, 0);
 	fill_triangle_minimap(triangle, env);
 	p0.x = triangle[0].x;
 	p0.y = triangle[0].y;
 	p1.x = triangle[2].x;
 	p1.y = triangle[2].y;
 	draw_line_minimap(p0, p1, env, 0xFFFFFF00);
-	
-	//ligne de near_z
-	p0.x = env->player.camera.angle_cos * env->player.camera.near_z * env->options.minimap_scale + env->minimap_pos.x;
-	p0.y = env->player.camera.angle_sin * env->player.camera.near_z * env->options.minimap_scale + env->minimap_pos.y;
-	p1.x = p0.x + env->player.camera.perp_cos * env->w * env->options.minimap_scale;
-	p1.y = p0.y + env->player.camera.perp_sin * env->w * env->options.minimap_scale;
-	p0.x = p0.x - env->player.camera.perp_cos * env->w * env->options.minimap_scale;
-	p0.y = p0.y - env->player.camera.perp_sin * env->w * env->options.minimap_scale;
-	p0.x = env->minimap_pos.x;
-	p0.y = env->minimap_pos.y;
-	p1.x = env->player.camera.angle_cos * env->player.camera.near_z * env->options.minimap_scale + p0.x;
-	p1.y = env->player.camera.angle_sin * env->player.camera.near_z * env->options.minimap_scale + p0.y;
-	draw_line_minimap(p0, p1, env, 0xFFFFFFFF);
+	draw_minimap_player_game3(p0, p1, env);
 }
 
-/*static void	draw_minimap_hud(t_env *env)
+void	draw_minimap_player_game(t_env *env)
 {
-	int	x;
-	int	y;
-	int	x_max;
-	int	y_max;
+	t_v3	triangle[3];
 
-	y = env->minimap_pos.y - env->minimap_size.y / 2;
-	y_max = env->minimap_pos.y + env->minimap_size.y / 2;
-	x_max = env->minimap_pos.x + env->minimap_size.x / 2;
-	while (y <= y_max)
-	{
-		x = env->minimap_pos.x - env->minimap_size.x / 2;
-		while (x <= x_max)
-		{
-			if (x == env->minimap_pos.x
-				- env->minimap_size.x / 2
-				|| x == env->minimap_pos.x
-				+ env->minimap_size.x / 2
-				|| y == env->minimap_pos.y
-				- env->minimap_size.y / 2
-				|| y == env->minimap_pos.y
-				+ env->minimap_size.y / 2)
-				put_pixel(env, x, y, 0xFFFFFFFF);
-			else if (x >= 0 && x < env->w && y >= 0 && y < env->h)
-				env->sdl.texture_pixels[x + y * env->w] = 
-				blend_alpha(env->sdl.texture_pixels[x
-				+ y * env->w], 0, 128);
-			x++;
-		}
-		y++;
-	}
-}*/
+	apply_sprite(env->object_sprites[DOOM_GUY_FACE],
+		new_point(env->minimap_pos.y - 7, env->minimap_pos.x - 7),
+		new_point(14, 14), env);
+	triangle[2] = new_v3(
+		(env->player.camera.near_left_pos.x - env->player.pos.x)
+		* env->options.minimap_scale + env->minimap_pos.x,
+		(env->player.camera.near_left_pos.y - env->player.pos.y)
+		* env->options.minimap_scale + env->minimap_pos.y, 0);
+	triangle[1] = new_v3(
+		(env->player.camera.angle_cos * env->player.camera.far_z
+		- env->player.camera.angle_sin * env->player.camera.far_left)
+		* env->options.minimap_scale + env->minimap_pos.x,
+		(env->player.camera.angle_sin * env->player.camera.far_z
+		+ env->player.camera.angle_cos * env->player.camera.far_left)
+		* env->options.minimap_scale + env->minimap_pos.y, 0);
+	triangle[0] = new_v3(
+		(env->player.camera.near_right_pos.x - env->player.pos.x)
+		* env->options.minimap_scale + env->minimap_pos.x,
+		(env->player.camera.near_right_pos.y - env->player.pos.y)
+		* env->options.minimap_scale + env->minimap_pos.y, 0);
+	draw_minimap_player_game2(triangle, env);
+}
 
-void		draw_sprites_minimap(t_env *env)
+void	draw_current_wall_game_minimap(int v, t_sector *sect, t_env *env)
 {
-	int			i;
-	int			x;
-	int			y;
-	t_object	object;
-	t_point		pos;
-	Uint32		*pixels;
+	t_line		line;
 
-	pixels = env->sdl.texture_pixels;
-	i = -1;
-	while (++i < env->nb_objects)
+	if (sect->neighbors[v] == -1)
 	{
-		object = env->objects[i];
-		if (!object.exists)
-		{
-			i++;
-			continue;
-		}
-		pos.x = env->minimap_pos.x + (object.pos.x - env->player.pos.x) * env->options.minimap_scale;
-		x = pos.x - 2;
-		while (x < pos.x + 2)
-		{
-			pos.y = env->minimap_pos.y + (object.pos.y - env->player.pos.y) * env->options.minimap_scale;
-			y = pos.y - 2;
-			while (y < pos.y + 2)
-			{
-				if (x > env->w - 300 && x < env->w && y >= 0 && y < 300)
-					pixels[x + y * env->w] = 0xFFFF0000;
-				y++;
-			}
-			x++;
-		}
+		line.p0.x = env->minimap_pos.x + (env->vertices[sect->vertices[v]].x
+		- env->player.pos.x) * env->options.minimap_scale;
+		line.p0.y = env->minimap_pos.y + (env->vertices[sect->vertices[v]].y
+		- env->player.pos.y) * env->options.minimap_scale;
+		line.p1.x = env->minimap_pos.x + (env->vertices[sect->vertices[v + 1]].x
+		- env->player.pos.x) * env->options.minimap_scale;
+		line.p1.y = env->minimap_pos.y + (env->vertices[sect->vertices[v + 1]].y
+		- env->player.pos.y) * env->options.minimap_scale;
+		draw_line_minimap(line.p0, line.p1, env, 0xFFFFFFFF);
 	}
 }
 
-void		game_minimap(t_env *env)
+void	game_minimap(t_env *env)
 {
 	int			s;
 	int			v;
-	t_line		line;
-	t_sector	sect;
+	t_sector	*sect;
 
 	s = 0;
 	draw_minimap_hud(env);
 	while (s < env->nb_sectors)
 	{
-		sect = env->sectors[s];
+		sect = &env->sectors[s];
 		v = 0;
-		while (v < sect.nb_vertices)
+		while (v < sect->nb_vertices)
 		{
-			if (sect.neighbors[v] == -1)
-			{
-				line.p0.x = env->minimap_pos.x + (env->vertices[sect.vertices[v]].x - env->player.pos.x) * env->options.minimap_scale;
-				line.p0.y = env->minimap_pos.y + (env->vertices[sect.vertices[v]].y - env->player.pos.y) * env->options.minimap_scale;
-				line.p1.x = env->minimap_pos.x + (env->vertices[sect.vertices[v + 1]].x - env->player.pos.x) * env->options.minimap_scale;
-				line.p1.y = env->minimap_pos.y + (env->vertices[sect.vertices[v + 1]].y - env->player.pos.y) * env->options.minimap_scale;
-				draw_line_minimap(line.p0, line.p1, env, 0xFFFFFFFF);
-			}
+		  	draw_current_wall_game_minimap(v, sect, env);
 			v++;
 		}
 		s++;

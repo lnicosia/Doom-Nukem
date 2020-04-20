@@ -22,16 +22,16 @@ int		update_sector_textures(t_env *env, int sect)
 	while (i < sector->nb_vertices)
 	{
 		if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[i]],
+		&env->wall_textures[sector->textures[i]],
 		i, env))
 			return (-1);
 		i++;
 	}
 	if (set_sector_ceiling_map_array(sector,
-	env->wall_textures[sector->ceiling_texture], env))
+	&env->wall_textures[sector->ceiling_texture], env))
 		return (-1);
 	if (set_sector_floor_map_array(sector,
-	env->wall_textures[sector->floor_texture], env))
+	&env->wall_textures[sector->floor_texture], env))
 		return (-1);
 	return (0);
 }

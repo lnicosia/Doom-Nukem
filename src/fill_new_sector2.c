@@ -41,7 +41,7 @@ int		fill_sector_first_vertex(t_sector *sector, t_env *env)
 		* env->wall_textures[sector->textures[0]].nb_maps)))
 		return (ft_perror("Could not malloc sector walls map lvl"));
 	if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[0]], 0, env))
+		&env->wall_textures[sector->textures[0]], 0, env))
 	  	return (-1);
 	return (0);
 }
@@ -61,7 +61,7 @@ int		fill_sector_last_vertex(t_sector *sector, t_env *env)
 		textures[sector->nb_vertices]].nb_maps)))
 		return (ft_perror("Could not malloc sector walls map lvl"));
 	if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[sector->nb_vertices]],
+		&env->wall_textures[sector->textures[sector->nb_vertices]],
 		sector->nb_vertices, env))
 	  	return (-1);
 	return (0);

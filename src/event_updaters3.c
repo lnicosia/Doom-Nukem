@@ -8,7 +8,7 @@ int			update_floor_texture_event(t_event *event, void *penv)
 	if (env->sectors[event->update_param.sector].floor_texture < 0)
 		env->contains_skybox = 1;
 	if (set_sector_floor_map_array(&env->sectors[event->update_param.sector],
-		env->wall_textures[env->sectors[event->update_param.sector].
+		&env->wall_textures[env->sectors[event->update_param.sector].
 		floor_texture], env))
 		return (-1);
 	return (0);
@@ -22,7 +22,7 @@ int			update_ceiling_texture_event(t_event *event, void *penv)
 	if (env->sectors[event->update_param.sector].ceiling_texture < 0)
 		env->contains_skybox = 1;
 	if (set_sector_ceiling_map_array(&env->sectors[event->update_param.sector],
-		env->wall_textures[env->sectors[event->update_param.sector].
+		&env->wall_textures[env->sectors[event->update_param.sector].
 		ceiling_texture], env))
 		return (-1);
 	return (0);
@@ -37,7 +37,7 @@ int			update_wall_texture_event(t_event *event, void *penv)
 		textures[event->update_param.wall] < 0)
 		env->contains_skybox = 1;
 	if (set_sector_wall_map_array(&env->sectors[event->update_param.sector],
-		env->wall_textures[env->sectors[event->update_param.sector].
+		&env->wall_textures[env->sectors[event->update_param.sector].
 		textures[event->update_param.wall]], event->update_param.wall, env))
 		return (-1);
 	if (set_camera_map_array(&env->player.camera, event->update_param.sector,

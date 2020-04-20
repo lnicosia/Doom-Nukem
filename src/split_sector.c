@@ -208,11 +208,11 @@ int		split_sector(t_env *env)
 	if (update_sector_data(env, start, end , sector))
 		return (-1);
 	if (set_sector_floor_map_array(&env->sectors[env->nb_sectors - 1], 
-		env->wall_textures[env->sectors[env->nb_sectors - 1].floor_texture],
+		&env->wall_textures[env->sectors[env->nb_sectors - 1].floor_texture],
 		env))
 		return (-1);
 	if (set_sector_ceiling_map_array(&env->sectors[env->nb_sectors - 1], 
-		env->wall_textures[env->sectors[env->nb_sectors - 1].ceiling_texture],
+		&env->wall_textures[env->sectors[env->nb_sectors - 1].ceiling_texture],
 		env))
 		return (-1);
 	update_sector_slope(env, &env->sectors[env->nb_sectors - 1]);

@@ -1088,18 +1088,20 @@ void				init_print_condition_target_data(t_env *env);
 void				init_print_link_target_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
-int					segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4);
+int					segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3,
+t_v2 v4);
 int					generate_mipmaps(t_env *env);
+int					generate_maps_for_texture(t_texture *texture);
 int					set_camera_map_array(t_camera *camera, int i,
 int j, t_env *env);
 int					set_camera_sprites_array(t_camera *camera, int i,
 int j, t_env *env);
 int					set_sector_wall_map_array(t_sector *sector,
-t_texture texture, int i, t_env *env);
+t_texture *texture, int i, t_env *env);
 int					set_sector_floor_map_array(t_sector *sector,
-t_texture texture, t_env *env);
+t_texture *texture, t_env *env);
 int					set_sector_ceiling_map_array(t_sector *sector,
-t_texture texture, t_env *env);
+t_texture *texture, t_env *env);
 t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale,
 int sprite);
 t_projectile_data_2	new_projectile_data_2(double angle_z, double radius);
@@ -1355,6 +1357,11 @@ void				jump(t_env *env);
 void				crouch(t_env *env);
 void				add_image(t_env *env, int i, int x, int y);
 void				start_game_menu(t_env *env);
+int					start_game(void *param);
+int					next_difficulty(void *param);
+int					previous_difficulty(void *param);
+int					open_options(void *param);
+int					exit_button_func(void *param);
 void				option_menu_ig(t_env *env);
 void				add_button(t_env *env, int text, int x, int y, int ref_but);
 int					button_leftclick(t_env *env, int nb);

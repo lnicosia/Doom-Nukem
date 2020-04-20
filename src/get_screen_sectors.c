@@ -30,8 +30,10 @@ void	*get_screen_sectors_loop(void *param)
 	{
 		tmp = (x / (double)(env->w - 1)) * camera->range + camera->near_left;
 		curr.y = -env->player.camera.near_z;
-		curr.x = tmp * -camera->angle_sin - curr.y * camera->angle_cos + camera->pos.x;
-		curr.y = tmp * camera->angle_cos - curr.y * camera->angle_sin + camera->pos.y;
+		curr.x =
+		tmp * -camera->angle_sin - curr.y * camera->angle_cos + camera->pos.x;
+		curr.y =
+		tmp * camera->angle_cos - curr.y * camera->angle_sin + camera->pos.y;
 		curr.z = camera->pos.z;
 		camera->screen_pos[x] = get_sector(env, curr, env->player.sector);
 		x++;
@@ -54,7 +56,8 @@ int		set_screen_sectors(t_camera *camera, t_env *env)
 	{
 		sect = camera->screen_pos[x];
 		i = 0;
-		while (i < size && camera->screen_sectors[i] != -1 && camera->screen_sectors[i] != sect)
+		while (i < size && camera->screen_sectors[i] != -1
+		  	&& camera->screen_sectors[i] != sect)
 			i++;
 		if (i < size && camera->screen_sectors[i] == -1 && sect != -1)
 		{

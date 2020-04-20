@@ -102,7 +102,8 @@ int		get_sector_no_z_origin(t_env *env, t_v3 pos, int origin)
 	{
 		if (env->sectors[origin].neighbors[i] >= 0)
 		{
-			if (is_in_sector_no_z(env, env->sectors[origin].neighbors[i], new_v2(pos.x, pos.y)))
+			if (is_in_sector_no_z(env, env->sectors[origin].neighbors[i],
+			  	new_v2(pos.x, pos.y)))
 				return (env->sectors[origin].neighbors[i]);
 		}
 		i++;

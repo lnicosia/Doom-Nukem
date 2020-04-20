@@ -17,7 +17,7 @@ int		texture_protections2(t_env *env, t_sector *sector)
 	if (env->selected_floor != -1)
 	{
 		if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
-		env->wall_textures[env->sectors[env->selected_floor].
+		&env->wall_textures[env->sectors[env->selected_floor].
 		floor_texture], env))
 			return (-1);
 		if (sector->floor_texture < 0)
@@ -31,7 +31,7 @@ int		texture_protections(t_env *env, t_sector *sector)
 	if (env->editor.selected_wall != -1)
 	{
 		if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[env->editor.selected_wall]],
+		&env->wall_textures[sector->textures[env->editor.selected_wall]],
 		env->editor.selected_wall, env))
 			return (-1);
 		if (set_camera_map_array(&env->player.camera,
@@ -43,7 +43,7 @@ int		texture_protections(t_env *env, t_sector *sector)
 	if (env->selected_ceiling != -1)
 	{
 		if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
-		env->wall_textures[env->sectors[env->selected_ceiling].
+		&env->wall_textures[env->sectors[env->selected_ceiling].
 		ceiling_texture], env))
 			return (-1);
 		if (env->sectors[env->selected_ceiling].ceiling_texture < 0)

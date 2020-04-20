@@ -18,7 +18,7 @@ int		apply_texture(t_sector *sector, t_env *env, int i)
 	{
 		sector->textures[i] = env->editor.current_texture;
 		if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[i]], i, env)
+		&env->wall_textures[sector->textures[i]], i, env)
 		|| (env->editor.in_game && set_camera_map_array(&env->player.camera,
 		sector->num, i, env)))
 			return (-1);
@@ -27,14 +27,14 @@ int		apply_texture(t_sector *sector, t_env *env, int i)
 	{
 		sector->floor_texture = env->editor.current_texture;
 		if (set_sector_floor_map_array(sector,
-		env->wall_textures[sector->floor_texture], env))
+		&env->wall_textures[sector->floor_texture], env))
 			return (-1);
 	}
 	else if (env->selected_ceiling != -1)
 	{
 		sector->ceiling_texture = env->editor.current_texture;
 		if (set_sector_ceiling_map_array(sector,
-		env->wall_textures[sector->ceiling_texture], env))
+		&env->wall_textures[sector->ceiling_texture], env))
 			return (-1);
 	}
 	return (0);

@@ -126,7 +126,7 @@ int			parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (custom_error_with_line("Floor scale must be"
 		"between 1 and 100", parser));
 	if (set_sector_floor_map_array(&env->sectors[parser->sectors_count], 
-		env->wall_textures[env->sectors[parser->sectors_count].floor_texture],
+		&env->wall_textures[env->sectors[parser->sectors_count].floor_texture],
 		env))
 		return (-1);
 	*line = skip_number(*line);
@@ -262,8 +262,8 @@ int			parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 		"between 1 and 100", parser));
 
 	if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count], 
-		env->wall_textures[env->sectors[parser->sectors_count].ceiling_texture], 
-		env))
+		&env->wall_textures[env->sectors[parser->sectors_count].
+		ceiling_texture], env))
 		return (-1);
 	*line = skip_number(*line);
 	if (!**line)
@@ -549,8 +549,8 @@ int			parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 			"between 1 and 100", parser));
 		*line = skip_number(*line);
 		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
-			env->wall_textures[env->sectors[parser->sectors_count].textures[i]], i,
-			env))
+			&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
+			i, env))
 			return (-1);
 		(*line)++;
 		i++;
@@ -784,37 +784,28 @@ static int	parse_sector(t_env *env, char *line, t_map_parser *parser)
 		return (-1);
 	if (parse_floor_sprites(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing floor"));
 	if (parse_ceiling(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing ceiling"));
 	if (parse_ceiling_sprites(env, &line, parser))
 		return (-1);
 	if (env->sectors[parser->sectors_count].ceiling
 			< env->sectors[parser->sectors_count].floor)
 		return (-1);
-	//return (sector_error("ceiling must be higher than its floor",
-	//parser->sectors_count, parser));
 	if (init_sector_data(env, line, parser))
 		return (-1);
-	//return (custom_error("Could not init sector data"));
 	line++;
 	if (parse_sector_vertices(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing sector vertices"));z
 	if (parse_sector_neighbors(env, &line, parser))
 		return (-1);
 	if (parse_sector_portals(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing sector neighbors"));
 	if (parse_sector_textures(env, &line, parser))
 		return (-1);
-	//return (custom_error("Error while parsing sector textures"));
 	if (parse_sector_wall_sprites(env, &line, parser))
 		return (-1);
 	if (parse_sector_general(env, &line, parser))
 		return (-1);
-		//return (custom_error("Error while parsing sector light"));
 	return (0);
 }
 

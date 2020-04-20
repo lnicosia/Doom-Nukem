@@ -55,20 +55,11 @@ int		get_clockwise_order(t_env *env)
 		vertex1 = (t_vertex*)tmp->content;
 		vertex2 = (t_vertex*)tmp->next->content;
 		res += (vertex2->x - vertex1->x) * (vertex2->y + vertex1->y);
-		/*ft_printf("[%d]: (%.f - %.f)(%.f + %.f) = %d\n",
-				i, vertex2->x, vertex1->x,
-				vertex2->y, vertex1->y,
-				(int)((vertex2->x - vertex1->x) * (vertex2->y + vertex1->y)));*/
 		i++;
 		tmp = tmp->next;
 	}
 	vertex1 = (t_vertex*)tmp->content;
 	vertex2 = (t_vertex*)env->editor.current_vertices->content;
 	res += (vertex2->x - vertex1->x) * (vertex2->y + vertex1->y);
-	/*ft_printf("[%d]: (%.f - %.f)(%.f + %.f) = %d\n",
-			i, vertex2->x, vertex1->x,
-			vertex2->y, vertex1->y,
-			(int)((vertex2->x - vertex1->x) * (vertex2->y + vertex1->y)));
-	ft_printf("res = %d\n", res);*/
 	return (res > 0 ? 0 : 1);
 }

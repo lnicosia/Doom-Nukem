@@ -33,7 +33,7 @@ int i, t_env *env)
 		* env->wall_textures[sector->textures[index]].nb_maps)))
 		return (ft_perror("Could not malloc sector walls map lvl"));
 	if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[index]], index, env))
+		&env->wall_textures[sector->textures[index]], index, env))
 	  	return (-1);
 	return (0);
 }

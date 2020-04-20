@@ -249,6 +249,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   event_updaters3.c event_updaters4.c events_links_protection2.c \
 		   fill_triangle_minimap.c fill_triangle.c free_sector2.c \
 		   free_fonts.c free_camera.c free_all2.c free_all3.c \
+		   game_menu2.c game_menu3.c generate_mipmaps_utils.c \
+		   get_event_array2.c get_event_array3.c get_event_nb2.c \
+		   update_sector_slope.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
