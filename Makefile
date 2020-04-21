@@ -275,7 +275,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_hd_sprite.c init_button_sprite.c new_input_box.c \
 		   init_doom_guy_face.c init_skyboxes_textures.c new_input_var.c \
 		   split_box_text.c input_box_utils2.c input_box_keys.c \
-		   input_box_keys2.c \
+		   input_box_keys2.c init_inputs.c pos_changed.c \
+		   is_in_sector_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

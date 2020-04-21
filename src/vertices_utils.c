@@ -25,7 +25,7 @@ int		*get_vertex_sectors(t_env *env, int index)
 
 	i = 0;
 	k = 1;
-	if (!(sectors= (int *)ft_memalloc(sizeof(int) * 2)))
+	if (!(sectors = (int *)ft_memalloc(sizeof(int) * 2)))
 		return (0);
 	while (i < env->nb_sectors)
 	{

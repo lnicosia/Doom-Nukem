@@ -1378,7 +1378,13 @@ int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);
 int					doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2);
 int					intersection_check(t_v2 w1, t_v2 w2, t_v2 p1, t_v2 p2);
-
+int					diff_value(int nb1, int nb2, int a, int b);
+int					diff_sign(double nb1, double nb2);
+int					in_range(double nb, double val1, double val2);
+int					pos_changed_sector(t_env *env, t_sector *sector,
+t_point data, t_v3 pos);
+int					player_changed_sector(t_env *env, t_sector *sector,
+t_point data, t_v3 pos);
 void				draw_hud(t_env *env);
 void				precompute_slopes(t_env *env);
 double				get_floor_at_pos(t_sector *sector, t_v3 pos, t_env *env);

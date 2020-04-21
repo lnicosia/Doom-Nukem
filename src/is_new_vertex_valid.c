@@ -22,14 +22,8 @@ int		valid_line(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 			|| (v2.x < v3.x && v2.x > v4.x)
 			|| (v2.x > v3.x && v2.x < v4.x)
 			|| (v2.y < v3.y && v2.y > v4.y)
-			|| (v2.y > v3.y && v2.y < v4.y)
-	   )
-	{
-		//ft_printf("{red}Invalide v1 = [%f][%f] v2 = [%f][%f] v3 = [%f][%f] v4 = [%f][%f]{reset}\n",
-		//v1.y, v1.x, v2.y, v2.x, v3.y, v3.x, v4.y, v4.x);
+			|| (v2.y > v3.y && v2.y < v4.y))
 		return (1);
-	}
-	//ft_printf("{green}Valide{reset}\n");
 	return (0);
 }
 
@@ -37,8 +31,6 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 {
 	t_v2	intersection;
 
-	//if ((v4.x == v1.x && v4.y == v1.y))
-	//return (0);
 	intersection = get_intersection(v1, v2, v3, v4);
 	if ((intersection.x < v1.x && intersection.x < v2.x)
 			|| (intersection.x > v1.x && intersection.x > v2.x)
@@ -49,10 +41,9 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 			|| (intersection.y < v3.y && intersection.y < v4.y)
 			|| (intersection.y > v3.y && intersection.y > v4.y))
 		return (0);
-	//ft_printf("Inter = [%f][%f]\n", intersection.y, intersection.x);
-	if ((int)intersection.x == -2147483648 || (int)intersection.y == -2147483648)
+	if ((int)intersection.x == -2147483648
+	  	|| (int)intersection.y == -2147483648)
 	{
-		//ft_printf("{cyan}Line{reset}\n");
 		if (valid_line(v1, v2, v3, v4))
 			return (1);
 		return (0);
@@ -69,20 +60,16 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 	t_vertex	*v2;
 
 	tmp = env->editor.current_vertices;
-	while (tmp && tmp->next)// && tmp->next->next)
+	while (tmp && tmp->next)
 	{
 		v1 = (t_vertex*)tmp->content;
 		v2 = (t_vertex*)tmp->next->content;
-		//ft_printf("|v1 = %d [%d][%d]| ", v1->num, (int)v1->y, (int)v1->x);
-		//ft_printf("|v2 = %d [%d][%d]| ", v2->num, (int)v2->y, (int)v2->x);
-		//ft_printf("|last = %d [%d][%d]| ", last->num, (int)last->y, (int)last->x);
-		//ft_printf("|current = %d|\n", index);
 		if (v1->num != index && segments_intersect_editor(
 					new_v2(v1->x, v1->y),
 					new_v2(v2->x, v2->y),
 					new_v2(last->x, last->y),
-					new_v2(round((env->sdl.mx - env->editor.center.x) /
-					env->editor.scale), round((env->sdl.my
+					new_v2(round((env->sdl.mx - env->editor.center.x)
+					/ env->editor.scale), round((env->sdl.my
 					- env->editor.center.y) / env->editor.scale))))
 			return (custom_error("Intersects with current sector"));
 		tmp = tmp->next;
@@ -90,7 +77,8 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 	return (0);
 }
 
-int		check_sector_intersections(t_env *env, t_sector sector, t_vertex last, int index)
+int		check_sector_intersections(t_env *env, t_sector sector, t_vertex last,
+int index)
 {
 	int			i;
 	t_vertex	v1;
@@ -101,18 +89,15 @@ int		check_sector_intersections(t_env *env, t_sector sector, t_vertex last, int 
 	{
 		v1 = env->vertices[sector.vertices[i]];
 		v2 = env->vertices[sector.vertices[i + 1]];
-		//ft_printf("|v1 = %d [%d][%d]| ", v1.num, (int)v1.y, (int)v1.x);
-		//ft_printf("|v2 = %d [%d][%d]| ", v2.num, (int)v2.y, (int)v2.x);
-		//ft_printf("|last = %d [%d][%d]| ", last.num, (int)last.y, (int)last.x);
-		//ft_printf("|current = %d|\n", index);
 		if (v1.num != last.num && v2.num != last.num
-				&& v1.num != index && v2.num != index
-				&& segments_intersect_editor(
-					new_v2(v1.x, v1.y),
-					new_v2(v2.x, v2.y),
-					new_v2(round((env->sdl.mx - env->editor.center.x) / env->editor.scale),
-						round((env->sdl.my - env->editor.center.y) / env->editor.scale)),
-					new_v2(last.x, last.y)))
+			&& v1.num != index && v2.num != index
+			&& segments_intersect_editor(new_v2(v1.x, v1.y),
+			new_v2(v2.x, v2.y),
+			new_v2(round((env->sdl.mx - env->editor.center.x)
+			/ env->editor.scale),
+			round((env->sdl.my - env->editor.center.y)
+			/ env->editor.scale)),
+			new_v2(last.x, last.y)))
 			return (custom_error("Intersects with existing wall(s)"));
 		i++;
 	}
@@ -164,7 +149,8 @@ int		get_vertex_in_sector(t_env *env, int sector)
 	return (ret);
 }
 
-t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index, int index)
+t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index,
+int index)
 {
 	int	i;
 	t_vertex	res;
@@ -227,8 +213,10 @@ int		is_new_sector_convex(t_env *env, t_list *tmp)
 		len += 3;
 		if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (len))))
 			return (-1);
-		p[len - 3].x = round((env->sdl.mx - env->editor.center.x) / env->editor.scale);
-		p[len - 3].y = round((env->sdl.my - env->editor.center.y) / env->editor.scale);
+		p[len - 3].x = round((env->sdl.mx - env->editor.center.x)
+		/ env->editor.scale);
+		p[len - 3].y = round((env->sdl.my - env->editor.center.y)
+		/ env->editor.scale);
 		while (tmp)
 		{
 			p[i].x = ((t_vertex*)tmp->content)->x;
@@ -267,7 +255,8 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 	t_vertex	last;
 
 	i = 1;
-	list_sectors = get_vertex_sectors(env, index);
+	if (!(list_sectors = get_vertex_sectors(env, index)))
+	  	return (0);
 	while (i <= list_sectors[0])
 	{
 		j = 0;
