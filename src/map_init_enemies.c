@@ -25,19 +25,20 @@ int		init_enemies(t_env *env, t_map_parser *parser)
 		if (*line && *line != '#')
 		{
 			if (*line != 'E')
-				return (invalid_char("at enemies number", "'E'", *line, parser));
+				return (invalid_char("at enemies number", "'E'", *line,
+				parser));
 			line++;
 			if (!*line)
 				return (missing_data("at enemies number", parser));
 			if (*line != ' ')
 				return (invalid_char("at enemies number", "space of a digit",
-							*line, parser));
+					*line, parser));
 			line = skip_spaces(line);
 			if (!*line)
 				return (missing_data("before enemies number", parser));
 			if (valid_number(line,parser) == WRONG_CHAR)
-				return (invalid_char("before enemies number", "space of a digit",
-							*line, parser));
+				return (invalid_char("before enemies number", 
+				"space of a digit", *line, parser));
 			env->nb_enemies = ft_atoi(line);
 			line = skip_number(line);
 			if (*line && *line == ' ')

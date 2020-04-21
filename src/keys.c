@@ -12,6 +12,79 @@
 
 #include "env.h"
 
+int		keys4(t_env *env)
+{
+	if (env->inputs.nb4)
+	{
+		env->player.next_weapon = 3;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	else if (env->inputs.nb5)
+	{
+		env->player.next_weapon = 4;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	return (0);
+}
+
+int		keys3(t_env *env)
+{
+	if (env->inputs.nb2)
+	{
+		env->player.next_weapon = 1;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	else if (env->inputs.nb3)
+	{
+		env->player.next_weapon = 2;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	return (keys4(env));
+}
+
+int		keys2(t_env *env)
+{
+	if (env->inputs.e
+		&& env->hovered_wall_sprite_sprite != -1
+		&& env->hovered_wall_sprite_wall != -1
+		&& env->hovered_wall_sprite_sector != -1)
+	{
+		env->press_wall_sprite_color = 0xFFFFFFFF;
+		env->press_wall_sprite_intensity = 128;
+	}
+	else
+	{
+		env->press_wall_sprite_color = 0xFFFFFFFF;
+		env->press_wall_sprite_intensity = 64;
+	}
+	if (env->inputs.nb1)
+	{
+		env->player.next_weapon = 0;
+		if (env->player.next_weapon != env->player.curr_weapon &&
+			env->weapons[env->player.next_weapon].possessed)
+			weapon_change(env);
+		else
+			env->player.next_weapon = env->player.curr_weapon;
+	}
+	return (keys3(env));
+}
+
 int		keys(t_env *env)
 {
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
@@ -39,63 +112,5 @@ int		keys(t_env *env)
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->inputs.e
-		&& env->hovered_wall_sprite_sprite != -1
-		&& env->hovered_wall_sprite_wall != -1
-		&& env->hovered_wall_sprite_sector != -1)
-	{
-		env->press_wall_sprite_color = 0xFFFFFFFF;
-		env->press_wall_sprite_intensity = 128;
-	}
-	else
-	{
-		env->press_wall_sprite_color = 0xFFFFFFFF;
-		env->press_wall_sprite_intensity = 64;
-	}
-	if (env->inputs.nb1)
-	{
-		env->player.next_weapon = 0;
-		if (env->player.next_weapon != env->player.curr_weapon &&
-			env->weapons[env->player.next_weapon].possessed)
-			weapon_change(env);
-		else
-			env->player.next_weapon = env->player.curr_weapon;
-	}
-	else if (env->inputs.nb2)
-	{
-		env->player.next_weapon = 1;
-		if (env->player.next_weapon != env->player.curr_weapon &&
-			env->weapons[env->player.next_weapon].possessed)
-			weapon_change(env);
-		else
-			env->player.next_weapon = env->player.curr_weapon;
-	}
-	else if (env->inputs.nb3)
-	{
-		env->player.next_weapon = 2;
-		if (env->player.next_weapon != env->player.curr_weapon &&
-			env->weapons[env->player.next_weapon].possessed)
-			weapon_change(env);
-		else
-			env->player.next_weapon = env->player.curr_weapon;
-	}
-	else if (env->inputs.nb4)
-	{
-		env->player.next_weapon = 3;
-		if (env->player.next_weapon != env->player.curr_weapon &&
-			env->weapons[env->player.next_weapon].possessed)
-			weapon_change(env);
-		else
-			env->player.next_weapon = env->player.curr_weapon;
-	}
-	else if (env->inputs.nb5)
-	{
-		env->player.next_weapon = 4;
-		if (env->player.next_weapon != env->player.curr_weapon &&
-			env->weapons[env->player.next_weapon].possessed)
-			weapon_change(env);
-		else
-			env->player.next_weapon = env->player.curr_weapon;
-	}
-	return (0);
+	return (keys2(env));
 }
