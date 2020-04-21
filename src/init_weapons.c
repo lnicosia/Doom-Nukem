@@ -12,11 +12,7 @@
 
 #include "env.h"
 
-/*
-** Weapon switch is only in the first weapon because it's common to every weapon
-*/
-
-void    init_weapons(t_env *env)
+void    init_gun_weapon(t_env *env)
 {
 	env->weapons[0].name = "Gun";
 	env->weapons[0].possessed = 1;
@@ -32,7 +28,10 @@ void    init_weapons(t_env *env)
 	env->weapons[0].frame_speed = 70;
     env->weapons[0].hole_scale = 0.4;
 	env->weapons[0].sprite = env->object_sprites[SHOTGUN_SPRITE];
+}
 
+void    init_shotgun_weapon(t_env *env)
+{
 	env->weapons[1].name = "Shotgun";
 	env->weapons[1].possessed = 0;
     env->weapons[1].weapon_switch = 0;
@@ -47,8 +46,10 @@ void    init_weapons(t_env *env)
 	env->weapons[1].frame_speed = 70;
     env->weapons[1].hole_scale = 0.4;
 	env->weapons[1].sprite = env->object_sprites[SHOTGUN_SPRITE];
+}
 
-
+void    init_raygun_weapon(t_env *env)
+{
 	env->weapons[2].name = "Raygun";
 	env->weapons[2].possessed = 0;
     env->weapons[2].first_sprite = 15;
@@ -62,7 +63,10 @@ void    init_weapons(t_env *env)
 	env->weapons[2].frame_speed = 70;
     env->weapons[2].hole_scale = 0.4;
 	env->weapons[2].sprite = env->object_sprites[RAYGUN_SPRITE];
+}
 
+void    init_rocket_launcher_weapon(t_env *env)
+{
 	env->weapons[3].name = "Rocket Launcher";
 	env->weapons[3].possessed = 0;
 	env->weapons[3].first_sprite = 0;
@@ -76,19 +80,18 @@ void    init_weapons(t_env *env)
 	env->weapons[3].frame_speed = 70;
     env->weapons[3].hole_scale =  0.4;
 	env->weapons[3].sprite = env->object_sprites[SHOTGUN_SPRITE];
+}
 
-	env->weapons[4].name = "Gatling";
-	env->weapons[4].possessed = 0;
-	env->weapons[4].first_sprite = 46;
-	env->weapons[4].nb_sprites = 6;
-	env->weapons[4].ammo_type = REGULAR;
-	env->weapons[4].ammo = 200;
-	env->weapons[4].damage = 10;
-	env->weapons[4].max_ammo = 200;
-	env->weapons[4].splash = 0;
-	env->weapons[4].range = 50;
-	env->weapons[4].frame_speed = 20;
-	env->weapons[4].hole_scale = 0.4;
-	env->weapons[4].sprite = env->object_sprites[SHOTGUN_SPRITE];
+/*
+** Weapon switch is only in the first weapon
+** because it's common to every weapon
+*/
 
+void    init_weapons(t_env *env)
+{
+  	init_gun_weapon(env);
+  	init_shotgun_weapon(env);
+  	init_raygun_weapon(env);
+  	init_rocket_launcher_weapon(env);
+  	init_gatling_weapon(env);
 }

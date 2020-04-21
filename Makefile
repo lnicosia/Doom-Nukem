@@ -114,7 +114,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		3d_edit_change_ceiling_slope_start.c editor_3d_button_keys2.c \
 		action_panel_keys.c conditions_panel_keys.c previous_launch_condition.c\
 		event_panel_keys.c modify_event.c delete_action_utils.c \
-		new_event_panel_buttons.c new_event_panel_buttons2.c \
+		new_event_panel_buttons.c new_event_panel_buttons2.c choose_target.c \
 		editor_tab_gestion.c editor_wall_sprites_keys.c next_exec_condition.c \
 		3d_edit_function.c action_panel.c conditions_tabs.c \
 		event_panel_input_box.c 3d_edit_change_ceiling_floor_height.c \
@@ -165,7 +165,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_object_selection_button.c init_array_texture_buttons.c \
 		change_slope_direction.c next_selected_wall.c save_selection.c \
 		save_texture.c init_hud_button_function2.c \
-		init_print_condition_target_data2.c \
+		init_print_condition_target_data2.c init_target_panel_buttons2.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -177,7 +177,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_screen_sectors.c view.c init_options.c confirmation_box_keys.c \
 		   fps.c inputs.c init_editor_data.c set_button_images.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
-		   color_utils.c camera.c  new_tabs_position.c\
+		   color_utils.c camera.c  new_tabs_position.c init_weapons2.c \
 		   print_debug.c init_animations.c vertices_utils.c death.c \
 		   map_parse_vertices.c is_in_sector.c add_vertex_in_sector.c \
 		   get_existing_vertex.c ./map_parser_protection_utils.c \
@@ -272,9 +272,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_armor_green.c init_explosion.c init_grid_sprite.c \
 		   init_bullet_hole.c init_object_lost_soul.c init_object_cyber_demon.c\
 		   init_shotgun_sprite.c init_raygun_sprite.c init_doom_guy.c \
-		   init_hd_sprite.c init_button_sprite.c \
-		   init_doom_guy_face.c \
-
+		   init_hd_sprite.c init_button_sprite.c new_input_box.c \
+		   init_doom_guy_face.c init_skyboxes_textures.c new_input_var.c \
+		   split_box_text.c input_box_utils2.c input_box_keys.c \
+		   input_box_keys2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

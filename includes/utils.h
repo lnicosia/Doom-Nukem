@@ -1242,6 +1242,8 @@ typedef struct		s_input_box
 	TTF_Font		*font;
 	t_point			size;
 	t_point			pos;
+	t_point			current_line_pos;
+	t_point			current_text_size;
 	int				state;
 	int				type;
 	int				caps;

@@ -413,8 +413,17 @@ int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
 int					draw_input_box(t_input_box *box, t_env *env);
+int					split_box_text(t_input_box *box, t_env *env);
+char				*get_current_box_line(t_input_box *box, char *str);
+void				get_selection_boundaries(size_t *start, size_t *end,
+char *str, t_input_box *box);
+int					draw_cursor(t_input_box *box, t_point pos, char *sub,
+t_env *env);
+int					draw_box_selection(t_input_box *box, t_point pos, char *str,
+t_env *env);
 int					find_input_box_max_char(t_input_box *box);
 int					input_box_keys(t_input_box *box, t_env *env);
+int					input_box_keys6(t_input_box *box, t_env *env);
 int					init_input_box(t_input_box *box, t_env *env);
 int					input_box_mouse(t_input_box *box, t_point pos, char *str,
 t_env *env);
@@ -1069,6 +1078,7 @@ void				reset_render_utils(t_camera *camera, t_env *env);
 int					init_screen_size(t_env *env);
 void				set_screen_size(t_env *env);
 void				init_weapons(t_env *env);
+void				init_gatling_weapon(t_env *env);
 int					init_audio(t_env *env);
 void				init_animations(t_env *env);
 void				init_pointers(t_env *env);
@@ -1077,6 +1087,7 @@ int					set_sdl(t_env *env);
 int					init_ttf(t_env *env);
 int					init_textures(t_env *env);
 int					init_ui_textures(t_env *env);
+int					init_skyboxes_textures(t_env *env);
 int					init_skybox(t_env *env);
 int					init_wallpapers_and_buttons(t_env *env);
 int					init_enemy_sprites(t_env *env);

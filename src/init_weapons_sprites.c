@@ -12,6 +12,19 @@
 
 #include "env.h"
 
+int		init_shotgun2(t_env *env)
+{
+	if (parse_bmp("images/HUD/shot12.bmp", 11, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/shot13.bmp", 12, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/shot14.bmp", 13, env))
+		return (ft_printf("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/shot15.bmp", 14, env))
+		return (ft_printf("Invalid bmp file\n"));
+	return (0);
+}
+
 int		init_shotgun(t_env *env)
 {
 	if (parse_bmp("images/HUD/shot1.bmp", 0, env))
@@ -36,15 +49,7 @@ int		init_shotgun(t_env *env)
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp("images/HUD/shot11.bmp", 10, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shot12.bmp", 11, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shot13.bmp", 12, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shot14.bmp", 13, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/HUD/shot15.bmp", 14, env))
-		return (ft_printf("Invalid bmp file\n"));
-	return (0);
+	return (init_shotgun2(env));
 }
 
 int		init_raygun(t_env *env)
