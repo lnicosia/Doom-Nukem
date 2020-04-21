@@ -261,13 +261,19 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   update_sector_slope.c init_selection_tabs.c no_parser.c \
 		   init_enemies_data.c init_objects_data2.c init_objects_data3.c \
 		   init_lost_soul_sprite.c init_lost_soul_rest.c \
-		   init_lost_soul_pursuit.c \
-		   init_lost_soul_pursuit_two.c \
+		   init_lost_soul_pursuit.c init_minigun.c init_rocket.c \
+		   init_lost_soul_pursuit_two.c init_health_pack.c init_ammo.c \
 		   init_lost_soul_death.c init_cyber_demon_pursuit.c \
 		   init_cyber_demon_pursuit_two.c init_cyber_demon_pursuit_three.c \
 		   init_cyber_demon_pursuit_four.c init_cyber_demon_firing_anim.c \
 		   init_cyber_demon_firing_anim_two.c init_cyber_demon_death.c \
-		   init_cyber_demon_firing_anim_three.c \
+		   init_cyber_demon_firing_anim_three.c init_lamp.c init_barrel.c \
+		   init_monitor.c init_candle.c init_camera_sprite.c \
+		   init_armor_green.c init_explosion.c init_grid_sprite.c \
+		   init_bullet_hole.c init_object_lost_soul.c init_object_cyber_demon.c\
+		   init_shotgun_sprite.c init_raygun_sprite.c init_doom_guy.c \
+		   init_hd_sprite.c init_button_sprite.c \
+		   init_doom_guy_face.c \
 
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
