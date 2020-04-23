@@ -40,26 +40,8 @@ int		doom3(t_env *env)
 	return (0);
 }
 
-int		doom2(t_env *env)
+int		doom_events(t_env *env)
 {
-	update_sprites_state(env);
-	if (projectiles_movement(env))
-		return (crash("Projectile creation or impact creation failed\n",
-		env));
-	if (!env->confirmation_box.state)
-	{
-		enemy_ai(env);
-		objects_collision(env, env->player.pos);
-		explosion_collision_objects(env);
-		explosion_collision_enemies(env);
-		explosion_collision_player(env);
-		if (enemy_melee_hit(env))
-			return (crash("Collision with a melee enemy failed\n",
-			env));
-		player_combat_state(env);
-		if (keys(env))
-			return (crash("Keys failed\n", env));
-	}
 	if (env->events)
 	{
 		if (pop_events(env))
@@ -70,33 +52,32 @@ int		doom2(t_env *env)
 	return (0);
 }
 
-int		doom_poll_event(t_env *env)
+int		doom2(t_env *env)
 {
-	while (SDL_PollEvent(&env->sdl.event))
+	update_sprites_state(env);
+	if (projectiles_movement(env))
+		return (crash("Projectile creation or impact creation failed\n",
+		env));
+	if (!env->confirmation_box.state)
 	{
-		if (env->sdl.event.type == SDL_QUIT || (env->sdl.event.type == SDL_KEYUP
-			&& env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
-			env->running = 0;
-		else if (env->sdl.event.type == SDL_KEYDOWN
-				|| env->sdl.event.type == SDL_KEYUP
-				|| env->sdl.event.type == SDL_MOUSEBUTTONDOWN
-				|| env->sdl.event.type == SDL_MOUSEBUTTONUP
-				|| env->sdl.event.type == SDL_MOUSEWHEEL)
-			update_inputs(env);
-		if (env->sdl.event.type == SDL_KEYUP
-			|| env->sdl.event.type == SDL_MOUSEBUTTONUP)
-		{
-			if (keyup(env))
-				return (crash("Keyup failed\n", env));
-		}
-		if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.
-		  	on_going && !env->shot.on_going && env->player.health > 0)
-		{
-			env->player.next_weapon = next_possessed_weapon(env);
-			if (env->player.next_weapon >= 0)
-				weapon_change(env);
-		}
+		if (enemy_ai(env))
+		  	return (-1);
+		objects_collision(env, env->player.pos);
+		if (explosion_collision_objects(env))
+		  	return (-1);
+		if (explosion_collision_enemies(env))
+		  	return (-1);
+		if (explosion_collision_player(env))
+		  	return (-1);
+		if (enemy_melee_hit(env))
+			return (crash("Collision with a melee enemy failed\n",
+			env));
+		player_combat_state(env);
+		if (keys(env))
+			return (crash("Keys failed\n", env));
 	}
+	if (doom_events(env))
+	  	return (-1);
 	return (0);
 }
 

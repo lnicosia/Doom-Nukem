@@ -479,6 +479,7 @@ void				print_enemy_events_tab(t_env *env);
 void				print_object_events_tab(t_env *env);
 void				print_sector_events_tab(t_env *env);
 void				print_event(t_env *env, t_event *event);
+void				print_event_action(t_env *env, t_event *event);
 char				*get_condition_type_str(t_condition *condition);
 void				print_event_launch_condition(t_env *env,
 t_condition *condition);
@@ -1078,6 +1079,7 @@ int					is_mouse_on_weapon_picker(t_env *env);
 
 int					init_game(int ac, char **av);
 int					doom(t_env *env);
+int					doom_poll_event(t_env *env);
 int					crash(char *str, t_env *env);
 int					first_frame(t_env *env);
 int					launch_events(t_env *env);
@@ -1596,7 +1598,7 @@ int					dialog_event(void *param, void *penv);
 
 void				draw_grid_enemies(t_env *env);
 void				enemy_drag(t_env *env);
-void				enemy_ai(t_env *env);
+int					enemy_ai(t_env *env);
 void				update_enemy_angle(t_env *env, int nb);
 void				damage_anim(t_env *env);
 int					enemy_hurt(t_env *env, int i);
@@ -1639,6 +1641,9 @@ int nb_sprites);
 
 int					update_event(t_event *event);
 int					pop_events(t_env *env);
+int					double_event(t_event *curr);
+int					int_event(t_event *curr);
+int					uint32_event(t_event *curr);
 t_event				new_fixed_event(int type, void *target, double goal,
 double speed);
 t_event				new_func_event(int (*func)(void *, void *),

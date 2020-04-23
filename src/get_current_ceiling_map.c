@@ -105,7 +105,7 @@ t_env *env)
 		text = &env->skyboxes[0].textures[0];
 	else
 		text = &env->wall_textures[texture];
-	sector = &env->sectors[render->sector];
+	sector = render->sector;
 	res = 0;
 	if (env->options.o)
 		res = ceil(log2(fmax(env->w * sector->ceiling_map_scale.x / (2 * z),

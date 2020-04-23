@@ -220,6 +220,8 @@ t_env *env);
 int					pos_changed_sector(t_env *env, t_sector *sector,
 t_point data, t_v3 pos);
 int					parse_events_links(t_env *env, t_map_parser *parser);
+int					parse_link_target(t_env *env, t_map_parser *parser,
+char **line, t_events_parser *eparser);
 
 /*
 **	Unit parsers

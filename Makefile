@@ -57,7 +57,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
 		   		shift_bullet_hole.c get_bullet_hole_pos.c \
 		   		delete_bullet_hole.c shift_bullet_hole_events.c \
-		        add_floor_hitscan_bullet_hole.c \
+		        add_floor_hitscan_bullet_hole.c doom_poll_event.c \
 				add_ceiling_hitscan_bullet_hole.c \
 		        add_floor_projectile_bullet_hole.c \
 				add_ceiling_projectile_bullet_hole.c \
@@ -164,7 +164,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_editor_tab_buttons2.c init_enemy_selection_button.c \
 		init_object_selection_button.c init_array_texture_buttons.c \
 		change_slope_direction.c next_selected_wall.c save_selection.c \
-		save_texture.c init_hud_button_function2.c \
+		save_texture.c init_hud_button_function2.c print_event_action.c \
 		init_print_condition_target_data2.c init_target_panel_buttons2.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
@@ -199,7 +199,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
-		   validate_input.c button_event.c player_keys.c init_weapons_sprites.c\
+		   validate_input.c button_event.c init_weapons_sprites.c\
 		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
@@ -285,13 +285,15 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_ceiling2.c init_sector_data.c parse_sector_neighbors.c \
 		   parse_sector_vertices.c parse_sector_portals.c \
 		   parse_sector_textures.c parse_sector_wall_sprites.c \
-		   parse_current_sprite.c parse_sector_general.c \
+		   parse_current_sprite.c parse_sector_general.c count_conditions.c \
+		   parse_link_target.c physics2.c int_event.c double_event.c \
+		   uint32_event.c precompute_skybox2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
 		  events_parser.h update_existing_events.h draw_grid_walls.h \
-		  draw_skybox.h \
+		  draw_skybox.h pop_events.h \
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \

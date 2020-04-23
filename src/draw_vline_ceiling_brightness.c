@@ -26,7 +26,7 @@ t_env *env)
 		texture_pixels[(int)drawer->text_x + render->texture_w
 		* (int)drawer->text_y], drawer->sector->brightness);
 		if (env->editor.in_game && !env->editor.select
-			&& env->selected_ceiling == render->sector
+			&& env->selected_ceiling == render->sector->num
 			&& env->selected_ceiling_sprite == -1)
 			env->sdl.texture_pixels[drawer->coord] =
 			blend_alpha(env->sdl.texture_pixels[drawer->coord], 0x1ABC9C, 128);

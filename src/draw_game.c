@@ -89,7 +89,10 @@ int	draw_game(t_env *env)
 	if (((env->inputs.left_click && !env->shot.on_going
 	  	&& !env->weapon_change.on_going) || env->shot.on_going)
 	  	&& !env->confirmation_box.state)
-		weapon_animation(env, env->player.curr_weapon);
+	{
+		if (weapon_animation(env, env->player.curr_weapon))
+		  	return (-1);
+	}
 	else if (env->player.health > 0)
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
 	if (env->weapon_change.on_going && !env->shot.on_going)

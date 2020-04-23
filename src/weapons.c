@@ -67,9 +67,10 @@ int		shot(t_env *env)
 	hit = 0;
 	if (env->weapons[env->player.curr_weapon].ammo_type == ROCKET)
 	{
-		create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
+		if (create_projectile(env, new_projectile_data(env->player.pos, env->player.camera.angle, 1, 1),
 			new_projectile_stats(0.5, env->weapons[env->player.curr_weapon].damage, 0.8, env->player.eyesight - 0.4),
-			new_projectile_data_2(env->player.camera.angle_z, env->player.size_2d));
+			new_projectile_data_2(env->player.camera.angle_z, env->player.size_2d)))
+		  	return (-1);
 	}
 	else
 	{
@@ -103,8 +104,9 @@ int		shot(t_env *env)
 					env->objects[i].health -= damage_done(*env, env->objects[i].rotated_pos.z);
 					if (env->objects[i].explodes && env->objects[i].health <= 0)
 					{
-						create_explosion(env,
-							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0);
+						if (create_explosion(env,
+							new_explosion_data(env->objects[i].pos, env->objects[i].explosion_size, env->objects[i].damage, env->object_sprites[env->objects[i].sprite].death_counterpart), 0))
+						  	return (-1);
 						env->nb_explosions++;
 						env->objects[i].exists = 0;
 					}

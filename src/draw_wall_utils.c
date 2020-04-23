@@ -26,9 +26,9 @@ void	click_on_wall(t_drawer *drawer, t_render *render, t_env *env)
 			env->editor.selected_sector = drawer->sector->num;
 			env->editor.selected_wall = render->i;
 			env->selected_wall1
-			= env->sectors[render->sector].vertices[render->i];
+			= env->sectors[render->sector->num].vertices[render->i];
 			env->selected_wall2
-			= env->sectors[render->sector].vertices[render->i + 1];
+			= env->sectors[render->sector->num].vertices[render->i + 1];
 			tabs_gestion(env);				
 			env->editor.just_selected = 1;
 		}
@@ -50,9 +50,9 @@ void	get_wall_x(t_drawer *drawer, t_render *render, t_env *env)
 		render->map_lvl = get_current_wall_map(render->texture, render->z,
 		render, env);
 	drawer->x = render->alpha
-		* render->camera->v[render->sector][render->i]
+		* render->camera->v[render->sector->num][render->i]
 		.texture_scale[render->map_lvl].x * render->z
-		- render->camera->v[render->sector][render->i]
+		- render->camera->v[render->sector->num][render->i]
 		.texture_align[render->map_lvl].x;
 	if (drawer->x != drawer->x)
 		return ;
@@ -66,9 +66,9 @@ void	get_wall_y(t_drawer *drawer, t_render *render)
 {
 	drawer->yalpha = (drawer->i - render->no_slope_current_ceiling)
 	/ render->line_height;
-	drawer->y = drawer->yalpha * render->camera->v[render->sector][render->i].
-	texture_scale[render->map_lvl].y
-	- render->camera->v[render->sector][render->i].
+	drawer->y = drawer->yalpha * render->camera->v[render->sector->num]
+	[render->i].texture_scale[render->map_lvl].y
+	- render->camera->v[render->sector->num][render->i].
 	texture_align[render->map_lvl].y;
 	if (drawer->y >= render->texture_h || drawer->y < 0)
 		drawer->y = ft_abs((int)drawer->y % render->texture_h);

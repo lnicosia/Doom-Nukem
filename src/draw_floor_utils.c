@@ -18,7 +18,7 @@ void	click_on_floor(t_drawer *drawer, t_render *render, t_env *env)
 		if (env->editor.select)
 		{
 			reset_selection(env);
-			env->selected_floor = render->sector;
+			env->selected_floor = render->sector->num;
 			tabs_gestion(env);
 		}
 		if (env->shooting

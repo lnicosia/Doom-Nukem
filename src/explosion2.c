@@ -12,7 +12,8 @@ int sprite)
 	return (new);
 }
 
-int		create_explosion(t_env *env, t_explosion_data data, int centered_sprite)
+int					create_explosion(t_env *env, t_explosion_data data,
+int centered_sprite)
 {
 	t_list		*new;
 
@@ -30,7 +31,7 @@ int		create_explosion(t_env *env, t_explosion_data data, int centered_sprite)
 	return (0);
 }
 
-void	activate_explosions(t_env *env)
+void				activate_explosions(t_env *env)
 {
 	t_list	*tmp;
 
@@ -43,7 +44,8 @@ void	activate_explosions(t_env *env)
 	}
 }
 
-void	explosion_collision_enemy(t_explosion *explosion, int i, t_env *env)
+void				explosion_collision_enemy(t_explosion *explosion, int i,
+t_env *env)
 {
 	double	distance;
 	int		damage;
@@ -61,7 +63,7 @@ void	explosion_collision_enemy(t_explosion *explosion, int i, t_env *env)
 	}
 }
 
-int		explosion_collision_enemies(t_env *env)
+int					explosion_collision_enemies(t_env *env)
 {
 	t_list *tmp;
 	int		i;

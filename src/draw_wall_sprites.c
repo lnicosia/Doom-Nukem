@@ -60,7 +60,7 @@ t_env *env)
 		drawer.yalpha = (drawer.i - render->no_slope_current_ceiling)
 			/ render->line_height;
 		drawer.y = (drawer.yalpha - drawer.pos) * render->camera->v[
-		render->sector][render->i].sprite_scale[sprite].y + drawer.start;
+		sector->num][render->i].sprite_scale[sprite].y + drawer.start;
 		if (drawer.y >= drawer.start && drawer.y < drawer.end && sprite_pixels[
 		  	(int)drawer.x + drawer.sprite_w * (int)drawer.y] != 0xFFC10099)
 		{
@@ -88,12 +88,12 @@ int		draw_wall_sprites(t_sector *sector, t_render *render, t_env *env)
 		sprite[i]].end[0];
 		pos = (sector->wall_sprites[render->i].pos[i].x)
 		/ sector->wall_width[render->i]
-		* render->camera->v[render->sector][render->i].sprite_scale[i].x;
-		if (render->camera->v[render->sector][render->i + 1].vz)
-			pos *= render->camera->v[render->sector][render->i + 1].vz;
+		* render->camera->v[sector->num][render->i].sprite_scale[i].x;
+		if (render->camera->v[sector->num][render->i + 1].vz)
+			pos *= render->camera->v[sector->num][render->i + 1].vz;
 		else
-			pos *= render->camera->v[render->sector][render->i].clipped_vz2;
-		render->sprite_x = (render->alpha) * render->camera->v[render->sector]
+			pos *= render->camera->v[sector->num][render->i].clipped_vz2;
+		render->sprite_x = (render->alpha) * render->camera->v[sector->num]
 		[render->i].sprite_scale[i].x * render->z + start.x - pos;
 		if (render->sprite_x >= start.x && render->sprite_x < end.x)
 			draw_vline_sprite(i, sector, render, env);

@@ -10,151 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "pop_events.h"
 
-int	double_event(t_event *curr)
-{
-	Uint32	time;
-	double	*target;
-	double	new_total;
-
-	target = (double*)curr->target;
-	if (!curr->speed)
-	{
-		*target = curr->goal;
-		curr->end_time = SDL_GetTicks();
-		return (1);
-	}
-	time = SDL_GetTicks() - curr->start_time;
-	time = time == 0 ? 1 : time;
-	if (curr->mod_type == FIXED)
-	{
-		*target = curr->start_value + time * curr->incr;
-		if ((curr->incr > 0 && *target >= curr->goal)
-				|| (curr->incr < 0 && *target <= curr->goal))
-		{
-			*target = curr->goal;
-			return (1);
-		}
-	}
-	else
-	{
-		new_total = curr->total + (SDL_GetTicks() - curr->last_tick)
-		* fabs(curr->incr);
-		if (new_total < fabs(curr->start_incr))
-		{
-			if (curr->start_incr > 0)
-				*target += new_total - curr->total;
-			else
-				*target -= new_total - curr->total;
-			curr->total = new_total;
-			curr->last_tick = SDL_GetTicks();
-		}
-		else
-			return (1);
-	}
-	return (0);
-}
-
-int	int_event(t_event *curr)
-{
-	Uint32	time;
-	int		*target;
-	double	new_total;
-
-	target = (int*)curr->target;
-	if (!curr->speed)
-	{
-		*target = curr->goal;
-		curr->end_time = SDL_GetTicks();
-		return (1);
-	}
-	time = SDL_GetTicks() - curr->start_time;
-	time = time == 0 ? 1 : time;
-	if (curr->mod_type == FIXED)
-	{
-		*target = curr->start_value + time * curr->incr;
-		if ((curr->incr > 0 && *target >= curr->goal)
-				|| (curr->incr < 0 && *target <= curr->goal))
-		{
-			*target = curr->goal;
-			return (1);
-		}
-	}
-	else
-	{
-		new_total = curr->total + (SDL_GetTicks() - curr->last_tick)
-		* fabs(curr->incr);
-		if (floor(new_total) != floor(curr->total))
-		{
-			if (curr->start_incr > 0)
-				(*target)++;
-			else
-				(*target)--;
-		}
-		if (new_total < fabs(curr->start_incr))
-		{
-			curr->total = new_total;
-			curr->last_tick = SDL_GetTicks();
-		}
-		else
-			return (1);
-	}
-	return (0);
-}
-
-int	uint32_event(t_event *curr)
-{
-	Uint32	time;
-	Uint32	*target;
-	double	new_total;
-
-	target = (Uint32*)curr->target;
-	if (!curr->speed)
-	{
-		*target = curr->goal;
-		curr->end_time = SDL_GetTicks();
-		return (1);
-	}
-	time = SDL_GetTicks() - curr->start_time;
-	time = time == 0 ? 1 : time;
-	if (curr->mod_type == FIXED)
-	{
-		*target = curr->start_value + time * curr->incr;
-		if ((curr->incr > 0 && *target >= curr->goal)
-				|| (curr->incr < 0 && *target <= curr->goal))
-		{
-			*target = curr->goal;
-			return (1);
-		}
-	}
-	else
-	{
-		new_total = curr->total + (SDL_GetTicks() - curr->last_tick)
-		* fabs(curr->incr);
-		if (floor(new_total) != floor(curr->total))
-		{
-			if (curr->start_incr > 0)
-				(*target)++;
-			else
-				(*target)--;
-		}
-		if (new_total < fabs(curr->start_incr))
-		{
-			curr->total = new_total;
-			curr->last_tick = SDL_GetTicks();
-		}
-		else
-			return (1);
-	}
-	return (0);
-}
-
-int	func_event(t_event *curr, t_env *env)
+int		func_event(t_event *curr, t_env *env)
 {
 	if (curr->exec_func)
 		return (curr->exec_func(curr->exec_param, env));
 	return (1);
+}
+
+int		execute_event2(int *res, t_event *event, t_env *env)
+{
+	if (event->type == INT)
+	{
+		if ((*res = int_event(event)) == -1)
+			return (-1);
+	}
+	else if (event->type == UINT32)
+	{
+		if ((*res = uint32_event(event)) == -1)
+			return (-1);
+	}
+	else if (event->type == FUNC)
+	{
+		if ((*res = func_event(event, env)) == -1)
+			return (-1);
+	}
+	if (event->update_func)
+	{
+		if (event->update_func(event, env))
+			return (-1);
+	}
+	return (*res);
 }
 
 int		execute_event(t_event *event, t_env *env)
@@ -181,74 +68,56 @@ int		execute_event(t_event *event, t_env *env)
 		if ((res = double_event(event)) == -1)
 			return (-1);
 	}
-	else if (event->type == INT)
-	{
-		if ((res = int_event(event)) == -1)
-			return (-1);
-	}
-	else if (event->type == UINT32)
-	{
-		if ((res = uint32_event(event)) == -1)
-			return (-1);
-	}
-	else if (event->type == FUNC)
-	{
-		if ((res = func_event(event, env)) == -1)
-			return (-1);
-	}
-	if (event->update_func)
-	{
-		if (event->update_func(event, env))
-			return (-1);
-	}
-	return (res);
+	return (execute_event2(&res, event, env));
 }
 
-//	TODO
-//	Protection
+int		pop_event(t_events_executer *executer, t_env *env)
+{
+	int		res;
+
+	res = execute_event((t_event*)executer->tmp->content, env);
+	if (res == 1)
+	{
+		ft_lstpopfront(&executer->tmp);
+		if (executer->prec)
+			executer->prec->next = executer->tmp;
+		else
+			env->events = executer->tmp;
+		ft_lstpopfront(&executer->tmp_values);
+		if (executer->prec_values)
+			executer->prec_values->next = executer->tmp_values;
+		else
+			env->queued_values = executer->tmp_values;
+	}
+	else if (res == 0)
+	{
+		executer->prec = executer->tmp;
+		executer->tmp = executer->tmp->next;
+		executer->prec_values = executer->tmp_values;
+		executer->tmp_values = executer->tmp_values->next;
+	}
+	else if (res == -1)
+		return (-1);
+	return (0);
+}
 
 /*
- **	This one executes every event in the list
- **	and delete a node only when the event is done
- */
+**	Executes every event in the list
+**	and delete a node only when the event is done
+*/
 
 int		pop_events(t_env *env)
 {
-	t_list	*prec;
-	t_list	*tmp;
-	t_list	*prec_values;
-	t_list	*tmp_values;
-	int		res;
+	t_events_executer	executer;
 
-	tmp = env->events;
-	tmp_values = env->queued_values;
-	prec_values = NULL;
-	prec = NULL;
-	while (tmp)
+	executer.tmp = env->events;
+	executer.tmp_values = env->queued_values;
+	executer.prec_values = NULL;
+	executer.prec = NULL;
+	while (executer.tmp)
 	{
-		res = execute_event((t_event*)tmp->content, env);
-		if (res == 1)
-		{
-			ft_lstpopfront(&tmp);
-			if (prec)
-				prec->next = tmp;
-			else
-				env->events = tmp;
-			ft_lstpopfront(&tmp_values);
-			if (prec_values)
-				prec_values->next = tmp_values;
-			else
-				env->queued_values = tmp_values;
-		}
-		else if (res == 0)
-		{
-			prec = tmp;
-			tmp = tmp->next;
-			prec_values = tmp_values;
-			tmp_values = tmp_values->next;
-		}
-		else if (res == -1)
-			return (-1);
+	  	if (pop_event(&executer, env))
+		  	return (-1);
 	}
 	return (0);
 }

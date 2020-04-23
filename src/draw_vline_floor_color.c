@@ -26,7 +26,7 @@ void	put_floor_pixel_color(t_drawer *drawer, t_render *render, t_env *env)
 		* (int)drawer->text_y], drawer->sector->light_color,
 		drawer->sector->intensity);
 		if (env->editor.in_game && !env->editor.select
-				&& env->selected_floor == render->sector
+				&& env->selected_floor == render->sector->num
 				&& env->selected_floor_sprite == -1)
 			env->sdl.texture_pixels[drawer->coord] =
 			blend_alpha(env->sdl.texture_pixels[drawer->coord], 0x1ABC9C, 128);

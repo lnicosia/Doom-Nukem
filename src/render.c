@@ -392,7 +392,7 @@ int			render_walls(t_camera *camera, t_env *env)
 	{
 		render.xmin = camera->xmin[i];
 		render.xmax = camera->xmax[i];
-		render.sector = camera->screen_sectors[i];
+		render.sector = &env->sectors[camera->screen_sectors[i]];
 		render.camera = camera;
 		render.ystart = 0;
 		render.yend = env->h - 1;

@@ -33,10 +33,10 @@ void	set_skybox_limits2(t_skybox_drawer *drawer, t_env *env)
 		drawer->min = drawer->render->current_floor;
 		drawer->max = env->ymax[drawer->x];
 		drawer->skybox->texture_w =
-		env->skyboxes[abs(env->sectors[drawer->render->sector].
+		env->skyboxes[abs(env->sectors[drawer->render->sector->num].
 		floor_texture) - 1].textures[drawer->skybox->texture].surface->w;
 		drawer->skybox->texture_h =
-		env->skyboxes[abs(env->sectors[drawer->render->sector].
+		env->skyboxes[abs(env->sectors[drawer->render->sector->num].
 		floor_texture) - 1].textures[drawer->skybox->texture].surface->h;
 	}
 	else if (drawer->wall_data.mode == WALL)
@@ -57,23 +57,23 @@ void	set_skybox_limits2(t_skybox_drawer *drawer, t_env *env)
 void	set_skybox_limits(t_skybox_drawer *drawer, t_env *env)
 {
 	if ((drawer->wall_data.mode == CEILING
-	  	&& env->selected_ceiling == drawer->render->sector)
+	  	&& env->selected_ceiling == drawer->render->sector->num)
 		|| (drawer->wall_data.mode == FLOOR
-		&& env->selected_floor == drawer->render->sector)
+		&& env->selected_floor == drawer->render->sector->num)
 		|| ((drawer->wall_data.mode == WALL
 		|| drawer->wall_data.mode == UPPER_WALL
 		|| drawer->wall_data.mode == BOTTOM_WALL)
-		&& env->sectors[drawer->render->sector].selected[drawer->render->i]))
+		&& env->sectors[drawer->render->sector->num].selected[drawer->render->i]))
 		drawer->skybox->selected = 1;
 	if (drawer->wall_data.mode == CEILING)
 	{
 		drawer->min = env->ymin[drawer->x];
 		drawer->max = drawer->render->current_ceiling;
 		drawer->skybox->texture_w =
-		env->skyboxes[abs(env->sectors[drawer->render->sector].
+		env->skyboxes[abs(env->sectors[drawer->render->sector->num].
 		ceiling_texture) - 1].textures[drawer->skybox->texture].surface->w;
 		drawer->skybox->texture_h =
-		env->skyboxes[abs(env->sectors[drawer->render->sector].
+		env->skyboxes[abs(env->sectors[drawer->render->sector->num].
 		ceiling_texture) - 1].textures[drawer->skybox->texture].surface->h;
 	}
 	else

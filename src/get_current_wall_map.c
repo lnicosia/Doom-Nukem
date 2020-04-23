@@ -79,7 +79,7 @@ t_env *env)
 	if (texture == -1)
 		return (0);
 	text = &env->wall_textures[texture];
-	sector = &env->sectors[render->sector];
+	sector = render->sector;
 	res = 0;
 	if (env->options.o)
 		res = ceil(log2(fmax(env->w * sector->scale[render->i].x / (2 * z),

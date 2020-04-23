@@ -26,7 +26,7 @@ void	click_on_ceiling(t_drawer *drawer, t_render *render, t_env *env)
 		if (env->editor.select)
 		{
 			reset_selection(env);
-			env->selected_ceiling = render->sector;
+			env->selected_ceiling = render->sector->num;
 			tabs_gestion(env);
 		}
 		if (env->shooting

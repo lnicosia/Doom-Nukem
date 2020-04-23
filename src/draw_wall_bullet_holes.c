@@ -87,10 +87,10 @@ void	draw_wall_bullet_holes(t_sector *sector, t_render *render, t_env *env)
 		end = env->object_sprites[BULLET_HOLE].end[0];
 		pos =  curr->pos.x / sector->wall_width[render->i]
 		* curr->scale.x;
-		if (render->camera->v[render->sector][render->i + 1].vz)
-			pos *= render->camera->v[render->sector][render->i + 1].vz;
+		if (render->camera->v[sector->num][render->i + 1].vz)
+			pos *= render->camera->v[sector->num][render->i + 1].vz;
 		else
-			pos *= render->camera->v[render->sector][render->i].clipped_vz2;
+			pos *= render->camera->v[sector->num][render->i].clipped_vz2;
 		render->sprite_x = (render->alpha) * curr->scale.x
 		* render->z + start.x - pos;
 		if (render->sprite_x >= start.x && render->sprite_x < end.x)

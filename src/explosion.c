@@ -53,7 +53,7 @@ int		explosion_collision_player(t_env *env)
 	return (0);
 }
 
-void	explosion_collision_object(t_explosion *explosion, int i, t_env *env)
+int		explosion_collision_object(t_explosion *explosion, int i, t_env *env)
 {
 	double	distance;
 	int		damage;
@@ -69,16 +69,18 @@ void	explosion_collision_object(t_explosion *explosion, int i, t_env *env)
 			env->objects[i].health -= damage;
 			if (env->objects[i].explodes && env->objects[i].health <= 0)
 			{
-				create_explosion(env,
+				if (create_explosion(env,
 					new_explosion_data(env->objects[i].pos,
 					env->objects[i].explosion_size,
 					env->objects[i].damage,
 					env->object_sprites[env->objects[i].sprite].
-					death_counterpart), 0);
+					death_counterpart), 0))
+				  	return (-1);
 				env->objects[i].exists = 0;
 			}
 		}
 	}
+	return (0);
 }
 
 int		explosion_collision_objects(t_env *env)
@@ -93,7 +95,9 @@ int		explosion_collision_objects(t_env *env)
 		i = 0;
 		while (i < env->nb_objects)
 		{
-		  	explosion_collision_object(((t_explosion*)tmp->content), i, env);
+		  	if (explosion_collision_object(((t_explosion*)tmp->content), i,
+			  	env))
+			  	return (-1);
 			i++;
 		}
 		tmp = tmp->next;

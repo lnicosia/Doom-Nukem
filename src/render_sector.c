@@ -14,14 +14,12 @@
 
 void		*wall_loop(void *param)
 {
-	t_render_vertex	v1;
 	t_sector		*sector;
 	t_render		render;
 	t_env			*env;
 	int				x;
 	int				xend;
 
-	v1 = ((t_render_thread*)param)->v1;
 	sector = ((t_render_thread*)param)->sector;
 	render = ((t_render_thread*)param)->render;
 	env = ((t_render_thread*)param)->env;
@@ -30,22 +28,22 @@ void		*wall_loop(void *param)
 	while (x <= xend)
 	{
 		render.x = x;
-		render.alpha = (x - v1.x) / v1.xrange;
-		render.clipped_alpha = (x - v1.clipped_x1) / v1.clipped_xrange;
+		render.alpha = (x - render.v1->x) / render.v1->xrange;
+		render.clipped_alpha = (x - render.v1->clipped_x1) / render.v1->clipped_xrange;
 		render.divider = 1 / (render.camera->v[sector->num][render.i + 1].vz
-					+ render.alpha * v1.zrange);
-		render.z = v1.zcomb * render.divider;
+					+ render.alpha * render.v1->zrange);
+		render.z = render.v1->zcomb * render.divider;
 		render.z_near_z = render.z * render.camera->near_z;
-		render.max_ceiling = render.clipped_alpha * v1.ceiling_range + v1.c1;
+		render.max_ceiling = render.clipped_alpha * render.v1->ceiling_range + render.v1->c1;
 		render.current_ceiling = ft_clamp(render.max_ceiling,
 				env->ymin[x], env->ymax[x]);
-		render.max_floor = render.clipped_alpha * v1.floor_range + v1.f1;
+		render.max_floor = render.clipped_alpha * render.v1->floor_range + render.v1->f1;
 		render.current_floor = ft_clamp(render.max_floor,
 				env->ymin[x], env->ymax[x]);
 		render.no_slope_current_floor = render.clipped_alpha
-			* v1.no_slope_floor_range + v1.no_slope_f1;
+			* render.v1->no_slope_floor_range + render.v1->no_slope_f1;
 		render.no_slope_current_ceiling = render.clipped_alpha
-			* v1.no_slope_ceiling_range + v1.no_slope_c1;
+			* render.v1->no_slope_ceiling_range + render.v1->no_slope_c1;
 		render.line_height = (render.no_slope_current_floor
 			- render.no_slope_current_ceiling);
 		render.ceiling_start = render.max_ceiling - render.ceiling_horizon;
@@ -53,9 +51,9 @@ void		*wall_loop(void *param)
 		if (render.current_ceiling > env->ymin[x]
 				|| render.current_floor < env->ymax[x])
 		{
-			render.texel.x = (v1.x0z1 + render.alpha * v1.xzrange)
+			render.texel.x = (render.v1->x0z1 + render.alpha * render.v1->xzrange)
 				* render.divider;
-			render.texel.y = (v1.y0z1 + render.alpha * v1.yzrange)
+			render.texel.y = (render.v1->y0z1 + render.alpha * render.v1->yzrange)
 				* render.divider;
 			render.texel_x_near_z = render.texel.x * render.camera->near_z;
 			render.texel_y_near_z = render.texel.y * render.camera->near_z;
@@ -73,14 +71,14 @@ void		*wall_loop(void *param)
 		if (render.current_ceiling > env->ymin[x])
 		{
 			render.ceiling_height = render.max_ceiling
-			- render.camera->head_y[render.sector];
+			- render.camera->head_y[sector->num];
 			if (sector->ceiling_sprites.nb_sprites > 0)
 				draw_ceiling_sprites(sector, &render, env);
 			draw_ceiling(sector, &render, env);
 		}
 		if (render.current_floor < env->ymax[x])
 		{
-			render.floor_height = render.camera->feet_y[render.sector]
+			render.floor_height = render.camera->feet_y[sector->num]
 			- render.max_floor;
 			if (sector->floor_sprites.nb_sprites > 0)
 				draw_floor_sprites(sector, &render, env);
@@ -89,9 +87,9 @@ void		*wall_loop(void *param)
 		if (sector->neighbors[render.i] != -1)
 		{
 			render.neighbor_max_ceiling = render.clipped_alpha
-				* v1.neighbor_ceiling_range + v1.neighbor_c1;
+				* render.v1->neighbor_ceiling_range + render.v1->neighbor_c1;
 			render.neighbor_max_floor = render.clipped_alpha
-				* v1.neighbor_floor_range + v1.neighbor_f1;
+				* render.v1->neighbor_floor_range + render.v1->neighbor_f1;
 			render.neighbor_current_ceiling = ft_clamp(
 					render.neighbor_max_ceiling, env->ymin[x], env->ymax[x]);
 			render.neighbor_current_floor = ft_clamp(
@@ -127,8 +125,7 @@ void		*wall_loop(void *param)
 	return (NULL);
 }
 
-int		threaded_wall_loop(t_render_vertex v1, t_sector *sector,
-		t_render render, t_env *env)
+int		threaded_wall_loop(t_sector *sector, t_render render, t_env *env)
 {
 	t_render_thread	rt[THREADS];
 	pthread_t		threads[THREADS];
@@ -138,7 +135,6 @@ int		threaded_wall_loop(t_render_vertex v1, t_sector *sector,
 	while (i < THREADS)
 	{
 		render.thread = i;
-		rt[i].v1 = v1;
 		rt[i].sector = sector;
 		rt[i].render = render;
 		rt[i].env = env;
@@ -156,8 +152,7 @@ int		threaded_wall_loop(t_render_vertex v1, t_sector *sector,
 	return (0);
 }
 
-int		colorize_selected_portal(t_render_vertex v1, t_sector *sector,
-		t_render render, t_env *env)
+int		colorize_selected_portal(t_sector *sector, t_render render, t_env *env)
 {
 	t_render_thread	rt[THREADS];
 	pthread_t		threads[THREADS];
@@ -167,7 +162,6 @@ int		colorize_selected_portal(t_render_vertex v1, t_sector *sector,
 	while (i < THREADS)
 	{
 		render.thread = i;
-		rt[i].v1 = v1;
 		rt[i].sector = sector;
 		rt[i].render = render;
 		rt[i].env = env;
@@ -185,8 +179,7 @@ int		colorize_selected_portal(t_render_vertex v1, t_sector *sector,
 	return (0);
 }
 
-int		select_portal(t_render_vertex v1, t_sector *sector,
-		t_render render, t_env *env)
+int		select_portal(t_sector *sector, t_render render, t_env *env)
 {
 	t_render_thread	rt[THREADS];
 	pthread_t		threads[THREADS];
@@ -196,7 +189,6 @@ int		select_portal(t_render_vertex v1, t_sector *sector,
 	while (i < THREADS)
 	{
 		render.thread = i;
-		rt[i].v1 = v1;
 		rt[i].sector = sector;
 		rt[i].render = render;
 		rt[i].env = env;
@@ -220,16 +212,14 @@ int		render_sector(t_render render, t_env *env)
 	int				j;
 	int				just_selected;
 	t_sector		*sector;
-	t_render_vertex	v1;
 	t_render		new;
 	int				tmp_max[2560];
 	int				tmp_min[2560];
 
-	if (render.camera->rendered_sectors[render.sector])
+	if (render.camera->rendered_sectors[render.sector->num])
 		return (-1);
-	render.camera->rendered_sectors[render.sector]++;
-	sector = &env->sectors[render.sector];
-	//ft_printf("rendering sector %d\n", sector->num);
+	render.camera->rendered_sectors[render.sector->num]++;
+	sector = render.sector;
 	j = -1;
 	while (++j < env->w)
 	{
@@ -241,17 +231,16 @@ int		render_sector(t_render render, t_env *env)
 	{
 		if (!render.camera->v[sector->num][i].draw)
 			continue;
-		v1 = render.camera->v[sector->num][i];
-		//ft_printf("wall %d x1 = %f x2 = %f\n", i, v1.clipped_x1, v1.clipped_x2);
-		if (v1.clipped_x1 >= v1.clipped_x2 || v1.clipped_x1 > render.xmax
-				|| v1.clipped_x2 < render.xmin)
+		render.v1 = &render.camera->v[sector->num][i];
+		if (render.v1->clipped_x1 >= render.v1->clipped_x2
+		  	|| render.v1->clipped_x1 > render.xmax
+			|| render.v1->clipped_x2 < render.xmin)
 			continue;
-		//ft_printf("cc\n");
-		render.xstart = ft_max(v1.clipped_x1, render.xmin);
-		render.xend = ft_min(v1.clipped_x2, render.xmax);
+		render.xstart = ft_max(render.v1->clipped_x1, render.xmin);
+		render.xend = ft_min(render.v1->clipped_x2, render.xmax);
 		render.i = i;
-		render.ceiling_horizon = v1.ceiling_horizon;
-		render.floor_horizon = v1.floor_horizon;
+		render.ceiling_horizon = render.v1->ceiling_horizon;
+		render.floor_horizon = render.v1->floor_horizon;
 		render.texture = sector->textures[i];
 		if (render.texture == -1)
 		{
@@ -267,7 +256,7 @@ int		render_sector(t_render render, t_env *env)
 		}
 		env->editor.just_selected = 0;
 		just_selected = 0;
-		if (threaded_wall_loop(v1, sector, render, env) || env->fatal_error)
+		if (threaded_wall_loop(sector, render, env) || env->fatal_error)
 			return (-1);
 		if (env->editor.just_selected)
 			just_selected = 1;
@@ -275,13 +264,13 @@ int		render_sector(t_render render, t_env *env)
 		{
 			new = render;
 			new.xmin = render.xstart;
-			new.sector = sector->neighbors[i];
+			new.sector = &env->sectors[sector->neighbors[i]];
 			new.xmax = render.xend;
 			render_sector(new, env);
 			if (env->editor.selected_wall == render.i && !just_selected
 				&& env->editor.selected_sector == sector->num)
 			{
-				if (colorize_selected_portal(v1, sector, render, env))
+				if (colorize_selected_portal(sector, render, env))
 					return (-1);
 			}
 			if (env->editor.select_portal
@@ -289,7 +278,7 @@ int		render_sector(t_render render, t_env *env)
 				&& env->sdl.mx <= render.xend) || (!env->editor.tab
 				&& env->h_w >= render.xstart && env->h_w <= render.xend)))
 			{
-				if (select_portal(v1, sector, render, env))
+				if (select_portal(sector, render, env))
 					return (-1);
 			}
 			j = -1;
@@ -300,7 +289,6 @@ int		render_sector(t_render render, t_env *env)
 			}
 		}
 	}
-	//ft_printf("sector %d ok\n", sector->num);
-	render.camera->rendered_sectors[render.sector]--;
+	render.camera->rendered_sectors[render.sector->num]--;
 	return (0);
 }
