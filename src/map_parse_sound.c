@@ -31,7 +31,8 @@ int		parse_sound(t_env *env, t_map_parser *parser)
 	{
 		if (*(parser->tmp) == '\n')
 			break;
-		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, parser->tmp)))
+		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
+		  	parser->tmp)))
 			return (ft_printf("Could not realloc name in parse sound\n"));
 	}
 	if (*(parser->tmp) != '\n')
@@ -60,7 +61,8 @@ int		parse_sound(t_env *env, t_map_parser *parser)
 		return (ft_printf("Invalid size for sound, size is too small\n"));
 	ft_strdel(&(parser->tmp));
 	size += 8;
-	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
+	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC,
+	  	0000700)) < 0)
 		return (ft_printf("Could not open sound file\n"));
 	ft_strdel(&(parser->resource_name));
 	parser->resource_name = NULL;
@@ -72,7 +74,8 @@ int		parse_sound(t_env *env, t_map_parser *parser)
 	ft_strdel(&(parser->tmp));
 	if (!(parser->tmp = (char*)ft_memalloc(sizeof(char))))
 		return (ft_printf("Memalloc failed\n"));
-	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
+	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
+	  	|| *(parser->tmp) != '\n')
 		return (ft_printf("Invalid sound file\n"));
 	ft_strdel(&(parser->tmp));
 	ft_strdel(&(parser->line));

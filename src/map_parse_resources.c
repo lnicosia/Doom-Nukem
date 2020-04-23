@@ -136,7 +136,8 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 	env->resource.nb_sound = atoi(parser->line);
 	parser->line -= 2;
 	ft_strdel(&(parser->line));
-	if (env->resource.nb_sound > NB_MUSICS + NB_SOUNDS || env->resource.nb_sound < 0)
+	if (env->resource.nb_sound > NB_MUSICS + NB_SOUNDS
+	  	|| env->resource.nb_sound < 0)
 		return (ft_printf("Wrong number of sounds\n"));
 	while (i < env->resource.nb_sound)
 	{

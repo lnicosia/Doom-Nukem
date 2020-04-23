@@ -37,4 +37,8 @@ typedef struct		s_map_parser
 	int				sector_floor_sprites_count;
 	int				sector_ceiling_sprites_count;
 }					t_map_parser;
+
+int					valid_sprite(char *line, t_map_parser *parser);
+int					valid_texture(char *line, t_map_parser *parser);
+
 #endif

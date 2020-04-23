@@ -193,8 +193,18 @@ int					parse_ceiling_sprites(t_env *env, char **line,
 t_map_parser *parser);
 int					init_objects(t_env *env, t_map_parser *parser);
 int					parse_objects(t_env *env, t_map_parser *parser);
+int					parse_object_pos(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_object_sprite(t_env *env, char **line,
+t_map_parser *parser);
 int					init_enemies(t_env *env, t_map_parser *parser);
 int					parse_enemies(t_env *env, t_map_parser *parser);
+int					parse_enemy_pos(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_enemy_sprite(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_enemy_data(t_env *env, char **line,
+t_map_parser *parser);
 int					parse_events(t_env *env, t_map_parser *parser);
 int					parse_player(t_env *env, t_map_parser *parser);
 int					parse_resources(t_env *env, t_map_parser *parser);
@@ -973,6 +983,8 @@ int					create_event(void *param);
 int					check_event_validity(t_env *env, t_event event);
 int					save_event(void *param);
 int					modify_event(void *param);
+void				set_action_type_buttons_state(t_env *env);
+void				set_modified_event(t_env *env, t_event *event);
 int					delete_event(void *param);
 int					delete_selected_event(void *param);
 int					delete_selected_event1(t_env *env, t_event_trigger trigger);
@@ -1206,6 +1218,30 @@ int					parse_map(char *file, t_env *env);
 char				*skip_number(char *line);
 char				*skip_hexa(char *line);
 char				*skip_spaces(char *line);
+int					init_vertices(t_env *env, t_map_parser *parser);
+int					init_sectors(t_env *env, t_map_parser *parser);
+int					parse_floor(t_env *env, char **line, t_map_parser *parser);
+int					parse_floor6(t_env *env, char **line, t_map_parser *parser);
+int					parse_ceiling(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_ceiling6(t_env *env, char **line,
+t_map_parser *parser);
+int					init_sector_data(t_env *env, char *line,
+t_map_parser *parser);
+int					parse_sector_vertices(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_sector_neighbors(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_sector_portals(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_sector_textures(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_sector_wall_sprites(t_env *env, char **line,
+t_map_parser *parser);
+int					parse_current_sprite(t_env *env, char **line,
+t_map_parser *parser, t_point index);
+int					parse_sector_general(t_env *env, char **line,
+t_map_parser *parser);
 
 /*
 ** Screen utils

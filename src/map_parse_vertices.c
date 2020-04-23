@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-static int	check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
+int		check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 {
 	int	i;
 
@@ -21,13 +21,27 @@ static int	check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 	{
 		if (vertex.x == env->vertices[i].x && vertex.y == env->vertices[i].y)
 			return (ft_dprintf(STDERR_FILENO,
-						"Vertices %d and %d are identical\n", vertex.num, i));
+				"Vertices %d and %d are identical\n", vertex.num, i));
 		i++;
 	}
 	return (0);
 }
 
-static int	parse_vertex(t_env *env, t_map_parser *parser, char *line)
+int		parse_vertex2(t_env *env, t_map_parser *parser)
+{
+	if (check_vertex_duplicate(env, env->vertices[parser->vertices_count],
+			parser->vertices_count))
+	{
+		ft_dprintf(STDERR_FILENO,
+			"[Line %d] Vertex %d already exists\n",
+			parser->line_count, parser->vertices_count);
+		return (-1);
+	}
+	parser->vertices_count++;
+	return (0);
+}
+
+int		parse_vertex(t_env *env, t_map_parser *parser, char *line)
 {
 	env->vertices[parser->vertices_count].num = parser->vertices_count;
 	if (valid_number(line, parser))
@@ -51,23 +65,32 @@ static int	parse_vertex(t_env *env, t_map_parser *parser, char *line)
 		return (extra_data("vertex x", parser));
 	if (*line)
 		return (invalid_char("after vertex x",
-					"a digit or the end of the line", *line, parser));
-	if (check_vertex_duplicate(env, env->vertices[parser->vertices_count],
-				parser->vertices_count))
+			"a digit or the end of the line", *line, parser));
+	return (parse_vertex2(env, parser));
+}
+
+int		parse_vertices2(t_map_parser *parser)
+{
+	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
-		ft_dprintf(STDERR_FILENO,
-				"[Line %d] Vertex %d already exists\n",
-				parser->line_count, parser->vertices_count);
-		return (-1);
+		parser->line_count++;
+		if (*(parser->line))
+		{
+			return (custom_error_with_line("Must be an empty line "
+				"(every vertex has been declared)", parser));
+		}
+		ft_strdel(&(parser->line));
 	}
-	parser->vertices_count++;
+	else
+		return (missing_data("sectors, objects, enemies, events"
+		" and player declaration", parser));
 	return (0);
 }
 
-int			parse_vertices(t_env *env, t_map_parser *parser)
+int		parse_vertices(t_env *env, t_map_parser *parser)
 {
 	while (parser->vertices_count < env->nb_vertices
-			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))
+		&& (parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
 		parser->line_count++;
 		if (parser->line)
@@ -75,35 +98,19 @@ int			parse_vertices(t_env *env, t_map_parser *parser)
 			if (parse_vertex(env, parser, parser->line))
 			{
 				ft_dprintf(STDERR_FILENO,
-						"[Line %d] Vertex %d had an error\n",
-						parser->line_count,
-						parser->vertices_count);
+					"[Line %d] Vertex %d had an error\n", parser->line_count,
+					parser->vertices_count);
 				return (-1);
 			}
 		}
 		else
 		{
 			ft_dprintf(STDERR_FILENO,
-					"[Line %d] You must still declare %d vertices\n",
-					parser->line_count,
-					env->nb_vertices - parser->vertices_count);
+				"[Line %d] You must still declare %d vertices\n",
+				parser->line_count, env->nb_vertices - parser->vertices_count);
 			return (-1);
 		}
 		ft_strdel(&(parser->line));
 	}
-	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
-	{
-		parser->line_count++;
-		if (*(parser->line))
-		{
-			return (custom_error_with_line("Must be an empty line "
-						"(every vertex has been declared)",
-						parser));
-		}
-		ft_strdel(&(parser->line));
-	}
-	else
-		return (missing_data("sectors, objects, enemies, events and player declaration",
-					parser));
-	return (0);
+	return (parse_vertices2(parser));
 }

@@ -123,5 +123,7 @@ void				reset_loop(int *i, int *sector, t_motion motion);
 t_v3				update_move(t_env *env, t_coll coll, t_v3 *move);
 int					cross_portal(t_env *env, t_motion motion, int s, int v);
 int					cross_wall(t_env *env, t_motion motion, int s, int v);
+void				check_blocage(t_env *env, t_motion motion, double speed,
+int index);
 
 #endif

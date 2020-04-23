@@ -15,11 +15,11 @@
 void		free_parser(t_env *env)
 {
 	if (env->parser.tmp)
-		ft_strdel(&(env->parser.tmp));
+		ft_strdel(&env->parser.tmp);
 	if (env->parser.resource_name)
-		ft_strdel(&(env->parser.resource_name));
+		ft_strdel(&env->parser.resource_name);
 	if (env->parser.line)
-		ft_memdel((void**)&(env->parser.line));
+		ft_strdel(&env->parser.line);
 }
 
 void		free_all2(t_env *env)

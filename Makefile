@@ -276,7 +276,16 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_doom_guy_face.c init_skyboxes_textures.c new_input_var.c \
 		   split_box_text.c input_box_utils2.c input_box_keys.c \
 		   input_box_keys2.c init_inputs.c pos_changed.c \
-		   is_in_sector_utils.c \
+		   is_in_sector_utils.c init_vertices.c init_sectors.c \
+		   parse_enemy_data.c parse_enemy_sprite.c parse_enemy_pos.c \
+		   parse_object_sprite.c parse_object_pos.c map_parse_sectors_utils2.c \
+		   map_parse_sectors_utils3.c valid_texture.c valid_sprite.c \
+		   map_parser_utils2.c modify_event_utils.c movement_utils2.c \
+		   movement_utils3.c parse_floor.c parse_floor2.c parse_ceiling.c \
+		   parse_ceiling2.c init_sector_data.c parse_sector_neighbors.c \
+		   parse_sector_vertices.c parse_sector_portals.c \
+		   parse_sector_textures.c parse_sector_wall_sprites.c \
+		   parse_current_sprite.c parse_sector_general.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
