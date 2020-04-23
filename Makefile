@@ -215,7 +215,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall.c draw_vline_wall_brightness.c bmp_parser_utils2.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c dialog_box_utils.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
-		   draw_vline_floor_both.c draw_vline_floor_color.c \
+		   draw_vline_floor_both.c draw_vline_floor_color.c tabs_gestion.c \
 		   free_sector.c init_screen_size.c dialog_parser.c \
 		   print_press_text.c modify_wall_sprite.c realloc_sector_arrays.c \
 		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
