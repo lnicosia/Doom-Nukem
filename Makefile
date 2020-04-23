@@ -245,7 +245,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
 		   map_parse_fonts.c angles_utils.c add_vertex_in_sector_utils.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
-		   check_vertex_event_utils.c draw_ceiling_utils.c \
+		   check_vertex_event_utils.c draw_ceiling_utils.c option_menu2.c \
 		   draw_enemies2.c draw_enemies3.c draw_vline_projectile.c \
 		   draw_skybox2.c draw_floor_utils.c draw_wall_utils.c \
 		   draw_wall_sprites2.c draw_minimap_player.c minimap2.c minimap3.c \
@@ -260,7 +260,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   get_event_array2.c get_event_array3.c get_event_nb2.c \
 		   update_sector_slope.c init_selection_tabs.c no_parser.c \
 		   init_enemies_data.c init_objects_data2.c init_objects_data3.c \
-		   init_lost_soul_sprite.c init_lost_soul_rest.c \
+		   init_lost_soul_sprite.c init_lost_soul_rest.c option_menu3.c \
 		   init_lost_soul_pursuit.c init_minigun.c init_rocket.c \
 		   init_lost_soul_pursuit_two.c init_health_pack.c init_ammo.c \
 		   init_lost_soul_death.c init_cyber_demon_pursuit.c \

@@ -14,22 +14,34 @@
 
 int		option_menu_ig_keys(t_env *env)
 {
-	button_keys(&env->return_button, env);
-	button_keys(&env->exit_button, env);
-	button_keys(&env->music_vol_down, env);
-	button_keys(&env->music_vol_up, env);
-	button_keys(&env->sounds_vol_up, env);
-	button_keys(&env->sounds_vol_down, env);
+	if (button_keys(&env->return_button, env))
+	  	return (-1);
+	if (button_keys(&env->exit_button, env))
+	  	return (-1);
+	if (button_keys(&env->music_vol_down, env))
+	  	return (-1);
+	if (button_keys(&env->music_vol_up, env))
+	  	return (-1);
+	if (button_keys(&env->sounds_vol_up, env))
+	  	return (-1);
+	if (button_keys(&env->sounds_vol_down, env))
+	  	return (-1);
 	return (0);
 }
 
 int		option_menu_ig_keyup(t_env *env)
 {
-	button_keyup(&env->return_button, env);
-	button_keyup(&env->exit_button, env);
-	button_keyup(&env->music_vol_down, env);
-	button_keyup(&env->music_vol_up, env);
-	button_keyup(&env->sounds_vol_up, env);
-	button_keyup(&env->sounds_vol_down, env);
+	if (button_keyup(&env->return_button, env))
+	  	return (-1);
+	if (button_keyup(&env->exit_button, env))
+	  	return (-1);
+	if (button_keyup(&env->music_vol_down, env))
+	  	return (-1);
+	if (button_keyup(&env->music_vol_up, env))
+	  	return (-1);
+	if (button_keyup(&env->sounds_vol_up, env))
+	  	return (-1);
+	if (button_keyup(&env->sounds_vol_down, env))
+	  	return (-1);
 	return (0);
 }

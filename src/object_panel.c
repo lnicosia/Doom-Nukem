@@ -40,6 +40,13 @@ int		set_object_panel_buttons_state(t_target_panel *panel, int index)
 	return (0);
 }
 
+void	select_object2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.event_panel.event.target)
+		set_object_panel_buttons_state(panel,
+		env->editor.event_panel.event.target_index);
+}
+
 int		select_object(void *param)
 {
 	t_env			*env;
@@ -52,12 +59,11 @@ int		select_object(void *param)
 	else
 		panel = &env->editor.event_panel.target_panel;
 	panel->object_type = 1;
-	i = 0;
-	while (i < 8)
+	i = -1;
+	while (++i < 8)
 	{
 		panel->targets[i].state = UP;
 		panel->targets[i].anim_state = REST;
-		i++;
 	}
 	if (env->editor.creating_condition)
 	{
@@ -66,11 +72,7 @@ int		select_object(void *param)
 			env->editor.condition_panel.condition.target_index);
 	}
 	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_object_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
+		select_object2(panel, env);
 	return (0);
 }
 
