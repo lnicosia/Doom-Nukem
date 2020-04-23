@@ -58,7 +58,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		   		shift_bullet_hole.c get_bullet_hole_pos.c \
 		   		delete_bullet_hole.c shift_bullet_hole_events.c \
 		        add_floor_hitscan_bullet_hole.c doom_poll_event.c \
-				add_ceiling_hitscan_bullet_hole.c \
+				add_ceiling_hitscan_bullet_hole.c projectile2.c projectile3.c \
 		        add_floor_projectile_bullet_hole.c \
 				add_ceiling_projectile_bullet_hole.c \
 

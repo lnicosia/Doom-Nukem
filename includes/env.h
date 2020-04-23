@@ -1412,6 +1412,19 @@ int					explosion_collision_objects(t_env *env);
 int					explosion_collision_enemies(t_env *env);
 void				activate_explosions(t_env *env);
 int					projectiles_movement(t_env *env);
+void				projectile_hits_nothing(t_v3 move, t_projectile *projectile,
+t_list **tmp, t_env *env);
+int					projectile_hits_floor(t_projectile *projectile, t_env *env);
+int					projectile_hits_ceiling(t_projectile *projectile,
+t_env *env);
+int					projectile_hits_player(t_projectile *projectile,
+t_list **tmp, t_env *env);
+int					projectile_hits_object(t_projectile *projectile,
+t_list **tmp, t_env *env);
+int					projectile_hits_enemy(int nb, t_projectile *projectile,
+t_list **tmp, t_env *env);
+int					projectile_hits_wall(int collision,
+t_projectile *projectile, t_env *env);
 int					hitscan(t_env *env, int i);
 int					aoe_damage(double distance, double radius, int damage);
 int					doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2);
