@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include <math.h>
-#include "env.h"
 #include "render.h"
 
-void		reset_clipped(t_env *env)
+void	reset_clipped(t_env *env)
 {
 	int			i;
 	int			j;
@@ -37,7 +36,7 @@ void		reset_clipped(t_env *env)
 	}
 }
 
-int	get_vertex_nb_in_sector(int vertex, t_sector *sector)
+int		get_vertex_nb_in_sector(int vertex, t_sector *sector)
 {
 	int	i;
 	int	res;
@@ -53,7 +52,26 @@ int	get_vertex_nb_in_sector(int vertex, t_sector *sector)
 	return (res);
 }
 
-void		reset_render_utils(t_camera *camera, t_env *env)
+void	reset_render_utils2(int ymin, int ymax, t_camera *camera, t_env *env)
+{
+  	int	i;
+
+	i = 0;
+	while (i < camera->size)
+	{
+		camera->sector_computed[i] = 0;
+		i++;
+	}
+	i = 0;
+	while (i < env->w)
+	{
+		env->ymin[i] = ymin;
+		env->ymax[i] = ymax;
+		i++;
+	}
+}
+
+void	reset_render_utils(t_camera *camera, t_env *env)
 {
 	int	i;
 	int	max;
@@ -69,23 +87,23 @@ void		reset_render_utils(t_camera *camera, t_env *env)
 	i = 0;
 	while (i < max)
 	{
-		//camera->xmin[i] = -1;
 		camera->xmax[i] = -1;
 		camera->screen_sectors[i] = -1;
 		camera->rendered_sectors[i] = 0;
 		i++;
 	}
-	i = 0;
-	while (i < camera->size)
+	reset_render_utils2(ymin, ymax, camera, env);
+}
+
+void	reset_screen_limits(t_env *env)
+{
+  	int	j;
+
+	j = 0;
+	while (j < env->w)
 	{
-		camera->sector_computed[i] = 0;
-		i++;
-	}
-	i = 0;
-	while (i < env->w)
-	{
-		env->ymin[i] = ymin;
-		env->ymax[i] = ymax;
-		i++;
+	  	env->ymax[j] = env->tmp_max[j];
+	  	env->ymin[j] = env->tmp_min[j];
+	  	j++;
 	}
 }

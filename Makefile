@@ -287,7 +287,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_sector_textures.c parse_sector_wall_sprites.c \
 		   parse_current_sprite.c parse_sector_general.c count_conditions.c \
 		   parse_link_target.c physics2.c int_event.c double_event.c \
-		   uint32_event.c precompute_skybox2.c \
+		   uint32_event.c precompute_skybox2.c precompute_sector.c \
+		   get_rendered_sectors_list.c precompute_values.c \
+		   precompute_values2.c compute_wall.c get_intersections.c \
+		   render_sector2.c render_sector3.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

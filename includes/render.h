@@ -269,7 +269,43 @@ typedef struct		s_enemy_thread
 	int				xend;
 }					t_enemy_thread;
 
+void				precompute_sector(t_camera *camera, t_sector *sector,
+t_env *env);
+void				get_rendered_sectors_list(int screen_sectors,
+t_camera *camera, t_env *env);
+void				get_intersections(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				precompute_values(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				precompute_visible_vertex(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				precompute_visible_bullet_holes(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				precompute_clipped_vertex(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				precompute_clipped_bullet_holes(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				compute_wall(int i, t_camera *camera,
+t_sector *sector, t_env *env);
+void				clip_wall(int i, t_camera *camera,
+t_sector *sector, t_env *env);
 void				select_line(t_vline vline, t_env *env);
+int					select_portal(t_sector *sector, t_render *render,
+t_env *env);
+int					colorize_selected_portal(t_sector *sector,
+t_render *render, t_env *env);
+int					threaded_wall_loop(t_sector *sector, t_render *render,
+t_env *env);
+void				render_current_wall_vline(t_sector *sector,
+t_render *render, t_env *env);
+void				compute_vline_data(t_sector *sector,
+t_render *render, t_env *env);
+void				draw_bottom_and_upper_walls(t_sector *sector,
+t_render *render, t_env *env);
+void				precompute_texels(t_render *render);
+void				draw_floor_and_ceiling(t_sector *sector,
+t_render *render, t_env *env);
+void				*wall_loop(void *param);
 int					render_sector(t_render render, t_env *env);
 void				draw_ceiling(t_sector *sector, t_render *render,
 t_env *env);
@@ -375,6 +411,7 @@ void				restrict_floor(t_render_vertex v1, t_render *render,
 void				restrict_ceiling(t_render_vertex v1, t_render *render,
 		t_sector *sector, t_env *env);
 void				reset_x_restrictions(t_sector *sector, t_env *env);
+void				reset_screen_limits(t_env *env);
 void				get_vline_data(t_render_vertex v1, t_sector *sector,
 		t_render *render, t_env *env);
 int					get_current_wall_map(int texture, double z,

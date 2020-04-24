@@ -113,6 +113,8 @@ typedef struct		s_env
 	int					screen_sectors_size;
 	int					screen_w[3];
 	int					screen_h[3];
+	int					tmp_max[2560];
+	int					tmp_min[2560];
 	char				*res[3];
 	int					w;
 	int					h;
