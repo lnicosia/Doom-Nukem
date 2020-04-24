@@ -80,6 +80,16 @@ typedef	struct	s_coll_addr
 	int			*s;
 }				t_coll_addr;
 
+typedef struct	s_projectile_collision
+{
+  	t_v3		pos;
+	t_v3		dest;
+	double		nearest_dist;
+	double		distance;
+	double		radius;
+  	int			object;
+}				t_projectile_collision;
+
 t_coll				new_coll(int use, t_v3 bouelp);
 t_coll_addr			new_coll_addr(t_motion *motion, int *sector, int *vertex);
 t_ecoll				new_e_coll(double radius, t_v3 pos, double *near_dist,
@@ -111,6 +121,14 @@ int					check_floor_ceil(t_env *env, t_motion motion,
 						int sector_dest);
 int     			collision_projectiles(t_env *env, t_v3 move,
 						t_motion motion);
+int     			collision_projectiles_rec2(t_env *env, t_v3 move,
+						t_motion motion, t_wall wall);
+int     			collision_projectiles_rec(t_env *env, t_v3 move,
+						t_motion motion);
+int					projectiles_ceil(t_env *env, t_motion motion,
+int sector_dest);
+int					projectiles_floor(t_env *env, t_motion motion,
+int sector_dest);
 int					projectile_player_collision(t_env *env, t_v3 pos, t_v3 dest,
 						double radius);
 int					projectile_object_collision(t_env *env, t_v3 pos, t_v3 dest,
