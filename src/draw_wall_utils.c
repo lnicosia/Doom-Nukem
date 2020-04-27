@@ -36,11 +36,7 @@ void	click_on_wall(t_drawer *drawer, t_render *render, t_env *env)
 			&& render->z <= env->weapons[env->player.curr_weapon].range)
 		  	new_wall_bullet_hole(drawer, render, env);
 		if (env->playing)
-		{
-			env->hovered_wall_sprite_wall = -1;
-			env->hovered_wall_sprite_sprite = -1;
-			env->hovered_wall_sprite_sector = -1;
-		}
+			reset_hover(env);
 	}
 }
 

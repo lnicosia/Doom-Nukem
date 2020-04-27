@@ -36,6 +36,23 @@ int		texture_selection_tab_keys(t_env *env)
 	return (0);
 }
 
+int		selection_tab_button_keys2(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	if (env->editor.draw_object_tab)
+	{
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keys(&env->editor.object_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
+	return (0);
+}
+ 
 int		selection_tab_button_keys(t_env *env)
 {
 	int	i;
@@ -61,14 +78,5 @@ int		selection_tab_button_keys(t_env *env)
 			i++;
 		}
 	}
-	if (env->editor.draw_object_tab)
-	{
-		while (i < MAX_OBJECTS)
-		{
-			if (button_keys(&env->editor.object_tab[i], env))
-				return (-1);
-			i++;
-		}
-	}
-	return (0);
+	return (selection_tab_button_keys2(env));
 }

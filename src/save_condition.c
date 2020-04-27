@@ -12,30 +12,6 @@
 
 #include "env.h"
 
-int		check_condition_validity(t_env *env, t_condition condition)
-{
-	if (!condition.target)
-	{
-		if (update_confirmation_box(&env->confirmation_box, "Please set a"
-			" target before saving the condition", ERROR, env))
-			return (-1);
-		return (1);
-	}
-	//if ((condition.type == EVENT_ENDED || condition.type == EVENT_ENDED_START)
-	//	&& (condition.target_trigger.type = -1
-	return (0);
-}
-
-void	save_condition_value(t_condition *condition, t_condition_panel *panel)
-{
-	if (condition->target_type == INT)
-		condition->value = panel->int_value;
-	else if (condition->target_type == DOUBLE)
-		condition->value = panel->double_value;
-	else if (condition->target_type == UINT32)
-		condition->value = panel->uint32_value;
-}
-
 int		save_condition(void *param)
 {
 	t_env	*env;
@@ -59,6 +35,42 @@ int		save_condition(void *param)
 	return (0);
 }
 
+int		create_launch_condition(t_event *event, t_env *env)
+{
+	if (!(event->launch_conditions = (t_condition*)ft_realloc(
+		event->launch_conditions,
+		sizeof(t_condition) * event->nb_launch_conditions,
+		sizeof(t_condition) * (event->nb_launch_conditions + 1))))
+		return (-1);
+	event->launch_conditions[event->nb_launch_conditions] =
+	env->editor.condition_panel.condition;
+	event->nb_launch_conditions++;
+	return (0);
+}
+
+int		create_exec_condition(t_event *event, t_env *env)
+{
+	if (!(event->exec_conditions = (t_condition*)ft_realloc(
+		event->exec_conditions,
+		sizeof(t_condition) * event->nb_exec_conditions,
+		sizeof(t_condition) * (event->nb_exec_conditions + 1))))
+		return (-1);
+	event->exec_conditions[event->nb_exec_conditions] =
+	env->editor.condition_panel.condition;
+	event->nb_exec_conditions++;
+	return (0);
+}
+
+int		create_condition2(t_env *env)
+{
+	if (env->editor.event_panel.selected_event != -1)
+		env->editor.event_panel.ok.release_action = &save_event;
+	else
+		env->editor.event_panel.ok.release_action = &create_event;
+	close_event_panel(env);
+	return (0);
+}
+
 int		create_condition(void *param)
 {
 	t_env	*env;
@@ -77,30 +89,13 @@ int		create_condition(void *param)
 		return (-1);
 	if (env->editor.creating_launch_condition)
 	{
-		if (!(event->launch_conditions = (t_condition*)ft_realloc(
-			event->launch_conditions,
-			sizeof(t_condition) * event->nb_launch_conditions,
-			sizeof(t_condition) * (event->nb_launch_conditions + 1))))
-			return (-1);
-		event->launch_conditions[event->nb_launch_conditions] =
-		env->editor.condition_panel.condition;
-		event->nb_launch_conditions++;
+	  	if (create_launch_condition(event, env))
+		  	return (-1);
 	}
 	else if (env->editor.creating_exec_condition)
 	{
-		if (!(event->exec_conditions = (t_condition*)ft_realloc(
-			event->exec_conditions,
-			sizeof(t_condition) * event->nb_exec_conditions,
-			sizeof(t_condition) * (event->nb_exec_conditions + 1))))
-			return (-1);
-		event->exec_conditions[event->nb_exec_conditions] =
-		env->editor.condition_panel.condition;
-		event->nb_exec_conditions++;
+	  	if (create_exec_condition(event, env))
+		  	return (-1);
 	}
-	if (env->editor.event_panel.selected_event != -1)
-		env->editor.event_panel.ok.release_action = &save_event;
-	else
-		env->editor.event_panel.ok.release_action = &create_event;
-	close_event_panel(env);
-	return (0);
+	return (create_condition2(env));
 }

@@ -28,11 +28,7 @@ t_env *env)
 			env->hovered_wall_sprite_sector = drawer->sector->num;
 		}
 		else
-		{
-			env->hovered_wall_sprite_wall = -1;
-			env->hovered_wall_sprite_sprite = -1;
-			env->hovered_wall_sprite_sector = -1;
-		}
+		  	reset_hover(env);
 	}
 }
 

@@ -13,6 +13,18 @@
 #include "env.h"
 #include "events_parser.h"
 
+int		select_player_condition_target3(t_env *env, t_condition_panel *panel,
+t_target_panel *target_panel)
+{
+	if (target_panel->selected_button == 8)
+	{
+		panel->condition.target = &env->player.sector;
+		panel->condition.target_index = PLAYER_SECTOR;
+		panel->condition.target_type = INT;
+	}
+	return (0);
+}
+
 int		select_player_condition_target2(t_env *env, t_condition_panel *panel,
 t_target_panel *target_panel)
 {
@@ -39,13 +51,7 @@ t_target_panel *target_panel)
 		panel->condition.target_index = PLAYER_INFINITE_AMMO;
 		panel->condition.target_type = INT;
 	}
-	else if (target_panel->selected_button == 8)
-	{
-		panel->condition.target = &env->player.sector;
-		panel->condition.target_index = PLAYER_SECTOR;
-		panel->condition.target_type = INT;
-	}
-	return (0);
+	return (select_player_condition_target3(env, panel, target_panel));
 }
 
 int		select_player_condition_target(t_env *env, t_condition_panel *panel,

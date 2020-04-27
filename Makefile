@@ -55,12 +55,13 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				explosion_maths.c enemy_maths.c enemy_combat.c \
 				enemy_collision.c enemy_sight.c enemy_ai.c \
 		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
-		   		shift_bullet_hole.c get_bullet_hole_pos.c \
+		   		shift_wall_bullet_hole.c get_bullet_hole_pos.c \
 		   		delete_bullet_hole.c shift_bullet_hole_events.c \
 		        add_floor_hitscan_bullet_hole.c doom_poll_event.c \
 				add_ceiling_hitscan_bullet_hole.c projectile2.c projectile3.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
+				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
@@ -88,10 +89,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_floor_tab_button.c editor_wall_tab_button.c wall_edit_keyup.c \
 		editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		editor_env_ceilling_buttons.c  change_editor_mode.c \
-		editor_3d_button_keys.c editor_3d_button_keyup.c \
+		editor_3d_button_keys.c editor_3d_button_keyup.c split_sector2.c \
 		init_add_buttons.c editor_env_sector_buttons.c editor_2d.c \
 		editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
-		editor_button_keyup.c editor_env_player_buttons.c \
+		editor_button_keyup.c editor_env_player_buttons.c split_sector3.c \
 		editor_player_tab_button.c editor_enemy_tabs.c print_events_tabs2.c \
 		editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		editor_object_tabs.c editor_env_object_buttons.c \
@@ -100,7 +101,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_events_selection_buttons.c print_event.c init_event_types.c \
 		are_launch_condition_selection_buttons_visible.c \
 		are_exec_condition_selection_buttons_visible.c next_launch_condition.c \
-		are_exec_condition_selection_buttons_visible2.c \
+		are_exec_condition_selection_buttons_visible2.c save_condition_utils.c \
 		init_event_links_types.c is_event_tabs_visible.c \
 		print_link_target_functions.c print_condition_target_functions.c \
 		print_condition_target_functions2.c init_print_condition_target_data.c\
@@ -166,6 +167,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		change_slope_direction.c next_selected_wall.c save_selection.c \
 		save_texture.c init_hud_button_function2.c print_event_action.c \
 		init_print_condition_target_data2.c init_target_panel_buttons2.c \
+		set_floor_condition_target.c set_ceiling_condition_target.c \
+		select_floor_target.c select_ceiling_target.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -191,7 +194,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parse_enemies.c  draw_line_free.c render.c animations2.c \
 		   project_wall.c render_sector.c draw_ceiling.c draw_wall.c \
 		   precompute_skybox.c draw_skybox.c draw_floor.c apply_image2.c \
-		   precompute_neighbors.c skybox_draw_functions.c wall_hack.c \
+		   precompute_neighbors.c wall_hack.c check_conditions.c \
 		   movement_utils.c update_sprites_state.c set_event_function.c \
 		   select_line.c draw_wall_sprites.c input_box.c get_pixel.c \
 		   init_objects_data.c reset_selection.c events_tab_conditions.c \
@@ -216,7 +219,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c dialog_box_utils.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c tabs_gestion.c \
-		   free_sector.c init_screen_size.c dialog_parser.c \
+		   free_sector.c init_screen_size.c dialog_parser.c update_event.c \
 		   print_press_text.c modify_wall_sprite.c realloc_sector_arrays.c \
 		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
 		   equals_condition.c less_condition.c greater_condition.c \
@@ -290,7 +293,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   uint32_event.c precompute_skybox2.c precompute_sector.c \
 		   get_rendered_sectors_list.c precompute_values.c \
 		   precompute_values2.c compute_wall.c get_intersections.c \
-		   render_sector2.c render_sector3.c \
+		   render_sector2.c render_sector3.c update_screen_zbuffer.c \
+		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

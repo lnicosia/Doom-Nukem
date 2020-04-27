@@ -38,11 +38,7 @@ int		start_press_event(t_env *env)
 	if (env->sectors[env->hovered_wall_sprite_sector].
 	wall_sprites[env->hovered_wall_sprite_wall].
 	nb_press_events[env->hovered_wall_sprite_sprite] == 0)
-	{
-		env->hovered_wall_sprite_wall = -1;
-		env->hovered_wall_sprite_sector = -1;
-		env->hovered_wall_sprite_sprite = -1;
-	}
+	  	reset_hover(env);
 	return (0);
 }
 

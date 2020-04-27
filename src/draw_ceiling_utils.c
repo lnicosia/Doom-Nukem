@@ -38,11 +38,7 @@ void	click_on_ceiling(t_drawer *drawer, t_render *render, t_env *env)
 			env->new_bullet_hole_sector = drawer->sector->num;
 		}
 		if (env->playing)
-		{
-			env->hovered_wall_sprite_wall = -1;
-			env->hovered_wall_sprite_sprite = -1;
-			env->hovered_wall_sprite_sector = -1;
-		}
+		  	reset_hover(env);
 	}
 }
 

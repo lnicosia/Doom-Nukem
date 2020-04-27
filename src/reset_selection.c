@@ -41,3 +41,10 @@ void	reset_selection(t_env *env)
 	env->editor.dragged_start_player = -1;
 	env->editor.event_panel_dragged = -1;
 }
+
+void	reset_hover(t_env *env)
+{
+  	env->hovered_wall_sprite_wall = -1;
+  	env->hovered_wall_sprite_sprite = -1;
+  	env->hovered_wall_sprite_sector = -1;
+}

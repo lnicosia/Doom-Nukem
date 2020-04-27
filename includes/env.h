@@ -424,6 +424,7 @@ void				selected_information_on_enemy(t_env *env);
 int					selected_information_in_sector(t_env *env);
 void				get_new_floor_and_ceiling(t_env *env);
 void				reset_selection(t_env *env);
+void				reset_hover(t_env *env);
 int					draw_input_box(t_input_box *box, t_env *env);
 int					split_box_text(t_input_box *box, t_env *env);
 char				*get_current_box_line(t_input_box *box, char *str);
@@ -453,6 +454,7 @@ int					apply_texture(t_sector *sector, t_env *env, int i);
 int					add_vertex_in_sector(t_env *env);
 int					realloc_sector_arrays(t_env *env, int sector, int j);
 int					split_sector(t_env *env);
+int					update_current_wall(t_env *env, int i, t_sector *sector);
 int					check_pos_vertices(t_env *env);
 int					update_neighbors(t_env *env, int index, int num,
 t_sector *sector);
@@ -992,6 +994,9 @@ int					delete_event(void *param);
 int					delete_selected_event(void *param);
 int					delete_selected_event1(t_env *env, t_event_trigger trigger);
 int					save_condition(void *param);
+void				save_condition_value(t_condition *condition,
+t_condition_panel *panel);
+int					check_condition_validity(t_env *env, t_condition condition);
 int					create_condition(void *param);
 int					modify_condition(void *param);
 int					new_global_event(t_env *env, t_event_trigger trigger,

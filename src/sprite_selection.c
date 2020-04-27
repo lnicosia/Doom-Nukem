@@ -32,8 +32,6 @@ void	sprite_selection(t_env *env, int nb_slots)
 				env->editor.wall_sprite_selection_size);
 	while (i < MAX_OBJECTS)
 	{
-		/*draw_button(env, env->editor.sprite_selection[i],
-		env->editor.sprite_selection[i].str);*/
 		apply_sprite(env->object_sprites[env->objects_main_sprites[i]],
 		new_point(490 + 8 + (66 * (i / mod)),
 		180 + (66 * (i % mod)) + 8),

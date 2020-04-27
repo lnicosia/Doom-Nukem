@@ -92,13 +92,12 @@ int		keys(t_env *env)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
 			env->sound.ambient_vol);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
-			|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-			|| env->crouch.on_going || env->inputs.ctrl)
-			&& env->player.health > 0
-
-			&&  (((env->selected_enemy == -1 && env->editor.tab)
-				|| (env->selected_enemy != -1 && !env->editor.tab))
-				|| (env->selected_enemy == -1 && !env->editor.tab)))
+		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
+		|| env->crouch.on_going || env->inputs.ctrl)
+		&& env->player.health > 0
+		&&  (((env->selected_enemy == -1 && env->editor.tab)
+		|| (env->selected_enemy != -1 && !env->editor.tab))
+		|| (env->selected_enemy == -1 && !env->editor.tab)))
 		|| (env->player.state.climb || env->player.state.drop)))
 		move_player(env);
 	if (env->inputs.plus && !env->inputs.shift

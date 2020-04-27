@@ -109,17 +109,21 @@ typedef struct		s_drawer
 	double			text_y;
 	double			alpha;
 	double			yalpha;
+	double			salpha;
 	double			z;
 	double			divider;
 	double			pos;
 	t_sprite		*sprite;
 	t_sector		*sector;
+	Uint32			*texture_pixels;
 	int				i;
 	int				start;
 	int				end;
 	int				coord;
 	int				map_lvl;
 	int				sprite_w;
+	int				texture_w;
+	int				texture_h;
 }					t_drawer;
 
 typedef struct		s_sprite_drawer

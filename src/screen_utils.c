@@ -12,83 +12,10 @@
 
 #include "env.h"
 
-// TODO Protection
-
 void	update_screen(t_env *env)
 {
-	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
-	{
-		ft_printf("Failed to update screen: %s\n", SDL_GetError());
-		return ;
-	}
-	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
-	SDL_RenderPresent(env->sdl.renderer);
-}
-
-/*
-**	Give every pixel a shade according to the zbuffer
-*/
-
-void	set_zbuffer_colors(t_env *env)
-{
-	double	max_z;
-	double	min_z;
-	int		max;
-	int		i;
-	int		y;
-	int		x;
-	double	alpha;
-
-	i = 0;
-	max_z = 0;
-	min_z = 9999999999;
-	max = env->w * env->h;
-	while (i < max)
-	{
-		if (env->zbuffer[i] > max_z)
-			max_z = env->zbuffer[i];
-		if (env->zbuffer[i] < min_z)
-			min_z = env->zbuffer[i];
-		i++;
-	}
-	max_z = 30;
-	y = 0;
-	while (y < env->h)
-	{
-		if (env->editor.tab)
-			x = 400;
-		else
-			x = 0;
-		while (x < env->w)
-		{
-			if ((y <= 300 && x < env->w - 300) || y > 300 || env->editor.in_game || !env->options.show_minimap)
-			{
-				alpha = 1 - env->zbuffer[x + env->w * y] / max_z;
-				//ft_printf("alpha = %f\n", alpha);
-				if (env->zbuffer[x + env->w * y] >= 0 && alpha >= 0 && alpha <= 1)
-					env->sdl.texture_pixels[x + env->w * y] = (int)(alpha * 0xFF) << 24
-						| (int)(alpha * 0xFF) << 16
-						| (int)(alpha * 0xFF) << 8
-						| (int)(alpha * 0xFF);
-				else if (env->zbuffer[x + env->w * y] == 100000000)
-					env->sdl.texture_pixels[x + env->w * y] = 0xFFAA0000;
-				else
-					env->sdl.texture_pixels[x + env->w * y] = 0;
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-/*
-**	Show Zbuffer
-*/
-
-void	update_screen_zbuffer(t_env *env)
-{
-	set_zbuffer_colors(env);
-	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels, env->w * sizeof(Uint32)))
+	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels,
+	  	env->w * sizeof(Uint32)))
 	{
 		ft_printf("Failed to update screen: %s\n", SDL_GetError());
 		return ;
@@ -120,11 +47,36 @@ void	draw_axes(t_env *env)
 	}
 }
 
+void	draw_crosshair2(t_env *env)
+{
+	int		y;
+	int		x; 
+	int		max;
+	Uint32	*pixels;
+
+	pixels = env->sdl.texture_pixels;
+	y = env->h_h;
+	x = env->h_w - 10;
+	max = env->h_w - 2;
+	while (x < max)
+	{
+		pixels[x + y * env->w] = 0xFFFFFFFF;
+		x++;
+	}
+	x = env->h_w + 10;
+	max = env->h_w + 2;
+	while (x > max)
+	{
+		pixels[x + y * env->w] = 0xFFFFFFFF;
+		x--;
+	}
+}
+
 void	draw_crosshair(t_env *env)
 {
-	int y;
-	int	x; 
-	int max;
+	int		y;
+	int		x; 
+	int		max;
 	Uint32	*pixels;
 
 	pixels = env->sdl.texture_pixels;
@@ -143,19 +95,5 @@ void	draw_crosshair(t_env *env)
 		pixels[x + y * env->w] = 0xFFFFFFFF;
 		y--;
 	}
-	y = env->h_h;
-	x = env->h_w - 10;
-	max = env->h_w - 2;
-	while (x < max)
-	{
-		pixels[x + y * env->w] = 0xFFFFFFFF;
-		x++;
-	}
-	x = env->h_w + 10;
-	max = env->h_w + 2;
-	while (x > max)
-	{
-		pixels[x + y * env->w] = 0xFFFFFFFF;
-		x--;
-	}
+	draw_crosshair2(env);
 }
