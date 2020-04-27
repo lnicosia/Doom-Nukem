@@ -60,12 +60,25 @@ void	draw_second_phase_selection(t_env *env, t_target_panel *panel)
 	draw_button(env, panel->sector_other, "Other");
 }
 
+int		draw_target_panel2(t_env *env)
+{
+	int		phase;
+
+	phase = get_target_selection_phase(&env->editor.event_panel.target_panel);
+	if (phase == 0)
+		draw_first_phase_selection(env, &env->editor.event_panel.target_panel);
+	else if (phase == 1)
+		draw_second_phase_selection(env, &env->editor.event_panel.target_panel);
+	else if (phase == 2)
+		draw_third_phase_selection(env, &env->editor.event_panel.target_panel);
+	return (0);
+}
+
 int		draw_target_panel(t_env *env)
 {
 	t_point			text_size1;
 	t_point			text_size2;
 	t_event_panel	panel;
-	int				phase;
 
 	panel = env->editor.event_panel;
 	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your event's target",
@@ -87,12 +100,5 @@ int		draw_target_panel(t_env *env)
 		new_printable_text(env->snprintf,
 		env->sdl.fonts.lato20, 0x333333FF, 0), env);
 	}
-	phase = get_target_selection_phase(&env->editor.event_panel.target_panel);
-	if (phase == 0)
-		draw_first_phase_selection(env, &env->editor.event_panel.target_panel);
-	else if (phase == 1)
-		draw_second_phase_selection(env, &env->editor.event_panel.target_panel);
-	else if (phase == 2)
-		draw_third_phase_selection(env, &env->editor.event_panel.target_panel);
-	return (0);
+	return (draw_target_panel2(env));
 }

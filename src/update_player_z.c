@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
 #include "render.h"
 
 void	update_player_z(t_env *env)
@@ -35,7 +34,6 @@ void	update_player_z(t_env *env)
 		{
 			env->player.pos.z = get_floor_at_pos(sector, env->player.pos, env);
 		}
-
 		else if (get_ceiling_at_pos(sector, env->player.pos, env) <
 		env->player.pos.z + env->player.eyesight + 1)
 		{

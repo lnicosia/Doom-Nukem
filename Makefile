@@ -81,7 +81,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_events_utils.c write_events_utils2.c init_events_writers.c \
 		write_event_conditions.c write_event_conditions_utils.c \
 		write_event_conditions_utils2.c init_event_conditions_writers.c \
-		write_events_links.c print_target_functions.c update_existing_events.c\
+		write_events_links.c print_target_functions.c \
 		split_sector_utils.c texture_selection.c init_hud_button.c \
 		editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
@@ -130,7 +130,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		set_new_condition_target.c set_new_condition_target2.c \
 		set_new_condition_target3.c set_new_condition_target4.c \
 		set_new_condition_target5.c set_new_condition_target6.c \
-		set_new_event_target.c set_new_event_target2.c \
+		set_new_event_target.c set_new_event_target2.c target_panel_keyup.c \
 		set_new_event_target3.c set_new_event_target4.c \
 		set_new_event_target5.c set_new_event_target6.c \
 		set_new_event_target7.c delete_wall_sprite.c draw_grid_walls_utils.c \
@@ -158,7 +158,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_keys2.c editor_keyup2.c editor_keyup3.c editor_keyup4.c \
 		new_vertex.c editor_tab_gestion2.c editor_wall_tabs2.c \
 		editor_wall_tabs3.c event_panel2.c new_event_panel_value_box.c \
-		new_event_panel_box.c event_panel_keyup.c \
+		new_event_panel_box.c event_panel_keyup.c update_existing_evsnts.c \
 		are_events_selection_buttons_visible.c init_editor_options_buttons2.c \
 		new_event_panel_dialog_box.c init_change_slope_direction_buttons.c \
 		init_editor_options_buttons3.c set_trigger.c \
@@ -299,7 +299,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h update_existing_events.h draw_grid_walls.h \
+		  events_parser.h draw_grid_walls.h \
 		  draw_skybox.h pop_events.h \
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
