@@ -420,7 +420,8 @@ int			distance_bewteen_ceiling_and_floor(t_sector sector)
 int			check_sector(t_sector sector, t_env *env)
 {
 	if (is_inside(sector, env))
-		return (ft_printf("Sector %d is inside or contains a sector\n", sector.num));
+		return (ft_printf("Sector %d is inside or contains a sector\n",
+		sector.num));
 	if (check_vertices(sector, env))
 		return (ft_printf("Vertices invalid\n"));
 	if (check_slopes_start(sector))

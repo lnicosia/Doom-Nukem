@@ -614,6 +614,31 @@ int					update_enemy_existing_events(t_env *env,
 t_event_target target);
 int					update_object_existing_events(t_env *env,
 t_event_target target);
+int					check_enemies_events_targets(t_env *env,
+t_event_target target, t_event_trigger *trigger);
+int					check_enemy_death_events_targets(t_env *env, t_enemy *enemy,
+t_event_target target, t_event_trigger *trigger);
+int					check_enemy_collision_events_targets(t_env *env,
+t_enemy *enemy, t_event_target target, t_event_trigger *trigger);
+int					check_global_events_targets(t_env *env,
+t_event_target target, t_event_trigger *trigger);
+int					check_sectors_events_targets(t_env *env,
+t_event_target target, t_event_trigger *trigger);
+int					check_walk_out_events_targets(t_env *env,
+t_sector *sector, t_event_target target, t_event_trigger *trigger);
+int					check_walk_in_events_targets(t_env *env,
+t_sector *sector, t_event_target target, t_event_trigger *trigger);
+int					check_stand_events_targets(t_env *env,
+t_sector *sector, t_event_target target, t_event_trigger *trigger);
+int					check_event_targets(t_env *env,
+t_event *event, t_event_target target, t_event_trigger *trigger);
+int					check_event_conditions_targets(t_env *env,
+t_event *event, t_event_target target, t_event_trigger *trigger);
+int					check_condition_targets(t_env *env,
+t_condition *condition, t_event_target target, t_event_trigger *trigger);
+int					events_to_delete_contains(t_env *env,
+t_event_trigger *trigger);
+int					delete_events_to_delete_list(void *param);
 int					delete_selected_sector(void *param);
 int					delete_selected_vertex(void *param);
 int					delete_linked_events(t_env *env);

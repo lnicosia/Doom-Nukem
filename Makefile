@@ -158,7 +158,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_keys2.c editor_keyup2.c editor_keyup3.c editor_keyup4.c \
 		new_vertex.c editor_tab_gestion2.c editor_wall_tabs2.c \
 		editor_wall_tabs3.c event_panel2.c new_event_panel_value_box.c \
-		new_event_panel_box.c event_panel_keyup.c update_existing_evsnts.c \
+		new_event_panel_box.c event_panel_keyup.c update_existing_events.c \
 		are_events_selection_buttons_visible.c init_editor_options_buttons2.c \
 		new_event_panel_dialog_box.c init_change_slope_direction_buttons.c \
 		init_editor_options_buttons3.c set_trigger.c \
@@ -168,7 +168,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		save_texture.c init_hud_button_function2.c print_event_action.c \
 		init_print_condition_target_data2.c init_target_panel_buttons2.c \
 		set_floor_condition_target.c set_ceiling_condition_target.c \
-		select_floor_target.c select_ceiling_target.c \
+		select_floor_target.c select_ceiling_target.c check_condition_targets.c\
+		update_existing_events2.c update_existing_events3.c \
+		update_existing_events4.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -234,7 +236,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   vertex_parser.c set_event_target.c floor_sprite_parser.c \
 		   ceiling_sprite_parser.c set_event_target2.c weapon_parser.c \
 		   object_parser.c parse_event_type.c parse_event_various_data.c \
-		   set_condition_target.c set_condition_target2.c \
+		   set_condition_target.c set_condition_target2.c update_sprites2.c \
 		   init_events_parser_target_parsers.c parse_event_exec_conditions.c \
 		   init_events_parser_checkers.c init_events_parser_updaters.c \
 		   event_checkers.c check_vertex_event.c intersects_with_player.c \
