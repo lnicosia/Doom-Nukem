@@ -48,14 +48,14 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
 				draw_projectiles.c projectile_on_wall_sprite.c \
 				keys.c weapons.c draw_hud.c game_minimap.c explosion2.c \
-				projectiles_collisions.c projectiles_utils.c \
+				projectiles_collisions.c projectiles_utils.c weapons2.c \
 		   		draw_projectile_no_light.c draw_projectile_color.c \
 		   		draw_projectile_both.c draw_projectile_brightness.c \
 				explosion.c draw_explosions.c draw_explosion.c doom_utils.c \
-				explosion_maths.c enemy_maths.c enemy_combat.c \
-				enemy_collision.c enemy_sight.c enemy_ai.c \
+				explosion_maths.c enemy_maths.c enemy_combat.c weapons3.c \
+				enemy_collision.c enemy_sight.c enemy_ai.c weapons4.c \
 		   		add_projectile_bullet_hole.c add_hitscan_bullet_hole.c \
-		   		shift_wall_bullet_hole.c get_bullet_hole_pos.c \
+		   		shift_wall_bullet_hole.c get_bullet_hole_pos.c draw_weapon.c \
 		   		delete_bullet_hole.c shift_bullet_hole_events.c \
 		        add_floor_hitscan_bullet_hole.c doom_poll_event.c \
 				add_ceiling_hitscan_bullet_hole.c projectile2.c projectile3.c \
@@ -74,14 +74,14 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid_player.c draw_grid_objects.c new_arrow_buttons.c \
 		add_enemy.c enemy_selection.c delete_event.c draw_grid_start_player.c \
 		delete_object.c delete_action.c delete_enemy.c draw_grid_enemies.c \
-		editor_3d_keys.c wall_sprites_keys.c previous_event.c \
+		editor_3d_keys.c wall_sprites_keys.c previous_event.c write_events2.c \
 		apply_texture.c init_event_panel_buttons.c enemy_drag.c \
 		editor_3d_keyup.c split_sector.c set_condition_panel_buttons_state.c \
 		write_events.c init_print_target_data.c print_event_condition.c \
 		write_events_utils.c write_events_utils2.c init_events_writers.c \
 		write_event_conditions.c write_event_conditions_utils.c \
 		write_event_conditions_utils2.c init_event_conditions_writers.c \
-		write_events_links.c print_target_functions.c \
+		write_events_links.c print_target_functions.c init_weapon_picker.c \
 		split_sector_utils.c texture_selection.c init_hud_button.c \
 		editor_hud_buttons.c init_hud_button_function.c editor_floor_tabs.c \
 		editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
@@ -170,7 +170,8 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		set_floor_condition_target.c set_ceiling_condition_target.c \
 		select_floor_target.c select_ceiling_target.c check_condition_targets.c\
 		update_existing_events2.c update_existing_events3.c \
-		update_existing_events4.c \
+		update_existing_events4.c write_resources2.c write_sectors2.c \
+		write_sectors3.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -15,11 +15,13 @@
 int		check_texture_scale(t_env *env, t_v2 *scale)
 {
 	if ((scale->x >= 0.1 && scale->x <= 100.0)
-	&& (scale->y >= 0.1 && scale->y <= 100.0))
+		&& (scale->y >= 0.1 && scale->y <= 100.0))
 	{
 		if ((env->inputs.minus1 && scale->x / 1.1 < 0.1)
-		|| (env->sdl.event.key.keysym.sym == SDLK_MINUS && scale->x / 1.1 < 0.1)
-		|| (env->sdl.event.key.keysym.sym == SDLK_EQUALS && scale->x * 1.1 > 100)
+		|| (env->sdl.event.key.keysym.sym == SDLK_MINUS
+			&& scale->x / 1.1 < 0.1)
+		|| (env->sdl.event.key.keysym.sym == SDLK_EQUALS
+			&& scale->x * 1.1 > 100)
 		|| (env->inputs.equals && scale->x * 1.1 > 100.0))
 			return (0);
 		if ((env->inputs.minus1 && scale->y / 1.1 < 0.1)
@@ -37,61 +39,69 @@ int		check_sprite_pos(t_v2 *pos)
 	return (0);
 }
 
+void	wall_sprites_keyup3(t_env *env, t_v2 *scale)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_MINUS
+		&& check_texture_scale(env, scale))
+	{
+		if (env->inputs.shift && !env->inputs.ctrl)
+		{
+			scale->x /= 1.1;
+			scale->y /= 1.1;
+		}
+		else if (env->inputs.ctrl)
+			scale->y /= 1.1;
+		else
+			scale->x /= 1.1;
+	}
+}
+
+void	wall_sprites_keyup2(t_env *env, t_v2 *pos, t_v2 *scale)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_PERIOD && check_sprite_pos(pos))
+	{
+		if (env->inputs.shift && !env->inputs.ctrl)
+		{
+			pos->x++;
+			pos->y++;
+		}
+		else if (env->inputs.ctrl)
+			pos->y++;
+		else
+			pos->x++;
+	}
+	if (env->sdl.event.key.keysym.sym == SDLK_EQUALS
+		&& check_texture_scale(env, scale))
+	{
+		if (env->inputs.shift && !env->inputs.ctrl)
+		{
+			scale->x *= 1.1;
+			scale->y *= 1.1;
+		}
+		else if (env->inputs.ctrl)
+			scale->y *= 1.1;
+		else
+			scale->x *= 1.1;
+	}
+	wall_sprites_keyup3(env, scale);
+}
+
 void	wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale)
 {
-	if (env->editor.keyup_allowed)
+	if (!env->editor.keyup_allowed)
+	  	return ;
+	if (env->sdl.event.key.keysym.sym == SDLK_COMMA
+		&& check_sprite_pos(pos))
 	{
-		if (env->sdl.event.key.keysym.sym == SDLK_COMMA
-		&& check_sprite_pos(pos))
+		if (env->inputs.shift && !env->inputs.ctrl)
 		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				pos->y--;
-				pos->x--;
-			}
-			else if (env->inputs.ctrl)
-				pos->y--;
-			else
-				pos->x--;
+			pos->y--;
+			pos->x--;
 		}
-		if (env->sdl.event.key.keysym.sym == SDLK_PERIOD
-		&& check_sprite_pos(pos))
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				pos->x++;
-				pos->y++;
-			}
-			else if (env->inputs.ctrl)
-				pos->y++;
-			else
-				pos->x++;
-		}
-		if (env->sdl.event.key.keysym.sym == SDLK_EQUALS
-		&&	check_texture_scale(env, scale))
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				scale->x *= 1.1;
-				scale->y *= 1.1;
-			}
-			else if (env->inputs.ctrl)
-				scale->y *= 1.1;
-			else
-				scale->x *= 1.1;
-		}
-		if (env->sdl.event.key.keysym.sym == SDLK_MINUS
-		&& check_texture_scale(env, scale))
-		{
-			if (env->inputs.shift && !env->inputs.ctrl)
-			{
-				scale->x /= 1.1;
-				scale->y /= 1.1;
-			}
-			else if (env->inputs.ctrl)
-				scale->y /= 1.1;
-			else
-				scale->x /= 1.1;
-		}
+		else if (env->inputs.ctrl)
+			pos->y--;
+		else
+			pos->x--;
 	}
+	wall_sprites_keyup2(env, pos, scale);
 }

@@ -33,8 +33,7 @@ t_events_parser *eparser)
 		return (invalid_char("before weapon number", "a digit", **line,
 		parser));
 	eparser->current_weapon = ft_atoi(*line);
-	if (eparser->current_weapon < 0
-		|| eparser->current_weapon >= NB_WEAPONS)
+	if (eparser->current_weapon < 0 || eparser->current_weapon >= NB_WEAPONS)
 		return (custom_error_with_line("Invalid weapon index", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')

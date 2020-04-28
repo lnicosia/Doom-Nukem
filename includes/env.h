@@ -1241,6 +1241,9 @@ void				init_condition(t_condition *condition);
 void				init_trigger(t_event_trigger *trigger);
 void				init_target(t_event_target *target);
 void				save_init_data(t_env *env);
+int					hitscan_enemies(t_env *env, int i);
+int					hitscan_objects(t_env *env, int i);
+int					damage_done(t_env *env, double rotated_pos_w);
 
 /*
 **	Parser functions

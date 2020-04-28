@@ -30,6 +30,23 @@ int		set_weapon_panel_buttons_state(t_target_panel *panel, int index)
 	return (0);
 }
 
+int		select_weapon2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.creating_condition)
+	{
+		if (env->editor.condition_panel.condition.target)
+			set_weapon_panel_buttons_state(panel,
+			env->editor.condition_panel.condition.target_index);
+	}
+	else
+	{
+		if (env->editor.event_panel.event.target)
+			set_weapon_panel_buttons_state(panel,
+			env->editor.event_panel.event.target_index);
+	}
+	return (0);
+}
+
 int		select_weapon(void *param)
 {
 	t_env			*env;
@@ -49,19 +66,7 @@ int		select_weapon(void *param)
 		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.creating_condition)
-	{
-		if (env->editor.condition_panel.condition.target)
-			set_weapon_panel_buttons_state(panel,
-			env->editor.condition_panel.condition.target_index);
-	}
-	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_weapon_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
-	return (0);
+	return (select_weapon2(panel, env));
 }
 
 int		draw_weapon_panel(t_env *env, t_target_panel *panel)

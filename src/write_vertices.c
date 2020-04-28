@@ -24,7 +24,8 @@ void	write_vertices(int fd, t_env *env)
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		size = ft_max(ft_getsize(env->vertices[i].y), ft_getsize(env->vertices[i].x));
+		size = ft_max(ft_getsize(env->vertices[i].y),
+		ft_getsize(env->vertices[i].x));
 		if (size > padding)
 			padding = size;
 		i++;
