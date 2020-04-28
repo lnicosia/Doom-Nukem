@@ -1,6 +1,6 @@
 #include "env.h"
 
-void		draw_rectangle_button(t_env *env, t_button b, char *str)
+void		draw_rectangle_button(t_env *env, t_button b)
 {
 	if (b.anim_state == HOVER)
 		draw_rectangle(env, b.hover, b.pos, b.size_up);
@@ -12,7 +12,7 @@ void		draw_rectangle_button(t_env *env, t_button b, char *str)
 		draw_rectangle(env, b.down, b.pos, b.size_down);
 }
 
-void		draw_image_button(t_env *env, t_button b, t_point pos, char *str)
+void		draw_image_button(t_env *env, t_button b, t_point pos)
 {
 	if (b.anim_state == HOVER)
 		apply_surface(b.img_hover, pos, b.size_up, env);
@@ -28,11 +28,11 @@ void		draw_button(t_env *env, t_button b, char *str)
 {
 	if (!b.img_up || !b.img_pressed || !b.img_down || !b.img_hover)
 	{
-	  	draw_rectangle_button(env, b, str);
+	  	draw_rectangle_button(env, b);
 	}
 	else
 	{
-	  	draw_image_button(env, b, str, new_point(b.pos.y, b.pos.x));
+	  	draw_image_button(env, b, new_point(b.pos.y, b.pos.x));
 	}
 	draw_button_text(b, str, env);
 }

@@ -87,7 +87,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
 		init_editor_tab_buttons.c editor_ceiling_tab_button.c \
 		editor_floor_tab_button.c editor_wall_tab_button.c wall_edit_keyup.c \
-		editor_env_wall_buttons.c editor_env_floor_buttons.c draw_button.c \
+		editor_env_wall_buttons.c editor_env_floor_buttons.c \
 		editor_env_ceilling_buttons.c  change_editor_mode.c \
 		editor_3d_button_keys.c editor_3d_button_keyup.c split_sector2.c \
 		init_add_buttons.c editor_env_sector_buttons.c editor_2d.c \
@@ -181,7 +181,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_bmp_parsing.c keyup.c render_utils.c movement.c create_event.c\
 		   get_slope.c update_player_z.c movement_collision.c win.c \
 		   get_screen_sectors.c view.c init_options.c confirmation_box_keys.c \
-		   fps.c inputs.c init_editor_data.c set_button_images.c \
+		   fps.c inputs.c init_editor_data.c set_button_images.c draw_button.c \
 		   valid_map.c game_menu.c get_sector.c draw_line_minimap.c \
 		   color_utils.c camera.c  new_tabs_position.c init_weapons2.c \
 		   print_debug.c init_animations.c vertices_utils.c death.c \
