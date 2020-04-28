@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_ceiling_hitscan_bullet_hole.c                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/28 15:15:25 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/28 15:21:56 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "wall_sprite_remover.h"
 
@@ -5,22 +17,22 @@ int		add_ceiling_hitscan_bullet_hole3(t_sector *sector, t_env *env)
 {
 	t_floor_sprite_remover	*param;
 
-	if (!(env->ceiling_bullet_holes_events
-		= (t_event*)ft_realloc(env->ceiling_bullet_holes_events,
+	if (!(env->ceiling_bullet_holes_events =
+		(t_event*)ft_realloc(env->ceiling_bullet_holes_events,
 		sizeof(t_event) * env->nb_ceiling_bullet_holes_events,
 		sizeof(t_event) * (env->nb_ceiling_bullet_holes_events + 1))))
 		return (ft_perror("Could not realloc bullet_holes events"
-					"to make bullet hole fade"));
+		"to make bullet hole fade"));
 	if (!(param = (t_floor_sprite_remover*)ft_memalloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
 	param->sprite = sector->ceiling_sprites.nb_sprites - 1;
-	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events]
-		= new_func_event(&delete_ceiling_bullet_hole, param);
-	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events]
-		.max_uses = 1;
-	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].delay
-		= 5000;
+	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events] =
+		new_func_event(&delete_ceiling_bullet_hole, param);
+	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].
+		max_uses = 1;
+	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].
+		delay = 5000;
 	env->ceiling_bullet_holes_events[env->nb_ceiling_bullet_holes_events].
 		target_index = -1;
 	env->nb_ceiling_bullet_holes_events++;
@@ -41,12 +53,12 @@ int		add_ceiling_hitscan_bullet_hole2(t_sector *sector, t_env *env)
 	sector->ceiling_sprites.pos[sector->ceiling_sprites.nb_sprites].y -=
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y / 2;
 	sector->ceiling_sprites_scale[sector->ceiling_sprites.nb_sprites].x =
-		env->object_sprites[sector->ceiling_sprites
-		.sprite[sector->ceiling_sprites.nb_sprites]].size[0].x /
+		env->object_sprites[sector->ceiling_sprites.
+		sprite[sector->ceiling_sprites.nb_sprites]].size[0].x /
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].x;
 	sector->ceiling_sprites_scale[sector->ceiling_sprites.nb_sprites].y =
-		env->object_sprites[sector->ceiling_sprites
-		.sprite[sector->ceiling_sprites.nb_sprites]].size[0].y /
+		env->object_sprites[sector->ceiling_sprites.
+		sprite[sector->ceiling_sprites.nb_sprites]].size[0].y /
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y;
 	sector->ceiling_sprites.nb_sprites++;
 	return (add_ceiling_hitscan_bullet_hole3(sector, env));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 14:41:36 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 10:36:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:24:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	resting_enemy(t_env *env, int i)
 	}
 }
 
-void	 pursuing_enemy(t_env *env, int i)
+void	pursuing_enemy(t_env *env, int i)
 {
 	double	start;
 	double	time_spent;
@@ -50,7 +50,7 @@ void	 pursuing_enemy(t_env *env, int i)
 	}
 }
 
-int	 dying_enemy(t_env *env, int i, int nb_sprites)
+int		dying_enemy(t_env *env, int i, int nb_sprites)
 {
 	double start;
 	double time_spent;
@@ -71,7 +71,7 @@ int	 dying_enemy(t_env *env, int i, int nb_sprites)
 	return (-1);
 }
 
-int	 rand_dir(t_env *env, int i)
+int		rand_dir(t_env *env, int i)
 {
 	double start;
 	double time_spent;
@@ -88,7 +88,7 @@ int	 rand_dir(t_env *env, int i)
 	return (env->enemies[i].dir);
 }
 
-void	 enemy_firing_anim(t_env *env, int i)
+void	enemy_firing_anim(t_env *env, int i)
 {
 	double	start;
 	double	time_spent;

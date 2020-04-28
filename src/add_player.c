@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 15:31:44 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/04/28 15:48:29 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/28 16:09:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	compute_player_pos(t_env *env)
 {
-	int		i;
-	t_v2	pos;
+	int			i;
+	t_v2		pos;
 	t_sector	sector;
 
 	i = 0;

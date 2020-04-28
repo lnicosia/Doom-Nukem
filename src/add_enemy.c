@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_enemy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:32:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 14:13:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 15:35:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	set_enemy_height_on_floor(t_enemy *enemy)
 	}
 }
 
-int	add_enemy(t_env *env)
+int		add_enemy(t_env *env)
 {
 	t_enemy	enemy;
 

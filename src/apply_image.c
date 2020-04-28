@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 18:58:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 19:03:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:38:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_point size)
 **	with scaling
 */
 
-void    apply_sprite(t_sprite sprite, t_point pos, t_point size, t_env *env)
+void	apply_sprite(t_sprite sprite, t_point pos, t_point size, t_env *env)
 {
 	int				x;
 	int				y;
@@ -65,20 +65,17 @@ void    apply_sprite(t_sprite sprite, t_point pos, t_point size, t_env *env)
 **	with scaling and a green selection filter
 */
 
-void    apply_sprite_selected(t_sprite sprite, t_point pos, t_point size,
+void	apply_sprite_selected(t_sprite sprite, t_point pos, t_point size,
 t_env *env)
 {
 	int				x;
 	int				y;
 	Uint32			pixel;
 	SDL_Surface		*surface;
-	t_texture		texture;
 	Uint32			*texture_pixels;
 
 	texture_pixels = env->sdl.texture_pixels;
-	texture = env->sprite_textures[sprite.texture];
-	surface = get_closest_mipmap(texture, size);
-	surface = texture.surface;
+	surface = env->sprite_textures[sprite.texture].surface;
 	y = -1;
 	while (++y < size.y)
 	{
@@ -88,10 +85,8 @@ t_env *env)
 			pixel = get_sprite_pixel(surface, sprite, new_point(x, y), size);
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
-			{
 				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
 				blend_alpha(pixel, 0x1ABC9C, 128);
-			}
 		}
 	}
 }

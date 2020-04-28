@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   apply_image2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/28 16:34:37 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/28 16:34:37 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 /*
@@ -6,11 +18,10 @@
 **	ex: si size depasse la taille de la surface
 */
 
-void    apply_surface(SDL_Surface *surface, t_point pos, t_point size,
+void		apply_surface(SDL_Surface *surface, t_point pos, t_point size,
 t_env *env)
 {
-	int				x;
-	int				y;
+	t_point			i;
 	Uint32			pixel;
 	SDL_PixelFormat	*fmt;
 
@@ -18,26 +29,26 @@ t_env *env)
 	if (!surface)
 		return ;
 	fmt = surface->format;
-	y = -1;
-	while (++y < size.y)
+	i.y = -1;
+	while (++i.y < size.y)
 	{
-		x = -1;
-		while (++x < size.x)
+		i.x = -1;
+		while (++i.x < size.x)
 		{
-			pixel = ((Uint32*)(surface->pixels))[x + surface->w * y];
-			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
-				&& pos.x + y < env->h && pixel != 0xFFC10099)
+			pixel = ((Uint32*)(surface->pixels))[i.x + surface->w * i.y];
+			if (pos.y + i.x >= 0 && pos.y + x < env->w && pos.x + i.y >= 0
+				&& pos.x + i.y < env->h && pixel != 0xFFC10099)
 			{
-				env->sdl.texture_pixels[pos.y + x + env->w * (pos.x + y)] =
+				env->sdl.texture_pixels[pos.y + i.x + env->w * (pos.x + i.y)] =
 				blend_alpha(env->sdl.
-				texture_pixels[pos.y + x + env->w * (pos.x + y)], pixel,
+				texture_pixels[pos.y + i.x + env->w * (pos.x + i.y)], pixel,
 				(Uint8)(((pixel & fmt->Amask) >> fmt->Ashift) << fmt->Aloss));
 			}
 		}
 	}
 }
 
-Uint32	get_image_pixel(SDL_Surface *surface, int x, int y, t_point size)
+Uint32		get_image_pixel(SDL_Surface *surface, int x, int y, t_point size)
 {
 	double	xalpha;
 	double	yalpha;
@@ -65,7 +76,8 @@ SDL_Surface	*get_closest_mipmap(t_texture texture, t_point size)
 **	with scaling
 */
 
-void    apply_image(t_texture texture, t_point pos, t_point size, t_env *env)
+void		apply_image(t_texture texture, t_point pos, t_point size,
+t_env *env)
 {
 	int				x;
 	int				y;
@@ -99,7 +111,7 @@ void    apply_image(t_texture texture, t_point pos, t_point size, t_env *env)
 **	with scaling and a green selection filter
 */
 
-void    apply_image_selected(t_texture texture, t_point pos, t_point size,
+void		apply_image_selected(t_texture texture, t_point pos, t_point size,
 t_env *env)
 {
 	int				x;

@@ -1,40 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animations2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/28 16:29:46 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/28 16:29:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
-void	damage_anim(t_env *env)
-{
-	int j;
-	int time_spent;
-	int color;
-	
-	if (!env->player_hurt.start)
-		env->player_hurt.start = SDL_GetTicks();
-	if (env->time.milli_s > env->player_hurt.start + 160)
-	{
-		env->player_hurt.start = 0;
-		env->player.hit = 0;
-	}
-	j = 0;
-	color = 0;
-	time_spent = env->time.milli_s - env->player_hurt.start;
-	if (time_spent > 0 && time_spent <= 30)
-		color = 40;
-	else if (time_spent > 30 && time_spent <= 50)
-		color = 50;
-	else if (time_spent > 50 && time_spent <= 110)
-		color = 75;
-	else if (time_spent > 110 && time_spent <= 130)
-		color = 50;
-	else if (time_spent > 130 && time_spent <= 160)
-		color = 40;
-	while (j < env->w * env->h)
-	{
-		env->sdl.texture_pixels[j] = blend_alpha(env->sdl.texture_pixels[j],
-		0xFFFF0000, color);
-		j++;
-	}
-}
-
-int	 enemy_hurt(t_env *env, int i)
+int		enemy_hurt(t_env *env, int i)
 {
 	int time_spent;
 	int color;
@@ -58,7 +36,6 @@ int	 enemy_hurt(t_env *env, int i)
 		color = 50;
 	else if (time_spent > 130 && time_spent <= 160)
 		color = 40;
-	//ft_printf("color %d\n", color);
 	return (color);
 }
 
@@ -81,7 +58,7 @@ void	object_anim_loop(t_env *env, int i)
 	}
 }
 
-int	 explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites)
+int		explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites)
 {
 	double start;
 	double time_spent;
@@ -99,7 +76,7 @@ int	 explosion_animation(t_env *env, t_explosion *explosion, int nb_sprites)
 	return (-1);
 }
 
-int	 object_destruction(t_env *env, int i, int nb_sprites)
+int		object_destruction(t_env *env, int i, int nb_sprites)
 {
 	double start;
 	double time_spent;

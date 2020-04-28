@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   add_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:06:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/10 17:14:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/28 16:17:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	get_new_floor_and_ceiling(t_env *env)
+void		get_new_floor_and_ceiling(t_env *env)
 {
-	t_sector sector;
-	int		i;
-	int		flag;
+	t_sector	sector;
+	int			i;
+	int			flag;
 
 	flag = 0;
-	i = 0;
+	i = -1;
 	sector = env->sectors[env->nb_sectors - 1];
-	while (i < sector.nb_vertices)
+	while (++i < sector.nb_vertices)
 	{
 		if (sector.neighbors[i] != -1)
 		{
@@ -35,9 +35,7 @@ void	get_new_floor_and_ceiling(t_env *env)
 				sector.floor = env->sectors[sector.neighbors[i]].floor;
 			if (sector.ceiling < env->sectors[sector.neighbors[i]].ceiling)
 				sector.ceiling = env->sectors[sector.neighbors[i]].ceiling;
-
 		}
-		i++;
 	}
 	env->sectors[env->nb_sectors - 1].floor = sector.floor;
 	env->sectors[env->nb_sectors - 1].ceiling = sector.ceiling;
@@ -110,14 +108,14 @@ int			add_sector2(t_sector *sector, t_env *env)
 int			add_sector(t_env *env)
 {
 	t_sector	sector;
-	
+
 	sector = new_default_sector(env);
 	if (init_new_sector_arrays(&sector))
 		return (ft_printf("Error while initializing new sector arrays\n"));
-	if (set_sector_floor_map_array(&sector, 
+	if (set_sector_floor_map_array(&sector,
 		&env->wall_textures[sector.floor_texture], env))
 		return (-1);
-	if (set_sector_ceiling_map_array(&sector, 
+	if (set_sector_ceiling_map_array(&sector,
 		&env->wall_textures[sector.ceiling_texture], env))
 		return (-1);
 	if (fill_new_sector(&sector, env))

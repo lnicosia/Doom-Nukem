@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:03:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 16:23:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:22:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int		count_sector_angles(t_sector *sector, t_env *env)
 	v[1].y = env->vertices[sector->vertices[0]].y;
 	v[2].x = env->vertices[sector->vertices[1]].x;
 	v[2].y = env->vertices[sector->vertices[1]].y;
-	if (get_angle(v))
-		count++;
+	count += get_angle(v) ? 1 : 0;
 	return (count);
 }
