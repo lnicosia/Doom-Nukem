@@ -415,7 +415,7 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -fsanitize=address -g3
 endif
 
-SOUND_WINDOWS = sound_lib/fmod.dll sound_lib/fmodL.dll
+SOUND_WINDOWS = fmod.dll fmodL.dll
 
 SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 
