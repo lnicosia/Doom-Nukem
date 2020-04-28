@@ -252,11 +252,11 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \
 		   check_vertex_event_utils.c draw_ceiling_utils.c option_menu2.c \
 		   draw_enemies2.c draw_enemies3.c draw_vline_projectile.c \
-		   draw_skybox2.c draw_floor_utils.c draw_wall_utils.c \
+		   draw_skybox2.c draw_floor_utils.c draw_wall_utils.c valid_map2.c \
 		   draw_wall_sprites2.c draw_minimap_player.c minimap2.c minimap3.c \
 		   check_floor_event.c check_ceiling_event.c check_floor_slope_event.c \
-		   check_ceiling_slope_event.c check_x_collision_event.c \
-		   check_y_collision_event.c check_z_collision_event.c \
+		   check_ceiling_slope_event.c check_x_collision_event.c valid_map3.c \
+		   check_y_collision_event.c check_z_collision_event.c valid_map4.c \
 		   event_checkers2.c event_checkers3.c event_updaters2.c \
 		   event_updaters3.c event_updaters4.c events_links_protection2.c \
 		   fill_triangle_minimap.c fill_triangle.c free_sector2.c \
@@ -301,7 +301,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
-		  events_parser.h draw_grid_walls.h \
+		  events_parser.h draw_grid_walls.h valid_map.h \
 		  draw_skybox.h pop_events.h \
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \

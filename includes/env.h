@@ -1196,8 +1196,17 @@ void				init_print_condition_target_data6(t_env *env);
 void				init_print_link_target_data(t_env *env);
 void				set_camera(t_camera *camera, t_env *env);
 int					valid_map(t_env *env);
+int					is_sector_concave(t_sector sector, t_env *env);
+int					check_intersection_with_sector(t_sector sector, t_env *env,
+t_vertex v1, t_vertex v2);
+int					check_neighbor_validity(t_sector sector, t_env *env);
+int					check_duplicate_vertices(t_sector sector, t_env *env);
+int					is_inside(t_sector sector, t_env *env);
+int					check_sectors_inside(t_sector sector, int sect,
+t_env *env);
 int					segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3,
 t_v2 v4);
+int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					generate_mipmaps(t_env *env);
 int					generate_maps_for_texture(t_texture *texture);
 int					set_camera_map_array(t_camera *camera, int i,
