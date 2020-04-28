@@ -36,7 +36,7 @@ t_env *env)
 		while (++i.x < size.x)
 		{
 			pixel = ((Uint32*)(surface->pixels))[i.x + surface->w * i.y];
-			if (pos.y + i.x >= 0 && pos.y + x < env->w && pos.x + i.y >= 0
+			if (pos.y + i.x >= 0 && pos.y + i.x < env->w && pos.x + i.y >= 0
 				&& pos.x + i.y < env->h && pixel != 0xFFC10099)
 			{
 				env->sdl.texture_pixels[pos.y + i.x + env->w * (pos.x + i.y)] =
