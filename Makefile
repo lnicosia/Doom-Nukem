@@ -87,7 +87,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_ceiling_tabs.c editor_player_tabs.c editor_wall_tabs.c \
 		init_editor_tab_buttons.c editor_ceiling_tab_button.c \
 		editor_floor_tab_button.c editor_wall_tab_button.c wall_edit_keyup.c \
-		editor_env_wall_buttons.c editor_env_floor_buttons.c \
+		editor_env_wall_buttons.c editor_env_floor_buttons.c draw_button.c \
 		editor_env_ceilling_buttons.c  change_editor_mode.c \
 		editor_3d_button_keys.c editor_3d_button_keyup.c split_sector2.c \
 		init_add_buttons.c editor_env_sector_buttons.c editor_2d.c \
@@ -96,7 +96,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		editor_player_tab_button.c editor_enemy_tabs.c print_events_tabs2.c \
 		editor_env_enemy_buttons.c editor_enemy_tab_button.c \
 		editor_object_tabs.c editor_env_object_buttons.c \
-		sprite_selection.c init_sprite_selection_buttons.c\
+		sprite_selection.c init_sprite_selection_buttons.c \
 		editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
 		init_events_selection_buttons.c print_event.c init_event_types.c \
 		are_launch_condition_selection_buttons_visible.c \

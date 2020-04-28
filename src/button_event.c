@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:28:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/07 15:24:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 17:09:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_point	get_button_current_size(t_button b)
 	return (size);
 }
 
-int	is_mouse_on_button(t_button b, t_point mouse)
+int		is_mouse_on_button(t_button b, t_point mouse)
 {
 	t_point	size;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parse_header.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:43:35 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/04/28 16:56:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:43:40 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parse_file_header(int fd, t_bmp_parser *parser)
 		if ((parser->size = read_int32(header, 2)) <= 14)
 			return (ft_printf("File size is too small! (%d bytes)\n",
 						parser->size));
-			if ((parser->start = read_int32(header, 10)) <= 14)
+		if ((parser->start = read_int32(header, 10)) <= 14)
 			return (ft_printf("Image offset is too low (%d)\n",
 						parser->start));
 	}
@@ -43,21 +43,21 @@ int	get_image_header_data(unsigned char *str, t_bmp_parser *parser)
 	if ((parser->w = read_int32(str, 0)) <= 0)
 		return (ft_printf("Image width is too small (%d)\n",
 					parser->w));
-		if (ft_abs(parser->h = read_int32(str, 4)) <= 0)
+	if (ft_abs(parser->h = read_int32(str, 4)) <= 0)
 		return (ft_printf("Image height is too small (%d)\n",
 					parser->h));
-		if ((parser->planes = read_int16(str, 8)) != 1)
+	if ((parser->planes = read_int16(str, 8)) != 1)
 		return (ft_printf("Image planes must be equal to 1 (%d)\n",
 					parser->planes));
-		parser->bpp = read_int16(str, 10);
+	parser->bpp = read_int16(str, 10);
 	if (parser->bpp != 32 && parser->bpp != 24 && parser->bpp != 16
 			&& parser->bpp != 8 && parser->bpp != 4 && parser->bpp != 1)
 		return (ft_printf("Bits per pixels must be equal to 32 or 24 (%d)\n",
 					parser->bpp));
-		if ((parser->compression = read_int32(str, 12)))
+	if ((parser->compression = read_int32(str, 12)))
 		return (ft_printf("Image must not be compressed (%d)\n",
 					parser->compression));
-		parser->image_size = read_int32(str, 16);
+	parser->image_size = read_int32(str, 16);
 	parser->xpixels_per_meter = read_int32(str, 20);
 	parser->ypixels_per_meter = read_int32(str, 24);
 	parser->color_used = read_int32(str, 28);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser_skybox.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 14:51:34 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/17 16:48:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:57:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "bmp_parser.h"
 
-static int	parse_skybox_textures2(int fd, t_bmp_parser *parser , t_env *env)
+static int	parse_skybox_textures2(int fd, t_bmp_parser *parser, t_env *env)
 {
 	if (parser->color_used || parser->bpp <= 8)
 	{
@@ -21,7 +21,7 @@ static int	parse_skybox_textures2(int fd, t_bmp_parser *parser , t_env *env)
 			return (ft_printf("Error in color table\n"));
 	}
 	if (parse_pixel_data(fd, parser,
-	  env->skyboxes[parser->skybox_index].textures))
+		env->skyboxes[parser->skybox_index].textures))
 		return (ft_printf("Error in pixel data\n"));
 	return (0);
 }
@@ -42,7 +42,7 @@ static int	parse_skybox_textures(int fd, int num_sky, int index, t_env *env)
 		return (ft_printf("Error in image header\n"));
 	ft_printf("{red}");
 	if (!(env->skyboxes[num_sky].textures[index].surface =
-	  	SDL_CreateRGBSurfaceWithFormat(0, parser.w, parser.h, parser.bpp,
+		SDL_CreateRGBSurfaceWithFormat(0, parser.w, parser.h, parser.bpp,
 		SDL_PIXELFORMAT_ARGB8888)))
 		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
 	env->skyboxes[num_sky].textures[index].str =
@@ -50,7 +50,7 @@ static int	parse_skybox_textures(int fd, int num_sky, int index, t_env *env)
 	env->skyboxes[num_sky].textures[index].scale = 1;
 	env->skyboxes[num_sky].textures[index].xpadding = 0;
 	env->skyboxes[num_sky].textures[index].ypadding = 0;
-	return (parse_skybox_textures2(fd, &parser, env)); 
+	return (parse_skybox_textures2(fd, &parser, env));
 }
 
 int			parse_bmp_skybox_textures(char *file, int num_sky, int index,

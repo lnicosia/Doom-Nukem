@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bmp_parser_utils.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/28 16:58:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/28 16:58:15 by lnicosia         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   bmp_parser_utils.c								 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/04/30 14:46:05 by lnicosia		  #+#	#+#			 */
+/*   Updated: 2019/07/24 14:55:24 by sipatry		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
@@ -33,7 +33,7 @@ uint32_t		read_color8(unsigned char *str, int index, t_bmp_parser *parser)
 
 	if (parser->color_used)
 		return (parser->colors[str[index]]);
-	res = (str[(int)index] >> 0 & 7) << 24
+	res =  (str[(int)index] >> 0 & 7) << 24
 		| (str[(int)index] >> 6 & 7) << 16
 		| (str[(int)index] >> 3 & 7) << 8
 		| 0xFF;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parse_color_table.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:32:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:48:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:56:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static int	default_color_table(t_bmp_parser *parser)
 		set_colors4(parser->colors);
 	if (parser->bpp == 1)
 	{
-	  	parser->colors[0] = 0xFF;
-	  	parser->colors[1] = 0xFFFFFFFF;
+		parser->colors[0] = 0xFF;
+		parser->colors[1] = 0xFFFFFFFF;
 	}
 	return (0);
 }

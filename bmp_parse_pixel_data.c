@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   bmp_parse_pixel_data.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/28 16:56:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/28 17:09:18 by lnicosia         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   bmp_parse_pixel_data.c							 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2019/05/01 13:22:47 by lnicosia		  #+#	#+#			 */
+/*   Updated: 2020/03/02 11:14:19 by lnicosia         ###   ########.fr       */
+/*																			*/
 /* ************************************************************************** */
 
 #include "env.h"
@@ -16,7 +16,7 @@
 int		parse_pixels(unsigned char *str, t_bmp_parser *parser,
 t_texture *textures)
 {
-	double	byte;
+  	double	byte;
 	int		x;
 	int		y;
 
@@ -26,7 +26,7 @@ t_texture *textures)
 	while (byte + 4 < parser->ret)
 	{
 		textures[parser->index].str[x + y * parser->w] =
-		get_pixel(byte, str, parser);
+		get_pixel(byte, str, parser); 
 		byte += parser->bpp / 8.0;
 		x++;
 		set_byte(&x, &y, &byte, parser);
@@ -36,14 +36,14 @@ t_texture *textures)
 
 int		set_byte(int *x, int *y, double *byte, t_bmp_parser *parser)
 {
-	double	trash;
+  	double	trash;
 
-	if (*x >= parser->w)
+  	if (*x >= parser->w)
 	{
-		while (modf(*byte, &trash) != 0)
-			(*byte) += parser->bpp / 8.0;
+	  	while (modf(*byte, &trash) != 0)
+		  	(*byte) += parser->bpp / 8.0;
 		while ((int)*byte % 4 != 0)
-			(*byte)++;
+		  	(*byte)++;
 		*x = 0;
 		(*y)--;
 	}
@@ -63,7 +63,7 @@ int		parse_pixel_data(int fd, t_bmp_parser *parser, t_texture *textures)
 	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
 		return (ft_printf("Could not malloc buffer for pixel data\n"));
 	if ((parser->ret = read(fd, str, size)) > 0)
-		parse_pixels(str, parser, textures);
+	  	parse_pixels(str, parser, textures);
 	ft_memdel((void**)&str);
 	return (0);
 }
