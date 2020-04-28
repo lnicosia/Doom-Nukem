@@ -400,6 +400,7 @@ ALL_RESOURCES = $(EDITOR_DIR)
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) -Wno-misleading-indentation \
+          -Wno-unused-result \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -Ofast\
 		  #-fsanitize=address -g3 \
@@ -414,9 +415,11 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -fsanitize=address -g3
 endif
 
-SOUND_WINDOWS = fmod.dll fmodL.dll
+SOUND_WINDOWS = sound_lib/fmod.dll sound_lib/fmodL.dll
 
 SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
+
+SOUND_LINUX = sound_lib/libfmod.so sound_lib/libfmodL.so
 
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_ttf.dll \
@@ -427,6 +430,8 @@ SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
 	  #`sdl-config --cflags --libs` \
 	  RED := "\033[0;31m"
 
+SDL_LINUX = 
+
 ifeq ($(OS), Windows_NT)
 	SDL = $(SDL_WINDOWS)
 	SOUND = $(SOUND_WINDOWS)
@@ -436,8 +441,8 @@ else
 		SDL = $(SDL_OSX)
 		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
 	else
-		echo "Can only compile on Windows or MacOS"
-		exit 1
+		SDL = $(SDL_OSX)
+		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
 	endif
 endif
 
