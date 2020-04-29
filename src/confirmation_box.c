@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   confirmation_box.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 10:40:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/12 17:46:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:23:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ void	new_buttons2(t_confirmation_box *box, int height, t_env *env)
 	{
 		box->yes.pos.x = env->w / 2;
 		box->yes.pos.y = env->h / 2 + box->size.y / 2 - height - 5;
-		box->yes.str = "Yes";
 	}
 	else
 	{
 		box->yes.pos.x = env->w / 2 - box->yes.size_up.x / 2;
 		box->yes.pos.y = env->h / 2 + box->size.y / 2 - height - 15;
-		box->yes.str = "Ok";
 	}
+	box->yes.str = box->type == YESNO ? "Yes" : "Ok";
 }
 
 void	new_buttons(t_confirmation_box *box, int height, t_env *env)
@@ -68,7 +67,7 @@ void	new_buttons(t_confirmation_box *box, int height, t_env *env)
 	new_buttons2(box, height, env);
 }
 
-int			get_box_size(t_confirmation_box *box)
+int		get_box_size(t_confirmation_box *box)
 {
 	t_point	text_size;
 	t_point	yes_size;
@@ -82,7 +81,7 @@ int			get_box_size(t_confirmation_box *box)
 	return (yes_size.y);
 }
 
-int	update_confirmation_box(t_confirmation_box *box, char *str,
+int		update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env)
 {
 	if (!str)
@@ -104,7 +103,7 @@ int type, t_env *env)
 	return (0);
 }
 
-int			draw_confirmation_box(t_confirmation_box *box, t_env *env)
+int		draw_confirmation_box(t_confirmation_box *box, t_env *env)
 {
 	t_point	text_size;
 

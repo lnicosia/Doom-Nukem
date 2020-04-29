@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   confirmation_box_keys.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:20:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:20:19 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		confirmation_box_keyup2(t_confirmation_box *box, t_env *env)
@@ -63,7 +75,7 @@ int		confirmation_box_keys(t_confirmation_box *box, t_env *env)
 int		no_pressed(void *target)
 {
 	t_confirmation_box	*box;
-	
+
 	box = (t_confirmation_box*)target;
 	box->state = 0;
 	if (box->no_action)
@@ -74,7 +86,7 @@ int		no_pressed(void *target)
 int		yes_pressed(void *target)
 {
 	t_confirmation_box	*box;
-	
+
 	box = (t_confirmation_box*)target;
 	box->state = 0;
 	if (box->yes_action)

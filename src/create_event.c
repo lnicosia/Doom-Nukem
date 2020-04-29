@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:44:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 17:47:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:17:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,8 @@ int		save_event(void *param)
 
 int		create_event2(t_env *env)
 {
-	if (env->editor.event_panel.trigger.type == WALK_IN
-		&& new_walk_in_event(env, env->editor.event_panel.trigger,
-		env->editor.event_panel.event))
+	if (env->editor.event_panel.trigger.type == WALK_IN && new_walk_in_event(
+		env, env->editor.event_panel.trigger, env->editor.event_panel.event))
 		return (-1);
 	else if (env->editor.event_panel.trigger.type == WALK_OUT
 		&& new_walk_out_event(env, env->editor.event_panel.trigger,
@@ -125,15 +124,14 @@ int		create_event(void *param)
 		return (-1);
 	set_event(env, &env->editor.event_panel.event);
 	if (env->editor.event_panel.trigger.type == GLOBAL && new_global_event(env,
-	  env->editor.event_panel.trigger, env->editor.event_panel.event))
+		env->editor.event_panel.trigger, env->editor.event_panel.event))
 		return (-1);
 	else if (env->editor.event_panel.trigger.type == PRESS
 		&& new_press_event(env, env->editor.event_panel.trigger,
 		env->editor.event_panel.event))
 		return (-1);
-	else if (env->editor.event_panel.trigger.type == SHOOT
-		&& new_shoot_event(env, env->editor.event_panel.trigger,
-		env->editor.event_panel.event))
+	else if (env->editor.event_panel.trigger.type == SHOOT && new_shoot_event(
+		env, env->editor.event_panel.trigger, env->editor.event_panel.event))
 		return (-1);
 	else if (env->editor.event_panel.trigger.type == STAND
 		&& new_stand_event(env, env->editor.event_panel.trigger,

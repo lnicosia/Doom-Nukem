@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_floor_event.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:03:33 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:20:29 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 
 int		check_floor_event3(t_event *event, t_sector *sector,
@@ -27,6 +39,7 @@ int		check_floor_event2(t_event *event, t_sector *sector,
 double prec, t_env *env)
 {
 	double	z;
+
 	if (env->player.sector == event->check_param.sector)
 	{
 		z = get_floor_at_pos(sector, env->player.pos, env);

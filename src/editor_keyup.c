@@ -87,7 +87,7 @@ int	editor_keyup3(t_env *env)
 		if (ret == -1)
 			return (-1);
 		else if (!ret)
-			going_in_3D_mode(env);
+			going_in_3d_mode(env);
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   change_editor_mode.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:44:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:13:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 14:56:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		going_in_3D_mode(t_env *env)
+int		going_in_3d_mode(t_env *env)
 {
 	reset_selection(env);
 	new_tabs_position(env);
@@ -38,7 +38,7 @@ int		going_in_3D_mode(t_env *env)
 	return (0);
 }
 
-int		going_in_2D_mode(t_env *env)
+int		going_in_2d_mode(t_env *env)
 {
 	reset_selection(env);
 	new_tabs_position(env);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_conditions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:02:57 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:02:58 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_conditions.h"
 
 int		check_launch_condition(t_event *event, t_condition *tab, size_t i,
@@ -37,8 +49,8 @@ t_env *env)
 	i = 0;
 	while (i < nb)
 	{
-	  	if ((ret = check_launch_condition(event, tab, i, env)) != 2)
-		  	return (ret);
+		if ((ret = check_launch_condition(event, tab, i, env)) != 2)
+			return (ret);
 		i++;
 	}
 	return (1);
@@ -97,8 +109,8 @@ t_env *env)
 	i = 0;
 	while (i < nb)
 	{
-	  	if ((ret = check_exec_condition(event, tab, i, env)) != 2)
-		  	return (ret);
+		if ((ret = check_exec_condition(event, tab, i, env)) != 2)
+			return (ret);
 		i++;
 	}
 	return (1);

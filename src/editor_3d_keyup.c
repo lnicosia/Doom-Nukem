@@ -119,7 +119,7 @@ int		editor_3d_keyup(t_env *env)
 			&& !env->confirmation_box.state && !env->input_box.state
 			&& !env->editor.enter_locked)
 	{
-		going_in_2D_mode(env);
+		going_in_2d_mode(env);
 		return (0);
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE

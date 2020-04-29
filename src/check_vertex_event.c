@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_vertex_event.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:16:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:51:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:20:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ t_env *env)
 			if (env->sectors[i].vertices[j] != event->check_param.vertex)
 				continue;
 			if (!is_sector_convex(env, &env->sectors[i])
-				|| !get_clockwise_order_sector(env, i)
-				|| intersects_with_wall(&env->sectors[i], env->player.pos, j,
-				env))
+			|| !get_clockwise_order_sector(env, i)
+			|| intersects_with_wall(&env->sectors[i], env->player.pos, j, env))
 			{
 				env->vertices[event->check_param.vertex].x = prec;
 				update_sectors_slope(event->check_param.vertex, env);
 				return (1);
 			}
-			break;
+			break ;
 		}
 	}
 	env->vertices[event->check_param.vertex].x = prec;
@@ -73,17 +72,16 @@ t_env *env)
 		while (++j < env->sectors[i].nb_vertices)
 		{
 			if (env->sectors[i].vertices[j] != event->check_param.vertex)
-			  	continue;
+				continue;
 			if (!is_sector_convex(env, &env->sectors[i])
-				|| !get_clockwise_order_sector(env, i)
-				|| intersects_with_wall(&env->sectors[i], env->player.pos, j,
-				env))
+			|| !get_clockwise_order_sector(env, i)
+			|| intersects_with_wall(&env->sectors[i], env->player.pos, j, env))
 			{
 				env->vertices[event->check_param.vertex].y = prec;
 				update_sectors_slope(event->check_param.vertex, env);
 				return (1);
 			}
-			break;
+			break ;
 		}
 	}
 	env->vertices[event->check_param.vertex].y = prec;

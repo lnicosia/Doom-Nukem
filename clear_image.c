@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 15:13:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 15:19:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:13:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	clear_image(t_env *env)
 {
-	int		i;
-	int		max;
+	int	i;
+	int	max;
 	Uint32	*pixels;
 	double	*zbuffer;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_conditions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:16:39 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:16:39 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 #include "events_conditions.h"
 
@@ -36,8 +48,8 @@ int		count_conditions(char *line, t_map_parser *parser)
 	open = 0;
 	while (*line != ']')
 	{
-	  	if (check_current_condition(line, parser, &count, &open))
-		  	return (-1);
+		if (check_current_condition(line, parser, &count, &open))
+			return (-1);
 		line++;
 	}
 	return (count);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_portals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 15:04:50 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/24 11:51:46 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 15:18:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 {
 	int	i;
 
-	i = 0;
-	while (i < sector.nb_vertices)
+	i = -1;
+	while (++i < sector.nb_vertices)
 	{
 		if (sector.vertices[i] == data.v1)
 		{
@@ -48,7 +48,7 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 				return (1);
 			}
 			else if (!i && sector.vertices[sector.nb_vertices - 1] == data.v2
-					&& sector.neighbors[sector.nb_vertices -1] == -1)
+					&& sector.neighbors[sector.nb_vertices - 1] == -1)
 			{
 				env->sectors[sector.num].neighbors[sector.nb_vertices - 1] =
 				data.father;
@@ -56,7 +56,6 @@ int		find_common_wall(t_env *env, t_sector sector, t_portal_data data)
 				return (2);
 			}
 		}
-		i++;
 	}
 	return (0);
 }

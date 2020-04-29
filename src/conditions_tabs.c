@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:07:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 17:30:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:14:51 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		draw_condition(t_env *env, t_condition *condition)
 		env->sdl.fonts.lato_bold20, 0x333333FF, 0), env);
 	}
 	else
-	  	print_event_link_condition(condition, panel, env);
+		print_event_link_condition(condition, panel, env);
 	return (0);
 }
 

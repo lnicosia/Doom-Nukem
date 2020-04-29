@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_floor_slope_event.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:04:36 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:04:37 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 
 int		check_floor_slope_event3(t_event *event, t_sector *sector, double prec,
@@ -14,7 +26,7 @@ t_env *env)
 		{
 			env->sectors[sector->num].floor_slope = prec;
 			update_sector_slope(env, sector);
-		update_sector_slope(env, &env->sectors[sector->num]);
+			update_sector_slope(env, &env->sectors[sector->num]);
 			return (1);
 		}
 		i++;

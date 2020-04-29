@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 14:53:48 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 14:53:58 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 /*
- **	Update camera position (save some computings)
- */
+**	Update camera position (save some computings)
+*/
 
 void	update_camera_position(t_camera *camera)
 {
@@ -57,12 +69,12 @@ int		set_camera_map_array(t_camera *camera, int i, int j, t_env *env)
 	if (camera->v[i][j].texture_scale)
 		free(camera->v[i][j].texture_scale);
 	if (!(camera->v[i][j].texture_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
-	  	* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
+		* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites scales"));
 	if (camera->v[i][j].texture_align)
 		free(camera->v[i][j].texture_align);
-	if (!(camera->v[i][j].texture_align = (t_v2*)ft_memalloc(sizeof(t_v2) 
-	  	* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
+	if (!(camera->v[i][j].texture_align = (t_v2*)ft_memalloc(sizeof(t_v2)
+		* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites scales"));
 	return (0);
 }

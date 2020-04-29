@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_vertex_event_utils.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:20:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:20:57 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 
 static int	check_all_angle(t_v2 p[3], int res, int straight)
@@ -42,16 +54,15 @@ int			is_sector_convex(t_env *env, t_sector *sector)
 	t_v2	p[3];
 	int		res;
 	int		straight;
-	
-	i = 0;
+
+	i = -1;
 	res = 0;
 	straight = 0;
-	while (i < sector->nb_vertices - 1)
+	while (++i < sector->nb_vertices - 1)
 	{
-	  	get_current_vertices(p, sector, i, env);
+		get_current_vertices(p, sector, i, env);
 		res = check_all_angle(p, res, straight);
 		straight = res == 0 ? straight + 1 : 0;
-		i++;
 	}
 	p[0] = new_v2(env->vertices[sector->vertices[i]].x,
 	env->vertices[sector->vertices[i]].y);
