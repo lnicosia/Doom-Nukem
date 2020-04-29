@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_3d_button_keys2.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:56:35 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:56:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int	object_buttons(t_env *env)
@@ -80,6 +92,27 @@ int	floor_sprite_buttons(t_env *env)
 	if (button_keys(&env->editor.hud.sp_floor_sprite.scale_x, env))
 		return (-1);
 	if (button_keys(&env->editor.hud.sp_floor_sprite.scale_y, env))
+		return (-1);
+	return (0);
+}
+
+int	wall_general_tab_keys(t_env *env)
+{
+	if (button_keys(&env->editor.next_wall, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_wall, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_scale_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_scale_y, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_align_x, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.texture_align_y, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.portal, env))
+		return (-1);
+	if (button_keys(&env->editor.hud.g_wall.add_sprite, env))
 		return (-1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_object_tabs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:19:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:43:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		print_object_sector_tab2(t_env *env)
 int		print_object_sector_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d",
 	env->selected_object);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
@@ -110,7 +110,7 @@ int		print_object_general_tab2(t_env *env)
 int		print_object_general_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d",
 	env->selected_object);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
@@ -121,7 +121,7 @@ int		print_object_general_tab(t_env *env)
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.x)),
-	env->objects[env->selected_object].pos.x),
+	env->objects[env->selected_object].pos.x);
 	env->editor.hud.g_object.t_pos_x.target =
 	&env->objects[env->selected_object].pos.x;
 	draw_button(env, env->editor.hud.g_object.pos_x, env->snprintf);

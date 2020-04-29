@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   explosion2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:53:45 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:53:45 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage,
@@ -65,7 +77,7 @@ t_env *env)
 
 int					explosion_collision_enemies(t_env *env)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	int		i;
 
 	tmp = env->explosions;
@@ -74,7 +86,7 @@ int					explosion_collision_enemies(t_env *env)
 		i = 0;
 		while (i < env->nb_enemies)
 		{
-		  	explosion_collision_enemy(((t_explosion*)tmp->content), i, env);
+			explosion_collision_enemy(((t_explosion*)tmp->content), i, env);
 			i++;
 		}
 		tmp = tmp->next;

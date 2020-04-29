@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:25:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:50:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		set_enemy_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
-	
+
 	down = -1;
 	if (index == ENEMY_SPRITE)
 		down = 0;

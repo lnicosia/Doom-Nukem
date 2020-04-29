@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_button_keyup.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 10:44:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 11:30:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:57:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int	wall_general_tab_keyup(t_env *env)
-{
-	if (button_keyup(&env->editor.next_wall, env))
-		return (-1);
-	if (button_keyup(&env->editor.previous_wall, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.g_wall.texture_scale_x, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.g_wall.texture_scale_y, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.g_wall.texture_align_x, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.g_wall.texture_align_y, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.g_wall.portal, env))
-		return (-1);
-	if (button_keyup(&env->editor.hud.g_wall.add_sprite, env))
-		return (-1);
-	return (0);
-}
 
 int	wall_buttons_up(t_env *env)
 {
@@ -48,8 +27,8 @@ int	wall_buttons_up(t_env *env)
 	}
 	else if (env->editor.general_tab.state == DOWN)
 	{
-	  	if (wall_general_tab_keyup(env))
-		  	return (-1);
+		if (wall_general_tab_keyup(env))
+			return (-1);
 	}
 	return (0);
 }
@@ -92,8 +71,8 @@ int	floor_buttons_up(t_env *env)
 	}
 	else if (env->editor.general_tab.state == DOWN)
 	{
-	  	if (floor_general_tab_keyup(env))
-		  	return (-1);
+		if (floor_general_tab_keyup(env))
+			return (-1);
 	}
 	return (0);
 }
@@ -136,8 +115,8 @@ int	ceiling_buttons_up(t_env *env)
 	}
 	else if (env->editor.general_tab.state == DOWN)
 	{
-	  	if (ceiling_general_tab_keyup(env))
-		  	return (-1);
+		if (ceiling_general_tab_keyup(env))
+			return (-1);
 	}
 	return (0);
 }

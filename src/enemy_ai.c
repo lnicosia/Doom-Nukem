@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_ai.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:20:09 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 10:59:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:59:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 					new_projectile_stats(0.6, foe.damage *
 					env->difficulty, 0.8, foe.eyesight - 2.2),
 					new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d)))
-				  	return (-1);
+					return (-1);
 			}
 			else if (env->enemies[i].behavior == RANGED_AIMBOT)
 				damage_player(env, foe.damage);
@@ -120,7 +120,7 @@ int		ranged_ai(t_env *env, t_enemy foe, double distance, int i)
 		}
 		update_enemy_angle(env, i);
 		if (ranged_ai_attack(env, foe, distance, i))
-		  	return (-1);
+			return (-1);
 	}
 	return (0);
 }
@@ -149,12 +149,10 @@ int		enemy_ai(t_env *env)
 		if (env->enemies[i].behavior == MELEE_KAMIKAZE
 			|| env->enemies[i].behavior == MELEE_FIGHTER)
 			melee_ai(env, env->enemies[i], i);
-		else if (env->enemies[i].behavior == RANGED_AIMBOT
+		else if ((env->enemies[i].behavior == RANGED_AIMBOT
 			|| env->enemies[i].behavior == RANGED_PROJECTILE)
-		{
-			if (ranged_ai(env, env->enemies[i], distance, i))
-			  	return (-1);
-		}
+			&& ranged_ai(env, env->enemies[i], distance, i))
+			return (-1);
 		i++;
 	}
 	return (0);

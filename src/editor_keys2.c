@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_keys2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:56:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:56:20 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		save_map_keys(t_env *env)
 {
-  	int	ret;
+	int	ret;
 
 	ret = valid_map(env);
 	if (ret == -1)
@@ -42,7 +54,7 @@ int		editor_keys8(t_env *env)
 			return (-1);
 	}
 	if ((env->inputs.plus || env->inputs.minus)
-	  	&& !env->editor.in_game && env->editor.selected_sector != -1)
+		&& !env->editor.in_game && env->editor.selected_sector != -1)
 	{
 		if (!env->time.tick4)
 			env->time.tick4 = SDL_GetTicks();
@@ -57,7 +69,7 @@ int		editor_keys8(t_env *env)
 
 int		editor_keys7(t_env *env)
 {
-  	int	i;
+	int	i;
 
 	i = 0;
 	if (env->editor.draw_enemy_tab)
@@ -83,7 +95,7 @@ int		editor_keys7(t_env *env)
 
 int		editor_keys6(t_env *env)
 {
-  	int	i;
+	int	i;
 
 	i = 0;
 	if (env->editor.draw_texture_tab)

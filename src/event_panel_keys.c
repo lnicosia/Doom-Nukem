@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 19:19:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/18 20:39:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:51:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		is_mouse_on_event_panel(t_env *env)
+int			is_mouse_on_event_panel(t_env *env)
 {
 	if (env->editor.event_panel_dragged == 1)
 		return (1);
@@ -68,7 +68,7 @@ static int	drag_panel(t_env *env)
 	return (0);
 }
 
-int		event_panel_keys2(t_env *env)
+int			event_panel_keys2(t_env *env)
 {
 	if (env->editor.event_panel.action_tab.state == DOWN)
 	{
@@ -84,7 +84,7 @@ int		event_panel_keys2(t_env *env)
 	return (0);
 }
 
-int		event_panel_keys(t_env *env)
+int			event_panel_keys(t_env *env)
 {
 	set_dragging(env);
 	drag_panel(env);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event_updaters2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:52:46 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:52:47 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 t_event_param	new_event_param(int num, double equ_value, double diff_value)
@@ -19,14 +31,14 @@ t_event_param	empty_event_param(void)
 	return (new);
 }
 
-int			update_player_pos_event(t_event *event, void *penv)
+int				update_player_pos_event(t_event *event, void *penv)
 {
 	(void)event;
 	update_player_pos((t_env*)penv);
 	return (0);
 }
 
-int			update_player_z_event(t_event *event, void *penv)
+int				update_player_z_event(t_event *event, void *penv)
 {
 	t_env	*env;
 
@@ -39,7 +51,7 @@ int			update_player_z_event(t_event *event, void *penv)
 	return (0);
 }
 
-int			update_player_event(t_event *event, void *penv)
+int				update_player_event(t_event *event, void *penv)
 {
 	(void)event;
 	update_player_pos((t_env*)penv);

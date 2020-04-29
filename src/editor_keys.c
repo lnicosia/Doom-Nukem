@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 17:00:50 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:57:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ int		editor_keys5(t_env *env)
 			&& !env->editor.selecting_condition_target
 			&& button_keys(&env->editor.new_event, env))
 			return (-1);
-		if (is_modify_event_button_visible(env))
-		{
-			if (button_keys(&env->editor.modify_event, env))
-				return (-1);
-			if (button_keys(&env->editor.delete_event, env))
-				return (-1);
-		}
+		if (is_modify_event_button_visible(env)
+			&& (button_keys(&env->editor.modify_event, env)
+			|| button_keys(&env->editor.delete_event, env)))
+			return (-1);
 		if (are_event_selection_buttons_visible(env))
 		{
 			if (button_keys(&env->editor.next_event, env))
@@ -104,8 +101,8 @@ int		editor_keys2(t_env *env)
 		env->editor.center.y += 3;
 	if (env->inputs.s && env->inputs.ctrl)
 	{
-	  	if ((ret = save_map_keys(env)) != 1)
-		  	return (ret);
+		if ((ret = save_map_keys(env)) != 1)
+			return (ret);
 	}
 	if (button_keys(&env->editor.add_enemy, env))
 		return (-1);

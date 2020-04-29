@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   explosion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:06:13 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/03 12:01:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:56:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	current_explosion_collision_player(t_explosion *explosion, t_env *env)
 		env->player.pos.y, env->player.pos.z + env->player.eyesight / 2),
 		explosion->pos);
 		if (distance < explosion->radius
-		  	&& explosion->damage_burst)
+			&& explosion->damage_burst)
 		{
 			env->player.hit = 1;
 			damage = aoe_damage(distance, explosion->radius, explosion->damage);
@@ -58,26 +58,25 @@ int		explosion_collision_object(t_explosion *explosion, int i, t_env *env)
 	double	distance;
 	int		damage;
 
-	if (explosion->damage_burst == 1 && env->objects[i].destructible
-	  	&& env->objects[i].health > 0)
+	if (!(explosion->damage_burst == 1 && env->objects[i].destructible
+		&& env->objects[i].health > 0))
+		return (0);
+	distance = distance_two_points_3d(new_v3(env->objects[i].pos.x,
+	env->objects[i].pos.y, env->objects[i].pos.z), explosion->pos);
+	if (distance < explosion->radius && explosion->damage_burst == 1)
 	{
-		distance = distance_two_points_3d(new_v3(env->objects[i].pos.x,
-		env->objects[i].pos.y, env->objects[i].pos.z), explosion->pos);
-		if (distance < explosion->radius && explosion->damage_burst == 1)
+		damage = aoe_damage(distance, explosion->radius, explosion->damage);
+		env->objects[i].health -= damage;
+		if (env->objects[i].explodes && env->objects[i].health <= 0)
 		{
-			damage = aoe_damage(distance, explosion->radius, explosion->damage);
-			env->objects[i].health -= damage;
-			if (env->objects[i].explodes && env->objects[i].health <= 0)
-			{
-				if (create_explosion(env,
-					new_explosion_data(env->objects[i].pos,
-					env->objects[i].explosion_size,
-					env->objects[i].damage,
-					env->object_sprites[env->objects[i].sprite].
-					death_counterpart), 0))
-				  	return (-1);
-				env->objects[i].exists = 0;
-			}
+			if (create_explosion(env,
+				new_explosion_data(env->objects[i].pos,
+				env->objects[i].explosion_size,
+				env->objects[i].damage,
+				env->object_sprites[env->objects[i].sprite].
+				death_counterpart), 0))
+				return (-1);
+			env->objects[i].exists = 0;
 		}
 	}
 	return (0);
@@ -85,7 +84,7 @@ int		explosion_collision_object(t_explosion *explosion, int i, t_env *env)
 
 int		explosion_collision_objects(t_env *env)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	int		i;
 
 	activate_explosions(env);
@@ -95,9 +94,9 @@ int		explosion_collision_objects(t_env *env)
 		i = 0;
 		while (i < env->nb_objects)
 		{
-		  	if (explosion_collision_object(((t_explosion*)tmp->content), i,
-			  	env))
-			  	return (-1);
+			if (explosion_collision_object(((t_explosion*)tmp->content), i,
+				env))
+				return (-1);
 			i++;
 		}
 		tmp = tmp->next;

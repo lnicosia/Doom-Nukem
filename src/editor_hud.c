@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_hud.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 15:44:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 17:56:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:37:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	editor_options4(t_env *env)
 		env->editor.next_fighting_music.str);
 	}
 	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-	new_point(20 , 450), new_point(360, 430));
+	new_point(20, 450), new_point(360, 430));
 	draw_editor_tabs(env);
 	if (env->editor.draw_enemy_tab)
 		enemy_tab(env, MAX_ENEMIES);
@@ -73,9 +73,9 @@ void	editor_options2(t_env *env, t_point center, t_point size)
 {
 	print_text(new_point(367, 105 - center.x / 2), new_printable_text(
 		env->sound.musics[env->sound.fight_music].music_name,
-		env->sdl.fonts.lato15 , 0x00000000, 15), env);
-	draw_rectangle(env,	new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-		new_point(210 , 40), new_point(170, 360));
+		env->sdl.fonts.lato15, 0x00000000, 15), env);
+	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+		new_point(210, 40), new_point(170, 360));
 	apply_surface(env->ui_textures[24].surface, new_point(296, 230),
 	new_point(128, 89), env);
 	apply_surface(env->ui_textures[24].surface, new_point(196, 230),
@@ -99,20 +99,20 @@ void	editor_options2(t_env *env, t_point center, t_point size)
 
 void	editor_options1(t_env *env, t_point center, t_point size)
 {
-	draw_rectangle(env,	new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-		new_point(20 , 40),	new_point(170, 225));
-	draw_rectangle(env,	new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-		new_point(20 , 290), new_point(170, 110));
+	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+		new_point(20, 40), new_point(170, 225));
+	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+		new_point(20, 290), new_point(170, 110));
 	TTF_SizeText(env->sdl.fonts.lato_bold15, "Ambiance", &center.x, &center.y);
 	print_text(new_point(300, 105 - center.x / 2),
 	new_printable_text("Ambiance", env->sdl.fonts.lato_bold15,
 	0x00000000, 15), env);
-	TTF_SizeText(env->sdl.fonts.lato15, 
+	TTF_SizeText(env->sdl.fonts.lato15,
 	env->sound.musics[env->sound.ambient_music].music_name, &center.x,
 	&center.y);
 	print_text(new_point(322, 105 - center.x / 2), new_printable_text(
 	env->sound.musics[env->sound.ambient_music].music_name,
-	env->sdl.fonts.lato15 , 0x00000000, 15), env);	
+	env->sdl.fonts.lato15, 0x00000000, 15), env);
 	TTF_SizeText(env->sdl.fonts.lato_bold15, "fight", &center.x, &center.y);
 	print_text(new_point(345, 90), new_printable_text("Fight",
 	env->sdl.fonts.lato_bold15, 0x00000000, 15), env);
@@ -127,16 +127,14 @@ void	editor_hud(t_env *env)
 	t_point	size;
 
 	center = new_point(0, 0);
-	if (!env->editor.in_game || (env->editor.in_game &&  env->editor.tab))
+	if (!env->editor.in_game || (env->editor.in_game && env->editor.tab))
 	{
 		draw_rectangle(env,
 			new_rectangle(0xbdc3c7, 0xbdc3c7, 1, 0),
-			new_point(0 , 0),
+			new_point(0, 0),
 			new_point(400, 900));
 		if (!env->options.editor_options)
-		{
-		  	editor_options1(env, center, size);
-		}
+			editor_options1(env, center, size);
 		else
 			editor_options_hud(env);
 	}

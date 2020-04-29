@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:13:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 18:03:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		editor_poll_event(t_env *env)
 				|| env->sdl.event.type == SDL_MOUSEWHEEL)
 			update_inputs(env);
 		if (all_editor_keyup(env))
-		  	return (-1);
+			return (-1);
 		zoom(env);
 		if (env->input_box.state)
 		{
@@ -89,11 +89,11 @@ int		editor(t_env *env)
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetMouseState(&env->sdl.mx, &env->sdl.my);
 		if (editor_poll_event(env))
-		  	return (crash("Editor poll event failed\n", env));
+			return (crash("Editor poll event failed\n", env));
 		if (!env->editor.in_game)
 		{
-		  	if (editor_2d(env))
-			  	return (crash("Editor 2d failed\n", env));
+			if (editor_2d(env))
+				return (crash("Editor 2d failed\n", env));
 		}
 		else if (env->editor.in_game)
 		{
@@ -101,7 +101,7 @@ int		editor(t_env *env)
 				return (crash("Render function failed\n", env));
 		}
 		if (editor1(env))
-		  	return (crash("", env));
+			return (crash("", env));
 	}
 	free_all(env);
 	return (0);

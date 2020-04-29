@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_tab_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 12:08:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:58:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		general_tab_keys(t_env *env)
 {
 	if (env->editor.events_tab.state != DOWN)
-	  	return (0);
+		return (0);
 	if (!env->editor.selecting_target && !env->editor.selecting_event
 		&& !env->editor.selecting_condition_target
 		&& button_keys(&env->editor.new_event, env))
@@ -33,12 +33,10 @@ int		general_tab_keys(t_env *env)
 		|| button_keys(&env->editor.previous_event, env))
 			return (-1);
 	}
-	if (are_events_selection_buttons_visible(env))
-	{
-		if (button_keys(&env->editor.next_events, env)
-			|| button_keys(&env->editor.previous_events, env))
-			return (-1);
-	}
+	if (are_events_selection_buttons_visible(env)
+		&& (button_keys(&env->editor.next_events, env)
+		|| button_keys(&env->editor.previous_events, env)))
+		return (-1);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_sector_tabs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:52:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:22:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:45:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		print_sector_general_tab2(t_env *env)
 int		print_sector_general_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
 	env->editor.selected_sector);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);

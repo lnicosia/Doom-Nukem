@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event_updaters4.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:53:09 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:53:10 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int			update_sector_entities_light_event(t_event *event, void *penv)
@@ -55,7 +67,7 @@ int			update_vertex_event(t_event *event, void *penv)
 		while (++j < env->sectors[i].nb_vertices)
 		{
 			if (env->sectors[i].vertices[j] != event->update_param.vertex)
-			  	continue ;
+				continue ;
 			update_sector_slope(env, &env->sectors[i]);
 			if (env->player.sector == i)
 			{

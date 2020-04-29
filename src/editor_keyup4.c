@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_keyup4.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:42:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:42:20 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		is_mouse_on_any_selection_tab(t_env *env)
@@ -48,13 +60,13 @@ int		click_on_sector(t_env *env)
 			&& env->editor.dragged_enemy == -1
 			&& !is_mouse_on_any_selection_tab(env)
 			&& !is_mouse_on_weapon_picker(env))
-	  	return (1);
+		return (1);
 	return (0);
 }
 
 int		select_sector(t_env *env)
 {
-  	if (click_on_sector(env))
+	if (click_on_sector(env))
 	{
 		reset_selection(env);
 		env->editor.selected_sector = get_sector_no_z(env,

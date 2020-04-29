@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_floor_tabs2.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:36:35 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:36:35 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		print_floor_sprite_tab2(t_env *env)
 {
-	print_text(new_point(640, 60), new_printable_text("Scale X", 
+	print_text(new_point(640, 60), new_printable_text("Scale X",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].
@@ -12,7 +24,7 @@ int		print_floor_sprite_tab2(t_env *env)
 	env->editor.hud.sp_floor_sprite.t_scale_x.target = &env->sectors[env->
 	selected_floor].floor_sprites.scale[env->selected_floor_sprite].x;
 	draw_button(env, env->editor.hud.sp_floor_sprite.scale_x, env->snprintf);
-	print_text(new_point(680, 60), new_printable_text("Scale Y", 
+	print_text(new_point(680, 60), new_printable_text("Scale Y",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].
@@ -27,8 +39,8 @@ int		print_floor_sprite_tab2(t_env *env)
 
 int		print_floor_sprite_tab(t_env *env)
 {
-	env->editor.next_sprite_env.type = FLOOR_S;	
-	env->editor.previous_sprite_env.type = FLOOR_S;	
+	env->editor.next_sprite_env.type = FLOOR_S;
+	env->editor.previous_sprite_env.type = FLOOR_S;
 	print_text(new_point(560, 60), new_printable_text("X",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
@@ -76,7 +88,7 @@ int		print_floor_sector_tab2(t_env *env)
 int		print_floor_sector_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
 	env->selected_floor);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keyup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 10:30:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:42:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	editor_keyup3(t_env *env)
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 		env->editor.create_enemy = 0;
 	if ((ret = space_pressed(env)) != 1)
-	  	return (ret);
+		return (ret);
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 10:30:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:42:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	draw_enemy_minimap(int i, t_enemy *enemy, t_sprite *sprite, t_env *env)
 {
-  	t_point	pos;
+	t_point	pos;
 	t_point	size;
 
 	if (!enemy->exists)
@@ -46,7 +46,7 @@ void	draw_enemies_minimap(t_env *env)
 	i = -1;
 	while (++i < env->nb_enemies)
 	{
-	  	draw_enemy_minimap(i, &env->enemies[i],
+		draw_enemy_minimap(i, &env->enemies[i],
 		&env->enemy_sprites[env->enemies[i].sprite], env);
 	}
 }
@@ -87,7 +87,7 @@ void	editor_minimap(t_env *env)
 		draw_minimap_sector_num(env, sect);
 		while (v < sect->nb_vertices)
 		{
-		  	draw_current_wall_minimap(v, s, sect, env);
+			draw_current_wall_minimap(v, s, sect, env);
 			v++;
 		}
 		s++;

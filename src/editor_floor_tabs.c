@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_floor_tabs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:31:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:13:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:07:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		print_floor_general_tab3(t_env *env)
 	env->editor.hud.g_floor.t_texture_scale_y.target =
 	&env->sectors[env->selected_floor].floor_map_scale.y;
 	draw_button(env, env->editor.hud.g_floor.texture_scale_y, env->snprintf);
-	print_text(new_point(720, 60), new_printable_text("Align X: ", 
+	print_text(new_point(720, 60), new_printable_text("Align X: ",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->selected_floor].floor_map_align.x),
@@ -33,7 +33,7 @@ int		print_floor_general_tab3(t_env *env)
 	env->editor.hud.g_floor.t_texture_align_y.target =
 	&env->sectors[env->selected_floor].floor_map_align.y;
 	draw_button(env, env->editor.hud.g_floor.texture_align_y, env->snprintf);
-	draw_button(env, env->editor.hud.g_floor.add_sprite, 
+	draw_button(env, env->editor.hud.g_floor.add_sprite,
 	env->editor.hud.g_floor.add_sprite.str);
 	return (0);
 }
@@ -70,7 +70,7 @@ int		print_floor_general_tab2(t_env *env, t_point size)
 int		print_floor_general_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
 	env->selected_floor);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);

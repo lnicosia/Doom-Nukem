@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:13:08 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 18:35:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int		change_textures_scales(t_env *env)
 
 int		save_map_3d_keys(t_env *env)
 {
-  	int	ret;
+	int	ret;
 
 	if ((ret = valid_map(env)))
-	  	return (ret);
+		return (ret);
 	if (env->editor.creating_event)
 	{
 		if (update_confirmation_box(&env->confirmation_box,
 			"Please save your event before saving the map", ERROR, env))
-		return (-1);
+			return (-1);
 	}
 	else
 	{
@@ -84,8 +84,8 @@ int		editor_3d_keys2(t_env *env)
 
 	if (env->inputs.s && env->inputs.ctrl)
 	{
-	  	if ((ret = save_map_3d_keys(env)) != 1)
-		  	return (ret);
+		if ((ret = save_map_3d_keys(env)) != 1)
+			return (ret);
 	}
 	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
 		&& !env->confirmation_box.state)
@@ -113,9 +113,8 @@ int		editor_3d_keys(t_env *env)
 			if (editor_3d_tab_keys(env))
 				return (-1);
 		}
-		else
-			if (editor_options_keys(env))
-				return (-1);
+		else if (editor_options_keys(env))
+			return (-1);
 	}
 	if (wall_edit_keys(env))
 		return (-1);

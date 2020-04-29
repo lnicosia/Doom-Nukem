@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_wall_tabs2.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:47:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:47:27 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		print_wall_sprite_sector_tab2(t_env *env)
@@ -9,7 +21,7 @@ int		print_wall_sprite_sector_tab2(t_env *env)
 	env->editor.hud.s_wall_sprite.t_intensity.target =
 	&env->sectors[env->editor.selected_sector].intensity;
 	draw_button(env, env->editor.hud.s_wall_sprite.intensity, env->snprintf);
-	print_text(new_point(640, 60), new_printable_text("Gravity:", 
+	print_text(new_point(640, 60), new_printable_text("Gravity:",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.selected_sector].gravity),
@@ -23,7 +35,7 @@ int		print_wall_sprite_sector_tab2(t_env *env)
 int		print_wall_sprite_sector_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
 	env->editor.selected_sector);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);

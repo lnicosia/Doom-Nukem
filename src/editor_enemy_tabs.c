@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_enemy_tabs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:55:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:20:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:05:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		print_enemy_sector_tab2(t_env *env)
 int		print_enemy_sector_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d",
 	env->selected_enemy);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
@@ -49,7 +49,7 @@ int		print_enemy_sector_tab(t_env *env)
 	env->editor.hud.s_enemy.t_brightness.target =
 	&env->sectors[env->enemies[env->selected_enemy].sector].brightness;
 	draw_button(env, env->editor.hud.s_enemy.brightness, env->snprintf);
-	print_text(new_point(560, 60), new_printable_text("Light color", 
+	print_text(new_point(560, 60), new_printable_text("Light color",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
 	env->sectors[env->enemies[env->selected_enemy].sector].light_color);
@@ -118,7 +118,7 @@ int		print_enemy_general_tab2(t_env *env)
 int		print_enemy_general_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Enemy %d",
 	env->selected_enemy);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);

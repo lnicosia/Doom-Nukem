@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_hud_buttons2.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 18:08:17 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 18:08:18 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		change_mode(void *target)
@@ -25,14 +37,14 @@ int		save_button(void *target)
 	if (ret == -1)
 		return (-1);
 	else if (!ret)
-    {
-    	SDL_SetRelativeMouseMode(0);
-    	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-        new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-        STRING, &env->save_file);
-        env->inputs.s = 0;
-        env->inputs.ctrl = 0;
-    }
+	{
+		SDL_SetRelativeMouseMode(0);
+		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+		STRING, &env->save_file);
+		env->inputs.s = 0;
+		env->inputs.ctrl = 0;
+	}
 	return (0);
 }
 

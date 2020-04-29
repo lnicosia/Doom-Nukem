@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keyup.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:34:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:13:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 17:59:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		editor_3d_keyup4(t_env *env)
 				return (-1);
 		}
 		if (editor_3d_tabs_keyup(env))
-			return (-1);		
+			return (-1);
 		if (selection_tabs_keyup(env))
 			return (-1);
 	}
@@ -70,7 +70,7 @@ int		editor_3d_keyup3(t_env *env)
 	{
 		if (env->inputs.ctrl)
 			env->editor.select_portal = 1;
-		else	
+		else
 			env->editor.select = 1;
 	}
 	if (env->editor.creating_event && !env->confirmation_box.state

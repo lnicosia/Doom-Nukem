@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   editor_player_tabs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:23:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 11:53:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:45:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-int		printf_player_sprite_tab(t_env *env)
-{
-	(void)env;
-	return (0);
-}
 
 int		print_player_sector_tab2(t_env *env)
 {
@@ -39,7 +33,7 @@ int		print_player_sector_tab2(t_env *env)
 int		print_player_sector_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	TTF_SizeText(env->sdl.fonts.lato_black30, "Player", &size.x, &size.y);
 	print_text(new_point(465, 200 - size.x / 2), new_printable_text("Player",
 	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
@@ -101,7 +95,7 @@ int		print_player_general_tab2(t_env *env)
 int		print_player_general_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	TTF_SizeText(env->sdl.fonts.lato_black30, "Player", &size.x, &size.y);
 	print_text(new_point(465, 200 - size.x / 2), new_printable_text("Player",
 	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);

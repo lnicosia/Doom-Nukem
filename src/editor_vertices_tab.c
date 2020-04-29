@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_vertices_tab.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 10:23:44 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:24:34 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:46:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		print_vertices_general_tab2(t_env *env)
 int		print_vertices_general_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Vertex %d",
 	env->editor.selected_vertex);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   editor_2d.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:52:15 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:52:30 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		draw_current_creation(t_env *env)
@@ -7,7 +19,7 @@ int		draw_current_creation(t_env *env)
 
 	if (env->editor.create_object)
 	{
-		sprite = env->object_sprites[env->editor.current_object],
+		sprite = env->object_sprites[env->editor.current_object];
 		size = new_point(env->editor.scale * 4, env->editor.scale * 4
 		/ (sprite.size[0].x / (double)sprite.size[0].y));
 		apply_sprite(sprite, new_point(env->sdl.my - env->editor.scale,
@@ -15,7 +27,7 @@ int		draw_current_creation(t_env *env)
 	}
 	if (env->editor.create_enemy)
 	{
-		sprite = env->enemy_sprites[env->editor.current_enemy],
+		sprite = env->enemy_sprites[env->editor.current_enemy];
 		size = new_point(env->editor.scale * 4, env->editor.scale * 4
 		/ (sprite.size[0].x / (double)sprite.size[0].y));
 		apply_sprite(sprite, new_point(env->sdl.my - env->editor.scale,
@@ -64,7 +76,7 @@ void	zoom(t_env *env)
 			env->editor.center.y = env->sdl.my
 			+ ((env->editor.center.y - env->sdl.my) * 1.1);
 			env->editor.scale *= 1.1;
-	}
+		}
 		if (env->sdl.event.wheel.y < 0 && env->editor.scale / 1.1 > 1)
 		{
 			env->editor.center.x =

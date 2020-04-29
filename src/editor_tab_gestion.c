@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_tab_gestion.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:11:39 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 18:46:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		general_keyup2(t_env *env)
 {
 	if (button_keyup(&env->editor.events_tab, env))
-		return (-1);   
+		return (-1);
 	if (env->selected_ceiling != -1 && ceiling_buttons_up(env))
 		return (-1);
 	if (env->editor.selected_wall != -1 && wall_buttons_up(env))
@@ -47,7 +47,7 @@ int		general_keyup(t_env *env)
 		return (-1);
 	else if (button_keyup(&env->editor.sector_tab, env))
 		return (-1);
-	if (button_keyup(&env->editor.change_mode, env))	
+	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
 	if (button_keyup(&env->editor.options, env))
 		return (-1);
