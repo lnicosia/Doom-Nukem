@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_sprites.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 11:50:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:38:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ t_env *env)
 		drawer.y = (drawer.yalpha - drawer.pos) * render->camera->v[
 		sector->num][render->i].sprite_scale[sprite].y + drawer.start;
 		if (drawer.y >= drawer.start && drawer.y < drawer.end && sprite_pixels[
-		  	(int)drawer.x + drawer.sprite_w * (int)drawer.y] != 0xFFC10099)
+			(int)drawer.x + drawer.sprite_w * (int)drawer.y] != 0xFFC10099)
 		{
-		  	if (click_on_wall_sprite(&drawer, sprite, render, env))
-			  	return (0);
-		  	put_wall_sprite_pixel(&drawer, sprite, render, env);
+			if (click_on_wall_sprite(&drawer, sprite, render, env))
+				return (0);
+			put_wall_sprite_pixel(&drawer, sprite, render, env);
 		}
 	}
 	return (0);

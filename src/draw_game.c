@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 13:33:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:20:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	draw_game2(t_env *env)
 		print_results(env);
 	if (env->player.hit)
 		damage_anim(env);
-	game_minimap(env);
 	if (env->hovered_wall_sprite_sprite != -1
 		&& env->hovered_wall_sprite_wall != -1
 		&& env->hovered_wall_sprite_sector != -1)
@@ -87,11 +86,11 @@ int	draw_game(t_env *env)
 	env->shooting = 0;
 	env->test_time = SDL_GetTicks();
 	if (((env->inputs.left_click && !env->shot.on_going
-	  	&& !env->weapon_change.on_going) || env->shot.on_going)
-	  	&& !env->confirmation_box.state)
+		&& !env->weapon_change.on_going) || env->shot.on_going)
+		&& !env->confirmation_box.state)
 	{
 		if (weapon_animation(env, env->player.curr_weapon))
-		  	return (-1);
+			return (-1);
 	}
 	else if (env->player.health > 0)
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
@@ -102,5 +101,6 @@ int	draw_game(t_env *env)
 		fps(env);
 	game_time(env);
 	animations(env);
+	game_minimap(env);
 	return (draw_game2(env));
 }

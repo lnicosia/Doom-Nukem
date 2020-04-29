@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_objects2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:27:24 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:27:24 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	update_objects_z(t_env *env)
@@ -17,7 +29,9 @@ void	update_objects_z(t_env *env)
 
 int		get_object_direction2(t_object *object, double angle)
 {
-	if (angle < object->angle - 22.5 && angle >= object->angle - 67.5)
+	if (angle >= object->angle + 337.5)
+		return (4);
+	else if (angle < object->angle - 22.5 && angle >= object->angle - 67.5)
 		return (3);
 	else if (angle < object->angle - 67.5 && angle >= object->angle - 112.5)
 		return (2);
@@ -61,10 +75,8 @@ int		get_object_direction(t_object *object)
 		return (2);
 	else if (angle >= object->angle + 292.5 && angle < object->angle + 337.5)
 		return (3);
-	else if (angle >= object->angle + 337.5)
-		return (4);
 	else
-	  	return (get_object_direction2(object, angle));
+		return (get_object_direction2(object, angle));
 }
 
 void	get_sprite_y(t_render_object *orender, t_sprite_drawer *drawer)
@@ -78,7 +90,7 @@ void	get_sprite_y(t_render_object *orender, t_sprite_drawer *drawer)
 void	apply_object_filter(t_sprite_drawer *drawer, t_env *env)
 {
 	if (!env->editor.select
-	  	&& env->selected_object == drawer->object->num)
+		&& env->selected_object == drawer->object->num)
 		env->sdl.texture_pixels[drawer->x + drawer->y * env->w] =
 		blend_alpha(env->sdl.texture_pixels[drawer->x + drawer->y
 		* env->w], 0x1abc9c, 128);

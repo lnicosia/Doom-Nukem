@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   damage_anim.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 15:51:51 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 15:51:52 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	damage_anim2(t_env *env)
@@ -5,7 +17,6 @@ void	damage_anim2(t_env *env)
 	int j;
 	int time_spent;
 	int color;
-
 
 	color = 0;
 	time_spent = env->time.milli_s - env->player_hurt.start;

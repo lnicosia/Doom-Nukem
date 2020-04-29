@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 15:02:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:21:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		click_on_grid_object(t_env *env)
 		&& !is_mouse_on_any_selection_tab(env)
 		&& env->editor.dragged_object == -1)
 		return (1);
-  	return (0);
+	return (0);
 }
 
 void	draw_object_sprite(int i, double scale, t_point center, t_env *env)
@@ -107,7 +107,7 @@ void	draw_grid_objects(t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
-	  	draw_grid_object(i, env);
+		draw_grid_object(i, env);
 		i++;
 	}
 }

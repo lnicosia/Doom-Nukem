@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_floor_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:19:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:19:19 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	get_floor_z(t_render *render, t_drawer *drawer, t_env *env)
@@ -12,7 +24,7 @@ void	get_floor_z(t_render *render, t_drawer *drawer, t_env *env)
 void	click_on_floor(t_drawer *drawer, t_render *render, t_env *env)
 {
 	if ((env->editor.tab && drawer->vline.x == env->sdl.mx
-	  	&& drawer->i == env->sdl.my) || (!env->editor.tab
+		&& drawer->i == env->sdl.my) || (!env->editor.tab
 		&& drawer->vline.x == env->h_w && drawer->i == env->h_h))
 	{
 		if (env->editor.select)
@@ -30,7 +42,7 @@ void	click_on_floor(t_drawer *drawer, t_render *render, t_env *env)
 			env->new_bullet_hole_sector = drawer->sector->num;
 		}
 		if (env->playing)
-		  	reset_hover(env);
+			reset_hover(env);
 	}
 }
 

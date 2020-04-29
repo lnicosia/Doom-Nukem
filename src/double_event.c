@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   double_event.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:07:29 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:07:29 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		double_incr_event(t_event *curr, double *target)
@@ -17,7 +29,7 @@ int		double_incr_event(t_event *curr, double *target)
 	}
 	else
 		return (1);
-  	return (0);
+	return (0);
 }
 
 int		double_fixed_event(t_event *curr, double *target, Uint32 time)
@@ -48,13 +60,13 @@ int		double_event(t_event *curr)
 	time = time == 0 ? 1 : time;
 	if (curr->mod_type == FIXED)
 	{
-	  	if (double_fixed_event(curr, target, time))
-		  	return (1);
+		if (double_fixed_event(curr, target, time))
+			return (1);
 	}
 	else
 	{
-	  	if (double_incr_event(curr, target))
-		  	return (1);
+		if (double_incr_event(curr, target))
+			return (1);
 	}
 	return (0);
 }

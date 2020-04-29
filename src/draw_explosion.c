@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw_explosion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 11:40:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:24:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
-void			draw_vline_explosion(t_render_explosion *erender,
+void		draw_vline_explosion(t_render_explosion *erender,
 t_sprite_drawer *drawer, t_env *env)
 {
 	drawer->xalpha = (drawer->x - erender->x1) / erender->xrange;
@@ -23,14 +23,14 @@ t_sprite_drawer *drawer, t_env *env)
 	* drawer->sprite->start[erender->index].x + drawer->xalpha
 	* drawer->sprite->end[erender->index].x;
 	drawer->y = erender->ystart;
-	while (drawer->y < drawer->yend)
+	while (++drawer->y < drawer->yend)
 	{
 		drawer->yalpha = (drawer->y - erender->y1) / erender->yrange;
 		drawer->texty = (1.0 - drawer->yalpha)
 		* drawer->sprite->start[erender->index].y + drawer->yalpha
 		* drawer->sprite->end[erender->index].y;
 		if ((drawer->texture->str[drawer->textx + drawer->texty
-		  	* drawer->texture->surface->w] != 0xFFC10099))
+			* drawer->texture->surface->w] != 0xFFC10099))
 		{
 			env->sdl.texture_pixels[drawer->x + drawer->y * env->w] =
 			drawer->texture->str[drawer->textx + drawer->texty
@@ -38,11 +38,10 @@ t_sprite_drawer *drawer, t_env *env)
 			env->zbuffer[drawer->x + drawer->y * env->w] =
 			drawer->explosion->rotated_pos.z;
 		}
-		drawer->y++;
 	}
 }
 
-static void		*explosion_loop(void *param)
+static void	*explosion_loop(void *param)
 {
 	t_env				*env;
 	t_render_explosion	*erender;
@@ -58,12 +57,12 @@ static void		*explosion_loop(void *param)
 	drawer.yend = erender->yend;
 	while (++drawer.x <= drawer.xend)
 	{
-	  	draw_vline_explosion(erender, &drawer, env);
+		draw_vline_explosion(erender, &drawer, env);
 	}
 	return (NULL);
 }
 
-static int		threaded_explosion(t_explosion *explosion,
+static int	threaded_explosion(t_explosion *explosion,
 t_render_explosion *erender, t_env *env)
 {
 	t_explosion_thread	pt[THREADS];
@@ -90,7 +89,7 @@ t_render_explosion *erender, t_env *env)
 	return (0);
 }
 
-void	init_explosion_render(t_render_explosion *erender,
+void		init_explosion_render(t_render_explosion *erender,
 t_explosion *explosion, t_env *env)
 {
 	int		centre_alignment;
@@ -113,7 +112,7 @@ t_explosion *explosion, t_env *env)
 	erender->yrange = erender->y2 - erender->y1;
 }
 
-int		draw_explosion(t_camera *camera, t_explosion *explosion,
+int			draw_explosion(t_camera *camera, t_explosion *explosion,
 t_env *env, int index)
 {
 	t_render_explosion	erender;

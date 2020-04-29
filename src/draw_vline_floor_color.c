@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_floor_color.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:52:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 18:23:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:35:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	put_floor_pixel_color(t_drawer *drawer, t_render *render, t_env *env)
 {
-  	Uint32	*texture_pixels;
+	Uint32	*texture_pixels;
 
 	texture_pixels = (Uint32*)env->wall_textures[drawer->sector->floor_texture].
 	maps[drawer->map_lvl]->pixels;
 	if (drawer->text_x >= 0 && drawer->text_x < render->texture_w
-	  	&& drawer->text_y >= 0 && drawer->text_y < render->texture_h)
+		&& drawer->text_y >= 0 && drawer->text_y < render->texture_h)
 	{
 		env->sdl.texture_pixels[drawer->coord] = apply_light_color(
 		texture_pixels[(int)drawer->text_x + render->texture_w
@@ -35,13 +35,13 @@ void	put_floor_pixel_color(t_drawer *drawer, t_render *render, t_env *env)
 }
 
 /*
- **	Draw a vertical vline on the screen at vline.x
- */
+**	Draw a vertical vline on the screen at vline.x
+*/
 
 void	draw_vline_floor_color(t_sector *sector, t_vline vline,
 		t_render *render, t_env *env)
 {
-  	t_drawer	drawer;
+	t_drawer	drawer;
 
 	drawer.sector = sector;
 	drawer.vline = vline;
@@ -54,7 +54,7 @@ void	draw_vline_floor_color(t_sector *sector, t_vline vline,
 	drawer.i = vline.start;
 	while (drawer.i <= drawer.vline.end)
 	{
-	  	get_floor_z(render, &drawer, env);
+		get_floor_z(render, &drawer, env);
 		if (drawer.z >= env->zbuffer[drawer.coord] - 1)
 		{
 			drawer.i++;

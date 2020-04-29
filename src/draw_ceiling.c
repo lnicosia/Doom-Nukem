@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_ceiling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:21:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:08:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	draw_ceiling(t_sector *sector, t_render *render, t_env *env)
 	else
 	{
 		if (!env->options.lighting || (!sector->brightness
-		  && !sector->intensity))
+			&& !sector->intensity))
 			draw_vline_ceiling(sector, vline, render, env);
 		else if (!sector->brightness)
 			draw_vline_ceiling_color(sector, vline, render, env);

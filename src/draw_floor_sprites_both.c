@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor_sprites_both.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:49:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/11 17:51:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 16:17:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_drawer *drawer, t_env *env)
 	+ env->sprite_textures[drawer->sprite->texture].surface->w
 	* (int)drawer->sprite_y], drawer->sector->light_color,
 	drawer->sector->intensity, drawer->sector->brightness);
-	if (!env->editor.select	&& env->selected_floor == drawer->sector->num
+	if (!env->editor.select && env->selected_floor == drawer->sector->num
 		&& env->selected_floor_sprite == j)
 		env->sdl.texture_pixels[drawer->coord] =
 		blend_alpha(env->sdl.texture_pixels[drawer->coord],
@@ -59,13 +59,13 @@ t_env *env)
 	* drawer->sector->floor_sprites_scale[j].y
 	+ drawer->sprite->start[0].y;
 	if (drawer->sprite_x >= drawer->sprite->start[0].x
-	  	&& drawer->sprite_x < drawer->sprite->end[0].x
+		&& drawer->sprite_x < drawer->sprite->end[0].x
 		&& drawer->sprite_y >= drawer->sprite->start[0].y
 		&& drawer->sprite_y < drawer->sprite->end[0].y
 		&& sprite_pixels[(int)drawer->sprite_x
 		+ env->sprite_textures[drawer->sprite->texture].surface->w
 		* (int)drawer->sprite_y] != 0xFFC10099)
-	  	draw_current_floor_sprite_both(j, render, drawer, env);
+		draw_current_floor_sprite_both(j, render, drawer, env);
 }
 
 void	draw_floor_sprites_both(t_sector *sector, t_render *render, t_env *env)
@@ -88,7 +88,7 @@ void	draw_floor_sprites_both(t_sector *sector, t_render *render, t_env *env)
 		j = 0;
 		while (j < drawer.sector->floor_sprites.nb_sprites)
 		{
-		  	draw_floor_sprite_both(j, render, &drawer, env);
+			draw_floor_sprite_both(j, render, &drawer, env);
 			j++;
 		}
 		drawer.i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 11:17:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:52:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void		respawn_entities(void *param)
 {
-	int i;
-	t_env *env;
+	int		i;
+	t_env	*env;
 
 	i = 0;
 	env = (t_env *)param;
@@ -51,7 +51,6 @@ int			respawn2(t_env *env)
 		env->enemies[i].exists = 1;
 		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
 	}
-	free_camera(&env->player.camera);
 	env->dialog_box = 0;
 	env->next_dialog = 0;
 	if (init_camera(&env->player.camera, env))
@@ -94,6 +93,7 @@ int			respawn(void *param)
 		env->objects[i].exists = 1;
 		i++;
 	}
+	free_camera(&env->player.camera);
 	return (respawn2(env));
 }
 

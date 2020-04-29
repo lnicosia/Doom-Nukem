@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 14:52:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:02:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,21 @@ char	*get_current_line(char **str, t_env *env)
 	return (res);
 }
 
+void	print_line_text(t_point *pos, t_point *text_size, char *tmp2,
+t_env *env)
+{
+	TTF_SizeText(env->sdl.fonts.lato_bold30, tmp2, &text_size->x,
+	&text_size->y);
+	print_text(*pos, new_printable_text(tmp2, env->sdl.fonts.lato_bold30,
+	0xFFFFFFFF, 0), env);
+}
+
 int		compute_current_line(char **str, t_point *pos, t_point *text_size,
 t_env *env)
 {
-  	char	*tmp;
-  	char	*tmp2;
-  	char	*tmp3;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 
 	if (!(tmp = get_current_line(str, env)))
 		return (-1);
@@ -66,10 +75,7 @@ t_env *env)
 		return (-1);
 	ft_strdel(str);
 	*str = tmp3;
-	TTF_SizeText(env->sdl.fonts.lato_bold30, tmp2, &text_size->x,
-	&text_size->y);
-	print_text(*pos, new_printable_text(tmp2, env->sdl.fonts.lato_bold30,
-	0xFFFFFFFF, 0), env);
+	print_line_text(pos, text_size, tmp2, env);
 	ft_strdel(&tmp2);
 	return (0);
 }
@@ -87,8 +93,8 @@ int		split_text(char **str, t_point pos, t_env *env)
 	count = 0;
 	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
 	{
-	  	if (compute_current_line(str, &pos, &text_size, env))
-		  	return (-1);
+		if (compute_current_line(str, &pos, &text_size, env))
+			return (-1);
 		pos.x += text_size.y + 5;
 		count++;
 	}

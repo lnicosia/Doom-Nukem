@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:55:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 15:02:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:20:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int		click_on_grid_enemy(t_env *env)
 			&& env->editor.dragged_object == -1
 			&& !is_mouse_on_any_selection_tab(env)
 			&& env->sdl.mx > 400)
-	  	return (1);
-  	return (0);
+		return (1);
+	return (0);
 }
 
 void	draw_grid_enemy(int i, t_env *env)
@@ -108,7 +108,7 @@ void	draw_grid_enemies(t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-	  	draw_grid_enemy(i, env);
+		draw_grid_enemy(i, env);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_grid_vertices.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 11:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 17:10:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:22:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	draw_grid_vertices(t_env *env)
 	}
 	while (i < env->nb_vertices)
 	{
-	  	draw_grid_vertex(i, center, env);
+		draw_grid_vertex(i, center, env);
 		i++;
 	}
 }

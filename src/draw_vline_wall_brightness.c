@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_wall_brightness.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:43:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:13:20 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 17:36:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-void	put_wall_pixel_brightness(t_drawer *drawer, t_render *render, t_env *env)
+void	put_wall_pixel_brightness(t_drawer *drawer, t_render *render,
+t_env *env)
 {
 	Uint32		*texture_pixels;
 

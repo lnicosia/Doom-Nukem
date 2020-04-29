@@ -6,14 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 18:15:21 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 15:34:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:30:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
-void	draw_vline_player(t_render_object *orender, t_sprite_drawer *drawer,
+void		draw_vline_player(t_render_object *orender, t_sprite_drawer *drawer,
 t_env *env)
 {
 	drawer->yalpha = (drawer->y - orender->y1) / orender->yrange;
@@ -21,8 +21,8 @@ t_env *env)
 	* drawer->sprite->start[orender->index].y + drawer->yalpha
 	* drawer->sprite->end[orender->index].y;
 	if ((drawer->object->rotated_pos.z < env->zbuffer[drawer->x
-	  + drawer->y * env->w]	&& drawer->texture->str[drawer->textx
-	+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
+		+ drawer->y * env->w] && drawer->texture->str[drawer->textx
+		+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
 	{
 		if ((env->editor.select == 1 && drawer->x == env->sdl.mx
 			&& drawer->y == env->sdl.my)
@@ -37,7 +37,7 @@ t_env *env)
 	}
 }
 
-void	*player_loop(void *param)
+void		*player_loop(void *param)
 {
 	t_env			*env;
 	t_render_object	*orender;
@@ -54,10 +54,10 @@ void	*player_loop(void *param)
 	drawer.sector = &env->sectors[drawer.object->sector];
 	while (++drawer.x <= drawer.xend)
 	{
-	  	get_sprite_x(orender, &drawer);
+		get_sprite_x(orender, &drawer);
 		while (drawer.y < drawer.yend)
 		{
-		  	draw_vline_player(orender, &drawer, env);
+			draw_vline_player(orender, &drawer, env);
 			drawer.y++;
 		}
 	}

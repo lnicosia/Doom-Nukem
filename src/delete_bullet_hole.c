@@ -6,12 +6,20 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 16:12:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 15:42:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:58:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "wall_sprite_remover.h"
+
+int		delete_ceiling_bullet_hole2(void *p, t_floor_sprite_remover *param,
+t_env *env)
+{
+	shift_ceiling_bullet_hole_events(param->sector, param->sprite, env);
+	ft_memdel(&p);
+	return (1);
+}
 
 int		delete_ceiling_bullet_hole(void *p, void *penv)
 {
@@ -38,7 +46,13 @@ int		delete_ceiling_bullet_hole(void *p, void *penv)
 		|| !env->sectors[param->sector].ceiling_sprites.scale
 		|| !env->sectors[param->sector].ceiling_sprites.pos))
 		return (-1);
-	shift_ceiling_bullet_hole_events(param->sector, param->sprite, env);
+	return (delete_ceiling_bullet_hole2(p, param, env));
+}
+
+int		delete_floor_bullet_hole2(void *p, t_floor_sprite_remover *param,
+t_env *env)
+{
+	shift_floor_bullet_hole_events(param->sector, param->sprite, env);
 	ft_memdel(&p);
 	return (1);
 }
@@ -68,9 +82,7 @@ int		delete_floor_bullet_hole(void *p, void *penv)
 		|| !env->sectors[param->sector].floor_sprites.scale
 		|| !env->sectors[param->sector].floor_sprites.pos))
 		return (-1);
-	shift_floor_bullet_hole_events(param->sector, param->sprite, env);
-	ft_memdel(&p);
-	return (1);
+	return (delete_floor_bullet_hole2(p, param, env));
 }
 
 int		delete_wall_bullet_hole(void *p, void *penv)

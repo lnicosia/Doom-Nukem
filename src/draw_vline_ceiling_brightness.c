@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_vline_ceiling_brightness.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 16:56:56 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 16:50:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:33:31 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	put_ceiling_pixel_brightness(t_drawer *drawer, t_render *render,
 t_env *env)
 {
-  	Uint32		*texture_pixels;
+	Uint32		*texture_pixels;
 
 	texture_pixels = env->wall_textures[drawer->sector->ceiling_texture].
 	maps[drawer->map_lvl]->pixels;
 	if (drawer->text_x >= 0 && drawer->text_x < render->texture_w
-	  	&& drawer->text_y >= 0 && drawer->text_y < render->texture_h)
+		&& drawer->text_y >= 0 && drawer->text_y < render->texture_h)
 	{
 		env->sdl.texture_pixels[drawer->coord] = apply_light_brightness(
 		texture_pixels[(int)drawer->text_x + render->texture_w
@@ -54,7 +54,7 @@ t_render *render, t_env *env)
 	drawer.i = vline.start;
 	while (drawer.i <= vline.end)
 	{
-	  	get_ceiling_z(render, &drawer, env);
+		get_ceiling_z(render, &drawer, env);
 		if (drawer.z >= env->zbuffer[drawer.coord] - 1)
 		{
 			drawer.i++;

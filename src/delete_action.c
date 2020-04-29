@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_action.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:43 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/11 13:15:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:52:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int		delete_action(t_env *env)
 			return (-1);
 	}
 	else
-	  	return (delete_action2(env));
+		return (delete_action2(env));
 	return (0);
 }

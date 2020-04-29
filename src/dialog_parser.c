@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:35:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 16:24:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:03:28 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_events_parser *eparser)
 	if ((*line)[len] != ')')
 		return (invalid_char("after dialog text or text is too long", "')'",
 		**line, parser));
-	if (!(eparser->current_str = ft_strsub(*line, 0, len)))
+		if (!(eparser->current_str = ft_strsub(*line, 0, len)))
 		return (-1);
 	if (ft_strchr(eparser->current_str, '\n'))
 		return (invalid_char("in dialog text", "no special characters",
@@ -39,12 +39,12 @@ t_events_parser *eparser)
 		return (missing_data("dialog data", parser));
 	if (**line != ' ')
 		return (invalid_char("before dialog text", "a space", **line, parser));
-		(*line)++;
+	(*line)++;
 	if (!**line || **line == ' ')
 		return (missing_data("dialog text", parser));
 	if (**line != '(')
 		return (invalid_char("before dialog text", "a space", **line, parser));
-		(*line)++;
+	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("dialog data", parser));
 	len = 0;

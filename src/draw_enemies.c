@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   draw_enemies.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:50:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/06 14:42:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:15:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-int	get_enemy_direction2(t_enemy *enemy, double angle)
+int			get_enemy_direction2(t_enemy *enemy, double angle)
 {
-	if (angle < enemy->angle - 22.5 && angle >= enemy->angle - 67.5)
+	if (angle >= enemy->angle + 337.5)
+		return (4);
+	else if (angle < enemy->angle - 22.5 && angle >= enemy->angle - 67.5)
 		return (3);
 	else if (angle < enemy->angle - 67.5 && angle >= enemy->angle - 112.5)
 		return (2);
@@ -34,7 +36,7 @@ int	get_enemy_direction2(t_enemy *enemy, double angle)
 		return (0);
 }
 
-int	get_enemy_direction(t_enemy *enemy)
+int			get_enemy_direction(t_enemy *enemy)
 {
 	double	angle;
 
@@ -58,10 +60,8 @@ int	get_enemy_direction(t_enemy *enemy)
 		return (2);
 	else if (angle >= enemy->angle + 292.5 && angle < enemy->angle + 337.5)
 		return (3);
-	else if (angle >= enemy->angle + 337.5)
-		return (4);
 	else
-	  	return(get_enemy_direction2(enemy, angle));
+		return (get_enemy_direction2(enemy, angle));
 }
 
 static int	threaded_get_relative_pos(t_camera *camera, t_env *env)
@@ -124,8 +124,8 @@ int			draw_enemies(t_camera *camera, t_env *env)
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-	  	if (draw_current_enemy(camera, i, env))
-		  	return (-1);
+		if (draw_current_enemy(camera, i, env))
+			return (-1);
 		i++;
 	}
 	return (0);

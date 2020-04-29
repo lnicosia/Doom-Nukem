@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_enemies2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:13:34 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:13:34 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	*enemy_loop(void *param)
@@ -5,7 +17,6 @@ void	*enemy_loop(void *param)
 	t_env			*env;
 	t_render_object	*orender;
 	t_sprite_drawer	drawer;
-
 
 	orender = ((t_enemy_thread*)param)->orender;
 	env = ((t_enemy_thread*)param)->env;
@@ -18,10 +29,10 @@ void	*enemy_loop(void *param)
 	drawer.sector = &env->sectors[drawer.enemy->sector];
 	while (++drawer.x <= drawer.xend)
 	{
-	  	get_sprite_x(orender, &drawer);
+		get_sprite_x(orender, &drawer);
 		while (drawer.y < drawer.yend)
 		{
-		  	draw_vline_enemy(orender, &drawer, env);
+			draw_vline_enemy(orender, &drawer, env);
 			drawer.y++;
 		}
 	}
@@ -88,7 +99,7 @@ int death_sprite)
 	if (death_sprite >= 0)
 		enemy->sprite = env->enemy_sprites[enemy->sprite].death_counterpart;
 	orender.camera = camera;
-	sprite = &env->enemy_sprites[enemy->sprite];	
+	sprite = &env->enemy_sprites[enemy->sprite];
 	project_enemy(&orender, enemy, env);
 	if (sprite->oriented)
 		orender.index = get_enemy_direction(enemy);

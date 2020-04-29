@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_sector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/05 10:12:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:59:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		delete_linked_events(t_env *env)
 
 int		delete_sector2(t_env *env)
 {
-  	int	i;
+	int	i;
 
 	if (delete_linked_events(env))
 		return (-1);
@@ -79,9 +79,9 @@ int		delete_sector(void *param)
 	ft_printf("{red}Deleting sector{reset}\n");
 	free_sector(&env->sectors[env->editor.selected_sector]);
 	env->sectors = (t_sector*)ft_delindex(env->sectors,
-			 sizeof(t_sector) * env->nb_sectors,
-			 sizeof(t_sector),
-			 sizeof(t_sector) * env->editor.selected_sector);
+			sizeof(t_sector) * env->nb_sectors,
+			sizeof(t_sector),
+			sizeof(t_sector) * env->editor.selected_sector);
 	env->nb_sectors--;
 	if (env->nb_sectors > 0 && !env->sectors)
 		return (-1);

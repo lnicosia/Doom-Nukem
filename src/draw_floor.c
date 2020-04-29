@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 13:52:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:22:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:16:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_floor(t_sector *sector, t_render *render, t_env *env)
 	else
 	{
 		if (!env->options.lighting || (!sector->brightness
-		  	&& !sector->intensity))
+			&& !sector->intensity))
 			draw_vline_floor(sector, vline, render, env);
 		else if (!sector->brightness)
 			draw_vline_floor_color(sector, vline, render, env);

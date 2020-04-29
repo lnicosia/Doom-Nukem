@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_skybox2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:31:22 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:31:22 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "draw_skybox.h"
 
 void	set_skybox_limits3(t_skybox_drawer *drawer, t_env *env)
@@ -57,13 +69,14 @@ void	set_skybox_limits2(t_skybox_drawer *drawer, t_env *env)
 void	set_skybox_limits(t_skybox_drawer *drawer, t_env *env)
 {
 	if ((drawer->wall_data.mode == CEILING
-	  	&& env->selected_ceiling == drawer->render->sector->num)
+		&& env->selected_ceiling == drawer->render->sector->num)
 		|| (drawer->wall_data.mode == FLOOR
 		&& env->selected_floor == drawer->render->sector->num)
 		|| ((drawer->wall_data.mode == WALL
 		|| drawer->wall_data.mode == UPPER_WALL
 		|| drawer->wall_data.mode == BOTTOM_WALL)
-		&& env->sectors[drawer->render->sector->num].selected[drawer->render->i]))
+		&& env->sectors[drawer->render->sector->num].
+		selected[drawer->render->i]))
 		drawer->skybox->selected = 1;
 	if (drawer->wall_data.mode == CEILING)
 	{

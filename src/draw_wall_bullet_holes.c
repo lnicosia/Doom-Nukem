@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_bullet_holes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:48:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/28 11:39:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:36:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	draw_wall_bullet_holes(t_sector *sector, t_render *render, t_env *env)
 	bullet_holes = sector->wall_bullet_holes[render->i];
 	while (bullet_holes)
 	{
-	  	curr = (t_bullet_hole*)bullet_holes->content;
+		curr = (t_bullet_hole*)bullet_holes->content;
 		start = env->object_sprites[BULLET_HOLE].start[0];
 		end = env->object_sprites[BULLET_HOLE].end[0];
-		pos =  curr->pos.x / sector->wall_width[render->i]
+		pos = curr->pos.x / sector->wall_width[render->i]
 		* curr->scale.x;
 		if (render->camera->v[sector->num][render->i + 1].vz)
 			pos *= render->camera->v[sector->num][render->i + 1].vz;

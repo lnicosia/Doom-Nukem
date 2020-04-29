@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_button.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:07:53 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:07:54 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void		draw_rectangle_button(t_env *env, t_button b)
@@ -28,11 +40,11 @@ void		draw_button(t_env *env, t_button b, char *str)
 {
 	if (!b.img_up || !b.img_pressed || !b.img_down || !b.img_hover)
 	{
-	  	draw_rectangle_button(env, b);
+		draw_rectangle_button(env, b);
 	}
 	else
 	{
-	  	draw_image_button(env, b, new_point(b.pos.y, b.pos.x));
+		draw_image_button(env, b, new_point(b.pos.y, b.pos.x));
 	}
 	draw_button_text(b, str, env);
 }

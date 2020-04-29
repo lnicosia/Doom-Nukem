@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_walls_utils.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:22:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:30:43 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "draw_grid_walls.h"
 
-void	draw_current_sector_last_wall(t_point v1, t_point v2, t_env *env)
+void		draw_current_sector_last_wall(t_point v1, t_point v2, t_env *env)
 {
 	v2.x = env->sdl.mx;
 	v2.y = env->sdl.my;
 	draw_line(v1, v2, env, 0xFFFFFF00);
 }
 
-void	draw_grid_current_sector(t_env *env)
+void		draw_grid_current_sector(t_env *env)
 {
 	t_list		*tmp;
 	t_vertex	*v;
@@ -32,7 +44,7 @@ void	draw_grid_current_sector(t_env *env)
 		tmp = tmp->next;
 	}
 	if (env->drawing)
-	  	draw_current_sector_last_wall(v1, v2, env);
+		draw_current_sector_last_wall(v1, v2, env);
 }
 
 TTF_Font	*get_correct_font(int size, t_env *env)

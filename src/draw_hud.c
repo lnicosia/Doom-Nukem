@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_hud.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 10:25:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/03/09 10:19:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:24:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	armor_life_hud(t_env *env)
 	window_w = 0;
 	window_h = (env->h - env->sprite_textures[ARMOR_LIFE_HUD].surface->h);
 	while (x < env->sprite_textures[ARMOR_LIFE_HUD].surface->w && window_w +
-
 		x < env->w)
 	{
 		y = 0;

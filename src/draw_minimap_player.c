@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_minimap_player.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:25:39 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:25:47 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "draw_grid_walls.h"
 
@@ -49,7 +61,7 @@ void	draw_minimap_fov_lines(t_v3 triangle[3], t_env *env)
 	p0.y = triangle[0].y;
 	p1.x = triangle[2].x;
 	p1.y = triangle[2].y;
-	draw_line_minimap(p0, p1, env, 0xFFFFFF00);	
+	draw_line_minimap(p0, p1, env, 0xFFFFFF00);
 }
 
 void	draw_minimap_fov(t_v3 triangle[3], t_env *env)

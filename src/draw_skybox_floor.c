@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_skybox_floor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 10:06:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 18:50:16 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:32:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	get_skybox_floor_texture(t_drawer *drawer, t_render *render,
 t_skybox_data wall_data, t_env *env)
 {
-  	t_texture	*texture;
+	t_texture	*texture;
 
 	if (wall_data.mode == CEILING)
 		texture = &env->skyboxes[abs(env->sectors[render->sector->num].
@@ -60,7 +60,7 @@ void	click_on_skybox_floor(t_render *render, t_skybox_data wall_data,
 t_env *env)
 {
 	if (env->playing)
-	  	reset_hover(env);
+		reset_hover(env);
 	if (env->editor.select)
 	{
 		reset_selection(env);
@@ -98,7 +98,7 @@ t_skybox_data wall_data, t_env *env)
 	drawer->y = drawer->texture_h - drawer->y;
 	drawer->x = drawer->texture_w - drawer->x;
 	if (drawer->x >= 0 && drawer->x < drawer->texture_w
-	  	&& drawer->y >= 0 && drawer->y < drawer->texture_h)
+		&& drawer->y >= 0 && drawer->y < drawer->texture_h)
 	{
 		env->sdl.texture_pixels[drawer->coord] = drawer->texture_pixels[
 		(int)drawer->x + drawer->texture_w * (int)drawer->y];
@@ -118,7 +118,7 @@ t_skybox_data wall_data, t_env *env)
 void	draw_skybox_floor(t_vline vline, t_skybox_data wall_data,
 t_render *render, t_env *env)
 {
-  	t_drawer	drawer;
+	t_drawer	drawer;
 
 	drawer.vline = vline;
 	get_skybox_floor_texture(&drawer, render, wall_data, env);
@@ -133,11 +133,11 @@ t_render *render, t_env *env)
 			continue;
 		}
 		if ((env->editor.tab && drawer.vline.x == env->sdl.mx
-		  	&& drawer.i == env->sdl.my)
+			&& drawer.i == env->sdl.my)
 			|| (!env->editor.tab && drawer.vline.x == env->h_w
 			&& drawer.i == env->h_h))
 		{
-		  	click_on_skybox_floor(render, wall_data, env);
+			click_on_skybox_floor(render, wall_data, env);
 		}
 		put_skybox_floor_pixel(&drawer, render, wall_data, env);
 		drawer.i++;

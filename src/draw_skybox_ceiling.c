@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_skybox_ceiling.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:31:51 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:31:51 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	get_skybox_ceiling_texture(t_drawer *drawer, t_render *render,
 t_skybox_data wall_data, t_env *env)
 {
-  	t_texture	*texture;
+	t_texture	*texture;
 
 	if (wall_data.mode == CEILING)
 		texture = &env->skyboxes[abs(env->sectors[render->sector->num].
@@ -48,7 +60,7 @@ void	click_on_skybox_ceiling(t_render *render, t_skybox_data wall_data,
 t_env *env)
 {
 	if (env->playing)
-	  	reset_hover(env);
+		reset_hover(env);
 	if (env->editor.select)
 	{
 		reset_selection(env);
@@ -85,7 +97,7 @@ t_skybox_data wall_data, t_env *env)
 		drawer->x = ft_abs((int)drawer->x % drawer->texture_w);
 	drawer->x = drawer->texture_w - drawer->x;
 	if (drawer->x >= 0 && drawer->x < drawer->texture_w && drawer->y >= 0
-	  	&& drawer->y < drawer->texture_h)
+		&& drawer->y < drawer->texture_h)
 	{
 		env->sdl.texture_pixels[drawer->coord] = drawer->texture_pixels[
 		(int)drawer->x + drawer->texture_w * (int)drawer->y];
@@ -120,7 +132,7 @@ t_render *render, t_env *env)
 			continue;
 		}
 		if ((env->editor.tab && drawer.vline.x == env->sdl.mx
-		  	&& drawer.i == env->sdl.my)
+			&& drawer.i == env->sdl.my)
 			|| (!env->editor.tab && drawer.vline.x == env->h_w
 			&& drawer.i == env->h_h))
 		{

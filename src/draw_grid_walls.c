@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_grid_walls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 12:25:43 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 16:04:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:22:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	draw_grid_sector(t_sector *sector, Uint32 color, t_env *env)
 	drawer.color = color;
 	while (i < drawer.sector->nb_vertices - 1)
 	{
-	  	draw_current_wall(i, &drawer, env);
+		draw_current_wall(i, &drawer, env);
 		i++;
 	}
 	draw_last_wall(i, &drawer, env);

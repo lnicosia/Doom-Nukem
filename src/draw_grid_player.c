@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 14:54:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 15:02:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:21:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int		click_on_grid_player(t_env *env)
 		&& env->editor.dragged_vertex == -1
 		&& !is_mouse_on_any_selection_tab(env)
 		&& env->editor.dragged_start_player == -1)
-	  	return (1);
-  	return (0);
+		return (1);
+	return (0);
 }
 
 void	draw_player_sprite(double scale, t_point pos, t_env *env)
@@ -79,7 +79,7 @@ void	draw_grid_player(t_env *env)
 	}
 	else
 	{
-	  	player_not_clicked(&pos, &scale, env);
+		player_not_clicked(&pos, &scale, env);
 	}
 	draw_player_sprite(scale, pos, env);
 }

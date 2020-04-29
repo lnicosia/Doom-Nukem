@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_projectile_color.c                             :+:      :+:    :+:   */
+/*   draw_projectile_color.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:24:44 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/01/08 18:04:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:29:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*projectile_loop_color(void *param)
 		get_projectile_x(prender, &drawer);
 		while (drawer.y < drawer.yend)
 		{
-		  	draw_vline_projectile_color(prender, &drawer, env);
+			draw_vline_projectile_color(prender, &drawer, env);
 			drawer.y++;
 		}
 	}

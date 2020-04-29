@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_vertex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:10:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 09:58:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:59:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		modify_sectors(t_env *env, int vertex)
 
 int		delete_vertex2(int vertex, t_env *env)
 {
-  	int	i;
+	int	i;
 
 	if (env->nb_sectors)
 	{

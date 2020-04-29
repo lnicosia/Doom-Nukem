@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_skybox_wall.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:32:47 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:43:09 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	get_skybox_x(t_drawer *drawer, t_render *render,
@@ -55,7 +67,7 @@ void	click_on_skybox_wall(t_render *render, t_skybox_data wall_data,
 t_env *env)
 {
 	if (env->playing)
-	 	reset_hover(env);
+		reset_hover(env);
 	if (env->editor.select)
 	{
 		reset_selection(env);
@@ -75,7 +87,7 @@ t_env *env)
 			env->selected_wall2 =
 			env->sectors[render->sector->num].vertices[wall_data.i + 1];
 		}
-		tabs_gestion(env);			
+		tabs_gestion(env);
 	}
 }
 
@@ -119,7 +131,7 @@ t_render *render, t_env *env)
 			continue;
 		}
 		if ((env->editor.tab && drawer.vline.x == env->sdl.mx
-	  		&& drawer.i == env->sdl.my)
+			&& drawer.i == env->sdl.my)
 			|| (!env->editor.tab && drawer.vline.x == env->h_w
 			&& drawer.i == env->h_h))
 			click_on_skybox_wall(render, wall_data, env);

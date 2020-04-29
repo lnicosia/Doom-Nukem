@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:36:47 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 14:24:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 16:28:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		threaded_get_relative_pos(t_camera *camera, t_env *env)
 		object_threads[i].xstart = env->nb_objects / (double)THREADS * i;
 		object_threads[i].xend = env->nb_objects / (double)THREADS * (i + 1);
 		if (pthread_create(&threads[i], NULL, get_object_relative_pos,
-		  	&object_threads[i]))
+			&object_threads[i]))
 			return (-1);
 		i++;
 	}
@@ -126,7 +126,7 @@ int		draw_objects(t_camera *camera, t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
-	  	if (draw_current_object(camera, i, env))
+		if (draw_current_object(camera, i, env))
 			return (-1);
 		i++;
 	}

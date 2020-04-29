@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 17:37:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/06 09:25:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 17:43:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_vline_color(t_vline vline, t_env *env)
 	}
 }
 
-void		draw_wall(t_sector *sector, t_render *render, t_env *env)
+void	draw_wall(t_sector *sector, t_render *render, t_env *env)
 {
 	t_vline	vline;
 
@@ -48,7 +48,7 @@ void		draw_wall(t_sector *sector, t_render *render, t_env *env)
 		draw_vline_wall_both(sector, vline, render, env);
 }
 
-void		draw_upper_wall(t_sector *sector, t_render *render, t_env *env)
+void	draw_upper_wall(t_sector *sector, t_render *render, t_env *env)
 {
 	t_vline	vline;
 
@@ -67,7 +67,7 @@ void		draw_upper_wall(t_sector *sector, t_render *render, t_env *env)
 		draw_vline_wall_both(sector, vline, render, env);
 }
 
-void		draw_bottom_wall(t_sector *sector, t_render *render, t_env *env)
+void	draw_bottom_wall(t_sector *sector, t_render *render, t_env *env)
 {
 	t_vline	vline;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_vline_projectile.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:36:00 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:36:01 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	draw_vline_projectile_both(t_render_projectile *prender,
@@ -8,7 +20,7 @@ t_sprite_drawer *drawer, t_env *env)
 	* drawer->sprite->start[prender->index].y + drawer->yalpha
 	* drawer->sprite->end[prender->index].y;
 	if ((drawer->projectile->rotated_pos.z < env->zbuffer[drawer->x
-	  	+ drawer->y * env->w] && drawer->texture->str[drawer->textx
+		+ drawer->y * env->w] && drawer->texture->str[drawer->textx
 		+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
 	{
 		env->sdl.texture_pixels[drawer->x + drawer->y * env->w] =
@@ -28,12 +40,12 @@ t_sprite_drawer *drawer, t_env *env)
 	* drawer->sprite->start[prender->index].y + drawer->yalpha
 	* drawer->sprite->end[prender->index].y;
 	if ((drawer->projectile->rotated_pos.z < env->zbuffer[drawer->x
-	  	+ drawer->y * env->w] && drawer->texture->str[drawer->textx
+		+ drawer->y * env->w] && drawer->texture->str[drawer->textx
 		+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
 	{
 		env->sdl.texture_pixels[drawer->x + drawer->y * env->w] =
 		apply_light_brightness(drawer->texture->str[drawer->textx
-		+ drawer->texty	* drawer->texture->surface->w], prender->brightness);
+		+ drawer->texty * drawer->texture->surface->w], prender->brightness);
 		env->zbuffer[drawer->x + drawer->y * env->w] =
 		drawer->projectile->rotated_pos.z;
 	}
@@ -47,7 +59,7 @@ t_sprite_drawer *drawer, t_env *env)
 	* drawer->sprite->start[prender->index].y + drawer->yalpha
 	* drawer->sprite->end[prender->index].y;
 	if ((drawer->projectile->rotated_pos.z < env->zbuffer[drawer->x
-	  	+ drawer->y * env->w] && drawer->texture->str[drawer->textx
+		+ drawer->y * env->w] && drawer->texture->str[drawer->textx
 		+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
 	{
 		env->sdl.texture_pixels[drawer->x + drawer->y * env->w] =
@@ -67,7 +79,7 @@ t_sprite_drawer *drawer, t_env *env)
 	* drawer->sprite->start[prender->index].y + drawer->yalpha
 	* drawer->sprite->end[prender->index].y;
 	if ((drawer->projectile->rotated_pos.z < env->zbuffer[drawer->x
-	  	+ drawer->y * env->w] && drawer->texture->str[drawer->textx
+		+ drawer->y * env->w] && drawer->texture->str[drawer->textx
 		+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
 	{
 		env->sdl.texture_pixels[drawer->x + drawer->y * env->w] =

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_objects3.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:27:45 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:27:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	put_object_pixel(t_render_object *orender, t_sprite_drawer *drawer,
@@ -42,7 +54,7 @@ t_env *env)
 	* drawer->sprite->start[orender->index].x + drawer->xalpha
 	* drawer->sprite->end[orender->index].x;
 	if ((drawer->object->rotated_pos.z < env->zbuffer[drawer->x
-	  	+ drawer->y * env->w] && texture_pixels[drawer->textx + drawer->texty
+		+ drawer->y * env->w] && texture_pixels[drawer->textx + drawer->texty
 		* drawer->texture->surface->w] != 0xFFC10099))
 	{
 		env->objects[drawer->object->num].seen = 1;
@@ -81,7 +93,7 @@ void	*object_loop(void *param)
 		get_sprite_y(orender, &drawer);
 		while (drawer.x < drawer.xend)
 		{
-		  	draw_vline_object(orender, &drawer, env);
+			draw_vline_object(orender, &drawer, env);
 			drawer.x++;
 		}
 	}

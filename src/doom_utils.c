@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doom_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 16:06:53 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 16:06:53 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "collision.h"
 
@@ -45,8 +57,8 @@ int		launch_events2(t_env *env)
 	}
 	if (env->player.changed_sector)
 	{
-	  	if (launch_events3(env))
-		  	return (-1);
+		if (launch_events3(env))
+			return (-1);
 	}
 	return (0);
 }
