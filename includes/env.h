@@ -814,6 +814,7 @@ int					print_wall_sprite_tab(t_env *env);
 */
 
 int					wall_buttons(t_env *env);
+int					wall_general_tab_keys(t_env *env);
 int					ceiling_buttons(t_env *env);
 int					floor_buttons(t_env *env);
 int					sector_buttons(t_env *env);
@@ -824,6 +825,7 @@ int					floor_sprite_buttons(t_env *env);
 int					ceiling_sprite_buttons(t_env *env);
 int					wall_sprite_buttons(t_env *env);
 int					wall_buttons_up(t_env *env);
+int					wall_general_tab_keyup(t_env *env);
 int					ceiling_buttons_up(t_env *env);
 int					floor_buttons_up(t_env *env);
 int					sector_buttons_up(t_env *env);

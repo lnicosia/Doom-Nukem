@@ -35,8 +35,8 @@ int		events_tab_keyup(t_env *env)
 		&& button_keyup(&env->editor.new_event, env))
 		return (-1);
 	if (is_modify_event_button_visible(env)
-		&& (button_keyup(&env->editor.modify_event, env))
-		|| button_keyup(&env->editor.delete_event, env))
+		&& (button_keyup(&env->editor.modify_event, env)
+		|| button_keyup(&env->editor.delete_event, env)))
 		return (-1);
 	if (are_event_selection_buttons_visible(env))
 	{
