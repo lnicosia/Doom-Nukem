@@ -69,11 +69,11 @@ int		init_textures2(t_env *env)
 {
 	if (parse_bmp("images/HUD/Life_armor_hud.bmp", 27, env))
 		return (ft_printf("Invalid bmp file\n"));
-	if (parse_bmp("images/UI/button-default-up.bmp", 28, env))
+	if (parse_bmp("images/ui/button-default-up.bmp", 28, env))
 		return (ft_printf("Failed to load default button\n"));
-	if (parse_bmp("images/UI/button-default-pressed.bmp", 29, env))
+	if (parse_bmp("images/ui/button-default-pressed.bmp", 29, env))
 		return (ft_printf("Failed to load default button\n"));
-	if (parse_bmp("images/UI/button-default-hover.bmp", 30, env))
+	if (parse_bmp("images/ui/button-default-hover.bmp", 30, env))
 		return (ft_printf("Failed to load default button\n"));
 	if (parse_bmp("images/sprites/MIDSPACE.bmp", 31, env))
 		return (ft_printf("Failed to load midspace\n"));

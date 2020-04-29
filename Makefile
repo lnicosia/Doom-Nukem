@@ -419,7 +419,7 @@ SOUND_WINDOWS = fmod.dll fmodL.dll
 
 SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 
-SOUND_LINUX = sound_lib/libfmod.so sound_lib/libfmodL.so
+SOUND_LINUX = libfmod.so libfmodL.so
 
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_ttf.dll \
@@ -430,7 +430,7 @@ SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
 	  #`sdl-config --cflags --libs` \
 	  RED := "\033[0;31m"
 
-SDL_LINUX = 
+SDL_LINUX = -lSDL2 -lSDL2_ttf -lm -lpthread
 
 ifeq ($(OS), Windows_NT)
 	SDL = $(SDL_WINDOWS)
@@ -441,8 +441,8 @@ else
 		SDL = $(SDL_OSX)
 		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
 	else
-		SDL = $(SDL_OSX)
-		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
+		SDL = $(SDL_LINUX)
+		SOUND = $(SOUND_LINUX)
 	endif
 endif
 
