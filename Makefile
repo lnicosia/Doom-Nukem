@@ -111,14 +111,14 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		event_panel.c target_panel.c init_target_panel_buttons.c \
 		init_action_panel_buttons.c init_conditions_tabs_buttons.c \
 		target_panel_keys.c modify_condition.c init_new_sector_arrays.c \
-		3d_edit_change_floor_slope_start.c delete_selected_event.c \
-		3d_edit_change_ceiling_slope_start.c editor_3d_button_keys2.c \
+		three_d_edit_change_floor_slope_start.c delete_selected_event.c \
+		three_d_edit_change_ceiling_slope_start.c editor_3d_button_keys2.c \
 		action_panel_keys.c conditions_panel_keys.c previous_launch_condition.c\
 		event_panel_keys.c modify_event.c delete_action_utils.c \
 		new_event_panel_buttons.c new_event_panel_buttons2.c choose_target.c \
 		editor_tab_gestion.c editor_wall_sprites_keys.c next_exec_condition.c \
-		3d_edit_function.c action_panel.c conditions_tabs.c \
-		event_panel_input_box.c 3d_edit_change_ceiling_floor_height.c \
+		three_d_edit_function.c action_panel.c conditions_tabs.c \
+		event_panel_input_box.c three_d_edit_change_ceiling_floor_height.c \
 		init_events_creation_buttons.c reduce_texture_scales_functions.c \
 		increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
 		init_condition_panel_buttons.c condition_type_buttons_functions.c \
@@ -135,12 +135,13 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		set_new_event_target5.c set_new_event_target6.c \
 		set_new_event_target7.c delete_wall_sprite.c draw_grid_walls_utils.c \
 		condition_event_panel.c init_condition_event_buttons.c \
-		3d_edit_walls_texture_number.c 3d_edit_walls_keys.c \
-		3d_edit_slopes.c 3d_edit_change_slope_start.c editor_3d_button_keyup2.c\
+		three_d_edit_walls_texture_number.c three_d_edit_walls_keys.c \
+		three_d_edit_slopes.c three_d_edit_change_slope_start.c \
+		editor_3d_button_keyup2.c\
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
-		3d_edit_right_walls_texture_align.c delete_floor_sprite.c \
-		3d_edit_left_walls_texture_align.c new_target.c \
-		3d_edit_keyup_functions.c 3d_edit_walls_keyup.c \
+		three_d_edit_right_walls_texture_align.c delete_floor_sprite.c \
+		three_d_edit_left_walls_texture_align.c new_target.c \
+		three_d_edit_keyup_functions.c three_d_edit_walls_keyup.c \
 		editor_wall_sprites_keyup.c wall_sprites_keyup.c \
 		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
 		update_entities.c editor_vertices_tab.c selection_tabs_keyup.c \
