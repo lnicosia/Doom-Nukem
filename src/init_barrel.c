@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_barrel.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:46:44 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:46:45 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_barrel_normal(t_env *env)
@@ -44,7 +56,6 @@ void	init_barrel_exploding(t_env *env)
 	env->object_sprites[21].size[2].y = 55;
 }
 
-
 void	init_barrel_exploding_two(t_env *env)
 {
 	env->object_sprites[21].start[3].x = 200;
@@ -85,8 +96,8 @@ void	init_barrel_exploding_three(t_env *env)
 
 void	init_barrel(t_env *env)
 {
-  	init_barrel_normal(env);
-  	init_barrel_exploding(env);
-  	init_barrel_exploding_two(env);
-  	init_barrel_exploding_three(env);
+	init_barrel_normal(env);
+	init_barrel_exploding(env);
+	init_barrel_exploding_two(env);
+	init_barrel_exploding_three(env);
 }

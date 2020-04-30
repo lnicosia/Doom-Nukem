@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_weapon_picker.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:10:54 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:10:55 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		weapon_picker_ok(void *param)
@@ -65,9 +77,8 @@ int		previous_weapon(void *param)
 void	init_weapon_picker(t_env *env)
 {
 	env->editor.weapon_picker.size = new_point(600, 300);
-	env->editor.weapon_picker.pos =
-	new_point(env->h_w - env->editor.weapon_picker.size.x / 2,
-	env->h_h - env->editor.weapon_picker.size.y / 2);
+	env->editor.weapon_picker.pos = new_point(env->h_w - env->editor.
+	weapon_picker.size.x / 2, env->h_h - env->editor.weapon_picker.size.y / 2);
 	env->editor.weapon_picker.next = new_next_arrow(ON_RELEASE, &next_weapon,
 	env, env);
 	env->editor.weapon_picker.previous = new_previous_arrow(ON_RELEASE,

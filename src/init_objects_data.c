@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objects_data.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 16:49:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:11:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 12:05:43 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,14 @@ void	init_object_data(int i, t_env *env)
 	* env->objects[i].height_ratio;
 }
 
-void		init_objects_data(t_env *env)
+void	init_objects_data(t_env *env)
 {
 	int i;
 
 	i = 0;
 	while (i < env->nb_objects)
 	{
-	  	init_object_data(i, env);
+		init_object_data(i, env);
 		i++;
 	}
 }
-

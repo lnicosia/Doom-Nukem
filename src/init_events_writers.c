@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 15:28:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:59:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_events_writers3(void (*writers[])(int, t_event))
 
 void	init_events_writers2(void (*writers[])(int, t_event))
 {
+	writers[SECTOR_WALL_SPRITES_SCALE_Y] = &wall_sprite_writer;
 	writers[SECTOR_FLOOR_SPRITES_SPRITE] = &floor_sprite_writer;
 	writers[SECTOR_FLOOR_SPRITES_POS_X] = &floor_sprite_writer;
 	writers[SECTOR_FLOOR_SPRITES_POS_Y] = &floor_sprite_writer;
@@ -96,6 +97,5 @@ void	init_events_writers(void (*writers[])(int, t_event))
 	writers[SECTOR_WALL_SPRITES_POS_X] = &wall_sprite_writer;
 	writers[SECTOR_WALL_SPRITES_POS_Y] = &wall_sprite_writer;
 	writers[SECTOR_WALL_SPRITES_SCALE_X] = &wall_sprite_writer;
-	writers[SECTOR_WALL_SPRITES_SCALE_Y] = &wall_sprite_writer;
 	init_events_writers2(writers);
 }

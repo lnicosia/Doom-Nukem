@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_cyber_demon_firing_anim.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:48:12 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 13:32:55 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "env.h"
 
@@ -14,7 +25,6 @@ void	init_cyber_demon_firing_anim5(t_env *env)
 
 void	init_cyber_demon_firing_anim4(t_env *env)
 {
-
 	env->enemy_sprites[9].start[5].x = 729;
 	env->enemy_sprites[9].start[5].y = 608;
 	env->enemy_sprites[9].end[5].x = 810;
@@ -34,7 +44,6 @@ void	init_cyber_demon_firing_anim4(t_env *env)
 
 void	init_cyber_demon_firing_anim3(t_env *env)
 {
-
 	env->enemy_sprites[9].start[3].x = 450;
 	env->enemy_sprites[9].start[3].y = 608;
 	env->enemy_sprites[9].end[3].x = 555;
@@ -54,7 +63,6 @@ void	init_cyber_demon_firing_anim3(t_env *env)
 
 void	init_cyber_demon_firing_anim2(t_env *env)
 {
-
 	env->enemy_sprites[9].start[1].x = 174;
 	env->enemy_sprites[9].start[1].y = 608;
 	env->enemy_sprites[9].end[1].x = 256;

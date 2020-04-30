@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_sectors.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:07:32 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:07:33 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		parse_sectors_init2(t_env *env, t_map_parser *parser)
@@ -30,7 +42,7 @@ int		parse_sectors_init(t_env *env, t_map_parser *parser, char *line)
 	if (*line != ' ')
 		return (invalid_char("sectors number",
 					"space or a digit", *line, parser));
-	line = skip_spaces(line);
+		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("sectors number", parser));
 	if (valid_int(line, parser))
@@ -57,7 +69,7 @@ int		init_sectors(t_env *env, t_map_parser *parser)
 		line = parser->line;
 		if (*line && *line != '#')
 		{
-		  	return (parse_sectors_init(env, parser, line));
+			return (parse_sectors_init(env, parser, line));
 		}
 		else if (*line != '#')
 			return (missing_data("sectors number declaration", parser));

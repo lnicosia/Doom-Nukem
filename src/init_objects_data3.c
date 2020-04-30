@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_objects_data3.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:05:15 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:05:15 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_object_data14(int i, t_env *env)
@@ -16,7 +28,7 @@ void	init_object_data14(int i, t_env *env)
 		env->objects[i].nb_rest_state = 1;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 }
 
@@ -59,7 +71,7 @@ void	init_object_data12(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	else if (env->objects[i].sprite == 30)
 	{
@@ -71,7 +83,7 @@ void	init_object_data12(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	init_object_data13(i, env);
 }
@@ -88,7 +100,7 @@ void	init_object_data11(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	else if (env->objects[i].sprite == 28)
 	{
@@ -100,7 +112,7 @@ void	init_object_data11(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	init_object_data12(i, env);
 }
@@ -117,7 +129,7 @@ void	init_object_data10(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	else if (env->objects[i].sprite == 26)
 	{
@@ -129,7 +141,7 @@ void	init_object_data10(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	init_object_data11(i, env);
 }

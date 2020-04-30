@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ui_textures.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 11:42:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:10:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 12:09:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ int		init_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/event_icon_down_blue.bmp", 48, env))
 		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/condition_icon_down_blue.bmp", 49, env))
+	if (parse_bmp_ui_textures("images/ui/condition_icon_down_blue.bmp", 49,
+		env))
 		return (custom_error("Invalid bmp files"));
 	if (parse_bmp_ui_textures("images/ui/play_icon_hover.bmp", 50, env))
 		return (custom_error("Invalid bmp files"));

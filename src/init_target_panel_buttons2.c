@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_target_panel_buttons2.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:09:18 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:09:19 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		get_target_selection_phase(t_target_panel *panel)
@@ -47,7 +59,7 @@ int		previous_target_selection_phase(void *param)
 	if (get_target_selection_phase(panel) == 1)
 		panel->sector_type = 0;
 	if (get_target_selection_phase(panel) == 2)
-	  	reset_panel_type(panel);
+		reset_panel_type(panel);
 	update_condition_target_buttons_pos(env);
 	update_target_panel_buttons_pos(env);
 	return (0);

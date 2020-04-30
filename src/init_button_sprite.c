@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_button_sprite.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:47:17 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:47:17 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_button_off(t_env *env)
@@ -17,7 +29,6 @@ void	init_button_off(t_env *env)
 	env->object_sprites[24].size[0].y = 64;
 	env->object_sprites[24].reversed[0] = 0;
 }
-
 
 void	init_button_on(t_env *env)
 {
@@ -39,6 +50,6 @@ void	init_button_on(t_env *env)
 
 void	init_button_sprite(t_env *env)
 {
-  	init_button_off(env);
+	init_button_off(env);
 	init_button_on(env);
 }

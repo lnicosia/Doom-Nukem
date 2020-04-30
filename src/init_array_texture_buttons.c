@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_array_texture_buttons.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:46:08 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:46:09 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int	init_array_texture_buttons2(t_env *env)
 {
-    env->editor.current_texture_selection = new_image_button(ON_RELEASE,
+	env->editor.current_texture_selection = new_image_button(ON_RELEASE,
 	&open_texture_selection, env, env);
 	env->editor.current_texture_selection.img_up =
 	env->wall_textures[env->editor.current_texture].maps[7];

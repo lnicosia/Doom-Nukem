@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   is_new_vertex_valid.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 17:20:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 13:44:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "render.h"
 
-int		valid_line(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
+int			valid_line(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 {
 	if ((v1.x > v3.x && v1.x < v4.x)
 			|| (v1.x < v3.x && v1.x > v4.x)
@@ -27,7 +27,7 @@ int		valid_line(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 	return (0);
 }
 
-int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
+int			segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 {
 	t_v2	intersection;
 
@@ -42,7 +42,7 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 			|| (intersection.y > v3.y && intersection.y > v4.y))
 		return (0);
 	if ((int)intersection.x == -2147483648
-	  	|| (int)intersection.y == -2147483648)
+		|| (int)intersection.y == -2147483648)
 	{
 		if (valid_line(v1, v2, v3, v4))
 			return (1);
@@ -53,7 +53,7 @@ int		segments_intersect_editor(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 	return (1);
 }
 
-int		check_list_intersections(t_env *env, t_vertex *last, int index)
+int			check_list_intersections(t_env *env, t_vertex *last, int index)
 {
 	t_list		*tmp;
 	t_vertex	*v1;
@@ -77,8 +77,8 @@ int		check_list_intersections(t_env *env, t_vertex *last, int index)
 	return (0);
 }
 
-int		check_sector_intersections(t_env *env, t_sector sector, t_vertex last,
-int index)
+int			check_sector_intersections(t_env *env, t_sector sector,
+t_vertex last, int index)
 {
 	int			i;
 	t_vertex	v1;
@@ -105,12 +105,11 @@ int index)
 }
 
 /*
- **	Returns 1 if a vertex has an intersection
- **	with either the current sector or any existing one
- **	
- */
+**	Returns 1 if a vertex has an intersection
+**	with either the current sector or any existing one
+*/
 
-int		new_wall_intersects(t_env *env, int index)
+int			new_wall_intersects(t_env *env, int index)
 {
 	t_list		*tmp;
 	t_vertex	*last;
@@ -133,7 +132,7 @@ int		new_wall_intersects(t_env *env, int index)
 	return (0);
 }
 
-int		get_vertex_in_sector(t_env *env, int sector)
+int			get_vertex_in_sector(t_env *env, int sector)
 {
 	int	i;
 	int	ret;
@@ -142,7 +141,7 @@ int		get_vertex_in_sector(t_env *env, int sector)
 	while (i < env->sectors[sector].nb_vertices)
 	{
 		if (env->sectors[sector].vertices[i] == env->editor.selected_vertex)
-			break;
+			break ;
 		i++;
 	}
 	ret = env->sectors[sector].vertices[i];
@@ -152,13 +151,14 @@ int		get_vertex_in_sector(t_env *env, int sector)
 t_vertex	find_second_vertex(t_env *env, t_sector sector, int new_index,
 int index)
 {
-	int	i;
+	int			i;
 	t_vertex	res;
+
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
 		if (sector.vertices[i] == index)
-			break;
+			break ;
 		else
 			i++;
 	}
@@ -169,15 +169,15 @@ int index)
 	return (res);
 }
 
-int		check_all_angles(t_v2 *p, int res, int i, int straight)
-{	
-	if(((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
+int			check_all_angles(t_v2 *p, int res, int i, int straight)
+{
+	if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
 			- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) > 0)
-			{
-				if (!res)
-					res += straight;
-				res++;
-			}
+	{
+		if (!res)
+			res += straight;
+		res++;
+	}
 	else if (((p[i + 1].x - p[i].x) * (p[i + 2].y - p[i + 1].y)
 	- ((p[i + 1].y - p[i].y) * (p[i + 2].x - p[i + 1].x))) < 0)
 	{
@@ -195,14 +195,14 @@ int		check_all_angles(t_v2 *p, int res, int i, int straight)
 **	PROTECTION
 */
 
-int		is_new_sector_convex(t_env *env, t_list *tmp)
+int			is_new_sector_convex(t_env *env, t_list *tmp)
 {
 	int		len;
 	int		i;
 	t_v2	*p;
 	int		res;
 	int		straight;
-	
+
 	i = 0;
 	res = 0;
 	straight = 0;
@@ -247,7 +247,7 @@ int		is_new_sector_convex(t_env *env, t_list *tmp)
 	return (1);
 }
 
-int		is_new_dragged_vertex_valid(t_env *env, int index)
+int			is_new_dragged_vertex_valid(t_env *env, int index)
 {
 	int			*list_sectors;
 	int			i;
@@ -256,17 +256,21 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 
 	i = 1;
 	if (!(list_sectors = get_vertex_sectors(env, index)))
-	  	return (0);
+		return (0);
 	while (i <= list_sectors[0])
 	{
 		j = 0;
 		while (j < env->nb_sectors)
 		{
-			last = find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
-			if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
+			last =
+			find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
+			if (check_sector_intersections(
+				env, env->sectors[j], last, index) == -1)
 				return (0);
-			last = find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
-			if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
+			last =
+			find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
+			if (check_sector_intersections(
+				env, env->sectors[j], last, index) == -1)
 				return (0);
 			j++;
 		}
@@ -289,7 +293,7 @@ int		is_new_dragged_vertex_valid(t_env *env, int index)
 	return (1);
 }
 
-int		new_sector_contains(t_vertex *tmp_sect, t_vertex v1, int size)
+int			new_sector_contains(t_vertex *tmp_sect, t_vertex v1, int size)
 {
 	int i;
 
@@ -309,7 +313,7 @@ int		new_sector_contains(t_vertex *tmp_sect, t_vertex v1, int size)
 **	not already existing in current sector)
 */
 
-int		is_new_vertex_valid(t_env *env, int index)
+int			is_new_vertex_valid(t_env *env, int index)
 {
 	t_v2	vertex;
 	int		ret;

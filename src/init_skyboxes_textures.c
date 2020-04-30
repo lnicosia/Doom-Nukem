@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_skyboxes_textures.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:08:09 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:08:09 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		init_skyboxes_textures2(t_env *env)
 {
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_front.bmp", 1, 4,
-	  	env))
+		env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_right.bmp", 1, 5,
-	  	env))
+		env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/bottom.bmp", 2, 0, env))
 		return (ft_printf("Failed to load skybox\n"));
@@ -26,7 +38,7 @@ int		init_skyboxes_textures2(t_env *env)
 int		init_skyboxes_textures(t_env *env)
 {
 	if (parse_bmp_skybox_textures("images/skyboxes/night_bottom.bmp", 0, 0,
-	  	env))
+		env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/night_top.bmp", 0, 1, env))
 		return (ft_printf("Failed to load skybox\n"));
@@ -39,7 +51,7 @@ int		init_skyboxes_textures(t_env *env)
 	if (parse_bmp_skybox_textures("images/skyboxes/night_right.bmp", 0, 5, env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_bottom.bmp", 1, 0,
-	  	env))
+		env))
 		return (ft_printf("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_top.bmp", 1, 1, env))
 		return (ft_printf("Failed to load skybox\n"));

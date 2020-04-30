@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_candle.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:47:34 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:47:34 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_candle_on(t_env *env)
@@ -33,6 +45,6 @@ void	init_candle_destroyed(t_env *env)
 
 void	init_candle(t_env *env)
 {
-  	init_candle_on(env);
-  	init_candle_destroyed(env);
+	init_candle_on(env);
+	init_candle_destroyed(env);
 }

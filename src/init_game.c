@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:11:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 12:00:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		init_game4(t_env *env)
 
 int		init_game3(char **av, t_env *env)
 {
-  	int	i;
+	int	i;
 
 	if (parse_map(av[1], env))
 		return (crash("{red}Error while parsing the map{reset}\n", env));
@@ -83,12 +83,11 @@ int		init_game3(char **av, t_env *env)
 		env->objects[i].exists = 1;
 		i++;
 	}
-	i = 0;
-	while (i < env->nb_enemies)
+	i = -1;
+	while (++i < env->nb_enemies)
 	{
 		env->enemies[i].exists = 1;
 		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
-		i++;
 	}
 	return (init_game4(env));
 }

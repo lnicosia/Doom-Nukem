@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_ammo.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:45:53 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:45:54 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_shotgun_ammo(t_env *env)
@@ -62,8 +74,8 @@ void	init_energy_cell(t_env *env)
 
 void	init_ammo(t_env *env)
 {
-  	init_shotgun_ammo(env);
-  	init_rocket_ammo(env);
-  	init_regular_ammo(env);
-  	init_energy_cell(env);
+	init_shotgun_ammo(env);
+	init_rocket_ammo(env);
+	init_regular_ammo(env);
+	init_energy_cell(env);
 }

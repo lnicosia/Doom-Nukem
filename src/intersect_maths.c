@@ -3,53 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_maths.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 16:00:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/25 09:57:01 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 12:22:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include <math.h>
 
-int onSegment(t_v2 p, t_v2 q, t_v2 r) 
-{ 
-	if (q.x <= ft_fmax(p.x, r.x) && q.x >= ft_fmin(p.x, r.x) && 
-		q.y <= ft_fmax(p.y, r.y) && q.y >= ft_fmin(p.y, r.y)) 
-	   return (1);
+int		on_segment(t_v2 p, t_v2 q, t_v2 r)
+{
+	if (q.x <= ft_fmax(p.x, r.x) && q.x >= ft_fmin(p.x, r.x) &&
+		q.y <= ft_fmax(p.y, r.y) && q.y >= ft_fmin(p.y, r.y))
+		return (1);
 	return (0);
-} 
-  
-int orientation(t_v2 p, t_v2 q, t_v2 r) 
-{ 
-	int val;
-	
-	val = (q.y - p.y) * (r.x - q.x) - 
-			  (q.x - p.x) * (r.y - q.y); 
-	if (val == 0)
-		return 0;
-	return ((val > 0) ? -1: 1);
-} 
-  
-int doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2) 
-{ 
-	int o1 = orientation(p1, q1, p2); 
-	int o2 = orientation(p1, q1, q2); 
-	int o3 = orientation(p2, q2, p1); 
-	int o4 = orientation(p2, q2, q1); 
+}
 
-	if (o1 != o2 && o3 != o4) 
-		return 1; 
-	if (o1 == 0 && onSegment(p1, p2, q1))
-		return 1; 
-	if (o2 == 0 && onSegment(p1, q2, q1))
-		return 1; 
-	if (o3 == 0 && onSegment(p2, p1, q2))
-		return 1; 
-	if (o4 == 0 && onSegment(p2, q1, q2))
-		return 1; 
-	return 0;
+int		orientation(t_v2 p, t_v2 q, t_v2 r)
+{
+	int val;
+
+	val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+	if (val == 0)
+		return (0);
+	return ((val > 0) ? -1 : 1);
+}
+
+int		do_intersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2)
+{
+	int o1;
+	int o2;
+	int o3;
+	int o4;
+
+	o1 = orientation(p1, q1, p2);
+	o2 = orientation(p1, q1, q2);
+	o3 = orientation(p2, q2, p1);
+	o4 = orientation(p2, q2, q1);
+	if (o1 != o2 && o3 != o4)
+		return (1);
+	if (o1 == 0 && on_segment(p1, p2, q1))
+		return (1);
+	if (o2 == 0 && on_segment(p1, q2, q1))
+		return (1);
+	if (o3 == 0 && on_segment(p2, p1, q2))
+		return (1);
+	if (o4 == 0 && on_segment(p2, q1, q2))
+		return (1);
+	return (0);
 }
 
 int		direction_point(t_v2 s1, t_v2 s2, t_v2 p)

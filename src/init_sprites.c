@@ -3,41 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 16:28:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 13:35:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "map_parser.h"
 
-int			init_object_sprites(t_env *env)
+int		init_object_sprites(t_env *env)
 {
-  	init_minigun(env);
-  	init_rocket(env);
-  	init_health_pack(env);
-  	init_ammo(env);
-  	init_lamp(env);
-  	init_monitor(env);
-  	init_armor_green(env);
-  	init_candle(env);
-  	init_barrel(env);
-  	init_explosion(env);
-  	init_grid_sprite(env);
-  	init_button_sprite(env);
-  	init_bullet_hole(env);
-  	init_object_lost_soul(env);
-  	init_object_cyber_demon(env);
-  	init_doom_guy_face(env);
-  	init_camera_sprite(env);
-  	init_shotgun_sprite(env);
-  	init_raygun_sprite(env);
-  	init_doom_guy(env);
-  	init_hd_sprite(env);
+	init_minigun(env);
+	init_rocket(env);
+	init_health_pack(env);
+	init_ammo(env);
+	init_lamp(env);
+	init_monitor(env);
+	init_armor_green(env);
+	init_candle(env);
+	init_barrel(env);
+	init_explosion(env);
+	init_grid_sprite(env);
+	init_button_sprite(env);
+	init_bullet_hole(env);
+	init_object_lost_soul(env);
+	init_object_cyber_demon(env);
+	init_doom_guy_face(env);
+	init_camera_sprite(env);
+	init_shotgun_sprite(env);
+	init_raygun_sprite(env);
+	init_doom_guy(env);
+	init_hd_sprite(env);
 	return (0);
 }
+
 int		init_enemy_sprites(t_env *env)
 {
 	init_lost_soul_sprite(env);

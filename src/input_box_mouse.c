@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_box_mouse.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:15:15 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 13:36:02 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 /*
@@ -6,7 +18,7 @@
 
 int	input_box_mouse(t_input_box *box, t_point pos, char *str, t_env *env)
 {
-	int	i;
+	int		i;
 	char	*sub;
 	t_point	size;
 	t_point	size2;

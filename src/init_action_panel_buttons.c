@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:01:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 11:25:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:45:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ void	update_action_panel_buttons_pos(t_env *env)
 	t_event_panel	*panel;
 
 	panel = &env->editor.event_panel;
-	panel->action_panel.add.pos = new_point(panel->pos.x + 100 +
-	panel->content_panel_size.x / 2 + 10,
-	panel->pos.y + panel->top_size + panel->content_panel_size.y / 2
-	- panel->action_panel.add.size_up.y * 2);
+	panel->action_panel.add.pos = new_point(panel->pos.x + 100 + panel->
+	content_panel_size.x / 2 + 10, panel->pos.y + panel->top_size + panel->
+	content_panel_size.y / 2 - panel->action_panel.add.size_up.y * 2);
 	panel->action_panel.go_to.pos = new_point(panel->action_panel.add.pos.x
 	- panel->action_panel.go_to.size_up.x - 20, panel->action_panel.add.pos.y);
 	panel->action_panel.delay.pos = new_point(panel->pos.x + 100 +

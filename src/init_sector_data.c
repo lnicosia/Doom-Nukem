@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_sector_data.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:07:13 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:07:14 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map_parser.h"
 #include "env.h"
 
@@ -62,7 +74,7 @@ int		init_sector_data(t_env *env, char *line, t_map_parser *parser)
 	if (!*line)
 		return (missing_data("vertices, neighbors, textures and light",
 					parser));
-	if (*line != '(')
+		if (*line != '(')
 		return (invalid_char("before sector vertices", "'('", *line, parser));
 	line++;
 	if ((parser->sector_vertices_count = count_vertices(line, parser)) == -1)

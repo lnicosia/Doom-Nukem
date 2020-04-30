@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   int_event.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:24:16 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 13:36:53 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		int_incr_event(t_event *curr, int *target)
@@ -51,13 +63,13 @@ int		int_event(t_event *curr)
 	time = time == 0 ? 1 : time;
 	if (curr->mod_type == FIXED)
 	{
-	  	if (int_fixed_event(curr, target, time))
-		  	return (1);
+		if (int_fixed_event(curr, target, time))
+			return (1);
 	}
 	else
 	{
-	  	if (int_incr_event(curr, target))
-		  	return (1);
+		if (int_incr_event(curr, target))
+			return (1);
 	}
 	return (0);
 }

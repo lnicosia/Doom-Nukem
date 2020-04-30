@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_box_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:15:46 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:15:47 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "input_box_utils.h"
 
 int		init_input_box(t_input_box *box, t_env *env)
@@ -25,7 +37,7 @@ int		init_input_box(t_input_box *box, t_env *env)
 int		find_input_box_max_char(t_input_box *box)
 {
 	char	*str;
-	size_t  len;
+	size_t	len;
 	t_point size;
 
 	size = new_point(0, 0);

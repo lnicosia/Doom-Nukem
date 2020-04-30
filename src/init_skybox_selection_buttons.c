@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_skybox_selection_buttons.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 09:40:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 15:03:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 13:35:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_skybox_big(int i, t_env *env)
 {
 	env->editor.skyboxes[i] = new_image_button(ON_RELEASE,
-	&save_texture, new_button_target(env, (-i -1)), env);
+	&save_texture, new_button_target(env, (-i - 1)), env);
 	env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
 	env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
 	env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
@@ -29,7 +29,7 @@ void	init_skybox_big(int i, t_env *env)
 void	init_skybox_small(int i, int mod, int mod_e, t_env *env)
 {
 	env->editor.skyboxes[i] = new_image_button(ON_RELEASE,
-	&save_texture, new_button_target(env, (-i -1)), env);
+	&save_texture, new_button_target(env, (-i - 1)), env);
 	env->editor.skyboxes[i].img_up = env->mini_skyboxes[i].surface;
 	env->editor.skyboxes[i].img_hover = env->mini_skyboxes[i].surface;
 	env->editor.skyboxes[i].img_pressed = env->mini_skyboxes[i].surface;
@@ -62,9 +62,9 @@ int		init_skybox_selection_buttons(t_env *env)
 	while (i < MAX_SKYBOX + MAX_SKYBOX)
 	{
 		if (i < MAX_SKYBOX)
-		  	init_skybox_small(i, mod, mod_e, env);
+			init_skybox_small(i, mod, mod_e, env);
 		else
-		  	init_skybox_big(i, env);
+			init_skybox_big(i, env);
 		i++;
 	}
 	return (0);

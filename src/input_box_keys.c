@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_box_keys.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:14:57 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:14:57 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "input_box_utils.h"
 
 int		input_box_keys5(t_input_box *box, t_env *env)
@@ -108,10 +120,9 @@ int		input_box_keys(t_input_box *box, t_env *env)
 			&& (box->type != UINT32 || (box->select_start > 2
 			&& box->select_end > 2)))
 			delete_box_selection(box);
-		else if (SDL_GetTicks() - box->del_timer > box->del_delay
-		&& box->cursor > 0 && (box->str[box->cursor - 1] != '.'
-			|| box->float_count + box->int_count <= 9)
-		&& (box->type != UINT32 || box->cursor > 2))
+		else if (SDL_GetTicks() - box->del_timer > box->del_delay && box->
+		cursor > 0 && (box->str[box->cursor - 1] != '.' || box->float_count
+		+ box->int_count <= 9) && (box->type != UINT32 || box->cursor > 2))
 			del_char(box, 0);
 		env->inputs.backspace = 0;
 	}

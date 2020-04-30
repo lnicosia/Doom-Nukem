@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_hud_button_function2.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:02:00 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:02:02 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		add_object_button(void *target)
@@ -10,7 +22,7 @@ int		add_object_button(void *target)
 		env->editor.create_object = 1;
 	else
 		env->editor.add_object.state = UP;
-		env->editor.add_object.anim_state = REST;
+	env->editor.add_object.anim_state = REST;
 	return (0);
 }
 
@@ -23,7 +35,7 @@ int		add_enemy_button(void *target)
 		env->editor.create_enemy = 1;
 	else
 		env->editor.add_object.state = UP;
-		env->editor.add_object.anim_state = REST;
+	env->editor.add_object.anim_state = REST;
 	return (0);
 }
 

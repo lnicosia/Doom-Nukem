@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   increase_texture_scales_functions.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:06:29 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 10:54:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 11:44:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		increase_ceiling_texture_scale(t_env *env)
 		if (set_sector_ceiling_map_array(sector,
 		&env->wall_textures[sector->ceiling_texture], env))
 			return (-1);
-	}		
+	}
 	return (0);
 }
 

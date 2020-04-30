@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 10:29:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 16:18:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 13:36:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		del_char(t_input_box *box, int mode)
 	if (s2)
 		ft_strdel(&s2);
 	if (box->str)
-	ft_strdel(&box->str);
+		ft_strdel(&box->str);
 	box->str = res;
 	return (0);
 }
@@ -115,7 +115,8 @@ int		add_char(t_input_box *box, char c)
 	if (box->select_start != box->select_end)
 		delete_box_selection(box);
 	s1 = ft_strsub(box->str, 0, box->cursor);
-	s2 = ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor + 1);
+	s2 =
+	ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor + 1);
 	if (!(res = ft_strnew(ft_strlen(box->str) + 1)))
 		return (-1);
 	res = ft_strcpy(res, s1);
@@ -149,13 +150,6 @@ int		parse_uint32_input(t_input_box *box, t_env *env)
 		box->select_end = 2;
 	if (box->cursor <= 1)
 		box->cursor = 2;
-	/*if ((box->select_start <= 2 || box->select_end <= 1)
-		&& box->select_end != box->select_start)
-	{
-		box->select_start = 2;
-		//box->select_end = 3;
-		box->cursor = 2;
-	}*/
 	if (add_char(box, new))
 		return (-1);
 	return (0);

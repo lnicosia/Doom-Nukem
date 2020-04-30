@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_lost_soul_pursuit_two.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:02:49 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:02:50 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_lost_soul_pursuit_two5(t_env *env)
@@ -9,7 +21,6 @@ void	init_lost_soul_pursuit_two5(t_env *env)
 	env->enemy_sprites[3].size[7].x = 53;
 	env->enemy_sprites[3].size[7].y = 36;
 	env->enemy_sprites[3].reversed[7] = 1;
-
 }
 
 void	init_lost_soul_pursuit_two4(t_env *env)

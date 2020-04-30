@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:01:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 16:04:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 12:23:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int		intersects_with_wall(t_sector *sector, t_v3 pos, int wall, t_env *env)
 		env->player.size_2d) && (!sector->portals[wall]
 		|| sector->neighbors[wall] == -1))
 		return (1);
-	if (wall == 0)
-		prec = sector->nb_vertices - 1;
-	else
-		prec = wall - 1;
+	prec = wall == 0 ? sector->nb_vertices - 1 : wall - 1;
 	if (hitbox_collision(new_v2(env->vertices[sector->vertices[prec]].x,
 		env->vertices[sector->vertices[prec]].y),
 		new_v2(env->vertices[sector->vertices[wall]].x,
@@ -110,8 +107,8 @@ int		intersects_with_sector(t_sector *sector, t_v3 pos, t_env *env)
 	i = 0;
 	while (i <= sector->nb_vertices)
 	{
-	  	if (intersects_with_current_wall(sector, i, pos, env))
-		  	return (1);
+		if (intersects_with_current_wall(sector, i, pos, env))
+			return (1);
 		i++;
 	}
 	return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_lamp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:02:27 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:02:28 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_lamp_anim_four(t_env *env)
@@ -62,8 +74,8 @@ void	init_lamp_anim(t_env *env)
 
 void	init_lamp(t_env *env)
 {
-  	init_lamp_anim(env);
-  	init_lamp_anim_two(env);
-  	init_lamp_anim_three(env);
-  	init_lamp_anim_four(env);
+	init_lamp_anim(env);
+	init_lamp_anim_two(env);
+	init_lamp_anim_three(env);
+	init_lamp_anim_four(env);
 }

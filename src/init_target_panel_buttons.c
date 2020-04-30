@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 15:07:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 12:09:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	update_target_panel_buttons_pos2(t_event_panel *panel, t_env *env)
 	set_target_panel_button_pos(&panel->target_panel.targets[6], 1, 2, env);
 	set_target_panel_button_pos(&panel->target_panel.targets[7], 1, 3, env);
 }
+
 void	update_target_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;

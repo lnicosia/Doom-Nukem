@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_objects_data2.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:04:42 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:04:43 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_object_data9(int i, t_env *env)
@@ -12,7 +24,7 @@ void	init_object_data9(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	else if (env->objects[i].sprite == 24)
 	{
@@ -24,7 +36,7 @@ void	init_object_data9(int i, t_env *env)
 		env->objects[i].destructible = 0;
 		env->objects[i].explodes = 0;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;	
+		env->objects[i].damage = 0;
 	}
 	init_object_data10(i, env);
 }
@@ -38,7 +50,7 @@ void	init_object_data8(int i, t_env *env)
 		env->objects[i].nb_rest_state = 1;
 		env->objects[i].explodes = 1;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 50;	
+		env->objects[i].damage = 50;
 	}
 	else if (env->objects[i].sprite == 22)
 	{
@@ -48,7 +60,7 @@ void	init_object_data8(int i, t_env *env)
 		env->objects[i].nb_rest_state = 1;
 		env->objects[i].explodes = 1;
 		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 50;	
+		env->objects[i].damage = 50;
 	}
 	init_object_data9(i, env);
 }

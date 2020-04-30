@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_monitor.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:03:23 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:03:24 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_monitor_off(t_env *env)
@@ -90,8 +102,8 @@ void	init_monitor_destroyed(t_env *env)
 
 void	init_monitor(t_env *env)
 {
-  	init_monitor_destroyed(env);
-  	init_monitor_off(env);
-  	init_monitor_anim(env);
-  	init_monitor_anim_two(env);
+	init_monitor_destroyed(env);
+	init_monitor_off(env);
+	init_monitor_anim(env);
+	init_monitor_anim_two(env);
 }

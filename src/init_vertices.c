@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_vertices.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:10:09 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:10:10 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		parse_vertices_init2(t_env *env, t_map_parser *parser)
@@ -16,13 +28,13 @@ int		parse_vertices_init(t_env *env, t_map_parser *parser, char *line)
 	if (*line != 'V')
 		return (invalid_char("at vertices number", "'V'", *line,
 		parser));
-	line++;
+		line++;
 	if (!*line)
 		return (missing_data("at vertices number", parser));
 	if (*line != ' ')
 		return (invalid_char("at vertices number", "space or a digit",
 			*line, parser));
-	line = skip_spaces(line);
+		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("before vertices number", parser));
 	if (valid_int(line, parser) == WRONG_CHAR)
@@ -36,7 +48,7 @@ int		parse_vertices_init(t_env *env, t_map_parser *parser, char *line)
 	if (*line)
 		return (invalid_char("after vertices number",
 			"a digit or the end of the line", *line, parser));
-	return (parse_vertices_init2(env, parser));
+		return (parse_vertices_init2(env, parser));
 }
 
 int		init_vertices(t_env *env, t_map_parser *parser)
@@ -51,7 +63,7 @@ int		init_vertices(t_env *env, t_map_parser *parser)
 			return (custom_error("Invalid file"));
 		if (*line && *line != '#')
 		{
-		  	return (parse_vertices_init(env, parser, line));
+			return (parse_vertices_init(env, parser, line));
 		}
 		else if (*line != '#')
 			return (missing_data("vertices number declaration", parser));

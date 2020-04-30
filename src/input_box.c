@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/12 18:08:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 12:12:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 	box->prec_count = 0;
 	if (size.x < box->size.x * 0.99 || box->type != STRING)
 	{
-	  	if (draw_single_line(box, size, env))
-		  	return (-1);
+		if (draw_single_line(box, size, env))
+			return (-1);
 	}
 	else if (box->type == STRING)
 	{

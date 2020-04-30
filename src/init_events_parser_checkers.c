@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 14:33:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:59:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_events_parser_checkers3(t_events_parser *eparser)
 {
-	eparser->checkers[PLAYER_SPEED] =  &check_double_overflow_event;
+	eparser->checkers[PLAYER_SPEED] = &check_double_overflow_event;
 	eparser->checkers[PLAYER_INVINCIBLE] = &check_true_false_event;
 	eparser->checkers[PLAYER_INFINITE_AMMO] = &check_true_false_event;
 	eparser->checkers[PLAYER_SECTOR] = &check_double_overflow_event;
@@ -41,6 +41,7 @@ void	init_events_parser_checkers3(t_events_parser *eparser)
 
 void	init_events_parser_checkers2(t_events_parser *eparser)
 {
+	eparser->checkers[SECTOR_WALL_SPRITES_SCALE_Y] = &check_scale_event;
 	eparser->checkers[SECTOR_FLOOR_SPRITES_SPRITE] = &check_sprite_event;
 	eparser->checkers[SECTOR_FLOOR_SPRITES_POS_X] = &check_align_event;
 	eparser->checkers[SECTOR_FLOOR_SPRITES_POS_Y] = &check_align_event;
@@ -91,6 +92,5 @@ void	init_events_parser_checkers(t_events_parser *eparser)
 	eparser->checkers[SECTOR_WALL_SPRITES_POS_X] = &check_align_event;
 	eparser->checkers[SECTOR_WALL_SPRITES_POS_Y] = &check_align_event;
 	eparser->checkers[SECTOR_WALL_SPRITES_SCALE_X] = &check_scale_event;
-	eparser->checkers[SECTOR_WALL_SPRITES_SCALE_Y] = &check_scale_event;
 	init_events_parser_checkers2(eparser);
 }

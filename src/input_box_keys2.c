@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_box_keys2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 12:14:07 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 12:14:07 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "input_box_utils.h"
+
+int		input_box_keys8(t_input_box *box)
+{
+	if (!box->state)
+		return (0);
+	return (0);
+}
 
 int		input_box_keys7(t_input_box *box, t_env *env)
 {
@@ -25,9 +44,7 @@ int		input_box_keys7(t_input_box *box, t_env *env)
 		box->selecting = 0;
 	else
 		return (0);
-	if (!box->state)
-		return (0);
-	return (0);
+	return (input_box_keys8(box));
 }
 
 int		input_box_keys6(t_input_box *box, t_env *env)

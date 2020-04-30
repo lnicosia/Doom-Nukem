@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_weapons_sprites.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:10:54 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/12 17:55:07 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 12:12:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		init_shotgun(t_env *env)
 {
 	if (parse_bmp("images/HUD/shot1.bmp", 0, env))
 		return (ft_printf("Invalid bmp file\n"));
- 	if (parse_bmp("images/HUD/shot2.bmp", 1, env))
+	if (parse_bmp("images/HUD/shot2.bmp", 1, env))
 		return (ft_printf("Invalid bmp file\n"));
 	if (parse_bmp("images/HUD/shot3.bmp", 2, env))
 		return (ft_printf("Invalid bmp file\n"));

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_enemies_data.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:49:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:49:58 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	init_lost_soul(int i, t_env *env)
@@ -25,7 +37,7 @@ void	init_cyber_demon(int i, t_env *env)
 	env->enemies[i].firing_sprite = 10;
 	env->enemies[i].type = TERRESTRIAL;
 	env->enemies[i].behavior = RANGED_PROJECTILE;
-	env->enemies[i].size_2d =  env->enemies[i].scale
+	env->enemies[i].size_2d = env->enemies[i].scale
 		* env->enemies[i].width_ratio;
 	env->enemies[i].eyesight = env->enemies[i].size_2d
 		* env->enemies[i].height_ratio;
@@ -48,9 +60,9 @@ void	init_enemies_data(t_env *env)
 		env->enemies[i].exists = 1;
 		env->enemies[i].saw_player = 0;
 		if (env->enemies[i].sprite >= 0 && env->enemies[i].sprite < 5)
-		  	init_lost_soul(i, env);
+			init_lost_soul(i, env);
 		else if (env->enemies[i].sprite >= 5 && env->enemies[i].sprite < 13)
-		  	init_cyber_demon(i, env);
+			init_cyber_demon(i, env);
 		env->enemies[i].seen = 0;
 		env->enemies[i].dir = 0;
 		env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);

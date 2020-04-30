@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprite_selection_buttons.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 11:41:55 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:10:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 12:09:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_array_sprite_buttons2(int i, t_env *env)
 {
-    env->editor.current_sprite_selection =
+	env->editor.current_sprite_selection =
 	new_image_button(ON_RELEASE, &open_wall_sprite_selection,
 	new_button_target(env, i), env);
 	env->editor.current_sprite_selection.size_up = new_point(64, 64);
