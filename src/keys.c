@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 10:54:03 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/30 16:57:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		keys(t_env *env)
 		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 		|| env->crouch.on_going || env->inputs.ctrl)
 		&& env->player.health > 0
-		&&  (((env->selected_enemy == -1 && env->editor.tab)
+		&& (((env->selected_enemy == -1 && env->editor.tab)
 		|| (env->selected_enemy != -1 && !env->editor.tab))
 		|| (env->selected_enemy == -1 && !env->editor.tab)))
 		|| (env->player.state.climb || env->player.state.drop)))

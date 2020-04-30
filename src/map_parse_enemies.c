@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 11:51:55 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:04:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		parse_enemies2(t_env *env, t_map_parser *parser)
 		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
 				"(every enemy has been declared)\n", parser));
-		ft_strdel(&(parser->line));
+			ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("player data", parser));
@@ -44,7 +44,7 @@ int		parse_enemies2(t_env *env, t_map_parser *parser)
 
 int		parse_enemies(t_env *env, t_map_parser *parser)
 {
-  	char	*line;
+	char	*line;
 
 	while (parser->enemies_count < env->nb_enemies
 			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))

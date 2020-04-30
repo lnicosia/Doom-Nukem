@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init_enemies.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 14:19:25 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/21 10:32:58 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:03:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,26 @@ int		parse_enemies_init(t_env *env, t_map_parser *parser, char *line)
 	if (*line != 'E')
 		return (invalid_char("at enemies number", "'E'", *line,
 		parser));
-	line++;
+		line++;
 	if (!*line)
 		return (missing_data("at enemies number", parser));
 	if (*line != ' ')
 		return (invalid_char("at enemies number", "space of a digit",
 			*line, parser));
-	line = skip_spaces(line);
+		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("before enemies number", parser));
-	if (valid_number(line,parser) == WRONG_CHAR)
-		return (invalid_char("before enemies number", 
+	if (valid_number(line, parser) == WRONG_CHAR)
+		return (invalid_char("before enemies number",
 		"space of a digit", *line, parser));
-	env->nb_enemies = ft_atoi(line);
+		env->nb_enemies = ft_atoi(line);
 	line = skip_number(line);
 	if (*line && *line == ' ')
 		return (extra_data("enemies number", parser));
 	if (*line)
 		return (invalid_char("after enemies number",
 			"a digit or the end of the line", *line, parser));
-	return (parse_enemies_init2(env, parser));
+		return (parse_enemies_init2(env, parser));
 }
 
 int		init_enemies(t_env *env, t_map_parser *parser)
@@ -61,7 +61,7 @@ int		init_enemies(t_env *env, t_map_parser *parser)
 		line = parser->line;
 		if (*line && *line != '#')
 		{
-		  	return (parse_enemies_init(env, parser, line));
+			return (parse_enemies_init(env, parser, line));
 		}
 		else if (*line != '#')
 			return (missing_data("enemies number declaration", parser));

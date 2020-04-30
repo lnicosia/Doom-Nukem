@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:09:18 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 16:58:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		start_press_event(t_env *env)
 	if (env->sectors[env->hovered_wall_sprite_sector].
 	wall_sprites[env->hovered_wall_sprite_wall].
 	nb_press_events[env->hovered_wall_sprite_sprite] == 0)
-	  	reset_hover(env);
+		reset_hover(env);
 	return (0);
 }
 
@@ -55,8 +55,8 @@ int		keyup2(t_env *env)
 		wall_sprites[env->hovered_wall_sprite_wall].
 		press_events[env->hovered_wall_sprite_sprite])
 	{
-	  	if (start_press_event(env))
-		  	return (-1);
+		if (start_press_event(env))
+			return (-1);
 	}
 	return (keyup3(env));
 }
@@ -68,7 +68,7 @@ int		keyup(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_f)
 		env->options.show_fps = env->options.show_fps ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN && env->dialog_box
-	  && !env->confirmation_box.state)
+		&& !env->confirmation_box.state)
 		env->next_dialog = 1;
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)

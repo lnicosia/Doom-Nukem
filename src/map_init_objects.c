@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 10:13:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/08/20 14:34:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:03:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int		parse_objects_init(t_env *env, t_map_parser *parser, char *line)
 	if (*line != ' ')
 		return (invalid_char("at objects number", "space of a digit",
 					*line, parser));
-	line = skip_spaces(line);
+		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("before objects number", parser));
-	if (valid_int(line,parser) == WRONG_CHAR)
+	if (valid_int(line, parser) == WRONG_CHAR)
 		return (ft_printf("Invalid int for nb_objects\n"));
 	env->nb_objects = ft_atoi(line);
 	if (env->nb_objects > 100000)
@@ -49,7 +49,7 @@ int		parse_objects_init(t_env *env, t_map_parser *parser, char *line)
 	if (*line)
 		return (invalid_char("adter objects number",
 			"a digit or the end of the line", *line, parser));
-	return (parse_objects_init2(env, parser));
+		return (parse_objects_init2(env, parser));
 }
 
 int		init_objects(t_env *env, t_map_parser *parser)
@@ -62,7 +62,7 @@ int		init_objects(t_env *env, t_map_parser *parser)
 		line = parser->line;
 		if (*line && *line != '#')
 		{
-		  	return (parse_objects_init(env, parser, line));
+			return (parse_objects_init(env, parser, line));
 		}
 		else if (*line != '#')
 			return (missing_data("objects number declaration", parser));

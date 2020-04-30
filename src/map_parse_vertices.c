@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:07:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 13:43:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:29:45 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 		if (vertex.x == env->vertices[i].x && vertex.y == env->vertices[i].y)
 			return (ft_dprintf(STDERR_FILENO,
 				"Vertices %d and %d are identical\n", vertex.num, i));
-		i++;
+			i++;
 	}
 	return (0);
 }
@@ -51,7 +51,7 @@ int		parse_vertex(t_env *env, t_map_parser *parser, char *line)
 	if (*line && *line != ' ')
 		return (invalid_char("after vertex y", "a digit or space(s)",
 					*line, parser));
-	if (!*line)
+		if (!*line)
 		return (missing_data("vertex x", parser));
 	line = skip_spaces(line);
 	if (!*line)
@@ -59,14 +59,14 @@ int		parse_vertex(t_env *env, t_map_parser *parser, char *line)
 	if (valid_number(line, parser))
 		return (invalid_char("before vertex x", "a digit or space(s)",
 					*line, parser));
-	env->vertices[parser->vertices_count].x = ft_atof(line);
+		env->vertices[parser->vertices_count].x = ft_atof(line);
 	line = skip_number(line);
 	if (*line && *line == ' ')
 		return (extra_data("vertex x", parser));
 	if (*line)
 		return (invalid_char("after vertex x",
 			"a digit or the end of the line", *line, parser));
-	return (parse_vertex2(env, parser));
+		return (parse_vertex2(env, parser));
 }
 
 int		parse_vertices2(t_map_parser *parser)
@@ -83,8 +83,8 @@ int		parse_vertices2(t_map_parser *parser)
 	}
 	else
 		return (missing_data("sectors, objects, enemies, events"
-		" and player declaration", parser));
-	return (0);
+			" and player declaration", parser));
+		return (0);
 }
 
 int		parse_vertices(t_env *env, t_map_parser *parser)

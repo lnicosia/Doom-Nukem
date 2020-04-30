@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_objects.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 18:28:06 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:11:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int		parse_objects2(t_env *env, t_map_parser *parser)
 		parser->line_count++;
 		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
-						"(every object has been declared)\n",
-						parser));
-		ft_strdel(&(parser->line));
+				"(every object has been declared)\n", parser));
+			ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("enemies, events and player data", parser));
@@ -43,7 +42,7 @@ int		parse_objects2(t_env *env, t_map_parser *parser)
 
 int		parse_objects(t_env *env, t_map_parser *parser)
 {
-  	char	*line;
+	char	*line;
 
 	while (parser->objects_count < env->nb_objects
 			&& (parser->ret = get_next_line(parser->fd, &(parser->line))))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 11:23:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 13:42:21 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:14:32 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		parse_sprite(char *line, t_map_parser *parser, int *open, int *count)
 		if (*open)
 			return (sector_error("Unbalanced \'{\' and \'}\'",
 			parser->sectors_count, parser));
-		(*open)++;
+			(*open)++;
 		(*count)++;
 		if (*count > parser->sector_vertices_count)
 			return (sector_error("can't exceed %d sprites",
@@ -33,7 +33,7 @@ int		parse_sprite(char *line, t_map_parser *parser, int *open, int *count)
 		if (!*open)
 			return (sector_error("Unbalanced \'{\' and \'}\'",
 			parser->sectors_count, parser));
-		(*open)--;
+			(*open)--;
 	}
 	return (0);
 }
@@ -51,8 +51,8 @@ int		count_sprites(char *line, t_map_parser *parser)
 	count = 0;
 	while (*line != ')')
 	{
-	  	if (parse_sprite(line, parser, &open, &count))
-		  	return (-1);
+		if (parse_sprite(line, parser, &open, &count))
+			return (-1);
 		line++;
 	}
 	return (count);

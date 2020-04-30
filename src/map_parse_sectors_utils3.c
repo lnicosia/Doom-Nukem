@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse_sectors_utils3.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:14:09 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:14:10 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "map_parser.h"
 
@@ -17,7 +29,7 @@ int		count_portals(char *line, t_map_parser *parser)
 		if (valid_number(line, parser))
 			return (invalid_char("in sector portals", "a digit, a ')'"
 				"or space(s)", *line, parser));
-		line = skip_number(line);
+			line = skip_number(line);
 		line = skip_spaces(line);
 		i++;
 	}
@@ -54,7 +66,7 @@ int		count_textures(char *line, t_map_parser *parser)
 int		count_wall_sprites(char *line, t_map_parser *parser)
 {
 	int	i;
-	
+
 	i = 0;
 	while (*line != '}')
 	{
@@ -70,7 +82,7 @@ int		count_wall_sprites(char *line, t_map_parser *parser)
 	if (i > 5)
 		return (sector_error("wall can't exceed 30 sprites",
 		parser->sectors_count, parser));
-	return (i);
+		return (i);
 }
 
 int		count_floor_sprites(char *line, t_map_parser *parser)
@@ -92,7 +104,7 @@ int		count_floor_sprites(char *line, t_map_parser *parser)
 	if (i > 5)
 		return (sector_error("can't exceed 5 floor or ceiling sprites",
 		parser->sectors_count, parser));
-	return (i);
+		return (i);
 }
 
 /*

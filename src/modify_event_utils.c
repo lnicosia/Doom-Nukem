@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   modify_event_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:18:25 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:18:25 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 
 void	set_action_type_buttons_state(t_env *env)
@@ -16,7 +28,7 @@ void	set_action_type_buttons_state(t_env *env)
 
 int		target_tab_func(void *param)
 {
-	t_env   *env;
+	t_env	*env;
 
 	env = (t_env*)param;
 	env->editor.event_panel.action_tab.state = UP;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 10:57:09 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:20:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 double	get_speed(t_env *env)
 {
-	Uint32		time;
-  	double	speed;
+	Uint32	time;
+	double	speed;
 
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->inputs.shift && !env->inputs.ctrl)
 		speed = env->player.speed * 1.5;
 	else if (env->inputs.ctrl)
 		speed = env->player.speed / 1.5;
-	else 
+	else
 		speed = env->player.speed;
 	speed *= time;
 	return (speed);
@@ -83,7 +83,7 @@ int		move_player2(t_v3 move, int prev_sector, t_env *env)
 	env->player.pos.y += move.y;
 	env->player.pos.z += move.z;
 	if (env->player.stuck || get_sector_no_z_origin(env, env->player.pos,
-	  	env->player.sector) == -1)
+		env->player.sector) == -1)
 	{
 		env->player.stuck = 0;
 		env->player.pos = env->player.old_pos;

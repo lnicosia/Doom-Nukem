@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_floor_sprites.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 13:56:50 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:10:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_map_parser *parser, int i)
 		floor_sprites.scale[i].y < -100)
 		return (custom_error_with_line("Floor sprite scale must be"
 		"betweem 0.1 and 100", parser));
-	precompute_floor_sprite_scales(parser->sectors_count, i, env);
+		precompute_floor_sprite_scales(parser->sectors_count, i, env);
 	*line = skip_number(*line);
 	(*line)++;
 	return (0);
@@ -51,7 +51,7 @@ t_map_parser *parser, int i)
 		floor_sprites.scale[i].x < -100)
 		return (custom_error_with_line("Floor sprite scale must be"
 		"betweem 0.1 and 100", parser));
-	*line = skip_number(*line);
+		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
 		return (ft_printf("Invalid double floor sprite %d scale.y\n", i));
@@ -70,7 +70,7 @@ t_map_parser *parser, int i)
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid floor sprite texture",
 		parser));
-	env->sectors[parser->sectors_count].floor_sprites.sprite[i] =
+		env->sectors[parser->sectors_count].floor_sprites.sprite[i] =
 	env->objects_main_sprites[parse];
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
@@ -89,20 +89,20 @@ t_map_parser *parser, int i)
 
 int		parse_floor_sprites2(t_env *env, char **line, t_map_parser *parser)
 {
-  	int	i;
+	int	i;
 
 	i = 0;
 	while (i < parser->sector_floor_sprites_count)
 	{
-	  	if (parse_current_floor_sprite(env, line, parser, i))
-		  	return (-1);
+		if (parse_current_floor_sprite(env, line, parser, i))
+			return (-1);
 		i++;
 	}
 	(*line)++;
 	if (**line != ' ')
 		return (invalid_char("after sector floor sprites", "space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	return (0);
 }
 

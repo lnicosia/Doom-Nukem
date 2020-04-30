@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_checkers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:17:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 14:20:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 16:57:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		check_entities_height(t_env *env)
 {
 	int			i;
 	t_sector	*sector;
-	
+
 	i = 0;
 	sector = NULL;
 	if (env->selected_ceiling != -1)

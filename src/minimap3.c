@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap3.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:17:34 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:17:35 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "draw_grid_walls.h"
 
@@ -16,7 +28,7 @@ void	draw_minimap_sector_num(t_env *env, t_sector *sector)
 		drawer.color = 0xFFFFFFFF;
 	while (i < sector->nb_vertices - 1)
 	{
-	  	get_current_wall_angle(i, &drawer, env);
+		get_current_wall_angle(i, &drawer, env);
 		i++;
 	}
 	get_last_wall_angle(i, &drawer, env);
@@ -58,7 +70,7 @@ void	draw_objects_minimap(t_env *env)
 	i = -1;
 	while (++i < env->nb_objects)
 	{
-	  	draw_object_minimap(i, &env->objects[i],
+		draw_object_minimap(i, &env->objects[i],
 		&env->object_sprites[env->objects[i].sprite], env);
 	}
 }

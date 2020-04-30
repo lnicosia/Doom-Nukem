@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 17:15:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:30:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ int		parse_sectors2(t_map_parser *parser)
 		if (*parser->line)
 			return (custom_error_with_line("Must be an empty line "
 				"(every sector has been declared)", parser));
-		ft_strdel(&parser->line);
+			ft_strdel(&parser->line);
 	}
 	else
 		return (missing_data("objects, enemies, events and player data",
-		parser));
-	return (0);
+			parser));
+		return (0);
 }
 
 int		parse_sectors(t_env *env, t_map_parser *parser)
 {
-  	char	*line;
+	char	*line;
 
 	while (parser->sectors_count < env->nb_sectors
 			&& (parser->ret = get_next_line(parser->fd, &parser->line)))

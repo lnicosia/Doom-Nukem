@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement_utils2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:20:23 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:22:32 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "collision.h"
 
@@ -22,7 +34,7 @@ t_coll_addr	new_coll_addr(t_motion *motion, int *sector, int *vertex)
 	return (addr);
 }
 
-t_coll	new_c(int sect, int vertex, t_motion motion)
+t_coll		new_c(int sect, int vertex, t_motion motion)
 {
 	t_coll coll;
 
@@ -32,7 +44,7 @@ t_coll	new_c(int sect, int vertex, t_motion motion)
 	return (coll);
 }
 
-t_v3	calculate_motion_future(t_motion motion, t_v3 move)
+t_v3		calculate_motion_future(t_motion motion, t_v3 move)
 {
 	motion.future.x = move.x + motion.pos.x;
 	motion.future.y = move.y + motion.pos.y;
@@ -40,7 +52,7 @@ t_v3	calculate_motion_future(t_motion motion, t_v3 move)
 	return (motion.future);
 }
 
-double	floor_height(t_env *env, t_motion motion, int sector_dest)
+double		floor_height(t_env *env, t_motion motion, int sector_dest)
 {
 	double	height;
 

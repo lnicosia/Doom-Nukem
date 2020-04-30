@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:17:22 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:17:23 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "draw_grid_walls.h"
 
@@ -45,7 +57,7 @@ void	draw_minimap_hud(t_env *env)
 				|| y == env->minimap_pos.y + env->minimap_size.y / 2)
 				put_pixel(env, x, y, 0xFFFFFFFF);
 			else if (x >= 0 && x < env->w && y >= 0 && y < env->h)
-				env->sdl.texture_pixels[x + y * env->w] = 
+				env->sdl.texture_pixels[x + y * env->w] =
 				blend_alpha(env->sdl.texture_pixels[x + y * env->w], 0, 128);
 			x++;
 		}
@@ -112,13 +124,13 @@ void	get_current_wall_angle(int i, t_grid_wall_drawer *drawer, t_env *env)
 
 void	print_minimap_sector_num(t_grid_wall_drawer *drawer, t_env *env)
 {
-  	t_point	text_size;
+	t_point	text_size;
 
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", drawer->sector->num);
 	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
 	&text_size.y);
 	if (drawer->center.x - text_size.x >= env->minimap_pos.x
-	  	- env->minimap_size.x / 2 - 3
+		- env->minimap_size.x / 2 - 3
 		&& drawer->center.x < env->minimap_pos.x + env->minimap_size.x / 2 - 3
 		&& drawer->center.y - text_size.y >= env->minimap_pos.y
 		- env->minimap_size.y / 2 - 3

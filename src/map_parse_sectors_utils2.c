@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse_sectors_utils2.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:13:46 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:13:47 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "map_parser.h"
 
@@ -61,7 +73,7 @@ int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 		if (sector_eq(sector, env->sectors[i]))
 			return (ft_dprintf(STDERR_FILENO,
 				"Sectors %d and %d are identical\n", sector.num, i));
-		i++;
+			i++;
 	}
 	return (0);
 }
@@ -82,7 +94,7 @@ int		count_vertices(char *line, t_map_parser *parser)
 		if (valid_number(line, parser))
 			return (invalid_char("in sector vertices", "a digit, a ')'"
 				"or space(s)", *line, parser));
-		line = skip_number(line);
+			line = skip_number(line);
 		line = skip_spaces(line);
 		i++;
 	}
@@ -105,7 +117,7 @@ int		count_neighbors(char *line, t_map_parser *parser)
 		if (valid_number(line, parser))
 			return (invalid_char("in sector neighbors", "a digit, a ')'"
 				"or space(s)", *line, parser));
-		line = skip_number(line);
+			line = skip_number(line);
 		line = skip_spaces(line);
 		i++;
 	}

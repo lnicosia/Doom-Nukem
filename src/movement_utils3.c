@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement_utils3.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:20:59 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:22:42 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "collision.h"
 
@@ -10,7 +22,7 @@ void	animations(t_env *env)
 	pos.y = env->player.pos.y;
 	slope = get_floor_at_pos(&env->sectors[env->player.highest_sect], pos, env);
 	if ((env->player.pos.z > slope || env->player.state.fall
-	  	|| env->player.state.jump) && !env->player.state.climb
+		|| env->player.state.jump) && !env->player.state.climb
 		&& !env->player.state.drop && !env->player.state.fly)
 		gravity(env);
 	if ((env->inputs.space || env->player.state.jump)
@@ -26,10 +38,9 @@ void	animations(t_env *env)
 		update_player_z(env);
 }
 
-
 int		check_blocage2(t_env *env, t_motion motion, double speed, int index)
 {
-  	t_v3	move;
+	t_v3	move;
 	int		nb;
 
 	nb = 0;
@@ -88,7 +99,7 @@ void	update_player_pos2(int new_sector, t_env *env)
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = env->player.head_z;
 	if (((get_floor_at_pos(&env->sectors[env->player.highest_sect],
-	  	env->player.pos, env) > env->player.pos.z
+		env->player.pos, env) > env->player.pos.z
 		&& get_floor_at_pos(&env->sectors[env->player.highest_sect],
 		env->player.pos, env) - env->player.pos.z <= 2
 		&& env->player.highest_sect != new_sector && !env->player.state.fly)
@@ -96,7 +107,7 @@ void	update_player_pos2(int new_sector, t_env *env)
 		&& !env->player.state.jump && !env->player.state.fly)
 		climb(env);
 	else if ((((get_floor_at_pos(&env->sectors[env->player.highest_sect],
-	  	env->player.pos, env) < env->player.pos.z
+		env->player.pos, env) < env->player.pos.z
 		&& env->player.pos.z - get_floor_at_pos(&env->sectors[env->player.
 		highest_sect], env->player.pos, env) <= 2) || env->player.state.drop)
 		&& !env->player.state.jump && !env->player.state.fall
