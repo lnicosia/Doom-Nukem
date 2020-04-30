@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_button.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:33:01 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:33:02 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 t_button	new_rectangle_button(int type, int (*action)(void *), void *param,
@@ -13,7 +25,7 @@ t_env *env)
 	new.size_up = new_point(98, 98);
 	new.size_pressed = new_point(98, 98);
 	new.size_down = new_point(98, 98);
-	new.size_hover = new_point(98, 98); 
+	new.size_hover = new_point(98, 98);
 	return (new);
 }
 

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_vertex.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:36:14 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:36:15 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		new_vertex(t_env *env, int clicked_vertex)
 {
-  	int	ret;
+	int	ret;
 
 	ret = is_new_vertex_valid(env, clicked_vertex);
 	if (ret == -1)
@@ -18,7 +30,7 @@ int		new_vertex(t_env *env, int clicked_vertex)
 	return (1);
 }
 
-int	vertex_creation_possible(t_env *env)
+int		vertex_creation_possible(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE
 		&& env->editor.event_panel_dragged == -1
@@ -28,13 +40,13 @@ int	vertex_creation_possible(t_env *env)
 		&& env->editor.dragged_vertex == -1
 		&& !env->editor.in_game
 		&& env->sdl.mx > 400)
-	  	return (1);
+		return (1);
 	return (0);
 }
 
 int		new_sector(t_env *env, int clicked_vertex)
 {
-  	int	ret;
+	int	ret;
 
 	ret = is_new_vertex_valid(env, clicked_vertex);
 	if (ret == -1)
@@ -46,18 +58,18 @@ int		new_sector(t_env *env, int clicked_vertex)
 	if (add_sector(env))
 		return (0);
 	free_current_vertices(env);
-  	return (1);
+	return (1);
 }
 
 int		new_vertex_in_current_sector(t_env *env, int clicked_vertex)
 {
-  	int	ret;
+	int	ret;
 
 	if (clicked_vertex == ((t_vertex*)env->editor.current_vertices->content)->
-	  	num && ft_lstlen(env->editor.current_vertices) > 2)
+		num && ft_lstlen(env->editor.current_vertices) > 2)
 	{
-	  	if ((ret = new_sector(env, clicked_vertex)))
-		  	return (ret);
+		if ((ret = new_sector(env, clicked_vertex)))
+			return (ret);
 	}
 	else
 	{
@@ -80,7 +92,7 @@ int		new_vertex_in_current_sector(t_env *env, int clicked_vertex)
 
 int		existing_vertex(t_env *env, int clicked_vertex)
 {
-  	int	ret;
+	int	ret;
 
 	if (env->editor.start_vertex == -1)
 	{
@@ -90,8 +102,8 @@ int		existing_vertex(t_env *env, int clicked_vertex)
 	}
 	else
 	{
-	  	if ((ret = new_vertex_in_current_sector(env, clicked_vertex)))
-		  	return (ret);
+		if ((ret = new_vertex_in_current_sector(env, clicked_vertex)))
+			return (ret);
 	}
 	return (1);
 }

@@ -1,4 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   next_launch_condition.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:39:45 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:39:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
+
+int		next_launch_condition4(t_env *env)
+{
+	if (env->selected_floor == -1 && env->editor.selected_sector == -1
+		&& env->selected_enemy == -1 && env->selected_object == -1
+		&& env->editor.selected_launch_condition >=
+		env->global_events[env->editor.selected_event].nb_launch_conditions)
+		env->editor.selected_launch_condition = 0;
+	return (0);
+}
 
 int		next_launch_condition3(int sector, t_env *env)
 {
@@ -24,11 +46,8 @@ int		next_launch_condition3(int sector, t_env *env)
 		nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 	}
-	else if (env->selected_floor == -1 && env->editor.selected_sector == -1
-		&& env->selected_enemy == -1 && env->selected_object == -1
-		&& env->editor.selected_launch_condition >=
-		env->global_events[env->editor.selected_event].nb_launch_conditions)
-		env->editor.selected_launch_condition = 0;
+	else
+		return (next_launch_condition4(env));
 	return (0);
 }
 

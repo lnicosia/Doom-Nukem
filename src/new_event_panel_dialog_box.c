@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_event_panel_dialog_box.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:34:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:34:59 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int	new_event_panel_dialog_box4(t_input_box *box)
@@ -17,7 +29,7 @@ int	new_event_panel_dialog_box4(t_input_box *box)
 
 int	new_event_panel_dialog_box3(t_input_box *box, int type, void *target)
 {
-  	char	*tmp;
+	char	*tmp;
 
 	if (type == UINT32)
 	{
@@ -37,10 +49,7 @@ int	new_event_panel_dialog_box3(t_input_box *box, int type, void *target)
 		box->str_target = (char**)target;
 		if (box->str)
 			ft_strdel(&box->str);
-		if (*(char**)target)
-			box->str = ft_strdup(*(char**)target);
-		else
-			box->str = ft_strnew(0);
+		box->str = ft_strdup(*(char**)target);
 	}
 	return (new_event_panel_dialog_box4(box));
 }

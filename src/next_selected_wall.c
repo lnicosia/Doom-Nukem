@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   next_selected_wall.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 17:38:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 17:38:27 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	go_to_next_wall(t_env *env)
 {
 	if (env->editor.selected_wall < env->sectors[env->editor.
-	  	selected_sector].nb_vertices - 1)
+		selected_sector].nb_vertices - 1)
 	{
 		env->editor.selected_wall++;
 		env->selected_wall1 =
@@ -53,7 +65,7 @@ void	go_to_previous_wall(t_env *env)
 
 int		next_selected_wall(void *target)
 {
-	t_env 			*env;
+	t_env			*env;
 	t_button_next	*button;
 
 	env = (t_env *)target;
@@ -64,11 +76,11 @@ int		next_selected_wall(void *target)
 		button = &env->editor.previous_wall_env;
 	if (button->button_type == NEXT)
 	{
-	  	go_to_next_wall(env);
+		go_to_next_wall(env);
 	}
 	else if (button->button_type == PREVIOUS)
 	{
-	  	go_to_previous_wall(env);
+		go_to_previous_wall(env);
 	}
 	env->editor.next_wall.state = UP;
 	env->editor.next_wall.anim_state = REST;
