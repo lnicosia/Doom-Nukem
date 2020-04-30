@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_type.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 16:38:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 18:47:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int		parse_value(t_map_parser *parser, char **line,
 	if (eparser->event.type == DOUBLE || eparser->event.type == FUNC)
 	{
 		if (valid_double(*line, parser))
-			return (ft_printf
-			("Invalid double for target event target value\n"));
-			value = ft_atof(*line);
+			return (ft_printf("Invalid double for target event target"
+			" value\n"));
+		value = ft_atof(*line);
 		*line = skip_number(*line);
 	}
 	return (parse_value2(parser, line, eparser, value));
@@ -110,6 +110,6 @@ int		classic_action_parsing(t_map_parser *parser, char **line,
 int		parse_event_type(t_env *env, t_map_parser *parser, char **line,
 		t_events_parser *eparser)
 {
-  	(void)env;
+	(void)env;
 	return (classic_action_parsing(parser, line, eparser));
 }

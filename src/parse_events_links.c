@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_events_links.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 13:39:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:05:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ t_events_parser *eparser)
 {
 	if (valid_number(*line, parser))
 		return (invalid_char("before source index", "a digit", **line, parser));
-		eparser->current_index = ft_atoi(*line);
+	eparser->current_index = ft_atoi(*line);
 	if (eparser->current_index < 0
 		|| !eparser->event_exists[eparser->source_type](env, eparser))
 		return (custom_error_with_line("Invalid source event", parser));
-		eparser->source_index = eparser->current_index;
-		*line = skip_number(*line);
+	eparser->source_index = eparser->current_index;
+	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("closing ']' brace after link source", parser));
 	if (**line != ']')
@@ -36,10 +36,10 @@ t_events_parser *eparser)
 {
 	if (valid_number(*line, parser))
 		return (invalid_char("before source type", "a digit", **line, parser));
-		eparser->source_type = ft_atoi(*line);
+	eparser->source_type = ft_atoi(*line);
 	if (eparser->source_type < 0 || eparser->source_type > MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid source event type", parser));
-		*line = skip_number(*line);
+	*line = skip_number(*line);
 	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->source_type](env, parser, line,
 		eparser))
@@ -76,10 +76,10 @@ t_events_parser *eparser)
 		return (missing_data("link type", parser));
 	if (valid_number(*line, parser))
 		return (invalid_char("before link type", "a digit", **line, parser));
-		eparser->link_type = ft_atoi(*line);
+	eparser->link_type = ft_atoi(*line);
 	if (eparser->link_type != 0 && eparser->link_type != 1)
 		return (custom_error_with_line("Invalid link type", parser));
-		*line = skip_number(*line);
+	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("closing ']' brace after link type", parser));
 	if (**line != ']')

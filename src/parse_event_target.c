@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_target.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:42:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 14:58:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:05:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_events_parser *eparser)
 	if (eparser->target_index == PLAYER_SECTOR)
 		return (custom_error_with_line("You can not modifiy the player sector",
 		parser));
-	eparser->event.target_index = eparser->target_index;
+		eparser->event.target_index = eparser->target_index;
 	*line = skip_number(*line);
 	init_events_parser_var(eparser);
 	if (eparser->target_parsers[eparser->target_index](env, parser, line,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_events_tabs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:14:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 17:50:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:40:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,8 @@ void	print_wall_sprite_events_tab(t_env *env)
 	draw_button(env, env->editor.previous_events,
 	env->editor.previous_events.str);
 	print_wall_sprite_events(env);
-	if (env->editor.selected_events == 0
-		&& env->sectors[env->editor.selected_sector].
-		wall_sprites[env->selected_wall_sprite_wall].
+	if (env->editor.selected_events == 0 && env->sectors[env->editor.
+		selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 		nb_press_events[env->selected_wall_sprite_sprite] > 0)
 		print_event(env, &env->sectors[env->editor.selected_sector].
 		wall_sprites[env->selected_wall_sprite_wall].

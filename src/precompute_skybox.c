@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   precompute_skybox.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 17:17:14 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 18:40:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:27:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
-int		project_skybox(int i, t_env *env)
-{
-	env->skybox[i].scale1 = env->player.camera.scale
-	/ -env->skybox[i].clipped_vz1;
-	env->skybox[i].scale2 = env->player.camera.scale
-	/ -env->skybox[i].clipped_vz2;
-	env->skybox[i].angle_z1 = env->skybox[i].clipped_vz1
-		* env->player.camera.angle_z;
-	env->skybox[i].angle_z2 = env->skybox[i].clipped_vz2
-		* env->player.camera.angle_z;
-	env->skybox[i].f1 = env->h_h + (-5 + env->skybox[i].angle_z1)
-		* env->skybox[i].scale1;
-	env->skybox[i].f2 = env->h_h + (-5 + env->skybox[i].angle_z2)
-		* env->skybox[i].scale2;
-	env->skybox[i].c1 = env->h_h + (5 + env->skybox[i].angle_z1)
-		* env->skybox[i].scale1;
-	env->skybox[i].c2 = env->h_h + (5 + env->skybox[i].angle_z2)
-		* env->skybox[i].scale2;
-	env->skybox[i].clipped_x1 = env->h_w + env->skybox[i].clipped_vx1
-		* env->skybox[i].scale1;
-	env->skybox[i].clipped_x2 = env->h_w + env->skybox[i].clipped_vx2
-		* env->skybox[i].scale2;
-	env->skybox[i].clipped_x1 = ceil(env->skybox[i].clipped_x1);
-	env->skybox[i].x = env->h_w + env->skybox[i].vx * env->player.camera.scale
-		/ -env->skybox[i].vz;
-	return (0);
-}
 
 void	get_skybox_intersections2(t_v2 inter, int i, t_env *env)
 {
@@ -107,11 +79,11 @@ void	precompute_skybox(t_env *env)
 	env->skybox_computed++;
 	i = -1;
 	while (++i < 4)
-		compute_skybox2(set_v2(i), i, env);	
+		compute_skybox2(set_v2(i), i, env);
 	env->skybox[4] = env->skybox[0];
 	i = -1;
 	while (++i < 4)
-		clip_skybox2(i ,env);
+		clip_skybox2(i, env);
 	env->skybox[4] = env->skybox[0];
 	i = -1;
 	while (++i < 4)

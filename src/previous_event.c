@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   previous_event.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:30:59 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:30:59 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		previous_event3(int sector, t_env *env)
@@ -51,18 +63,17 @@ int		previous_event(void *penv)
 	sector = -1;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
-	if (env->editor.selected_event > 0)
-		env->editor.selected_event--;
-	else
+	env->editor.selected_event -= env->editor.selected_event > 0 ? 1 : 0;
+	if (env->editor.selected_event <= 0)
 	{
 		if (env->selected_enemy != -1)
 		{
 			if (env->editor.selected_events == 0)
-			env->editor.selected_event = env->enemies[env->selected_enemy].
-			nb_collision_events - 1;
+				env->editor.selected_event = env->enemies[env->selected_enemy].
+				nb_collision_events - 1;
 			else if (env->editor.selected_events == 1)
-			env->editor.selected_event = env->enemies[env->selected_enemy].
-			nb_death_events - 1;
+				env->editor.selected_event = env->enemies[env->selected_enemy].
+				nb_death_events - 1;
 		}
 		else if (env->selected_object != -1)
 			env->editor.selected_event = env->objects[env->selected_object].

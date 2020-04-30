@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_sector_textures.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:17:34 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:17:35 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map_parser.h"
 #include "env.h"
 
@@ -5,7 +17,7 @@ int		parse_current_texture3(t_env *env, char **line, t_map_parser *parser,
 int i)
 {
 	*line = skip_number(*line);
-	if (set_sector_wall_map_array(&env->sectors[parser->sectors_count], 
+	if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
 		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
 		i, env))
 		return (-1);
@@ -28,7 +40,7 @@ int i)
 		|| env->sectors[parser->sectors_count].scale[i].x > 100)
 		return (custom_error_with_line("Wall scale must be"
 		"between 1 and 100", parser));
-	*line = skip_number(*line);
+		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
 		return (ft_printf("Invalid double for wall %d texture scale.y\n", i));
@@ -37,7 +49,7 @@ int i)
 		|| env->sectors[parser->sectors_count].scale[i].y > 100)
 		return (custom_error_with_line("Wall scale must be"
 		"between 1 and 100", parser));
-	return (parse_current_texture3(env, line, parser, i));
+		return (parse_current_texture3(env, line, parser, i));
 }
 
 int		parse_current_texture(t_env *env, char **line, t_map_parser *parser,
@@ -75,7 +87,7 @@ int		parse_sector_textures2(char **line, t_map_parser *parser)
 	if (**line != ' ')
 		return (invalid_char("after textures data", "space(s)", **line,
 		parser));
-	*line = skip_spaces(*line);
+		*line = skip_spaces(*line);
 	return (0);
 }
 
@@ -93,14 +105,14 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	if (parser->sector_textures_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more textures",
 		parser->sectors_count, parser));
-	if (parser->sector_textures_count > parser->sector_vertices_count)
+		if (parser->sector_textures_count > parser->sector_vertices_count)
 		return (sector_error("has too much textures", parser->sectors_count,
 		parser));
-	i = 0;
+		i = 0;
 	while (i < parser->sector_textures_count)
 	{
-	  	if (parse_current_texture(env, line, parser, i))
-		  	return (-1);
+		if (parse_current_texture(env, line, parser, i))
+			return (-1);
 		i++;
 	}
 	return (parse_sector_textures2(line, parser));

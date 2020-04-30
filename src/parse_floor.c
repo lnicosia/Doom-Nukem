@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_floor.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:09:55 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:09:56 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map_parser.h"
 #include "env.h"
 
@@ -13,13 +25,13 @@ int		parse_floor5(t_env *env, char **line, t_map_parser *parser)
 		|| env->sectors[parser->sectors_count].floor_map_scale.x > 100)
 		return (custom_error_with_line("Floor scale must be"
 		"between 1 and 100", parser));
-	*line = skip_number(*line);
+		*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor scale.y", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor scale.x", "a digit or space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor scale.y", parser));
 	if (valid_double(*line, parser))
@@ -35,8 +47,8 @@ int		parse_floor4(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("floor align.y", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor align.x", "a digit or space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor align.y", parser));
 	if (valid_double(*line, parser))
@@ -49,8 +61,8 @@ int		parse_floor4(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("floor scale.x", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor align.y", "a digit or space(s)",
-					**line, parser));
-	return (parse_floor5(env, line, parser));
+			**line, parser));
+		return (parse_floor5(env, line, parser));
 }
 
 int		parse_floor3(t_env *env, char **line, t_map_parser *parser)
@@ -65,13 +77,12 @@ int		parse_floor3(t_env *env, char **line, t_map_parser *parser)
 	|| env->sectors[parser->sectors_count].floor_texture >= MAX_WALL_TEXTURE)
 		return (custom_error_with_line("Invalid floor texture", parser));
 	*line = skip_number(*line);
-
 	if (!**line || **line == ']')
 		return (missing_data("floor align.x", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor texture", "a digit or space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor align.x", parser));
 	if (valid_double(*line, parser))
@@ -83,26 +94,26 @@ int		parse_floor2(t_env *env, char **line, t_map_parser *parser)
 {
 	if (valid_double(*line, parser))
 		return (ft_printf("invalid double for floor_slope\n"));
-		env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
+	env->sectors[parser->sectors_count].floor_slope = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor slope direction and texture", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor slope", "a digit or space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor slope direction and texture", parser));
 	if (valid_int(*line, parser))
 		return (ft_printf("Invalid int for floor slope start\n"));
-		env->sectors[parser->sectors_count].start_floor_slope = ft_atoi(*line);
+	env->sectors[parser->sectors_count].start_floor_slope = ft_atoi(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor texture", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor slope", "a digit or space(s)",
-					**line, parser));
-	return (parse_floor3(env, line, parser));
+			**line, parser));
+		return (parse_floor3(env, line, parser));
 }
 
 int		parse_floor(t_env *env, char **line, t_map_parser *parser)
@@ -124,8 +135,8 @@ int		parse_floor(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("floor slope and texture", parser));
 	if (**line && **line != ' ')
 		return (invalid_char("after floor height", "a digit or space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);	
+			**line, parser));
+		*line = skip_spaces(*line);
 	if (!**line || **line == ']')
 		return (missing_data("floor slope, direction and texture", parser));
 	return (parse_floor2(env, line, parser));

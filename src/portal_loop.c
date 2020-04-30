@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:54:48 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 14:48:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:23:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	colorize_portal(t_render *render, t_env *env)
 	int		start;
 	int		end;
 	Uint32	*pixels;
-	
+
 	pixels = env->sdl.texture_pixels;
 	start = (int)render->current_ceiling;
 	end = (int)render->current_floor;
@@ -82,13 +82,13 @@ void	check_mouse(t_render *render, t_env *env)
 {
 	int		start;
 	int		end;
-	
+
 	start = (int)render->current_ceiling;
 	end = (int)render->current_floor;
 	while (start <= end)
 	{
 		if ((env->editor.tab && render->x == env->sdl.mx
-		  	&& start == env->sdl.my)
+			&& start == env->sdl.my)
 			|| (!env->editor.tab && render->x == env->h_w
 			&& start == env->h_h))
 		{
@@ -121,7 +121,7 @@ void	*select_portal_loop(void *param)
 	while (x <= xend)
 	{
 		render.x = x;
-	  	render_vline(sector, &render, env);
+		render_vline(sector, &render, env);
 		check_mouse(&render, env);
 		x++;
 	}

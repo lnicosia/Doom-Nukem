@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_event_action.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:39:18 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:39:19 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	print_incr_action(t_env *env, t_event *event)
@@ -38,11 +50,11 @@ void	print_event_action(t_env *env, t_event *event)
 
 	if (event->mod_type == FIXED)
 	{
-	  	print_fixed_action(env, event);
+		print_fixed_action(env, event);
 	}
 	else if (event->mod_type == INCR)
 	{
-	  	print_incr_action(env, event);
+		print_incr_action(env, event);
 	}
 	if (event->target_index >= MAX_REAL_TARGET_TYPES)
 	{

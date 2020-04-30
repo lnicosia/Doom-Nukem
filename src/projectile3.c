@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   projectile3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:43:06 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:43:06 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "collision.h"
 
@@ -21,9 +33,9 @@ t_list **tmp, t_env *env)
 int		projectile_hits_floor(t_projectile *projectile, t_env *env)
 {
 	if (create_explosion(env, new_explosion_data(projectile->pos, 7,
-	  	projectile->damage,
+		projectile->damage,
 		env->object_sprites[projectile->sprite].death_counterpart), 1))
-	  	return (-1);
+		return (-1);
 	env->nb_explosions++;
 	if (env->sectors[projectile->sector].floor_sprites.nb_sprites
 		< env->options.max_floor_sprites)
@@ -33,7 +45,7 @@ int		projectile_hits_floor(t_projectile *projectile, t_env *env)
 			return (-1);
 	}
 	else if (shift_floor_bullet_hole(&env->sectors[projectile->sector],
-	  	projectile, env))
+		projectile, env))
 		return (-1);
 	return (0);
 }
@@ -41,9 +53,9 @@ int		projectile_hits_floor(t_projectile *projectile, t_env *env)
 int		projectile_hits_ceiling(t_projectile *projectile, t_env *env)
 {
 	if (create_explosion(env, new_explosion_data(projectile->pos, 7,
-	 	projectile->damage,
+		projectile->damage,
 		env->object_sprites[projectile->sprite].death_counterpart), 1))
-	  	return (-1);
+		return (-1);
 	env->nb_explosions++;
 	if (env->sectors[projectile->sector].ceiling_sprites.nb_sprites
 		< env->options.max_floor_sprites)
@@ -53,7 +65,7 @@ int		projectile_hits_ceiling(t_projectile *projectile, t_env *env)
 			return (-1);
 	}
 	else if (shift_ceiling_bullet_hole(&env->sectors[projectile->sector],
-	  	projectile, env))
+		projectile, env))
 		return (-1);
 	return (0);
 }
@@ -62,19 +74,19 @@ int		projectile_hits_wall(int collision, t_projectile *projectile,
 t_env *env)
 {
 	if (create_explosion(env, new_explosion_data(projectile->pos, 7,
-	  	projectile->damage,
+		projectile->damage,
 		env->object_sprites[projectile->sprite].death_counterpart), 1))
-	  	return (-1);
+		return (-1);
 	env->nb_explosions++;
 	if (env->sectors[projectile->sector].wall_sprites[collision].
-	  	nb_sprites < env->options.max_wall_sprites)
+		nb_sprites < env->options.max_wall_sprites)
 	{
 		if (add_wall_projectile_bullet_hole(
 			&env->sectors[projectile->sector], projectile, collision, env))
 			return (-1);
 	}
 	else if (shift_wall_bullet_hole(&env->sectors[projectile->sector],
-	  	projectile, collision, env))
+		projectile, collision, env))
 		return (-1);
 	return (0);
 }

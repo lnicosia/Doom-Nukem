@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   physics2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:21:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:21:27 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "collision.h"
 
@@ -24,7 +36,7 @@ void	climb(t_env *env)
 {
 	double	time;
 	double	slope;
-	t_v3		pos;
+	t_v3	pos;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
@@ -42,5 +54,5 @@ void	climb(t_env *env)
 		env->player.pos.z += env->time.d_time * env->player.velocity;
 	}
 	if (env->player.pos.z >= slope)
-	  	adjust_player_z_after_climb(slope, env);
+		adjust_player_z_after_climb(slope, env);
 }

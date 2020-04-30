@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_events_tabs2.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:39:47 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:39:48 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	print_event_selection(t_env *env, size_t nb)
@@ -87,7 +99,7 @@ void	print_enemy_events_tab(t_env *env)
 	}
 	else if (env->editor.selected_events == 1)
 	{
-	  	print_on_death_events_tab(env);
+		print_on_death_events_tab(env);
 	}
 	draw_button(env, env->editor.next_events, env->editor.next_events.str);
 	draw_button(env, env->editor.previous_events,

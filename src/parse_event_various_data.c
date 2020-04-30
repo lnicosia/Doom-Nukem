@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_various_data.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:52:42 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 16:56:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 18:45:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int		parse_event_various_data2(t_map_parser *parser,
 		char **line, t_events_parser *eparser)
 {
 	if (**line != ' ')
-		return (invalid_char("after event delay", "a space",
-			**line, parser));
+		return (invalid_char("after event delay", "a space", **line, parser));
 	(*line)++;
 	if (!**line)
 		return (missing_data("even maximum uses", parser));
@@ -30,10 +29,10 @@ int		parse_event_various_data2(t_map_parser *parser,
 	if (!**line)
 		return (missing_data("closing ']' brace after event maximum uses",
 			parser));
-	if (**line != ']')
+		if (**line != ']')
 		return (invalid_char("after event maximum uses", "']'",
-			**line, parser));
-	(*line)++;
+		**line, parser));
+		(*line)++;
 	if (**line)
 		return (extra_data("event various data", parser));
 	return (0);
@@ -50,8 +49,8 @@ int		parse_event_various_data(t_env *env, t_map_parser *parser,
 		return (missing_data("event various data", parser));
 	if (**line != '[')
 		return (invalid_char("before event various data", "'['",
-					**line, parser));
-	(*line)++;
+			**line, parser));
+		(*line)++;
 	if (!**line)
 		return (missing_data("event delay and maximum uses", parser));
 	if (valid_int(*line, parser))

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:25:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:21:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	select_player_panel_button(t_target_panel *panel, int down)
 	panel->targets[down].state = DOWN;
 	panel->selected_button = down;
 }
+
 int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
@@ -42,7 +43,7 @@ int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 	else if (index == PLAYER_SECTOR)
 		down = 8;
 	if (down != -1)
-	  	select_player_panel_button(panel, down);
+		select_player_panel_button(panel, down);
 	return (0);
 }
 

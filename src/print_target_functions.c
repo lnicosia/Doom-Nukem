@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 12:04:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 14:36:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:41:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int size)
 	return (0);
 }
 
-int		print_wall_sprite_target(t_env *env, t_event *event, t_point pos, int size)
+int		print_wall_sprite_target(t_env *env, t_event *event, t_point pos,
+int size)
 {
 	(void)event;
 	(void)pos;

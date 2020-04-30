@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_sector_portals.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:16:51 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:16:52 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map_parser.h"
 #include "env.h"
 
@@ -27,8 +39,8 @@ int		parse_sector_portals2(char **line, t_map_parser *parser)
 		return (missing_data("texures and light", parser));
 	if (**line != ' ')
 		return (invalid_char("after portals data", "space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	return (0);
 }
 
@@ -45,15 +57,15 @@ int		parse_sector_portals(t_env *env, char **line, t_map_parser *parser)
 		return (custom_error("Error while counting portals"));
 	if (parser->sector_portals_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more portals",
-					parser->sectors_count, parser));
-	if (parser->sector_portals_count > parser->sector_vertices_count)
+			parser->sectors_count, parser));
+		if (parser->sector_portals_count > parser->sector_vertices_count)
 		return (sector_error("has too much portals",
-					parser->sectors_count, parser));
-	i = 0;
+			parser->sectors_count, parser));
+		i = 0;
 	while (i < parser->sector_portals_count)
 	{
-	  	if (parse_current_portal(env, line, parser, i))
-		  	return (-1);
+		if (parse_current_portal(env, line, parser, i))
+			return (-1);
 		i++;
 	}
 	return (parse_sector_portals2(line, parser));

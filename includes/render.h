@@ -398,6 +398,7 @@ t_render *render, t_env *env);
 void				draw_skybox(t_render *render, int mode, t_env *env);
 void				precompute_skybox(t_env *env);
 void				precompute_skybox_values(int i, t_env *env);
+int					project_skybox(int i, t_env *env);
 t_v2				set_v2(int i);
 int					get_vertex_nb_in_sector(int vertex, t_sector *sector);
 void				precompute_neighbors(int i, t_camera *camera,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   physics.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/20 15:20:58 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:21:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	drop(t_env *env)
 	if (env->player.state.drop)
 	{
 		env->time.d_time = time - env->time.last_drop;
-		env->player.pos.z -= env->time.d_time * env->player.velocity;	
+		env->player.pos.z -= env->time.d_time * env->player.velocity;
 	}
 	if (env->player.pos.z < slope)
-	  	adjust_player_z_after_drop(slope, env);
+		adjust_player_z_after_drop(slope, env);
 }
 
 void	jump(t_env *env)
 {
 	if (!env->player.state.fall && !env->player.state.jump
-	  	&& !env->player.state.fly)
+		&& !env->player.state.fly)
 	{
 		env->gravity.velocity = 25.0;
 		env->player.state.jump = 1;
@@ -105,12 +105,12 @@ void	crouch(t_env *env)
 	if (env->player.state.crouch && env->inputs.ctrl)
 	{
 		env->time.d_time = time - env->time.last_crouch;
-		env->player.eyesight -= env->time.d_time * 0.3;	
+		env->player.eyesight -= env->time.d_time * 0.3;
 	}
 	if (env->player.state.crouch && !env->inputs.ctrl)
 	{
 		env->time.d_time = time - env->time.last_crouch;
-		env->player.eyesight += env->time.d_time * 0.2;	
+		env->player.eyesight += env->time.d_time * 0.2;
 	}
 	crouch2(lowest_ceil, pos, env);
 }

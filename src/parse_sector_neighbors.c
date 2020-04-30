@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_sector_neighbors.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:16:22 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:16:22 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map_parser.h"
 #include "env.h"
 
@@ -16,10 +28,10 @@ int i)
 		return (-1);
 	}
 	if (env->sectors[parser->sectors_count].neighbors[i] == parser->
-	  	sectors_count)
+		sectors_count)
 		return (sector_error("can not contain a portal to itself",
 		parser->sectors_count, parser));
-	*line = skip_number(*line);
+		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	return (0);
 }
@@ -31,8 +43,8 @@ int		parse_sector_neighbors2(char **line, t_map_parser *parser)
 		return (missing_data("portals, textures and light", parser));
 	if (**line != ' ')
 		return (invalid_char("after neighbors data", "space(s)",
-					**line, parser));
-	*line = skip_spaces(*line);
+			**line, parser));
+		*line = skip_spaces(*line);
 	return (0);
 }
 
@@ -49,15 +61,15 @@ int		parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 		return (custom_error("Error while counting neighbors"));
 	if (parser->sector_neighbors_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more neighbors",
-					parser->sectors_count, parser));
-	if (parser->sector_neighbors_count > parser->sector_vertices_count)
+			parser->sectors_count, parser));
+		if (parser->sector_neighbors_count > parser->sector_vertices_count)
 		return (sector_error("has too much neighbors",
-					parser->sectors_count, parser));
-	i = 0;
+			parser->sectors_count, parser));
+		i = 0;
 	while (i < parser->sector_neighbors_count)
 	{
-	  	if (parse_current_neighbor(env, line, parser, i))
-		  	return (-1);
+		if (parse_current_neighbor(env, line, parser, i))
+			return (-1);
 		i++;
 	}
 	return (parse_sector_neighbors2(line, parser));

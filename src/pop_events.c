@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pop_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 18:18:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:23:04 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,7 @@ int		pop_event(t_events_executer *executer, t_env *env)
 		executer->prec_values = executer->tmp_values;
 		executer->tmp_values = executer->tmp_values->next;
 	}
-	else if (res == -1)
-		return (-1);
-	return (0);
+	return (res == -1 ? -1 : 0);
 }
 
 /*
@@ -116,8 +114,8 @@ int		pop_events(t_env *env)
 	executer.prec = NULL;
 	while (executer.tmp)
 	{
-	  	if (pop_event(&executer, env))
-		  	return (-1);
+		if (pop_event(&executer, env))
+			return (-1);
 	}
 	return (0);
 }

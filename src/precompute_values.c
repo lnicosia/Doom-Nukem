@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   precompute_values.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:28:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:28:59 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	precompute_mipmaps(int i, t_camera *camera, t_sector *sector,
@@ -45,7 +57,7 @@ void	precompute_bullet_holes_y(int i, t_sector *sector,
 	wall_bullet_holes = sector->wall_bullet_holes[i];
 	while (wall_bullet_holes)
 	{
-	  	curr = (t_bullet_hole*)wall_bullet_holes->content;
+		curr = (t_bullet_hole*)wall_bullet_holes->content;
 		curr->scale.y =
 			env->object_sprites[BULLET_HOLE].size[0].x
 			/ curr->map_scale.y
@@ -73,9 +85,9 @@ void	precompute_values2(int i, t_camera *camera, t_sector *sector,
 	camera->v[sector->num][i].no_slope_c2 -
 	camera->v[sector->num][i].no_slope_c1;
 	if (camera->v[sector->num][i + 1].vz)
-	  	precompute_visible_vertex(i, camera, sector, env);
+		precompute_visible_vertex(i, camera, sector, env);
 	else
-	  	precompute_clipped_vertex(i, camera, sector, env);
+		precompute_clipped_vertex(i, camera, sector, env);
 	precompute_mipmaps(i, camera, sector, env);
 	precompute_wall_sprites(i, camera, sector, env);
 	precompute_bullet_holes_y(i, sector, env);

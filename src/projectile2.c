@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   projectile2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 18:42:13 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 18:42:14 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "collision.h"
 
@@ -56,9 +68,9 @@ int		projectile_hits_object(t_projectile *projectile, t_list **tmp,
 t_env *env)
 {
 	if (create_explosion(env, new_explosion_data(projectile->pos, 7,
-	  	projectile->damage,
+		projectile->damage,
 		env->object_sprites[projectile->sprite].death_counterpart), 1))
-	  	return (-1);
+		return (-1);
 	env->nb_explosions++;
 	*tmp = ft_lstdelnode(&env->projectiles, *tmp);
 	return (0);
@@ -70,9 +82,9 @@ t_env *env)
 	env->enemies[nb].health -= projectile->damage;
 	env->enemies[nb].hit = 1;
 	if (create_explosion(env, new_explosion_data(projectile->pos, 7,
-	  	projectile->damage,
+		projectile->damage,
 		env->object_sprites[projectile->sprite].death_counterpart), 1))
-	  	return (-1);
+		return (-1);
 	env->nb_explosions++;
 	*tmp = ft_lstdelnode(&env->projectiles, *tmp);
 	if (env->enemies[nb].health <= 0)
