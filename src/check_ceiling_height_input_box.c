@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_ceiling_height_input_box.c                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 16:07:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 16:07:58 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		check_ceiling_height_input_box3(t_sector *sector, double prec,
 t_env *env)
 {
-  	int		i;
+	int		i;
 
 	i = 0;
 	while (i < env->nb_enemies)
@@ -26,7 +38,7 @@ t_env *env)
 int		check_ceiling_height_input_box2(t_sector *sector, double prec,
 t_env *env)
 {
-  	double	z;
+	double	z;
 
 	if (env->player.sector == sector->num)
 	{

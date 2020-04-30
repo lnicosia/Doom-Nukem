@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 12:14:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 12:14:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 16:13:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	else if (env->inputs.backspace)
 	{
 		if (box->select_start != box->select_end && (box->type != UINT32
-		  	|| (box->select_start > 2 && box->select_end > 2)))
+			|| (box->select_start > 2 && box->select_end > 2)))
 		{
 			if (delete_box_selection(box))
 				return (-1);
