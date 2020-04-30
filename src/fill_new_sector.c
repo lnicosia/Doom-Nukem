@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_new_sector.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:05:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/13 13:39:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 10:58:49 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		fill_sector_with_current_vertex(t_vertex *vertex, t_sector *sector,
 int i, t_env *env)
 {
-  	int	index;
+	int	index;
 
 	if (env->editor.reverted)
 		index = sector->nb_vertices - i;
@@ -34,22 +34,22 @@ int i, t_env *env)
 		return (ft_perror("Could not malloc sector walls map lvl"));
 	if (set_sector_wall_map_array(sector,
 		&env->wall_textures[sector->textures[index]], index, env))
-	  	return (-1);
+		return (-1);
 	return (0);
 }
 
 int		fill_sector_extremities(t_sector *sector, t_env *env)
 {
 	if (!env->editor.reverted)
-    {
+	{
 		if (fill_sector_last_vertex(sector, env))
-		  	return (-1);
-    }
-    else
-    {
+			return (-1);
+	}
+	else
+	{
 		if (fill_sector_last_vertex(sector, env))
-		  	return (-1);
-    }
+			return (-1);
+	}
 	return (0);
 }
 
@@ -101,13 +101,13 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 	while (tmp)
 	{
 		if (fill_sector_with_current_vertex((t_vertex*)tmp->content, sector, i,
-		  	env))
-		  	return (-1);
+			env))
+			return (-1);
 		tmp = tmp->next;
 		i++;
 	}
 	if (fill_sector_extremities(sector, env))
-	  	return (-1);
+		return (-1);
 	precompute_floor_scales(sector, env);
 	precompute_ceiling_scales(sector, env);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:01:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/04 17:40:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:02:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 **	Only works with qwerty mac keyboard and SDL inputs
 **	Add other possibilities
 */
-
 
 static char	keypad_numkey2(int input, char res)
 {
@@ -48,7 +47,7 @@ static char	keypad_numkey2(int input, char res)
 static char	keypad_numkey(int input)
 {
 	char	res;
-	
+
 	res = 0;
 	if (input == SDLK_KP_0)
 		res = '0';
@@ -70,7 +69,6 @@ static char	keypad_numkey(int input)
 		res = '8';
 	return (keypad_numkey2(input, res));
 }
-
 
 static char	maj_key2(int input, char res)
 {

@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:53:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/11 17:53:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 10:59:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-static int		min_3(int a, int b, int c)
+static int	min_3(int a, int b, int c)
 {
 	if (a < b)
 	{
@@ -30,7 +30,7 @@ static int		min_3(int a, int b, int c)
 	}
 }
 
-static int		max_3(int a, int b, int c)
+static int	max_3(int a, int b, int c)
 {
 	if (a > b)
 	{
@@ -48,7 +48,7 @@ static int		max_3(int a, int b, int c)
 	}
 }
 
-static void		compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
+static void	compute_triangle(t_v3 v[3], t_v2 p, t_env *data)
 {
 	t_v3		w;
 	double		norm;

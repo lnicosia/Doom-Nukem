@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_sector.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 10:20:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:01:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h" 
+#include "env.h"
 
 void		free_sector5(t_sector *sector)
 {

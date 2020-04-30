@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/10 17:15:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 11:00:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		free_all2(t_env *env)
 
 void		free_all(t_env *env)
 {
-	int 	i;
+	int	i;
 
 	ft_printf("Freeing data..\n");
 	if (!env)
@@ -73,7 +73,7 @@ void		free_all(t_env *env)
 		if (env->skybox[i].texture_scale)
 			ft_memdel((void**)&env->skybox[i].texture_scale);
 		i++;
-	};
+	}
 	free_all2(env);
 }
 

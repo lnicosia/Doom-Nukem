@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_camera.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:01:29 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:01:30 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void		free_camera_sectors_size(t_camera *camera, int i)
@@ -28,7 +40,7 @@ void		free_camera2(t_camera *camera)
 		while (i < camera->size)
 		{
 			if (camera->v[i])
-		  		free_camera_sectors_size(camera, i);
+				free_camera_sectors_size(camera, i);
 			i++;
 		}
 		ft_memdel((void**)&camera->v);
@@ -36,7 +48,6 @@ void		free_camera2(t_camera *camera)
 	if (camera->sectors_size)
 		ft_memdel((void**)&camera->sectors_size);
 }
-
 
 void		free_camera(t_camera *camera)
 {

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_all2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:00:18 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:00:19 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
-void	free_textures(t_env *env)
+void		free_textures(t_env *env)
 {
 	int	i;
 
@@ -23,7 +35,7 @@ void		free_event(t_event *event)
 		ft_memdel((void**)&event->exec_conditions);
 }
 
-void		free_events(t_event	*events, size_t size)
+void		free_events(t_event *events, size_t size)
 {
 	size_t	j;
 

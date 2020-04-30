@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:01:42 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:01:43 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	free_projectiles(t_env *env)
@@ -29,6 +41,6 @@ void	free_map(t_env *env)
 	free_projectiles(env);
 	free_events(env->global_events, env->nb_global_events);
 	if (env->sectors)
-	  free_sectors(env);
+		free_sectors(env);
 	free_camera(&env->player.camera);
 }
