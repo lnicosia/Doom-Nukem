@@ -88,7 +88,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		init_editor_tab_buttons.c editor_ceiling_tab_button.c \
 		editor_floor_tab_button.c editor_wall_tab_button.c wall_edit_keyup.c \
 		editor_env_wall_buttons.c editor_env_floor_buttons.c \
-		editor_env_ceilling_buttons.c  change_editor_mode.c \
+		editor_env_ceilling_buttons.c  change_editor_mode.c close_event_panel.c\
 		editor_3d_button_keys.c editor_3d_button_keyup.c split_sector2.c \
 		init_add_buttons.c editor_env_sector_buttons.c editor_2d.c \
 		editor_sector_tab_button.c editor_sector_tabs.c editor_button_keys.c \
@@ -137,7 +137,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		condition_event_panel.c init_condition_event_buttons.c \
 		three_d_edit_walls_texture_number.c three_d_edit_walls_keys.c \
 		three_d_edit_slopes.c three_d_edit_change_slope_start.c \
-		editor_3d_button_keyup2.c\
+		editor_3d_button_keyup2.c check_floor_height_input_box.c \
 		editor_3d_tab_keys.c selection_tabs_button_keys.c \
 		three_d_edit_right_walls_texture_align.c delete_floor_sprite.c \
 		three_d_edit_left_walls_texture_align.c new_target.c \
@@ -172,7 +172,9 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		select_floor_target.c select_ceiling_target.c check_condition_targets.c\
 		update_existing_events2.c update_existing_events3.c \
 		update_existing_events4.c write_resources2.c write_sectors2.c \
-		write_sectors3.c \
+		write_sectors3.c check_ceiling_height_input_box.c \
+		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
+		input_box_checkers2.c input_box_checkers3.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

@@ -113,7 +113,8 @@ int		add_char(t_input_box *box, char c)
 		return (0);
 	}
 	if (box->select_start != box->select_end)
-		delete_box_selection(box);
+		if (delete_box_selection(box))
+			return (-1);
 	s1 = ft_strsub(box->str, 0, box->cursor);
 	s2 =
 	ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor + 1);

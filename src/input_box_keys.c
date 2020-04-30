@@ -88,13 +88,19 @@ int		input_box_keys2(t_input_box *box, t_env *env)
 		if (box->select_start != box->select_end
 			&& (box->type != UINT32 || (box->select_start > 2
 			&& box->select_end > 2)))
-			delete_box_selection(box);
+		{
+			if (delete_box_selection(box))
+				return (-1);
+		}
 		else if (SDL_GetTicks() - box->del_timer > box->del_delay
 		&& box->cursor < ft_strlen(box->str)
 		&& (box->str[box->cursor] != '.'
 			|| box->float_count + box->int_count <= 9)
 		&& (box->type != UINT32 || box->cursor > 1))
-			del_char(box, 1);
+		{
+			if (del_char(box, 1))
+				return (-1);
+		}
 		env->inputs.del = 0;
 	}
 	return (input_box_keys3(box, env));
@@ -104,8 +110,7 @@ int		input_box_keys(t_input_box *box, t_env *env)
 {
 	int		res;
 
-	if (env->inputs.enter
-		|| env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
+	if (env->inputs.enter || env->sdl.event.key.keysym.sym == SDLK_KP_ENTER)
 	{
 		if ((res = validate_input(box, env)) == -1)
 			return (-1);
@@ -116,14 +121,19 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->inputs.backspace)
 	{
-		if (box->select_start != box->select_end
-			&& (box->type != UINT32 || (box->select_start > 2
-			&& box->select_end > 2)))
-			delete_box_selection(box);
+		if (box->select_start != box->select_end && (box->type != UINT32
+		  	|| (box->select_start > 2 && box->select_end > 2)))
+		{
+			if (delete_box_selection(box))
+				return (-1);
+		}
 		else if (SDL_GetTicks() - box->del_timer > box->del_delay && box->
 		cursor > 0 && (box->str[box->cursor - 1] != '.' || box->float_count
 		+ box->int_count <= 9) && (box->type != UINT32 || box->cursor > 2))
-			del_char(box, 0);
+		{
+			if (del_char(box, 0))
+				return (-1);
+		}
 		env->inputs.backspace = 0;
 	}
 	return (input_box_keys2(box, env));
