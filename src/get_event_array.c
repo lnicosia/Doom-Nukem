@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:03:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 20:58:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:20:18 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_event	*get_event_array2(t_env *env, t_event_trigger trigger)
 	else if (trigger.type == OBJECT_COLLISION)
 		return (&env->objects[trigger.object]
 				.collision_events[trigger.index]);
-	return (0);
+		return (0);
 }
 
 /*
@@ -51,5 +51,5 @@ t_event	*get_event_array(t_env *env, t_event_trigger trigger)
 	else if (trigger.type == DEATH)
 		return (&env->enemies[trigger.enemy]
 				.death_events[trigger.index]);
-	return (get_event_array2(env, trigger));
+		return (get_event_array2(env, trigger));
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generate_mipmaps_utils.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:16:01 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:16:02 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		get_color(int x, int y, int w, Uint32 *prec_pixels)
@@ -42,7 +54,7 @@ int		fill_map_at_lvl(t_texture *texture, int lvl)
 				&& x * 2 + 1 < texture->maps[lvl + 1]->w
 				&& y * 2 < texture->maps[lvl + 1]->h
 				&& y * 2 + 1 < texture->maps[lvl + 1]->h)
-			pixels[x + y * texture->maps[lvl]->w] = get_color(
+				pixels[x + y * texture->maps[lvl]->w] = get_color(
 					x, y, texture->maps[lvl + 1]->w, prec_pixels);
 			x++;
 		}

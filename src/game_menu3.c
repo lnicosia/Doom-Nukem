@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_menu3.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:15:26 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:15:27 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		start_game_button(t_env *env)
@@ -33,7 +45,7 @@ int		next_difficulty_button(t_env *env)
 	env->next_difficulty = new_next_button(ON_RELEASE, &next_difficulty, env,
 		env);
 	env->next_difficulty.pos = new_point(env->h_w + env->h_w / 2,
-		env->h_h +env->next_difficulty.size_down.y);
+		env->h_h + env->next_difficulty.size_down.y);
 	return (0);
 }
 

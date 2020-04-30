@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_current_map.c                                  :+:      :+:    :+:   */
+/*   get_current_wall_map.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:51:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 13:12:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:33:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		set_sector_wall_map_array(t_sector *sector, t_texture *texture, int i,
 	int			size;
 
 	if (realloc_sector_walls_map_lvl(sector, texture, i))
-	  	return (-1);
+		return (-1);
 	if (sector->scale[i].x * env->w >
 			sector->scale[i].y * env->h)
 	{
@@ -54,7 +54,7 @@ int		set_sector_wall_map_array(t_sector *sector, t_texture *texture, int i,
 
 int		decrease_current_wall_map(int i, size_t j, double z, t_sector *sector)
 {
-  	int	res;
+	int	res;
 
 	res = 0;
 	while (j > 0)
@@ -62,7 +62,7 @@ int		decrease_current_wall_map(int i, size_t j, double z, t_sector *sector)
 		if (z < sector->walls_map_lvl[i][j])
 		{
 			res = j + 1;
-			break;
+			break ;
 		}
 		j--;
 	}
@@ -85,7 +85,7 @@ t_env *env)
 		res = ceil(log2(fmax(env->w * sector->scale[render->i].x / (2 * z),
 			env->h * sector->scale[render->i].y / (1.25 * z))));
 	else
-	  	res =
+		res =
 		decrease_current_wall_map(render->i, text->nb_maps - 1, z, sector);
 	res = ft_clamp(res, 0, text->nb_maps - 1);
 	render->texture_w = text->maps[(int)res]->w;

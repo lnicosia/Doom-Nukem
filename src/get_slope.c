@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_slope.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:04:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 10:15:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:39:14 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ t_sector	rotate_vertices(t_env *env, int i, int index)
 	int			j;
 
 	sector = env->sectors[index];
-	if (i == 1)
-		j = 0;
-	else
-		j = sector.nb_vertices;
+	j = i == 1 ? 0 : sector.nb_vertices;
 	while ((j < sector.nb_vertices && i == 1) || (j > 0 && i == -1))
 	{
 		if (i == 1)
@@ -51,7 +48,7 @@ t_sector	rotate_vertices(t_env *env, int i, int index)
 ** Returns the given sector's normal starting from its first vertex.
 */
 
-t_v2	get_sector_normal(t_sector *sector, t_env *env, int start_slope)
+t_v2		get_sector_normal(t_sector *sector, t_env *env, int start_slope)
 {
 	t_vertex	v1;
 	t_vertex	v2;
@@ -71,7 +68,7 @@ t_v2	get_sector_normal(t_sector *sector, t_env *env, int start_slope)
 ** (according to the sector's slope)
 */
 
-double	get_floor_at_pos(t_sector *sector, t_v3 pos, t_env *env)
+double		get_floor_at_pos(t_sector *sector, t_v3 pos, t_env *env)
 {
 	double		res;
 	t_vertex	v0;
@@ -88,7 +85,7 @@ double	get_floor_at_pos(t_sector *sector, t_v3 pos, t_env *env)
 ** (according to the sector's slope)
 */
 
-double	get_ceiling_at_pos(t_sector *sector, t_v3 pos, t_env *env)
+double		get_ceiling_at_pos(t_sector *sector, t_v3 pos, t_env *env)
 {
 	double		res;
 	t_vertex	v0;
@@ -100,7 +97,7 @@ double	get_ceiling_at_pos(t_sector *sector, t_v3 pos, t_env *env)
 	return (res);
 }
 
-void	precompute_slopes(t_env *env)
+void		precompute_slopes(t_env *env)
 {
 	int	i;
 

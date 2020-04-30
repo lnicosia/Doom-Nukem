@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/26 16:23:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:17:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ int		set_sector_floor_map_array(t_sector *sector, t_texture *texture,
 	if (sector->floor_scale)
 		free(sector->floor_scale);
 	if (!(sector->floor_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
-	  	* texture->nb_maps)))
+		* texture->nb_maps)))
 		return (custom_error("Could not malloc sector floor_scale array"));
 	if (sector->floor_align)
 		free(sector->floor_align);
 	if (!(sector->floor_align = (t_v2*)ft_memalloc(sizeof(t_v2)
-	  	* texture->nb_maps)))
+		* texture->nb_maps)))
 		return (custom_error("Could not malloc sector floor_scale array"));
 	compute_floor_scales(texture, sector);
 	if (sector->floor_map_lvl)
@@ -88,7 +88,7 @@ t_sector *sector)
 		if (z < sector->floor_map_lvl[j])
 		{
 			*res = j + 1;
-			break;
+			break ;
 		}
 		j--;
 	}
@@ -111,7 +111,7 @@ t_env *env)
 		res = ceil(log2(fmax(env->w * sector->floor_map_scale.x / (2 * z),
 			env->h * sector->floor_map_scale.y / (1.25 * z))));
 	else
-	  	decrease_current_floor_map(&res, text->nb_maps - 1, z, sector);
+		decrease_current_floor_map(&res, text->nb_maps - 1, z, sector);
 	res = ft_clamp(res, 0, text->nb_maps - 1);
 	render->texture_w = text->maps[(int)res]->w;
 	render->texture_h = text->maps[(int)res]->h;

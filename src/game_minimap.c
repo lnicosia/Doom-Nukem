@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 17:56:00 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 10:30:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:15:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	game_minimap(t_env *env)
 		v = 0;
 		while (v < sect->nb_vertices)
 		{
-		  	draw_current_wall_game_minimap(v, sect, env);
+			draw_current_wall_game_minimap(v, sect, env);
 			v++;
 		}
 		s++;

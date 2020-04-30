@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:22:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 11:13:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:17:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,19 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture *texture,
 	if (sector->ceiling_scale)
 		free(sector->ceiling_scale);
 	if (!(sector->ceiling_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
-	  	* texture->nb_maps)))
+		* texture->nb_maps)))
 		return (custom_error("Could not malloc sector ceiling_scale array"));
 	if (sector->ceiling_align)
 		free(sector->ceiling_align);
 	if (!(sector->ceiling_align = (t_v2*)ft_memalloc(sizeof(t_v2)
-	  	* texture->nb_maps)))
+		* texture->nb_maps)))
 		return (custom_error("Could not malloc sector ceiling_scale array"));
 	compute_ceiling_scales(texture, sector);
 	if (sector->ceiling_map_lvl)
 		free(sector->ceiling_map_lvl);
 	if (!(sector->ceiling_map_lvl = (double*)ft_memalloc(
 		sizeof(double) * texture->nb_maps)))
-		return (custom_error("Could not malloc a sector map_lvl array"));	
+		return (custom_error("Could not malloc a sector map_lvl array"));
 	set_sector_ceiling_map_array2(sector, texture, env);
 	return (0);
 }
@@ -88,7 +88,7 @@ t_sector *sector)
 		if (z < sector->ceiling_map_lvl[j])
 		{
 			*res = j + 1;
-			break;
+			break ;
 		}
 		j--;
 	}
@@ -111,7 +111,7 @@ t_env *env)
 		res = ceil(log2(fmax(env->w * sector->ceiling_map_scale.x / (2 * z),
 			env->h * sector->ceiling_map_scale.y / (1.25 * z))));
 	else
-	  	decrease_current_ceiling_map(&res, text->nb_maps - 1, z, sector);
+		decrease_current_ceiling_map(&res, text->nb_maps - 1, z, sector);
 	res = ft_clamp(res, 0, text->nb_maps - 1);
 	render->texture_w = text->maps[(int)res]->w;
 	render->texture_h = text->maps[(int)res]->h;
