@@ -54,14 +54,14 @@ int		input_box_keys6(t_input_box *box, t_env *env)
 		if (box->accept_inputs
 			&& (!box->text_size || ft_strlen(box->str) < box->text_size))
 		{
-			if (box->type == INT)
-				parse_integer_input(box, env);
-			else if (box->type == DOUBLE)
-				parse_double_input(box, env);
-			else if (box->type == UINT32)
-				parse_uint32_input(box, env);
-			else if (box->type == STRING)
-				parse_str_input(box, env);
+			if (box->type == INT && parse_integer_input(box, env))
+				return (-1);
+			else if (box->type == DOUBLE && parse_double_input(box, env))
+				return (-1);
+			else if (box->type == UINT32 && parse_uint32_input(box, env))
+				return (-1);
+			else if (box->type == STRING && parse_str_input(box, env))
+				return (-1);
 		}
 		else if (box->type == STRING && env->sdl.event.key.keysym.sym == 's')
 			box->accept_inputs = 1;

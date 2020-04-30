@@ -191,53 +191,68 @@ int			check_all_angles(t_v2 *p, int res, int i, int straight)
 	return (res);
 }
 
-/*
-**	PROTECTION
-*/
+int			check_sector_convexity2(t_v2 *p, int len, int *res)
+{
+	int		i;
+	int		straight;
+
+	straight = 0;
+	p[len - 2] = p[0];
+	p[len - 1] = p[1];
+	i = 0;
+	while (i < len - 2)
+	{
+		*res = check_all_angles(p, *res, i, straight);
+			if (!*res)
+			straight++;
+		else
+			straight = 0;
+		i++;
+	}
+	free(p);
+	if (*res != -(len - 2) && *res != len - 2 && *res)
+		return (1);
+	return (0);
+}
+
+int			check_sector_convexity(t_env *env, t_list *tmp, int len, int *res)
+{
+	t_v2	*p;
+	int		i;
+
+	i = 0;
+	len += 3;
+	if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (len))))
+		return (-1);
+	p[len - 3].x = round((env->sdl.mx - env->editor.center.x)
+	/ env->editor.scale);
+	p[len - 3].y = round((env->sdl.my - env->editor.center.y)
+	/ env->editor.scale);
+	while (tmp)
+	{
+		p[i].x = ((t_vertex*)tmp->content)->x;
+		p[i].y = ((t_vertex*)tmp->content)->y;
+		tmp = tmp->next;
+		i++;
+	}
+	return (check_sector_convexity2(p, len, res));
+}
 
 int			is_new_sector_convex(t_env *env, t_list *tmp)
 {
 	int		len;
-	int		i;
-	t_v2	*p;
 	int		res;
-	int		straight;
+	int		ret;
 
-	i = 0;
 	res = 0;
-	straight = 0;
 	len = ft_lstlen(env->editor.current_vertices);
 	tmp = env->editor.current_vertices;
 	if (len > 2)
 	{
-		len += 3;
-		if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (len))))
+	  	ret = check_sector_convexity(env, tmp, len, &res);
+		if (ret == -1)
 			return (-1);
-		p[len - 3].x = round((env->sdl.mx - env->editor.center.x)
-		/ env->editor.scale);
-		p[len - 3].y = round((env->sdl.my - env->editor.center.y)
-		/ env->editor.scale);
-		while (tmp)
-		{
-			p[i].x = ((t_vertex*)tmp->content)->x;
-			p[i].y = ((t_vertex*)tmp->content)->y;
-			tmp = tmp->next;
-			i++;
-		}
-		p[len - 2] = p[0];
-		p[len - 1] = p[1];
-		i = 0;
-		while (i < len - 2)
-		{
-			res = check_all_angles(p, res, i, straight);
-			if (!res)
-				straight++;
-			else
-				straight = 0;
-			i++;
-		}
-		free(p);
-		if (res != -(len - 2) && res != len - 2 && res)
+		else if (ret == 1)
 			return (0);
 	}
 	if (!res)
@@ -247,44 +262,62 @@ int			is_new_sector_convex(t_env *env, t_list *tmp)
 	return (1);
 }
 
+int			check_current_sector2(t_env *env, int *list_sectors, int i,
+int index)
+{
+	env->vertices[index].x = round((env->sdl.mx -
+		env->editor.center.x) / env->editor.scale);
+	env->vertices[index].y = round((env->sdl.my -
+		env->editor.center.y) / env->editor.scale);
+	check_sector_order(env);
+	set_sectors_xmax(env);
+	precompute_slopes(env);
+	if (check_sector(env->sectors[list_sectors[i]], env))
+	{
+		env->vertices[index].x = env->editor.start_pos.x;
+		env->vertices[index].y = env->editor.start_pos.y;
+		return (1);
+	}
+	return (0);
+}
+
+int			check_current_sector(t_env *env, int *list_sectors, int i,
+int index)
+{
+	int			j;
+	t_vertex	last;
+
+	j = 0;
+	while (j < env->nb_sectors)
+	{
+		last =
+		find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
+		if (check_sector_intersections(
+			env, env->sectors[j], last, index) == -1)
+			return (1);
+		last =
+		find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
+		if (check_sector_intersections(
+			env, env->sectors[j], last, index) == -1)
+			return (1);
+		j++;
+	}
+	return (check_current_sector2(env, list_sectors, i, index));
+}
+
 int			is_new_dragged_vertex_valid(t_env *env, int index)
 {
 	int			*list_sectors;
 	int			i;
-	int			j;
-	t_vertex	last;
 
 	i = 1;
 	if (!(list_sectors = get_vertex_sectors(env, index)))
-		return (0);
+		return (-1);
 	while (i <= list_sectors[0])
 	{
-		j = 0;
-		while (j < env->nb_sectors)
+	  	if (check_current_sector(env, list_sectors, i, index))
 		{
-			last =
-			find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
-			if (check_sector_intersections(
-				env, env->sectors[j], last, index) == -1)
-				return (0);
-			last =
-			find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
-			if (check_sector_intersections(
-				env, env->sectors[j], last, index) == -1)
-				return (0);
-			j++;
-		}
-		env->vertices[index].x = round((env->sdl.mx -
-			env->editor.center.x) / env->editor.scale);
-		env->vertices[index].y = round((env->sdl.my -
-			env->editor.center.y) / env->editor.scale);
-		check_sector_order(env);
-		set_sectors_xmax(env);
-		precompute_slopes(env);
-		if (check_sector(env->sectors[list_sectors[i]], env))
-		{
-			env->vertices[index].x = env->editor.start_pos.x;
-			env->vertices[index].y = env->editor.start_pos.y;
+			ft_memdel((void**)&list_sectors);
 			return (0);
 		}
 		i++;

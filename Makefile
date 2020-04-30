@@ -301,7 +301,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   precompute_values2.c compute_wall.c get_intersections.c \
 		   render_sector2.c render_sector3.c update_screen_zbuffer.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
-		   damage_anim.c \
+		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

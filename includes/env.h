@@ -393,7 +393,7 @@ int					get_clockwise_order_sector(t_env *env, int index);
 void				player_selection(t_env *env);
 void				starting_player_selection(t_env *env);
 void				objects_selection(t_env *env);
-void				vertices_selection(t_env *env);
+int					vertices_selection(t_env *env);
 void				create_portals(t_env *env, t_sector new_sector);
 int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);

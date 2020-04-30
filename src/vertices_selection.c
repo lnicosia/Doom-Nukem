@@ -36,22 +36,26 @@ void	check_sector_order(t_env *env)
 	}
 }
 
-void	check_click(t_env *env)
+void	reset_vertex(t_env *env)
+{
+	env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
+	env->vertices[env->editor.selected_vertex].y = env->editor.start_pos.y;
+}
+
+int		check_click(t_env *env)
 {
 	int	i;
 	int	click_vertex;
+	int	ret;
 
 	i = -1;
 	click_vertex = -1;
-	if (((click_vertex = get_existing_not_dragged_vertex(env)) != -1
-		|| (!(is_new_dragged_vertex_valid(env, env->editor.selected_vertex))))
+	ret = is_new_dragged_vertex_valid(env, env->editor.selected_vertex);
+	if (ret == -1)
+	  	return (-1);
+	if (((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || !ret)
 		&& (click_vertex != env->vertices[env->editor.selected_vertex].num))
-	{
-		env->vertices[env->editor.selected_vertex].x =
-		env->editor.start_pos.x;
-		env->vertices[env->editor.selected_vertex].y =
-		env->editor.start_pos.y;
-	}
+		reset_vertex(env);
 	else
 	{
 		env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx -
@@ -62,16 +66,19 @@ void	check_click(t_env *env)
 		while (++i < env->nb_sectors)
 			create_portals(env, env->sectors[i]);
 	}
+	return (0);
 }
 
-void	vertices_selection(t_env *env)
+int		vertices_selection(t_env *env)
 {
 	if (!(!env->inputs.left_click && env->editor.dragged_vertex != -1
 		&& env->sdl.mx >= 400))
-	  	return ;
-	check_click(env);
+	  	return (0);
+	if (check_click(env))
+		return (-1);
 	check_sector_order(env);
 	set_sectors_xmax(env);
 	precompute_slopes(env);
 	env->editor.dragged_vertex = -1;
+	return (0);
 }
