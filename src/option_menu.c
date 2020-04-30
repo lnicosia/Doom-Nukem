@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/09 11:20:27 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:46:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_sounds_vol(t_env *env)
 		0xFFFFFFFF, 30), env);
 	ft_snprintf(env->snprintf, 4, "%.f",
 		env->sound.ambient_vol * 100);
-	print_text(new_point( env->h_h + env->h_h / 4 +
+	print_text(new_point(env->h_h + env->h_h / 4 +
 		env->sounds_vol_up.size_down.y + 35, env->h_w),
 		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
 		0xFFFFFFFF, 30), env);
