@@ -397,6 +397,14 @@ int					vertices_selection(t_env *env);
 void				create_portals(t_env *env, t_sector new_sector);
 int					check_vertex_inside_sector(t_env *env, t_v2 vertex);
 int					is_new_vertex_valid(t_env *env, int index);
+int					new_wall_intersects(t_env *env, int index);
+t_vertex			find_second_vertex(t_env *env, t_sector sector,
+int new_index, int index);
+int					check_sector_intersections(t_env *env, t_sector sector,
+t_vertex last, int index);
+int					check_list_intersections(t_env *env, t_vertex *last,
+int index);
+int					is_new_sector_convex(t_env *env, t_list *tmp);
 int					del_last_vertex(t_env *env);
 int					delete_vertex(void *param);
 int					update_sector(t_sector *sector, int vertex);
