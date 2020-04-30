@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 13:54:07 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/30 13:44:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 16:17:03 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			is_new_dragged_vertex_valid(t_env *env, int index)
 		return (-1);
 	while (i <= list_sectors[0])
 	{
-	  	if (check_current_sector(env, list_sectors, i, index))
+		if (check_current_sector(env, list_sectors, i, index))
 		{
 			ft_memdel((void**)&list_sectors);
 			return (0);

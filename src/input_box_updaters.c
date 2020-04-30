@@ -13,26 +13,6 @@
 #include "env.h"
 #include "collision.h"
 
-int			update_sector_input_box(void *penv)
-{
-	t_env	*env;
-
-	env = (t_env*)penv;
-	if (env->selected_floor != -1)
-	{
-		update_sector_slope(env, &env->sectors[env->selected_floor]);
-		update_sector_entities_z(env, env->selected_floor);
-	}
-	else if (env->editor.selected_sector != -1)
-	{
-		update_sector_slope(env, &env->sectors[env->editor.selected_sector]);
-		update_sector_entities_z(env, env->editor.selected_sector);
-	}
-	else if (env->selected_ceiling != -1)
-		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
-	return (0);
-}
-
 int			update_floor_sprite_scale_input_box(void *penv)
 {
 	t_env	*env;

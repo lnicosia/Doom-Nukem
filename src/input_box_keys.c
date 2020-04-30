@@ -6,33 +6,11 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 12:14:57 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 16:13:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 16:36:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
-
-int		input_box_keys5(t_input_box *box, t_env *env)
-{
-	if (env->sdl.event.key.keysym.sym == SDLK_UP
-		&& SDL_GetTicks() - box->move_cursor_timer > box->move_cursor_delay)
-	{
-		box->up = 1;
-		box->select_start = 0;
-		box->select_end = 0;
-		box->move_cursor_timer = SDL_GetTicks();
-	}
-	else if (env->inputs.end)
-		box->cursor = ft_strlen(box->str);
-	else if (env->inputs.home)
-		box->cursor = 0;
-	else if (env->inputs.a && env->inputs.lgui)
-	{
-		box->select_start = 0;
-		box->select_end = ft_strlen(box->str);
-	}
-	return (input_box_keys6(box, env));
-}
 
 int		input_box_keys4(t_input_box *box, t_env *env)
 {
@@ -106,6 +84,25 @@ int		input_box_keys2(t_input_box *box, t_env *env)
 	return (input_box_keys3(box, env));
 }
 
+int		input_box_backspace(t_input_box *box, t_env *env)
+{
+	if (box->select_start != box->select_end && (box->type != UINT32
+		|| (box->select_start > 2 && box->select_end > 2)))
+	{
+		if (delete_box_selection(box))
+			return (-1);
+	}
+	else if (SDL_GetTicks() - box->del_timer > box->del_delay && box->
+	cursor > 0 && (box->str[box->cursor - 1] != '.' || box->float_count
+	+ box->int_count <= 9) && (box->type != UINT32 || box->cursor > 2))
+	{
+		if (del_char(box, 0))
+			return (-1);
+	}
+	env->inputs.backspace = 0;
+	return (0);
+}
+
 int		input_box_keys(t_input_box *box, t_env *env)
 {
 	int		res;
@@ -121,20 +118,8 @@ int		input_box_keys(t_input_box *box, t_env *env)
 	}
 	else if (env->inputs.backspace)
 	{
-		if (box->select_start != box->select_end && (box->type != UINT32
-			|| (box->select_start > 2 && box->select_end > 2)))
-		{
-			if (delete_box_selection(box))
-				return (-1);
-		}
-		else if (SDL_GetTicks() - box->del_timer > box->del_delay && box->
-		cursor > 0 && (box->str[box->cursor - 1] != '.' || box->float_count
-		+ box->int_count <= 9) && (box->type != UINT32 || box->cursor > 2))
-		{
-			if (del_char(box, 0))
-				return (-1);
-		}
-		env->inputs.backspace = 0;
+		if (input_box_backspace(box, env))
+			return (-1);
 	}
 	return (input_box_keys2(box, env));
 }

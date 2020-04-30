@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_new_sector_convex.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 16:16:45 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 16:16:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int			check_sector_convexity2(t_v2 *p, int len, int *res)
@@ -12,7 +24,7 @@ int			check_sector_convexity2(t_v2 *p, int len, int *res)
 	while (i < len - 2)
 	{
 		*res = check_all_angles(p, *res, i, straight);
-			if (!*res)
+		if (!*res)
 			straight++;
 		else
 			straight = 0;
@@ -58,7 +70,7 @@ int			is_new_sector_convex(t_env *env, t_list *tmp)
 	tmp = env->editor.current_vertices;
 	if (len > 2)
 	{
-	  	ret = check_sector_convexity(env, tmp, len, &res);
+		ret = check_sector_convexity(env, tmp, len, &res);
 		if (ret == -1)
 			return (-1);
 		else if (ret == 1)
