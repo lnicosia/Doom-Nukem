@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "enemies.h"
 
 int		draw_current_creation(t_env *env)
 {

@@ -12,6 +12,7 @@
 
 #include "init.h"
 #include "collision.h"
+#include "enemies.h"
 
 /*
 ** Returns 1 if an enemy is STILL seeing the player and 0 otherwise

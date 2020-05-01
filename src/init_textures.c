@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "init.h"
+#include "parser.h"
 
 int		init_wall_textures2(t_env *env)
 {

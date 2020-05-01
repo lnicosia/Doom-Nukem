@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "parser.h"
 
 int		parse_object_pos4(t_env *env, t_map_parser *parser)
 {

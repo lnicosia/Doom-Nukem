@@ -12,6 +12,7 @@
 
 #include "map_parser.h"
 #include "env.h"
+#include "parser.h"
 
 int		parse_ceiling6(t_env *env, char **line, t_map_parser *parser)
 {

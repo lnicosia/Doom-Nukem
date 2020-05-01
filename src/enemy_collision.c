@@ -12,6 +12,7 @@
 
 #include "events.h"
 #include "collision.h"
+#include "enemies.h"
 
 /*
 ** Manages the enemy collision events

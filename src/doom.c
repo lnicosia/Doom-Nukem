@@ -13,6 +13,7 @@
 #include "free.h"
 #include "collision.h"
 #include "events.h"
+#include "enemies.h"
 
 int		doom4(t_env *env)
 {

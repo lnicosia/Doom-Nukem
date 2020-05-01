@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 
 t_button	new_rectangle_button(int type, int (*action)(void *), void *param,
 t_env *env)

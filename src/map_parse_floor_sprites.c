@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 #include "map_parser.h"
 
 int		parse_current_floor_sprite3(t_env *env, char **line,

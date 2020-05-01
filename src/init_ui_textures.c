@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 
 int		init_mini_skyboxes_selection(t_env *env)
 {

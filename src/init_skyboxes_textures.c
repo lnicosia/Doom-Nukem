@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "parser.h"
 
 int		init_skyboxes_textures2(t_env *env)
 {

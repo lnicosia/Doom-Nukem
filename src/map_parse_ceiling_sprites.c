@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 
 int		parse_current_ceiling_sprite3(t_env *env, char **line,
 t_map_parser *parser, int i)

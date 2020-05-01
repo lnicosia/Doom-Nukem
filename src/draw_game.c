@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "enemies.h"
 
 int	draw_render(t_camera *camera, t_env *env)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "parser.h"
 
 int		parse_object_sprite2(t_env *env, char **line, t_map_parser *parser)
 {

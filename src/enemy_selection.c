@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "enemies.h"
 
 void	enemy_tab(t_env *env, int nb_slots)
 {

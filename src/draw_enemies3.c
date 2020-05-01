@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include "enemies.h"
 
 void	update_enemies_z(t_env *env)
 {

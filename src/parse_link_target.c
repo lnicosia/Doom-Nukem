@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		parse_link_target2(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)

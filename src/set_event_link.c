@@ -12,6 +12,7 @@
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "init.h"
 
 int		set_event_link2(t_events_parser *eparser, t_event *source_array)
 {

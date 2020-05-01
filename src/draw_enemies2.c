@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include "enemies.h"
 
 void	*enemy_loop(void *param)
 {

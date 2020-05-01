@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "map_parser.h"
-#include "env.h"
+#include "parser.h"
 
 int		parse_sector_general4(char **line, t_map_parser *parser)
 {

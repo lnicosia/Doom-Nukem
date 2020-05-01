@@ -12,6 +12,7 @@
 
 #include "update_existing_events.h"
 #include "events_parser.h"
+#include "init.h"
 
 int		check_objects_events_targets(t_env *env, t_event_target target,
 t_event_trigger *trigger)

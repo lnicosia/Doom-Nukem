@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "env.h"
 
 int		parse_enemy_pos4(t_env *env, t_map_parser *parser)

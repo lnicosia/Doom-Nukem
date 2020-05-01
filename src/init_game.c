@@ -12,6 +12,7 @@
 
 #include "init.h"
 #include "collision.h"
+#include "parser.h"
 
 int		init_game5(t_env *env)
 {

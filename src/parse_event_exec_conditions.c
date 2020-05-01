@@ -12,6 +12,8 @@
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "init.h"
+#include "parser.h"
 
 int		parse_exec_condition3(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 
 int		parse_sectors_init2(t_env *env, t_map_parser *parser)
 {

@@ -12,6 +12,7 @@
 
 #include "events.h"
 #include "collision.h"
+#include "enemies.h"
 
 /*
 ** Changes the music if the player starts or leaves a fight

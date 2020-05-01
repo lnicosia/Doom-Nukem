@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 #include "map_parser.h"
 
 int		valid_texture3(char *line, t_map_parser *parser)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 #include "map_parser.h"
 
 int		parse_sprite(char *line, t_map_parser *parser, int *open, int *count)

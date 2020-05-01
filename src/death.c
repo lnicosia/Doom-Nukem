@@ -13,6 +13,7 @@
 #include "free.h"
 #include "init.h"
 #include "collision.h"
+#include "parser.h"
 
 void		respawn_entities(void *param)
 {

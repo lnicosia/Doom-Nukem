@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "parser.h"
 
 int		check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 {
