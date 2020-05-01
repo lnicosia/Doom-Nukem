@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   selection_tabs_keyup.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:44:56 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:44:57 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		selection_tabs_keyup3(t_env *env)
@@ -51,7 +63,6 @@ int		selection_tabs_keyup(t_env *env)
 	int	i;
 
 	i = 0;
-
 	if (env->editor.draw_texture_tab)
 	{
 		i = 0;

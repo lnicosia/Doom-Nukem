@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 09:45:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:27:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	*precompute_sectors_loop(void *param)
 {
-	int		i;
-	int		end;
-	t_env	*env;
-	t_camera *camera;
+	int			i;
+	int			end;
+	t_env		*env;
+	t_camera	*camera;
 
 	i = ((t_precompute_thread*)param)->start - 1;
 	end = ((t_precompute_thread*)param)->end;

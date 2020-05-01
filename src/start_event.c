@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_event.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:17:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 15:41:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:24:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,27 @@ int		is_queued(t_list *queued_values, void *target)
 	return (0);
 }
 
+int		update_queued_events_list(t_event **events, size_t *i, t_env *env)
+{
+	t_list		*new_value;
+
+	if (!(new_value =
+		ft_lstnew(&(*events)[*i].target, sizeof((*events)[*i].target))))
+		return (ft_perror("Could not malloc new event"));
+	ft_lstpushback(&env->queued_values, new_value);
+	return (0);
+}
+
 int		update_events_list(t_event **events, size_t *i, size_t *size,
 t_env *env)
 {
 	t_list		*new;
-	t_list		*new_value;
 
 	if (!(new = ft_lstnew(&(*events)[*i], sizeof(t_event))))
 		return (ft_perror("Could not malloc new event"));
 	ft_lstpushback(&env->events, new);
-	if (!(new_value =
-	  	ft_lstnew(&(*events)[*i].target, sizeof((*events)[*i].target))))
-		return (ft_perror("Could not malloc new event"));
-	ft_lstpushback(&env->queued_values, new_value);
+	if (update_queued_events_list(events, i, env))
+		return (-1);
 	(*events)[*i].uses++;
 	(*events)[*i].happened = 1;
 	if ((*events)[*i].max_uses > 0)
@@ -53,6 +61,7 @@ t_env *env)
 	}
 	return (0);
 }
+
 int		start_event(t_event **events, size_t *size, t_env *env)
 {
 	size_t		i;
@@ -69,8 +78,8 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 			(*events)[i].nb_launch_conditions, env))
 			&& update_event(&(*events)[i]))
 		{
-		  	if (update_events_list(events, &i, size, env))
-			  	return (-1);
+			if (update_events_list(events, &i, size, env))
+				return (-1);
 			else
 				i++;
 		}
@@ -94,8 +103,8 @@ int		start_event_free(t_event **events, size_t *size, t_env *env)
 					(*events)[i].nb_launch_conditions, env))
 				&& update_event(&(*events)[i]))
 		{
-		  	if (update_events_list(events, &i, size, env))
-			  	return (-1);
+			if (update_events_list(events, &i, size, env))
+				return (-1);
 		}
 		else
 			i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_sector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:17:28 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 15:49:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:56:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 {
 	int	i;
 
-	i = end - 1;	
+	i = end - 1;
 	while (i > start)
 	{
-	  	if (update_current_wall(env, i, sector))
-		  	return (-1);
+		if (update_current_wall(env, i, sector))
+			return (-1);
 		i--;
 	}
 	clear_portals(env);
@@ -82,13 +82,13 @@ int		split_sector2(int start, int end, t_env *env)
 
 	sector = &env->sectors[env->editor.split.sector];
 	free_current_vertices(env);
-	if (update_sector_data(env, start, end , sector))
+	if (update_sector_data(env, start, end, sector))
 		return (-1);
-	if (set_sector_floor_map_array(&env->sectors[env->nb_sectors - 1], 
+	if (set_sector_floor_map_array(&env->sectors[env->nb_sectors - 1],
 		&env->wall_textures[env->sectors[env->nb_sectors - 1].floor_texture],
 		env))
 		return (-1);
-	if (set_sector_ceiling_map_array(&env->sectors[env->nb_sectors - 1], 
+	if (set_sector_ceiling_map_array(&env->sectors[env->nb_sectors - 1],
 		&env->wall_textures[env->sectors[env->nb_sectors - 1].ceiling_texture],
 		env))
 		return (-1);

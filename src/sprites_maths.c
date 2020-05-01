@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_maths.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 16:05:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/19 10:50:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:58:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_v3	sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination)
 {
 	Uint32	time;
 	t_v3	direction;
-	double  distance;
+	double	distance;
 
 	time = SDL_GetTicks() - env->time.milli_s;
 	speed *= time / 3;

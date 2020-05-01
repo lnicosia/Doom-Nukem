@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_sector2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:35:00 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:35:01 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	draw_floor_and_ceiling(t_sector *sector, t_render *render,
@@ -38,6 +50,14 @@ void	precompute_texels(t_render *render)
 	render->zrange = render->z - render->camera->near_z;
 }
 
+void	set_new_screen_limits(t_render *render, t_env *env)
+{
+	env->ymin[render->x] = ft_clamp(ft_max(render->neighbor_current_ceiling,
+	render->current_ceiling), env->ymin[render->x], env->ymax[render->x]);
+	env->ymax[render->x] = ft_clamp(ft_min(render->neighbor_current_floor,
+	render->current_floor), env->ymin[render->x], env->ymax[render->x]);
+}
+
 void	draw_bottom_and_upper_walls(t_sector *sector, t_render *render,
 t_env *env)
 {
@@ -63,10 +83,7 @@ t_env *env)
 		else
 			draw_bottom_wall(sector, render, env);
 	}
-	env->ymin[render->x] = ft_clamp(ft_max(render->neighbor_current_ceiling,
-	render->current_ceiling), env->ymin[render->x], env->ymax[render->x]);
-	env->ymax[render->x] = ft_clamp(ft_min(render->neighbor_current_floor,
-	render->current_floor), env->ymin[render->x], env->ymax[render->x]);
+	set_new_screen_limits(render, env);
 }
 
 void	compute_vline_data(t_sector *sector, t_render *render,

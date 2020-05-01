@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:25:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 17:47:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:43:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ int		create_condition(void *param)
 		return (-1);
 	if (env->editor.creating_launch_condition)
 	{
-	  	if (create_launch_condition(event, env))
-		  	return (-1);
+		if (create_launch_condition(event, env))
+			return (-1);
 	}
 	else if (env->editor.creating_exec_condition)
 	{
-	  	if (create_exec_condition(event, env))
-		  	return (-1);
+		if (create_exec_condition(event, env))
+			return (-1);
 	}
 	return (create_condition2(env));
 }

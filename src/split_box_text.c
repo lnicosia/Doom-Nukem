@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_box_text.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:49:01 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:24:22 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "input_box_utils.h"
 
 int		box_cursor(t_input_box *box, char *str, char *tmp2, t_env *env)
@@ -59,12 +71,12 @@ int		draw_current_line2(t_input_box *box, char **str, char *tmp2, t_env *env)
 		&& env->sdl.my <= box->current_line_pos.x
 		+ box->current_text_size.y)
 	{
-	  	if (input_box_mouse(box, box->current_line_pos, tmp2, env))
+		if (input_box_mouse(box, box->current_line_pos, tmp2, env))
 			return (-1);
 	}
 	box->cursor_in_line = box->cursor - box->count;
 	if (box_cursor(box, *str, tmp2, env))
-	  	return (-1);
+		return (-1);
 	print_text(box->current_line_pos, new_printable_text(tmp2, box->font,
 	0x333333FF, 0), env);
 	box->prec_count = box->count;
@@ -81,9 +93,9 @@ int		draw_current_line(t_input_box *box, char **str, t_env *env)
 	if (box->change_cursor_line)
 		box->cursor =
 		ft_min(box->count + box->cursor_in_line, ft_strlen(box->str));
-		box->change_cursor_line = 0;
+	box->change_cursor_line = 0;
 	if (!(tmp2 = get_current_str(box, str)))
-	  	return (-1);
+		return (-1);
 	TTF_SizeText(box->font, tmp2, &box->current_text_size.x,
 	&box->current_text_size.y);
 	if (box->select_start != box->select_end
@@ -118,8 +130,8 @@ int		split_box_text(t_input_box *box, t_env *env)
 		&& box->current_line_pos.x + box->current_text_size.y <= box->pos.y
 		+ box->size.y * 0.99)
 	{
-	  	if (draw_current_line(box, &str, env))
-		  	return (-1);
+		if (draw_current_line(box, &str, env))
+			return (-1);
 	}
 	ft_strdel(&str);
 	return (0);

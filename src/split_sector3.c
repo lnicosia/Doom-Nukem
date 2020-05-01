@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_sector3.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:54:50 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:54:50 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		check_next_to_vertex(t_env *env, int i, int j)
@@ -6,14 +18,14 @@ int		check_next_to_vertex(t_env *env, int i, int j)
 
 	sector = env->sectors[i];
 	if (((j > 0 && sector.vertices[j] == env->editor.split.v1
-	  	&& (sector.vertices[j - 1] == env->editor.split.v2
+		&& (sector.vertices[j - 1] == env->editor.split.v2
 		|| sector.vertices[j + 1] == env->editor.split.v2)))
 		|| (sector.vertices[j] == env->editor.split.v1 && j == 0
 		&& (sector.vertices[sector.nb_vertices - 1] == env->editor.split.v2
 		|| sector.vertices[j + 1] == env->editor.split.v2)))
 		return (0);
 	else if (((j > 0 && sector.vertices[j] == env->editor.split.v2
-	  	&& (sector.vertices[j - 1] == env->editor.split.v1
+		&& (sector.vertices[j - 1] == env->editor.split.v1
 		|| sector.vertices[j + 1] == env->editor.split.v1)))
 		|| (sector.vertices[j] == env->editor.split.v2 && j == 0
 		&& (sector.vertices[sector.nb_vertices - 1] == env->editor.split.v1
@@ -49,7 +61,7 @@ int		check_sectors(t_env *env)
 			else if (first
 				&& (env->sectors[i].vertices[j] == env->editor.split.v1
 				|| env->sectors[i].vertices[j] == env->editor.split.v2))
-			  	return (check_vertex_neighbors(env, i, j));
+				return (check_vertex_neighbors(env, i, j));
 			j++;
 		}
 		first = 0;

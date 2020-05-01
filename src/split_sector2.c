@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_sector2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:49:53 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:49:54 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	update_neighbors_indexes(t_env *env, int index, int num,
@@ -28,15 +40,15 @@ t_sector *sector)
 int		update_neighbors(t_env *env, int index, int num, t_sector *sector)
 {
 	int	i;
-	
+
 	if (index == 1)
-	  	return (0);
+		return (0);
 	update_neighbors_indexes(env, index, num, sector);
 	i = 0;
 	while (i < sector->nb_vertices)
 	{
 		if (sector->neighbors[i] == num)
-		  	update_int_tab(i, sector->nb_vertices + 1, &sector->neighbors);
+			update_int_tab(i, sector->nb_vertices + 1, &sector->neighbors);
 		i++;
 	}
 	return (0);
@@ -78,7 +90,7 @@ int		update_current_wall(t_env *env, int i, t_sector *sector)
 	&env->sectors[sector->num].floors);
 	update_double_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].ceilings);
-  	update_current_wall2(env, i, sector);
+	update_current_wall2(env, i, sector);
 	if (!sector->neighbors || !sector->wall_sprites
 		|| !sector->wall_width || !sector->floors
 		|| !sector->ceilings || !sector->vertices

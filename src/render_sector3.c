@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_sector3.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:35:35 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:35:36 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "render.h"
 
 void	render_current_wall_vline(t_sector *sector, t_render *render,
 t_env *env)
 {
-  	compute_vline_data(sector, render, env);
+	compute_vline_data(sector, render, env);
 	if (render->current_ceiling > env->ymin[render->x]
 		|| render->current_floor < env->ymax[render->x])
-	  	precompute_texels(render);
+		precompute_texels(render);
 	if (draw_wall_sprites(sector, render, env))
 		return ;
 	draw_wall_bullet_holes(sector, render, env);
 	draw_floor_and_ceiling(sector, render, env);
 	if (sector->neighbors[render->i] != -1)
-	  	draw_bottom_and_upper_walls(sector, render, env);
+		draw_bottom_and_upper_walls(sector, render, env);
 	else
 	{
 		if (sector->textures[render->i] < 0)
 			draw_skybox(render, WALL, env);
 		else
-		draw_wall(sector, render, env);
+			draw_wall(sector, render, env);
 	}
 }
 

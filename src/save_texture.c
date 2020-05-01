@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_texture.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:43:48 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:43:49 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		save_texture3(int i, t_env *env)
@@ -48,7 +60,7 @@ int		save_texture(void *param)
 {
 	t_env	*env;
 	int		i;
-	
+
 	env = ((t_button_target*)param)->env;
 	i = ((t_button_target*)param)->i;
 	env->editor.current_texture = i;
@@ -65,7 +77,7 @@ int		save_texture(void *param)
 	}
 	save_texture2(i, env);
 	if (save_texture3(i, env))
-	  	return (-1);
+		return (-1);
 	env->editor.current_texture_selection.state = UP;
 	env->editor.current_texture_selection.anim_state = REST;
 	env->editor.draw_texture_tab = 0;

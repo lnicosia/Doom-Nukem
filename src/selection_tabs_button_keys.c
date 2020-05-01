@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   selection_tabs_button_keys.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:33:05 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:59:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:44:36 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		selection_tab_button_keys2(t_env *env)
 	}
 	return (0);
 }
- 
+
 int		selection_tab_button_keys(t_env *env)
 {
 	int	i;

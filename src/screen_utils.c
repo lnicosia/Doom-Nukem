@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 12:24:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:51:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:44:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	update_screen(t_env *env)
 {
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels,
-	  	env->w * sizeof(Uint32)))
+		env->w * sizeof(Uint32)))
 	{
 		ft_printf("Failed to update screen: %s\n", SDL_GetError());
 		return ;
@@ -50,7 +50,7 @@ void	draw_axes(t_env *env)
 void	draw_crosshair2(t_env *env)
 {
 	int		y;
-	int		x; 
+	int		x;
 	int		max;
 	Uint32	*pixels;
 
@@ -75,7 +75,7 @@ void	draw_crosshair2(t_env *env)
 void	draw_crosshair(t_env *env)
 {
 	int		y;
-	int		x; 
+	int		x;
 	int		max;
 	Uint32	*pixels;
 

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   realloc_sector_arrays.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 10:12:40 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 10:12:41 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "add_vertex.h"
 
 int		realloc_sector_arrays3(t_env *env, int sector, int j)
 {
 	if (modify_t_wall_sprites_tab_in_sector(env, j, sector,
-		  &env->sectors[sector].wall_sprites))
+		&env->sectors[sector].wall_sprites))
 		return (-1);
 	if (modify_t_list_tab_in_sector(env, j, sector,
 		&env->sectors[sector].wall_bullet_holes))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:57:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 18:05:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:40:19 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		get_vertex_nb_in_sector(int vertex, t_sector *sector)
 
 void	reset_render_utils2(int ymin, int ymax, t_camera *camera, t_env *env)
 {
-  	int	i;
+	int	i;
 
 	i = 0;
 	while (i < camera->size)
@@ -97,13 +97,13 @@ void	reset_render_utils(t_camera *camera, t_env *env)
 
 void	reset_screen_limits(t_env *env)
 {
-  	int	j;
+	int	j;
 
 	j = 0;
 	while (j < env->w)
 	{
-	  	env->ymax[j] = env->tmp_max[j];
-	  	env->ymin[j] = env->tmp_min[j];
-	  	j++;
+		env->ymax[j] = env->tmp_max[j];
+		env->ymin[j] = env->tmp_min[j];
+		j++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_sector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 09:55:02 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:36:58 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ t_env *env)
 	int		just_selected;
 
 	render->v1 = &render->camera->v[sector->num][i];
-	if (render->v1->clipped_x1 >= render->v1->clipped_x2
-	  	|| render->v1->clipped_x1 > render->xmax
-		|| render->v1->clipped_x2 < render->xmin)
+	if (render->v1->clipped_x1 >= render->v1->clipped_x2 || render->v1->
+		clipped_x1 > render->xmax || render->v1->clipped_x2 < render->xmin)
 		return (0);
 	render->xstart = ft_max(render->v1->clipped_x1, render->xmin);
 	render->xend = ft_min(render->v1->clipped_x2, render->xmax);
@@ -81,8 +80,8 @@ t_env *env)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)
 	{
-	  	if (render_neighbor(just_selected, sector, render, env))
-		  	return (-1);
+		if (render_neighbor(just_selected, sector, render, env))
+			return (-1);
 	}
 	return (0);
 }
@@ -108,8 +107,8 @@ int		render_sector(t_render render, t_env *env)
 	{
 		if (!render.camera->v[sector->num][i].draw)
 			continue ;
-	  	if (render_current_wall(i, sector, &render, env))
-		  	return (-1);
+		if (render_current_wall(i, sector, &render, env))
+			return (-1);
 	}
 	render.camera->rendered_sectors[render.sector->num]--;
 	return (0);

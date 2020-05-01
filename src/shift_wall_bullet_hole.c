@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shift_wall_bullet_hole.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 18:31:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/15 16:05:55 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:47:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_projectile *projectile, t_env *env)
 	}
 	else
 	{
-		sector->wall_sprites[index.x].pos[index.y] = 
+		sector->wall_sprites[index.x].pos[index.y] =
 		get_wall_bullet_hole_pos(sector, projectile, index.x, env);
 		sector->wall_sprites[index.x].pos[index.y].x -=
 		sector->wall_sprites[index.x].scale[index.y].x / 2;
@@ -49,7 +49,7 @@ int i, t_env *env)
 	{
 		if (sector->wall_sprites[i].sprite[j] == 3)
 		{
-		  	shift_wall_current_bullet_hole(new_point(i, j), sector, projectile,
+			shift_wall_current_bullet_hole(new_point(i, j), sector, projectile,
 			env);
 		}
 		j++;

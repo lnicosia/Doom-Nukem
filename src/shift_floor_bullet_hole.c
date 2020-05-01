@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shift_floor_bullet_hole.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:24:14 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:24:15 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	shit_floor_current_bullet_hole(int i, t_sector *sector,
@@ -16,7 +28,7 @@ t_projectile *projectile, t_env *env)
 	}
 	else
 	{
-		sector->floor_sprites.pos[i] = 
+		sector->floor_sprites.pos[i] =
 		get_floor_bullet_hole_pos(sector, projectile, env);
 		sector->floor_sprites.pos[i].x -=
 		sector->floor_sprites.scale[i].x / 2;
@@ -34,7 +46,7 @@ t_env *env)
 	while (i < sector->floor_sprites.nb_sprites)
 	{
 		if (sector->floor_sprites.sprite[i] == 3)
-		  	shit_floor_current_bullet_hole(i, sector, projectile, env);
+			shit_floor_current_bullet_hole(i, sector, projectile, env);
 		i++;
 	}
 	return (0);
