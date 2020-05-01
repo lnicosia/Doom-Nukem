@@ -36,10 +36,14 @@ t_wall wall)
 {
 	int		i;
 
-	i = 0;
-	while (i < env->sectors[wall.sector_dest].nb_vertices)
+	i = -1;
+	while (++i < env->sectors[wall.sector_dest].nb_vertices)
 	{
-		if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R),
+		if (hitbox_collision(new_v2(env->vertices[env->sectors[wall.
+			sector_dest].vertices[i]].x, env->vertices[env->sectors[wall.
+			sector_dest].vertices[i]].y), new_v2(env->vertices[env->sectors[
+			wall.sector_dest].vertices[i + 1]].x,
+			env->vertices[env->sectors[wall.sector_dest].vertices[i + 1]].y),
 			new_v2(motion.future.x, motion.future.y), motion.size_2d)
 			&& env->sectors[wall.sector_dest].neighbors[i] >= 0 &&
 			env->sector_list[env->sectors[wall.sector_dest].neighbors[i]] == 0)
@@ -53,7 +57,6 @@ t_wall wall)
 			env->sectors[wall.sector_dest].neighbors[i];
 			return (collision_projectiles_rec(env, move, motion));
 		}
-		i++;
 	}
 	return (1);
 }
@@ -74,7 +77,11 @@ int		collision_projectiles_rec(t_env *env, t_v3 move, t_motion motion)
 		return (0);
 	while (i < env->sectors[wall.sector_dest].nb_vertices)
 	{
-		if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R),
+		if (hitbox_collision(new_v2(env->vertices[env->sectors[wall.
+			sector_dest].vertices[i]].x, env->vertices[env->sectors[wall.
+			sector_dest].vertices[i]].y), new_v2(env->vertices[env->sectors[
+			wall.sector_dest].vertices[i + 1]].x, env->vertices[env->sectors[
+			wall.sector_dest].vertices[i + 1]].y),
 			new_v2(motion.future.x, motion.future.y), motion.size_2d)
 			&& env->sectors[wall.sector_dest].neighbors[i] < 0)
 			return (0);

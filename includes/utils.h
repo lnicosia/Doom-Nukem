@@ -20,12 +20,6 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
-# define X1 env->vertices[env->sectors[motion.sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[motion.sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
-# define PLAYER_XPOS env->player.pos.x
-# define PLAYER_YPOS env->player.pos.y
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15

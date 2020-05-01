@@ -12,19 +12,6 @@
 
 #ifndef COLLISION_H
 # define COLLISION_H
-# define SECTOR_X1 env->vertices[env->sectors[sector].vertices[i]].x
-# define SECTOR_X2 env->vertices[env->sectors[sector].vertices[i + 1]].x
-# define SECTOR_Y1 env->vertices[env->sectors[sector].vertices[i]].y
-# define SECTOR_Y2 env->vertices[env->sectors[sector].vertices[i + 1]].y
-# define X1R env->vertices[env->sectors[wall.sector_dest].vertices[i]].x
-# define X2R env->vertices[env->sectors[wall.sector_dest].vertices[i + 1]].x
-# define Y1R env->vertices[env->sectors[wall.sector_dest].vertices[i]].y
-# define Y2R env->vertices[env->sectors[wall.sector_dest].vertices[i + 1]].y
-# define FUTURE_V0X env->vertices[env->sectors[sector_dest].vertices[0]].x
-# define FUTURE_V0Y env->vertices[env->sectors[sector_dest].vertices[0]].y
-# define VERTICES_AMOUNT env->sectors[env->player.sector].nb_vertices
-# define NEIGHBOR env->sectors[motion.sector].neighbors[i]
-# define RNEIGHBOR env->sectors[wall.sector_dest].neighbors[i]
 # include "env.h"
 
 typedef struct		s_wall

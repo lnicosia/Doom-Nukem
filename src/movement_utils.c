@@ -21,7 +21,11 @@ void	iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall, double size_2d)
 	env->sector_list[wall.sector_dest] = 1;
 	while (i < env->sectors[wall.sector_dest].nb_vertices)
 	{
-		if (hitbox_collision(new_v2(X1R, Y1R), new_v2(X2R, Y2R),
+		if (hitbox_collision(new_v2(env->vertices[env->sectors[wall.
+			sector_dest].vertices[i]].x, env->vertices[env->sectors[wall.
+			sector_dest].vertices[i]].y), new_v2(env->vertices[env->
+			sectors[wall.sector_dest].vertices[i + 1]].x, env->vertices[env->
+			sectors[wall.sector_dest].vertices[i + 1]].y),
 			new_v2(pos.x, pos.y), size_2d)
 			&& env->sectors[wall.sector_dest].neighbors[i] >= 0 &&
 			env->sector_list[env->sectors[wall.sector_dest].neighbors[i]] == 0)

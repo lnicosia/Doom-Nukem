@@ -16,10 +16,6 @@
 # include "utils.h"
 # include "editor.h"
 # include "map_parser.h"
-# define OX1 env->vertices[env->sectors[sector].vertices[i]].x
-# define OX2 env->vertices[env->sectors[sector].vertices[i + 1]].x
-# define OY1 env->vertices[env->sectors[sector].vertices[i]].y
-# define OY2 env->vertices[env->sectors[sector].vertices[i + 1]].y
 
 typedef struct			s_env
 {
