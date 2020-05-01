@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 14:34:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 17:08:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct			s_env
 	t_menu				button[NB_BUTTON];
 	t_render_vertex		skybox[5];
 	t_sound				sound;
-	t_editor 			editor;
+	t_editor			editor;
 	t_camera			fixed_camera;
 	t_projectile		projectile;
 	t_list				*projectiles;
@@ -144,7 +144,7 @@ typedef struct			s_env
 	int					objects_end;
 	int					test_time;
 	int					contains_skybox;
-	Uint32*				tmp_first_sprite;
+	Uint32				*tmp_first_sprite;
 	Uint32				press_wall_sprite_color;
 	int					press_wall_sprite_intensity;
 	char				*save_file;
@@ -370,7 +370,7 @@ void					print_event_action(t_env *env, t_event *event);
 char					*get_condition_type_str(t_condition *condition);
 void					print_event_launch_condition(t_env *env,
 t_condition *condition);
-void					print_event_exec_condition(t_env *env, 
+void					print_event_exec_condition(t_env *env,
 t_condition *condition);
 int						print_wall_sprite_sector_tab(t_env *env);
 void					print_wall_sprite_events_tab(t_env *env);
@@ -398,7 +398,7 @@ int						print_nothing_target(t_env *env, t_event *event,
 t_point pos, int size);
 int						print_sector_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
-int						print_wall_condition_target(t_env *env, 
+int						print_wall_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int						print_wall_sprite_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
@@ -410,7 +410,7 @@ int						print_vertex_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int						print_weapon_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
-int						print_enemy_condition_target(t_env *env, 
+int						print_enemy_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
 int						print_object_condition_target(t_env *env,
 t_condition *condition, t_point pos, int size);
@@ -640,15 +640,15 @@ int						change_speed(void *target);
 int						change_angle(void *target);
 int						next_selected_wall(void	*target);
 int						change_slope_direction(void	*target);
-int 					get_main_sprite(int sprite, t_env *env);
+int						get_main_sprite(int sprite, t_env *env);
 void					change_ceiling_floor_height_keyup(t_env *env);
 void					check_height_protections(t_env *env, t_sector *sector);
-int 					get_main_enemy_sprite(int sprite, t_env *env);
+int						get_main_enemy_sprite(int sprite, t_env *env);
 int						parse_ambient_music(t_env *env, t_map_parser *parser);
 int						parse_fight_music(t_env *env, t_map_parser *parser);
 
 /*
-**	prints and draw buttons for informations on a selected element 
+**	prints and draw buttons for informations on a selected element
 */
 
 int						print_floor_general_tab(t_env *env);
@@ -901,7 +901,7 @@ int						projectile_hits_wall(int collision,
 t_projectile *projectile, t_env *env);
 int						hitscan(t_env *env, int i);
 int						aoe_damage(double distance, double radius, int damage);
-int						doIntersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2);
+int						do_intersect(t_v2 p1, t_v2 q1, t_v2 p2, t_v2 q2);
 int						intersection_check(t_v2 w1, t_v2 w2, t_v2 p1, t_v2 p2);
 int						diff_value(int nb1, int nb2, int a, int b);
 int						diff_sign(double nb1, double nb2);
