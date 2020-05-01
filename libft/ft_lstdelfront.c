@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 10:40:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 10:41:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 18:59:10 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_lstdelfront(t_list **lst)
 {
-		while (*lst)
-				ft_lstpopfront(lst);
+	while (*lst)
+		ft_lstpopfront(lst);
 }

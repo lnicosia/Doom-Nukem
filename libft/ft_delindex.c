@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delindex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 14:08:42 by sipatry           #+#    #+#             */
-/*   Updated: 2019/08/26 16:01:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 18:58:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
+void	fill_current_index(void *res, void *ptr, size_t *i, size_t *j)
+{
+	((char*)res)[*i] = ((char*)ptr)[*j];
+	(*i)++;
+	(*j)++;
+}
 
 void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 {
@@ -24,7 +31,6 @@ void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 		return (NULL);
 	i = 0;
 	j = 0;
-	res =  NULL;
 	new_size = old_size - type;
 	if (!(res = malloc(new_size)))
 		return (NULL);
@@ -34,11 +40,7 @@ void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 		if (j == index)
 			j += type;
 		else
-		{
-			((char*)res)[i] = ((char*)ptr)[j];
-			i++;
-			j++;
-		}
+			fill_current_index(res, ptr, &i, &j);
 	}
 	ft_memdel(&ptr);
 	return (res);

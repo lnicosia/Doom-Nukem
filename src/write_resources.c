@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 12:20:57 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 18:21:29 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		write_sprites(int fd)
 int		write_skyboxes(int fd, int file)
 {
 	ft_printf("saving skyboxes\n");
-	ft_dprintf(fd, "SKY %d\n", MAX_SKYBOX * 6);
+	ft_dprintf(fd, "SKY %d\n", 6 * MAX_SKYBOX);
 	if (write_skybox1(fd, file))
 		return (-1);
 	if (write_skybox2(fd, file))
@@ -68,7 +68,7 @@ int		write_hud(int fd, int file)
 		return (-1);
 	if (write_hud7(fd, file))
 		return (-1);
-	return (0);	
+	return (0);
 }
 
 int		write_resources(int fd, t_env *env)
