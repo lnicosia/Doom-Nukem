@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:50:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/07/30 14:07:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 12:19:13 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	write_vertices(int fd, t_env *env)
 	i = 0;
 	while (i < env->nb_vertices)
 	{
-		ft_dprintf(fd, "%.*f %.*f\n", 
+		ft_dprintf(fd, "%.*f %.*f\n",
 		ft_min(5, get_decimal_len(env->vertices[i].y)), env->vertices[i].y,
 		ft_min(5, get_decimal_len(env->vertices[i].x)), env->vertices[i].x);
 		i++;

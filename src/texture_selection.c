@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_selection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:10:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:29:17 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:28:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	texture_tab(t_env *env, int nb_slots)
 	else
 		mod = 5;
 	while (test % mod != 0)
-		test++;	
+		test++;
 	draw_rectangle(env, new_rectangle(0, 0xFF333333, 1, 5),
 		env->editor.texture_selection_pos, env->editor.texture_selection_size);
 	i = -1;

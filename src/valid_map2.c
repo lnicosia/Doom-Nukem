@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid_map2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:45:03 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:45:03 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int			check_intersection_with_sector(t_sector sector, t_env *env,
@@ -9,9 +21,9 @@ t_vertex vt1, t_vertex vt2)
 	while (++i < sector.nb_vertices)
 	{
 		if (segments_intersect(new_v2(vt1.x, vt1.y), new_v2(vt2.x, vt2.y),
-		  	new_v2(env->vertices[sector.vertices[i]].x,
+			new_v2(env->vertices[sector.vertices[i]].x,
 			env->vertices[sector.vertices[i]].y),
-		  	new_v2(env->vertices[sector.vertices[i + 1]].x,
+			new_v2(env->vertices[sector.vertices[i + 1]].x,
 			env->vertices[sector.vertices[i + 1]].y)))
 		{
 			if ((env->vertices[sector.vertices[i]].num == vt1.num
@@ -78,7 +90,7 @@ int			is_sector_concave(t_sector sector, t_env *env)
 		return (-1);
 	i = -1;
 	while (++i < sector.nb_vertices + 2)
-	  	check_current_vertex(i, sector, p, env);
+		check_current_vertex(i, sector, p, env);
 	i = -1;
 	res = 0;
 	while (++i < sector.nb_vertices)

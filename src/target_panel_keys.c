@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 20:26:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/09 16:33:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:34:50 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ int		second_phase_keys(t_env *env, t_target_panel *panel)
 	if (button_keys(&panel->previous, env))
 		return (-1);
 	if (panel->sector_type)
-	if (button_keys(&panel->floor, env))
-		return (-1);
-	if (button_keys(&panel->ceiling, env))
-		return (-1);
-	if (button_keys(&panel->sector_other, env))
-		return (-1);
+	{
+		if (button_keys(&panel->floor, env))
+			return (-1);
+		if (button_keys(&panel->ceiling, env))
+			return (-1);
+		if (button_keys(&panel->sector_other, env))
+			return (-1);
+	}
 	return (0);
 }
 
@@ -86,7 +88,7 @@ int		third_phase_keys(t_env *env, t_target_panel *panel)
 	else
 		max = 8;
 	if (third_phase_buttons_keys(env, panel, max))
-	  	return (0);
+		return (0);
 	return (0);
 }
 

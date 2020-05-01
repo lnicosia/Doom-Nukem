@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tabs_gestion.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:26:45 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:26:46 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 /*
@@ -17,7 +29,7 @@ int		general_tab(void *target)
 	env->editor.sector_tab.anim_state = REST;
 	env->editor.events_tab.state = UP;
 	env->editor.events_tab.anim_state = REST;
-	return(0);
+	return (0);
 }
 
 int		sector_tab(void *target)

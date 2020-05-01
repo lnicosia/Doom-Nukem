@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid_map4.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:46:49 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:53:38 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 #include "valid_map.h"
 
@@ -36,15 +48,15 @@ void	compare_current_vertex(t_sector_comparer *comparer)
 	else
 		comparer->j = 0;
 	while ((comparer->j > comparer->start_v2
-	  	&& comparer->j < comparer->sect2.nb_vertices)
+		&& comparer->j < comparer->sect2.nb_vertices)
 		|| (comparer->j < comparer->start_v2))
 	{
 		if (comparer->sect1.vertices[comparer->start_v1] ==
-		  	comparer->sect2.vertices[comparer->j])
+			comparer->sect2.vertices[comparer->j])
 		{
 			comparer->start_v2 = comparer->j;
 			comparer->i++;
-			break;
+			break ;
 		}
 		if (comparer->j < comparer->sect2.nb_vertices)
 			comparer->j++;
@@ -57,10 +69,10 @@ void	compare_current_vertex(t_sector_comparer *comparer)
 **	Check if the current sector is inside another sector
 */
 
-int			compare_sectors(int start_v1, int start_v2, t_sector sect1,
+int		compare_sectors(int start_v1, int start_v2, t_sector sect1,
 t_sector sect2)
 {
-  	t_sector_comparer	comparer;
+	t_sector_comparer	comparer;
 
 	comparer.i = 0;
 	comparer.j = 0;
@@ -71,10 +83,10 @@ t_sector sect2)
 	while (comparer.start_v1 < comparer.sect1.nb_vertices)
 	{
 		if (comparer.sect1.vertices[comparer.start_v1] ==
-		  	comparer.sect2.vertices[comparer.start_v2])
+			comparer.sect2.vertices[comparer.start_v2])
 			comparer.i++;
 		else
-	  		compare_current_vertex(&comparer);
+			compare_current_vertex(&comparer);
 		if (comparer.start_v2 < comparer.sect2.nb_vertices)
 			comparer.start_v2++;
 		else
@@ -86,7 +98,7 @@ t_sector sect2)
 	return (0);
 }
 
-int			check_portals(t_sector sect1, t_sector sect2)
+int		check_portals(t_sector sect1, t_sector sect2)
 {
 	int	i;
 	int	j;
@@ -105,7 +117,7 @@ int			check_portals(t_sector sect1, t_sector sect2)
 				{
 					if (sect1.vertices[i + 1] == sect2.vertices[k]
 					&& sect1.neighbors[i] == -1)
-						return (-1);					
+						return (-1);
 					k++;
 				}
 			}
@@ -115,7 +127,7 @@ int			check_portals(t_sector sect1, t_sector sect2)
 	return (0);
 }
 
-int			check_sectors_inside(t_sector sector, int sect, t_env *env)
+int		check_sectors_inside(t_sector sector, int sect, t_env *env)
 {
 	int			i;
 	int			j;
@@ -130,16 +142,16 @@ int			check_sectors_inside(t_sector sector, int sect, t_env *env)
 		while (j < sector2.nb_vertices)
 		{
 			if (sector.vertices[i] == sector2.vertices[j])
-				break;
+				break ;
 			j++;
 		}
 		if (sector.vertices[i] == sector2.vertices[j])
-			break;
+			break ;
 		i++;
 	}
 	if (compare_sectors(i, j, sector, sector2))
 		return (-1);
 	if (check_portals(sector, sector2))
-		return(-1);
+		return (-1);
 	return (0);
 }

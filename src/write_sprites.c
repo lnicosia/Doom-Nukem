@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   write_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 11:50:11 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/10 18:27:42 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:19:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int     write_sprites1(int fd)
+int		write_sprites1(int fd)
 {
-    int file;
+	int file;
 
-    if ((file = open("./images/sprites/bullet_hole.bmp", O_RDONLY)) < 0)
+	if ((file = open("./images/sprites/bullet_hole.bmp", O_RDONLY)) < 0)
 		return (ft_printf("Could not open bullet hole bmp\n"));
 	if (writing_bmp(file, fd, "./images/sprites/bullet_hole.bmp"))
 		return (-1);
@@ -39,7 +39,7 @@ int     write_sprites1(int fd)
 	return (0);
 }
 
-int     write_sprites2(int fd)
+int		write_sprites2(int fd)
 {
 	int file;
 
@@ -62,7 +62,7 @@ int     write_sprites2(int fd)
 	return (0);
 }
 
-int     write_sprites3(int fd)
+int		write_sprites3(int fd)
 {
 	int file;
 

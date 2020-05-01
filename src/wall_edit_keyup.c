@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wall_edit_keyup.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 12:00:52 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 12:00:53 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		wall_edit_keyup2(t_env *env)
@@ -20,18 +32,18 @@ int		wall_edit_keyup2(t_env *env)
 		&& env->editor.selected_wall_sprite == -1)
 	{
 		if (change_textures_scales_keyup(env))
-				return (-1);
+			return (-1);
 	}
 	if (slopes_keyup(env))
 		return (-1);
-	return (0); 
+	return (0);
 }
 
 int		wall_edit_keyup(t_env *env)
 {
 	if (env->options.editor_options)
 		return (0);
-	if ((env->selected_ceiling != -1|| env->selected_floor != -1)
+	if ((env->selected_ceiling != -1 || env->selected_floor != -1)
 		&& (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_MINUS))
 		change_ceiling_floor_height_keyup(env);

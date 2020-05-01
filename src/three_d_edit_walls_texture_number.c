@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_walls_texture_number.c                     :+:      :+:    :+:   */
+/*   three_d_edit_walls_texture_number.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:36:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/17 17:02:26 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 11:34:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		decrease_wall_texture_number(t_env *env, t_sector *sector)
 			ceiling_texture < MAX_WALL_TEXTURE - 10)
 			env->sectors[env->selected_ceiling].ceiling_texture -= 10;
 		else if (env->sectors[env->selected_ceiling].
-		  	ceiling_texture < MAX_WALL_TEXTURE - 1)
+			ceiling_texture < MAX_WALL_TEXTURE - 1)
 			env->sectors[env->selected_ceiling].ceiling_texture--;
 	}
 	return (decrease_wall_texture_number2(env, sector));

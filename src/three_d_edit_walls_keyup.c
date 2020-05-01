@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_walls_keyup.c                              :+:      :+:    :+:   */
+/*   three_d_edit_walls_keyup.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:45:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 13:56:13 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:34:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		slopes_keyup(t_env *env)
 		if (env->inputs.ctrl
 		&& (env->sdl.event.key.keysym.sym == SDLK_RIGHT
 		|| env->sdl.event.key.keysym.sym == SDLK_LEFT)
-		&& (env->selected_ceiling != -1 || env->selected_floor !=-1))
+		&& (env->selected_ceiling != -1 || env->selected_floor != -1))
 		{
 			if (change_slope_start(env))
 				return (-1);

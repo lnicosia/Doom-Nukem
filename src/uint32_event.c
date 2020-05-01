@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   uint32_event.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:36:21 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:36:22 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		uint32_incr_event(t_event *curr, Uint32 *target)
@@ -51,13 +63,13 @@ int		uint32_event(t_event *curr)
 	time = time == 0 ? 1 : time;
 	if (curr->mod_type == FIXED)
 	{
-	  	if (uint32_fixed_event(curr, target, time))
-		  	return (1);
+		if (uint32_fixed_event(curr, target, time))
+			return (1);
 	}
 	else
 	{
-	  	if (uint32_incr_event(curr, target))
-		  	return (1);
+		if (uint32_incr_event(curr, target))
+			return (1);
 	}
 	return (0);
 }

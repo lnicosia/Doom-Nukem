@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_walls_keys.c                               :+:      :+:    :+:   */
+/*   three_d_edit_walls_keys.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:02:17 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 13:35:38 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:34:09 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ int		change_walls_texture(t_env *env)
 	return (0);
 }
 
-
 int		change_slopes(t_env *env)
 {
-	if (env->editor.key_delay >INPUT_DELAY
+	if (env->editor.key_delay > INPUT_DELAY
 	|| env->editor.keyup_allowed)
 	{
 		if (env->inputs.plus
@@ -72,8 +71,8 @@ int		slope_keys(t_env *env)
 		}
 		if (env->inputs.ctrl &&
 		(env->inputs.left || env->inputs.right)
-		&& (env->selected_ceiling != -1 || env->selected_floor !=-1))
-			if(change_slope_start(env))
+		&& (env->selected_ceiling != -1 || env->selected_floor != -1))
+			if (change_slope_start(env))
 				return (-1);
 	}
 	return (0);

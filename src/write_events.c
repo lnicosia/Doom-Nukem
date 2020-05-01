@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:15:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 11:33:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 12:11:53 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	write_wall_sprites_events(int fd, t_sector sector,
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
-	  	write_current_wall_sprites_events(fd, sector, writers, i);
+		write_current_wall_sprites_events(fd, sector, writers, i);
 		i++;
 	}
 }
@@ -34,13 +34,12 @@ void (*writers[])(int, t_event), int i)
 	if (env->enemies[i].nb_death_events > 0
 		&& env->enemies[i].death_events)
 	{
-		j = 0;
-		while (j < env->enemies[i].nb_death_events)
+		j = -1;
+		while (++j < env->enemies[i].nb_death_events)
 		{
 			ft_dprintf(fd, "[6 (%d)][%d", i,
 			env->enemies[i].death_events[j].target_index);
 			write_event(fd, env->enemies[i].death_events[j], writers);
-			j++;
 		}
 	}
 	if (env->enemies[i].nb_collision_events > 0
@@ -65,7 +64,7 @@ void (*writers[])(int, t_event))
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-	  	write_enemy_events(fd, env, writers, i);
+		write_enemy_events(fd, env, writers, i);
 		i++;
 	}
 }

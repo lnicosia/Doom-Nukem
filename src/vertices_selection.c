@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_selection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 17:18:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:49:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_sector_order(t_env *env)
 				env->editor.reverted =
 				get_clockwise_order_sector(env, i) ? 0 : 1;
 				revert_sector(&env->sectors[i], env);
-				break;
+				break ;
 			}
 			j++;
 		}
@@ -52,7 +52,7 @@ int		check_click(t_env *env)
 	click_vertex = -1;
 	ret = is_new_dragged_vertex_valid(env, env->editor.selected_vertex);
 	if (ret == -1)
-	  	return (-1);
+		return (-1);
 	if (((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || !ret)
 		&& (click_vertex != env->vertices[env->editor.selected_vertex].num))
 		reset_vertex(env);
@@ -73,7 +73,7 @@ int		vertices_selection(t_env *env)
 {
 	if (!(!env->inputs.left_click && env->editor.dragged_vertex != -1
 		&& env->sdl.mx >= 400))
-	  	return (0);
+		return (0);
 	if (check_click(env))
 		return (-1);
 	check_sector_order(env);

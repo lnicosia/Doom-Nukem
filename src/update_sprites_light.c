@@ -6,13 +6,13 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 13:45:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 15:10:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:39:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void    update_enemy_light(t_env *env, int i)
+void	update_enemy_light(t_env *env, int i)
 {
 	env->enemies[i].sector = get_sector_no_z_origin(env, env->enemies[i].pos,
 	env->enemies[i].sector);
@@ -33,7 +33,7 @@ void    update_enemy_light(t_env *env, int i)
 	}
 }
 
-void    update_object_light(t_env *env, int i)
+void	update_object_light(t_env *env, int i)
 {
 	env->objects[i].sector = get_sector_no_z_origin(env, env->objects[i].pos,
 	env->objects[i].sector);

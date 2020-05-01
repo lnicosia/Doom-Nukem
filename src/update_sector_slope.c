@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_sector_slope.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:39:08 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:39:09 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	compute_current_wall_slope2(int i, t_sector *sector, t_env *env)
@@ -26,7 +38,7 @@ void	compute_current_wall_slope(int i, t_sector *sector, t_env *env)
 		sector->floors[i] = get_floor_at_pos(sector,
 			new_v3(v1.x, v1.y, 0), env);
 	else
-		 sector->floors[i] = sector->floor;
+		sector->floors[i] = sector->floor;
 	if (sector->ceiling_slope != 0)
 		sector->ceilings[i] = get_ceiling_at_pos(sector,
 			new_v3(v1.x, v1.y, 0), env);
@@ -49,7 +61,7 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 	i = 0;
 	while (i < sector->nb_vertices)
 	{
-	  	compute_current_wall_slope(i, sector, env);
+		compute_current_wall_slope(i, sector, env);
 		i++;
 	}
 	sector->floors[i] = sector->floors[0];

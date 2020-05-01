@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_function.c                                 :+:      :+:    :+:   */
+/*   three_d_edit_function.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:25:50 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/20 14:13:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 11:29:55 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		increase_walls_texture_scale(t_env *env)
 	{
 		if (increase_ceiling_texture_scale(env))
 			return (-1);
-		
 	}
 	if (env->editor.selected_wall != -1)
 	{
@@ -50,7 +49,6 @@ int		reduce_walls_texture_scale(t_env *env)
 		if (reduce_wall_texture_scale(env))
 			return (-1);
 	}
-
 	return (0);
 }
 
@@ -94,7 +92,7 @@ void	update_height_for_entities(t_env *env, t_sector *sector)
 		sector->floor_slope -= 0.01;
 }
 
-void	check_height_protections(t_env * env, t_sector *sector)
+void	check_height_protections(t_env *env, t_sector *sector)
 {
 	if (env->editor.key_delay > INPUT_DELAY
 	|| env->editor.keyup_allowed)

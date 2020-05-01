@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_keyup_functions.c                          :+:      :+:    :+:   */
+/*   three_d_edit_keyup_functions.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 15:23:49 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/25 11:35:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 11:30:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	change_floor_height_keyup(t_env *env)
 	sector = &env->sectors[env->selected_floor];
 	if (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS && !env->inputs.ctrl)
 		env->sectors[env->selected_floor].floor += 0.1;
-	else if (env->sdl.event.key.keysym.sym == SDLK_KP_MINUS && !env->inputs.ctrl)
-		env->sectors[env->selected_floor].floor -= 0.1;	
+	else if (env->sdl.event.key.keysym.sym == SDLK_KP_MINUS
+		&& !env->inputs.ctrl)
+		env->sectors[env->selected_floor].floor -= 0.1;
 	check_height_protections(env, sector);
 	update_sector_slope(env, sector);
 }
@@ -45,8 +46,8 @@ void	change_ceiling_floor_height_keyup(t_env *env)
 	if (env->editor.keyup_allowed)
 	{
 		if (env->selected_ceiling != -1)
-		  	change_ceiling_height_keyup(env);
+			change_ceiling_height_keyup(env);
 		else if (env->selected_floor != -1)
-		  	change_floor_height_keyup(env);
+			change_floor_height_keyup(env);
 	}
 }

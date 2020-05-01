@@ -282,6 +282,7 @@ void				condition_weapon_writer(int fd, t_condition condition);
 void				condition_object_writer(int fd, t_condition condition);
 void				condition_event_writer(int fd, t_condition condition);
 void				write_event_conditions(int fd, t_event event);
+void				write_event_link(int fd, t_condition condition);
 void				init_event_conditions_writers(void (*writers[])(int,
 t_condition));
 

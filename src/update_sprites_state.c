@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_state.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 11:48:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:40:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	update_walls_sprites_state(t_env *env)
 		j = 0;
 		while (j < env->sectors[i].nb_vertices)
 		{
-		  	update_wall_sprites_state(i, j, &env->sectors[i], env);
+			update_wall_sprites_state(i, j, &env->sectors[i], env);
 			j++;
 		}
 		i++;

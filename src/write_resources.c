@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_resources.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 11:45:09 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:20:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		write_resources(int fd, t_env *env)
 {
 	int file;
 
-	(void)env;
 	file = 0;
 	if (write_textures(fd, env))
 		return (-1);

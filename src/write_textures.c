@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:16:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 12:14:59 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:17:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		write_textures1(int fd)
 {
 	int		file;
-	
+
 	if ((file = open("./images/textures/wall0.bmp", O_RDONLY)) < 0)
 		return (ft_printf("Could not open texture\n"));
 	if (writing_bmp(file, fd, "./images/textures/wall0.bmp"))
@@ -43,7 +43,7 @@ int		write_textures1(int fd)
 int		write_textures2(int fd)
 {
 	int		file;
-	
+
 	if ((file = open("images/textures/floor1.bmp", O_RDONLY)) < 0)
 		return (ft_printf("Could not open texture\n"));
 	if (writing_bmp(file, fd, "images/textures/floor1.bmp"))
@@ -70,7 +70,7 @@ int		write_textures2(int fd)
 int		write_textures3(int fd)
 {
 	int		file;
-	
+
 	if ((file = open("images/textures/grass2.bmp", O_RDONLY)) < 0)
 		return (ft_printf("Could not open texture\n"));
 	if (writing_bmp(file, fd, "images/textures/grass2.bmp"))

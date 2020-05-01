@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_screen_zbuffer.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:37:27 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:38:44 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 void	set_zbuffer_pixel_color(int x, int y, double max_z, t_env *env)
@@ -37,8 +49,8 @@ void	set_zbuffer_colors(t_env *env)
 		while (x < env->w)
 		{
 			if ((y <= 300 && x < env->w - 300) || y > 300
-			  	|| env->editor.in_game || !env->options.show_minimap)
-		  		set_zbuffer_pixel_color(x, y, max_z, env);
+				|| env->editor.in_game || !env->options.show_minimap)
+				set_zbuffer_pixel_color(x, y, max_z, env);
 			x++;
 		}
 		y++;
@@ -53,7 +65,7 @@ void	update_screen_zbuffer(t_env *env)
 {
 	set_zbuffer_colors(env);
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels,
-	  	env->w * sizeof(Uint32)))
+		env->w * sizeof(Uint32)))
 	{
 		ft_printf("Failed to update screen: %s\n", SDL_GetError());
 		return ;

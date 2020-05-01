@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_sprites_keyup.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:02:27 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 17:48:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:07:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int		check_texture_scale(t_env *env, t_v2 *scale)
 		&& (scale->y >= 0.1 && scale->y <= 100.0))
 	{
 		if ((env->inputs.minus1 && scale->x / 1.1 < 0.1)
-		|| (env->sdl.event.key.keysym.sym == SDLK_MINUS
+			|| (env->sdl.event.key.keysym.sym == SDLK_MINUS
 			&& scale->x / 1.1 < 0.1)
-		|| (env->sdl.event.key.keysym.sym == SDLK_EQUALS
+			|| (env->sdl.event.key.keysym.sym == SDLK_EQUALS
 			&& scale->x * 1.1 > 100)
-		|| (env->inputs.equals && scale->x * 1.1 > 100.0))
+			|| (env->inputs.equals && scale->x * 1.1 > 100.0))
 			return (0);
 		if ((env->inputs.minus1 && scale->y / 1.1 < 0.1)
-		|| (env->inputs.equals && scale->y * 1.1 > 100.0))
+			|| (env->inputs.equals && scale->y * 1.1 > 100.0))
 			return (0);
 	}
 	return (1);
@@ -73,15 +73,8 @@ void	wall_sprites_keyup2(t_env *env, t_v2 *pos, t_v2 *scale)
 	if (env->sdl.event.key.keysym.sym == SDLK_EQUALS
 		&& check_texture_scale(env, scale))
 	{
-		if (env->inputs.shift && !env->inputs.ctrl)
-		{
-			scale->x *= 1.1;
-			scale->y *= 1.1;
-		}
-		else if (env->inputs.ctrl)
-			scale->y *= 1.1;
-		else
-			scale->x *= 1.1;
+		scale->x *= env->inputs.shift || !env->inputs.ctrl ? 1.1 : 0;
+		scale->y *= env->inputs.shift || env->inputs.ctrl ? 1.1 : 0;
 	}
 	wall_sprites_keyup3(env, scale);
 }
@@ -89,7 +82,7 @@ void	wall_sprites_keyup2(t_env *env, t_v2 *pos, t_v2 *scale)
 void	wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale)
 {
 	if (!env->editor.keyup_allowed)
-	  	return ;
+		return ;
 	if (env->sdl.event.key.keysym.sym == SDLK_COMMA
 		&& check_sprite_pos(pos))
 	{

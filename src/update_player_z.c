@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_z.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 12:13:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/03 18:44:49 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:37:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	update_player_z(t_env *env)
 	}
 	else
 	{
-	  	update_player_z_flying(env);
+		update_player_z_flying(env);
 	}
 }

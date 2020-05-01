@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 15:34:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:47:30 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			check_vertices(t_sector sector, t_env *env)
 	if (is_sector_concave(sector, env))
 		return (ft_printf("Sector %d is concave\n", sector.num));
 	if (check_neighbor_validity(sector, env))
-		return(ft_printf("Sector %d has a invalid neighbor\n", sector.num));	
+		return (ft_printf("Sector %d has a invalid neighbor\n", sector.num));
 	return (0);
 }
 
@@ -67,7 +67,7 @@ int			check_sector(t_sector sector, t_env *env)
 	if (is_inside(sector, env))
 		return (ft_printf("Sector %d is inside or contains a sector\n",
 		sector.num));
-	if (check_vertices(sector, env))
+		if (check_vertices(sector, env))
 		return (ft_printf("Vertices invalid\n"));
 	if (check_slopes_start(sector))
 		return (ft_printf("slope direction isn't valid\n"));
@@ -96,7 +96,6 @@ int			valid_map(t_env *env)
 		return (ft_printf("Player position is not valid{reset}\n"));
 	while (i < env->nb_sectors)
 	{
-
 		if (check_sector(env->sectors[i], env))
 			return (ft_printf("Sector %d was not valid\n", i));
 		i++;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   target_panel_keyup.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:28:05 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:28:06 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
 
 int		first_phase_keyup(t_env *env, t_target_panel *panel)
@@ -73,7 +85,7 @@ int		third_phase_keyup(t_env *env, t_target_panel *panel)
 	else
 		max = 8;
 	if (third_phase_buttons_keyup(env, panel, max))
-	  	return (-1);
+		return (-1);
 	return (0);
 }
 

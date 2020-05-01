@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   weapons.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 15:07:34 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/11 19:07:49 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:10:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void    print_ammo(t_env *env)
+void	print_ammo(t_env *env)
 {
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d/%d",
 	env->weapons[env->player.curr_weapon].ammo,
@@ -51,7 +51,7 @@ int		next_weapon_wheel_up(t_env *env)
 
 int		next_weapon_wheel_down(t_env *env)
 {
-	int  i;
+	int		i;
 
 	i = (env->player.curr_weapon == 0) ? NB_WEAPONS - 1 :
 		env->player.curr_weapon - 1;

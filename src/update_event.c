@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_event.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 11:36:42 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:36:42 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_conditions.h"
 
 int		set_event_type2(t_event *event)
@@ -38,7 +50,7 @@ int		set_event_type(t_event *event)
 			event->incr = -event->incr;
 	}
 	else if (event->type == UINT32)
-	  	return (set_event_type2(event));
+		return (set_event_type2(event));
 	return (0);
 }
 
@@ -48,7 +60,7 @@ int		update_event(t_event *event)
 		return (0);
 	event->incr = (event->speed / 1000);
 	if (set_event_type(event))
-	  	return (0);
+		return (0);
 	event->start_time = SDL_GetTicks();
 	event->last_tick = event->start_time;
 	event->total = 0;

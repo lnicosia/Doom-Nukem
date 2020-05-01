@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_left_walls_texture_align.c                 :+:      :+:    :+:   */
+/*   three_d_edit_left_walls_texture_align.c            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/13 17:01:55 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/19 16:47:51 by sipatry          ###   ########.fr       */
+/*   Created: 2020/05/01 11:30:53 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 11:32:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 int		left_ceiling_texture_alignement(t_env *env)
 {
 	if (env->inputs.shift && !env->inputs.ctrl
-	&& env->sectors[env->selected_ceiling].ceiling_map_align.y  > -1000
-	&& env->sectors[env->selected_ceiling].ceiling_map_align.x  > -1000)
+		&& env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000
+		&& env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000)
 	{
 		env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
 		env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 	}
 	else if (env->inputs.ctrl
-	&&env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000)
+		&& env->sectors[env->selected_ceiling].ceiling_map_align.y > -1000)
 		env->sectors[env->selected_ceiling].ceiling_map_align.y -= 1;
-	else if (env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000 )
+	else if (env->sectors[env->selected_ceiling].ceiling_map_align.x > -1000)
 		env->sectors[env->selected_ceiling].ceiling_map_align.x -= 1;
 	if (set_sector_ceiling_map_array(&env->sectors[env->selected_ceiling],
 	&env->wall_textures[env->sectors[env->selected_ceiling].ceiling_texture],
@@ -36,8 +36,8 @@ int		left_ceiling_texture_alignement(t_env *env)
 int		left_floor_texture_alignement(t_env *env)
 {
 	if (env->inputs.shift && !env->inputs.ctrl
-	&& env->sectors[env->selected_floor].floor_map_align.y  > -1000
-	&& env->sectors[env->selected_floor].floor_map_align.x  > -1000)
+		&& env->sectors[env->selected_floor].floor_map_align.y > -1000
+		&& env->sectors[env->selected_floor].floor_map_align.x > -1000)
 	{
 		env->sectors[env->selected_floor].floor_map_align.y -= 1;
 		env->sectors[env->selected_floor].floor_map_align.x -= 1;
@@ -45,7 +45,7 @@ int		left_floor_texture_alignement(t_env *env)
 	else if (env->inputs.ctrl
 	&& env->sectors[env->selected_floor].floor_map_align.y > -1000)
 		env->sectors[env->selected_floor].floor_map_align.y -= 1;
-	else if (env->sectors[env->selected_floor].floor_map_align.x > -1000 )
+	else if (env->sectors[env->selected_floor].floor_map_align.x > -1000)
 		env->sectors[env->selected_floor].floor_map_align.x -= 1;
 	if (set_sector_floor_map_array(&env->sectors[env->selected_floor],
 	&env->wall_textures[env->sectors[env->selected_floor].floor_texture],
@@ -58,9 +58,9 @@ void	left_wall_texture_alignement(t_env *env)
 {
 	if (env->inputs.shift && !env->inputs.ctrl
 	&& env->sectors[env->editor.selected_sector].
-	align[env->editor.selected_wall].y  > -1000
+	align[env->editor.selected_wall].y > -1000
 	&& env->sectors[env->editor.selected_sector].
-	align[env->editor.selected_wall].x  > -1000)
+	align[env->editor.selected_wall].x > -1000)
 	{
 		env->sectors[env->editor.selected_sector].
 		align[env->editor.selected_wall].y -= 1;
@@ -68,12 +68,12 @@ void	left_wall_texture_alignement(t_env *env)
 		align[env->editor.selected_wall].x -= 1;
 	}
 	else if (env->inputs.ctrl
-	&& env->sectors[env->editor.selected_sector].
-	align[env->editor.selected_wall].y > -1000)
+		&& env->sectors[env->editor.selected_sector].
+		align[env->editor.selected_wall].y > -1000)
 		env->sectors[env->editor.selected_sector].
 		align[env->editor.selected_wall].y -= 1;
 	else if (env->sectors[env->editor.selected_sector].
-	align[env->editor.selected_wall].x > -1000 )
+		align[env->editor.selected_wall].x > -1000)
 		env->sectors[env->editor.selected_sector].
 		align[env->editor.selected_wall].x -= 1;
 }

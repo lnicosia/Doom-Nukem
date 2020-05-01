@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write_events2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 12:11:19 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 12:11:29 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_parser.h"
 
 void	write_fixed_event(int fd, t_event event)
@@ -41,9 +53,9 @@ void	write_event(int fd, t_event event, void (*writers[])(int, t_event))
 	ft_dprintf(fd, "]");
 	ft_dprintf(fd, "[%d ", event.mod_type);
 	if (event.mod_type == FIXED)
-	  	write_fixed_event(fd, event);
+		write_fixed_event(fd, event);
 	else if (event.mod_type == INCR)
-	  	write_incr_event(fd, event);
+		write_incr_event(fd, event);
 	write_event_conditions(fd, event);
 	ft_dprintf(fd, "[%d %d]\n", (int)event.delay, event.max_uses);
 }
@@ -84,8 +96,8 @@ void	write_current_wall_sprites_events(int fd, t_sector sector,
 	int		j;
 	size_t	k;
 
-	j = 0;
-	while (j < sector.wall_sprites[i].nb_sprites)
+	j = -1;
+	while (++j < sector.wall_sprites[i].nb_sprites)
 	{
 		k = 0;
 		while (k < sector.wall_sprites[i].nb_press_events[j])
@@ -105,6 +117,5 @@ void	write_current_wall_sprites_events(int fd, t_sector sector,
 			writers);
 			k++;
 		}
-		j++;
 	}
 }
