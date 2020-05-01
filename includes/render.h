@@ -138,7 +138,7 @@ typedef struct		s_sprite_drawer
 	t_texture		*texture;
 	t_sprite		*sprite;
 	t_sector		*sector;
-	7int				x;
+	int				x;
 	int				y;
 	int				xend;
 	int				yend;
