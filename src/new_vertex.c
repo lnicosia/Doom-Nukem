@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 
 int		new_vertex(t_env *env, int clicked_vertex)
 {

@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 #include "collision.h"
+#include "events.h"
 
 int		doom4(t_env *env)
 {

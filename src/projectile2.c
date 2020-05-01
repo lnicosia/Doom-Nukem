@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 #include "collision.h"
 
 void	projectile_coord(t_v3 pos, t_projectile *projectile,

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "pop_events.h"
+#include "events.h"
 
 int		func_event(t_event *curr, t_env *env)
 {

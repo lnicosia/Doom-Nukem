@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_conditions.h"
+#include "events.h"
 
 int		set_event_type2(t_event *event)
 {

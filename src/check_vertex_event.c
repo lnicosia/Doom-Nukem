@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "events_protection.h"
 
 int		check_sectors_containing_moving_vertex_x(double prec, t_event *event,
 t_env *env)

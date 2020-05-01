@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 
 void	set_enemy_height_on_floor(t_enemy *enemy)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 
 int		set_dialog_event_text(void *param)
 {

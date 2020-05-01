@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
+#include "init.h"
 
 void		get_new_floor_and_ceiling(t_env *env)
 {

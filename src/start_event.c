@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_conditions.h"
+#include "events.h"
 
 int		is_queued(t_list *queued_values, void *target)
 {

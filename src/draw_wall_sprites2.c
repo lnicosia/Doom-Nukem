@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include "events.h"
 
 void	init_drawer(t_drawer *drawer, int sprite, t_render *render, t_env *env)
 {

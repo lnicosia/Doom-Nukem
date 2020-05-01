@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 #include "collision.h"
 
 int		init_game5(t_env *env)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "save.h"
 
 int		write_skybox1(int fd, int file)
 {

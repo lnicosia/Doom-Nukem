@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 #include "wall_sprite_remover.h"
 
 int		add_ceiling_hitscan_bullet_hole3(t_sector *sector, t_env *env)

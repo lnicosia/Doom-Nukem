@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "save.h"
 #include "bmp_parser.h"
 
 int		writing_bmp(int file, int fd, char *name)

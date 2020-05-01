@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 
 int		projectile_on_wall_sprite(t_v2 pos, t_sector *sector, int wall,
 		t_env *env)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 #include "collision.h"
 
 void	iter_sectors_rec(t_env *env, t_v3 pos, t_wall wall, double size_2d)

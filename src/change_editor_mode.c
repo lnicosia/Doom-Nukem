@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
+#include "init.h"
 
 int		going_in_3d_mode(t_env *env)
 {

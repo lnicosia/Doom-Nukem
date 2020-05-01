@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
+#include "init.h"
 #include "collision.h"
 
 void		respawn_entities(void *param)

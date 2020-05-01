@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 
 int		update_sector_data(t_env *env, int start, int end, t_sector *sector)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 #include "collision.h"
 
 int		projectile_collision_line_with_current_wall(t_env *env,

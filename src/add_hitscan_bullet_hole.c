@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 #include "wall_sprite_remover.h"
 
 static void	init_param(t_sector *sector, int i, t_wall_sprite_remover *param,

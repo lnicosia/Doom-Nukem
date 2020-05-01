@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 #include "map_parser.h"
 
 int		init_object_sprites(t_env *env)

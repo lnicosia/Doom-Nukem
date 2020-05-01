@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 #include "collision.h"
 
 int		launch_events3(t_env *env)
