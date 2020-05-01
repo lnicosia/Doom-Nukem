@@ -6,12 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 18:01:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 18:01:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 14:10:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WALL_SPRITE_REMOVER
-# define WALL_SPRITE_REMOVER
+#ifndef WALL_SPRITE_REMOVER_H
+# define WALL_SPRITE_REMOVER_H
 
 typedef struct		s_wall_sprite_remover
 {

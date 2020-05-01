@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:41:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 11:09:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 14:04:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER2_H
-# define RENDER2_H
+#ifndef RENDER_H
+# define RENDER_H
 # include "env.h"
 
 typedef struct		s_vline
@@ -100,8 +100,8 @@ typedef struct		s_render
 
 typedef struct		s_drawer
 {
-  	t_vline			vline;
-  	double			x;
+	t_vline			vline;
+	double			x;
 	double			y;
 	double			sprite_x;
 	double			sprite_y;
@@ -138,7 +138,7 @@ typedef struct		s_sprite_drawer
 	t_texture		*texture;
 	t_sprite		*sprite;
 	t_sector		*sector;
-  	int				x;
+	7int				x;
 	int				y;
 	int				xend;
 	int				yend;
@@ -314,7 +314,7 @@ int					render_sector(t_render render, t_env *env);
 void				draw_ceiling(t_sector *sector, t_render *render,
 t_env *env);
 void				draw_vline_ceiling(t_sector *sector, t_vline vline,
-t_render	 *render, t_env *env);
+t_render *render, t_env *env);
 void				draw_vline_ceiling_color(t_sector *sector, t_vline vline,
 t_render *render, t_env *env);
 void				draw_vline_ceiling_brightness(t_sector *sector,

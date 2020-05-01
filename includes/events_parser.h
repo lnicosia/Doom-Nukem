@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_parser.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:45:00 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 13:59:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef enum		e_events_targets
 	SECTOR_WALL_TEXTURE,
 	SECTOR_WALL_ALIGN_X,
 	SECTOR_WALL_ALIGN_Y,
-	SECTOR_WALL_SCALE_X,	
+	SECTOR_WALL_SCALE_X,
 	SECTOR_WALL_SCALE_Y,
 	SECTOR_WALL_PORTAL,
 	SECTOR_WALL_SPRITES_SPRITE,
@@ -117,7 +117,7 @@ typedef struct		s_events_parser
 	int				target_enemy;
 	int				target_weapon;
 	int				target_object;
-	char*			target_str;
+	char			*target_str;
 	int				target_index;
 	int				target_type;
 	int				source_type;
@@ -183,7 +183,8 @@ void				init_events_parser_target_parsers(t_events_parser *eparser);
 void				init_events_parser_target_types(t_events_parser *eparser);
 void				init_events_parser_checkers(t_events_parser *eparser);
 void				init_events_parser_updaters(t_events_parser *eparser);
-void				init_events_parser_links_protection(t_events_parser *eparser);
+void				init_events_parser_links_protection(
+	t_events_parser *eparser);
 void				init_events_parser_var(t_events_parser *eparser);
 int					new_parser_global_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
@@ -215,7 +216,7 @@ int					intersects_with_wall(t_sector *sector, t_v3 pos, int wall,
 t_env *env);
 int					intersects_with_wall_no_portal_check(t_sector *sector,
 t_v3 pos, int wall, t_env *env);
-int					intersects_with_sector(t_sector *sector, t_v3 pos, 
+int					intersects_with_sector(t_sector *sector, t_v3 pos,
 t_env *env);
 int					pos_changed_sector(t_env *env, t_sector *sector,
 t_point data, t_v3 pos);
@@ -274,7 +275,8 @@ void				condition_sector_writer(int fd, t_condition condition);
 void				condition_enemy_writer(int fd, t_condition condition);
 void				condition_wall_sprite_writer(int fd, t_condition condition);
 void				condition_wall_writer(int fd, t_condition condition);
-void				condition_floor_sprite_writer(int fd, t_condition condition);
+void				condition_floor_sprite_writer(int fd,
+t_condition condition);
 void				condition_ceiling_sprite_writer(int fd,
 t_condition condition);
 void				condition_vertex_writer(int fd, t_condition condition);

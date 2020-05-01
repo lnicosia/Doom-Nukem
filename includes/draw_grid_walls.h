@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_grid_walls.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 13:47:36 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 13:47:37 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DRAW_GRID_WALLS_H
 # define DRAW_GRID_WALLS_H
 
@@ -8,7 +20,7 @@ typedef struct	s_grid_wall_drawer
 	t_point		text_size;
 	t_sector	*sector;
 	Uint32		color;
-  	int			i;
+	int			i;
 	int			nb_angles;
 	int			font_size;
 

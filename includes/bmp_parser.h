@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 13:48:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/31 12:08:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 13:39:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define FALSE 0
 # include "env.h"
 
-typedef struct	s_bmp_parser
+typedef struct		s_bmp_parser
 {
 	int32_t			size;
 	int32_t			start;
@@ -35,7 +35,7 @@ typedef struct	s_bmp_parser
 	int				ret;
 	int				index;
 	int				skybox_index;
-}				t_bmp_parser;
+}					t_bmp_parser;
 
 int32_t				read_int32(unsigned char *str, int index);
 int32_t				read_int16(unsigned char *str, int index);
