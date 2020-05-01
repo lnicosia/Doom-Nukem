@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		get_target_selection_phase(t_target_panel *panel)
 {

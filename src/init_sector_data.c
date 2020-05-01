@@ -12,6 +12,7 @@
 
 #include "map_parser.h"
 #include "env.h"
+#include "parser.h"
 
 int		init_sector_data3(t_env *env, t_map_parser *parser)
 {

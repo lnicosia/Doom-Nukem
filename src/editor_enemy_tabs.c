@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 int		print_enemy_sector_tab2(t_env *env)
 {

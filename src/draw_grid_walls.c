@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "draw_grid_walls.h"
+#include "draw.h"
 
 void	draw_current_wall(int i, t_grid_wall_drawer *drawer, t_env *env)
 {

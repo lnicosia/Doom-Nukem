@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "init.h"
+#include "events.h"
 
 void	init_ok_button(t_env *env)
 {

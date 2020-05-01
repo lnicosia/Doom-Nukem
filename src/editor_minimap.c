@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "draw_grid_walls.h"
+#include "draw.h"
 
 void	draw_enemy_minimap(int i, t_enemy *enemy, t_sprite *sprite, t_env *env)
 {

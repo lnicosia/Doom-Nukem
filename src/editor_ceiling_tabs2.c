@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
 #include "env.h"
 
 int		print_ceiling_sprite_tab2(t_env *env)

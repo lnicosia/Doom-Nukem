@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 int		print_floor_sprite_tab2(t_env *env)
 {

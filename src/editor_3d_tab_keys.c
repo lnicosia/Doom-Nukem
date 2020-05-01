@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		general_tab_keys(t_env *env)
 {

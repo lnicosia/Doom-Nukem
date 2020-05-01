@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	weapon_animation2(t_env *env, int nb)
 {

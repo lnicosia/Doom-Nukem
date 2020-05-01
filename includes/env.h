@@ -184,49 +184,6 @@ typedef struct			s_env
 */
 
 /*
-**	Parsing functions
-*/
-
-int						parse_vertices(t_env *env, t_map_parser *parser);
-int						parse_sectors(t_env *env, t_map_parser *parser);
-int						parse_floor_sprites(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_ceiling_sprites(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_objects(t_env *env, t_map_parser *parser);
-int						parse_object_pos(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_object_sprite(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_enemies(t_env *env, t_map_parser *parser);
-int						parse_enemy_pos(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_enemy_sprite(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_enemy_data(t_env *env, char **line,
-t_map_parser *parser);
-int						parse_events(t_env *env, t_map_parser *parser);
-int						parse_player(t_env *env, t_map_parser *parser);
-int						parse_resources(t_env *env, t_map_parser *parser);
-int						check_vertices_uniqueness(t_sector sector);
-int						check_sector_duplicate(t_env *env, t_sector sector,
-		int num);
-int						valid_number(char *line, t_map_parser *parser);
-int						valid_int(char *line, t_map_parser *parser);
-int						valid_double(char *line, t_map_parser *parser);
-int						valid_hexa(char *line, t_map_parser *parser);
-int						count_vertices(char *line, t_map_parser *parser);
-int						count_neighbors(char *line, t_map_parser *parser);
-int						count_portals(char *line, t_map_parser *parser);
-int						count_textures(char *line, t_map_parser *parser);
-int						count_sprites(char *line, t_map_parser *parser);
-int						count_wall_sprites(char *line, t_map_parser *parser);
-int						count_floor_sprites(char *line, t_map_parser *parser);
-int						parse_sound(t_env *env, t_map_parser *parser);
-int						parse_bmp_file(t_env *env, t_map_parser *parser);
-int						parse_font_file(t_env *env, t_map_parser *parser);
-
-/*
 **	Protection
 */
 
@@ -253,14 +210,12 @@ int						mipmapping_option(void *param);
 int						editor(t_env *env);
 int						editor_2d(t_env *env);
 void					zoom(t_env *env);
-int						draw_editor_tabs(t_env *env);
 void					print_events_tab(t_env *env);
 void					print_event_selection(t_env *env, size_t nb);
 void					wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void					wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
 void					editor_wall_sprites_keyup(t_env *env);
 void					start_editor_menu(t_env *env);
-void					draw_grid(t_env *env);
 int						editor_keys(t_env *env);
 int						editor_keys6(t_env *env);
 int						save_map_keys(t_env *env);
@@ -284,28 +239,18 @@ int						change_mode(void *target);
 int						save_button(void *target);
 void					hline(t_env *env, int y);
 void					vline(t_env *env, int x);
-void					draw_hgrid(t_env *env);
-void					draw_vgrid(t_env *env);
 int						add_vertex(t_env *env);
 int						add_enemy(t_env *env);
 int						add_vertex_to_current_sector(t_env *env, int num);
-void					draw_circle(t_circle circle, t_env *env);
-void					draw_circle_free(t_circle circle, t_env *env);
 t_circle				new_circle(Uint32 line_color, Uint32 color,
 t_point center, int radius);
-void					draw_grid_vertices(t_env *env);
 void					print_vertex(t_env *env, int num);
 void					print_vertices(t_env *env);
 void					print_sectors(t_env *env);
-void					draw_grid_current_sector(t_env *env);
-void					draw_grid_sectors(t_env *env);
 TTF_Font				*get_correct_font(int size, t_env *env);
 int						get_existing_vertex(t_env *env);
 int						get_existing_not_dragged_vertex(t_env *env);
 void					add_player(t_env *env);
-void					draw_grid_player(t_env *env);
-void					draw_grid_start_player(t_env *env);
-void					draw_grid_objects(t_env *env);
 void					editor_hud(t_env *env);
 void					editor_options_hud(t_env *env);
 void					editor_options_rectangles(t_env *env);
@@ -366,15 +311,10 @@ int						selected_information_in_sector(t_env *env);
 void					get_new_floor_and_ceiling(t_env *env);
 void					reset_selection(t_env *env);
 void					reset_hover(t_env *env);
-int						draw_input_box(t_input_box *box, t_env *env);
 int						split_box_text(t_input_box *box, t_env *env);
 char					*get_current_box_line(t_input_box *box, char *str);
 void					get_selection_boundaries(size_t *start, size_t *end,
 char *str, t_input_box *box);
-int						draw_cursor(t_input_box *box, t_point pos, char *sub,
-t_env *env);
-int						draw_box_selection(t_input_box *box, t_point pos,
-char *str, t_env *env);
 int						find_input_box_max_char(t_input_box *box);
 int						input_box_keys(t_input_box *box, t_env *env);
 int						input_box_keys5(t_input_box *box, t_env *env);
@@ -757,272 +697,6 @@ int						ceiling_sprite_buttons_up(t_env *env);
 int						wall_sprite_buttons_up(t_env *env);
 
 /*
-**	Event panel
-*/
-
-int						draw_event_panel(t_env *env);
-void					draw_target_tab(t_env *env);
-void					draw_action_tab(t_env *env);
-int						draw_condition_panel(t_env *env);
-void					draw_condition_condition_panel(t_env *env);
-void					draw_condition_type_tab(t_env *env);
-void					draw_condition_target_tab(t_env *env);
-int						draw_condition_targets_panel(t_env *env);
-int						draw_condition_event_panel(t_env *env);
-int						draw_target_panel(t_env *env);
-int						draw_action_panel(t_env *env);
-int						draw_conditions_panel(t_env *env);
-int						draw_floor_panel(t_env *env, t_target_panel *panel);
-int						draw_ceiling_panel(t_env *env, t_target_panel *panel);
-int						draw_wall_panel(t_env *env, t_target_panel *panel);
-int						draw_sector_other_panel(t_env *env,
-t_target_panel *panel);
-int						draw_other_panel(t_env *env, t_target_panel *panel);
-int						draw_vertex_panel(t_env *env, t_target_panel *panel);
-int						draw_player_panel(t_env *env, t_target_panel *panel);
-int						draw_enemy_panel(t_env *env, t_target_panel *panel);
-int						draw_object_panel(t_env *env, t_target_panel *panel);
-int						draw_weapon_panel(t_env *env, t_target_panel *panel);
-int						draw_wall_sprite_panel(t_env *env,
-t_target_panel *panel);
-int						draw_action_panel(t_env *env);
-int						draw_action_panel_bottom(t_env *env);
-int						draw_launch_conditions_panel(t_env *env);
-int						draw_exec_conditions_panel(t_env *env);
-void					draw_first_phase_selection(t_env *env,
-t_target_panel *panel);
-void					draw_second_phase_selection(t_env *env,
-t_target_panel *panel);
-void					draw_third_phase_selection(t_env *env,
-t_target_panel *panel);
-int						event_panel_keys(t_env *env);
-int						event_panel_keyup(t_env *env);
-int						condition_panel_keys(t_env *env);
-int						condition_panel_keyup(t_env *env);
-int						condition_target_keys(t_env *env);
-int						condition_target_keyup(t_env *env);
-int						target_panel_keys(t_env *env, t_target_panel *panel);
-int						first_phase_keys(t_env *env, t_target_panel *panel);
-int						first_phase_keyup(t_env *env, t_target_panel *panel);
-int						second_phase_keys(t_env *env, t_target_panel *panel);
-int						second_phase_keyup(t_env *env, t_target_panel *panel);
-int						third_phase_keys(t_env *env, t_target_panel *panel);
-int						third_phase_keyup(t_env *env, t_target_panel *panel);
-int						action_panel_keys(t_env *env);
-int						conditions_panel_keys(t_env *env);
-int						conditions_panel_keyup(t_env *env);
-int						target_tab_func(void *param);
-int						action_tab_func(void *param);
-int						launch_conditions_tab_func(void *param);
-int						exec_conditions_tab_func(void *param);
-int						select_sector_other(void *param);
-int						select_other(void *param);
-int						select_wall(void *param);
-int						select_floor(void *param);
-int						select_vertex(void *param);
-int						select_player(void *param);
-int						select_ceiling(void *param);
-int						select_object(void *param);
-int						select_enemy(void *param);
-int						select_weapon(void *param);
-int						select_wall_sprite(void *param);
-int						set_int_button(void *param);
-int						choose_target(void *param);
-int						action_pane_keys(t_env *env);
-int						launch_conditions_panel_keys(t_env *env);
-int						exec_conditions_panel_keys(t_env *env);
-int						target_panel_keyup(t_env *env, t_target_panel *panel);
-int						action_panel_keyup(t_env *env);
-int						launch_conditions_panel_keyup(t_env *env);
-int						exec_conditions_panel_keyup(t_env *env);
-t_button				new_red_panel_button(int type, int (*action)(void *),
-void *param, t_env *env);
-t_button				new_blue_panel_button(int type, int (*action)(void *),
-void *param, t_env *env);
-t_button				new_yellow_panel_button(int type,
-int (*action)(void *), void *param, t_env *env);
-t_button				new_green_panel_button(int type, int (*action)(void *),
-void *param, t_env *env);
-t_button				new_orange_panel_button(int type,
-int (*action)(void *), void *param, t_env *env);
-t_button				new_dark_panel_button(int type, int (*action)(void *),
-void *param, t_env *env);
-t_button				new_purple_panel_button(int type,
-int (*action)(void *), void *param, t_env *env);
-t_button				new_turquoise_panel_button(int type,
-int (*action)(void *), void *param, t_env *env);
-t_button				new_small_panel_button(int type, int (*action)(void *),
-void *param, t_env *env);
-t_button				new_condition_panel_button(int type,
-int (*action)(void *), void *param, t_env *env);
-void					update_event_panel_buttons_pos(t_env *env);
-void					update_target_panel_buttons_pos(t_env *env);
-void					update_action_panel_buttons_pos(t_env *env);
-void					update_conditions_panel_buttons_pos(t_env *env);
-void					update_exec_conditions_panel_buttons_pos(t_env *env);
-void					update_condition_panel_buttons_pos(t_env *env);
-void					update_condition_target_buttons_pos(t_env *env);
-int						get_target_selection_phase(t_target_panel *panel);
-int						previous_target_selection_phase(void *param);
-int						set_new_event_target(t_env *env);
-int						select_floor_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_floor_target2(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel, int sector);
-int						select_ceiling_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_ceiling_target2(t_env *env,
-t_event_panel *panel, t_target_panel *target_panel, int sector);
-int						select_wall_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_enemy_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_object_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_wall_sprite_target(t_env *env,
-t_event_panel *panel, t_target_panel *target_panel);
-int						select_weapon_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_vertex_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_sector_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_player_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_other_target(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel);
-int						select_sector_other_target(t_env *env,
-t_event_panel *panel, t_target_panel *target_panel);
-int						set_floor_sprite(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel, int sector);
-int						set_ceiling_sprite(t_env *env, t_event_panel *panel,
-t_target_panel *target_panel, int sector);
-int						set_floor_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_ceiling_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_sector_other_panel_buttons_state(
-	t_target_panel *panel, int index);
-int						set_player_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_vertex_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_wall_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_wall_sprite_panel_buttons_state(
-	t_target_panel *panel, int index);
-int						set_object_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_enemy_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_weapon_panel_buttons_state(t_target_panel *panel,
-int index);
-int						set_other_panel_buttons_state(t_target_panel *panel,
-int index);
-void					set_buttons_state(t_env *env);
-int						set_event_value(void *param);
-int						set_event_speed(void *param);
-int						set_event_delay(void *param);
-int						set_event_max_uses(void *param);
-int						create_event(void *param);
-int						check_event_validity(t_env *env, t_event event);
-int						save_event(void *param);
-int						modify_event(void *param);
-void					set_action_type_buttons_state(t_env *env);
-void					set_modified_event(t_env *env, t_event *event);
-int						delete_event(void *param);
-int						delete_selected_event(void *param);
-int						delete_selected_event1(t_env *env,
-t_event_trigger trigger);
-int						save_condition(void *param);
-void					save_condition_value(t_condition *condition,
-t_condition_panel *panel);
-int						check_condition_validity(t_env *env,
-t_condition condition);
-int						create_condition(void *param);
-int						modify_condition(void *param);
-int						new_global_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_press_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_shoot_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_stand_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_walk_in_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_walk_out_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_death_event(t_env *env, t_event_trigger trigger,
-t_event event);
-int						new_enemy_collision_event(t_env *env,
-t_event_trigger trigger, t_event event);
-int						new_object_collision_event(t_env *env,
-t_event_trigger trigger, t_event event);
-int						delete_condition(void *param);
-int						set_equals(void *param);
-int						set_less(void *param);
-int						set_different(void *param);
-int						set_greater(void *param);
-int						set_greater_or_equals(void *param);
-int						set_less_or_equals(void *param);
-int						set_event_ended(void *param);
-int						set_event_ended_start(void *param);
-int						set_function(void *param);
-void					set_condition_panel_buttons_state(t_env *env,
-int type);
-void					set_condition_panel_buttons_pos(t_button *button,
-double side, double tier, t_env *env);
-int						set_new_condition_target(t_env *env);
-int						select_floor_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_floor_condition_target2(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel, int sector);
-int						select_ceiling_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_ceiling_condition_target2(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel, int sector);
-int						select_wall_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_enemy_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_object_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_wall_sprite_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_weapon_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_vertex_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_sector_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_player_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_sector_other_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						select_other_condition_target(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel);
-int						set_condition_floor_sprite(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel, int sector);
-int						set_condition_ceiling_sprite(t_env *env,
-t_condition_panel *panel, t_target_panel *target_panel, int sector);
-void					set_condition_buttons_state(t_env *env);
-t_event					*get_event_array(t_env *env, t_event_trigger trigger);
-int						close_event_panel(void *param);
-void					reset_target_selection(t_target_panel *panel);
-int						new_event_panel_value_box(t_input_box *box,
-int type, void *target, t_env *env);
-int						new_event_panel_box(t_input_box *box,
-int type, void *target, t_env *env);
-int						new_event_panel_dialog_box(t_input_box *box,
-int type, void *target, t_env *env);
-int						close_event_panel(void *param);
-int						draw_weapon_picker(t_env *env);
-int						weapon_picker_keys(t_env *env);
-int						weapon_picker_keyup(t_env *env);
-int						is_mouse_on_weapon_picker(t_env *env);
-
-/*
 ** Main functions
 */
 
@@ -1112,13 +786,6 @@ unsigned int			blend_alpha(unsigned int src,
 unsigned int			blend_add(unsigned int src,
 				unsigned int dest, uint8_t alpha);
 unsigned int			blend_mul(unsigned int src, unsigned int dest);
-void					draw_line_3(t_env *env, t_line line);
-void					draw_line(t_point c1, t_point c2, t_env *env,
-Uint32 color);
-void					draw_line_free(t_point c1, t_point c2, t_env *env,
-Uint32 color);
-void					draw_line_minimap(t_point c1, t_point c2, t_env *env,
-Uint32 color);
 Uint32					apply_light(Uint32 src, Uint32 color, int intensity,
 int brightness);
 Uint32					apply_light_both(Uint32 src, Uint32 color,
@@ -1128,16 +795,10 @@ int intensity);
 Uint32					apply_light_brightness(Uint32 src, int brightness);
 int						update_confirmation_box(t_confirmation_box *box,
 char *str, int type, t_env *env);
-int						draw_confirmation_box(t_confirmation_box *box,
-t_env *env);
 int						no_pressed(void *param);
 int						yes_pressed(void *param);
 t_rectangle				new_rectangle(Uint32 inside_color, Uint32 line_color,
 		int filled, int line_size);
-void					draw_rectangle(t_env *env, t_rectangle r, t_point pos,
-		t_point size);
-void					draw_rectangle_alpha(t_env *env, t_rectangle r,
-t_point pos, t_point size);
 t_button				new_button(t_rectangle up, t_rectangle pressed,
 t_rectangle down, t_rectangle hover);
 t_button				new_button_img(t_texture *up, t_texture *pressed,
@@ -1184,8 +845,6 @@ void					set_button_pressed_rectangle(t_button *b, t_env *env,
 t_rectangle rectangle);
 void					set_button_hover_rectangle(t_button *b, t_env *env,
 t_rectangle rectangle);
-void					draw_button(t_env *env, t_button b, char *str);
-int						draw_dialog_box(char **str, t_env *env);
 int						find_dialog_box_max_char(t_env *env);
 int						dialog_event(void *param, void *penv);
 int						find_dialog_box_max_char(t_env *env);
@@ -1194,23 +853,8 @@ int						find_dialog_box_max_char(t_env *env);
 ** Main pipeline functions
 */
 
-int						draw_walls(t_camera *camera, t_env *env);
-int						draw_explosions(t_camera *camera, t_env *env);
-int						draw_projectiles(t_camera *camera, t_env *env);
-int						draw_projectile_both(t_camera *camera, t_projectile *p,
-t_env *env);
-int						draw_projectile_no_light(t_camera *camera,
-t_projectile *p, t_env *env);
-int						draw_projectile_brightness(t_camera *camera,
-t_projectile *p, t_env *env);
-int						draw_projectile_color(t_camera *camera,
-t_projectile *p, t_env *env);
 int						get_sprite_direction_projectile(
 	t_projectile *projectile);
-int						draw_objects(t_camera *camera, t_env *env);
-int						draw_enemies(t_camera *camera, t_env *env);
-int						draw_player(t_camera *camera, t_v3 pos, t_env *env);
-int						draw_game(t_env *env);
 void					check_parsing(t_env *env);
 int						keyup(t_env *env);
 int						confirmation_box_keys(t_confirmation_box *box,
@@ -1218,10 +862,6 @@ t_env *env);
 int						confirmation_box_keyup(t_confirmation_box *box,
 t_env *env);
 void					editor_minimap(t_env *e);
-void					draw_minimap_player(t_env *env);
-void					draw_minimap_sector_num(t_env *env, t_sector *sector);
-void					draw_objects_minimap(t_env *env);
-void					draw_minimap_hud(t_env *env);
 void					game_minimap(t_env *env);
 int						get_angle(t_point p[3]);
 int						get_sector_first_angles(t_sector *sector, t_env *env);
@@ -1230,7 +870,6 @@ void					view(t_env *env);
 void					reset_clipped(t_env *env);
 t_v3					sprite_movement(t_env *env, double speed, t_v3 origin,
 t_v3 destination);
-void					draw_weapon(t_env *env, int sprite);
 int						weapon_animation(t_env *env, int sprite);
 void					weapon_change(t_env *env);
 int						next_possessed_weapon(t_env *env);
@@ -1271,7 +910,6 @@ int						pos_changed_sector(t_env *env, t_sector *sector,
 t_point data, t_v3 pos);
 int						player_changed_sector(t_env *env, t_sector *sector,
 t_point data, t_v3 pos);
-void					draw_hud(t_env *env);
 void					precompute_slopes(t_env *env);
 double					get_floor_at_pos(t_sector *sector, t_v3 pos,
 t_env *env);
@@ -1279,8 +917,6 @@ double					get_ceiling_at_pos(t_sector *sector, t_v3 pos,
 t_env *env);
 t_v2					get_sector_normal(t_sector *sector, t_env *env,
 int start_slope);
-void					draw_axes(t_env *env);
-void					draw_crosshair(t_env *env);
 void					update_inputs(t_env *env);
 int						move_player(t_env *env);
 void					update_player_pos(t_env *env);
@@ -1358,7 +994,6 @@ void					create_hidden_sector(t_env *env);
 void					activate_sector(t_env *env, int i);
 int						button_keys(t_button *b, t_env *env);
 int						button_keyup(t_button *b, t_env *env);
-void					draw_button_text(t_button b, char *str, t_env *env);
 int						is_mouse_on_button(t_button b, t_point mouse);
 int						is_mouse_on_event_panel(t_env *env);
 t_point					get_button_current_size(t_button b);

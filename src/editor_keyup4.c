@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		is_mouse_on_any_selection_tab(t_env *env)
 {

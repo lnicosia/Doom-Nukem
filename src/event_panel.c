@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	draw_launch_conditions_tab(t_env *env)
 {

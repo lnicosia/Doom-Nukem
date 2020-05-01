@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		change_textures_scales(t_env *env)
 {

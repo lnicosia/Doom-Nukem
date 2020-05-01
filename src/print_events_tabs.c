@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	print_sector_events(t_env *env)
 {

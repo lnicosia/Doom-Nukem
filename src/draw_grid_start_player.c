@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	draw_player_angle(t_point pos, t_env *env)
 {

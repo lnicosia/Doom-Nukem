@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events.h"
+#include "draw.h"
 
 int		enemy_hit(t_env *env, int i)
 {

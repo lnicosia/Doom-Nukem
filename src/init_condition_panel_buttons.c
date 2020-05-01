@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "init.h"
+#include "events.h"
 
 int		set_condition_value(void *param)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "enemies.h"
+#include "draw.h"
 
 int	draw_render(t_camera *camera, t_env *env)
 {

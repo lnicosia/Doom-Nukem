@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 /*
 **	Shows enemies hitboxes (event through walls)

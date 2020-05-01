@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "events_conditions.h"
+#include "draw.h"
 
 void	print_event_link_condition(t_condition *condition, t_event_panel *panel,
 t_env *env)

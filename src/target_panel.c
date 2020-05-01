@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
+#include "events.h"
 
 void	draw_first_phase_selection(t_env *env, t_target_panel *panel)
 {

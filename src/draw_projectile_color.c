@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include "draw.h"
 
 void	*projectile_loop_color(void *param)
 {

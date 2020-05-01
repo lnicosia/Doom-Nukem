@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "free.h"
+#include "events.h"
 
 void		free_parser(t_env *env)
 {

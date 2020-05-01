@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "init.h"
+#include "events.h"
 
 int		set_dialog_event_text(void *param)
 {

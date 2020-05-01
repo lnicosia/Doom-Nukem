@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 int		print_vertices_general_tab2(t_env *env)
 {

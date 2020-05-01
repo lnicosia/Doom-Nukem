@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "draw.h"
 
 int		draw_event_value_panel(t_env *env)
 {

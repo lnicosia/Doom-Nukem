@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "map_parser.h"
+#include "parser.h"
 
 int		parse_sound(t_env *env, t_map_parser *parser)
 {

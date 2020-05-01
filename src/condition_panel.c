@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "events_conditions.h"
+#include "draw.h"
 
 void	draw_condition_target_panel(t_env *env)
 {

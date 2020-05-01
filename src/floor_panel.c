@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
 
 int		set_floor_panel_buttons_state(t_target_panel *panel, int index)
 {

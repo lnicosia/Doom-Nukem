@@ -311,7 +311,7 @@ HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
 		  events_parser.h draw_grid_walls.h valid_map.h events.h free.h\
 		  draw_skybox.h pop_events.h events_protection.h init.h \
-		  parser.h enemies.h \
+		  parser.h enemies.h draw.h\
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \

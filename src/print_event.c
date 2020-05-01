@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	print_event_various_data(t_env *env, t_event *event)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
+#include "draw.h"
 
 int		box_cursor(t_input_box *box, char *str, char *tmp2, t_env *env)
 {

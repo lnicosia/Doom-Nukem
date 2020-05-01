@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 int		damage_done(t_env *env, double rotated_pos_z)
 {

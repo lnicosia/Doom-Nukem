@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
+#include "events.h"
 
 int		draw_condition_targets_panel(t_env *env)
 {

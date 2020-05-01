@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	draw_enemy_angle(t_enemy *enemy, t_point pos, t_env *env)
 {

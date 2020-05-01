@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
+#include "draw.h"
 
 void	draw_selection(t_point pos, t_point size1, t_point size2, t_env *env)
 {

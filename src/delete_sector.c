@@ -12,6 +12,7 @@
 
 #include "free.h"
 #include "update_existing_events.h"
+#include "events.h"
 
 void	modify_sector_neighbors(t_env *env, int sector)
 {

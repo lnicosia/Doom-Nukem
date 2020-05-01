@@ -14,6 +14,7 @@
 #include "collision.h"
 #include "events.h"
 #include "enemies.h"
+#include "draw.h"
 
 int		doom4(t_env *env)
 {

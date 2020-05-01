@@ -12,6 +12,7 @@
 
 #include "events.h"
 #include "collision.h"
+#include "draw.h"
 
 int		launch_events3(t_env *env)
 {

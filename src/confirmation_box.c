@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	new_buttons2(t_confirmation_box *box, int height, t_env *env)
 {

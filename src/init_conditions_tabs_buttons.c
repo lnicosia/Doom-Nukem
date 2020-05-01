@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int			next_condition1(void *param)
 {

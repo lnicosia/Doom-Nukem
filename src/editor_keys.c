@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "enemies.h"
+#include "events.h"
 
 int		editor_keys5(t_env *env)
 {

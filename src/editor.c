@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "free.h"
+#include "draw.h"
 
 int		all_editor_keyup(t_env *env)
 {

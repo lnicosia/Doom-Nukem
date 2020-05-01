@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	sprite_selection(t_env *env, int nb_slots)
 {

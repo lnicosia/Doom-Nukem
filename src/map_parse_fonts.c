@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "parser.h"
 
 int		parse_font_file(t_env *env, t_map_parser *parser)
 {
