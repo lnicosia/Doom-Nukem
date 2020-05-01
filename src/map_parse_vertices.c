@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 16:07:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:29:45 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 13:34:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		parse_vertices2(t_map_parser *parser)
 	else
 		return (missing_data("sectors, objects, enemies, events"
 			" and player declaration", parser));
-		return (0);
+	return (0);
 }
 
 int		parse_vertices(t_env *env, t_map_parser *parser)

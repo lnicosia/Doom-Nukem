@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:30:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 13:34:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		parse_sectors2(t_map_parser *parser)
 	else
 		return (missing_data("objects, enemies, events and player data",
 			parser));
-		return (0);
+	return (0);
 }
 
 int		parse_sectors(t_env *env, t_map_parser *parser)
