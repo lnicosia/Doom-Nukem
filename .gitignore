@@ -79,3 +79,7 @@ benchmark.txt
 # Pre commit file
 done.txt
 test.c
+
+# SDL Files
+SDL2-2.0.8/*
+SDL2_ttf-2.0.15/*.c
