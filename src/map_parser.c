@@ -12,6 +12,7 @@
 
 #include "init.h"
 #include "parser.h"
+#include <math.h>
 
 void	set_sector_xmax(t_env *env, t_sector *sector)
 {

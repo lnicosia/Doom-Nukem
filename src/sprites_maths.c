@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "render.h"
+#include <math.h>
 
 /*
 ** Returns the movement a sprite should do to go from the point origin

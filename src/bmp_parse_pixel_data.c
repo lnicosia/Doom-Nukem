@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "bmp_parser.h"
+#include <math.h>
 
 int		parse_pixels(unsigned char *str, t_bmp_parser *parser,
 t_texture *textures)

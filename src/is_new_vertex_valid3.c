@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int			check_list_intersections(t_env *env, t_vertex *last, int index)
 {

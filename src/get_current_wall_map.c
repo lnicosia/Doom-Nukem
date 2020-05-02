@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include <math.h>
 
 int		realloc_sector_walls_map_lvl(t_sector *sector, t_texture *texture,
 int i)

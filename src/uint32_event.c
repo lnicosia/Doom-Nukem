@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		uint32_incr_event(t_event *curr, Uint32 *target)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 void	compute_current_wall_slope2(int i, t_sector *sector, t_env *env)
 {

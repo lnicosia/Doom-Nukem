@@ -12,6 +12,7 @@
 
 #include "events.h"
 #include "collision.h"
+#include <math.h>
 
 void	projectile_coord(t_v3 pos, t_projectile *projectile,
 t_projectile_data_2 data2, double height)

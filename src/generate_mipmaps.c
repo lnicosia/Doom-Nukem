@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		generate_mipmaps2(size_t i, size_t nb_maps, t_texture *texture,
 t_env *env)

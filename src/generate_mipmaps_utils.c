@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		get_color(int x, int y, int w, Uint32 *prec_pixels)
 {

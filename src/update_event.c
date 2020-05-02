@@ -12,6 +12,7 @@
 
 #include "events_conditions.h"
 #include "events.h"
+#include <math.h>
 
 int		set_event_type2(t_event *event)
 {

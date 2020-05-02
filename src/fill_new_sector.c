@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		fill_sector_with_current_vertex(t_vertex *vertex, t_sector *sector,
 int i, t_env *env)

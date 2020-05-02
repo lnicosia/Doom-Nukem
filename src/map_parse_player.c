@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include <math.h>
 
 int		parse_player_line3(t_env *env, t_map_parser *parser)
 {

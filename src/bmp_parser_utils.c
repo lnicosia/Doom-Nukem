@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "bmp_parser.h"
+#include <math.h>
 
 uint32_t		read_color16(unsigned char *str, int index)
 {

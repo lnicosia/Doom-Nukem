@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int			check_current_sector2(t_env *env, int *list_sectors, int i,
 int index)

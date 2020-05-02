@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "draw.h"
+#include <math.h>
 
 void	draw_object_angle(t_object *object, t_point pos, t_env *env)
 {

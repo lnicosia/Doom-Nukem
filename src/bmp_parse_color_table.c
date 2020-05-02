@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "bmp_parser.h"
+#include <math.h>
 
 static int	parse_color_table(int fd, t_bmp_parser *parser)
 {

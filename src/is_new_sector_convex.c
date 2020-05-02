@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int			check_sector_convexity2(t_v2 *p, int len, int *res)
 {

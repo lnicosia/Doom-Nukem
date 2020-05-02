@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include <math.h>
 
 void	compute_floor_scales(t_texture *texture, t_sector *sector)
 {
