@@ -13,6 +13,7 @@
 #include "init.h"
 #include "collision.h"
 #include "parser.h"
+#include <math.h>
 
 int		init_game5(t_env *env)
 {

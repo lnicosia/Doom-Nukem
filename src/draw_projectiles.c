@@ -13,6 +13,7 @@
 #include "env.h"
 #include "render.h"
 #include "draw.h"
+#include <math.h>
 
 static int	get_sprite_direction_projectile2(t_projectile *proj, double angle)
 {
