@@ -91,7 +91,8 @@ libdrm-2.4.100/*
 libpciaccess-0.13.4/*
 xproto-7.0.31/*
 glproto-1.4.17/*
-libx-cb-1.14/*
+libxcb-1.14/*
 libXdamage-1.1/*
 libXfixes-5.0/*
 libXxf86vm-1.1.4/*
+xbc-proto-1.8/*
