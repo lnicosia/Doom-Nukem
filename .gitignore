@@ -84,3 +84,4 @@ test.c
 SDL2-2.0.8/*
 SDL2_ttf-2.0.15/*
 freetype-2.9/*
+freeglut-2.8.1/*
