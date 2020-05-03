@@ -97,3 +97,4 @@ libXfixes-5.0/*
 libXxf86vm-1.1.4/*
 xcb-proto-1.14/*
 libX11-1.6.9/*
+libxshmfence-1.3/*
