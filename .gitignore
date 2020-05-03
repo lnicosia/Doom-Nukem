@@ -95,4 +95,4 @@ libxcb-1.14/*
 libXdamage-1.1/*
 libXfixes-5.0/*
 libXxf86vm-1.1.4/*
-xbc-proto-1.8/*
+xcb-proto-1.14/*
