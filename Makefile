@@ -437,7 +437,7 @@ SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
 	  #`sdl-config --cflags --libs` \
 	  RED := "\033[0;31m"
 
-SDL_LINUX = -lSDL2 -lSDL2_ttf -lm -lpthread
+SDL_LINUX = -Wl,-rpath,/usr/local/lib/ -Wl,--enable-new-dtags -lSDL2 -lSDL2_ttf -lm -lpthread
 
 ifeq ($(OS), Windows_NT)
 	SDL = $(SDL_WINDOWS)
@@ -508,31 +508,31 @@ $(AUDIO_DIR):
 $(FONTS_DIR):
 	@mkdir -p $(FONTS_PATH)
 
-$(TEXTURES_PATH)/%.bmp: $(TEXTURES_SOURCE_PATH)/%.bmp $(MAKEFILE)
+$(TEXTURES_PATH)/%.bmp: $(TEXTURES_SOURCE_PATH)/%.bmp 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(SPRITES_PATH)/%.bmp: $(SPRITES_SOURCE_PATH)/%.bmp $(MAKEFILE)
+$(SPRITES_PATH)/%.bmp: $(SPRITES_SOURCE_PATH)/%.bmp 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(SKYBOXES_PATH)/%.bmp: $(SKYBOXES_SOURCE_PATH)/%.bmp $(MAKEFILE)
+$(SKYBOXES_PATH)/%.bmp: $(SKYBOXES_SOURCE_PATH)/%.bmp 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(HUD_PATH)/%.bmp: $(HUD_SOURCE_PATH)/%.bmp $(MAKEFILE)
+$(HUD_PATH)/%.bmp: $(HUD_SOURCE_PATH)/%.bmp 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(UI_PATH)/%.bmp: $(UI_SOURCE_PATH)/%.bmp $(MAKEFILE)
+$(UI_PATH)/%.bmp: $(UI_SOURCE_PATH)/%.bmp 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(AUDIO_PATH)/%.wav: $(AUDIO_SOURCE_PATH)/%.wav $(MAKEFILE)
+$(AUDIO_PATH)/%.wav: $(AUDIO_SOURCE_PATH)/%.wav 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(FONTS_PATH)/%.ttf: $(FONTS_SOURCE_PATH)/%.ttf $(MAKEFILE)
+$(FONTS_PATH)/%.ttf: $(FONTS_SOURCE_PATH)/%.ttf 
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
@@ -544,15 +544,15 @@ $(ALL_RESOURCES):	$(TEXTURES_DIR) $(TEXTURES_FILES) \
 					$(AUDIO_DIR) $(AUDIO_FILES) \
 					$(FONTS_DIR) $(FONTS_FILES)
 
-$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
 	@gcc -c $< -o $@ $(CFLAGS) 
 
