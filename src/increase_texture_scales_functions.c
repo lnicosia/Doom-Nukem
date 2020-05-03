@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   increase_texture_scales_functions.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:06:29 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 10:54:32 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 11:44:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		increase_ceiling_texture_scale(t_env *env)
 		else
 			sector->ceiling_map_scale.x *= 1.1;
 		if (set_sector_ceiling_map_array(sector,
-		env->wall_textures[sector->ceiling_texture], env))
+		&env->wall_textures[sector->ceiling_texture], env))
 			return (-1);
-	}		
+	}
 	return (0);
 }
 
@@ -52,7 +52,7 @@ int		increase_floor_texture_scale(t_env *env)
 		else
 			sector->floor_map_scale.x *= 1.1;
 		if (set_sector_floor_map_array(sector,
-		env->wall_textures[sector->floor_texture],
+		&env->wall_textures[sector->floor_texture],
 		env))
 			return (-1);
 	}
@@ -76,7 +76,7 @@ int		increase_wall_texture_scale(t_env *env)
 		else
 			sector->scale[env->editor.selected_wall].x *= 1.1;
 		if (set_sector_wall_map_array(sector,
-		env->wall_textures[sector->textures[env->editor.selected_wall]],
+		&env->wall_textures[sector->textures[env->editor.selected_wall]],
 		env->editor.selected_wall, env))
 			return (-1);
 		if (set_camera_map_array(&env->player.camera,

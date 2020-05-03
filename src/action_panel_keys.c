@@ -23,16 +23,16 @@ int		action_panel_keys(t_env *env)
 		if (button_keys(&env->editor.event_panel.action_panel.value, env)
 			|| button_keys(&env->editor.event_panel.action_panel.speed, env))
 			return (-1);
-		if (button_keys(&env->editor.event_panel.action_panel.delay, env))
-			return (-1);
-		if (button_keys(&env->editor.event_panel.action_panel.max_uses, env))
-			return (-1);
 	}
 	else if (env->editor.event_panel.event.target_index == DIALOG)
 	{
 		if (button_keys(&env->editor.event_panel.action_panel.text, env))
 			return (-1);
 	}
+	if (button_keys(&env->editor.event_panel.action_panel.delay, env))
+		return (-1);
+	if (button_keys(&env->editor.event_panel.action_panel.max_uses, env))
+		return (-1);
 	return (0);
 }
 
@@ -47,15 +47,15 @@ int		action_panel_keyup(t_env *env)
 		if (button_keyup(&env->editor.event_panel.action_panel.value, env)
 			|| button_keyup(&env->editor.event_panel.action_panel.speed, env))
 			return (-1);
-		if (button_keyup(&env->editor.event_panel.action_panel.delay, env))
-			return (-1);
-		if (button_keyup(&env->editor.event_panel.action_panel.max_uses, env))
-			return (-1);
 	}
 	else if (env->editor.event_panel.event.target_index == DIALOG)
 	{
 		if (button_keyup(&env->editor.event_panel.action_panel.text, env))
 			return (-1);
 	}
+	if (button_keyup(&env->editor.event_panel.action_panel.delay, env))
+		return (-1);
+	if (button_keyup(&env->editor.event_panel.action_panel.max_uses, env))
+		return (-1);
 	return (0);
 }

@@ -12,7 +12,6 @@
 
 #include "env.h"
 
-
 void	init_wall_sprite_sector_buttons(t_env *env)
 {
 	env->editor.hud.s_wall_sprite.brightness = new_hud_button(ON_RELEASE,

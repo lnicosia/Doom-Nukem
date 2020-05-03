@@ -12,26 +12,6 @@
 
 #include "env.h"
 
-int			check_sector_exec_conditions(t_env *env,
-int sector)
-{
-	int		event;
-	int		events;
-
-	event = env->editor.selected_event;
-	events = env->editor.selected_events;
-	if (sector != -1 && ((events == 0 && env->sectors[sector].
-		nb_stand_events > 0 && env->sectors[sector].stand_events[event].
-		nb_exec_conditions > 1) || (events == 1 && env->sectors[sector].
-		nb_walk_in_events > 0 && env->sectors[sector].walk_in_events[event].
-		nb_exec_conditions > 1)
-		|| (events == 2 && env->sectors[sector].
-		nb_walk_out_events > 0 && env->sectors[sector].walk_out_events[event].
-		nb_exec_conditions > 1)))
-		return (1);
-	return (0);
-}
-
 int			check_wall_sprite_exec_conditions(t_env *env, int sector,
 int wall, int sprite)
 {
@@ -56,10 +36,8 @@ int			check_object_exec_conditions(t_env *env,
 int object)
 {
 	int		event;
-	int		events;
 
 	event = env->editor.selected_event;
-	events = env->editor.selected_events;
 	if (env->selected_object != -1
 		&& env->objects[object].nb_collision_events > 0
 		&& env->objects[object].collision_events[event].nb_exec_conditions > 1)
@@ -87,10 +65,8 @@ int enemy)
 int			check_global_exec_conditions(t_env *env)
 {
 	int		event;
-	int		events;
 
 	event = env->editor.selected_event;
-	events = env->editor.selected_events;
 	if (env->selected_enemy == -1 && env->selected_object == -1
 		&& env->editor.selected_sector == -1 && env->selected_floor == -1
 		&& env->nb_global_events > 0 && env->global_events[event].

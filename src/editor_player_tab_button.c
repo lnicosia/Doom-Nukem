@@ -39,6 +39,16 @@ void	init_player_sector_buttons(t_env *env)
 	env->editor.hud.s_player.t_gravity.pos = new_point(170, 640);
 }
 
+void	init_player_general_buttons2(t_env *env)
+{
+	env->editor.hud.g_player.speed.pos = new_point(170, 720);
+	env->editor.hud.g_player.t_speed.pos = new_point(170, 720);
+	env->editor.hud.g_player.angle = new_hud_button(ON_RELEASE,
+	&change_angle, &env->editor.hud.g_player.t_angle, env);
+	env->editor.hud.g_player.angle.pos = new_point(170, 760);
+	env->editor.hud.g_player.t_angle.pos = new_point(170, 760);
+}
+
 void	init_player_general_buttons(t_env *env)
 {
 	env->editor.hud.g_player.pos_x = new_hud_button(ON_RELEASE,
@@ -63,10 +73,5 @@ void	init_player_general_buttons(t_env *env)
 	env->editor.hud.g_player.t_armor.pos = new_point(170, 680);
 	env->editor.hud.g_player.speed = new_hud_button(ON_RELEASE,
 	&change_speed, &env->editor.hud.g_player.t_speed, env);
-	env->editor.hud.g_player.speed.pos = new_point(170, 720);
-	env->editor.hud.g_player.t_speed.pos = new_point(170, 720);
-	env->editor.hud.g_player.angle = new_hud_button(ON_RELEASE,
-	&change_angle, &env->editor.hud.g_player.t_angle, env);
-	env->editor.hud.g_player.angle.pos = new_point(170, 760);
-	env->editor.hud.g_player.t_angle.pos = new_point(170, 760);
+	init_player_general_buttons2(env);
 }

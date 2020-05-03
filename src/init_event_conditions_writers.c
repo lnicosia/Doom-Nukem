@@ -35,7 +35,6 @@ void	init_event_conditions_writers3(void (*writers[])(int, t_condition))
 	writers[OBJECT_X] = &condition_object_writer;
 	writers[OBJECT_Y] = &condition_object_writer;
 	writers[OBJECT_Z] = &condition_object_writer;
-	//writers[WIN] = &condition_no_writer;
 }
 
 void	init_event_conditions_writers2(void (*writers[])(int, t_condition))

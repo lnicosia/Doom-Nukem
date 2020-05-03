@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 
 void	free_wall_sprite_events(t_wall_sprites *wall_sprites, int sprite)
 {

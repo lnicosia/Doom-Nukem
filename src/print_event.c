@@ -12,53 +12,6 @@
 
 #include "env.h"
 
-void	print_event_action(t_env *env, t_event *event)
-{
-	t_point	text_size;
-
-	if (event->mod_type == FIXED)
-	{
-		if (event->type == INT)
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Go to %d"
-			" Speed = %.*f", (int)event->goal,
-			get_decimal_len(event->speed), event->speed);
-		else if (event->type == DOUBLE)
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Go to %.*f"
-			" Speed = %.*f", get_decimal_len(event->goal), event->goal,
-			get_decimal_len(event->speed), event->speed);
-		if (event->type == UINT32)
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Go to 0x%X"
-			" Speed = %.*f", (Uint32)event->goal,
-			get_decimal_len(event->speed), event->speed);
-	}
-	else if (event->mod_type == INCR)
-	{
-		if (event->type == INT)
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Add %d"
-			" Speed = %.*f", (int)event->start_incr,
-			get_decimal_len(event->speed), event->speed);
-		else if (event->type == DOUBLE)
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Add %.*f"
-			" Speed = %.*f", get_decimal_len(event->start_incr),
-			event->start_incr, get_decimal_len(event->speed), event->speed);
-		if (event->type == UINT32)
-			ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Action: Add 0x%X"
-			" Speed = %.*f", (Uint32)event->start_incr,
-			get_decimal_len(event->speed), event->speed);
-	}
-	if (event->target_index >= MAX_REAL_TARGET_TYPES)
-	{
-	}
-	else
-	{
-		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
-		&text_size.y);
-		print_text(new_point(570, 200 - text_size.x / 2),
-		new_printable_text(env->snprintf,
-		env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	}
-}
-
 void	print_event_various_data(t_env *env, t_event *event)
 {
 	t_point	text_size;
@@ -132,8 +85,6 @@ void	print_event(t_env *env, t_event *event)
 	0x333333FF, 0), env);
 	print_event_action(env, event);
 	print_event_various_data(env, event);
-	/*print_event_launch_conditions(env, event);
-	print_event_exec_conditions(env, event);*/
 	draw_button(env, env->editor.modify_event, "Modify event");
 	draw_button(env, env->editor.delete_event, "Delete event");
 	if (env->editor.selecting_event)

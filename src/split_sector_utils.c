@@ -12,47 +12,6 @@
 
 #include "env.h"
 
-int		update_neighbors(t_env *env, int index, int num, t_sector *sector)
-{
-	int	i;
-	int	j;
-	
-	i = 0;
-	j = 0;
-	if (index != -1)
-	{
-		while (i < sector->nb_vertices)
-		{
-			if (sector->neighbors[index] != -1)
-			{
-				j = 0;
-				while(j < env->sectors[sector->neighbors[index]].nb_vertices)
-				{
-					if (env->sectors[sector->neighbors[index]].
-						neighbors[j] == num)
-						env->sectors[sector->neighbors[index]].
-						neighbors[j] = env->nb_sectors - 1;
-					j++;
-				}
-			}
-			i++;
-		}
-		i = 0;
-		while (i < sector->nb_vertices)
-		{
-			if (sector->neighbors[i] == num)
-			{
-				sector->neighbors = (int*)ft_delindex(sector->neighbors,
-					sizeof(int) * (sector->nb_vertices + 1),
-					sizeof(int),
-					sizeof(int) * i);
-			}
-			i++;
-		}
-	}
-	return (0);
-}
-
 int		update_double_tab(int index, double size, double **tab)
 {
 	*tab = (double*)ft_delindex(*tab,

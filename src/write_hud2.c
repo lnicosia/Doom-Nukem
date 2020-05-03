@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   write_hud2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:55:51 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 10:05:48 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:14:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "save.h"
 
 int		write_hud6(int fd, int file)
 {

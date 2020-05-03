@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 15:37:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:49:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		vertex_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
@@ -20,7 +21,7 @@ t_events_parser *eparser)
 	if (**line != ' ')
 		return (invalid_char("before vertex number", "a space",
 		**line, parser));
-	(*line)++;
+		(*line)++;
 	if (!**line || **line == ' ')
 		return (missing_data("vertex data", parser));
 	if (**line != '(')
@@ -31,7 +32,7 @@ t_events_parser *eparser)
 	if (valid_number(*line, parser))
 		return (invalid_char("before vertex number", "a digit", **line,
 		parser));
-	eparser->current_vertex = ft_atoi(*line);
+		eparser->current_vertex = ft_atoi(*line);
 	if (eparser->current_vertex < 0
 		|| eparser->current_vertex >= env->nb_vertices)
 		return (custom_error_with_line("Invalid vertex index", parser));

@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "collision.h"
+#include "enemies.h"
 
 /*
 ** Creates and returns a new wall segment

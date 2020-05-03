@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 
 t_button	new_dark_panel_button(int type, int (*action)(void *),
 void *param, t_env *env)

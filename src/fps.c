@@ -15,10 +15,8 @@
 void	fps(t_env *env)
 {
 	Uint32			new_time;
-	double			fps;
 
 	new_time = SDL_GetTicks();
-	fps = 1000 / (new_time - env->sdl.time);
 	env->fps_count++;
 	if (new_time - env->frame_timer >= 1000)
 	{
@@ -28,10 +26,6 @@ void	fps(t_env *env)
 	}
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->fps);
 	print_text(new_point(0, 10), new_printable_text(
-				env->snprintf,
-				env->sdl.fonts.lato20,
-				0xFFFFFFFF,
-				0),
-			env);
+		env->snprintf, env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
 	env->sdl.time = new_time;
 }

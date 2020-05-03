@@ -1,46 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_event_exec_conditions.c                    :+:      :+:    :+:   */
+/*   parse_event_exec_conditions.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 15:20:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:00:39 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "init.h"
+#include "parser.h"
 
-static int	parse_condition2(t_env *env, t_map_parser *parser, char **line,
+int		parse_exec_condition3(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	*line = skip_number(*line);
-	if (**line == '}')
-		return (missing_data("event exec condition value", parser));
-	if (**line != ' ')
-		return (invalid_char("after event exec condition target", "a space",
-		**line, parser));
-	(*line)++;
-		if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for exec condition target\n\n"));
-		eparser->condition_index = ft_atof(*line);
-	if (eparser->condition_index < 0
-			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
-		return (custom_error_with_line("Invalid exec condition target",
-		parser));
-	*line = skip_number(*line);
-	init_events_parser_var(eparser);
-	if (eparser->target_parsers[eparser->condition_index](env, parser,
-		line, eparser))
-		return (-1);
-	eparser->condition_sector = eparser->current_sector;
-	eparser->condition_wall = eparser->current_wall;
-	eparser->condition_vertex = eparser->current_vertex;
-	eparser->condition_sprite = eparser->current_sprite;
-	eparser->condition_enemy = eparser->current_enemy;
-	eparser->condition_weapon = eparser->current_weapon;
 	eparser->condition_object = eparser->current_object;
 	eparser->event.exec_conditions[eparser->condition_count].target_index =
 	eparser->condition_index;
@@ -65,20 +42,50 @@ t_events_parser *eparser)
 	if (**line != '}')
 		return (invalid_char("after exec condition declarartion", "'}'",
 		**line, parser));
-	return (0);
+		return (0);
 }
 
-static int	parse_condition(t_env *env, t_map_parser *parser, char **line,
+int		parse_exec_condition2(t_env *env, t_map_parser *parser, char **line,
+t_events_parser *eparser)
+{
+	*line = skip_number(*line);
+	if (**line == '}')
+		return (missing_data("event exec condition value", parser));
+	if (**line != ' ')
+		return (invalid_char("after event exec condition target", "a space",
+		**line, parser));
+		(*line)++;
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for exec condition target\n\n"));
+	eparser->condition_index = ft_atof(*line);
+	if (eparser->condition_index < 0
+			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
+		return (custom_error_with_line("Invalid condition target", parser));
+	*line = skip_number(*line);
+	init_events_parser_var(eparser);
+	if (eparser->target_parsers[eparser->condition_index](env, parser,
+		line, eparser))
+		return (-1);
+	eparser->condition_sector = eparser->current_sector;
+	eparser->condition_wall = eparser->current_wall;
+	eparser->condition_vertex = eparser->current_vertex;
+	eparser->condition_sprite = eparser->current_sprite;
+	eparser->condition_enemy = eparser->current_enemy;
+	eparser->condition_weapon = eparser->current_weapon;
+	return (parse_exec_condition3(env, parser, line, eparser));
+}
+
+int		parse_exec_condition(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
 	(*line)++;
 	if (**line != '{')
 		return (invalid_char("before event exec condition", "'{'",
 		**line, parser));
-	(*line)++;
+		(*line)++;
 	if (valid_int(*line, parser))
 		return (ft_printf("Invalid int for exec condition type\n"));
-		eparser->event.exec_conditions[eparser->condition_count].type =
+	eparser->event.exec_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.exec_conditions[eparser->condition_count].type < 0
 		|| eparser->event.exec_conditions[eparser->condition_count].type >=
@@ -93,14 +100,28 @@ t_events_parser *eparser)
 		(*line)++;
 	if (valid_int(*line, parser))
 		return (ft_printf("Invalid int for exec condition value\n"));
-		eparser->event.exec_conditions[eparser->condition_count].value =
-		ft_atof(*line);
-	if (parse_condition2(env, parser, line, eparser))
-		return (-1);
-	return (0);
+	eparser->event.exec_conditions[eparser->condition_count].value =
+	ft_atof(*line);
+	return (parse_exec_condition2(env, parser, line, eparser));
 }
 
-int				parse_event_exec_conditions(t_env *env, t_map_parser *parser,
+int		parse_event_exec_conditions2(t_env *env, t_map_parser *parser,
+char **line, t_events_parser *eparser)
+{
+	while (eparser->condition_count < eparser->nb_conditions)
+	{
+		if (parse_exec_condition(env, parser, line, eparser))
+			return (-1);
+		eparser->condition_count++;
+	}
+	(*line)++;
+	if (**line != ']')
+		return (invalid_char("after event exec conditions", "']'",
+		**line, parser));
+		return (0);
+}
+
+int		parse_event_exec_conditions(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser)
 {
 	int	i;
@@ -111,7 +132,7 @@ char **line, t_events_parser *eparser)
 	if (**line != '[')
 		return (invalid_char("before event exec conditions", "'['",
 		**line, parser));
-	if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
+		if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
 		return (-1);
 	eparser->event.nb_exec_conditions = eparser->nb_conditions;
 	if (!(eparser->event.exec_conditions =
@@ -124,15 +145,5 @@ char **line, t_events_parser *eparser)
 		init_condition(&eparser->event.exec_conditions[i]);
 		i++;
 	}
-	while (eparser->condition_count < eparser->nb_conditions)
-	{
-		if (parse_condition(env, parser, line, eparser))
-			return (-1);
-		eparser->condition_count++;
-	}
-	(*line)++;
-	if (**line != ']')
-		return (invalid_char("after event exec conditions", "']'",
-		**line, parser));
-	return (0);
+	return (parse_event_exec_conditions2(env, parser, line, eparser));
 }

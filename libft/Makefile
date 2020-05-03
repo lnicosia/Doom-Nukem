@@ -60,22 +60,22 @@ PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
+			-Wno-unused-result \
 			-Ofast \
 			#-flto\
 			#-fsanitize=address -g3 \
 
-RED := "\033[0;31m"
-GREEN := "\033[0;32m"
-CYAN := "\033[0;36m"
-RESET :="\033[0m"
+RED := "\e[0;31m"
+GREEN := "\e[0;32m"
+CYAN := "\e[0;36m"
+RESET :="\e[0m"
 
 ifneq ($(OS), Windows_NT)
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		CFLAGS += -flto
 	else
-		echo "Can only compile on Windows or MacOS"
-		exit 1
+		CFLAGS += -flto
 	endif
 endif
 
@@ -96,16 +96,16 @@ $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
 	@printf "\e[0;36m[INFO] Linking ${NAME}\e[0m\n"
 	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ)
 	@ranlib $(NAME)
-	@echo ${GREEN}"[INFO] Linked $(NAME) with success"${RESET}
+	@printf ${GREEN}"[INFO] Linked $(NAME) with success\n"${RESET}
 
 clean: 
 	@rm -f $(OBJ)
 	@rm -Rf $(OBJ_DIR)
-	@echo ${CYAN}"[INFO] Removed objs from the libft"${RESET}
+	@printf ${CYAN}"[INFO] Removed objs from the libft"${RESET}
 
 fclean: clean
 	@rm -Rf $(NAME)
-	@echo ${CYAN}"[INFO] Removed $(NAME) from the libft"${RESET}
+	@printf ${CYAN}"[INFO] Removed $(NAME) from the libft\n"${RESET}
 
 re: fclean all
 

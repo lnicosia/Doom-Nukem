@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_events.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 16:46:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 16:37:19 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:09:21 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		parse_event_trigger(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
@@ -24,7 +25,7 @@ t_events_parser *eparser)
 	if (eparser->trigger_index < 0 || eparser->trigger_index
 		> MAX_TRIGGER_TYPES)
 		return (custom_error_with_line("Invalid trigger type", parser));
-		*line = skip_number(*line);
+	*line = skip_number(*line);
 	init_events_parser_var(eparser);
 	if (eparser->trigger_parsers[eparser->trigger_index](env, parser, line,
 		eparser))
@@ -39,7 +40,7 @@ t_events_parser *eparser)
 	if (**line != ']')
 		return (invalid_char("after trigger declaration", "']'",
 		**line, parser));
-	return (0);
+		return (0);
 }
 
 int		parse_event(t_env *env, t_map_parser *parser, char **line,
@@ -66,42 +67,50 @@ t_events_parser *eparser)
 	return (0);
 }
 
+int		parse_current_event_line(t_env *env, t_map_parser *parser,
+t_events_parser *eparser)
+{
+	char	*line;
+
+	line = parser->line;
+	parser->line_count++;
+	if (*parser->line == '[')
+	{
+		if (parse_event(env, parser, &line, eparser))
+			return (-1);
+	}
+	else if (ft_strlen(parser->line) == 5 && ft_strequ(parser->line, "Links"))
+	{
+		if (parse_events_links(env, parser))
+			return (-1);
+		ft_strdel(&parser->line);
+		return (1);
+	}
+	else if (!*(parser->line))
+	{
+		ft_strdel(&parser->line);
+		return (1);
+	}
+	else if (*parser->line != '#')
+		return (invalid_char("at event", "[", *parser->line, parser));
+	ft_strdel(&parser->line);
+	return (0);
+}
+
 int		parse_events(t_env *env, t_map_parser *parser)
 {
 	t_events_parser	eparser;
+	int				ret;
 
 	ft_bzero(&eparser, sizeof(eparser));
 	init_events_parser(&eparser);
-	while ((parser->ret = get_next_line(parser->fd, &(parser->line))))
+	while ((parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
-		parser->tmp = ft_strdup(parser->line);
-		parser->line_count++;
-		if (*(parser->line) == '[')
-		{
-			if (parse_event(env, parser, &(parser->line), &eparser))
-			{
-				ft_strdel(&(parser->tmp));
-				return (-1);
-			}
-		}
-		else if (ft_strlen(parser->line) == 5 && ft_strequ(parser->line, "Links"))
-		{
-			if (parse_events_links(env, parser))
-			{
-				ft_strdel(&(parser->tmp));
-				return (-1);
-			}
-			ft_strdel(&(parser->tmp));
+		ret = parse_current_event_line(env, parser, &eparser);
+		if (ret == -1)
+			return (-1);
+		else if (ret == 1)
 			break ;
-		}
-		else if (!*(parser->line))
-		{
-			ft_strdel(&(parser->tmp));
-			break ;
-		}
-		else if (*(parser->line) != '#')
-			return (invalid_char("at event declaration", "[", *(parser->line), parser));
-		ft_strdel(&(parser->tmp));
 	}
 	return (0);
 }

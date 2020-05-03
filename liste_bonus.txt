@@ -1,6 +1,6 @@
 mip mapping
 mini map (semi transparence, champ de vision)
-impacts de balles
+impacts de balles murs, sols, plafonds
 zbuffer
 wall sprites sur sol et plafond
 fov

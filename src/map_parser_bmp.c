@@ -31,11 +31,13 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 	{
 		if (*(parser->tmp) == '\n')
 			break;
-		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, parser->tmp)))
+		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
+		  	parser->tmp)))
 			return (ft_printf("Could not realloc name in parse bmp\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name in the map\n"));
+		return (ft_printf("Expected a '\\n' at the end of file name"
+		" in the map\n"));
 	if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, "2")))
 		return (ft_printf("Could not malloc name in parse bmp\n"));
 	ft_strdel(&(parser->tmp));
@@ -64,11 +66,13 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 		return (ft_printf("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
 		return (ft_printf("Read for bmp file failed\n"));	
-	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
+	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC,
+	  	0000700)) < 0)
 		return (ft_printf("Could not open bmp file\n"));
 	write(fd, parser->tmp, size);
 	ft_strdel(&(parser->resource_name));
-	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
+	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
+	  	|| *(parser->tmp) != '\n')
 		return (ft_printf("Invalid file\n"));
 	ft_strdel(&(parser->tmp));
 	if (close(fd))

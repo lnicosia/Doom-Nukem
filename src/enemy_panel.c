@@ -6,17 +6,18 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:25:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:50:08 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+#include "enemies.h"
 
 int		set_enemy_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
-	
+
 	down = -1;
 	if (index == ENEMY_SPRITE)
 		down = 0;
@@ -42,6 +43,22 @@ int		set_enemy_panel_buttons_state(t_target_panel *panel, int index)
 	return (0);
 }
 
+void	select_enemy2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.creating_condition)
+	{
+		if (env->editor.condition_panel.condition.target)
+			set_enemy_panel_buttons_state(panel,
+			env->editor.condition_panel.condition.target_index);
+	}
+	else
+	{
+		if (env->editor.event_panel.event.target)
+			set_enemy_panel_buttons_state(panel,
+			env->editor.event_panel.event.target_index);
+	}
+}
+
 int		select_enemy(void *param)
 {
 	t_env			*env;
@@ -61,18 +78,7 @@ int		select_enemy(void *param)
 		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.creating_condition)
-	{
-		if (env->editor.condition_panel.condition.target)
-			set_enemy_panel_buttons_state(panel,
-			env->editor.condition_panel.condition.target_index);
-	}
-	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_enemy_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
+	select_enemy2(panel, env);
 	return (0);
 }
 

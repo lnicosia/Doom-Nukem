@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 #include "collision.h"
 
 /*
@@ -20,16 +20,16 @@
 
 t_v3	collisions_z_axis(t_env *env, t_motion motion, t_v3 move)
 {
-	if (get_ceiling_at_pos(env->sectors[motion.lowest_ceiling],
-		motion.future, env) - get_floor_at_pos(env->sectors[motion.sector],
+	if (get_ceiling_at_pos(&env->sectors[motion.lowest_ceiling],
+		motion.future, env) - get_floor_at_pos(&env->sectors[motion.sector],
 		motion.future, env) < motion.eyesight + 1)
 		return (new_v3(0, 0, 0));
 	if (!check_ceiling(env, motion, motion.lowest_ceiling))
 		move.z =
-			get_ceiling_at_pos(env->sectors[motion.lowest_ceiling],
+			get_ceiling_at_pos(&env->sectors[motion.lowest_ceiling],
 			motion.pos, env) - 1 - (motion.pos.z + motion.eyesight);
 	if (!check_floor(env, motion, motion.sector) && motion.flight)
-		move.z = get_floor_at_pos(env->sectors[motion.sector], motion.pos, env)
+		move.z = get_floor_at_pos(&env->sectors[motion.sector], motion.pos, env)
 		- motion.pos.z;
 	else if (!(check_floor(env, motion, motion.sector)))
 		return (new_v3(0, 0, 0));
@@ -83,11 +83,9 @@ int		check_objects(t_env *env, t_v3 move, t_motion motion)
 	int		i;
 	int		coll_event;
 	t_v3	futur;
-	double	eyesight;
 
 	i = 0;
 	futur = calculate_motion_future(motion, move);
-	eyesight = motion.eyesight;
 	while (i < env->nb_objects)
 	{
 		if (env->objects[i].exists)

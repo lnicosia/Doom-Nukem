@@ -3,19 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   editor_object_tabs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:19:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:43:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+int		print_object_sector_tab2(t_env *env)
+{
+	print_text(new_point(600, 60), new_printable_text("Intensity",
+	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
+	env->sectors[env->objects[env->selected_object].sector].intensity);
+	env->editor.hud.s_object.t_intensity.target =
+	&env->sectors[env->objects[env->selected_object].sector].intensity;
+	draw_button(env, env->editor.hud.s_object.intensity, env->snprintf);
+	print_text(new_point(640, 60), new_printable_text("Gravity",
+	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->sectors[env->objects[env->selected_object].sector].
+	gravity), env->sectors[env->objects[env->selected_object].sector].gravity);
+	env->editor.hud.s_object.t_gravity.target =
+	&env->sectors[env->objects[env->selected_object].sector].gravity;
+	draw_button(env, env->editor.hud.s_object.gravity, env->snprintf);
+	return (0);
+}
+
 int		print_object_sector_tab(t_env *env)
 {
 	t_point		size;
-	
+
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d",
 	env->selected_object);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
@@ -36,50 +56,31 @@ int		print_object_sector_tab(t_env *env)
 	env->editor.hud.s_object.t_color.target =
 	&env->sectors[env->objects[env->selected_object].sector].light_color;
 	draw_button(env, env->editor.hud.s_object.color, env->snprintf);
-	print_text(new_point(600, 60), new_printable_text("Intensity",
+	return (print_object_sector_tab2(env));
+}
+
+int		print_object_general_tab3(t_env *env)
+{
+	print_text(new_point(720, 60), new_printable_text("Damage",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->sectors[env->objects[env->selected_object].sector].intensity);
-	env->editor.hud.s_object.t_intensity.target =
-	&env->sectors[env->objects[env->selected_object].sector].intensity;
-	draw_button(env, env->editor.hud.s_object.intensity, env->snprintf);
-	print_text(new_point(640, 60), new_printable_text("Gravity",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	env->objects[env->selected_object].damage);
+	env->editor.hud.g_object.t_damage.target =
+	&env->objects[env->selected_object].damage;
+	draw_button(env, env->editor.hud.g_object.damage, env->snprintf);
+	print_text(new_point(760, 60), new_printable_text("Angle",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->sectors[env->objects[env->selected_object].sector].
-	gravity), env->sectors[env->objects[env->selected_object].sector].gravity);
-	env->editor.hud.s_object.t_gravity.target =
-	&env->sectors[env->objects[env->selected_object].sector].gravity;
-	draw_button(env, env->editor.hud.s_object.gravity, env->snprintf);
+	get_decimal_len(env->objects[env->selected_object].angle),
+	env->objects[env->selected_object].angle);
+	env->editor.hud.g_object.t_angle.target =
+	&env->objects[env->selected_object].angle;
+	draw_button(env, env->editor.hud.g_object.angle, env->snprintf);
 	return (0);
 }
 
-int		print_object_general_tab(t_env *env)
+int		print_object_general_tab2(t_env *env)
 {
-	t_point		size;
-	
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d",
-	env->selected_object);
-	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
-	print_text(new_point(465, 200 - size.x / 2),
-	new_printable_text(env->snprintf,
-	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
-	print_text(new_point(520, 60), new_printable_text("X",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.x)),
-	env->objects[env->selected_object].pos.x),
-	env->editor.hud.g_object.t_pos_x.target =
-	&env->objects[env->selected_object].pos.x;
-	draw_button(env, env->editor.hud.g_object.pos_x, env->snprintf);
-	print_text(new_point(560, 60), new_printable_text("Y",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.y)),
-	env->objects[env->selected_object].pos.y);
-	env->editor.hud.g_object.t_pos_y.target =
-	&env->objects[env->selected_object].pos.y;
-	draw_button(env, env->editor.hud.g_object.pos_y, env->snprintf);
 	print_text(new_point(600, 60), new_printable_text("Z",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
@@ -103,20 +104,34 @@ int		print_object_general_tab(t_env *env)
 	env->editor.hud.g_object.t_scale.target =
 	&env->objects[env->selected_object].scale;
 	draw_button(env, env->editor.hud.g_object.scale, env->snprintf);
-	print_text(new_point(720, 60), new_printable_text("Damage",
+	return (print_object_general_tab3(env));
+}
+
+int		print_object_general_tab(t_env *env)
+{
+	t_point		size;
+
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Object %d",
+	env->selected_object);
+	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
+	print_text(new_point(465, 200 - size.x / 2),
+	new_printable_text(env->snprintf,
+	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
+	print_text(new_point(520, 60), new_printable_text("X",
 	env->sdl.fonts.lato20, 0x00000000, 30), env);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
-	env->objects[env->selected_object].damage);
-	env->editor.hud.g_object.t_damage.target =
-	&env->objects[env->selected_object].damage;
-	draw_button(env, env->editor.hud.g_object.damage, env->snprintf);
-	print_text(new_point(760, 60), new_printable_text("Angle",
-	env->sdl.fonts.lato20, 0x333333FF, 30), env);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->objects[env->selected_object].angle),
-	env->objects[env->selected_object].angle);
-	env->editor.hud.g_object.t_angle.target =
-	&env->objects[env->selected_object].angle;
-	draw_button(env, env->editor.hud.g_object.angle, env->snprintf);
-	return (0);
+	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.x)),
+	env->objects[env->selected_object].pos.x);
+	env->editor.hud.g_object.t_pos_x.target =
+	&env->objects[env->selected_object].pos.x;
+	draw_button(env, env->editor.hud.g_object.pos_x, env->snprintf);
+	print_text(new_point(560, 60), new_printable_text("Y",
+	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	ft_min(1, get_decimal_len(env->objects[env->selected_object].pos.y)),
+	env->objects[env->selected_object].pos.y);
+	env->editor.hud.g_object.t_pos_y.target =
+	&env->objects[env->selected_object].pos.y;
+	draw_button(env, env->editor.hud.g_object.pos_y, env->snprintf);
+	return (print_object_general_tab2(env));
 }

@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:19:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 10:38:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:36:33 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		new_walk_out_event(t_env *env, t_event_trigger trigger, t_event event)
 	env->sectors[trigger.sector].nb_walk_out_events++;
 	return (0);
 }
+
 int		new_parser_walk_out_event(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {

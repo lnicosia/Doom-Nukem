@@ -40,6 +40,23 @@ int		set_floor_panel_buttons_state(t_target_panel *panel, int index)
 	return (0);
 }
 
+int		select_floor2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.creating_condition)
+	{
+		if (env->editor.condition_panel.condition.target)
+			set_floor_panel_buttons_state(panel,
+			env->editor.condition_panel.condition.target_index);
+	}
+	else
+	{
+		if (env->editor.event_panel.event.target)
+			set_floor_panel_buttons_state(panel,
+			env->editor.event_panel.event.target_index);
+	}
+	return (0);
+}
+
 int		select_floor(void *param)
 {
 	t_env			*env;
@@ -59,19 +76,7 @@ int		select_floor(void *param)
 		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.creating_condition)
-	{
-		if (env->editor.condition_panel.condition.target)
-			set_floor_panel_buttons_state(panel,
-			env->editor.condition_panel.condition.target_index);
-	}
-	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_floor_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
-	return (0);
+	return (select_floor2(panel, env));
 }
 
 int		draw_floor_panel(t_env *env, t_target_panel *panel)

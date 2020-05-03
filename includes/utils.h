@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:14:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 14:09:23 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,22 +126,22 @@ typedef enum		e_button_state
 {
 	UP,
 	DOWN
-}			t_button_state;
+}					t_button_state;
 
 typedef enum		e_button_anim_state
 {
 	REST,
 	PRESSED,
 	HOVER
-}			t_button_anim_state;
+}					t_button_anim_state;
 
 typedef enum		e_confirmation_box_type
 {
-		YESNO,
-		INFO,
-		ERROR,
-		CONFIRM,
-		WARNING
+	YESNO,
+	INFO,
+	ERROR,
+	CONFIRM,
+	WARNING
 }					t_confirmation_box_type;
 
 typedef enum		e_object_type
@@ -223,7 +223,7 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
-typedef enum		s_ui_textures
+typedef enum		e_ui_textures
 {
 	BACKGROUND
 }					t_ui_textures;
@@ -345,21 +345,21 @@ typedef struct		s_sprite
 
 typedef struct		s_event_param
 {
-		int			num;
-		int			num2;
-		int			num3;
-		int			sector;
-		int			wall;
-		int			sprite;
-		int			size;
-		int			enemy;
-		int			object;
-		int			vertex;
-		int			weapon;
-		double		equ_value;
-		double		diff_value;
-		void		*target;
-		int			target_type;
+	int				num;
+	int				num2;
+	int				num3;
+	int				sector;
+	int				wall;
+	int				sprite;
+	int				size;
+	int				enemy;
+	int				object;
+	int				vertex;
+	int				weapon;
+	double			equ_value;
+	double			diff_value;
+	void			*target;
+	int				target_type;
 }					t_event_param;
 
 typedef struct		s_event_target
@@ -439,7 +439,7 @@ typedef struct		s_wall_sprites
 
 typedef struct		s_bullet_hole
 {
-  	t_v2			pos;
+	t_v2			pos;
 	t_v2			scale;
 	t_v2			map_scale;
 }					t_bullet_hole;
@@ -606,7 +606,7 @@ typedef	struct		s_init_data
 	t_camera		camera;
 	int				sector;
 	double			angle;
-	int				health;	
+	int				health;
 	int				main_sprite;
 }					t_init_data;
 
@@ -822,8 +822,6 @@ typedef struct		s_sound
 **	Contains every data needed for an animation on the screen
 */
 
-
-
 typedef struct		s_time
 {
 	double			tick;
@@ -925,7 +923,7 @@ typedef	struct		s_projectile
 	double			scale;
 	double			angle;
 	double			size_2d;
-	int			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				intensity;
 	int				sector;
@@ -1111,11 +1109,11 @@ typedef struct		s_texture
 	size_t			nb_maps;
 }					t_texture;
 
-typedef struct s_skybox
+typedef struct		s_skybox
 {
-	char		*name;
-	t_texture	textures[6];
-}				t_skybox;
+	char			*name;
+	t_texture		textures[6];
+}					t_skybox;
 
 /*
 **	Contains a list of options for the game
@@ -1174,7 +1172,7 @@ typedef struct		s_rectangle
 	int				filled;
 	int				line_size;
 }					t_rectangle;
- 
+
 /*
 **	Data for button
 */
@@ -1242,6 +1240,8 @@ typedef struct		s_input_box
 	TTF_Font		*font;
 	t_point			size;
 	t_point			pos;
+	t_point			current_line_pos;
+	t_point			current_text_size;
 	int				state;
 	int				type;
 	int				caps;
@@ -1251,6 +1251,12 @@ typedef struct		s_input_box
 	int				add_period;
 	int				accept_inputs;
 	int				max_lines;
+	int				click;
+	int				down;
+	int				up;
+	int				cursor_in_line;
+	int				change_cursor_line;
+	size_t			prec_count;
 	size_t			count;
 	size_t			line_size;
 	size_t			cursor;

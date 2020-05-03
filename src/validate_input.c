@@ -12,26 +12,28 @@
 
 #include "env.h"
 
-int	validate_input(t_input_box *box, t_env *env)
+int	validate_input3(t_input_box *box, t_env *env)
 {
-	if (box->check && box->check(env))
+	if (box->type == STRING)
 	{
-		// Confirmation box avec message d'erreur
-		update_confirmation_box(&env->confirmation_box, box->error_message,
-		ERROR, env);
-		box->state = 0;
-		return (0);
-	}
-	if (box->type == INT)
-	{
-		if (!box->int_target)
+		if (!box->str_target)
 		{
-			ft_printf("Error: no int target for input box\n");
+			ft_printf("Error: no string target for input box\n");
 			return (1);
 		}
-		*(box->int_target) = ft_atoi(box->str);
+		if (box->str_target)
+			ft_strdel(box->str_target);
+		*(box->str_target) = ft_strdup(box->str);
 	}
-	else if (box->type == DOUBLE)
+	if (box->update && box->update(env))
+		return (-1);
+	box->state = 0;
+	return (0);
+}
+
+int	validate_input2(t_input_box *box, t_env *env)
+{
+	if (box->type == DOUBLE)
 	{
 		if (!box->double_target)
 		{
@@ -49,19 +51,26 @@ int	validate_input(t_input_box *box, t_env *env)
 		}
 		*(box->uint32_target) = ft_atoi_base(box->str, "0123456789ABCDEF");
 	}
-	else if (box->type == STRING)
+	return (validate_input3(box, env));
+}
+
+int	validate_input(t_input_box *box, t_env *env)
+{
+	if (box->check && box->check(env))
 	{
-		if (!box->str_target)
+		update_confirmation_box(&env->confirmation_box, box->error_message,
+		ERROR, env);
+		box->state = 0;
+		return (0);
+	}
+	if (box->type == INT)
+	{
+		if (!box->int_target)
 		{
-			ft_printf("Error: no string target for input box\n");
+			ft_printf("Error: no int target for input box\n");
 			return (1);
 		}
-		if (box->str_target)
-			ft_strdel(box->str_target);
-		*(box->str_target) = ft_strdup(box->str);
+		*(box->int_target) = ft_atoi(box->str);
 	}
-	if (box->update && box->update(env))
-		return (-1);
-	box->state = 0;
-	return (0);
+	return (validate_input2(box, env));
 }

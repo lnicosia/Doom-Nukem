@@ -22,19 +22,19 @@ int		init_ttf(t_env *env)
 	if (TTF_Init() == -1)
 		return (ft_printf("SDL_Init Error: %s\n", TTF_GetError()));
 	if (!(env->sdl.fonts.amazdoom70 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 70)))
+		TTF_OpenFont("fonts/AmazDooMLeft.ttf", 70)))
 	{
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
 	}
 	if (!(env->sdl.fonts.amazdoom50 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 50)))
+		TTF_OpenFont("fonts/AmazDooMLeft.ttf", 50)))
 	{
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
 	}
 	if (!(env->sdl.fonts.amazdoom20 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 20)))
+		TTF_OpenFont("fonts/AmazDooMLeft.ttf", 20)))
 	{
 		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);

@@ -33,7 +33,8 @@ int		win(void *param, void *penv)
 	env = (t_env*)penv;
 	i = 0;
 	if (env->player.nb_shots > 0)
-		env->player.accuracy = ((env->player.touched / env->player.nb_shots) * 100);
+		env->player.accuracy = ((env->player.touched / env->player.nb_shots)
+		* 100);
 	if (!env->confirmation_box.state)
 	{
 		SDL_SetRelativeMouseMode(0);

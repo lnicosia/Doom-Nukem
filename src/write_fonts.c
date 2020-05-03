@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_fonts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:16:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 12:28:10 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:18:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		find_size(char *name)
 {
 	struct stat st;
 
-	if(stat(name, &st)==0)
+	if (stat(name, &st) == 0)
 		return ((int)st.st_size);
 	else
 		return (0);
@@ -25,10 +25,10 @@ int		find_size(char *name)
 
 int		write_font(int file, int fd, char *name)
 {
-	int size;
+	int				size;
 	unsigned char	resource[10000];
 	int				ret;
-	int             check_size;
+	int				check_size;
 
 	check_size = 0;
 	if (!(size = find_size(name)))
@@ -73,19 +73,19 @@ int		write_fonts1(int fd, int file)
 	return (0);
 }
 
-int write_fonts2(int fd, int file)
+int		write_fonts2(int fd, int file)
 {
-  if ((file = open("./fonts/Lato-Regular.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/Lato-Regular.ttf", O_RDONLY)) < 0)
 		return (ft_printf("Could not open the font\n"));
 	if (write_font(file, fd, "./fonts/Lato-Regular.ttf"))
 		return (-1);
-    if ((file = open("./fonts/Lato-Bold.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/Lato-Bold.ttf", O_RDONLY)) < 0)
 		return (ft_printf("Could not open the font\n"));
 	if (write_font(file, fd, "./fonts/Lato-Bold.ttf"))
 		return (-1);
-    if ((file = open("./fonts/Lato-Black.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/Lato-Black.ttf", O_RDONLY)) < 0)
 		return (ft_printf("Could not open the font\n"));
 	if (write_font(file, fd, "./fonts/Lato-Black.ttf"))
 		return (-1);
-    return (0);
+	return (0);
 }

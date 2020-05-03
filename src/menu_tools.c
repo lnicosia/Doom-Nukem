@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:36:49 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/26 13:47:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:16:44 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ void	add_image(t_env *env, int i, int x, int y)
 		yy = 0;
 		while (yy < env->sprite_textures[i].surface->h && yy < env->h)
 		{
-			if (env->sprite_textures[i].str[xx + env->sprite_textures[i].surface->w * yy] != 0xFFC10099)
-				env->sdl.texture_pixels[(x + (y * env->w)) + xx + env->w * yy] = env->sprite_textures[i].str[xx + env->sprite_textures[i].surface->w * yy];
+			if (env->sprite_textures[i].str[xx + env->sprite_textures[i].
+				surface->w * yy] != 0xFFC10099)
+				env->sdl.texture_pixels[(x + (y * env->w)) + xx + env->w * yy] =
+				env->sprite_textures[i].str[xx
+				+ env->sprite_textures[i].surface->w * yy];
 			yy++;
 		}
 		xx++;
 	}
-
 }
 
 void	add_button(t_env *env, int text, int x, int y, int ref_but)

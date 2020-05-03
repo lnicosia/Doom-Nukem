@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   add_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 15:58:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 15:31:44 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/04/28 15:48:29 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/28 16:09:00 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-static void	calcul_player_pos(t_env *env)
+static void	compute_player_pos(t_env *env)
 {
-	int		i;
-	t_v2	pos;
+	int			i;
+	t_v2		pos;
 	t_sector	sector;
 
 	i = 0;
@@ -35,25 +35,8 @@ static void	calcul_player_pos(t_env *env)
 	env->player.starting_pos.y = pos.y;
 }
 
-void		add_player(t_env *env)
+void		add_player2(t_env *env)
 {
-	if (!env->editor.player_exist)
-	{
-		env->editor.player_exist = 1;
-		calcul_player_pos(env);
-	}
-	else
-	{
-		env->player.pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
-		env->player.pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-		env->player.starting_pos.x = (env->sdl.mx - env->editor.center.x) / env->editor.scale;
-		env->player.starting_pos.y = (env->sdl.my - env->editor.center.y) / env->editor.scale;
-	}
-	env->player.camera.angle = 0;
-	env->player.camera.angle_z = 0;
-	env->player.camera.pos = env->player.pos;
-	env->player.camera.pos.z = 6;
-	env->player.eyesight = 6;
 	env->player.speed = 0.1;
 	env->player.camera.angle_cos = cos(env->player.camera.angle);
 	env->player.camera.angle_sin = sin(env->player.camera.angle);
@@ -68,4 +51,30 @@ void		add_player(t_env *env)
 	env->player.camera.pos = env->player.pos;
 	env->player.camera.pos.z = env->player.head_z;
 	update_camera_position(&env->player.camera);
+}
+
+void		add_player(t_env *env)
+{
+	if (!env->editor.player_exist)
+	{
+		env->editor.player_exist = 1;
+		compute_player_pos(env);
+	}
+	else
+	{
+		env->player.pos.x = (env->sdl.mx - env->editor.center.x)
+		/ env->editor.scale;
+		env->player.pos.y = (env->sdl.my - env->editor.center.y)
+		/ env->editor.scale;
+		env->player.starting_pos.x = (env->sdl.mx - env->editor.center.x)
+		/ env->editor.scale;
+		env->player.starting_pos.y = (env->sdl.my - env->editor.center.y)
+		/ env->editor.scale;
+	}
+	env->player.camera.angle = 0;
+	env->player.camera.angle_z = 0;
+	env->player.camera.pos = env->player.pos;
+	env->player.camera.pos.z = 6;
+	env->player.eyesight = 6;
+	add_player2(env);
 }

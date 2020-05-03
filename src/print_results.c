@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   print_results.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:36:54 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/13 11:15:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:41:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void    print_results(t_env *env)
+void	print_results(t_env *env)
 {
-    draw_rectangle(env,
+	draw_rectangle(env,
 		new_rectangle(0x00000000, 0xFF888888, 1, 5),
-		new_point(200 , 180),
-		new_point(350, 520));
+		new_point(200, 180), new_point(350, 520));
 	print_text(new_point(200, 320), new_printable_text("Score :",
 	env->sdl.fonts.amazdoom50, 0xFFFFFFFF, 50), env);
 	if (env->player.killed > 1)

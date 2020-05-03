@@ -13,6 +13,25 @@
 #include "env.h"
 #include "collision.h"
 
+int		update_entities_sectors2(t_env *env)
+{
+	int i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].sector = get_sector_no_z(env, env->objects[i].pos);
+		if (env->objects[i].sector < 0)
+		{
+			env->selected_object = i;
+			if (delete_object(env))
+				return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		update_entities_sectors(t_env *env)
 {
 	int i;
@@ -33,17 +52,5 @@ int		update_entities_sectors(t_env *env)
 		}
 		i++;
 	}
-	i = 0;
-	while (i < env->nb_objects)
-	{
-		env->objects[i].sector = get_sector_no_z(env, env->objects[i].pos);
-		if (env->objects[i].sector < 0)
-		{
-			env->selected_object = i;
-			if (delete_object(env))
-				return (-1);
-		}
-		i++;
-	}
-	return (0);
+	return (update_entities_sectors2(env));
 }

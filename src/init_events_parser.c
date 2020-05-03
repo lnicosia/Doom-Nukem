@@ -12,16 +12,6 @@
 
 #include "events_parser.h"
 
-int		no_parser(t_env *env, t_map_parser *parser, char **line,
-t_events_parser *eparser)
-{
-	(void)env;
-	(void)line;
-	(void)eparser;
-	(void)parser;
-	return (0);
-}
-
 void	no_writer(int fd, t_event event)
 {
 	(void)fd;
@@ -56,6 +46,7 @@ void	init_events_parser(t_events_parser *eparser)
 {
 	init_events_parser_var(eparser);
 	init_events_parser_trigger_parsers(eparser);
+	eparser->event.start_time = SDL_GetTicks();
 	eparser->new_events[GLOBAL] = &new_parser_global_event;
 	eparser->new_events[PRESS] = &new_parser_press_event;
 	eparser->new_events[SHOOT] = &new_parser_shoot_event;

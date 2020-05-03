@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 18:11:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/21 15:36:19 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:34:46 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ int		get_sector_no_z_origin(t_env *env, t_v3 pos, int origin)
 	{
 		if (env->sectors[origin].neighbors[i] >= 0)
 		{
-			if (is_in_sector_no_z(env, env->sectors[origin].neighbors[i], new_v2(pos.x, pos.y)))
+			if (is_in_sector_no_z(env, env->sectors[origin].neighbors[i],
+				new_v2(pos.x, pos.y)))
 				return (env->sectors[origin].neighbors[i]);
 		}
 		i++;

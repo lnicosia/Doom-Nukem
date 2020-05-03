@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   write_hud.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 18:35:43 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/10 19:34:12 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 12:14:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "save.h"
 
 int		write_hud1(int fd, int file)
 {
@@ -59,7 +59,6 @@ int		write_hud2(int fd, int file)
 		return (ft_printf("Could not open the font\n"));
 	if (writing_bmp(file, fd, "./images/HUD/raygun1.bmp"))
 		return (-1);
-	
 	return (0);
 }
 

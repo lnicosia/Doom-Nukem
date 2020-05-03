@@ -1,26 +1,26 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   draw_line.c										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: gaerhard <gaerhard@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/23 18:32:18 by sipatry		   #+#	#+#			 */
-/*   Updated: 2019/09/06 11:22:59 by lnicosia		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/29 17:42:33 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/29 17:42:33 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	fill_img(t_point c, t_env data, Uint32 color)
+void	fill_img(t_point c, t_env *data, Uint32 color)
 {
-	if (c.x >= 400 && c.x < data.w && c.y >= 0 && c.y < data.h
-			&& data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFF00FF00
-			&& data.sdl.texture_pixels[c.x + c.y * data.w] != 0xFFFFFF00)
-		data.sdl.texture_pixels[c.x + c.y * data.w] = color;
+	if (c.x >= 400 && c.x < data->w && c.y >= 0 && c.y < data->h
+			&& data->sdl.texture_pixels[c.x + c.y * data->w] != 0xFF00FF00
+			&& data->sdl.texture_pixels[c.x + c.y * data->w] != 0xFFFFFF00)
+		data->sdl.texture_pixels[c.x + c.y * data->w] = color;
 }
 
-void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
+void	draw_line_low(t_point c1, t_point c2, t_env *data, int color)
 {
 	int	dx;
 	int	dy;
@@ -42,7 +42,7 @@ void	draw_line_low(t_point c1, t_point c2, t_env data, int color)
 	}
 }
 
-void	draw_line_high(t_point c1, t_point c2, t_env data, Uint32 color)
+void	draw_line_high(t_point c1, t_point c2, t_env *data, Uint32 color)
 {
 	int	dx;
 	int	dy;
@@ -64,7 +64,7 @@ void	draw_line_high(t_point c1, t_point c2, t_env data, Uint32 color)
 	}
 }
 
-void	draw_line(t_point c1, t_point c2, t_env data, Uint32 color)
+void	draw_line(t_point c1, t_point c2, t_env *data, Uint32 color)
 {
 	if (ft_abs(c2.y - c1.y) < ft_abs(c2.x - c1.x))
 		if (c1.x > c2.x)

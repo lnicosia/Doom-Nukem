@@ -72,9 +72,6 @@ void		fill_output_buffer(t_data *data, const char *s, unsigned int size)
 
 void		fill_buffer(t_data *data, const char *s, unsigned int size)
 {
-	unsigned int	i;
-
-	i = 0;
 	if (data->ret != -1)
 		data->ret += size;
 	if (data->i + size > 2147483647)

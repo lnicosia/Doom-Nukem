@@ -6,14 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 18:01:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/12/04 18:14:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 14:10:22 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WALL_SPRITE_MODIFIER
-# define WALL_SPRITE_MODIFIER
+#ifndef WALL_SPRITE_MODIFIER_H
+# define WALL_SPRITE_MODIFIER_H
 
-enum				s_wall_sprite_modifier_type
+enum				e_wall_sprite_modifier_type
 {
 	SPRITE,
 	POSX,

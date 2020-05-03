@@ -1,25 +1,25 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   get_clockwise_order.c							  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lnicosia <marvin@42.fr>					+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2019/07/26 12:35:45 by lnicosia		  #+#	#+#			 */
-/*   Updated: 2020/01/20 14:39:49 by lnicosia         ###   ########.fr       */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_clockwise_order.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/30 11:16:17 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/04/30 11:16:43 by lnicosia         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		get_clockwise_order_sector(t_env *env, int index)	
+int		get_clockwise_order_sector(t_env *env, int index)
 {
 	int			res;
 	int			i;
 	int			num;
 	t_vertex	vertex1;
 	t_vertex	vertex2;
-	
+
 	res = 0;
 	i = 0;
 	vertex2 = env->vertices[0];
@@ -32,7 +32,7 @@ int		get_clockwise_order_sector(t_env *env, int index)
 		res += (vertex2.x - vertex1.x) * (vertex2.y + vertex1.y);
 		i++;
 	}
-	vertex1 = vertex2;;
+	vertex1 = vertex2;
 	num = env->sectors[index].vertices[0];
 	vertex2 = env->vertices[num];
 	res += (vertex2.x - vertex1.x) * (vertex2.y + vertex1.y);
@@ -46,7 +46,7 @@ int		get_clockwise_order(t_env *env)
 	t_list		*tmp;
 	t_vertex	*vertex1;
 	t_vertex	*vertex2;
-	
+
 	tmp = env->editor.current_vertices;
 	res = 0;
 	i = 0;
@@ -55,20 +55,11 @@ int		get_clockwise_order(t_env *env)
 		vertex1 = (t_vertex*)tmp->content;
 		vertex2 = (t_vertex*)tmp->next->content;
 		res += (vertex2->x - vertex1->x) * (vertex2->y + vertex1->y);
-		/*ft_printf("[%d]: (%.f - %.f)(%.f + %.f) = %d\n",
-				i, vertex2->x, vertex1->x,
-				vertex2->y, vertex1->y,
-				(int)((vertex2->x - vertex1->x) * (vertex2->y + vertex1->y)));*/
 		i++;
 		tmp = tmp->next;
 	}
 	vertex1 = (t_vertex*)tmp->content;
 	vertex2 = (t_vertex*)env->editor.current_vertices->content;
 	res += (vertex2->x - vertex1->x) * (vertex2->y + vertex1->y);
-	/*ft_printf("[%d]: (%.f - %.f)(%.f + %.f) = %d\n",
-			i, vertex2->x, vertex1->x,
-			vertex2->y, vertex1->y,
-			(int)((vertex2->x - vertex1->x) * (vertex2->y + vertex1->y)));
-	ft_printf("res = %d\n", res);*/
 	return (res > 0 ? 0 : 1);
 }

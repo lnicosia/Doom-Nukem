@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		sector_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)

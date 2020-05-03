@@ -6,12 +6,18 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 13:25:10 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:21:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+
+void	select_player_panel_button(t_target_panel *panel, int down)
+{
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
+}
 
 int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 {
@@ -37,10 +43,26 @@ int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 	else if (index == PLAYER_SECTOR)
 		down = 8;
 	if (down != -1)
+		select_player_panel_button(panel, down);
+	return (0);
+}
+
+int		select_player2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.creating_condition)
 	{
-		panel->targets[down].state = DOWN;
-		panel->selected_button = down;
+		if (env->editor.condition_panel.condition.target)
+			set_player_panel_buttons_state(panel,
+			env->editor.condition_panel.condition.target_index);
 	}
+	else
+	{
+		if (env->editor.event_panel.event.target)
+			set_player_panel_buttons_state(panel,
+			env->editor.event_panel.event.target_index);
+	}
+	update_condition_target_buttons_pos(env);
+	update_target_panel_buttons_pos(env);
 	return (0);
 }
 
@@ -63,21 +85,7 @@ int		select_player(void *param)
 		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.creating_condition)
-	{
-		if (env->editor.condition_panel.condition.target)
-			set_player_panel_buttons_state(panel,
-			env->editor.condition_panel.condition.target_index);
-	}
-	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_player_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
-	update_condition_target_buttons_pos(env);
-	update_target_panel_buttons_pos(env);
-	return (0);
+	return (select_player2(panel, env));
 }
 
 int		draw_player_panel(t_env *env, t_target_panel *panel)

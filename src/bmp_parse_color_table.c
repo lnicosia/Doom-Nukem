@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parse_color_table.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:32:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:48:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:56:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ static void	set_colors4(unsigned int *colors)
 	colors[15] = 0xFFFFFFFF;
 }
 
-static void	set_colors1(unsigned int *colors)
-{
-	colors[0] = 0xFF;
-	colors[1] = 0xFFFFFFFF;
-}
-
 static int	default_color_table(t_bmp_parser *parser)
 {
 	if (!(parser->colors = (unsigned int*)ft_memalloc(sizeof(unsigned int)
@@ -91,7 +85,10 @@ static int	default_color_table(t_bmp_parser *parser)
 	if (parser->bpp == 4)
 		set_colors4(parser->colors);
 	if (parser->bpp == 1)
-		set_colors1(parser->colors);
+	{
+		parser->colors[0] = 0xFF;
+		parser->colors[1] = 0xFFFFFFFF;
+	}
 	return (0);
 }
 

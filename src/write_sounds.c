@@ -18,7 +18,7 @@ int		write_sound(int file, int fd, char *name)
 	unsigned char	resource[10000];
 	unsigned char	header[44];
 	int				ret;
-	int32_t		size;
+	int32_t			size;
 
 	if (read(file, header, 44) != 44)
 		return (ft_printf("Invalid wav file\n"));
@@ -30,6 +30,22 @@ int		write_sound(int file, int fd, char *name)
 	write(fd, "\n", 1);
 	if (close(file))
 		return (ft_printf("Could not close the wav file\n"));
+	return (0);
+}
+
+int		write_sounds2(int fd, t_env *env)
+{
+	int	file;
+
+	(void)env;
+	if ((file = open("./audio/shotgun_shot.wav", O_RDONLY)) < 0)
+		return (ft_printf("Could not open shotgun sound\n"));
+	if (write_sound(file, fd, "./audio/shotgun.wav"))
+		return (-1);
+	if ((file = open("./audio/footstep.wav", O_RDONLY)) < 0)
+		return (ft_printf("Could not open footstep sound\n"));
+	if (write_sound(file, fd, "./audio/footstep.wav"))
+		return (-1);
 	return (0);
 }
 
@@ -56,13 +72,5 @@ int		write_sounds(int fd, t_env *env)
 		return (ft_printf("Could not open raygun sound\n"));
 	if (write_sound(file, fd, "./audio/raygun_shot.wav"))
 		return (-1);
-	if ((file = open("./audio/shotgun_shot.wav", O_RDONLY)) < 0)
-		return (ft_printf("Could not open shotgun sound\n"));
-	if (write_sound(file, fd, "./audio/shotgun.wav"))
-		return (-1);
-	if ((file = open("./audio/footstep.wav", O_RDONLY)) < 0)
-		return (ft_printf("Could not open footstep sound\n"));
-	if (write_sound(file, fd, "./audio/footstep.wav"))
-		return (-1);
-	return (0);
+	return (write_sounds2(fd, env));
 }

@@ -3,78 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_launch_conditions.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 16:41:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 18:04:54 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "init.h"
+#include "parser.h"
 
-int		count_conditions(char *line, t_map_parser *parser)
-{
-	int	count;
-	int	open;
-
-	count = 0;
-	open = 0;
-	while (*line != ']')
-	{
-		if (!*line)
-			return (missing_data("']' after event launch conditions", parser));
-		if (*line == '{')
-		{
-			if (open)
-				return (custom_error_with_line("Unbalanced \'{\' and \'}\'",
-				parser));
-				open++;
-			count++;
-			if (count > 2147483646)
-				return (custom_error_with_line("Too much launch conditions",
-				parser));
-		}
-		if (*line == '}')
-		{
-			if (!open)
-				return (custom_error_with_line("Unbalanced \'{\' and \'}\'",
-				parser));
-				open--;
-		}
-		line++;
-	}
-	return (count);
-}
-
-int		parse_condition2(t_env *env, t_map_parser *parser, char **line,
+int		parse_launch_condition3(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	*line = skip_number(*line);
-	if (**line == '}')
-		return (missing_data("event launch condition value", parser));
-	if (**line != ' ')
-		return (invalid_char("after event launch condition target", "a space",
-		**line, parser));
-	(*line)++;
-		if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for event condition index\n"));
-		eparser->condition_index = ft_atof(*line);
-	if (eparser->condition_index < 0
-			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
-		return (custom_error_with_line("Invalid launch condition target",
-		parser));
-	init_events_parser_var(eparser);
-	*line = skip_number(*line);
-	if (eparser->target_parsers[eparser->condition_index](env, parser,
-		line, eparser))
-		return (-1);
-	eparser->condition_sector = eparser->current_sector;
-	eparser->condition_wall = eparser->current_wall;
-	eparser->condition_vertex = eparser->current_vertex;
-	eparser->condition_sprite = eparser->current_sprite;
-	eparser->condition_enemy = eparser->current_enemy;
-	eparser->condition_weapon = eparser->current_weapon;
 	eparser->condition_object = eparser->current_object;
 	eparser->event.launch_conditions[eparser->condition_count].target_index =
 	eparser->condition_index;
@@ -99,20 +42,50 @@ t_events_parser *eparser)
 	if (**line != '}')
 		return (invalid_char("after launch condition declarartion", "'}'",
 		**line, parser));
-	return (0);
+		return (0);
 }
 
-int		parse_condition(t_env *env, t_map_parser *parser, char **line,
+int		parse_launch_condition2(t_env *env, t_map_parser *parser, char **line,
+t_events_parser *eparser)
+{
+	*line = skip_number(*line);
+	if (**line == '}')
+		return (missing_data("event launch condition value", parser));
+	if (**line != ' ')
+		return (invalid_char("after event launch condition target", "a space",
+		**line, parser));
+		(*line)++;
+	if (valid_int(*line, parser))
+		return (ft_printf("Invalid int for event condition index\n"));
+	eparser->condition_index = ft_atof(*line);
+	if (eparser->condition_index < 0
+			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
+		return (custom_error_with_line("Invalid launch condition", parser));
+	init_events_parser_var(eparser);
+	*line = skip_number(*line);
+	if (eparser->target_parsers[eparser->condition_index](env, parser,
+		line, eparser))
+		return (-1);
+	eparser->condition_sector = eparser->current_sector;
+	eparser->condition_wall = eparser->current_wall;
+	eparser->condition_vertex = eparser->current_vertex;
+	eparser->condition_sprite = eparser->current_sprite;
+	eparser->condition_enemy = eparser->current_enemy;
+	eparser->condition_weapon = eparser->current_weapon;
+	return (parse_launch_condition3(env, parser, line, eparser));
+}
+
+int		parse_launch_condition(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
 	(*line)++;
 	if (**line != '{')
 		return (invalid_char("before event launch condition", "'{'",
 		**line, parser));
-	(*line)++;
+		(*line)++;
 	if (valid_int(*line, parser))
 		return (ft_printf("Invalid int for event launch condition's type\n"));
-		eparser->event.launch_conditions[eparser->condition_count].type =
+	eparser->event.launch_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.launch_conditions[eparser->condition_count].type < 0
 		|| eparser->event.launch_conditions[eparser->condition_count].type >=
@@ -127,11 +100,25 @@ t_events_parser *eparser)
 		(*line)++;
 	if (valid_int(*line, parser))
 		return (ft_printf("Invalid int for event launch condition value\n"));
-		eparser->event.launch_conditions[eparser->condition_count].value =
+	eparser->event.launch_conditions[eparser->condition_count].value =
 		ft_atof(*line);
-	if (parse_condition2(env, parser, line, eparser))
-		return (-1);
-	return (0);
+	return (parse_launch_condition2(env, parser, line, eparser));
+}
+
+int		parse_event_launch_conditions2(t_env *env, t_map_parser *parser,
+char **line, t_events_parser *eparser)
+{
+	while (eparser->condition_count < eparser->nb_conditions)
+	{
+		if (parse_launch_condition(env, parser, line, eparser))
+			return (-1);
+		eparser->condition_count++;
+	}
+	(*line)++;
+	if (**line != ']')
+		return (invalid_char("after event launch conditions", "']'",
+		**line, parser));
+		return (0);
 }
 
 int		parse_event_launch_conditions(t_env *env, t_map_parser *parser,
@@ -145,7 +132,7 @@ char **line, t_events_parser *eparser)
 	if (**line != '[')
 		return (invalid_char("before event launch conditions", "'['",
 		**line, parser));
-	if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
+		if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
 		return (-1);
 	eparser->event.nb_launch_conditions = eparser->nb_conditions;
 	if (!(eparser->event.launch_conditions =
@@ -158,15 +145,5 @@ char **line, t_events_parser *eparser)
 		init_condition(&eparser->event.launch_conditions[i]);
 		i++;
 	}
-	while (eparser->condition_count < eparser->nb_conditions)
-	{
-		if (parse_condition(env, parser, line, eparser))
-			return (-1);
-		eparser->condition_count++;
-	}
-	(*line)++;
-	if (**line != ']')
-		return (invalid_char("after event launch conditions", "']'",
-		**line, parser));
-	return (0);
+	return (parse_event_launch_conditions2(env, parser, line, eparser));
 }

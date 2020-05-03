@@ -3,187 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   projectile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:23:02 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/05 17:28:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:43:41 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "collision.h"
 
-void	projectile_coord(t_v3 pos, t_projectile *projectile, t_projectile_data_2 data2, double height)
+int		projectile_hits_structure(int collision, t_projectile *projectile,
+t_env *env)
 {
-	projectile->pos.x = (data2.radius + 2.5) * cos(projectile->angle) + pos.x;
-	projectile->pos.y = (data2.radius + 2.5) * sin(projectile->angle) + pos.y;
-	projectile->pos.z = (data2.radius + 2.5) * -data2.angle_z + pos.z + height;
-//	projectile->pos.z = height;
-	projectile->dest.x = 100000000 * cos(projectile->angle)
-	+ projectile->pos.x;
-	projectile->dest.y = 100000000 * sin(projectile->angle)
-	+ projectile->pos.y;
-	projectile->dest.z = 100000000 * -data2.angle_z + projectile->pos.z;
+	if (collision == -2
+		&& env->sectors[projectile->sector].ceiling_texture >= 0)
+	{
+		if (projectile_hits_ceiling(projectile, env))
+			return (-1);
+	}
+	else if (collision == -3
+		&& env->sectors[projectile->sector].floor_texture >= 0)
+	{
+		if (projectile_hits_floor(projectile, env))
+			return (-1);
+	}
+	else if (collision >= 0
+		&& env->sectors[projectile->sector].textures[collision] >= 0)
+	{
+		if (projectile_hits_wall(collision, projectile, env))
+			return (-1);
+	}
+	return (0);
 }
 
-int		create_projectile(t_env *env, t_projectile_data data, t_projectile_stats stats, t_projectile_data_2 data2)
+int		process_current_projectile2(t_v3 move, t_projectile *projectile,
+t_list **tmp, t_env *env)
 {
-	t_list	*new;
+	int		collision;
 
-	if (!(new = ft_lstnew(&env->projectile, sizeof(t_projectile))))
-		return (ft_printf("Error when creating new projectile\n"));
-	ft_lstpushback(&env->projectiles, new);
-	((t_projectile*)new->content)->sprite = data.sprite;
-	((t_projectile*)new->content)->speed = stats.speed;
-	((t_projectile*)new->content)->angle = data.angle;
-	projectile_coord(data.pos, ((t_projectile*)new->content), data2, stats.height);
-	((t_projectile*)new->content)->scale = data.scale;
-	((t_projectile*)new->content)->damage = stats.damage;
-	((t_projectile*)new->content)->size_2d = stats.size_2d;
-	((t_projectile*)new->content)->exists = 1;
-	((t_projectile*)new->content)->sector = get_sector_no_z(env, ((t_projectile*)new->content)->pos);
-	((t_projectile*)new->content)->angle = data.angle * CONVERT_DEGREES;
+	collision = collision_projectiles(env, move,
+	new_motion(projectile->sector, projectile->size_2d, 0, projectile->pos));
+	if (collision == -1)
+		projectile_hits_nothing(move, projectile, tmp, env);
+	else
+	{
+		if (projectile_hits_structure(collision, projectile, env))
+			return (-1);
+		*tmp = ft_lstdelnode(&env->projectiles, *tmp);
+	}
 	return (0);
+}
+
+int		process_current_projectile(t_projectile *projectile, t_list **tmp,
+t_env *env)
+{
+	int		nb;
+	t_v3	move;
+
+	move = sprite_movement(env, projectile->speed, projectile->pos,
+	projectile->dest);
+	nb = enemy_collision(env, projectile->pos,
+	new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
+	projectile->pos.z + move.z), projectile->size_2d);
+	if (nb >= 0)
+		return (projectile_hits_enemy(nb, projectile, tmp, env));
+	nb = projectile_object_collision(env, projectile->pos,
+		new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
+		projectile->pos.z + move.z), projectile->size_2d);
+	if (nb >= 0 && env->objects[nb].solid)
+		return (projectile_hits_object(projectile, tmp, env));
+	if (projectile_player_collision(env, projectile->pos,
+		new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
+		projectile->pos.z + move.z), projectile->size_2d))
+		return (projectile_hits_player(projectile, tmp, env));
+	return (process_current_projectile2(move, projectile, tmp, env));
 }
 
 int		projectiles_movement(t_env *env)
 {
-	int				nb;
-	t_v3			move;
-	t_list			*tmp;
-	t_projectile	*projectile;
-	int				collision;
+	t_list	*tmp;
 
 	if (env->projectiles)
 	{
 		tmp = env->projectiles;
 		while (tmp)
 		{
-			projectile = (t_projectile*)tmp->content;
-			move = sprite_movement(env, projectile->speed, projectile->pos, projectile->dest);
-			nb = enemy_collision(env, projectile->pos,
-					new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
-					projectile->size_2d);
-			if (nb >= 0)
-			{
-				env->enemies[nb].health -= projectile->damage;
-				env->enemies[nb].hit = 1;
-				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
-				env->nb_explosions++;
-				tmp = ft_lstdelnode(&env->projectiles, tmp);
-				if (env->enemies[nb].health <= 0)
-				{
-					env->player.killed++;
-					if (env->enemies[nb].nb_death_events > 0
-						&& env->enemies[nb].death_events
-						&& start_event(&env->enemies[nb].death_events,
-						&env->enemies[nb].nb_death_events, env))
-						return (-1);
-				}
-				continue ;
-			}
-			nb = projectile_object_collision(env, projectile->pos,
-				new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
-				projectile->size_2d); 
-			if (nb >= 0 && env->objects[nb].solid)
-			{
-				create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
-				env->nb_explosions++;
-				tmp = ft_lstdelnode(&env->projectiles, tmp);
-				continue ;
-			}
-			if (projectile_player_collision(env, projectile->pos,
-						new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y, projectile->pos.z + move.z),
-						projectile->size_2d))
-			{
-				if (!env->player.invincible)
-				{
-					env->player.hit = 1;
-					env->player.health -= ft_clamp(projectile->damage
-					- env->player.armor, 0, projectile->damage);
-					env->player.armor -= ft_clamp(projectile->damage,
-					0, env->player.armor);
-				}
-				tmp = ft_lstdelnode(&env->projectiles, tmp);
-				continue ;
-			}
-			collision = collision_projectiles(env, move,
-					new_motion(projectile->sector, projectile->size_2d,
-						0, projectile->pos));
-			if (collision == -1)
-			{
-				projectile->pos.x += move.x;
-				projectile->pos.y += move.y;
-				projectile->pos.z += move.z;
-				projectile->sector = get_sector_no_z_origin(env, projectile->pos, projectile->sector);
-				if (projectile->sector != -1)
-				{
-					projectile->brightness
-					= env->sectors[projectile->sector].brightness;
-					projectile->intensity
-					= env->sectors[projectile->sector].intensity;
-					projectile->light_color
-					= env->sectors[projectile->sector].light_color;
-				}
-				tmp = tmp->next;
-			}
-			else
-			{
-				if (collision == -2 && env->sectors[projectile->sector].ceiling_texture >= 0)
-				{
-					create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
-					env->nb_explosions++;
-					if (env->sectors[projectile->sector].ceiling_sprites.nb_sprites
-						< env->options.max_floor_sprites)
-					{
-						
-						if (add_ceiling_projectile_bullet_hole(
-							&env->sectors[projectile->sector], projectile,
-							env))
-							return (-1);
-					}
-					else if (shift_ceiling_bullet_hole(
-						&env->sectors[projectile->sector], projectile,
-						env))
-						return (-1);
-				}
-				else if (collision == -3 && env->sectors[projectile->sector].floor_texture >= 0)
-				{
-					create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
-					env->nb_explosions++;
-					if (env->sectors[projectile->sector].floor_sprites.nb_sprites
-						< env->options.max_floor_sprites)
-					{
-						if (add_floor_projectile_bullet_hole(
-							&env->sectors[projectile->sector], projectile,
-							env))
-							return (-1);
-					}
-					else if (shift_floor_bullet_hole(
-						&env->sectors[projectile->sector], projectile,
-						env))
-						return (-1);
-				}
-				else if (collision >= 0 && env->sectors[projectile->sector].textures[collision] >= 0)
-				{
-					create_explosion(env, new_explosion_data(projectile->pos, 7, projectile->damage, env->object_sprites[projectile->sprite].death_counterpart), 1);
-					env->nb_explosions++;
-					if (env->sectors[projectile->sector]
-						.wall_sprites[collision].nb_sprites
-						< env->options.max_wall_sprites)
-					{
-						if (add_wall_projectile_bullet_hole(
-							&env->sectors[projectile->sector],
-							projectile, collision, env))
-							return (-1);
-					}
-					else if (shift_wall_bullet_hole(
-						&env->sectors[projectile->sector], projectile,
-						collision, env))
-						return (-1);
-				}
-				tmp = ft_lstdelnode(&env->projectiles, tmp);
-			}
+			if (process_current_projectile((t_projectile*)tmp->content,
+				&tmp, env))
+				return (-1);
 		}
 	}
 	return (0);

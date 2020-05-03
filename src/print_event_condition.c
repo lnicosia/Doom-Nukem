@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 15:00:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/14 19:42:09 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:39:34 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ char	*get_condition_type_str(t_condition *condition)
 	return ("");
 }
 
-void		print_event_link(t_env *env, t_condition *condition)
+void	print_event_link(t_env *env, t_condition *condition)
 {
 	env->print_link_target_data[condition->target_type](env, condition,
 	new_point(710, 30), 15);
 }
 
-void		print_event_launch_condition(t_env *env, t_condition *condition)
+void	print_event_launch_condition(t_env *env, t_condition *condition)
 {
 	if (condition->type < EVENT_ENDED)
 		env->print_condition_target_data[condition->target_index](env,
@@ -51,7 +51,7 @@ void		print_event_launch_condition(t_env *env, t_condition *condition)
 		print_event_link(env, condition);
 }
 
-void		print_event_exec_condition(t_env *env, t_condition *condition)
+void	print_event_exec_condition(t_env *env, t_condition *condition)
 {
 	env->print_condition_target_data[condition->target_index](env,
 	condition, new_point(830, 30), 15);

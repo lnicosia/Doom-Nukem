@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_tab_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/09 12:08:50 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:58:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,29 @@
 
 int		general_tab_keys(t_env *env)
 {
-	if (env->editor.events_tab.state == DOWN)
+	if (env->editor.events_tab.state != DOWN)
+		return (0);
+	if (!env->editor.selecting_target && !env->editor.selecting_event
+		&& !env->editor.selecting_condition_target
+		&& button_keys(&env->editor.new_event, env))
+		return (-1);
+	if (is_modify_event_button_visible(env))
 	{
-		if (!env->editor.selecting_target && !env->editor.selecting_event
-			&& !env->editor.selecting_condition_target
-			&& button_keys(&env->editor.new_event, env))
+		if (button_keys(&env->editor.modify_event, env))
 			return (-1);
-		if (is_modify_event_button_visible(env))
-		{
-			if (button_keys(&env->editor.modify_event, env))
-				return (-1);
-			if (button_keys(&env->editor.delete_event, env))
-				return (-1);
-		}
-		if (are_event_selection_buttons_visible(env))
-		{
-			if (button_keys(&env->editor.next_event, env)
-			|| button_keys(&env->editor.previous_event, env))
-				return (-1);
-		}
-		if (are_events_selection_buttons_visible(env))
-		{
-			if (button_keys(&env->editor.next_events, env)
-			|| button_keys(&env->editor.previous_events, env))
-				return (-1);
-		}
+		if (button_keys(&env->editor.delete_event, env))
+			return (-1);
 	}
+	if (are_event_selection_buttons_visible(env))
+	{
+		if (button_keys(&env->editor.next_event, env)
+		|| button_keys(&env->editor.previous_event, env))
+			return (-1);
+	}
+	if (are_events_selection_buttons_visible(env)
+		&& (button_keys(&env->editor.next_events, env)
+		|| button_keys(&env->editor.previous_events, env)))
+		return (-1);
 	return (0);
 }
 
@@ -72,6 +69,19 @@ int		general_keys(t_env *env)
 	return (0);
 }
 
+int		selection_button_keys2(t_env *env)
+{
+	if (env->selected_floor_sprite != -1 && floor_sprite_buttons(env))
+		return (-1);
+	if (env->selected_ceiling_sprite != -1 && ceiling_sprite_buttons(env))
+		return (-1);
+	if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons(env))
+		return (-1);
+	if (env->editor.selected_start_player != -1 && player_buttons(env))
+		return (-1);
+	return (0);
+}
+
 int		selection_button_keys(t_env *env)
 {
 	if (env->selected_ceiling != -1 && ceiling_buttons(env))
@@ -93,15 +103,7 @@ int		selection_button_keys(t_env *env)
 		|| button_keys(&env->editor.current_sprite_selection, env))
 			return (-1);
 	}
-	if (env->selected_floor_sprite != -1 && floor_sprite_buttons(env))
-		return (-1);
-	if (env->selected_ceiling_sprite != -1 && ceiling_sprite_buttons(env))
-		return (-1);
-	if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons(env))
-		return (-1);
-	if (env->editor.selected_start_player != -1 && player_buttons(env))
-		return (-1);
-	return (0);
+	return (selection_button_keys2(env));
 }
 
 int		editor_3d_tab_keys(t_env *env)
