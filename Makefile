@@ -426,7 +426,7 @@ SOUND_WINDOWS = fmod.dll fmodL.dll
 
 SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
 
-SOUND_LINUX = libfmod.so libfmodL.so
+SOUND_LINUX = -L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
 
 SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_ttf.dll \
