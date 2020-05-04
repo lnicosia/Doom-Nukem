@@ -478,7 +478,6 @@ typedef struct		s_sector
 	t_list			**wall_bullet_holes;
 	t_v2			*ceiling_sprites_scale;
 	t_v2			*floor_sprites_scale;
-	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
 	int				first_angles[3];

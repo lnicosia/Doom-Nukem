@@ -37,7 +37,6 @@ int		parse_sector(t_env *env, char *line, t_map_parser *parser)
 	parser->sector_neighbors_count = 0;
 	parser->sector_textures_count = 0;
 	parser->sector_sprites_count = 0;
-	env->sectors[parser->sectors_count].sprite_time = 0;
 	env->sectors[parser->sectors_count].num = parser->sectors_count;
 	env->sectors[parser->sectors_count].gravity = -9.81;
 	if (parse_floor(env, &line, parser))

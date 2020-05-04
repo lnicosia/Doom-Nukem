@@ -147,6 +147,7 @@ typedef struct			s_env
 	t_list				*events;
 	t_list				*queued_values;
 	double				difficulty;
+	double				sprite_time;
 	int					enemies_main_sprites[MAX_ENEMIES];
 	int					objects_main_sprites[MAX_OBJECTS];
 	char				*event_types[MAX_TARGET_TYPES + 1];
