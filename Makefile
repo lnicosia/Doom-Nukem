@@ -16,6 +16,7 @@ EDITOR_NAME = doom_editor
 
 MAKEFILE = Makefile
 
+LIB_DIR = lib
 SRC_DIR = src
 OBJ_GAME_DIR = obj_game
 OBJ_EDITOR_DIR = obj_editor
@@ -36,8 +37,8 @@ SHOTGUN_DIR = shotgun
 GAME_DIR = .
 EDITOR_DIR = .
 LIBFT_DIR = libft
-SDL_DIR = SDL2-2.0.8/include
-SDL_TTF_DIR = SDL2_ttf-2.0.15
+SDL_DIR = $(LIB_DIR)/SDL2-2.0.8/include
+SDL_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
