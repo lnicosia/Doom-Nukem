@@ -50,9 +50,8 @@ int	get_image_header_data(unsigned char *str, t_bmp_parser *parser)
 		return (custom_error("Image planes must be equal to 1 (%d)\n",
 					parser->planes));
 		parser->bpp = read_int16(str, 10);
-	if (parser->bpp != 32 && parser->bpp != 24 && parser->bpp != 16
-			&& parser->bpp != 8 && parser->bpp != 4 && parser->bpp != 1)
-		return (custom_error("Bits per pixels must be equal to 32 or 24 (%d)\n",
+	if (parser->bpp != 24)
+		return (custom_error("Bits per pixels must be equal 24 (%d)\n",
 					parser->bpp));
 		if ((parser->compression = read_int32(str, 12)))
 		return (custom_error("Image must not be compressed (%d)\n",
