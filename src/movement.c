@@ -21,7 +21,7 @@ double	get_speed(t_env *env)
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->inputs.shift && !env->inputs.ctrl)
 		speed = env->player.speed * 1.5;
-	else if (env->inputs.ctrl)
+	else if (env->inputs.ctrl && env->in_game)
 		speed = env->player.speed / 1.5;
 	else
 		speed = env->player.speed;
