@@ -434,7 +434,7 @@ int						are_exec_condition_selection_buttons_visible(
 	t_env *env);
 int						check_sector_exec_conditions(t_env *env, int sector);
 int						check_sector_launch_conditions(t_env *env, int sector);
-t_button_target			*new_button_target(t_env *env, int i);
+t_button_param			*new_button_param(t_env *env, int i);
 void					new_tabs_position(t_env *env);
 int						check_event_creation(t_env *env);
 int						new_condition_target(t_env *env);

@@ -12,11 +12,11 @@
 
 #include "init.h"
 
-t_button_target	*new_button_target(t_env *env, int i)
+t_button_param	*new_button_param(t_env *env, int i)
 {
-	t_button_target	*new;
+	t_button_param	*new;
 
-	new = (t_button_target*)ft_memalloc(sizeof(t_button_target));
+	new = (t_button_param*)ft_memalloc(sizeof(t_button_param));
 	new->env = env;
 	new->i = i;
 	return (new);
@@ -64,14 +64,18 @@ void			init_music_selection_buttons(t_env *env)
 
 int				init_editor_hud(t_env *env)
 {
-	if (!init_array_texture_buttons(env))
-		return (0);
+	if (init_array_texture_buttons(env))
+		return (-1);
 	init_add_buttons(env);
 	init_music_selection_buttons(env);
-	init_enemy_selection_button(env);
-	init_object_selection_button(env);
-	init_array_sprite_buttons(env);
-	init_skybox_selection_buttons(env);
+	if (init_enemy_selection_button(env))
+		return (-1);
+	if (init_object_selection_button(env))
+		return (-1);
+	if (init_array_sprite_buttons(env))
+		return (-1);
+	if (init_skybox_selection_buttons(env))
+		return (-1);
 	init_informations_tab(env);
 	init_options_buttons(env);
 	init_editor_options_buttons(env);
@@ -79,5 +83,5 @@ int				init_editor_hud(t_env *env)
 	init_events_selection_buttons(env);
 	init_event_panel_buttons(env);
 	init_events_creation_buttons(env);
-	return (1);
+	return (0);
 }

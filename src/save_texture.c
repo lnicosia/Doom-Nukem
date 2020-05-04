@@ -61,8 +61,8 @@ int		save_texture(void *param)
 	t_env	*env;
 	int		i;
 
-	env = ((t_button_target*)param)->env;
-	i = ((t_button_target*)param)->i;
+	env = ((t_button_param*)param)->env;
+	i = ((t_button_param*)param)->i;
 	env->editor.current_texture = i;
 	if (i >= 0)
 	{

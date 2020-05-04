@@ -17,8 +17,8 @@ int		save_enemy(void *param)
 	t_env	*env;
 	int		i;
 
-	env = ((t_button_target*)param)->env;
-	i = ((t_button_target*)param)->i;
+	env = ((t_button_param*)param)->env;
+	i = ((t_button_param*)param)->i;
 	env->editor.current_enemy = env->enemies_main_sprites[i];
 	if (env->selected_enemy != -1)
 		env->enemies[env->selected_enemy].sprite = env->editor.current_enemy;
@@ -35,8 +35,8 @@ int		save_object(void *param)
 	t_env	*env;
 	int		i;
 
-	env = ((t_button_target*)param)->env;
-	i = ((t_button_target*)param)->i;
+	env = ((t_button_param*)param)->env;
+	i = ((t_button_param*)param)->i;
 	env->editor.current_object = env->objects_main_sprites[i];
 	if (env->selected_object != -1)
 		env->objects[env->selected_object].sprite =
@@ -70,8 +70,8 @@ int		save_sprite(void *param)
 	t_wall_sprites	*sprite;
 	int				i;
 
-	env = ((t_button_target*)param)->env;
-	i = ((t_button_target*)param)->i;
+	env = ((t_button_param*)param)->env;
+	i = ((t_button_param*)param)->i;
 	env->editor.current_sprite = env->objects_main_sprites[i];
 	if (env->selected_wall_sprite_sprite != -1)
 	{

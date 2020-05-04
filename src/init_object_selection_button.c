@@ -21,13 +21,14 @@ int		init_object_selection_button2(t_env *env)
 	env->editor.current_object_selection.size_hover = new_point(64, 64);
 	env->editor.current_object_selection.size_pressed = new_point(64, 64);
 	env->editor.current_object_selection.pos = new_point(233, 217);
-	return (1);
+	return (0);
 }
 
 int		init_object_selection_button(t_env *env)
 {
-	int	i;
-	int	mod;
+	int				i;
+	int				mod;
+	t_button_param	*new;
 
 	if (MAX_ENEMIES > 20)
 		mod = 10;
@@ -36,8 +37,10 @@ int		init_object_selection_button(t_env *env)
 	i = 0;
 	while (i < MAX_OBJECTS)
 	{
+		if (!(new = new_button_param(env, i)))
+			return (-1);
 		env->editor.object_tab[i] = new_image_button(ON_RELEASE,
-		&save_object, new_button_target(env, i), env);
+		&save_object, new, env);
 		env->editor.object_tab[i].size_up = new_point(64, 64);
 		env->editor.object_tab[i].size_down = new_point(64, 64);
 		env->editor.object_tab[i].size_hover = new_point(64, 64);

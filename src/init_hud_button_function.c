@@ -16,7 +16,7 @@ int		open_wall_sprite_selection(void *param)
 {
 	t_env *env;
 
-	env = ((t_button_target*)param)->env;
+	env = ((t_button_param*)param)->env;
 	env->editor.draw_sprite_tab = 1;
 	return (0);
 }

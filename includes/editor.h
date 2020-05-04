@@ -186,11 +186,11 @@ typedef	struct				s_split
 	int						sector;
 }							t_split;
 
-typedef struct				s_button_target
+typedef struct				s_button_param
 {
 	void					*env;
 	int						i;
-}							t_button_target;
+}							t_button_param;
 
 typedef struct				s_action_panel
 {

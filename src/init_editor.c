@@ -73,7 +73,7 @@ int		init_editor2(int ac, char **av, t_env *env)
 		return (crash("Could not load object sprites\n", env));
 	if (init_enemy_sprites(env))
 		return (crash("Could not load enemy sprites\n", env));
-	if (!(init_editor_hud(env)))
+	if (init_editor_hud(env))
 		return (crash("Could not init hud\n", env));
 	return (init_editor3(ac, av, env));
 }
