@@ -19,7 +19,9 @@ int		change_floor_slope(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_floor_slope_input_box;
 	env->input_box.update = &update_sector_input_box;
 	env->input_box.error_message = "Error: floor slope is invalid";
@@ -33,7 +35,9 @@ int		change_health(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_health_input_box;
 	env->input_box.error_message = "Error: health must be between 1 and 10000";
 	return (0);
@@ -46,7 +50,9 @@ int		change_speed(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_speed_input_box;
 	env->input_box.error_message = "Error: speed must be between 0 and 100";
 	return (0);
@@ -59,7 +65,9 @@ int		change_angle(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_angle_input_box;
 	env->input_box.error_message = "Error: angle must be between 0 and 360";
 	return (0);

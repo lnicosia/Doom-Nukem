@@ -60,8 +60,9 @@ int	validate_input(t_input_box *box, t_env *env)
 {
 	if (box->check && box->check(env))
 	{
-		update_confirmation_box(&env->confirmation_box, box->error_message,
-		ERROR, env);
+		if (update_confirmation_box(&env->confirmation_box, box->error_message,
+			ERROR, env))
+			return (-1);
 		box->state = 0;
 		return (0);
 	}

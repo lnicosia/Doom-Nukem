@@ -19,7 +19,9 @@ int		change_floor_sprite_scale(void *param)
 
 	button = (t_button_tab *)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_sprite_scale_input_box;
 	env->input_box.update = &update_floor_sprite_scale_input_box;
 	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
@@ -33,7 +35,9 @@ int		change_ceiling_texture_scale(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_texture_scale_input_box;
 	env->input_box.update = &update_ceiling_texture_button;
 	env->input_box.error_message = "Error: scale must be between 1 and 100";
@@ -47,7 +51,9 @@ int		change_floor_texture_scale(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.check = &check_texture_scale_input_box;
 	env->input_box.update = &update_floor_texture_button;
 	env->input_box.error_message = "Error: scale must be between 1 and 100";
@@ -61,7 +67,9 @@ int		change_ceiling_texture_align(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.update = &update_ceiling_texture_button;
 	return (0);
 }
@@ -73,7 +81,9 @@ int		change_floor_texture_align(void *param)
 
 	button = (t_button_tab*)param;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	env->input_box.update = &update_floor_texture_button;
 	return (0);
 }

@@ -100,7 +100,7 @@ int		editor_3d_keys2(t_env *env)
 			return (-1);
 	}
 	if (env->inputs.plus && !env->inputs.shift
-	&& env->options.minimap_scale * 1.2 < 100)
+		&& env->options.minimap_scale * 1.2 < 100)
 		env->options.minimap_scale *= 1.2;
 	return (editor_3d_keys3(env));
 }
