@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
+#include "events.h"
 
 int		new_input_var4(t_input_box *box)
 {
@@ -46,10 +47,8 @@ int		new_input_var3(t_input_box *box, int type, void *target)
 	}
 	else if (type == STRING)
 	{
-		box->str_target = (char**)target;
-		if (box->str)
-			ft_strdel(&box->str);
-		box->str = ft_strdup(*(char**)target);
+		if (set_new_string_input_box(box, target))
+			return (-1);
 	}
 	return (new_input_var4(box));
 }

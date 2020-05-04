@@ -35,7 +35,8 @@ int		init_editor3(int ac, char **av, t_env *env)
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
-		env->save_file = ft_strdup("test.map");
+		if (!(env->save_file = ft_strdup("test.map")))
+			return (crash("Could not malloc save_file name\n", env));
 	}
 	else if (ac == 2)
 	{
@@ -44,7 +45,8 @@ int		init_editor3(int ac, char **av, t_env *env)
 			return (crash("Error while parsing the map\n", env));
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
-		env->save_file = ft_strdup(av[1]);
+		if (!(env->save_file = ft_strdup(av[1])))
+			return (crash("Could not malloc save_file name\n", env));
 		precompute_slopes(env);
 		ft_printf("{reset}");
 	}

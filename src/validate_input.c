@@ -23,7 +23,9 @@ int	validate_input3(t_input_box *box, t_env *env)
 		}
 		if (box->str_target)
 			ft_strdel(box->str_target);
-		*(box->str_target) = ft_strdup(box->str);
+		if (!(*(box->str_target) = ft_strdup(box->str))
+			&& ft_strlen(box->str))
+			return (-1);
 	}
 	if (box->update && box->update(env))
 		return (-1);
