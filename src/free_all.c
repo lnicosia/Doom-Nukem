@@ -45,6 +45,7 @@ void		free_all2(t_env *env)
 		ft_strdel(&env->snprintf);
 	free_audio(env, 0);
 	free_textures(env);
+	free_buttons(env);
 	TTF_Quit();
 	SDL_Quit();
 	ft_printf("Exiting..\n");

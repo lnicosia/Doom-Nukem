@@ -279,7 +279,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_cyber_demon_pursuit_four.c init_cyber_demon_firing_anim.c \
 		   init_cyber_demon_firing_anim_two.c init_cyber_demon_death.c \
 		   init_cyber_demon_firing_anim_three.c init_lamp.c init_barrel.c \
-		   init_monitor.c init_candle.c init_camera_sprite.c \
+		   init_monitor.c init_candle.c init_camera_sprite.c free_buttons.c \
 		   init_armor_green.c init_explosion.c init_grid_sprite.c \
 		   init_bullet_hole.c init_object_lost_soul.c init_object_cyber_demon.c\
 		   init_shotgun_sprite.c init_raygun_sprite.c init_doom_guy.c \

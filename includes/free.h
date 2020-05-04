@@ -30,5 +30,6 @@ void	free_sectors(t_env *env);
 void	free_textures(t_env *env);
 void	free_fonts(t_env *env);
 void	free_audio(t_env *env, int i);
+void	free_buttons(t_env *env);
 
 #endif
