@@ -13,20 +13,6 @@
 #include "env.h"
 
 /*
-** Checks if a string is a valid number
-*/
-
-int		valid_number(char *line, t_map_parser *parser)
-{
-	(void)parser;
-	if (!*line)
-		return (MISSING_CHAR);
-	if ((*line < '0' || *line > '9') && *line != '-')
-		return (WRONG_CHAR);
-	return (0);
-}
-
-/*
 ** Checks if a string is a valid integer
 */
 

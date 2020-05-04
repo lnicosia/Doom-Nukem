@@ -44,7 +44,7 @@ int		parse_vertex2(t_env *env, t_map_parser *parser)
 int		parse_vertex(t_env *env, t_map_parser *parser, char *line)
 {
 	env->vertices[parser->vertices_count].num = parser->vertices_count;
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before vertex y", "a digit", *line, parser));
 	env->vertices[parser->vertices_count].y = ft_atof(line);
 	line = skip_number(line);
@@ -56,7 +56,7 @@ int		parse_vertex(t_env *env, t_map_parser *parser, char *line)
 	line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("vertex x", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before vertex x", "a digit or space(s)",
 					*line, parser));
 		env->vertices[parser->vertices_count].x = ft_atof(line);

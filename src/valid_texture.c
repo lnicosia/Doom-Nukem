@@ -23,7 +23,7 @@ int		valid_texture3(char *line, t_map_parser *parser)
 		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("texture y scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before texture y scale", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -42,7 +42,7 @@ int		valid_texture2(char *line, t_map_parser *parser)
 	line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("texture y pos and scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before texture y pos", "a digit", *line, parser));
 	line = skip_number(line);
 	if (!*line)
@@ -52,7 +52,7 @@ int		valid_texture2(char *line, t_map_parser *parser)
 	line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("texture scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before texture x scale", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -70,7 +70,7 @@ int		valid_texture(char *line, t_map_parser *parser)
 	line++;
 	if (!*line)
 		return (missing_data("texture number", parser));
-	if (valid_number(line, parser))
+	if (valid_int(line, parser))
 		return (invalid_char("before texture number", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -82,7 +82,7 @@ int		valid_texture(char *line, t_map_parser *parser)
 		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("textures pos and scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before texture x pos", "a digit",
 			*line, parser));
 		line = skip_number(line);

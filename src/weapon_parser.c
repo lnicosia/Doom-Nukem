@@ -30,7 +30,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("weapon number", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before weapon number", "a digit", **line,
 		parser));
 		eparser->current_weapon = ft_atoi(*line);

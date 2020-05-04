@@ -18,7 +18,7 @@ t_events_parser *eparser)
 {
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("sprite number", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before sprite number", "a digit", **line,
 		parser));
 		eparser->current_sprite = ft_atoi(*line);
@@ -44,7 +44,7 @@ t_events_parser *eparser)
 		(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("wall and sprite", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before wall number", "a digit", **line, parser));
 	eparser->current_wall = ft_atoi(*line);
 	if (eparser->current_wall < 0
@@ -77,7 +77,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("sector, wall and sprite", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before sector number", "a digit", **line,
 		parser));
 		eparser->current_sector = ft_atoi(*line);

@@ -38,7 +38,7 @@ int		parse_enemies_init(t_env *env, t_map_parser *parser, char *line)
 		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("before enemies number", parser));
-	if (valid_number(line, parser) == WRONG_CHAR)
+	if (valid_int(line, parser) == WRONG_CHAR)
 		return (invalid_char("before enemies number",
 		"space of a digit", *line, parser));
 		env->nb_enemies = ft_atoi(line);

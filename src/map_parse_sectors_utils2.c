@@ -91,7 +91,7 @@ int		count_vertices(char *line, t_map_parser *parser)
 	{
 		if (!*line)
 			return (missing_data("')' after sector vertices", parser));
-		if (valid_number(line, parser))
+		if (valid_int(line, parser))
 			return (invalid_char("in sector vertices", "a digit, a ')'"
 				"or space(s)", *line, parser));
 			line = skip_number(line);
@@ -114,7 +114,7 @@ int		count_neighbors(char *line, t_map_parser *parser)
 	{
 		if (!*line)
 			return (missing_data("')' after sector neighbors", parser));
-		if (valid_number(line, parser))
+		if (valid_int(line, parser))
 			return (invalid_char("in sector neighbors", "a digit, a ')'"
 				"or space(s)", *line, parser));
 			line = skip_number(line);

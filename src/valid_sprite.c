@@ -21,7 +21,7 @@ int		valid_sprite3(char *line, t_map_parser *parser)
 		line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("sprite y scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before sprite y scale", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -40,7 +40,7 @@ int		valid_sprite2(char *line, t_map_parser *parser)
 	line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("sprite y pos and scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before sprite y pos", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -51,7 +51,7 @@ int		valid_sprite2(char *line, t_map_parser *parser)
 	line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("sprite scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before sprite x scale", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -71,7 +71,7 @@ int		valid_sprite(char *line, t_map_parser *parser)
 	line++;
 	if (!*line)
 		return (missing_data("sprite number", parser));
-	if (valid_number(line, parser))
+	if (valid_int(line, parser))
 		return (invalid_char("before sprite number", "a digit",
 			*line, parser));
 		line = skip_number(line);
@@ -82,7 +82,7 @@ int		valid_sprite(char *line, t_map_parser *parser)
 	line = skip_spaces(line);
 	if (!*line)
 		return (missing_data("sprites pos and scale", parser));
-	if (valid_number(line, parser))
+	if (valid_double(line, parser))
 		return (invalid_char("before sprite x pos", "a digit",
 			*line, parser));
 		line = skip_number(line);
