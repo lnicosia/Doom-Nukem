@@ -79,14 +79,11 @@ int		init_sector_data(t_env *env, char *line, t_map_parser *parser)
 		return (invalid_char("before sector vertices", "'('", *line, parser));
 	line++;
 	if ((parser->sector_vertices_count = count_vertices(line, parser)) == -1)
-		return (custom_error("Error while counting vertices"));
+		return (custom_error("Error while counting vertices\n"));
 	if (parser->sector_vertices_count < 3)
-	{
-		ft_dprintf(STDERR_FILENO,
+		return (custom_error(
 			"[Line %d] Sector %d must contain at least 3 vertices\n",
-			parser->line_count, parser->sectors_count);
-		return (-1);
-	}
+			parser->line_count, parser->sectors_count));
 	env->sectors[parser->sectors_count].nb_vertices = parser->
 		sector_vertices_count;
 	if (!(env->sectors[parser->sectors_count].vertices = (int*)

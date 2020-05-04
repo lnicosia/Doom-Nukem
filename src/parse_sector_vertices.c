@@ -44,14 +44,11 @@ int		parse_sector_vertices(t_env *env, char **line, t_map_parser *parser)
 		env->sectors[parser->sectors_count].vertices[i] = ft_atoi(*line);
 		if (env->sectors[parser->sectors_count].vertices[i] < 0 || env->
 				sectors[parser->sectors_count].vertices[i] >= env->nb_vertices)
-		{
-			ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"[Line %d] Vertex \'%d\' in sector %d does not exist\n",
 				parser->line_count,
 				env->sectors[parser->sectors_count].vertices[i],
-				parser->sectors_count);
-			return (-1);
-		}
+				parser->sectors_count));
 		*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		i++;

@@ -71,7 +71,7 @@ int		check_sector_duplicate(t_env *env, t_sector sector, int num)
 	while (i < num)
 	{
 		if (sector_eq(sector, env->sectors[i]))
-			return (ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"Sectors %d and %d are identical\n", sector.num, i));
 			i++;
 	}

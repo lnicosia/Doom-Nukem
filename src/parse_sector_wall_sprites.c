@@ -95,7 +95,7 @@ t_map_parser *parser)
 		return (invalid_char("before sector sprites", "'('", **line, parser));
 	(*line)++;
 	if ((parser->sector_sprites_count = count_sprites(*line, parser)) == -1)
-		return (custom_error("Error while counting sprites"));
+		return (custom_error("Error while counting sprites\n"));
 	if (parser->sector_sprites_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more sprites",
 		parser->sectors_count, parser));

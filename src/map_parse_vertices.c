@@ -20,7 +20,7 @@ int		check_vertex_duplicate(t_env *env, t_vertex vertex, int num)
 	while (i < num)
 	{
 		if (vertex.x == env->vertices[i].x && vertex.y == env->vertices[i].y)
-			return (ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"Vertices %d and %d are identical\n", vertex.num, i));
 			i++;
 	}
@@ -31,12 +31,9 @@ int		parse_vertex2(t_env *env, t_map_parser *parser)
 {
 	if (check_vertex_duplicate(env, env->vertices[parser->vertices_count],
 			parser->vertices_count))
-	{
-		ft_dprintf(STDERR_FILENO,
+		return (custom_error(
 			"[Line %d] Vertex %d already exists\n",
-			parser->line_count, parser->vertices_count);
-		return (-1);
-	}
+			parser->line_count, parser->vertices_count));
 	parser->vertices_count++;
 	return (0);
 }
@@ -96,20 +93,14 @@ int		parse_vertices(t_env *env, t_map_parser *parser)
 		if (parser->line)
 		{
 			if (parse_vertex(env, parser, parser->line))
-			{
-				ft_dprintf(STDERR_FILENO,
+				return (custom_error(
 					"[Line %d] Vertex %d had an error\n", parser->line_count,
-					parser->vertices_count);
-				return (-1);
-			}
+					parser->vertices_count));
 		}
 		else
-		{
-			ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"[Line %d] You must still declare %d vertices\n",
-				parser->line_count, env->nb_vertices - parser->vertices_count);
-			return (-1);
-		}
+				parser->line_count, env->nb_vertices - parser->vertices_count));
 		ft_strdel(&(parser->line));
 	}
 	return (parse_vertices2(parser));

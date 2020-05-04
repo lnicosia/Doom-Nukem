@@ -19,14 +19,11 @@ int i)
 	env->sectors[parser->sectors_count].neighbors[i] = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].neighbors[i] < -1 || env->
 			sectors[parser->sectors_count].neighbors[i] >= env->nb_sectors)
-	{
-		ft_dprintf(STDERR_FILENO,
+		return (custom_error(
 			"[Line %d] Neighbor \'%d\' in sector %d does not exist\n",
 			parser->line_count,
 			env->sectors[parser->sectors_count].neighbors[i],
-			parser->sectors_count);
-		return (-1);
-	}
+			parser->sectors_count));
 	if (env->sectors[parser->sectors_count].neighbors[i] == parser->
 		sectors_count)
 		return (sector_error("can not contain a portal to itself",
@@ -58,7 +55,7 @@ int		parse_sector_neighbors(t_env *env, char **line, t_map_parser *parser)
 		return (invalid_char("before sector neighbors", "'('", **line, parser));
 	(*line)++;
 	if ((parser->sector_neighbors_count = count_neighbors(*line, parser)) == -1)
-		return (custom_error("Error while counting neighbors"));
+		return (custom_error("Error while counting neighbors\n"));
 	if (parser->sector_neighbors_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more neighbors",
 			parser->sectors_count, parser));

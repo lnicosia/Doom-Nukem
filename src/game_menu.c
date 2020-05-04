@@ -29,7 +29,7 @@ void	print_difficulty(t_env *env)
 			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
 }
 
-void	start_game_menu(t_env *env)
+int		start_game_menu(t_env *env)
 {
 	clear_image(env);
 	SDL_SetRelativeMouseMode(0);
@@ -52,5 +52,7 @@ void	start_game_menu(t_env *env)
 			menu_keyup(env);
 		menu_keys(env);
 	}
-	update_screen(env);
+	if (update_screen(env))
+		return (-1);
+	return (0);
 }

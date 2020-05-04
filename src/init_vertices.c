@@ -38,10 +38,10 @@ int		parse_vertices_init(t_env *env, t_map_parser *parser, char *line)
 	if (!*line)
 		return (missing_data("before vertices number", parser));
 	if (valid_int(line, parser) == WRONG_CHAR)
-		return (ft_printf("Invalid int for nb_vertices\n"));
+		return (custom_error("Invalid int for nb_vertices\n"));
 	env->nb_vertices = ft_atoi(line);
 	if (env->nb_vertices > 100000)
-		return (ft_printf("vertices can't exceed 100 000\n"));
+		return (custom_error("vertices can't exceed 100 000\n"));
 	line = skip_number(line);
 	if (*line && *line == ' ')
 		return (extra_data("vertices number", parser));

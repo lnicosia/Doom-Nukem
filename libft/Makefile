@@ -33,13 +33,13 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_strsplit.c ft_itoa.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 		  ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstlen.c ft_lstpushback.c \
 		  ft_abs.c get_next_line.c ft_strjoin_free.c ft_min.c ft_max.c \
-		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c errors.c \
+		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c \
 		  ft_clamp.c ft_fclamp.c ft_fclamp.c ft_atof.c ft_getlen.c \
 		  ft_sitoa.c ft_realloc.c ft_getsize.c ft_delindex.c ft_perror.c \
 		  ft_lstcontains.c vector_utils.c segments_intersect.c \
 		  get_intersection.c ft_lstpopfront.c ft_lstdelfront.c \
 		  ft_lstdelnode.c new_plane.c get_intersection_line_plane.c \
-		  ft_convert_base.c ft_ishexa.c fill_buffer.c \
+		  ft_convert_base.c ft_ishexa.c \
 
 HEADERS = libft.h
 
@@ -48,7 +48,8 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 pf_invalid.c pf_putaddr.c pf_putchar.c pf_putfloat.c \
 				 pf_putlong_base.c pf_putnbr.c pf_putnbr_base.c \
 				 pf_putpercent.c pf_putstr.c pf_putunbr.c pf_strnequ.c \
-				 put_padding.c putfloat_utils.c ft_snprintf.c \
+				 put_padding.c putfloat_utils.c ft_snprintf.c fill_buffer.c \
+				 custom_error.c
 
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
 

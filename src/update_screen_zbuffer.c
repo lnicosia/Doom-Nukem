@@ -61,15 +61,13 @@ void	set_zbuffer_colors(t_env *env)
 **	Show Zbuffer
 */
 
-void	update_screen_zbuffer(t_env *env)
+int		update_screen_zbuffer(t_env *env)
 {
 	set_zbuffer_colors(env);
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels,
 		env->w * sizeof(Uint32)))
-	{
-		ft_printf("Failed to update screen: %s\n", SDL_GetError());
-		return ;
-	}
+		return (custom_error("Failed to update screen: %s\n", SDL_GetError()));
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
 	SDL_RenderPresent(env->sdl.renderer);
+	return (0);
 }

@@ -755,8 +755,8 @@ int						damage_done(t_env *env, double rotated_pos_w);
 */
 
 void					clear_image(t_env *env);
-void					update_screen(t_env *env);
-void					update_screen_zbuffer(t_env *env);
+int						update_screen(t_env *env);
+int						update_screen_zbuffer(t_env *env);
 t_printable_text		new_printable_text(char *text, TTF_Font *font,
 unsigned int color, int size);
 int						print_text(t_point pos,
@@ -945,13 +945,13 @@ void					drop(t_env *env);
 void					jump(t_env *env);
 void					crouch(t_env *env);
 void					add_image(t_env *env, int i, int x, int y);
-void					start_game_menu(t_env *env);
+int						start_game_menu(t_env *env);
 int						start_game(void *param);
 int						next_difficulty(void *param);
 int						previous_difficulty(void *param);
 int						open_options(void *param);
 int						exit_button_func(void *param);
-void					option_menu_ig(t_env *env);
+int						option_menu_ig(t_env *env);
 int						music_volume_up(void *param);
 int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);

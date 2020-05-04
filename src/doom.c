@@ -19,15 +19,19 @@
 int		doom4(t_env *env)
 {
 	if (env->menu && !env->in_game && !env->option)
-		start_game_menu(env);
+	{
+		if (start_game_menu(env))
+			return (crash("", env));
+	}
 	else
 	{
 		if (env->option)
 		{
-			option_menu_ig(env);
+			if (option_menu_ig(env))
+				return (crash("", env));
 		}
 		else if (draw_game(env))
-			return (ft_printf("Crash in game loop\n"));
+			return (crash("Crash in game loop\n", env));
 	}
 	return (0);
 }
@@ -64,14 +68,14 @@ int		doom2(t_env *env)
 	if (!env->confirmation_box.state)
 	{
 		if (enemy_ai(env))
-			return (-1);
+			return (crash("", env));
 		objects_collision(env, env->player.pos);
 		if (explosion_collision_objects(env))
-			return (-1);
+			return (crash("", env));
 		if (explosion_collision_enemies(env))
-			return (-1);
+			return (crash("", env));
 		if (explosion_collision_player(env))
-			return (-1);
+			return (crash("", env));
 		if (enemy_melee_hit(env))
 			return (crash("Collision with a melee enemy failed\n", env));
 		player_combat_state(env);
@@ -79,7 +83,7 @@ int		doom2(t_env *env)
 			return (crash("Keys failed\n", env));
 	}
 	if (doom_events(env))
-		return (-1);
+		return (crash("", env));
 	return (0);
 }
 

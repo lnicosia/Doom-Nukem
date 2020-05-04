@@ -17,10 +17,7 @@ int	validate_input3(t_input_box *box, t_env *env)
 	if (box->type == STRING)
 	{
 		if (!box->str_target)
-		{
-			ft_printf("Error: no string target for input box\n");
-			return (1);
-		}
+			return (custom_error("Error: no string target for input box\n"));
 		if (box->str_target)
 			ft_strdel(box->str_target);
 		if (!(*(box->str_target) = ft_strdup(box->str))
@@ -38,19 +35,13 @@ int	validate_input2(t_input_box *box, t_env *env)
 	if (box->type == DOUBLE)
 	{
 		if (!box->double_target)
-		{
-			ft_printf("Error: no double target for input box\n");
-			return (1);
-		}
+			return (custom_error("Error: no double target for input box\n"));
 		*(box->double_target) = ft_atof(box->str);
 	}
 	else if (box->type == UINT32)
 	{
 		if (!box->uint32_target)
-		{
-			ft_printf("Error: no Uint32 target for input box\n");
-			return (1);
-		}
+			return (custom_error("Error: no Uint32 target for input box\n"));
 		*(box->uint32_target) = ft_atoi_base(box->str, "0123456789ABCDEF");
 	}
 	return (validate_input3(box, env));
@@ -69,10 +60,7 @@ int	validate_input(t_input_box *box, t_env *env)
 	if (box->type == INT)
 	{
 		if (!box->int_target)
-		{
-			ft_printf("Error: no int target for input box\n");
-			return (1);
-		}
+			return (custom_error("Error: no int target for input box\n"));
 		*(box->int_target) = ft_atoi(box->str);
 	}
 	return (validate_input2(box, env));

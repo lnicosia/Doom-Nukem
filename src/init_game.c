@@ -118,7 +118,7 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not load enemy sprites\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
-	ft_printf("Parsing map \"%s\"..\n", av[1]);
+	custom_error("Parsing map \"%s\"..\n", av[1]);
 	return (init_game3(av, env));
 }
 
@@ -127,7 +127,7 @@ int		init_game(int ac, char **av)
 	t_env	env;
 
 	if (ac < 2)
-		return (ft_printf("No map file.\n"));
+		return (custom_error("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
 	env.difficulty = 1;
 	if (ac == 3)

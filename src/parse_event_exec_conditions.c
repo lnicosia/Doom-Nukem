@@ -56,7 +56,7 @@ t_events_parser *eparser)
 		**line, parser));
 		(*line)++;
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for exec condition target\n\n"));
+		return (custom_error("Invalid int for exec condition target\n\n"));
 	eparser->condition_index = ft_atof(*line);
 	if (eparser->condition_index < 0
 			|| eparser->condition_index >= MAX_REAL_TARGET_TYPES)
@@ -84,7 +84,7 @@ t_events_parser *eparser)
 		**line, parser));
 		(*line)++;
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for exec condition type\n"));
+		return (custom_error("Invalid int for exec condition type\n"));
 	eparser->event.exec_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.exec_conditions[eparser->condition_count].type < 0
@@ -99,7 +99,7 @@ t_events_parser *eparser)
 		**line, parser));
 		(*line)++;
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for exec condition value\n"));
+		return (custom_error("Invalid int for exec condition value\n"));
 	eparser->event.exec_conditions[eparser->condition_count].value =
 	ft_atof(*line);
 	return (parse_exec_condition2(env, parser, line, eparser));

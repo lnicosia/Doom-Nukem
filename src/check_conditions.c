@@ -74,10 +74,7 @@ int		check_exec_condition(t_event *event, t_condition *tab, size_t i,
 t_env *env)
 {
 	if (!condition_target_exists(&tab[i], env))
-	{
-		ft_printf("target does not exist\n");
-		return (1);
-	}
+		return (custom_error("target does not exist\n"));
 	if (tab[i].type == EQUALS && equals_condition(&tab[i]))
 		return (set_target_to_condition(event, tab[i]));
 	else if (tab[i].type == DIFFERENT && different_condition(&tab[i]))

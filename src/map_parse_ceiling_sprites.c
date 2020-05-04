@@ -37,7 +37,8 @@ t_map_parser *parser, int i)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling sprite %d scale.x\n", i));
+		return (custom_error("Invalid double for ceiling sprite %d scale.x\n",
+		i));
 	env->sectors[parser->sectors_count].ceiling_sprites.scale[i].x =
 	ft_atof(*line);
 	if ((env->sectors[parser->sectors_count].
@@ -53,7 +54,7 @@ t_map_parser *parser, int i)
 		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling sprite %d scale.y\n",
+		return (custom_error("Invalid double for ceiling sprite %d scale.y\n",
 		i));
 		return (parse_current_ceiling_sprite3(env, line, parser, i));
 }
@@ -65,7 +66,7 @@ t_map_parser *parser, int i)
 
 	(*line)++;
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for ceiling sprite %d texture\n", i));
+		return (custom_error("Invalid int for ceiling sprite %d texture\n", i));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse > MAX_OBJECTS)
 		return (custom_error_with_line("Invalid ceiling sprite texture",
@@ -75,13 +76,15 @@ t_map_parser *parser, int i)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling sprite %d pos.x\n", i));
+		return (custom_error("Invalid double for ceiling sprite %d pos.x\n",
+		i));
 	env->sectors[parser->sectors_count].ceiling_sprites.pos[i].x =
 	ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling sprite %d pos.y\n", i));
+		return (custom_error("Invalid double for ceiling sprite %d pos.y\n",
+		i));
 	env->sectors[parser->sectors_count].ceiling_sprites.pos[i].y =
 	ft_atof(*line);
 	return (parse_current_ceiling_sprite2(env, line, parser, i));
@@ -115,7 +118,7 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 	(*line)++;
 	if ((parser->sector_ceiling_sprites_count =
 		count_floor_sprites(*line, parser)) == -1)
-		return (custom_error("Error while counting ceiling sprites"));
+		return (custom_error("Error while counting ceiling sprites\n"));
 	env->sectors[parser->sectors_count].ceiling_sprites.nb_sprites =
 	parser->sector_ceiling_sprites_count;
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites.sprite = (int*)

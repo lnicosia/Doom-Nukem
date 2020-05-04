@@ -12,16 +12,14 @@
 
 #include "env.h"
 
-void	update_screen(t_env *env)
+int		update_screen(t_env *env)
 {
 	if (SDL_UpdateTexture(env->sdl.texture, NULL, env->sdl.texture_pixels,
 		env->w * sizeof(Uint32)))
-	{
-		ft_printf("Failed to update screen: %s\n", SDL_GetError());
-		return ;
-	}
+		return (custom_error("Failed to update screen: %s\n", SDL_GetError()));
 	SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL);
 	SDL_RenderPresent(env->sdl.renderer);
+	return (0);
 }
 
 void	draw_axes(t_env *env)

@@ -29,12 +29,12 @@ int		parse_current_texture2(t_env *env, char **line, t_map_parser *parser,
 int i)
 {
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d texture align.y\n", i));
+		return (custom_error("Invalid for wall %d texture align.y\n", i));
 	env->sectors[parser->sectors_count].align[i].y = ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d texture scale.x\n", i));
+		return (custom_error("Invalid for wall %d texture scale.x\n", i));
 	env->sectors[parser->sectors_count].scale[i].x = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].scale[i].x < 1
 		|| env->sectors[parser->sectors_count].scale[i].x > 100)
@@ -43,7 +43,7 @@ int i)
 		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d texture scale.y\n", i));
+		return (custom_error("Invalid for wall %d texture scale.y\n", i));
 	env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].scale[i].y < 1
 		|| env->sectors[parser->sectors_count].scale[i].y > 100)
@@ -57,22 +57,19 @@ int i)
 {
 	(*line)++;
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for wall %d texture\n", i));
+		return (custom_error("Invalid wall %d texture\n", i));
 	env->sectors[parser->sectors_count].textures[i] = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].textures[i] < -MAX_SKYBOX
-	|| env->sectors[parser->sectors_count].textures[i] >= MAX_WALL_TEXTURE)
-	{
-		ft_dprintf(STDERR_FILENO,
+		|| env->sectors[parser->sectors_count].textures[i] >= MAX_WALL_TEXTURE)
+		return (custom_error(
 				"[Line %d] Texture \'%d\' in sector %d does not exist\n",
 				parser->line_count,
 				env->sectors[parser->sectors_count].textures[i],
-				parser->sectors_count);
-		return (-1);
-	}
+				parser->sectors_count));
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double wall %d texture align.x\n", i));
+		return (custom_error("Invalid wall %d texture align.x\n", i));
 	env->sectors[parser->sectors_count].align[i].x = ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);

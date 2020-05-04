@@ -75,10 +75,8 @@ int			check_duplicate_vertices(t_sector sector, t_env *env)
 			env->vertices[sector.vertices[j]].x)
 			&& (env->vertices[sector.vertices[i]].y ==
 			env->vertices[sector.vertices[j]].y))
-			{
-				return (ft_printf("vertex %d is a duplicate of vertex %d",
+				return (custom_error("Vertex %d is a duplicate of vertex %d",
 				sector.vertices[j], sector.vertices[i]));
-			}
 			j++;
 		}
 		i++;

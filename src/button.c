@@ -67,8 +67,6 @@ t_env *env)
 	new.hover_text_color = 0x00000000;
 	new.pressed_text_color = 0x00000000;
 	new.down_text_color = 0x00000000;
-	if (!env->sdl.fonts.lato20)
-		ft_dprintf(STDERR_FILENO, "Button font has not been init yet!\n");
 	new.font = env->sdl.fonts.lato20;
 	if (type == ON_RELEASE)
 		new.release_param = param;
@@ -92,9 +90,6 @@ t_env *env)
 	t_button	new;
 
 	new = init_button(type, action, param, env);
-	if (!env->ui_textures[61].surface || !env->ui_textures[62].surface
-		|| !env->ui_textures[63].surface)
-		ft_dprintf(STDERR_FILENO, "Button textures have not been init yet!\n");
 	new.img_up = env->ui_textures[61].surface;
 	new.img_pressed = env->ui_textures[62].surface;
 	new.img_down = env->ui_textures[62].surface;

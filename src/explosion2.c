@@ -30,7 +30,7 @@ int centered_sprite)
 	t_list		*new;
 
 	if (!(new = ft_lstnew(&env->explosion, sizeof(t_explosion))))
-		return (ft_printf("Error when creating explosion\n"));
+		return (custom_error("Error when creating explosion\n"));
 	ft_lstpushback(&env->explosions, new);
 	((t_explosion*)new->content)->sprite = data.sprite;
 	((t_explosion*)new->content)->damage = data.damage;

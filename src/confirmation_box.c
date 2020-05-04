@@ -86,9 +86,9 @@ int		update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env)
 {
 	if (!str)
-		return (custom_error("Confirmation box message is empty"));
+		return (custom_error("Confirmation box message is empty\n"));
 	if (!box->font)
-		return (custom_error("Confirmation box font is NULL"));
+		return (custom_error("Confirmation box font is NULL\n"));
 	box->str = str;
 	box->state = 1;
 	box->type = type;

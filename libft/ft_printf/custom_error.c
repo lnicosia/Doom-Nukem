@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 11:30:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/09/02 17:35:09 by lnicosia         ###   ########.fr       */
+/*   Created: 2019/02/01 15:03:58 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 18:45:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int		custom_error(const char *restrict format)
+int			custom_error(const char *restrict format, ...)
 {
-	ft_dprintf(STDERR_FILENO, "{red}%s{reset}\n", message);
-	return (-1);
+	t_data	data;
+
+	if (!format)
+		return (-1);
+	init_data(&data, 1);
+	va_start(data.ap, format);
+	parse_format(format, &data);
+	write(STDERR_FILENO, data.buffer, data.i);
+	va_end(data.ap);
+	return (data.ret);
 }

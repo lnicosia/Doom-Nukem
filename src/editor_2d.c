@@ -48,7 +48,7 @@ int		editor_2d(t_env *env)
 	else if (!env->input_box.state)
 	{
 		if (editor_options_keys(env))
-			return (ft_printf("Error in inputs\n"));
+			return (custom_error("Error in inputs\n"));
 	}
 	draw_grid(env);
 	draw_grid_vertices(env);

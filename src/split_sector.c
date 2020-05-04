@@ -70,7 +70,7 @@ int		create_new_sector(t_env *env, int start, int end, t_sector *sector)
 	env->editor.reverted = get_clockwise_order(env) ? 0 : 1;
 	env->editor.start_vertex = -1;
 	if (add_sector(env))
-		return (ft_printf("Error while creating new sector\n"));
+		return (custom_error("Error while creating new sector\n"));
 	if (copying_original_sector_data(env))
 		return (-1);
 	return (0);

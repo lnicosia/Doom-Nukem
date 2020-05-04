@@ -22,7 +22,7 @@ int		new_vertex(t_env *env, int clicked_vertex)
 	else if (!ret)
 		return (0);
 	if (add_vertex(env))
-		return (ft_printf("Could not add new vertex\n"));
+		return (custom_error("Could not add new vertex\n"));
 	if (add_vertex_to_current_sector(env, env->nb_vertices - 1))
 		return (-1);
 	if (env->editor.start_vertex == -1)

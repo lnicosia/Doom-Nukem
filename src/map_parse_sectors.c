@@ -89,9 +89,9 @@ int		parse_sectors(t_env *env, t_map_parser *parser)
 		}
 		else
 		{
-			ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"[Line %d] You must still declare %d sector(s)\n",
-				parser->line_count, env->nb_sectors - parser->sectors_count);
+				parser->line_count, env->nb_sectors - parser->sectors_count));
 			return (-1);
 		}
 		ft_strdel(&parser->line);

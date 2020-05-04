@@ -31,7 +31,7 @@ int			check_list_intersections(t_env *env, t_vertex *last, int index)
 					new_v2(round((env->sdl.mx - env->editor.center.x)
 					/ env->editor.scale), round((env->sdl.my
 					- env->editor.center.y) / env->editor.scale))))
-			return (custom_error("Intersects with current sector"));
+			return (custom_error("Intersects with current sector\n"));
 		tmp = tmp->next;
 	}
 	return (0);
@@ -58,7 +58,7 @@ t_vertex last, int index)
 			round((env->sdl.my - env->editor.center.y)
 			/ env->editor.scale)),
 			new_v2(last.x, last.y)))
-			return (custom_error("Intersects with existing wall(s)"));
+			return (custom_error("Intersects with existing wall(s)\n"));
 		i++;
 	}
 	return (0);

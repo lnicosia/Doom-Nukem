@@ -112,7 +112,7 @@ int			add_sector(t_env *env)
 
 	sector = new_default_sector(env);
 	if (init_new_sector_arrays(&sector))
-		return (ft_printf("Error while initializing new sector arrays\n"));
+		return (custom_error("Error while initializing new sector arrays\n"));
 	if (set_sector_floor_map_array(&sector,
 		&env->wall_textures[sector.floor_texture], env))
 		return (-1);

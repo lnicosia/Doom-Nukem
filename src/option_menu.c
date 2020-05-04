@@ -51,7 +51,7 @@ void	draw_option_menu_ig_buttons(t_env *env)
 	draw_button(env, env->sounds_vol_down, NULL);
 }
 
-void	option_menu_ig(t_env *env)
+int		option_menu_ig(t_env *env)
 {
 	clear_image(env);
 	SDL_SetRelativeMouseMode(0);
@@ -71,5 +71,7 @@ void	option_menu_ig(t_env *env)
 			option_menu_ig_keyup(env);
 		option_menu_ig_keys(env);
 	}
-	update_screen(env);
+	if (update_screen(env))
+		return (-1);
+	return (0);
 }

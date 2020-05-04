@@ -33,7 +33,7 @@ t_projectile_stats stats, t_projectile_data_2 data2)
 	t_list	*new;
 
 	if (!(new = ft_lstnew(&env->projectile, sizeof(t_projectile))))
-		return (ft_printf("Error when creating new projectile\n"));
+		return (custom_error("Error when creating new projectile\n"));
 	ft_lstpushback(&env->projectiles, new);
 	((t_projectile*)new->content)->sprite = data.sprite;
 	((t_projectile*)new->content)->speed = stats.speed;

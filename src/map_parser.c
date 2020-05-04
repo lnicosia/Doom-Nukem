@@ -54,26 +54,26 @@ void	init_player(t_env *env)
 int		parse_map2(t_env *env)
 {
 	if (parse_objects(env, &(env->parser)))
-		return (custom_error("Error while parsing objects"));
+		return (custom_error("Error while parsing objects\n"));
 	if (init_enemies(env, &(env->parser)))
-		return (custom_error("Could not init objects"));
+		return (custom_error("Could not init objects\n"));
 	if (parse_enemies(env, &(env->parser)))
-		return (custom_error("Error while parsing creatures"));
+		return (custom_error("Error while parsing creatures\n"));
 	if (parse_events(env, &(env->parser)))
-		return (custom_error("Error while parsing events"));
+		return (custom_error("Error while parsing events\n"));
 	if (parse_ambient_music(env, &(env->parser)))
-		return (custom_error("Error while parsing ambient music"));
+		return (custom_error("Error while parsing ambient music\n"));
 	if (parse_fight_music(env, &(env->parser)))
-		return (custom_error("Error while parsing combat music"));
+		return (custom_error("Error while parsing combat music\n"));
 	if (parse_player(env, &(env->parser)))
-		return (custom_error("Error while parsing player data"));
+		return (custom_error("Error while parsing player data\n"));
 	if (env->player.sector == -1)
 		return (missing_data("You need to give player data", &(env->parser)));
 	set_sectors_xmax(env);
 	init_enemies_data(env);
 	init_objects_data(env);
 	if (close(env->parser.fd))
-		return (custom_error("Could not close the file"));
+		return (custom_error("Could not close the file\n"));
 	ft_printf("{reset}");
 	return (0);
 }
@@ -89,19 +89,16 @@ int		parse_map(char *file, t_env *env)
 	env->parser.line_count = 0;
 	ft_printf("{red}");
 	if ((env->parser.fd = open(file, O_RDONLY)) < 0)
-	{
-		ft_dprintf(STDERR_FILENO, "Could not open %s\n", file);
-		return (-1);
-	}
+		return (custom_error("Could not open %s\n", file));
 	if (init_vertices(env, &env->parser))
-		return (custom_error("Could not init vertices"));
+		return (custom_error("Could not init vertices\n"));
 	if (parse_vertices(env, &env->parser))
-		return (custom_error("Error while parsing vertices"));
+		return (custom_error("Error while parsing vertices\n"));
 	if (init_sectors(env, &env->parser))
-		return (custom_error("Could not init sectors"));
+		return (custom_error("Could not init sectors\n"));
 	if (parse_sectors(env, &env->parser))
-		return (custom_error("Error while parsing sectors"));
+		return (custom_error("Error while parsing sectors\n"));
 	if (init_objects(env, &env->parser))
-		return (custom_error("Could not init objects"));
+		return (custom_error("Could not init objects\n"));
 	return (parse_map2(env));
 }

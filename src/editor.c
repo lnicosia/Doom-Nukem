@@ -75,9 +75,15 @@ int		editor1(t_env *env)
 			return (-1);
 	}
 	if (env->options.zbuffer && env->editor.in_game)
-		update_screen_zbuffer(env);
+	{
+		if (update_screen_zbuffer(env))
+			return (-1);
+	}
 	else
-		update_screen(env);
+	{
+		if (update_screen(env))
+			return (-1);
+	}
 	return (0);
 }
 

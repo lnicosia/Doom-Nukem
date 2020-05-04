@@ -40,14 +40,14 @@ int		parse_value(t_map_parser *parser, char **line,
 	if (eparser->event.type == INT)
 	{
 		if (valid_double(*line, parser))
-			return (ft_printf("Invalid double for target value\n"));
+			return (custom_error("Invalid double for target value\n"));
 		value = ft_atoi(*line);
 		*line = skip_number(*line);
 	}
 	if (eparser->event.type == DOUBLE || eparser->event.type == FUNC)
 	{
 		if (valid_double(*line, parser))
-			return (ft_printf("Invalid double for target event target"
+			return (custom_error("Invalid double for target event target"
 			" value\n"));
 		value = ft_atof(*line);
 		*line = skip_number(*line);
@@ -68,7 +68,7 @@ int		classic_action_parsing2(t_map_parser *parser, char **line,
 	if (!**line || **line == ']')
 		return (missing_data("event duration", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for event speed\n"));
+		return (custom_error("Invalid double for event speed\n"));
 	eparser->event.speed = ft_atof(*line);
 	if (eparser->event.speed < 0)
 		return (custom_error_with_line("Invalid event speed", parser));
@@ -93,7 +93,7 @@ int		classic_action_parsing(t_map_parser *parser, char **line,
 	if (!**line || **line == ']')
 		return (missing_data("event type, value and duration", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for event mode type\n"));
+		return (custom_error("Invalid int for event mode type\n"));
 	eparser->event.mod_type = ft_atoi(*line);
 	if (eparser->event.mod_type < 0 || eparser->event.mod_type >= 2)
 		return (custom_error_with_line("Invalid event type", parser));

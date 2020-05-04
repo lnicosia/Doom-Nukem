@@ -17,7 +17,7 @@ int		parse_current_sprite3(t_env *env, char **line,
 t_map_parser *parser, t_point index)
 {
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d sprite %d scale.y\n",
+		return (custom_error("Invalid double for wall %d sprite %d scale.y\n",
 		index.x, index.y));
 		env->sectors[parser->sectors_count].wall_sprites[index.x].
 	scale[index.y].y = ft_atof(*line);
@@ -44,7 +44,7 @@ t_map_parser *parser, t_point index)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d sprite %d scale.x\n",
+		return (custom_error("Invalid double for wall %d sprite %d scale.x\n",
 		index.x, index.y));
 		env->sectors[parser->sectors_count].wall_sprites[index.x].
 	scale[index.y].x = ft_atof(*line);
@@ -70,7 +70,8 @@ t_map_parser *parser, t_point index)
 
 	(*line)++;
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for wall %d sprite texture\n", index.x));
+		return (custom_error("Invalid int for wall %d sprite texture\n",
+		index.x));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid sprite texture",
@@ -80,14 +81,14 @@ t_map_parser *parser, t_point index)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d sprite %d pos.x\n",
+		return (custom_error("Invalid double for wall %d sprite %d pos.x\n",
 		index.x, index.y));
 		env->sectors[parser->sectors_count].wall_sprites[index.x].pos[index.y].
 		x = ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for wall %d sprite %d pos.y\n",
+		return (custom_error("Invalid double for wall %d sprite %d pos.y\n",
 		index.x, index.y));
 		return (parse_current_sprite2(env, line, parser, index));
 }

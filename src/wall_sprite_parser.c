@@ -25,7 +25,7 @@ t_events_parser *eparser)
 	if (eparser->current_sprite < 0
 		|| eparser->current_sprite >= env->sectors[eparser->current_sector].
 		wall_sprites[eparser->current_wall].nb_sprites)
-		return (custom_error_with_line("Invalid sprite index", parser));
+		return (custom_error_with_line("Invalid sprite index\n", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')
 		return (invalid_char("after sprite index", "')'", **line, parser));
@@ -50,7 +50,7 @@ t_events_parser *eparser)
 	if (eparser->current_wall < 0
 		|| eparser->current_wall >= env->sectors[eparser->current_sector].
 		nb_vertices)
-		return (custom_error_with_line("Invalid wall index", parser));
+		return (custom_error_with_line("Invalid wall index\n", parser));
 	*line = skip_number(*line);
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("sprite number", parser));
@@ -83,7 +83,7 @@ t_events_parser *eparser)
 		eparser->current_sector = ft_atoi(*line);
 	if (eparser->current_sector < 0
 		|| eparser->current_sector >= env->nb_sectors)
-		return (custom_error_with_line("Invalid sector index", parser));
+		return (custom_error_with_line("Invalid sector index\n", parser));
 	*line = skip_number(*line);
 	return (wall_sprite_parser2(env, parser, line, eparser));
 }

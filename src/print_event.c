@@ -34,15 +34,12 @@ void	print_event_launch_conditions(t_env *env, t_event *event)
 {
 	print_text(new_point(650, 130), new_printable_text("Launch conditions",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_printf("%d launch conditions\n", event->nb_launch_conditions);
 	if (event->nb_launch_conditions == 0)
 		return ;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Condition %d",
 	env->editor.selected_launch_condition);
 	print_text(new_point(680, 150), new_printable_text(env->snprintf,
 	env->sdl.fonts.lato20, 0x333333FF, 30), env);
-	ft_printf("launch condition %d selected\n",
-	env->editor.selected_launch_condition);
 	print_event_launch_condition(env,
 	&event->launch_conditions[env->editor.selected_launch_condition]);
 	if (event->nb_launch_conditions <= 1)

@@ -69,9 +69,15 @@ int	draw_game2(t_env *env)
 		&& draw_dialog_box(&env->dialog_box_str, env))
 		return (-1);
 	if (env->options.zbuffer)
-		update_screen_zbuffer(env);
+	{
+		if (update_screen_zbuffer(env))
+			return (-1);
+	}
 	else
-		update_screen(env);
+	{
+		if (update_screen(env))
+			return (-1);
+	}
 	if (!env->confirmation_box.state)
 		view(env);
 	return (0);

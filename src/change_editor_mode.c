@@ -22,11 +22,11 @@ int		going_in_3d_mode(t_env *env)
 	free_camera(&env->player.camera);
 	precompute_slopes(env);
 	if (init_camera_arrays(&env->player.camera, env))
-		return (ft_printf("Could not init camera arrays\n"));
+		return (custom_error("Could not init camera arrays\n"));
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (ft_printf("Could not allocate sector list\n", env));
+		return (ft_perror("Could not allocate sector list\n"));
 	update_camera_position(&env->player.camera);
 	update_player_z(env);
 	ft_bzero(&env->inputs, sizeof(env->inputs));

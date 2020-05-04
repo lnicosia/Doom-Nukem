@@ -18,11 +18,11 @@ static int	parse_skybox_textures2(int fd, t_bmp_parser *parser, t_env *env)
 	if (parser->color_used || parser->bpp <= 8)
 	{
 		if (set_color_table(fd, parser))
-			return (ft_printf("Error in color table\n"));
+			return (custom_error("Error in color table\n"));
 	}
 	if (parse_pixel_data(fd, parser,
 		env->skyboxes[parser->skybox_index].textures))
-		return (ft_printf("Error in pixel data\n"));
+		return (custom_error("Error in pixel data\n"));
 	return (0);
 }
 
@@ -33,18 +33,18 @@ static int	parse_skybox_textures(int fd, int num_sky, int index, t_env *env)
 	parser.index = index;
 	parser.skybox_index = num_sky;
 	if (index >= 6)
-		return (ft_printf("Too much textures\n"));
+		return (custom_error("Too much textures\n"));
 	if (parse_file_header(fd, &parser))
-		return (ft_printf("Error in file header\n"));
+		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
-		return (ft_printf("Error in image header\n"));
+		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
-		return (ft_printf("Error in image header\n"));
-	ft_printf("{red}");
+		return (custom_error("Error in image header\n"));
+	custom_error("{red}");
 	if (!(env->skyboxes[num_sky].textures[index].surface =
 		SDL_CreateRGBSurfaceWithFormat(0, parser.w, parser.h, parser.bpp,
 		SDL_PIXELFORMAT_ARGB8888)))
-		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
+		return (custom_error("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
 	env->skyboxes[num_sky].textures[index].str =
 	env->skyboxes[num_sky].textures[index].surface->pixels;
 	env->skyboxes[num_sky].textures[index].scale = 1;
@@ -59,11 +59,11 @@ t_env *env)
 	int	fd;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		return (ft_printf("Could not open \"%s\"\n", file));
+		return (custom_error("Could not open \"%s\"\n", file));
 	if (parse_skybox_textures(fd, num_sky, index, env))
-		return (ft_printf("Error while parsing \"%s\"\n", file));
+		return (custom_error("Error while parsing \"%s\"\n", file));
 	if (close(fd))
-		return (ft_printf("Could not close \"%s\"\n", file));
+		return (custom_error("Could not close \"%s\"\n", file));
 	ft_printf("{reset}");
 	return (0);
 }

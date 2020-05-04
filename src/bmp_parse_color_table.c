@@ -22,12 +22,12 @@ static int	parse_color_table(int fd, t_bmp_parser *parser)
 
 	if (!(parser->colors = (unsigned int*)ft_memalloc(sizeof(unsigned int)
 					* parser->color_used)))
-		return (ft_printf("Could not malloc colors array\n"));
+		return (custom_error("Could not malloc colors array\n"));
 	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char)
 					* parser->color_used * 4)))
 	{
 		ft_memdel((void**)&parser->colors);
-		return (ft_printf("Could not malloc buffer for color table\n"));
+		return (custom_error("Could not malloc buffer for color table\n"));
 	}
 	if ((ret = read(fd, str, parser->color_used * 4)) > 0)
 	{
@@ -80,7 +80,7 @@ static int	default_color_table(t_bmp_parser *parser)
 {
 	if (!(parser->colors = (unsigned int*)ft_memalloc(sizeof(unsigned int)
 					* pow(2, parser->bpp))))
-		return (ft_printf("Could not malloc colors array\n"));
+		return (custom_error("Could not malloc colors array\n"));
 	if (parser->bpp == 8)
 		set_colors8(parser->colors);
 	if (parser->bpp == 4)

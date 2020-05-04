@@ -59,13 +59,10 @@ int		parse_enemies(t_env *env, t_map_parser *parser)
 			parser->enemies_count++;
 		}
 		else
-		{
-			ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 					"[Line %d] You must still declare %d enemies\n",
 					parser->line_count,
-					env->nb_enemies - parser->enemies_count);
-			return (-1);
-		}
+					env->nb_enemies - parser->enemies_count));
 		ft_strdel(&(parser->line));
 	}
 	return (parse_enemies2(env, parser));
