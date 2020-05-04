@@ -129,7 +129,8 @@ int		editor_keys(t_env *env)
 	starting_player_selection(env);
 	enemy_drag(env);
 	objects_selection(env);
-	vertices_selection(env);
+	if (vertices_selection(env))
+		return (-1);
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keys(&env->confirmation_box, env))

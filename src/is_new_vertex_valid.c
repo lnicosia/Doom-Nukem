@@ -20,7 +20,8 @@ int index)
 		env->editor.center.x) / env->editor.scale);
 	env->vertices[index].y = round((env->sdl.my -
 		env->editor.center.y) / env->editor.scale);
-	check_sector_order(env);
+	if (check_sector_order(env))
+		return (-1);
 	set_sectors_xmax(env);
 	precompute_slopes(env);
 	if (check_sector(env->sectors[list_sectors[i]], env))
@@ -60,16 +61,17 @@ int			is_new_dragged_vertex_valid(t_env *env, int index)
 {
 	int			*list_sectors;
 	int			i;
+	int			ret;
 
 	i = 1;
 	if (!(list_sectors = get_vertex_sectors(env, index)))
 		return (-1);
 	while (i <= list_sectors[0])
 	{
-		if (check_current_sector(env, list_sectors, i, index))
+		if ((ret = check_current_sector(env, list_sectors, i, index)) != 0)
 		{
 			ft_memdel((void**)&list_sectors);
-			return (0);
+			return (ret);
 		}
 		i++;
 	}

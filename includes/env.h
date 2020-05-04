@@ -263,7 +263,7 @@ int						fill_sector_first_vertex(t_sector *sector, t_env *env);
 int						fill_sector_last_vertex(t_sector *sector, t_env *env);
 int						editor_render(t_env *env);
 int						save_map(void *param);
-void					revert_sector(t_sector *sector, t_env *env);
+int						revert_sector(t_sector *sector, t_env *env);
 int						get_clockwise_order_sector(t_env *env, int index);
 void					player_selection(t_env *env);
 void					starting_player_selection(t_env *env);
@@ -1066,7 +1066,7 @@ int						event_target_exists5(t_event *event, t_env *env);
 int						event_target_exists6(t_event *event, t_env *env);
 int						condition_target_exists(t_condition *condition,
 t_env *env);
-void					check_sector_order(t_env *env);
+int						check_sector_order(t_env *env);
 int						check_sector(t_sector sector, t_env *env);
 int						dialog_event(void *param, void *penv);
 int						set_new_string_input_box(t_input_box *box,

@@ -87,7 +87,7 @@ int			is_sector_concave(t_sector sector, t_env *env)
 
 	straight = 0;
 	if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (sector.nb_vertices + 2))))
-		return (-1);
+		return (ft_perror("Could not malloc p from is_sector_concave"));
 	i = -1;
 	while (++i < sector.nb_vertices + 2)
 		check_current_vertex(i, sector, p, env);

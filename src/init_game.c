@@ -103,7 +103,7 @@ int		init_game2(char **av, t_env *env)
 	init_inputs(env);
 	init_selection_data(env);
 	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
-		return (crash("Could not malloc snprintf char *\n", env));
+		return (crash("Could not malloc snprintf string\n", env));
 	if (init_sdl(env))
 		return (crash("Coulnt not initialize SDL\n", env));
 	if (init_audio(env))

@@ -37,7 +37,7 @@ int		add_sprite(void *param)
 			return (-1);
 	}
 	if (env->selected_wall_sprite_wall != -1
-	|| env->editor.selected_wall != -1)
+		|| env->editor.selected_wall != -1)
 	{
 		if (update_wall_sprite_arrays(env))
 			return (-1);

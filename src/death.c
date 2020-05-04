@@ -85,7 +85,7 @@ int			respawn(void *param)
 	if (valid_map(env))
 		return (-1);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (-1);
+		return (custom_error("Could not malloc sector list"));
 	precompute_slopes(env);
 	update_player_z(env);
 	ft_bzero(&env->inputs, sizeof(env->inputs));

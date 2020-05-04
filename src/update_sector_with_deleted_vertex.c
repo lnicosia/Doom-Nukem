@@ -18,7 +18,13 @@ int		update_sector3(t_sector *sector, int vertex)
 		sizeof(t_wall_sprites) * (sector->nb_vertices + 1),
 		sizeof(t_wall_sprites), sizeof(t_wall_sprites) * vertex);
 	sector->nb_vertices--;
-	if (sector->nb_vertices > 0 && (!sector->vertices))
+	if (sector->nb_vertices > 0 && (!sector->vertices || sector->textures
+		|| sector->neighbors || sector->portals || sector->floors
+		|| sector->ceilings || sector->clipped_floors1
+		|| sector->clipped_floors2 || sector->clipped_ceilings1
+		|| sector->clipped_ceilings2 || sector->wall_width
+		|| sector->walls_map_lvl || sector->scale || sector->align
+		|| sector->wall_bullet_holes || sector->wall_sprites))
 		return (-1);
 	if (sector->start_floor_slope >= sector->nb_vertices)
 		sector->start_floor_slope--;

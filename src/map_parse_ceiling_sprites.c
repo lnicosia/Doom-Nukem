@@ -122,16 +122,16 @@ int		parse_ceiling_sprites(t_env *env, char **line, t_map_parser *parser)
 	env->sectors[parser->sectors_count].ceiling_sprites.nb_sprites =
 	parser->sector_ceiling_sprites_count;
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites.sprite = (int*)
-		malloc(sizeof(int) * parser->sector_ceiling_sprites_count)))
+		ft_memalloc(sizeof(int) * parser->sector_ceiling_sprites_count)))
 		return (ft_perror("Could not malloc sector ceiling sprite indexes"));
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites.scale = (t_v2*)
-		malloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
+		ft_memalloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
 		return (ft_perror("Could not malloc sector ceiling sprite scales"));
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites.pos = (t_v2*)
-		malloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
+		ft_memalloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
 		return (ft_perror("Could not malloc sector ceiling sprite pos"));
 	if (!(env->sectors[parser->sectors_count].ceiling_sprites_scale = (t_v2*)
-		malloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
+		ft_memalloc(sizeof(t_v2) * parser->sector_ceiling_sprites_count)))
 		return (ft_perror("Could not malloc sector ceiling sprite pos"));
 	return (parse_ceiling_sprites2(env, line, parser));
 }

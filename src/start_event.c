@@ -55,7 +55,7 @@ t_env *env)
 			sizeof(t_event) * (*size), sizeof(t_event), sizeof(t_event) * *i);
 			(*size)--;
 			if (*size > 0 && !(*events))
-				return (-1);
+				return (ft_perror("Could not delindex from events array"));
 		}
 		else
 			(*i)++;

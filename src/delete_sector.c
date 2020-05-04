@@ -88,7 +88,7 @@ int		delete_sector(void *param)
 		return (-1);
 	free(env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (ft_perror("Could not allocate sector list\n"));
+		return (ft_perror("Could not allocate sector list"));
 	i = env->editor.selected_sector;
 	while (i < env->nb_sectors)
 	{

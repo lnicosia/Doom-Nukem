@@ -24,9 +24,9 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 	size = 0;
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
-		return (ft_perror("Memalloc failed\n"));
+		return (ft_perror("Memalloc failed"));
 	if (!(parser->resource_name = ft_strnew(0)))
-		return (ft_perror("Coud not malloc\n"));
+		return (ft_perror("Coud not malloc"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->resource_name) < 100)
 	{
@@ -52,7 +52,7 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_perror("Could not malloc line in parse bmp\n"));
+			return (ft_perror("Could not join line in parse bmp\n"));
 	}
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of the size\n"));

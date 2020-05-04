@@ -17,11 +17,11 @@ int	update_wall_sprite_arrays3(t_env *env, t_wall_sprites *wall, int index)
 	if (!(wall->nb_shoot_events = (size_t*)ft_realloc(wall->nb_shoot_events,
 	sizeof(size_t) * wall->nb_sprites, sizeof(size_t)
 	* (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite nb shoot events"));
 	if (!(wall->shoot_events = (t_event**)ft_realloc(wall->shoot_events,
 	sizeof(t_event *) * wall->nb_sprites, sizeof(t_event*)
 	* (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite shoot events"));
 	wall->nb_sprites++;
 	if (set_camera_sprites_array(&env->player.camera,
 		env->editor.selected_sector, index, env))
@@ -36,7 +36,7 @@ t_sector *sector, int index)
 	if (!(wall->pos = (t_v2*)ft_realloc(wall->pos,
 	sizeof(t_v2) * wall->nb_sprites, sizeof(t_v2)
 	* (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite pos"));
 	wall->pos[wall->nb_sprites].x =
 	sector->wall_width[index] / 2 - 1;
 	wall->pos[wall->nb_sprites].y =
@@ -44,16 +44,16 @@ t_sector *sector, int index)
 	if (!(wall->scale = (t_v2*)ft_realloc(wall->scale,
 	sizeof(t_v2) * wall->nb_sprites, sizeof(t_v2)
 	* (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite scale"));
 	wall->scale[wall->nb_sprites] = new_v2(2, 2);
 	if (!(wall->nb_press_events = (size_t*)ft_realloc(wall->nb_press_events,
 	sizeof(size_t) * wall->nb_sprites, sizeof(size_t)
 	* (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite nb press events"));
 	if (!(wall->press_events = (t_event**)ft_realloc(wall->press_events,
 	sizeof(t_event *) * wall->nb_sprites, sizeof(t_event*)
 	* (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite press events"));
 	return (update_wall_sprite_arrays3(env, wall, index));
 }
 
@@ -81,6 +81,6 @@ int	update_wall_sprite_arrays(t_env *env)
 	}
 	if (!(wall->sprite = (int*)ft_realloc(wall->sprite,
 	sizeof(int) * wall->nb_sprites, sizeof(int) * (wall->nb_sprites + 1))))
-		return (-1);
+		return (ft_perror("Could not realloc wall sprite index"));
 	return (update_wall_sprite_arrays2(env, wall, sector, index));
 }

@@ -13,7 +13,7 @@
 #include "env.h"
 #include <math.h>
 
-void	check_sector_order(t_env *env)
+int		check_sector_order(t_env *env)
 {
 	int	i;
 	int	j;
@@ -28,13 +28,15 @@ void	check_sector_order(t_env *env)
 			{
 				env->editor.reverted =
 				get_clockwise_order_sector(env, i) ? 0 : 1;
-				revert_sector(&env->sectors[i], env);
+				if (revert_sector(&env->sectors[i], env))
+					return (-1);
 				break ;
 			}
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	reset_vertex(t_env *env)
@@ -77,7 +79,8 @@ int		vertices_selection(t_env *env)
 		return (0);
 	if (check_click(env))
 		return (-1);
-	check_sector_order(env);
+	if (check_sector_order(env))
+		return (-1);
 	set_sectors_xmax(env);
 	precompute_slopes(env);
 	env->editor.dragged_vertex = -1;
