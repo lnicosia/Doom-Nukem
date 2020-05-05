@@ -36,7 +36,7 @@ void		set_color_and_size(Uint32 *color, t_point *button_size, t_button b)
 	}
 }
 
-void		draw_button_text(t_button b, char *str, t_env *env)
+int			draw_button_text(t_button b, char *str, t_env *env)
 {
 	t_printable_text	text;
 	t_point				pos;
@@ -45,15 +45,18 @@ void		draw_button_text(t_button b, char *str, t_env *env)
 	Uint32				color;
 
 	if (!str || !b.font)
-		return ;
+		return (0);
 	color = 0xFFFFFFFF;
 	button_size = new_point(0, 0);
 	set_color_and_size(&color, &button_size, b);
-	TTF_SizeText(b.font, str, &text_size.x, &text_size.y);
+	if (TTF_SizeText(b.font, str, &text_size.x, &text_size.y))
+		return (-1);
 	pos = new_point(b.pos.y + button_size.y / 2 - text_size.y / 2,
 	b.pos.x + button_size.x / 2 - text_size.x / 2);
 	text = new_printable_text(str, b.font, color, button_size.y);
-	print_text(pos, text, env);
+	if (print_text(pos, text, env))
+		return (-1);
+	return (0);
 }
 
 t_button	init_button(int type, int (*action)(void *), void *param,

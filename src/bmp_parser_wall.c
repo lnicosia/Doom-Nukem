@@ -63,6 +63,6 @@ int			parse_bmp_wall_textures(char *file, int index, t_env *env)
 		return (custom_error("Error while parsing \"%s\"\n", file));
 	if (close(fd))
 		return (custom_error("Could not close \"%s\"\n", file));
-	custom_error("{reset}");
+	ft_printf("{reset}");
 	return (0);
 }

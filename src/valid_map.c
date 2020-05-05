@@ -96,11 +96,11 @@ int			valid_map(t_env *env)
 	get_sector_no_z(env, env->player.starting_pos);
 	if (!env->nb_sectors)
 		return (custom_error("You need at least one sector to go in"
-		" 3d mode{reset}\n"));
+		" 3d mode\n"));
 	if (!env->editor.player_exist)
 		return (custom_error("You need to place the player\n"));
 	if (env->player.sector == -1 || env->player.starting_sector == -1)
-		return (custom_error("Player position is not valid{reset}\n"));
+		return (custom_error("Player position is not valid\n"));
 	while (i < env->nb_sectors)
 	{
 		if (check_sector(env->sectors[i], env))

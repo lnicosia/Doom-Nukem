@@ -122,21 +122,26 @@ void	get_current_wall_angle(int i, t_grid_wall_drawer *drawer, t_env *env)
 	}
 }
 
-void	print_minimap_sector_num(t_grid_wall_drawer *drawer, t_env *env)
+int		print_minimap_sector_num(t_grid_wall_drawer *drawer, t_env *env)
 {
 	t_point	text_size;
 
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", drawer->sector->num);
-	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
-	&text_size.y);
+	if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
+	&text_size.y))
+		return (-1);
 	if (drawer->center.x - text_size.x >= env->minimap_pos.x
 		- env->minimap_size.x / 2 - 3
 		&& drawer->center.x < env->minimap_pos.x + env->minimap_size.x / 2 - 3
 		&& drawer->center.y - text_size.y >= env->minimap_pos.y
 		- env->minimap_size.y / 2 - 3
 		&& drawer->center.y < env->minimap_pos.y + env->minimap_size.y / 2 - 3)
-		print_text(new_point(drawer->center.y - text_size.y / 2,
+	{
+		if (print_text(new_point(drawer->center.y - text_size.y / 2,
 		drawer->center.x - text_size.x / 2),
 		new_printable_text(env->snprintf, env->sdl.fonts.lato20,
-		drawer->color, 20), env);
+		drawer->color, 20), env))
+			return (-1);
+	}
+	return (0);
 }

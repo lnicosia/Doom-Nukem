@@ -43,13 +43,16 @@ char	*get_current_line(char **str, t_env *env)
 	return (res);
 }
 
-void	print_line_text(t_point *pos, t_point *text_size, char *tmp2,
+int		print_line_text(t_point *pos, t_point *text_size, char *tmp2,
 t_env *env)
 {
-	TTF_SizeText(env->sdl.fonts.lato_bold30, tmp2, &text_size->x,
-	&text_size->y);
-	print_text(*pos, new_printable_text(tmp2, env->sdl.fonts.lato_bold30,
-	0xFFFFFFFF, 0), env);
+	if (TTF_SizeText(env->sdl.fonts.lato_bold30, tmp2, &text_size->x,
+		&text_size->y))
+		return (-1);
+	if (print_text(*pos, new_printable_text(tmp2, env->sdl.fonts.lato_bold30,
+		0xFFFFFFFF, 0), env))
+		return (-1);
+	return (0);
 }
 
 int		compute_current_line(char **str, t_point *pos, t_point *text_size,
@@ -75,7 +78,8 @@ t_env *env)
 		return (-1);
 	ft_strdel(str);
 	*str = tmp3;
-	print_line_text(pos, text_size, tmp2, env);
+	if (print_line_text(pos, text_size, tmp2, env))
+		return (-1);
 	ft_strdel(&tmp2);
 	return (0);
 }

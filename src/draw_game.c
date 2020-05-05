@@ -52,19 +52,30 @@ int	draw_game2(t_env *env)
 {
 	if (env->player.health > 0)
 	{
-		draw_hud(env);
-		print_ammo(env);
+		if (draw_hud(env))
+			return (-1);
+		if (print_ammo(env))
+			return (-1);
 	}
 	else
-		print_results(env);
+	{
+		if (print_results(env))
+			return (-1);
+	}
 	if (env->player.hit)
 		damage_anim(env);
 	if (env->hovered_wall_sprite_sprite != -1
 		&& env->hovered_wall_sprite_wall != -1
 		&& env->hovered_wall_sprite_sector != -1)
-		print_press_text(env);
+	{
+		if (print_press_text(env))
+			return (-1);
+	}
 	if (env->confirmation_box.state)
-		draw_confirmation_box(&env->confirmation_box, env);
+	{
+		if (draw_confirmation_box(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->dialog_box && env->dialog_box_str
 		&& draw_dialog_box(&env->dialog_box_str, env))
 		return (-1);
@@ -105,7 +116,10 @@ int	draw_game(t_env *env)
 		weapon_change(env);
 	draw_crosshair(env);
 	if (env->options.show_fps)
-		fps(env);
+	{
+		if (fps(env))
+			return (-1);
+	}
 	game_time(env);
 	animations(env);
 	game_minimap(env);

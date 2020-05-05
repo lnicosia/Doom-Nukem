@@ -70,7 +70,11 @@ int		init_game3(char **av, t_env *env)
 	int	i;
 
 	if (parse_map(av[1], env))
-		return (crash("{red}Error while parsing the map{reset}\n", env));
+	{
+		ft_printf("{red}");
+		return (crash("Error while parsing the map\n", env));
+		ft_printf("{reset}");
+	}
 	if (!(env->save_file = ft_strdup(av[1])))
 		return (crash("Could not malloc map name", env));
 	if (valid_map(env))

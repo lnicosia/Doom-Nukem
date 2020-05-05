@@ -88,7 +88,8 @@ int		generate_maps_for_texture(t_texture *texture)
 	i = texture->nb_maps - 2;
 	while (i >= 0)
 	{
-		generate_map_at_lvl(texture, i);
+		if (generate_map_at_lvl(texture, i))
+			return (-1);
 		i--;
 	}
 	return (0);

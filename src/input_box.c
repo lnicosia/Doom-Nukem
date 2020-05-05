@@ -70,7 +70,8 @@ int		draw_single_line(t_input_box *box, t_point size, t_env *env)
 	if (env->inputs.left_click && input_box_mouse(box, pos, box->str, env))
 		return (-1);
 	text = new_printable_text(box->str, box->font, 0x333333FF, box->size.x);
-	print_text(pos, text, env);
+	if (print_text(pos, text, env))
+		return (-1);
 	if (box->cursor_state || env->inputs.home || env->inputs.end
 		|| env->inputs.right || env->inputs.left || env->inputs.left_click
 		|| env->inputs.up || env->inputs.down)

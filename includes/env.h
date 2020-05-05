@@ -207,8 +207,8 @@ int						mipmapping_option(void *param);
 int						editor(t_env *env);
 int						editor_2d(t_env *env);
 void					zoom(t_env *env);
-void					print_events_tab(t_env *env);
-void					print_event_selection(t_env *env, size_t nb);
+int						print_events_tab(t_env *env);
+int						print_event_selection(t_env *env, size_t nb);
 void					wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void					wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
 void					editor_wall_sprites_keyup(t_env *env);
@@ -248,12 +248,12 @@ TTF_Font				*get_correct_font(int size, t_env *env);
 int						get_existing_vertex(t_env *env);
 int						get_existing_not_dragged_vertex(t_env *env);
 void					add_player(t_env *env);
-void					editor_hud(t_env *env);
-void					editor_options_hud(t_env *env);
+int 					editor_hud(t_env *env);
+int						editor_options_hud(t_env *env);
 void					editor_options_rectangles(t_env *env);
-void					editor_options_buttons(t_env *env);
-void					editor_options_ceil_floor(t_env *env);
-void					editor_options_textures(t_env *env);
+int						editor_options_buttons(t_env *env);
+int						editor_options_ceil_floor(t_env *env);
+int						editor_options_textures(t_env *env);
 int						get_clockwise_order(t_env *env);
 void					revert_sector_order(t_env *env);
 int						add_sector(t_env *env);
@@ -358,19 +358,19 @@ int						launch_game(void *target);
 int						going_in_2d_mode(t_env *env);
 int						going_in_3d_mode(t_env *env);
 int						print_vertex_informations(t_env *env);
-void					print_global_events_tab(t_env *env);
-void					print_enemy_events_tab(t_env *env);
-void					print_object_events_tab(t_env *env);
-void					print_sector_events_tab(t_env *env);
-void					print_event(t_env *env, t_event *event);
-void					print_event_action(t_env *env, t_event *event);
+int						print_global_events_tab(t_env *env);
+int						print_enemy_events_tab(t_env *env);
+int						print_object_events_tab(t_env *env);
+int						print_sector_events_tab(t_env *env);
+int						print_event(t_env *env, t_event *event);
+int						print_event_action(t_env *env, t_event *event);
 char					*get_condition_type_str(t_condition *condition);
-void					print_event_launch_condition(t_env *env,
+int						print_event_launch_condition(t_env *env,
 t_condition *condition);
-void					print_event_exec_condition(t_env *env,
+int						print_event_exec_condition(t_env *env,
 t_condition *condition);
 int						print_wall_sprite_sector_tab(t_env *env);
-void					print_wall_sprite_events_tab(t_env *env);
+int						print_wall_sprite_events_tab(t_env *env);
 int						print_sector_target(t_env *env, t_event *event,
 t_point pos, int size);
 int						print_wall_target(t_env *env, t_event *event,
@@ -772,9 +772,9 @@ void					apply_sprite(t_sprite sprite,
 void					apply_sprite_selected(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
 SDL_Surface				*get_closest_mipmap(t_texture texture, t_point size);
-void					print_press_text(t_env *env);
-void					fps(t_env *e);
-void					print_debug(t_env *env);
+int						print_press_text(t_env *env);
+int						fps(t_env *e);
+int						print_debug(t_env *env);
 void					fill_triangle_minimap(t_v3 v[3], t_env *env);
 void					fill_triangle(t_v3 v[3], Uint32 color, t_env *env);
 float					edge(t_v3 c0, t_v3 c1, t_v3 p);
@@ -858,7 +858,7 @@ int						confirmation_box_keys(t_confirmation_box *box,
 t_env *env);
 int						confirmation_box_keyup(t_confirmation_box *box,
 t_env *env);
-void					editor_minimap(t_env *e);
+int						editor_minimap(t_env *e);
 void					game_minimap(t_env *env);
 int						get_angle(t_point p[3]);
 int						get_sector_first_angles(t_sector *sector, t_env *env);
@@ -870,7 +870,7 @@ t_v3 destination);
 int						weapon_animation(t_env *env, int sprite);
 void					weapon_change(t_env *env);
 int						next_possessed_weapon(t_env *env);
-void					print_ammo(t_env *env);
+int						print_ammo(t_env *env);
 int						shot(t_env *env);
 void					wall_hack(t_env *env);
 int						create_projectile(t_env *env, t_projectile_data data,
@@ -982,9 +982,7 @@ void					update_sprites_state(t_env *env);
 int						death(t_env *env);
 int						stop_game(void *param);
 int						respawn(void *param);
-void					print_results(t_env *env);
-void					activate_teleport(t_env *env);
-void					create_teleport(t_env *env);
+int						print_results(t_env *env);
 int						check_player_z(t_env *env);
 void					hidden_sectors(t_env *env);
 void					create_hidden_sector(t_env *env);

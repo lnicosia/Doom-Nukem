@@ -61,8 +61,8 @@ PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
+			-O3 \
 			-Wno-unused-result \
-			-Ofast \
 			#-flto\
 			#-fsanitize=address -g3 \
 

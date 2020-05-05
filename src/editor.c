@@ -66,9 +66,13 @@ int		editor_poll_event(t_env *env)
 
 int		editor1(t_env *env)
 {
-	editor_hud(env);
+	if (editor_hud(env))
+		return (-1);
 	if (env->confirmation_box.state)
-		draw_confirmation_box(&env->confirmation_box, env);
+	{
+		if (draw_confirmation_box(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->input_box.state)
 	{
 		if (draw_input_box(&env->input_box, env))

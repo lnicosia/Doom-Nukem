@@ -12,9 +12,11 @@
 
 #include "env.h"
 
-void	print_press_text(t_env *env)
+int		print_press_text(t_env *env)
 {
-	print_text(new_point(env->h - 200, env->h_w),
+	if (print_text(new_point(env->h - 200, env->h_w),
 	new_printable_text("Press [E]", env->sdl.fonts.lato50, 0xFFFFFFFF, 30),
-	env);
+	env))
+		return (-1);
+	return (0);
 }

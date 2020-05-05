@@ -67,15 +67,19 @@ void	ammo_hud(t_env *env)
 	}
 }
 
-void	draw_hud(t_env *env)
+int		draw_hud(t_env *env)
 {
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->player.health);
 	armor_life_hud(env);
 	ammo_hud(env);
-	print_text(new_point(830, 300), new_printable_text(env->snprintf,
-	env->sdl.fonts.amazdoom50, 0xFFf1f2f3, 0), env);
+	if (print_text(new_point(830, 300), new_printable_text(env->snprintf,
+	env->sdl.fonts.amazdoom50, 0xFFf1f2f3, 0), env))
+		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->player.armor);
-	print_text(new_point(830, 80), new_printable_text(env->snprintf,
-	env->sdl.fonts.amazdoom50, 0xFFf1f2f3, 0), env);
-	print_ammo(env);
+	if (print_text(new_point(830, 80), new_printable_text(env->snprintf,
+	env->sdl.fonts.amazdoom50, 0xFFf1f2f3, 0), env))
+		return (-1);
+	if (print_ammo(env))
+		return (-1);
+	return (0);
 }

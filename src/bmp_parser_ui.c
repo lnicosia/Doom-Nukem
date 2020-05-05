@@ -38,7 +38,7 @@ static int	parse_ui_textures(int fd, int index, t_env *env)
 		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (custom_error("Error in image header\n"));
-	custom_error("{red}");
+	ft_printf("{red}");
 	if (!(env->ui_textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
 		0, parser.w, parser.h, parser.bpp, SDL_PIXELFORMAT_ARGB8888)))
 		return (custom_error("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));

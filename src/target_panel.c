@@ -83,12 +83,14 @@ int		draw_target_panel(t_env *env)
 	t_event_panel	panel;
 
 	panel = env->editor.event_panel;
-	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your event's target",
-	&text_size1.x, &text_size1.y);
-	print_text(new_point(panel.pos.y + panel.top_size + 17,
+	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your event's target",
+	&text_size1.x, &text_size1.y))
+		return (-1);
+	if (print_text(new_point(panel.pos.y + panel.top_size + 17,
 	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
 	new_printable_text("Choose your event's target",
-	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
+	env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
+		return (-1);
 	if (panel.event.target)
 	{
 		env->print_target_data[panel.event.target_index](env, &panel.event,
@@ -97,10 +99,11 @@ int		draw_target_panel(t_env *env)
 		20);
 		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf,
 		&text_size2.x, &text_size2.y);
-		print_text(new_point(panel.pos.y + panel.top_size + 17 + text_size1.y,
-		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size2.x / 2),
-		new_printable_text(env->snprintf,
-		env->sdl.fonts.lato20, 0x333333FF, 0), env);
+		if (print_text(new_point(panel.pos.y + panel.top_size + 17
+		+ text_size1.y, panel.pos.x + 100 + panel.content_panel_size.x / 2
+		- text_size2.x / 2), new_printable_text(env->snprintf,
+		env->sdl.fonts.lato20, 0x333333FF, 0), env))
+			return (-1);
 	}
 	return (draw_target_panel2(env));
 }

@@ -63,7 +63,8 @@ int		editor_2d(t_env *env)
 	if (env->editor.start_vertex != -1)
 		draw_grid_current_sector(env);
 	draw_current_creation(env);
-	draw_grid_sectors(env);
+	if (draw_grid_sectors(env))
+		return (-1);
 	return (0);
 }
 

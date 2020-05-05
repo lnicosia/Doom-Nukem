@@ -13,20 +13,30 @@
 #include "env.h"
 #include "draw.h"
 
-void	print_difficulty(t_env *env)
+int		print_difficulty(t_env *env)
 {
 	if (env->difficulty == 0.5)
-		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
+	{
+		if (print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 			env->h_w), new_printable_text("EASY",
-			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env))
+			return (-1);
+	}
 	if (env->difficulty == 1)
-		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
+	{
+		if (print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 			env->h_w), new_printable_text("NORMAL",
-			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env))
+			return (-1);
+	}
 	if (env->difficulty == 1.5)
-		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
+	{
+		if (print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 			env->h_w), new_printable_text("HARD",
-			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env))
+			return (-1);
+	}
+	return (0);
 }
 
 int		start_game_menu(t_env *env)
@@ -40,7 +50,8 @@ int		start_game_menu(t_env *env)
 	draw_button(env, env->previous_difficulty, NULL);
 	draw_button(env, env->option_menu_ig, "OPTIONS");
 	draw_button(env, env->exit_button, "EXIT");
-	print_difficulty(env);
+	if (print_difficulty(env))
+		return (-1);
 	while (SDL_PollEvent(&env->sdl.event))
 	{
 		if (env->sdl.event.type == SDL_QUIT ||

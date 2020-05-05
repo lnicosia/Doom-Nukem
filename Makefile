@@ -408,9 +408,9 @@ ALL_RESOURCES = $(EDITOR_DIR)
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) -Wno-misleading-indentation \
-          -Wno-unused-result \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast\
+		  -O3 \
+          -Wno-unused-result \
 		  #-fsanitize=address -g3 \
 		  #-flto \
 		  #-fdata-sections \

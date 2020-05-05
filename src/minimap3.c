@@ -13,7 +13,7 @@
 #include "env.h"
 #include "draw_grid_walls.h"
 
-void	draw_minimap_sector_num(t_env *env, t_sector *sector)
+int		draw_minimap_sector_num(t_env *env, t_sector *sector)
 {
 	t_grid_wall_drawer	drawer;
 	int					i;
@@ -32,7 +32,9 @@ void	draw_minimap_sector_num(t_env *env, t_sector *sector)
 		i++;
 	}
 	get_last_wall_angle(i, &drawer, env);
-	print_minimap_sector_num(&drawer, env);
+	if (print_minimap_sector_num(&drawer, env))
+		return (-1);
+	return (0);
 }
 
 void	draw_object_minimap(int i, t_object *object, t_sprite *sprite,

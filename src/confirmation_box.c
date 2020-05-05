@@ -116,9 +116,11 @@ int		draw_confirmation_box(t_confirmation_box *box, t_env *env)
 	draw_button(env, box->yes, box->yes.str);
 	if (box->type == YESNO)
 		draw_button(env, box->no, box->no.str);
-	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
-	print_text(new_point(env->h / 2 - box->size.y / 3,
+	if (TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y))
+		return (-1);
+	if (print_text(new_point(env->h / 2 - box->size.y / 3,
 				env->w / 2 - text_size.x / 2),
-			new_printable_text(box->str, box->font, 0xFFFFFFFF, 0), env);
+			new_printable_text(box->str, box->font, 0xFFFFFFFF, 0), env))
+		return (-1);
 	return (0);
 }

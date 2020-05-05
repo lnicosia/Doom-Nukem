@@ -78,8 +78,9 @@ int		draw_current_line2(t_input_box *box, char **str, char *tmp2, t_env *env)
 	box->cursor_in_line = box->cursor - box->count;
 	if (box_cursor(box, *str, tmp2, env))
 		return (-1);
-	print_text(box->current_line_pos, new_printable_text(tmp2, box->font,
-	0x333333FF, 0), env);
+	if (print_text(box->current_line_pos, new_printable_text(tmp2, box->font,
+	0x333333FF, 0), env))
+		return (-1);
 	box->prec_count = box->count;
 	box->count += ft_strlen(tmp2);
 	ft_strdel(&tmp2);
@@ -97,8 +98,9 @@ int		draw_current_line(t_input_box *box, char **str, t_env *env)
 	box->change_cursor_line = 0;
 	if (!(tmp2 = get_current_str(box, str)))
 		return (-1);
-	TTF_SizeText(box->font, tmp2, &box->current_text_size.x,
-	&box->current_text_size.y);
+	if (TTF_SizeText(box->font, tmp2, &box->current_text_size.x,
+	&box->current_text_size.y))
+		return (-1);
 	if (box->select_start != box->select_end
 		&& ((box->select_start <= ft_strlen(tmp2) + box->count
 		&& box->select_end >= box->count)
@@ -125,8 +127,9 @@ int		split_box_text(t_input_box *box, t_env *env)
 	box->cursor_in_line = 0;
 	if (!(str = ft_strdup(box->str)))
 		return (-1);
-	TTF_SizeText(box->font, str, &box->current_text_size.x,
-	&box->current_text_size.y);
+	if (TTF_SizeText(box->font, str, &box->current_text_size.x,
+	&box->current_text_size.y))
+		return (-1);
 	while (ft_strlen(str)
 		&& box->current_line_pos.x + box->current_text_size.y <= box->pos.y
 		+ box->size.y * 0.99)

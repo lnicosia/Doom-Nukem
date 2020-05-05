@@ -40,7 +40,7 @@ static int	parse_skybox_textures(int fd, int num_sky, int index, t_env *env)
 		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
 		return (custom_error("Error in image header\n"));
-	custom_error("{red}");
+	ft_printf("{red}");
 	if (!(env->skyboxes[num_sky].textures[index].surface =
 		SDL_CreateRGBSurfaceWithFormat(0, parser.w, parser.h, parser.bpp,
 		SDL_PIXELFORMAT_ARGB8888)))

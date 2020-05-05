@@ -17,9 +17,13 @@ int		editor_render2(t_env *env)
 {
 	draw_crosshair(env);
 	if (env->options.show_fps)
-		fps(env);
+	{
+		if (fps(env))
+			return (-1);
+	}
 	game_time(env);
-	editor_minimap(env);
+	if (editor_minimap(env))
+		return (-1);
 	if (!env->input_box.state && !env->editor.tab)
 		view(env);
 	if ((env->editor.selecting_target || env->editor.selecting_condition_target)

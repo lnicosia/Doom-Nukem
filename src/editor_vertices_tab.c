@@ -32,12 +32,14 @@ int		print_vertices_general_tab(t_env *env)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Vertex %d",
 	env->editor.selected_vertex);
 	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
-	print_text(new_point(465, 200 - size.x / 2),
+	if (print_text(new_point(465, 200 - size.x / 2),
 	new_printable_text(env->snprintf,
-	env->sdl.fonts.lato_black30, 0x333333FF, 30), env);
+	env->sdl.fonts.lato_black30, 0x333333FF, 30), env))
+		return (-1);
 	env->editor.hud.g_vertex.t_num.target = &env->editor.selected_vertex;
-	print_text(new_point(560, 60), new_printable_text("X ",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	if (print_text(new_point(560, 60), new_printable_text("X ",
+	env->sdl.fonts.lato20, 0x00000000, 30), env))
+		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->vertices[env->editor.selected_vertex].x),
 	env->vertices[env->editor.
@@ -45,7 +47,8 @@ int		print_vertices_general_tab(t_env *env)
 	env->editor.hud.g_vertex.t_pos_x.target =
 	&env->vertices[env->editor.selected_vertex].x;
 	draw_button(env, env->editor.hud.g_vertex.pos_x, env->snprintf);
-	print_text(new_point(600, 60), new_printable_text("Y",
-	env->sdl.fonts.lato20, 0x00000000, 30), env);
+	if (print_text(new_point(600, 60), new_printable_text("Y",
+	env->sdl.fonts.lato20, 0x00000000, 30), env))
+		return (-1);
 	return (print_vertices_general_tab2(env));
 }
