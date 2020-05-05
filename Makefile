@@ -407,12 +407,13 @@ ALL_RESOURCES = $(EDITOR_DIR)
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) -Wno-misleading-indentation \
+CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -O3 \
           -Wno-unused-result \
-		  #-fsanitize=address -g3 \
 		  #-flto \
+		  #-Wno-misleading-indentation \
+		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \
 		  #-funroll-loops \
@@ -425,7 +426,7 @@ endif
 
 SOUND_WINDOWS = fmod.dll fmodL.dll
 
-SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
+SOUND_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
 
 SOUND_LINUX = -L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
 
@@ -433,8 +434,9 @@ SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               /usr/local/bin/SDL2_ttf.dll \
               -L/usr/local/lib -lcygwin -lSDL2main \
 
-SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
-	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
+SDL_OSX = -lSDL2 -lSDL2_ttf
+	  #-F ~/Library/Frameworks/ -framework SDL2 \
+	  #-F ~/Library/Frameworks/ -framework SDL2_ttf \
 	  #`sdl-config --cflags --libs` \
 	  RED := "\033[0;31m"
 
@@ -447,7 +449,7 @@ else
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		SDL = $(SDL_OSX)
-		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
+		SOUND = $(SOUND_OSX)
 	else
 		SDL = $(SDL_LINUX)
 		SOUND = $(SOUND_LINUX)

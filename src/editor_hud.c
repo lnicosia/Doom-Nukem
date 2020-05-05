@@ -143,6 +143,7 @@ int		editor_hud(t_env *env)
 	t_point	size;
 
 	center = new_point(0, 0);
+	size = new_point(0, 0);
 	if (!env->editor.in_game || (env->editor.in_game && env->editor.tab))
 	{
 		draw_rectangle(env,

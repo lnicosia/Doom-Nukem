@@ -55,7 +55,6 @@ int		draw_weapon_picker2(t_point sprite_size, t_point text_size, t_env *env)
 int		draw_weapon_picker(t_env *env)
 {
 	t_point		text_size;
-	t_point		sprite_size;
 
 	draw_rectangle(env, new_rectangle(0xc8ccd0, 0xc8ccd0, 1, 0),
 	env->editor.weapon_picker.pos,
@@ -76,5 +75,5 @@ int		draw_weapon_picker(t_env *env)
 	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Weapon picker",
 	&text_size.x, &text_size.y))
 		return (-1);
-	return (draw_weapon_picker2(sprite_size, text_size, env));
+	return (draw_weapon_picker2(new_point(0, 0), new_point(0, 0), env));
 }
