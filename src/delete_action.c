@@ -32,6 +32,11 @@ int		delete_action2(t_env *env)
 		env->confirmation_box.yes_action = &delete_selected_sector;
 		env->confirmation_box.yes_target = env;
 	}
+	else if (env->selected_ceiling_sprite != -1)
+	{
+		if (delete_ceiling_sprite(env))
+			return (-1);
+	}
 	env->inputs.del = 0;
 	return (0);
 }

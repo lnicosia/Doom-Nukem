@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_floor_sprite.c                              :+:      :+:    :+:   */
+/*   delete_ceiling_sprite.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "free.h"
 
-void	free_floor_sprite_events(t_wall_sprites *wall_sprites, int sprite)
+void	free_ceiling_sprite_events(t_wall_sprites *wall_sprites, int sprite)
 {
 	if (wall_sprites->nb_shoot_events[sprite] > 0)
 		free_events(&wall_sprites->shoot_events[sprite],
@@ -22,7 +22,7 @@ void	free_floor_sprite_events(t_wall_sprites *wall_sprites, int sprite)
 		&wall_sprites->nb_press_events[sprite]);
 }
 
-int		delete_floor_sprite2(t_wall_sprites *wall_sprites, int sprite)
+int		delete_ceiling_sprite2(t_wall_sprites *wall_sprites, int sprite)
 {
 	wall_sprites->shoot_events = (t_event**)ft_delindex(
 	wall_sprites->shoot_events,
@@ -49,18 +49,19 @@ int		delete_floor_sprite2(t_wall_sprites *wall_sprites, int sprite)
 	return (0);
 }
 
-int		delete_floor_sprite(void *param)
+int		delete_ceiling_sprite(void *param)
 {
 	t_env			*env;
 	t_wall_sprites	*wall_sprites;
 	int				sprite;
 
 	env = (t_env*)param;
-	sprite = env->selected_floor_sprite;
-	wall_sprites = &env->sectors[env->selected_floor].floor_sprites;
-	env->selected_floor = -1;
-	env->selected_floor_sprite = -1;
-	free_floor_sprite_events(wall_sprites, sprite);
+	sprite = env->selected_ceiling_sprite;
+	wall_sprites = &env->sectors[env->selected_ceiling].ceiling_sprites;
+	env->selected_ceiling = -1;
+	env->selected_ceiling_sprite = -1;
+	ft_printf("cc\n");
+	free_ceiling_sprite_events(wall_sprites, sprite);
 	wall_sprites->sprite = (int*)ft_delindex(wall_sprites->sprite,
 	sizeof(int) * wall_sprites->nb_sprites,
 	sizeof(int), sizeof(int) * sprite);
@@ -70,5 +71,5 @@ int		delete_floor_sprite(void *param)
 	wall_sprites->scale = (t_v2*)ft_delindex(wall_sprites->scale,
 	sizeof(t_v2) * wall_sprites->nb_sprites,
 	sizeof(t_v2), sizeof(t_v2) * sprite);
-	return (delete_floor_sprite2(wall_sprites, sprite));
+	return (delete_ceiling_sprite2(wall_sprites, sprite));
 }

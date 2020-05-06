@@ -65,8 +65,12 @@ int						parse_vertices(t_env *env, t_map_parser *parser);
 int						parse_sectors(t_env *env, t_map_parser *parser);
 int						parse_floor_sprites(t_env *env, char **line,
 t_map_parser *parser);
+int						parse_current_floor_sprite(t_env *env, char **line,
+t_map_parser *parser, int i);
 int						parse_ceiling_sprites(t_env *env, char **line,
 t_map_parser *parser);
+int						parse_current_ceiling_sprite(t_env *env, char **line,
+t_map_parser *parser, int i);
 int						parse_objects(t_env *env, t_map_parser *parser);
 int						parse_object_pos(t_env *env, char **line,
 t_map_parser *parser);

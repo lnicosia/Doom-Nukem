@@ -150,7 +150,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		delete_sector.c delete_vertex.c weapon_picker.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
-		editor_minimap.c init_editor_options_buttons.c \
+		editor_minimap.c init_editor_options_buttons.c delete_ceiling_sprite.c \
 		editor_option_keys.c write_hud.c write_hud2.c previous_exec_condition.c\
 		update_sector_with_deleted_vertex.c check_move_player_conditions.c \
 		editor_buttons_functions2.c editor_buttons_functions3.c \
@@ -306,6 +306,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
 		   is_new_sector_convex.c set_new_string_input_box.c \
+		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
