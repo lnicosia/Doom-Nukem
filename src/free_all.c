@@ -27,12 +27,6 @@ void		free_all2(t_env *env)
 {
 	if (env->save_file)
 		ft_strdel(&env->save_file);
-	if (env->events)
-		ft_lstdelfront(&env->events);
-	if (env->queued_values)
-		ft_lstdelfront(&env->queued_values);
-	if (env->dialog_box_str)
-		ft_strdel(&env->dialog_box_str);
 	if (env->res[0])
 		ft_strdel(&env->res[0]);
 	if (env->res[1])

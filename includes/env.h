@@ -34,7 +34,6 @@ typedef struct			s_env
 	t_animation			weapon_change;
 	t_animation			player_hurt;
 	t_vertex			*vertices;
-	t_vertex			*tmp_sector;
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemy				*enemies;
@@ -54,7 +53,6 @@ typedef struct			s_env
 	t_list				*projectiles;
 	t_explosion			explosion;
 	t_list				*explosions;
-	t_vline_data		*vline_data;
 	t_confirmation_box	confirmation_box;
 	t_input_box			input_box;
 	t_skybox			skyboxes[MAX_SKYBOX];
@@ -140,7 +138,6 @@ typedef struct			s_env
 	int					objects_end;
 	int					test_time;
 	int					contains_skybox;
-	Uint32				*tmp_first_sprite;
 	Uint32				press_wall_sprite_color;
 	int					press_wall_sprite_intensity;
 	char				*save_file;

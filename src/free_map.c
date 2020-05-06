@@ -43,4 +43,10 @@ void	free_map(t_env *env)
 	if (env->sectors)
 		free_sectors(env);
 	free_camera(&env->player.camera);
+	if (env->events)
+		ft_lstdelfront(&env->events);
+	if (env->queued_values)
+		ft_lstdelfront(&env->queued_values);
+	if (env->dialog_box_str)
+		ft_strdel(&env->dialog_box_str);
 }

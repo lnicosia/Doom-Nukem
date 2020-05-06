@@ -116,13 +116,14 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not load fonts\n", env));
 	if (init_textures(env))
 		return (crash("Could not load textures\n", env));
+	return (crash("", env));
 	if (init_object_sprites(env))
 		return (crash("Could not load object sprites\n", env));
 	if (init_enemy_sprites(env))
 		return (crash("Could not load enemy sprites\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
-	custom_error("Parsing map \"%s\"..\n", av[1]);
+	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	return (init_game3(av, env));
 }
 
