@@ -78,7 +78,7 @@ int	new_event_panel_value_box2(t_input_box *box, int type, void *target)
 		*(box->double_target));
 		set_double_stats(box);
 	}
-	return (new_event_panel_value_box2(box, type, target));
+	return (new_event_panel_value_box3(box, type, target));
 }
 
 int	new_event_panel_value_box(t_input_box *box, int type, void *target,

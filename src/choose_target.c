@@ -28,7 +28,7 @@ int		choose_target2(t_target_panel *panel, t_env *env)
 	reset_selection(env);
 	new_tabs_position(env);
 	select = 0;
-	i = 0;
+	i = -1;
 	while (++i < 9)
 	{
 		if (panel->targets[i].state == DOWN && panel->selected_button != i
@@ -39,7 +39,6 @@ int		choose_target2(t_target_panel *panel, t_env *env)
 		}
 		panel->targets[i].state = UP;
 		panel->targets[i].anim_state = REST;
-		i++;
 	}
 	if (panel->player_type || panel->other_type)
 	{
