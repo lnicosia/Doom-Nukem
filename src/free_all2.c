@@ -96,12 +96,40 @@ void		free_mini_skyboxes_textures(t_env *env)
 	}
 }
 
+void		free_skyboxes(t_env *env)
+{
+	int		i;
+	int		j;
+	size_t	k;
+
+	i = 0;
+	while (i < MAX_SKYBOX)
+	{
+		j = 0;
+		while (j < 6)
+		{
+			if (env->skyboxes[i].textures[j].surface)
+				SDL_FreeSurface(env->skyboxes[i].textures[j].surface);
+			k = 0;
+			while (k < env->skyboxes[i].textures[j].nb_maps)
+			{
+				if (env->skyboxes[i].textures[j].maps[k])
+					SDL_FreeSurface(env->skyboxes[i].textures[j].maps[k]);
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void		free_textures(t_env *env)
 {
 	free_sprite_textures(env);
 	free_wall_textures(env);
 	free_ui_textures(env);
 	free_mini_skyboxes_textures(env);
+	free_skyboxes(env);
 }
 
 void		free_event(t_event *event)
