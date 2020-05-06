@@ -77,8 +77,9 @@ int		ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 				if (create_projectile(env, new_projectile_data(foe.pos,
 					foe.angle * CONVERT_RADIANS, 1, 1),
 					new_projectile_stats(0.6, foe.damage *
-					env->difficulty, 0.8, foe.eyesight - 2.2),
-					new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d)))
+					env->difficulty, 1.5, foe.eyesight - 2.2),
+					new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d,
+						1, 0)))
 					return (-1);
 			}
 			else if (env->enemies[i].behavior == RANGED_AIMBOT)

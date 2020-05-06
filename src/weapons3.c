@@ -80,9 +80,9 @@ int		shot(t_env *env)
 		if (create_projectile(env, new_projectile_data(env->player.pos,
 			env->player.camera.angle, 1, 1),
 			new_projectile_stats(0.5, env->weapons[env->player.curr_weapon].
-			damage, 0.8, env->player.eyesight - 0.4),
+			damage, 1.5, env->player.eyesight - 0.4),
 			new_projectile_data_2(env->player.camera.angle_z,
-			env->player.size_2d)))
+			env->player.size_2d, 0, 1)))
 			return (-1);
 	}
 	else

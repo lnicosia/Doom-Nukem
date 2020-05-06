@@ -19,7 +19,7 @@ void	init_gun_weapon(t_env *env)
 	env->weapons[0].weapon_switch = 0;
 	env->weapons[0].first_sprite = 40;
 	env->weapons[0].nb_sprites = 6;
-	env->weapons[0].ammo_type = REGULAR;
+	env->weapons[0].ammo_type = ROCKET;
 	env->weapons[0].ammo = 20;
 	env->weapons[0].damage = 15;
 	env->weapons[0].max_ammo = 20;

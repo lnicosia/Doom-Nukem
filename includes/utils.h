@@ -904,6 +904,8 @@ typedef struct		s_projectile_data_2
 {
 	double			angle_z;
 	double			radius;
+	int				hurts_player;
+	int				hurts_enemies;
 }					t_projectile_data_2;
 
 /*
@@ -931,6 +933,8 @@ typedef	struct		s_projectile
 	double			speed;
 	int				sprite;
 	int				damage;
+	int				hurts_player;
+	int				hurts_enemies;
 }					t_projectile;
 
 typedef	struct		s_explosion_data
