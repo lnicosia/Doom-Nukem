@@ -17,8 +17,9 @@ int		print_weapon_name(t_env *env)
 {
 	t_point		text_size;
 
-	TTF_SizeText(env->sdl.fonts.lato_black30,
-	env->weapons[env->editor.current_weapon].name, &text_size.x, &text_size.y);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30,
+	env->weapons[env->editor.current_weapon].name, &text_size.x, &text_size.y))
+		return (-1);
 	if (print_text(new_point(env->editor.weapon_picker.pos.y
 	+ env->editor.event_panel.top_size + 10,
 	env->editor.weapon_picker.pos.x + env->editor.weapon_picker.size.x / 2

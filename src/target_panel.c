@@ -97,8 +97,9 @@ int		draw_target_panel(t_env *env)
 		new_point(panel.pos.y + panel.top_size + 17 + text_size1.y,
 		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
 		20);
-		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf,
-		&text_size2.x, &text_size2.y);
+		if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf,
+		&text_size2.x, &text_size2.y))
+			return (-1);
 		if (print_text(new_point(panel.pos.y + panel.top_size + 17
 		+ text_size1.y, panel.pos.x + 100 + panel.content_panel_size.x / 2
 		- text_size2.x / 2), new_printable_text(env->snprintf,

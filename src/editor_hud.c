@@ -113,7 +113,9 @@ int		editor_options1(t_env *env, t_point center, t_point size)
 		new_point(20, 40), new_point(170, 225));
 	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 		new_point(20, 290), new_point(170, 110));
-	TTF_SizeText(env->sdl.fonts.lato_bold15, "Ambiance", &center.x, &center.y);
+	if (TTF_SizeText(env->sdl.fonts.lato_bold15,
+		"Ambiance", &center.x, &center.y))
+		return (-1);
 	if (print_text(new_point(300, 105 - center.x / 2),
 	new_printable_text("Ambiance", env->sdl.fonts.lato_bold15,
 	0x00000000, 15), env))

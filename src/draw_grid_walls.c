@@ -76,8 +76,9 @@ int		draw_sector_num(t_grid_wall_drawer *drawer, t_env *env)
 		drawer->font_size++;
 	drawer->font_size = ft_clamp(drawer->font_size, 10, 50);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", drawer->sector->num);
-	TTF_SizeText(get_correct_font(drawer->font_size, env), env->snprintf,
-			&drawer->text_size.x, &drawer->text_size.y);
+	if (TTF_SizeText(get_correct_font(drawer->font_size, env), env->snprintf,
+		&drawer->text_size.x, &drawer->text_size.y))
+		return (-1);
 	if (print_text(new_point(drawer->center.y - drawer->text_size.y / 2,
 	drawer->center.x - drawer->text_size.x / 2), new_printable_text(
 	env->snprintf, get_correct_font(drawer->font_size, env), drawer->color, 0),

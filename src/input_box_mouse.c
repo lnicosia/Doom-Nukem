@@ -18,7 +18,11 @@ int		get_current_size(t_input_box *box, char *str, int i, t_point *size2)
 
 	if (!(sub = ft_strsub(str, 0, i + 1)))
 		return (-1);
-	TTF_SizeText(box->font, sub, &size2->x, &size2->y);
+	if (TTF_SizeText(box->font, sub, &size2->x, &size2->y))
+	{
+		ft_strdel(&sub);
+		return (-1);
+	}
 	if (sub)
 		ft_strdel(&sub);
 	return (0);

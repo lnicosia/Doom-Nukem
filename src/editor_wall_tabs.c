@@ -90,14 +90,17 @@ int		print_wall_general_tab(t_env *env)
 
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Sector %d",
 	env->editor.selected_sector);
-	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30,
+		env->snprintf, &size.x, &size.y))
+		return (-1);
 	if (print_text(new_point(465, 200 - size.x / 2),
 	new_printable_text(env->snprintf,
 	env->sdl.fonts.lato_black30, 0x333333FF, 30), env))
 		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Wall %d",
 	env->editor.selected_wall);
-	TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &size.x, &size.y);
+	if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &size.x, &size.y))
+		return (-1);
 	if (print_text(new_point(510, 200 - size.x / 2),
 	new_printable_text(env->snprintf,
 	env->sdl.fonts.lato20, 0x333333FF, 30), env))

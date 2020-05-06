@@ -31,7 +31,9 @@ int		print_vertices_general_tab(t_env *env)
 
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Vertex %d",
 	env->editor.selected_vertex);
-	TTF_SizeText(env->sdl.fonts.lato_black30, env->snprintf, &size.x, &size.y);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30,
+		env->snprintf, &size.x, &size.y))
+		return (-1);
 	if (print_text(new_point(465, 200 - size.x / 2),
 	new_printable_text(env->snprintf,
 	env->sdl.fonts.lato_black30, 0x333333FF, 30), env))

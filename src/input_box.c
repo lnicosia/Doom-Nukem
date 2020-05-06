@@ -44,13 +44,22 @@ int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
 	char	*sub;
 
 	get_selection_boundaries(&start, &end, str, box);
-	sub = ft_strsub(str, 0, start);
-	TTF_SizeText(box->font, sub, &size1.x, &size1.y);
+	if (!(sub = ft_strsub(str, 0, start)) && start)
+		return (-1);
+	if (TTF_SizeText(box->font, sub, &size1.x, &size1.y))
+	{
+		ft_strdel(&sub);
+		return (-1);
+	}
 	if (sub)
 		ft_strdel(&sub);
-	if (!(sub = ft_strsub(str, start, end - start)))
+	if (!(sub = ft_strsub(str, start, end - start)) && end - start)
 		return (-1);
-	TTF_SizeText(box->font, sub, &size2.x, &size2.y);
+	if (TTF_SizeText(box->font, sub, &size2.x, &size2.y))
+	{
+		ft_strdel(&sub);
+		return (-1);
+	}
 	if (sub)
 		ft_strdel(&sub);
 	draw_selection(pos, size1, size2, env);
@@ -88,7 +97,8 @@ int		draw_input_box_content(t_input_box *box, t_env *env)
 
 	if (!box->str || (box->str && box->str[0] == 0) || !box->font)
 		return (0);
-	TTF_SizeText(box->font, box->str, &size.x, &size.y);
+	if (TTF_SizeText(box->font, box->str, &size.x, &size.y))
+		return (-1);
 	box->count = 0;
 	box->prec_count = 0;
 	if (size.x < box->size.x * 0.99 || box->type != STRING)

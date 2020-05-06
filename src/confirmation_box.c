@@ -73,8 +73,10 @@ int		get_box_size(t_confirmation_box *box)
 	t_point	text_size;
 	t_point	yes_size;
 
-	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
-	TTF_SizeText(box->font, "Yes", &yes_size.x, &yes_size.y);
+	if (TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y))
+		return (-1);
+	if (TTF_SizeText(box->font, "Yes", &yes_size.x, &yes_size.y))
+		return (-1);
 	box->size.x = ft_max(yes_size.x * 3, text_size.x + 20);
 	box->size.y = ft_max(yes_size.y * 3, 50);
 	if (box->type != YESNO)
@@ -85,6 +87,8 @@ int		get_box_size(t_confirmation_box *box)
 int		update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env)
 {
+	int		size;
+
 	if (!str)
 		return (custom_error("Confirmation box message is empty\n"));
 	if (!box->font)
@@ -92,7 +96,9 @@ int type, t_env *env)
 	box->str = str;
 	box->state = 1;
 	box->type = type;
-	new_buttons(box, get_box_size(box), env);
+	if ((size = get_box_size(box)))
+		return (-1);
+	new_buttons(box, size, env);
 	box->yes_action = NULL;
 	box->yes_target = NULL;
 	box->no_action = NULL;
