@@ -26,7 +26,8 @@ void	animations(t_env *env)
 		&& !env->player.state.drop && !env->player.state.fly)
 		gravity(env);
 	if ((env->inputs.space || env->player.state.jump)
-			&& !env->player.state.climb && !env->player.state.drop)
+		&& !env->player.state.climb && !env->player.state.drop
+		&& env->player.health > 0)
 		jump(env);
 	if (((env->inputs.ctrl && env->player.eyesight > 3)
 	|| env->player.state.crouch) && !env->editor.in_game)
