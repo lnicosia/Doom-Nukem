@@ -137,8 +137,10 @@ int	editor_keyup(t_env *env)
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
+	{
 		if (delete_action(env))
 			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)

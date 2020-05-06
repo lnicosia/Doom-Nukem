@@ -96,7 +96,7 @@ int type, t_env *env)
 	box->str = str;
 	box->state = 1;
 	box->type = type;
-	if ((size = get_box_size(box)))
+	if ((size = get_box_size(box)) == -1)
 		return (-1);
 	new_buttons(box, size, env);
 	box->yes_action = NULL;
