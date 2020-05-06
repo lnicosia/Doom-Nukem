@@ -411,7 +411,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -O3 \
           -Wno-unused-result \
-		  -Wno-misleading-indentation \
+		  #-Wno-misleading-indentation \
 		  #-flto \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
@@ -445,6 +445,7 @@ SDL_LINUX = -Wl,-rpath,/usr/local/lib/ -Wl,--enable-new-dtags -lSDL2 -lSDL2_ttf 
 ifeq ($(OS), Windows_NT)
 	SDL = $(SDL_WINDOWS)
 	SOUND = $(SOUND_WINDOWS)
+	CFLAGS += -Wno-misleading-indentation
 else
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
@@ -453,6 +454,7 @@ else
 	else
 		SDL = $(SDL_LINUX)
 		SOUND = $(SOUND_LINUX)
+		CFLAGS += -Wno-misleading-indentation
 	endif
 endif
 

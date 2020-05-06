@@ -56,10 +56,14 @@ int		draw_condition_panel2(t_env *env)
 	env->ui_textures[CONDITION_ICON].surface->h / 2)),
 	new_point(env->ui_textures[CONDITION_ICON].surface->w,
 	env->ui_textures[CONDITION_ICON].surface->h), env);
-	draw_button(env, env->editor.event_panel.ok, "OK");
-	draw_button(env, env->editor.event_panel.cancel, "X");
-	draw_condition_type_tab(env);
-	draw_condition_target_tab(env);
+	if (draw_button(env, env->editor.event_panel.ok, "OK"))
+		return (-1);
+	if (draw_button(env, env->editor.event_panel.cancel, "X"))
+		return (-1);
+	if (draw_condition_type_tab(env))
+		return (-1);
+	if (draw_condition_target_tab(env))
+		return (-1);
 	if (draw_condition_panel_tab_content(env))
 		return (-1);
 	return (0);

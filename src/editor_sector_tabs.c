@@ -23,7 +23,8 @@ int		print_sector_general_tab3(t_env *env)
 	env->sectors[env->editor.selected_sector].floor_slope);
 	env->editor.hud.g_sector.t_floor_slope.target =
 	&env->sectors[env->editor.selected_sector].floor_slope;
-	draw_button(env, env->editor.hud.g_sector.floor_slope, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.floor_slope, env->snprintf))
+		return (-1);
 	if (print_text(new_point(760, 60), new_printable_text("Ceiling slope",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -32,7 +33,8 @@ int		print_sector_general_tab3(t_env *env)
 	env->sectors[env->editor.selected_sector].ceiling_slope);
 	env->editor.hud.g_sector.t_ceiling_slope.target =
 	&env->sectors[env->editor.selected_sector].ceiling_slope;
-	draw_button(env, env->editor.hud.g_sector.ceiling_slope, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.ceiling_slope, env->snprintf))
+		return (-1);
 	if (print_text(new_point(800, 60), new_printable_text("Gravity",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -41,7 +43,8 @@ int		print_sector_general_tab3(t_env *env)
 	env->sectors[env->editor.selected_sector].gravity);
 	env->editor.hud.g_sector.t_gravity.target =
 	&env->sectors[env->editor.selected_sector].gravity;
-	draw_button(env, env->editor.hud.g_sector.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -54,7 +57,8 @@ int		print_sector_general_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.g_sector.t_intensity.target =
 	&env->sectors[env->editor.selected_sector].intensity;
-	draw_button(env, env->editor.hud.g_sector.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.intensity, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Floor",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -63,7 +67,8 @@ int		print_sector_general_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].floor);
 	env->editor.hud.g_sector.t_floor.target =
 	&env->sectors[env->editor.selected_sector].floor;
-	draw_button(env, env->editor.hud.g_sector.floor, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.floor, env->snprintf))
+		return (-1);
 	if (print_text(new_point(680, 60), new_printable_text("Ceiling",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -72,7 +77,8 @@ int		print_sector_general_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].ceiling);
 	env->editor.hud.g_sector.t_ceiling.target =
 	&env->sectors[env->editor.selected_sector].ceiling;
-	draw_button(env, env->editor.hud.g_sector.ceiling, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.ceiling, env->snprintf))
+		return (-1);
 	return (print_sector_general_tab3(env));
 }
 
@@ -96,7 +102,8 @@ int		print_sector_general_tab(t_env *env)
 	env->sectors[env->editor.selected_sector].brightness);
 	env->editor.hud.g_sector.t_brightness.target =
 	&env->sectors[env->editor.selected_sector].brightness;
-	draw_button(env, env->editor.hud.g_sector.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.brightness, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light color",
 	env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -104,6 +111,7 @@ int		print_sector_general_tab(t_env *env)
 	env->sectors[env->editor.selected_sector].light_color);
 	env->editor.hud.g_sector.t_color.target =
 	&env->sectors[env->editor.selected_sector].light_color;
-	draw_button(env, env->editor.hud.g_sector.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_sector.color, env->snprintf))
+		return (-1);
 	return (print_sector_general_tab2(env));
 }

@@ -22,7 +22,8 @@ int		print_enemy_sector_tab2(t_env *env)
 	env->sectors[env->enemies[env->selected_enemy].sector].intensity);
 	env->editor.hud.s_enemy.t_intensity.target =
 	&env->sectors[env->enemies[env->selected_enemy].sector].intensity;
-	draw_button(env, env->editor.hud.s_enemy.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_enemy.intensity, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Gravity",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -31,7 +32,8 @@ int		print_enemy_sector_tab2(t_env *env)
 	gravity), env->sectors[env->enemies[env->selected_enemy].sector].gravity);
 	env->editor.hud.s_enemy.t_gravity.target =
 	&env->sectors[env->enemies[env->selected_enemy].sector].gravity;
-	draw_button(env, env->editor.hud.s_enemy.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_enemy.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -55,7 +57,8 @@ int		print_enemy_sector_tab(t_env *env)
 	env->sectors[env->enemies[env->selected_enemy].sector].brightness);
 	env->editor.hud.s_enemy.t_brightness.target =
 	&env->sectors[env->enemies[env->selected_enemy].sector].brightness;
-	draw_button(env, env->editor.hud.s_enemy.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_enemy.brightness, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light color",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -63,13 +66,15 @@ int		print_enemy_sector_tab(t_env *env)
 	env->sectors[env->enemies[env->selected_enemy].sector].light_color);
 	env->editor.hud.s_enemy.t_color.target =
 	&env->sectors[env->enemies[env->selected_enemy].sector].light_color;
-	draw_button(env, env->editor.hud.s_enemy.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_enemy.color, env->snprintf))
+		return (-1);
 	return (print_enemy_sector_tab2(env));
 }
 
 int		print_enemy_general_tab3(t_env *env)
 {
-	draw_button(env, env->editor.hud.g_enemy.speed, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.speed, env->snprintf))
+		return (-1);
 	if (print_text(new_point(720, 60), new_printable_text("Scale",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -78,7 +83,8 @@ int		print_enemy_general_tab3(t_env *env)
 	env->enemies[env->selected_enemy].scale);
 	env->editor.hud.g_enemy.t_scale.target =
 	&env->enemies[env->selected_enemy].scale;
-	draw_button(env, env->editor.hud.g_enemy.scale, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.scale, env->snprintf))
+		return (-1);
 	if (print_text(new_point(760, 60), new_printable_text("Damage",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -86,7 +92,8 @@ int		print_enemy_general_tab3(t_env *env)
 	env->enemies[env->selected_enemy].damage);
 	env->editor.hud.g_enemy.t_damage.target =
 	&env->enemies[env->selected_enemy].damage;
-	draw_button(env, env->editor.hud.g_enemy.damage, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.damage, env->snprintf))
+		return (-1);
 	if (print_text(new_point(800, 60), new_printable_text("Angle",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -95,13 +102,15 @@ int		print_enemy_general_tab3(t_env *env)
 	env->enemies[env->selected_enemy].angle);
 	env->editor.hud.g_enemy.t_angle.target =
 	&env->enemies[env->selected_enemy].angle;
-	draw_button(env, env->editor.hud.g_enemy.angle, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.angle, env->snprintf))
+		return (-1);
 	return (0);
 }
 
 int		print_enemy_general_tab2(t_env *env)
 {
-	draw_button(env, env->editor.hud.g_enemy.pos_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.pos_y, env->snprintf))
+		return (-1);
 	if (print_text(new_point(600, 60), new_printable_text("Z",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -110,7 +119,8 @@ int		print_enemy_general_tab2(t_env *env)
 	env->enemies[env->selected_enemy].pos.z);
 	env->editor.hud.g_enemy.t_pos_z.target =
 	&env->enemies[env->selected_enemy].pos.z;
-	draw_button(env, env->editor.hud.g_enemy.pos_z, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.pos_z, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Health",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -118,7 +128,8 @@ int		print_enemy_general_tab2(t_env *env)
 	env->enemies[env->selected_enemy].map_hp);
 	env->editor.hud.g_enemy.t_health.target =
 	&env->enemies[env->selected_enemy].map_hp;
-	draw_button(env, env->editor.hud.g_enemy.health, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.health, env->snprintf))
+		return (-1);
 	if (print_text(new_point(680, 60), new_printable_text("Speed",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -150,7 +161,8 @@ int		print_enemy_general_tab(t_env *env)
 	env->enemies[env->selected_enemy].pos.x);
 	env->editor.hud.g_enemy.t_pos_x.target =
 	&env->enemies[env->selected_enemy].pos.x;
-	draw_button(env, env->editor.hud.g_enemy.pos_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_enemy.pos_x, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Y",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);

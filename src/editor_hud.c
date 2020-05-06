@@ -17,14 +17,18 @@ int		editor_options4(t_env *env)
 {
 	if (!env->editor.in_game || (env->editor.in_game && env->editor.tab))
 	{
-		draw_button(env, env->editor.previous_ambiance_music,
-		env->editor.previous_ambiance_music.str);
-		draw_button(env, env->editor.next_ambiance_music,
-		env->editor.next_ambiance_music.str);
-		draw_button(env, env->editor.previous_fighting_music,
-		env->editor.previous_fighting_music.str);
-		draw_button(env, env->editor.next_fighting_music,
-		env->editor.next_fighting_music.str);
+		if (draw_button(env, env->editor.previous_ambiance_music,
+		env->editor.previous_ambiance_music.str))
+			return (-1);
+		if (draw_button(env, env->editor.next_ambiance_music,
+		env->editor.next_ambiance_music.str))
+			return (-1);
+		if (draw_button(env, env->editor.previous_fighting_music,
+		env->editor.previous_fighting_music.str))
+			return (-1);
+		if (draw_button(env, env->editor.next_fighting_music,
+		env->editor.next_fighting_music.str))
+			return (-1);
 	}
 	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
 	new_point(20, 450), new_point(360, 430));
@@ -71,10 +75,14 @@ int		editor_options3(t_env *env, t_point size)
 	new_point(env->editor.current_object_selection.pos.y + 32 - size.y / 2,
 	env->editor.current_object_selection.pos.x + 32 - size.x / 2),
 	size, env);
-	draw_button(env, env->editor.change_mode, env->editor.change_mode.str);
-	draw_button(env, env->editor.launch_game, env->editor.launch_game.str);
-	draw_button(env, env->editor.options, env->editor.options.str);
-	draw_button(env, env->editor.save, env->editor.save.str);
+	if (draw_button(env, env->editor.change_mode, env->editor.change_mode.str))
+		return (-1);
+	if (draw_button(env, env->editor.launch_game, env->editor.launch_game.str))
+		return (-1);
+	if (draw_button(env, env->editor.options, env->editor.options.str))
+		return (-1);
+	if (draw_button(env, env->editor.save, env->editor.save.str))
+		return (-1);
 	return (editor_options4(env));
 }
 
@@ -90,10 +98,13 @@ int		editor_options2(t_env *env, t_point center, t_point size)
 	new_point(128, 89), env);
 	apply_surface(env->ui_textures[24].surface, new_point(196, 230),
 	new_point(128, 89), env);
-	draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str);
-	draw_button(env, env->editor.add_object, env->editor.add_object.str);
-	draw_button(env, env->editor.current_texture_selection,
-	env->editor.current_texture_selection.str);
+	if (draw_button(env, env->editor.add_enemy, env->editor.add_enemy.str))
+		return (-1);
+	if (draw_button(env, env->editor.add_object, env->editor.add_object.str))
+		return (-1);
+	if (draw_button(env, env->editor.current_texture_selection,
+		env->editor.current_texture_selection.str))
+		return (-1);
 	if (env->enemy_sprites[env->editor.current_enemy].size[0].x >
 		env->enemy_sprites[env->editor.current_enemy].size[0].y)
 		size = new_point(60, 60

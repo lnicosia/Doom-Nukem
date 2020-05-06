@@ -25,7 +25,9 @@ int		print_floor_sprite_tab2(t_env *env)
 	floor_sprites.scale[env->selected_floor_sprite].x);
 	env->editor.hud.sp_floor_sprite.t_scale_x.target = &env->sectors[env->
 	selected_floor].floor_sprites.scale[env->selected_floor_sprite].x;
-	draw_button(env, env->editor.hud.sp_floor_sprite.scale_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_floor_sprite.scale_x,
+		env->snprintf))
+		return (-1);
 	if (print_text(new_point(680, 60), new_printable_text("Scale Y",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -36,7 +38,9 @@ int		print_floor_sprite_tab2(t_env *env)
 	floor_sprites.scale[env->selected_floor_sprite].y);
 	env->editor.hud.sp_floor_sprite.t_scale_y.target = &env->sectors[env->
 	selected_floor].floor_sprites.scale[env->selected_floor_sprite].y;
-	draw_button(env, env->editor.hud.sp_floor_sprite.scale_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_floor_sprite.scale_y,
+		env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -54,7 +58,8 @@ int		print_floor_sprite_tab(t_env *env)
 	floor_sprites.pos[env->selected_floor_sprite].x);
 	env->editor.hud.sp_floor_sprite.t_pos_x.target = &env->sectors[env->
 	selected_floor].floor_sprites.pos[env->selected_floor_sprite].x;
-	draw_button(env, env->editor.hud.sp_floor_sprite.pos_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_floor_sprite.pos_x, env->snprintf))
+		return (-1);
 	if (print_text(new_point(600, 60), new_printable_text("Y",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -65,13 +70,15 @@ int		print_floor_sprite_tab(t_env *env)
 	floor_sprites.pos[env->selected_floor_sprite].y);
 	env->editor.hud.sp_floor_sprite.t_pos_y.target = &env->sectors[env->
 	selected_floor].floor_sprites.pos[env->selected_floor_sprite].y;
-	draw_button(env, env->editor.hud.sp_floor_sprite.pos_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_floor_sprite.pos_y, env->snprintf))
+		return (-1);
 	return (print_floor_sprite_tab2(env));
 }
 
 int		print_floor_sector_tab2(t_env *env)
 {
-	draw_button(env, env->editor.hud.s_floor.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_floor.color, env->snprintf))
+		return (-1);
 	if (print_text(new_point(600, 60), new_printable_text("Intensity:",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -79,7 +86,8 @@ int		print_floor_sector_tab2(t_env *env)
 	env->sectors[env->selected_floor].intensity);
 	env->editor.hud.s_floor.t_intensity.target =
 	&env->sectors[env->selected_floor].intensity;
-	draw_button(env, env->editor.hud.s_floor.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_floor.intensity, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Gravity:",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -88,7 +96,8 @@ int		print_floor_sector_tab2(t_env *env)
 	env->sectors[env->selected_floor].gravity);
 	env->editor.hud.s_floor.t_gravity.target =
 	&env->sectors[env->selected_floor].gravity;
-	draw_button(env, env->editor.hud.s_floor.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_floor.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -112,7 +121,8 @@ int		print_floor_sector_tab(t_env *env)
 	env->sectors[env->selected_floor].brightness);
 	env->editor.hud.s_floor.t_brightness.target =
 	&env->sectors[env->selected_floor].brightness;
-	draw_button(env, env->editor.hud.s_floor.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_floor.brightness, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light_color:",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);

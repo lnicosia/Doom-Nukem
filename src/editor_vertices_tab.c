@@ -21,7 +21,8 @@ int		print_vertices_general_tab2(t_env *env)
 	selected_vertex].y);
 	env->editor.hud.g_vertex.t_pos_y.target =
 	&env->vertices[env->editor.selected_vertex].y;
-	draw_button(env, env->editor.hud.g_vertex.pos_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_vertex.pos_y, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -48,7 +49,8 @@ int		print_vertices_general_tab(t_env *env)
 	selected_vertex].x);
 	env->editor.hud.g_vertex.t_pos_x.target =
 	&env->vertices[env->editor.selected_vertex].x;
-	draw_button(env, env->editor.hud.g_vertex.pos_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_vertex.pos_x, env->snprintf))
+		return (-1);
 	if (print_text(new_point(600, 60), new_printable_text("Y",
 	env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);

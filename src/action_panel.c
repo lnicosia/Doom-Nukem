@@ -36,7 +36,9 @@ int		draw_event_value_panel(t_env *env)
 	else if (env->editor.event_panel.event.type == UINT32)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
 		env->editor.event_panel.action_panel.uint32_value);
-	draw_button(env, env->editor.event_panel.action_panel.value, env->snprintf);
+	if (draw_button(env, env->editor.event_panel.action_panel.value,
+		env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -56,14 +58,18 @@ int		draw_event_speed_panel(t_env *env)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->editor.event_panel.event.speed),
 	env->editor.event_panel.event.speed);
-	draw_button(env, env->editor.event_panel.action_panel.speed, env->snprintf);
+	if (draw_button(env, env->editor.event_panel.action_panel.speed,
+		env->snprintf))
+		return (-1);
 	return (0);
 }
 
 int		draw_real_target_action_panel(t_event_panel panel, t_env *env)
 {
-	draw_button(env, panel.action_panel.go_to, "Go to");
-	draw_button(env, panel.action_panel.add, "Add");
+	if (draw_button(env, panel.action_panel.go_to, "Go to"))
+		return (-1);
+	if (draw_button(env, panel.action_panel.add, "Add"))
+		return (-1);
 	if (draw_event_value_panel(env))
 		return (-1);
 	if (draw_event_speed_panel(env))
@@ -91,8 +97,12 @@ int		draw_function_target_action_panel(t_event_panel panel, t_env *env)
 			return (-1);
 	}
 	else if (panel.event.target_index == DIALOG)
-		draw_button(env, panel.action_panel.text, "Text");
-	draw_action_panel_bottom(env);
+	{
+		if (draw_button(env, panel.action_panel.text, "Text"))
+			return (-1);
+	}
+	if (draw_action_panel_bottom(env))
+		return (-1);
 	return (0);
 }
 

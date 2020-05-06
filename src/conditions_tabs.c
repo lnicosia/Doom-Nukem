@@ -93,22 +93,27 @@ t_env *env)
 		new_printable_text(env->snprintf,
 		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
 		return (-1);
-	draw_button(env, panel->new_condition, "New condition");
+	if (draw_button(env, panel->new_condition, "New condition"))
+		return (-1);
 	if ((env->editor.event_panel.launch_conditions_tab.state == DOWN
 		&& panel->event.nb_launch_conditions > 0)
 		|| (env->editor.event_panel.exec_conditions_tab.state == DOWN
 		&& panel->event.nb_exec_conditions > 0))
 	{
-		draw_button(env, panel->modify_condition, "Modify condition");
-		draw_button(env, panel->delete_condition, "Delete condition");
+		if (draw_button(env, panel->modify_condition, "Modify condition"))
+			return (-1);
+		if (draw_button(env, panel->delete_condition, "Delete condition"))
+			return (-1);
 	}
 	if ((env->editor.event_panel.launch_conditions_tab.state == DOWN
 		&& panel->event.nb_launch_conditions > 1)
 		|| (env->editor.event_panel.exec_conditions_tab.state == DOWN
 		&& panel->event.nb_exec_conditions > 1))
 	{
-		draw_button(env, panel->previous_condition, NULL);
-		draw_button(env, panel->next_condition, NULL);
+		if (draw_button(env, panel->previous_condition, NULL))
+			return (-1);
+		if (draw_button(env, panel->next_condition, NULL))
+			return (-1);
 	}
 	return (draw_conditions_panel3(panel, env));
 }

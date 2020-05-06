@@ -15,7 +15,8 @@
 
 int		print_ceiling_sector_tab2(t_env *env)
 {
-	draw_button(env, env->editor.hud.s_ceiling.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_ceiling.color, env->snprintf))
+		return (-1);
 	if (print_text(new_point(600, 60), new_printable_text("Intensity",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -23,7 +24,8 @@ int		print_ceiling_sector_tab2(t_env *env)
 	env->sectors[env->selected_ceiling].intensity);
 	env->editor.hud.s_ceiling.t_intensity.target =
 	&env->sectors[env->selected_ceiling].intensity;
-	draw_button(env, env->editor.hud.s_ceiling.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_ceiling.intensity, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Gravity",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -32,7 +34,8 @@ int		print_ceiling_sector_tab2(t_env *env)
 	env->sectors[env->selected_ceiling].gravity);
 	env->editor.hud.s_ceiling.t_gravity.target =
 	&env->sectors[env->selected_ceiling].gravity;
-	draw_button(env, env->editor.hud.s_ceiling.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_ceiling.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -56,7 +59,8 @@ int		print_ceiling_sector_tab(t_env *env)
 	env->sectors[env->selected_ceiling].brightness);
 	env->editor.hud.s_ceiling.t_brightness.target =
 	&env->sectors[env->selected_ceiling].brightness;
-	draw_button(env, env->editor.hud.s_ceiling.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_ceiling.brightness, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light_color",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -71,7 +75,9 @@ int		print_ceiling_general_tab3(t_env *env)
 {
 	env->editor.hud.g_ceiling.t_texture_scale_y.target =
 	&env->sectors[env->selected_ceiling].ceiling_map_scale.y;
-	draw_button(env, env->editor.hud.g_ceiling.texture_scale_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_ceiling.texture_scale_y,
+		env->snprintf))
+		return (-1);
 	if (print_text(new_point(720, 60), new_printable_text("Align X",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -80,7 +86,9 @@ int		print_ceiling_general_tab3(t_env *env)
 	env->sectors[env->selected_ceiling].ceiling_map_align.x);
 	env->editor.hud.g_ceiling.t_texture_align_x.target =
 	&env->sectors[env->selected_ceiling].ceiling_map_align.x;
-	draw_button(env, env->editor.hud.g_ceiling.texture_align_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_ceiling.texture_align_x,
+		env->snprintf))
+		return (-1);
 	if (print_text(new_point(760, 60), new_printable_text("Align Y",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -89,9 +97,12 @@ int		print_ceiling_general_tab3(t_env *env)
 	env->sectors[env->selected_ceiling].ceiling_map_align.y);
 	env->editor.hud.g_ceiling.t_texture_align_y.target =
 	&env->sectors[env->selected_ceiling].ceiling_map_align.y;
-	draw_button(env, env->editor.hud.g_ceiling.texture_align_y, env->snprintf);
-	draw_button(env, env->editor.hud.g_ceiling.add_sprite,
-	env->editor.hud.g_ceiling.add_sprite.str);
+	if (draw_button(env, env->editor.hud.g_ceiling.texture_align_y,
+		env->snprintf))
+		return (-1);
+	if (draw_button(env, env->editor.hud.g_ceiling.add_sprite,
+		env->editor.hud.g_ceiling.add_sprite.str))
+		return (-1);
 	return (0);
 }
 
@@ -99,7 +110,8 @@ int		print_ceiling_general_tab2(t_env *env, t_point size)
 {
 	env->editor.hud.g_ceiling.t_slope.target =
 	&env->sectors[env->selected_ceiling].ceiling_slope;
-	draw_button(env, env->editor.hud.g_ceiling.slope, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_ceiling.slope, env->snprintf))
+		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Start slope %d",
 	env->sectors[env->selected_ceiling].start_ceiling_slope);
 	if (TTF_SizeText(env->sdl.fonts.lato20,
@@ -109,8 +121,10 @@ int		print_ceiling_general_tab2(t_env *env, t_point size)
 		new_printable_text(env->snprintf,
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
-	draw_button(env, env->editor.previous_slope_swap, NULL);
-	draw_button(env, env->editor.next_slope_swap, NULL);
+	if (draw_button(env, env->editor.previous_slope_swap, NULL))
+		return (-1);
+	if (draw_button(env, env->editor.next_slope_swap, NULL))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Scale X",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -119,7 +133,9 @@ int		print_ceiling_general_tab2(t_env *env, t_point size)
 	env->sectors[env->selected_ceiling].ceiling_map_scale.x);
 	env->editor.hud.g_ceiling.t_texture_scale_x.target =
 	&env->sectors[env->selected_ceiling].ceiling_map_scale.x;
-	draw_button(env, env->editor.hud.g_ceiling.texture_scale_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_ceiling.texture_scale_x,
+		env->snprintf))
+		return (-1);
 	if (print_text(new_point(680, 60), new_printable_text("Scale Y",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -149,7 +165,8 @@ int		print_ceiling_general_tab(t_env *env)
 	env->sectors[env->selected_ceiling].ceiling);
 	env->editor.hud.g_ceiling.t_height.target =
 	&env->sectors[env->selected_ceiling].ceiling;
-	draw_button(env, env->editor.hud.g_ceiling.height, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_ceiling.height, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Slope",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);

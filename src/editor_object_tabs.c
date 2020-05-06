@@ -22,7 +22,8 @@ int		print_object_sector_tab2(t_env *env)
 	env->sectors[env->objects[env->selected_object].sector].intensity);
 	env->editor.hud.s_object.t_intensity.target =
 	&env->sectors[env->objects[env->selected_object].sector].intensity;
-	draw_button(env, env->editor.hud.s_object.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_object.intensity, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Gravity",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -31,7 +32,8 @@ int		print_object_sector_tab2(t_env *env)
 	gravity), env->sectors[env->objects[env->selected_object].sector].gravity);
 	env->editor.hud.s_object.t_gravity.target =
 	&env->sectors[env->objects[env->selected_object].sector].gravity;
-	draw_button(env, env->editor.hud.s_object.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_object.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -55,14 +57,16 @@ int		print_object_sector_tab(t_env *env)
 	env->sectors[env->objects[env->selected_object].sector].brightness);
 	env->editor.hud.s_object.t_brightness.target =
 	&env->sectors[env->objects[env->selected_object].sector].brightness;
-	draw_button(env, env->editor.hud.s_object.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_object.brightness, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light color",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
 	env->sectors[env->objects[env->selected_object].sector].light_color);
 	env->editor.hud.s_object.t_color.target =
 	&env->sectors[env->objects[env->selected_object].sector].light_color;
-	draw_button(env, env->editor.hud.s_object.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_object.color, env->snprintf))
+		return (-1);
 	return (print_object_sector_tab2(env));
 }
 
@@ -75,7 +79,8 @@ int		print_object_general_tab3(t_env *env)
 	env->objects[env->selected_object].damage);
 	env->editor.hud.g_object.t_damage.target =
 	&env->objects[env->selected_object].damage;
-	draw_button(env, env->editor.hud.g_object.damage, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.damage, env->snprintf))
+		return (-1);
 	if (print_text(new_point(760, 60), new_printable_text("Angle",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
@@ -84,7 +89,8 @@ int		print_object_general_tab3(t_env *env)
 	env->objects[env->selected_object].angle);
 	env->editor.hud.g_object.t_angle.target =
 	&env->objects[env->selected_object].angle;
-	draw_button(env, env->editor.hud.g_object.angle, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.angle, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -98,7 +104,8 @@ int		print_object_general_tab2(t_env *env)
 	env->objects[env->selected_object].pos.z);
 	env->editor.hud.g_object.t_pos_z.target =
 	&env->objects[env->selected_object].pos.z;
-	draw_button(env, env->editor.hud.g_object.pos_z, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.pos_z, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Health",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -106,7 +113,8 @@ int		print_object_general_tab2(t_env *env)
 	env->objects[env->selected_object].health);
 	env->editor.hud.g_object.t_health.target =
 	&env->objects[env->selected_object].health;
-	draw_button(env, env->editor.hud.g_object.health, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.health, env->snprintf))
+		return (-1);
 	if (print_text(new_point(680, 60), new_printable_text("Scale ",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -115,7 +123,8 @@ int		print_object_general_tab2(t_env *env)
 	env->objects[env->selected_object].scale);
 	env->editor.hud.g_object.t_scale.target =
 	&env->objects[env->selected_object].scale;
-	draw_button(env, env->editor.hud.g_object.scale, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.scale, env->snprintf))
+		return (-1);
 	return (print_object_general_tab3(env));
 }
 
@@ -140,7 +149,8 @@ int		print_object_general_tab(t_env *env)
 	env->objects[env->selected_object].pos.x);
 	env->editor.hud.g_object.t_pos_x.target =
 	&env->objects[env->selected_object].pos.x;
-	draw_button(env, env->editor.hud.g_object.pos_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.pos_x, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Y",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -149,6 +159,7 @@ int		print_object_general_tab(t_env *env)
 	env->objects[env->selected_object].pos.y);
 	env->editor.hud.g_object.t_pos_y.target =
 	&env->objects[env->selected_object].pos.y;
-	draw_button(env, env->editor.hud.g_object.pos_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.g_object.pos_y, env->snprintf))
+		return (-1);
 	return (print_object_general_tab2(env));
 }

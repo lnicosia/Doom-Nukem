@@ -34,11 +34,15 @@ int		print_sprite_tab(t_env *env)
 		|| env->selected_wall_sprite_sprite != -1
 		|| env->selected_ceiling_sprite != -1)
 	{
-		draw_button(env, env->editor.next_sprite, env->editor.next_sprite.str);
-		draw_button(env, env->editor.previous_sprite,
-		env->editor.previous_sprite.str);
-		draw_button(env, env->editor.sprite_background,
-		env->editor.sprite_background.str);
+		if (draw_button(env, env->editor.next_sprite,
+			env->editor.next_sprite.str))
+			return (-1);
+		if (draw_button(env, env->editor.previous_sprite,
+		env->editor.previous_sprite.str))
+			return (-1);
+		if (draw_button(env, env->editor.sprite_background,
+		env->editor.sprite_background.str))
+			return (-1);
 		apply_sprite(env->object_sprites[env->editor.current_sprite],
 		new_point(env->editor.current_sprite_selection.pos.y,
 		env->editor.current_sprite_selection.pos.x),
@@ -184,7 +188,11 @@ int		draw_editor_tabs(t_env *env)
 	|| env->editor.selected_start_player != -1
 	|| env->selected_object != -1 || env->selected_enemy != -1
 	|| env->editor.selected_vertex != -1)))
-		draw_button(env, env->editor.general_tab, env->editor.general_tab.str);
+	{
+		if (draw_button(env, env->editor.general_tab,
+			env->editor.general_tab.str))
+			return (-1);
+	}
 	if (((env->editor.selected_start_player != -1
 		|| env->selected_enemy != -1
 	|| env->selected_object != -1)) || ((env->selected_object != -1
@@ -192,7 +200,12 @@ int		draw_editor_tabs(t_env *env)
 	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_floor != -1 || env->selected_enemy != -1
 	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1)))
-		draw_button(env, env->editor.sector_tab, env->editor.sector_tab.str);
-	draw_button(env, env->editor.events_tab, env->editor.events_tab.str);
+	{
+		if (draw_button(env, env->editor.sector_tab,
+			env->editor.sector_tab.str))
+			return (-1);
+	}
+	if (draw_button(env, env->editor.events_tab, env->editor.events_tab.str))
+		return (-1);
 	return (draw_editor_tabs2(env));
 }
