@@ -43,7 +43,7 @@ int		editor_2d(t_env *env)
 	if (!env->input_box.state && !env->options.editor_options)
 	{
 		if (editor_keys(env))
-			return (crash("Crash from editor 2D keys\n", env));
+			return (custom_error("Crash from editor 2D keys\n"));
 	}
 	else if (!env->input_box.state)
 	{

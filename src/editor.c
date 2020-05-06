@@ -21,12 +21,12 @@ int		all_editor_keyup(t_env *env)
 		if (!env->editor.in_game && !env->options.editor_options)
 		{
 			if (editor_keyup(env))
-				return (crash("Crash from editor 2D keyup\n", env));
+				return (custom_error("Crash from editor 2D keyup\n"));
 		}
 		else if (!env->options.editor_options && env->editor.in_game)
 		{
 			if (editor_3d_keyup(env))
-				return (crash("Crash from editor 3D keyup\n", env));
+				return (custom_error("Crash from editor 3D keyup\n"));
 		}
 		else if (env->options.editor_options)
 		{
@@ -58,7 +58,7 @@ int		editor_poll_event(t_env *env)
 		if (env->input_box.state)
 		{
 			if (input_box_keys(&env->input_box, env))
-				return (crash("Crash from input box keys\n", env));
+				return (custom_error("Crash from input box keys\n"));
 		}
 	}
 	return (0);

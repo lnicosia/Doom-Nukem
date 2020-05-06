@@ -40,7 +40,7 @@ int		editor_render(t_env *env)
 	if (!env->input_box.state)
 	{
 		if (editor_3d_keys(env))
-			return (crash("Crash from editor 3d keys\n", env));
+			return (custom_error("Crash from editor 3d keys\n"));
 	}
 	if (env->player.changed_sector)
 	{
@@ -53,10 +53,10 @@ int		editor_render(t_env *env)
 	if (draw_walls(&env->player.camera, env))
 		return (-1);
 	if (draw_objects(&env->player.camera, env))
-		return (crash("Failed to draw objects\n", env));
+		return (custom_error("Failed to draw objects\n"));
 	if (draw_enemies(&env->player.camera, env))
-		return (crash("Failed to draw enemies\n", env));
+		return (custom_error("Failed to draw enemies\n"));
 	if (draw_player(&env->player.camera, env->player.starting_pos, env))
-		return (crash("failed to draw player\n", env));
+		return (custom_error("failed to draw player\n"));
 	return (editor_render2(env));
 }
