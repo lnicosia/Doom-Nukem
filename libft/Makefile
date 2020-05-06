@@ -61,10 +61,10 @@ PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
-			-O3 \
 			-Wno-unused-result \
-			#-flto\
+			-O3 \
 			#-fsanitize=address -g3 \
+			#-flto\
 
 RED := "\e[0;31m"
 GREEN := "\e[0;32m"

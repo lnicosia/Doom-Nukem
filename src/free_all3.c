@@ -57,8 +57,8 @@ void		free_objects(t_env *env)
 	{
 		if (env->objects[i].nb_collision_events > 0
 			&& env->objects[i].collision_events)
-			free_events(env->objects[i].collision_events,
-			env->objects[i].nb_collision_events);
+			free_events(&env->objects[i].collision_events,
+			&env->objects[i].nb_collision_events);
 		i++;
 	}
 	if (env->objects)
@@ -74,12 +74,12 @@ void		free_enemies(t_env *env)
 	{
 		if (env->enemies[i].nb_death_events > 0
 			&& env->enemies[i].death_events)
-			free_events(env->enemies[i].death_events,
-			env->enemies[i].nb_death_events);
+			free_events(&env->enemies[i].death_events,
+			&env->enemies[i].nb_death_events);
 		if (env->enemies[i].nb_collision_events > 0
 			&& env->enemies[i].collision_events)
-			free_events(env->enemies[i].collision_events,
-			env->enemies[i].nb_collision_events);
+			free_events(&env->enemies[i].collision_events,
+			&env->enemies[i].nb_collision_events);
 		i++;
 	}
 	if (env->enemies)

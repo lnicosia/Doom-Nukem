@@ -19,8 +19,8 @@ int	delete_object(void *param)
 
 	env = (t_env*)param;
 	object = env->selected_object;
-	free_events(env->objects[object].collision_events,
-	env->objects[object].nb_collision_events);
+	free_events(&env->objects[object].collision_events,
+	&env->objects[object].nb_collision_events);
 	env->objects = (t_object*)ft_delindex(env->objects,
 			sizeof(t_object) * env->nb_objects,
 			sizeof(t_object),

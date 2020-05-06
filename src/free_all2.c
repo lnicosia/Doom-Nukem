@@ -35,18 +35,19 @@ void		free_event(t_event *event)
 		ft_memdel((void**)&event->exec_conditions);
 }
 
-void		free_events(t_event *events, size_t size)
+void		free_events(t_event **events, size_t *size)
 {
 	size_t	j;
 
 	j = 0;
-	while (j < size)
+	while (j < *size)
 	{
-		free_event(&events[j]);
+		free_event(&(*events)[j]);
 		j++;
 	}
 	if (events)
-		ft_memdel((void**)&events);
+		ft_memdel((void**)events);
+	*size = 0;
 }
 
 void		free_sectors(t_env *env)
