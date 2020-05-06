@@ -22,7 +22,8 @@ int		print_wall_sector_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.s_wall.t_intensity.target =
 	&env->sectors[env->editor.selected_sector].intensity;
-	draw_button(env, env->editor.hud.s_wall.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall.intensity, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Gravity",
 	env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -31,7 +32,8 @@ int		print_wall_sector_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].gravity);
 	env->editor.hud.s_wall.t_gravity.target =
 	&env->sectors[env->editor.selected_sector].gravity;
-	draw_button(env, env->editor.hud.s_wall.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -55,7 +57,8 @@ int		print_wall_sector_tab(t_env *env)
 	env->sectors[env->editor.selected_sector].brightness);
 	env->editor.hud.s_wall.t_brightness.target =
 	&env->sectors[env->editor.selected_sector].brightness;
-	draw_button(env, env->editor.hud.s_wall.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall.brightness, env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light_color",
 	env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -63,6 +66,7 @@ int		print_wall_sector_tab(t_env *env)
 	env->sectors[env->editor.selected_sector].light_color);
 	env->editor.hud.s_wall.t_color.target =
 	&env->sectors[env->editor.selected_sector].light_color;
-	draw_button(env, env->editor.hud.s_wall.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall.color, env->snprintf))
+		return (-1);
 	return (print_wall_sector_tab2(env));
 }

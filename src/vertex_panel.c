@@ -72,7 +72,9 @@ int		select_vertex(void *param)
 
 int		draw_vertex_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "X");
-	draw_button(env, panel->targets[1], "Y");
+	if (draw_button(env, panel->targets[0], "X"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Y"))
+		return (-1);
 	return (0);
 }

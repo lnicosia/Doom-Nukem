@@ -411,8 +411,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
 		  -O3 \
           -Wno-unused-result \
+		  -Wno-misleading-indentation \
 		  #-flto \
-		  #-Wno-misleading-indentation \
 		  #-fsanitize=address -g3 \
 		  #-fdata-sections \
 		  #-ffast-math \

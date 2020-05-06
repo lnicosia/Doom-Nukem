@@ -47,14 +47,21 @@ int		print_sounds_vol(t_env *env)
 	return (0);
 }
 
-void	draw_option_menu_ig_buttons(t_env *env)
+int		draw_option_menu_ig_buttons(t_env *env)
 {
-	draw_button(env, env->return_button, "RETURN");
-	draw_button(env, env->exit_button, "EXIT");
-	draw_button(env, env->music_vol_up, NULL);
-	draw_button(env, env->music_vol_down, NULL);
-	draw_button(env, env->sounds_vol_up, NULL);
-	draw_button(env, env->sounds_vol_down, NULL);
+	if (draw_button(env, env->return_button, "RETURN"))
+		return (-1);
+	if (draw_button(env, env->exit_button, "EXIT"))
+		return (-1);
+	if (draw_button(env, env->music_vol_up, NULL))
+		return (-1);
+	if (draw_button(env, env->music_vol_down, NULL))
+		return (-1);
+	if (draw_button(env, env->sounds_vol_up, NULL))
+		return (-1);
+	if (draw_button(env, env->sounds_vol_down, NULL))
+		return (-1);
+	return (0);
 }
 
 int		option_menu_ig(t_env *env)
@@ -63,7 +70,8 @@ int		option_menu_ig(t_env *env)
 	SDL_SetRelativeMouseMode(0);
 	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
 		new_point(env->w, env->h), env);
-	draw_option_menu_ig_buttons(env);
+	if (draw_option_menu_ig_buttons(env))
+		return (-1);
 	if (print_music_vol(env))
 		return (-1);
 	if (print_sounds_vol(env))

@@ -50,10 +50,12 @@ int	print_event_launch_conditions(t_env *env, t_event *event)
 		return (-1);
 	if (event->nb_launch_conditions <= 1)
 		return (0);
-	draw_button(env, env->editor.next_launch_condition,
-	env->editor.next_launch_condition.str);
-	draw_button(env, env->editor.previous_launch_condition,
-	env->editor.previous_launch_condition.str);
+	if (draw_button(env, env->editor.next_launch_condition,
+		env->editor.next_launch_condition.str))
+		return (-1);
+	if (draw_button(env, env->editor.previous_launch_condition,
+		env->editor.previous_launch_condition.str))
+		return (-1);
 	return (0);
 }
 
@@ -75,10 +77,12 @@ int	print_event_exec_conditions(t_env *env, t_event *event)
 		return (-1);
 	if (event->nb_launch_conditions <= 1)
 		return (0);
-	draw_button(env, env->editor.next_exec_condition,
-	env->editor.next_exec_condition.str);
-	draw_button(env, env->editor.previous_exec_condition,
-	env->editor.previous_exec_condition.str);
+	if (draw_button(env, env->editor.next_exec_condition,
+		env->editor.next_exec_condition.str))
+		return (-1);
+	if (draw_button(env, env->editor.previous_exec_condition,
+		env->editor.previous_exec_condition.str))
+		return (-1);
 	return (0);
 }
 
@@ -99,9 +103,14 @@ int	print_event(t_env *env, t_event *event)
 		return (-1);
 	if (print_event_various_data(env, event))
 		return (-1);
-	draw_button(env, env->editor.modify_event, "Modify event");
-	draw_button(env, env->editor.delete_event, "Delete event");
+	if (draw_button(env, env->editor.modify_event, "Modify event"))
+		return (-1);
+	if (draw_button(env, env->editor.delete_event, "Delete event"))
+		return (-1);
 	if (env->editor.selecting_event)
-		draw_button(env, env->editor.select_event, "Select me");
+	{
+		if (draw_button(env, env->editor.select_event, "Select me"))
+		return (-1);
+	}
 	return (0);
 }

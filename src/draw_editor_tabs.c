@@ -165,7 +165,10 @@ int		draw_editor_tabs2(t_env *env)
 			return (-1);
 	}
 	if (env->editor.draw_texture_tab)
-		texture_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX);
+	{
+		if (texture_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX))
+			return (-1);
+	}
 	return (0);
 }
 

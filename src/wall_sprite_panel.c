@@ -94,10 +94,15 @@ int		select_wall_sprite(void *param)
 
 int		draw_wall_sprite_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Sprite");
-	draw_button(env, panel->targets[1], "Pos X");
-	draw_button(env, panel->targets[2], "Pos Y");
-	draw_button(env, panel->targets[3], "Scale X");
-	draw_button(env, panel->targets[4], "Scale Y");
+	if (draw_button(env, panel->targets[0], "Sprite"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Pos X"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Pos Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Scale X"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Scale Y"))
+		return (-1);
 	return (0);
 }

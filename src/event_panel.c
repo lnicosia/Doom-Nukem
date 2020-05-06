@@ -13,7 +13,7 @@
 #include "env.h"
 #include "draw.h"
 
-void	draw_launch_conditions_tab(t_env *env)
+int		draw_launch_conditions_tab(t_env *env)
 {
 	SDL_Surface	*img;
 
@@ -24,14 +24,16 @@ void	draw_launch_conditions_tab(t_env *env)
 		img = env->ui_textures[CONDITION_ICON_DOWN].surface;
 	else
 		img = env->ui_textures[CONDITION_ICON].surface;
-	draw_button(env, env->editor.event_panel.launch_conditions_tab, NULL);
+	if (draw_button(env, env->editor.event_panel.launch_conditions_tab, NULL))
+		return (-1);
 	apply_surface(img, new_point(env->editor.event_panel.pos.y
 	+ env->editor.event_panel.top_size + 200 + (50 - img->h / 2),
 	env->editor.event_panel.pos.x + (50 - img->h / 2)),
 	new_point(img->w, img->h), env);
+	return (0);
 }
 
-void	draw_exec_conditions_tab(t_env *env)
+int		draw_exec_conditions_tab(t_env *env)
 {
 	SDL_Surface	*img;
 
@@ -42,11 +44,13 @@ void	draw_exec_conditions_tab(t_env *env)
 		img = env->ui_textures[CONDITION_ICON_DOWN].surface;
 	else
 		img = env->ui_textures[CONDITION_ICON].surface;
-	draw_button(env, env->editor.event_panel.exec_conditions_tab, NULL);
+	if (draw_button(env, env->editor.event_panel.exec_conditions_tab, NULL))
+		return (-1);
 	apply_surface(img, new_point(env->editor.event_panel.pos.y
 	+ env->editor.event_panel.top_size + 300 + (50 - img->h / 2),
 	env->editor.event_panel.pos.x + (50 - img->h / 2)),
 	new_point(img->w, img->h), env);
+	return (0);
 }
 
 int		draw_event_panel_tab_content(t_env *env)
@@ -81,12 +85,18 @@ int		draw_event_panel2(t_env *env)
 	env->ui_textures[EVENT_ICON].surface->h / 2)),
 	new_point(env->ui_textures[EVENT_ICON].surface->w,
 	env->ui_textures[EVENT_ICON].surface->h), env);
-	draw_target_tab(env);
-	draw_action_tab(env);
-	draw_launch_conditions_tab(env);
-	draw_exec_conditions_tab(env);
-	draw_button(env, env->editor.event_panel.ok, "OK");
-	draw_button(env, env->editor.event_panel.cancel, "X");
+	if (draw_target_tab(env))
+		return (-1);
+	if (draw_action_tab(env))
+		return (-1);
+	if (draw_launch_conditions_tab(env))
+		return (-1);
+	if (draw_exec_conditions_tab(env))
+		return (-1);
+	if (draw_button(env, env->editor.event_panel.ok, "OK"))
+		return (-1);
+	if (draw_button(env, env->editor.event_panel.cancel, "X"))
+		return (-1);
 	if (draw_event_panel_tab_content(env))
 		return (-1);
 	return (0);

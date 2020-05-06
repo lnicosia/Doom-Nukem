@@ -95,9 +95,11 @@ int		print_sector_events_tab(t_env *env)
 		env->sdl.fonts.lato20, 0x333333FF, 0), env))
 			return (-1);
 	}
-	draw_button(env, env->editor.next_events, env->editor.next_events.str);
-	draw_button(env, env->editor.previous_events,
-	env->editor.previous_events.str);
+	if (draw_button(env, env->editor.next_events, env->editor.next_events.str))
+		return (-1);
+	if (draw_button(env, env->editor.previous_events,
+	env->editor.previous_events.str))
+		return (-1);
 	if (print_sector_events(env))
 		return (-1);
 	if (env->editor.selected_events == 0 && sector.nb_stand_events > 0)
@@ -135,9 +137,11 @@ int		print_wall_sprite_events_tab(t_env *env)
 		env->sdl.fonts.lato20, 0x333333FF, 0), env))
 			return (-1);
 	}
-	draw_button(env, env->editor.next_events, env->editor.next_events.str);
-	draw_button(env, env->editor.previous_events,
-	env->editor.previous_events.str);
+	if (draw_button(env, env->editor.next_events, env->editor.next_events.str))
+		return (-1);
+	if (draw_button(env, env->editor.previous_events,
+	env->editor.previous_events.str))
+		return (-1);
 	if (print_wall_sprite_events(env))
 		return (-1);
 	if (env->editor.selected_events == 0 && env->sectors[env->editor.
@@ -193,6 +197,7 @@ int		print_events_tab(t_env *env)
 		if (print_global_events_tab(env))
 			return (-1);
 	}
-	draw_button(env, env->editor.new_event, "New event");
+	if (draw_button(env, env->editor.new_event, "New event"))
+		return (-1);
 	return (0);
 }

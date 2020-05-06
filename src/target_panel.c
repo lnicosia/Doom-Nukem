@@ -14,52 +14,102 @@
 #include "draw.h"
 #include "events.h"
 
-void	draw_first_phase_selection(t_env *env, t_target_panel *panel)
+int		draw_first_phase_selection(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->sector, "Sector");
-	draw_button(env, panel->wall, "Wall");
-	draw_button(env, panel->wall_sprite, "Wall sprite");
-	draw_button(env, panel->weapon, "Weapon");
-	draw_button(env, panel->enemy, "Enemy");
-	draw_button(env, panel->object, "Object");
-	draw_button(env, panel->player, "Player");
-	draw_button(env, panel->vertex, "Vertex");
-	draw_button(env, panel->other, "Other");
+	if (draw_button(env, panel->sector, "Sector"))
+		return (-1);
+	if (draw_button(env, panel->wall, "Wall"))
+		return (-1);
+	if (draw_button(env, panel->wall_sprite, "Wall sprite"))
+		return (-1);
+	if (draw_button(env, panel->weapon, "Weapon"))
+		return (-1);
+	if (draw_button(env, panel->enemy, "Enemy"))
+		return (-1);
+	if (draw_button(env, panel->object, "Object"))
+		return (-1);
+	if (draw_button(env, panel->player, "Player"))
+		return (-1);
+	if (draw_button(env, panel->vertex, "Vertex"))
+		return (-1);
+	if (draw_button(env, panel->other, "Other"))
+		return (-1);
+	return (0);
 }
 
-void	draw_third_phase_selection(t_env *env, t_target_panel *panel)
+int		draw_third_phase_selection(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->previous, NULL);
+	if (draw_button(env, panel->previous, NULL))
+		return (-1);
 	if (panel->wall_type)
-		draw_wall_panel(env, panel);
+	{
+		if (draw_wall_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->wall_sprite_type)
-		draw_wall_sprite_panel(env, panel);
+	{
+		if (draw_wall_sprite_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->object_type)
-		draw_object_panel(env, panel);
+	{
+		if (draw_object_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->weapon_type)
-		draw_weapon_panel(env, panel);
+	{
+		if (draw_weapon_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->enemy_type)
-		draw_enemy_panel(env, panel);
+	{
+		if (draw_enemy_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->player_type)
-		draw_player_panel(env, panel);
+	{
+		if (draw_player_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->vertex_type)
-		draw_vertex_panel(env, panel);
+	{
+		if (draw_vertex_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->floor_type)
-		draw_floor_panel(env, panel);
+	{
+		if (draw_floor_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->ceiling_type)
-		draw_ceiling_panel(env, panel);
+	{
+		if (draw_ceiling_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->sector_other_type)
-		draw_sector_other_panel(env, panel);
+	{
+		if (draw_sector_other_panel(env, panel))
+			return (-1);
+	}
 	else if (panel->other_type)
-		draw_other_panel(env, panel);
+	{
+		if (draw_other_panel(env, panel))
+			return (-1);
+	}
+	return (0);
 }
 
-void	draw_second_phase_selection(t_env *env, t_target_panel *panel)
+int		draw_second_phase_selection(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->previous, NULL);
-	draw_button(env, panel->floor, "Floor");
-	draw_button(env, panel->ceiling, "Ceiling");
-	draw_button(env, panel->sector_other, "Other");
+	if (draw_button(env, panel->previous, NULL))
+		return (-1);
+	if (draw_button(env, panel->floor, "Floor"))
+		return (-1);
+	if (draw_button(env, panel->ceiling, "Ceiling"))
+		return (-1);
+	if (draw_button(env, panel->sector_other, "Other"))
+		return (-1);
+	return (0);
 }
 
 int		draw_target_panel2(t_env *env)
@@ -68,11 +118,23 @@ int		draw_target_panel2(t_env *env)
 
 	phase = get_target_selection_phase(&env->editor.event_panel.target_panel);
 	if (phase == 0)
-		draw_first_phase_selection(env, &env->editor.event_panel.target_panel);
+	{
+		if (draw_first_phase_selection(env,
+			&env->editor.event_panel.target_panel))
+			return (-1);
+	}
 	else if (phase == 1)
-		draw_second_phase_selection(env, &env->editor.event_panel.target_panel);
+	{
+		if (draw_second_phase_selection(env,
+			&env->editor.event_panel.target_panel))
+			return (-1);
+	}
 	else if (phase == 2)
-		draw_third_phase_selection(env, &env->editor.event_panel.target_panel);
+	{
+		if (draw_third_phase_selection(env,
+			&env->editor.event_panel.target_panel))
+			return (-1);
+	}
 	return (0);
 }
 

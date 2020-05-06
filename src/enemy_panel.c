@@ -85,13 +85,21 @@ int		select_enemy(void *param)
 
 int		draw_enemy_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Sprite");
-	draw_button(env, panel->targets[1], "X");
-	draw_button(env, panel->targets[2], "Y");
-	draw_button(env, panel->targets[3], "Z");
-	draw_button(env, panel->targets[4], "Scale");
-	draw_button(env, panel->targets[5], "Speed");
-	draw_button(env, panel->targets[6], "Damage");
-	draw_button(env, panel->targets[7], "Health");
+	if (draw_button(env, panel->targets[0], "Sprite"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "X"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Z"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Scale"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Speed"))
+		return (-1);
+	if (draw_button(env, panel->targets[6], "Damage"))
+		return (-1);
+	if (draw_button(env, panel->targets[7], "Health"))
+		return (-1);
 	return (0);
 }

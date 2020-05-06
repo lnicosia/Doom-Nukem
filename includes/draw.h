@@ -36,8 +36,8 @@ t_env *env);
 int						draw_box_selection(t_input_box *box, t_point pos,
 char *str, t_env *env);
 int						draw_event_panel(t_env *env);
-void					draw_target_tab(t_env *env);
-void					draw_action_tab(t_env *env);
+int						draw_target_tab(t_env *env);
+int						draw_action_tab(t_env *env);
 int						draw_condition_panel(t_env *env);
 int						draw_condition_condition_panel(t_env *env);
 void					draw_condition_type_tab(t_env *env);
@@ -64,11 +64,11 @@ int						draw_action_panel(t_env *env);
 int						draw_action_panel_bottom(t_env *env);
 int						draw_launch_conditions_panel(t_env *env);
 int						draw_exec_conditions_panel(t_env *env);
-void					draw_first_phase_selection(t_env *env,
+int						draw_first_phase_selection(t_env *env,
 t_target_panel *panel);
-void					draw_second_phase_selection(t_env *env,
+int						draw_second_phase_selection(t_env *env,
 t_target_panel *panel);
-void					draw_third_phase_selection(t_env *env,
+int						draw_third_phase_selection(t_env *env,
 t_target_panel *panel);
 int						draw_weapon_picker(t_env *env);
 void					draw_line_3(t_env *env, t_line line);

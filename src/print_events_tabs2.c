@@ -22,9 +22,12 @@ int		print_event_selection(t_env *env, size_t nb)
 		return (-1);
 	if (nb > 1)
 	{
-		draw_button(env, env->editor.next_event, env->editor.next_event.str);
-		draw_button(env, env->editor.previous_event,
-		env->editor.previous_event.str);
+		if (draw_button(env, env->editor.next_event,
+			env->editor.next_event.str))
+			return (-1);
+		if (draw_button(env, env->editor.previous_event,
+			env->editor.previous_event.str))
+			return (-1);
 	}
 	return (0);
 }
@@ -42,8 +45,10 @@ int		print_global_events_tab(t_env *env)
 		return (-1);
 	if (env->nb_global_events > 0)
 	{
-		print_event_selection(env, env->nb_global_events);
-		print_event(env, &env->global_events[env->editor.selected_event]);
+		if (print_event_selection(env, env->nb_global_events))
+			return (-1);
+		if (print_event(env, &env->global_events[env->editor.selected_event]))
+			return (-1);
 	}
 	return (0);
 }
@@ -61,10 +66,12 @@ int		print_object_events_tab(t_env *env)
 		return (-1);
 	if (env->objects[env->selected_object].nb_collision_events > 0)
 	{
-		print_event_selection(env, env->objects[env->selected_object].
-		nb_collision_events);
-		print_event(env, &env->objects[env->selected_object].
-		collision_events[env->editor.selected_event]);
+		if (print_event_selection(env, env->objects[env->selected_object].
+		nb_collision_events))
+			return (-1);
+		if (print_event(env, &env->objects[env->selected_object].
+		collision_events[env->editor.selected_event]))
+			return (-1);
 	}
 	return (0);
 }
@@ -82,10 +89,12 @@ int		print_on_death_events_tab(t_env *env)
 		return (-1);
 	if (env->enemies[env->selected_enemy].nb_death_events > 0)
 	{
-		print_event_selection(env, env->enemies[env->selected_enemy].
-		nb_death_events);
-		print_event(env, &env->enemies[env->selected_enemy].
-		death_events[env->editor.selected_event]);
+		if (print_event_selection(env, env->enemies[env->selected_enemy].
+		nb_death_events))
+			return (-1);
+		if (print_event(env, &env->enemies[env->selected_enemy].
+		death_events[env->editor.selected_event]))
+			return (-1);
 	}
 	return (0);
 }
@@ -118,8 +127,10 @@ int		print_enemy_events_tab(t_env *env)
 		if (print_on_death_events_tab(env))
 			return (-1);
 	}
-	draw_button(env, env->editor.next_events, env->editor.next_events.str);
-	draw_button(env, env->editor.previous_events,
-	env->editor.previous_events.str);
+	if (draw_button(env, env->editor.next_events, env->editor.next_events.str))
+		return (-1);
+	if (draw_button(env, env->editor.previous_events,
+	env->editor.previous_events.str))
+		return (-1);
 	return (0);
 }

@@ -45,11 +45,16 @@ int		start_game_menu(t_env *env)
 	SDL_SetRelativeMouseMode(0);
 	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
 		new_point(env->w, env->h), env);
-	draw_button(env, env->start_game_button, "START");
-	draw_button(env, env->next_difficulty, NULL);
-	draw_button(env, env->previous_difficulty, NULL);
-	draw_button(env, env->option_menu_ig, "OPTIONS");
-	draw_button(env, env->exit_button, "EXIT");
+	if (draw_button(env, env->start_game_button, "START"))
+		return (-1);
+	if (draw_button(env, env->next_difficulty, NULL))
+		return (-1);
+	if (draw_button(env, env->previous_difficulty, NULL))
+		return (-1);
+	if (draw_button(env, env->option_menu_ig, "OPTIONS"))
+		return (-1);
+	if (draw_button(env, env->exit_button, "EXIT"))
+		return (-1);
 	if (print_difficulty(env))
 		return (-1);
 	while (SDL_PollEvent(&env->sdl.event))

@@ -72,7 +72,9 @@ int		select_weapon(void *param)
 
 int		draw_weapon_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Damage");
-	draw_button(env, panel->targets[1], "Range");
+	if (draw_button(env, panel->targets[0], "Damage"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Range"))
+		return (-1);
 	return (0);
 }

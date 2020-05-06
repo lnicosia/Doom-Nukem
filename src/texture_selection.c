@@ -13,7 +13,20 @@
 #include "env.h"
 #include "draw.h"
 
-void	texture_tab(t_env *env, int nb_slots)
+int		texture_tab2(t_env *env)
+{
+	int	i;
+
+	i = -1;
+	while (++i < MAX_SKYBOX)
+	{
+		if (draw_button(env, env->editor.skyboxes[i],
+			env->editor.skyboxes[i].str))
+			return (-1);
+	}
+	return (0);
+}
+int		texture_tab(t_env *env, int nb_slots)
 {
 	int mod;
 	int	test;
@@ -32,8 +45,10 @@ void	texture_tab(t_env *env, int nb_slots)
 		env->editor.texture_selection_pos, env->editor.texture_selection_size);
 	i = -1;
 	while (++i < MAX_WALL_TEXTURE)
-		draw_button(env, env->editor.textures[i], env->editor.textures[i].str);
-	i = -1;
-	while (++i < MAX_SKYBOX)
-		draw_button(env, env->editor.skyboxes[i], env->editor.skyboxes[i].str);
+	{
+		if (draw_button(env, env->editor.textures[i],
+			env->editor.textures[i].str))
+			return (-1);
+	}
+	return (texture_tab2(env));
 }

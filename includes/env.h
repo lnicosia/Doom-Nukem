@@ -345,7 +345,7 @@ int						update_t_v2_tab(int index, int size, t_v2 **tab);
 int						update_t_list_tab(int index, int size, t_list ***tab);
 int						update_t_wall_sprite_tab(int index, int size,
 t_wall_sprites **tab);
-void					texture_tab(t_env *env, int nb_slots);
+int						texture_tab(t_env *env, int nb_slots);
 void					enemy_tab(t_env *env, int nb_slots);
 void					object_tab(t_env *env, int nb_slots);
 void					sprite_selection(t_env *env, int nb_slots);

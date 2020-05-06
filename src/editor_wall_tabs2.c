@@ -22,7 +22,9 @@ int		print_wall_sprite_sector_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].intensity);
 	env->editor.hud.s_wall_sprite.t_intensity.target =
 	&env->sectors[env->editor.selected_sector].intensity;
-	draw_button(env, env->editor.hud.s_wall_sprite.intensity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall_sprite.intensity,
+		env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Gravity:",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -31,7 +33,8 @@ int		print_wall_sprite_sector_tab2(t_env *env)
 	env->sectors[env->editor.selected_sector].gravity);
 	env->editor.hud.s_wall_sprite.t_gravity.target =
 	&env->sectors[env->editor.selected_sector].gravity;
-	draw_button(env, env->editor.hud.s_wall_sprite.gravity, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall_sprite.gravity, env->snprintf))
+		return (-1);
 	return (0);
 }
 
@@ -55,7 +58,9 @@ int		print_wall_sprite_sector_tab(t_env *env)
 	env->sectors[env->editor.selected_sector].brightness);
 	env->editor.hud.s_wall_sprite.t_brightness.target =
 	&env->sectors[env->editor.selected_sector].brightness;
-	draw_button(env, env->editor.hud.s_wall_sprite.brightness, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall_sprite.brightness,
+		env->snprintf))
+		return (-1);
 	if (print_text(new_point(560, 60), new_printable_text("Light_color:",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -63,7 +68,8 @@ int		print_wall_sprite_sector_tab(t_env *env)
 	env->sectors[env->editor.selected_sector].light_color);
 	env->editor.hud.s_wall_sprite.t_color.target =
 	&env->sectors[env->editor.selected_sector].light_color;
-	draw_button(env, env->editor.hud.s_wall_sprite.color, env->snprintf);
+	if (draw_button(env, env->editor.hud.s_wall_sprite.color, env->snprintf))
+		return (-1);
 	return (print_wall_sprite_sector_tab2(env));
 }
 
@@ -79,9 +85,11 @@ int		print_wall_sprite_tab3(t_env *env)
 	env->editor.hud.sp_wall_sprite.t_scale_y.target = &env->sectors[env->editor.
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	scale[env->selected_wall_sprite_sprite].y;
-	draw_button(env, env->editor.hud.sp_wall_sprite.scale_y, env->snprintf);
-	draw_button(env, env->editor.hud.sp_wall_sprite.add_sprite,
-	env->editor.hud.sp_wall_sprite.add_sprite.str);
+	if (draw_button(env, env->editor.hud.sp_wall_sprite.scale_y, env->snprintf))
+		return (-1);
+	if (draw_button(env, env->editor.hud.sp_wall_sprite.add_sprite,
+	env->editor.hud.sp_wall_sprite.add_sprite.str))
+		return (-1);
 	return (0);
 }
 
@@ -90,7 +98,8 @@ int		print_wall_sprite_tab2(t_env *env)
 	env->editor.hud.sp_wall_sprite.t_pos_y.target = &env->sectors[env->editor.
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	pos[env->selected_wall_sprite_sprite].y;
-	draw_button(env, env->editor.hud.sp_wall_sprite.pos_y, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_wall_sprite.pos_y, env->snprintf))
+		return (-1);
 	if (print_text(new_point(640, 60), new_printable_text("Scale X",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -104,7 +113,8 @@ int		print_wall_sprite_tab2(t_env *env)
 	env->editor.hud.sp_wall_sprite.t_scale_x.target = &env->sectors[env->editor.
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	scale[env->selected_wall_sprite_sprite].x;
-	draw_button(env, env->editor.hud.sp_wall_sprite.scale_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_wall_sprite.scale_x, env->snprintf))
+		return (-1);
 	if (print_text(new_point(680, 60), new_printable_text("Scale X",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
@@ -128,7 +138,8 @@ int		print_wall_sprite_tab(t_env *env)
 	env->editor.hud.sp_wall_sprite.t_pos_x.target = &env->sectors[env->editor.
 	selected_sector].wall_sprites[env->selected_wall_sprite_wall].
 	pos[env->selected_wall_sprite_sprite].x;
-	draw_button(env, env->editor.hud.sp_wall_sprite.pos_x, env->snprintf);
+	if (draw_button(env, env->editor.hud.sp_wall_sprite.pos_x, env->snprintf))
+		return (-1);
 	if (print_text(new_point(600, 60), new_printable_text("Y",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);

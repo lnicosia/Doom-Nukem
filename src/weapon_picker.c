@@ -69,10 +69,14 @@ int		draw_weapon_picker(t_env *env)
 	env->editor.event_panel.top_size + env->editor.weapon_picker.pos.y),
 	new_point(env->editor.weapon_picker.size.x,
 	env->editor.weapon_picker.size.y - env->editor.event_panel.top_size));
-	draw_button(env, env->editor.weapon_picker.next, NULL);
-	draw_button(env, env->editor.weapon_picker.previous, NULL);
-	draw_button(env, env->editor.weapon_picker.ok, "OK");
-	draw_button(env, env->editor.weapon_picker.cancel, "X");
+	if (draw_button(env, env->editor.weapon_picker.next, NULL))
+		return (-1);
+	if (draw_button(env, env->editor.weapon_picker.previous, NULL))
+		return (-1);
+	if (draw_button(env, env->editor.weapon_picker.ok, "OK"))
+		return (-1);
+	if (draw_button(env, env->editor.weapon_picker.cancel, "X"))
+		return (-1);
 	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Weapon picker",
 	&text_size.x, &text_size.y))
 		return (-1);

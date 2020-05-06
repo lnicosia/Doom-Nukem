@@ -76,9 +76,13 @@ int		select_sector_other(void *param)
 
 int		draw_sector_other_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Light brightness");
-	draw_button(env, panel->targets[1], "Light color");
-	draw_button(env, panel->targets[2], "Color intensity");
-	draw_button(env, panel->targets[3], "Gravity");
+	if (draw_button(env, panel->targets[0], "Light brightness"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Light color"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Color intensity"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Gravity"))
+		return (-1);
 	return (0);
 }
