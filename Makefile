@@ -411,8 +411,8 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
           -Wno-unused-result \
-		  -O3 \
 		  #-fsanitize=address -g3 \
+		  #-O3 \
 		  #-Wno-misleading-indentation \
 		  #-flto \
 		  #-fdata-sections \

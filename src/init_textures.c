@@ -61,7 +61,6 @@ int		init_textures3(t_env *env)
 		return (custom_error("Failed to load raygun sprite\n"));
 	if (parse_bmp("images/sprites/hd.bmp", 52, env))
 		return (custom_error("Failed to load raygun sprite\n"));
-	return (-1);
 	if (init_skyboxes_textures(env))
 		return (custom_error("Could not load skyboxes textures\n"));
 	return (0);
