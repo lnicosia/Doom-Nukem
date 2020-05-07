@@ -20,6 +20,5 @@ int		main(int ac, char **av)
 	if (i == 1 &&
 		i == 1)
 		init_game(ac, av);
-	while (1);
 	return (0);
 }
