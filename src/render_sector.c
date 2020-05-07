@@ -37,7 +37,8 @@ t_env *env)
 	new.xmin = render->xstart;
 	new.sector = &env->sectors[sector->neighbors[render->i]];
 	new.xmax = render->xend;
-	render_sector(new, env);
+	if (render_sector(new, env))
+		return (-1);
 	if (env->editor.selected_wall == render->i && !just_selected
 		&& env->editor.selected_sector == sector->num)
 	{
