@@ -52,7 +52,7 @@ t_env *env)
 		if (select_portal(sector, render, env))
 			return (-1);
 	}
-	reset_screen_limits(env);
+	reset_screen_limits(render, env);
 	return (0);
 }
 
@@ -99,8 +99,8 @@ int		render_sector(t_render render, t_env *env)
 	j = -1;
 	while (++j < env->w)
 	{
-		env->tmp_max[j] = env->ymax[j];
-		env->tmp_min[j] = env->ymin[j];
+		render.tmp_max[j] = env->ymax[j];
+		render.tmp_min[j] = env->ymin[j];
 	}
 	i = -1;
 	while (++i < sector->nb_vertices)

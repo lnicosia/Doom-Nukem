@@ -70,8 +70,9 @@ dkms.conf
 photoshop_sprite
 
 # Windows objects
-doom.exe.stackdump
+doom-nukem.exe.stackdump
 doom_editor.exe.stackdump
+*.stackdump
 
 # Perf log file
 benchmark.txt
