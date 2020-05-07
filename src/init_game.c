@@ -34,6 +34,8 @@ int		init_game5(t_env *env)
 	sounds_vol_up_button(env);
 	sounds_vol_down_button(env);
 	fps_option_button(env);
+	fov_increase_button(env);
+	fov_decrease_button(env);
 	return (doom(env));
 }
 

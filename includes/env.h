@@ -172,6 +172,8 @@ typedef struct			s_env
 	t_button			sounds_vol_up;
 	t_button			sounds_vol_down;
 	t_button			fps_option;
+	t_button			fov_decrease;
+	t_button			fov_increase;
 	pid_t				pid;
 	pid_t				c_pid;
 }						t_env;
@@ -729,6 +731,7 @@ int						print_object_sector_tab(t_env *env);
 int						print_floor_sprite_tab(t_env *env);
 int						print_ceiling_sprite_tab(t_env *env);
 int						print_wall_sprite_tab(t_env *env);
+void					print_hfov_value(t_env *env);
 
 /*
 **	buttons for selections
@@ -1082,6 +1085,7 @@ int						hitscan_enemies(t_env *env, int i);
 int						hitscan_objects(t_env *env, int i);
 int						damage_done(t_env *env, double rotated_pos_w);
 
+
 /*
 ** Screen utils
 */
@@ -1327,6 +1331,8 @@ int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);
 int						sounds_volume_down(void *param);
 int						return_button_func(void *param);
+int						fov_increase_button(t_env *env);
+int						fov_decrease_button(t_env *env);
 void					add_button(t_env *env, int text, int x, int y,
 int ref_but);
 int						button_leftclick(t_env *env, int nb);

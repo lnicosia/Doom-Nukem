@@ -15,6 +15,6 @@ int		fps_option_button(t_env *env)
 		env, env);
 	env->fps_option.pos =
 		new_point(env->h_w - env->start_game_button.size_down.x / 2,
-		(env->h_h - env->start_game_button.size_down.y / 2) - env->h_h / 4);
+		(env->h_h - env->start_game_button.size_down.y / 2) - env->h_h / 3);
 	return (0);
 }

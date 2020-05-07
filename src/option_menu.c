@@ -82,6 +82,8 @@ void	draw_option_menu_ig_buttons(t_env *env)
 	draw_button(env, env->sounds_vol_up, NULL);
 	draw_button(env, env->sounds_vol_down, NULL);
 	draw_button(env, env->fps_option, "FPS");
+	draw_button(env, env->fov_increase, NULL);
+	draw_button(env, env->fov_decrease, NULL);
 }
 
 void	option_menu_ig(t_env *env)
@@ -92,6 +94,7 @@ void	option_menu_ig(t_env *env)
 	draw_option_menu_ig_buttons(env);
 	print_music_vol(env);
 	print_sounds_vol(env);
+	print_hfov_value(env);
 	while (SDL_PollEvent(&env->sdl.event))
 	{
 		if (env->sdl.event.type == SDL_QUIT ||
