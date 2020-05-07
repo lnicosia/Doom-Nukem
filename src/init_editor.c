@@ -41,6 +41,7 @@ int		init_editor3(t_env *env)
 
 int		init_editor2(int ac, char **av, t_env *env)
 {
+	ft_printf("before parsing\n");
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
@@ -59,6 +60,7 @@ int		init_editor2(int ac, char **av, t_env *env)
 		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
+	ft_printf("after parsing\n");
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
 	if (init_object_sprites(env))
