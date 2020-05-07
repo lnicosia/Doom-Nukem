@@ -1,3 +1,5 @@
+sudo mv sound_lib/libfmod.dylib /usr/local/lib
+sudo mv sound_lib/libfmodL.dylib /usr/local/lib
 cd lib
 for f in *.gz; do tar -xvf "$f"; done
 cd libelf-0.8.13
