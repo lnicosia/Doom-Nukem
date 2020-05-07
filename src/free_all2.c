@@ -18,7 +18,7 @@ void		free_sprite_textures(t_env *env)
 	size_t	j;
 
 	i = 0;
-	while (i < MAX_TEXTURES)
+	while (i < MAX_SPRITES_TEXTURES)
 	{
 		if (env->sprite_textures[i].surface)
 			SDL_FreeSurface(env->sprite_textures[i].surface);

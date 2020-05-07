@@ -16,19 +16,35 @@
 **	Checks if two segments given by 4 points intersect
 */
 
+int		check_parallels(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
+{
+	t_v2	vt1;
+	t_v2	vt2;
+
+	vt1.x = v2.x - v1.x;
+	vt1.y = v2.y - v1.y;
+	vt2.x = v4.x - v3.x;
+	vt2.y = v4.y - v3.y;
+	if ((vt1.x * vt2.y) == (vt1.y * vt2.x))
+		return (1);
+	return (0);
+}
+
 int		segments_intersect(t_v2 v1, t_v2 v2, t_v2 v3, t_v2 v4)
 {
 	t_v2	intersection;
 
 	intersection = get_intersection(v1, v2, v3, v4);
-	if ((intersection.x < v1.x && intersection.x < v2.x)
-			|| (intersection.x > v1.x && intersection.x > v2.x)
-			|| (intersection.y < v1.y && intersection.y < v2.y)
-			|| (intersection.y > v1.y && intersection.y > v2.y)
-			|| (intersection.x < v3.x && intersection.x < v4.x)
-			|| (intersection.x > v3.x && intersection.x > v4.x)
-			|| (intersection.y < v3.y && intersection.y < v4.y)
-			|| (intersection.y > v3.y && intersection.y > v4.y))
+	if (check_parallels(v1, v2, v3, v4))
+		return (0);
+	if ((intersection.x <= v1.x && intersection.x <= v2.x)
+			|| (intersection.x >= v1.x && intersection.x >= v2.x)
+			|| (intersection.y <= v1.y && intersection.y <= v2.y)
+			|| (intersection.y >= v1.y && intersection.y >= v2.y)
+			|| (intersection.x <= v3.x && intersection.x <= v4.x)
+			|| (intersection.x >= v3.x && intersection.x >= v4.x)
+			|| (intersection.y <= v3.y && intersection.y <= v4.y)
+			|| (intersection.y >= v3.y && intersection.y >= v4.y))
 		return (0);
 	return (1);
 }

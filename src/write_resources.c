@@ -42,7 +42,7 @@ int		write_skyboxes(int fd, int file)
 int		write_fonts(int fd, int file)
 {
 	ft_printf("saving fonts\n");
-	ft_dprintf(fd, "F %d\n", NB_FONTS);
+	ft_dprintf(fd, "F %d\n", NB_FONTS_FILE);
 	if (write_fonts1(fd, file))
 		return (-1);
 	if (write_fonts2(fd, file))
@@ -68,7 +68,11 @@ int		write_hud(int fd, int file)
 		return (-1);
 	if (write_hud7(fd, file))
 		return (-1);
-	return (0);
+	if (write_hud8(fd, file))
+		return (-1);
+	if (write_hud9(fd, file))
+		return (-1);
+	return (0);	
 }
 
 int		write_resources(int fd, t_env *env)

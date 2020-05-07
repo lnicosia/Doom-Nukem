@@ -15,6 +15,7 @@
 
 # include "utils.h"
 # include "editor.h"
+# include "defines_images.h"
 # include "map_parser.h"
 # include "events_parser.h"
 
@@ -39,9 +40,9 @@ typedef struct			s_env
 	t_sector			*sectors;
 	t_object			*objects;
 	t_enemy				*enemies;
-	t_sprite			enemy_sprites[MAX_ENEMY_SPRITES + 1];
-	t_sprite			object_sprites[MAX_OBJECT_SPRITES + 1];
-	t_texture			sprite_textures[MAX_TEXTURES];
+	t_sprite			enemy_sprites[MAX_ENEMY_SPRITES];
+	t_sprite			object_sprites[MAX_OBJECT_SPRITES];
+	t_texture			sprite_textures[MAX_SPRITES_TEXTURES];
 	t_texture			wall_textures[MAX_WALL_TEXTURE];
 	t_texture			ui_textures[MAX_UI_TEXTURES];
 	t_texture			mini_skyboxes[MAX_SKYBOX * 2];
@@ -167,6 +168,12 @@ typedef struct			s_env
 	t_button			sounds_vol_down;
 	pid_t				pid;
 	pid_t				c_pid;
+	t_init				init;
+	int					hud_start;
+	int					editor_start;
+	int					enemies_start;
+	int					wall_sprites_start;
+	int					objects_sprites_start;
 }						t_env;
 
 /*
@@ -191,6 +198,70 @@ int						custom_error_with_line(const char *message,
 t_map_parser *parser);
 int						sector_error(const char *message, int sector,
 t_map_parser *parser);
+
+//	init bmp before parsing
+int					init_wall_textures(t_env *env);
+int					init_wall_textures1(t_env *env);
+int					init_wall_textures2(t_env *env);
+int					init_sprites_textures(t_env *env);
+int					init_skyboxes_textures(t_env *env);
+int					init_skyboxes_textures1(t_env *env);
+int					init_skyboxes_textures2(t_env *env);
+int					init_skyboxes_textures3(t_env *env);	
+int					init_skyboxes_textures4(t_env *env);
+int					init_skyboxes_textures5(t_env *env);
+int					init_hud_textures(t_env *env);
+int					init_hud_textures1(t_env *env);
+int					init_hud_textures2(t_env *env);
+int					init_hud_textures3(t_env *env);
+int					init_hud_textures4(t_env *env);
+int					init_hud_textures5(t_env *env);
+int					init_hud_textures6(t_env *env);
+int					init_hud_textures7(t_env *env);
+int					init_hud_textures8(t_env *env);
+int					init_hud_textures9(t_env *env);
+int					init_enemies_sprites_textures(t_env *env);
+int					init_objects_sprites_textures(t_env *env);
+int					init_wall_sprites_textures(t_env *env);
+int					init_editor_sprites(t_env *env);
+
+//	when parsing init resources again
+int					check_existing_files(t_env *env, char *name);
+int					check_existing_fonts(t_env *env, char *name);
+int					check_existing_sounds(t_env *env, char *name);
+int					check_wall_textures(t_env *env);
+int					check_wall_textures2(t_env *env);
+int					check_textures(t_env *env);
+int					check_sprites_textures(t_env *env);
+int					check_hud_textures(t_env *env);
+int					check_skyboxes(t_env *env);
+int					check_shotgun(t_env *env);
+int					check_raygun(t_env *env);
+int					check_gatling(t_env *env);
+int					check_gun(t_env *env);
+int					check_sounds(t_env *env);
+int					check_fonts(t_env *env);
+int					check_fonts1(t_env *env);
+int					check_fonts2(t_env *env);
+int					check_fonts3(t_env *env);
+int					check_fonts4(t_env *env);
+int					check_fonts5(t_env *env);
+int					check_fonts6(t_env *env);
+int					check_fonts7(t_env *env);
+int					check_fonts8(t_env *env);
+int					check_fonts9(t_env *env);
+int					check_fonts10(t_env *env);
+int					check_fonts11(t_env *env);
+int					new_parsing_sprite(char *name, int index, t_env *env);
+int					new_parsed_hud_file(char *name, t_env *env);
+int					new_parsed_textures(char *name, t_env *env);
+int					map_parse_hud(t_env *env, t_map_parser *parser);
+int					map_parse_textures(t_env *env, t_map_parser *parser);
+int					map_parse_sounds(t_env *env, t_map_parser *parser);
+int					map_parse_sprites(t_env *env, t_map_parser *parser);
+int					map_parse_skyboxes(t_env *env, t_map_parser *parser);
+int					map_parse_fonts(t_env *env, t_map_parser *parser);
+int					skip_file(t_map_parser *parser);
 
 /*
 ** Editor functions

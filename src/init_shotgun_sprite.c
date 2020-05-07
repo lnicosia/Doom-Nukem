@@ -14,7 +14,7 @@
 
 void	init_shotgun_sprite(t_env *env)
 {
-	env->object_sprites[31].texture = 22;
+	env->object_sprites[31].texture = env->objects_sprites_start + 1;
 	env->object_sprites[31].oriented = 0;
 	env->object_sprites[31].rest_sprite = 31;
 	env->object_sprites[31].start[0].x = 512;

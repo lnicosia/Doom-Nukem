@@ -33,7 +33,11 @@ t_vertex vt1, t_vertex vt2)
 			|| (env->vertices[sector.vertices[i]].num != vt1.num
 			&& env->vertices[sector.vertices[i + 1]].num == vt2.num)
 			|| (env->vertices[sector.vertices[i]].num != vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt1.num))
+			&& env->vertices[sector.vertices[i + 1]].num == vt1.num)
+			|| ((env->vertices[sector.vertices[i]].num == vt2.num
+			&& env->vertices[sector.vertices[i + 1]].num == vt1.num)
+			|| (env->vertices[sector.vertices[i]].num == vt2.num
+			&& env->vertices[sector.vertices[i + 1]].num == vt2.num)))
 				i = i - 0;
 			else
 				return (-1);

@@ -17,7 +17,7 @@ void	init_gun_weapon(t_env *env)
 	env->weapons[0].name = "Gun";
 	env->weapons[0].possessed = 1;
 	env->weapons[0].weapon_switch = 0;
-	env->weapons[0].first_sprite = 40;
+	env->weapons[0].first_sprite = env->hud_start + 22;
 	env->weapons[0].nb_sprites = 6;
 	env->weapons[0].ammo_type = ROCKET;
 	env->weapons[0].ammo = 20;

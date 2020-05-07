@@ -82,7 +82,7 @@ void	init_cyber_demon_pursuit_three2(t_env *env)
 
 void	init_cyber_demon_pursuit_three(t_env *env)
 {
-	env->enemy_sprites[7].texture = 24;
+	env->enemy_sprites[7].texture = env->enemies_start;
 	env->enemy_sprites[7].death_counterpart = 12;
 	env->enemy_sprites[7].pursuit_sprite = 8;
 	env->enemy_sprites[7].firing_sprite = 9;

@@ -14,7 +14,7 @@
 
 void	init_monitor_off(t_env *env)
 {
-	env->object_sprites[11].texture = 22;
+	env->object_sprites[11].texture = env->objects_sprites_start + 1;
 	env->object_sprites[11].death_counterpart = 16;
 	env->object_sprites[11].nb_death_sprites = 1;
 	env->object_sprites[11].oriented = 0;
@@ -30,7 +30,7 @@ void	init_monitor_off(t_env *env)
 
 void	init_monitor_anim(t_env *env)
 {
-	env->object_sprites[12].texture = 22;
+	env->object_sprites[12].texture = env->objects_sprites_start + 1;
 	env->object_sprites[12].death_counterpart = 16;
 	env->object_sprites[12].nb_death_sprites = 1;
 	env->object_sprites[12].oriented = 0;
@@ -42,7 +42,7 @@ void	init_monitor_anim(t_env *env)
 	env->object_sprites[12].end[0].y = 254;
 	env->object_sprites[12].size[0].x = 28;
 	env->object_sprites[12].size[0].y = 27;
-	env->object_sprites[13].texture = 22;
+	env->object_sprites[13].texture = env->objects_sprites_start + 1;
 	env->object_sprites[13].death_counterpart = 16;
 	env->object_sprites[13].nb_death_sprites = 1;
 	env->object_sprites[13].oriented = 0;
@@ -58,7 +58,7 @@ void	init_monitor_anim(t_env *env)
 
 void	init_monitor_anim_two(t_env *env)
 {
-	env->object_sprites[14].texture = 22;
+	env->object_sprites[14].texture = env->objects_sprites_start + 1;
 	env->object_sprites[14].death_counterpart = 16;
 	env->object_sprites[14].nb_death_sprites = 1;
 	env->object_sprites[14].oriented = 0;
@@ -70,7 +70,7 @@ void	init_monitor_anim_two(t_env *env)
 	env->object_sprites[14].end[0].y = 254;
 	env->object_sprites[14].size[0].x = 28;
 	env->object_sprites[14].size[0].y = 27;
-	env->object_sprites[15].texture = 22;
+	env->object_sprites[15].texture = env->objects_sprites_start + 1;
 	env->object_sprites[15].death_counterpart = 16;
 	env->object_sprites[15].nb_death_sprites = 1;
 	env->object_sprites[15].oriented = 0;
@@ -86,7 +86,7 @@ void	init_monitor_anim_two(t_env *env)
 
 void	init_monitor_destroyed(t_env *env)
 {
-	env->object_sprites[16].texture = 22;
+	env->object_sprites[16].texture = env->objects_sprites_start + 1;
 	env->object_sprites[16].death_counterpart = 16;
 	env->object_sprites[16].nb_death_sprites = 1;
 	env->object_sprites[16].oriented = 0;

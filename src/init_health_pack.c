@@ -14,7 +14,7 @@
 
 void	init_health_pack(t_env *env)
 {
-	env->object_sprites[2].texture = 22;
+	env->object_sprites[2].texture = env->objects_sprites_start + 1;
 	env->object_sprites[2].death_counterpart = 2;
 	env->object_sprites[2].oriented = 0;
 	env->object_sprites[2].rest_sprite = 2;

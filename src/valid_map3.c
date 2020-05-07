@@ -111,7 +111,8 @@ int			check_neighbor_validity(t_sector sector, t_env *env)
 	t_sector	neighbor;
 
 	i = 0;
-	while (i < env->sectors[sector.num].nb_vertices)
+	while (i < env->sectors[sector.num].nb_vertices
+	&& env->nb_sectors > 0)
 	{
 		if (env->sectors[sector.num].neighbors[i] != -1)
 		{

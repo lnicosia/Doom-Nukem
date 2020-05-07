@@ -14,7 +14,7 @@
 
 void	init_button_off(t_env *env)
 {
-	env->object_sprites[24].texture = 32;
+	env->object_sprites[24].texture = env->wall_sprites_start + 1;
 	env->object_sprites[24].death_counterpart = 1;
 	env->object_sprites[24].pursuit_sprite = 1;
 	env->object_sprites[24].rest_sprite = 24;
@@ -32,7 +32,7 @@ void	init_button_off(t_env *env)
 
 void	init_button_on(t_env *env)
 {
-	env->object_sprites[25].texture = 33;
+	env->object_sprites[25].texture = env->wall_sprites_start + 2;
 	env->object_sprites[25].death_counterpart = 2;
 	env->object_sprites[25].pursuit_sprite = 2;
 	env->object_sprites[25].rest_sprite = 25;

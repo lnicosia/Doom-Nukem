@@ -30,7 +30,16 @@ int		init_editor4(t_env *env)
 	return (editor(env));
 }
 
-int		init_editor3(int ac, char **av, t_env *env)
+int		init_editor3(t_env *env)
+{
+	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (crash("Could not malloc sector list\n", env));
+	view(env);
+	update_camera_position(&env->player.camera);
+	return (init_editor4(env));
+}
+
+int		init_editor2(int ac, char **av, t_env *env)
 {
 	if (ac == 1)
 	{
@@ -50,23 +59,6 @@ int		init_editor3(int ac, char **av, t_env *env)
 		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
-	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (crash("Could not malloc sector list\n", env));
-	view(env);
-	update_camera_position(&env->player.camera);
-	return (init_editor4(env));
-}
-
-int		init_editor2(int ac, char **av, t_env *env)
-{
-	if (init_audio(env))
-		return (crash("Could not load sound\n", env));
-	if (init_ttf(env))
-		return (crash("Could not load fonts\n", env));
-	if (init_input_box(&env->input_box, env))
-		return (crash("Could not init input box\n", env));
-	if (init_textures(env))
-		return (crash("Could not load textures\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
 	if (init_object_sprites(env))
@@ -75,7 +67,25 @@ int		init_editor2(int ac, char **av, t_env *env)
 		return (crash("Could not load enemy sprites\n", env));
 	if (init_editor_hud(env))
 		return (crash("Could not init hud\n", env));
-	return (init_editor3(ac, av, env));
+	return (init_editor3(env));
+}
+
+int		init_editor1(int ac, char **av, t_env *env)
+{
+	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
+		return (crash("Could not malloc snprintf char *\n", env));
+	if (init_sdl(env))
+		return (crash("Could not initialize SDL\n", env));
+	if (init_audio(env))
+		return (crash("Could not load sound\n", env));
+	if (init_ttf(env))
+		return (crash("Could not load fonts\n", env));
+	if (init_input_box(&env->input_box, env))
+		return (crash("Could not init input box\n", env));
+	init_textures(env);
+	if (generate_mipmaps(env))
+		return (crash("Could not generate mipmaps\n", env));
+	return (init_editor2(ac, av, env));
 }
 
 int		init_editor(int ac, char **av)
@@ -85,6 +95,11 @@ int		init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
+	env.enemies_start = 0;
+	env.objects_sprites_start = MAX_ENEMIES;
+	env.wall_sprites_start = MAX_ENEMIES + NB_OBJECTS_SPRITES;
+	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
+	env.hud_start = env.editor_start + NB_HUD_SPRITES;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
@@ -98,9 +113,5 @@ int		init_editor(int ac, char **av)
 	init_print_condition_target_data(&env);
 	init_event_links_types(&env);
 	init_print_link_target_data(&env);
-	if (!(env.snprintf = ft_strnew(SNPRINTF_SIZE)))
-		return (crash("Could not malloc snprintf char *\n", &env));
-	if (init_sdl(&env))
-		return (crash("Could not initialize SDL\n", &env));
-	return (init_editor2(ac, av, &env));
+	return (init_editor1(ac, av, &env));
 }

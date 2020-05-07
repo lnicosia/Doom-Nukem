@@ -35,7 +35,7 @@ int		init_object_sprites(t_env *env)
 	init_shotgun_sprite(env);
 	init_raygun_sprite(env);
 	init_doom_guy(env);
-	init_hd_sprite(env);
+//	init_hd_sprite(env);
 	return (0);
 }
 

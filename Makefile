@@ -42,6 +42,7 @@ SDL_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
+RESOURCES =  ressources.tar.gz
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -176,7 +177,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_sectors3.c check_ceiling_height_input_box.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c \
+		update_sector_input_box.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -305,15 +306,26 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
-		   is_new_sector_convex.c set_new_string_input_box.c \
+		   set_new_string_input_box.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
+		   is_new_sector_convex.c init_skyboxes_textures2.c\
+		   init_enemies_textures.c init_sprites_textures.c \
+		   init_hud_textures.c init_hud_textures2.c init_wall_textures.c \
+		   init_mini_skyboxes.c check_existing_files.c \
+		   check_weapons_sprites.c check_walls_textures.c \
+		   check_sprites_textures.c check_textures.c check_hud_textures.c \
+		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
+		   init_ttf2.c check_existing_fonts.c check_fonts.c \
+		   check_fonts2.c check_existing_sounds.c map_parse_textures.c \
+		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
+		   parse_font.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
 		  wall_sprite_remover.h events_conditions.h \
 		  events_parser.h draw_grid_walls.h valid_map.h events.h free.h\
 		  draw_skybox.h pop_events.h events_protection.h init.h \
-		  parser.h enemies.h draw.h\
+		  parser.h enemies.h draw.h defines_images.h\
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
@@ -463,8 +475,7 @@ GREEN := "\e[0;32m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
 
-all:
-	@make $(ALL_RESOURCES)
+all: $(RESOURCES)
 	@make -C $(LIBFT_DIR) -j8
 	@printf "\e[0m"
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -542,13 +553,8 @@ $(FONTS_PATH)/%.ttf: $(FONTS_SOURCE_PATH)/%.ttf
 	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
 	@cp $< $@
 
-$(ALL_RESOURCES):	$(TEXTURES_DIR) $(TEXTURES_FILES) \
-					$(SPRITES_DIR) $(SPRITES_FILES) \
-					$(SKYBOXES_DIR) $(SKYBOXES_FILES) \
-					$(HUD_DIR) $(HUD_FILES) \
-					$(UI_DIR) $(UI_FILES) \
-					$(AUDIO_DIR) $(AUDIO_FILES) \
-					$(FONTS_DIR) $(FONTS_FILES)
+$(RESOURCES):
+	@wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O ressources.tar.gz && rm -rf /tmp/cookies.txt
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"

@@ -134,7 +134,7 @@ int		editor_options1(t_env *env, t_point center, t_point size)
 	if (TTF_SizeText(env->sdl.fonts.lato15,
 	env->sound.musics[env->sound.ambient_music].music_name, &center.x,
 	&center.y))
-		return (-1);
+		return (ft_printf("TTF_SizeText error: %s\n", TTF_GetError()));
 	if (print_text(new_point(322, 105 - center.x / 2), new_printable_text(
 	env->sound.musics[env->sound.ambient_music].music_name,
 	env->sdl.fonts.lato15, 0x00000000, 15), env))

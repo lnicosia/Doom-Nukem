@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-int		init_mini_skyboxes_selection(t_env *env)
+int		check_mini_skyboxes_selection(t_env *env)
 {
 	if (parse_bmp_mini_skyboxes_textures("images/ui/moonlight.bmp", 0,
 		env))
@@ -165,9 +165,6 @@ int		init_ui_textures(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/previous-pressed2_pink.bmp", 62, env))
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/previous-hover2_pink.bmp", 63, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (init_mini_skyboxes_selection(env))
-		return (custom_error("error while parsing the miniatures of"
-		" the skyboxes\n"));
+		return (custom_error("Invalid bmp files"));
 	return (0);
 }

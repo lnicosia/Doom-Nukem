@@ -20,60 +20,43 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
+# include "defines_images.h"
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
+# define CONVERT_RADIANS 0.0174532925199432955
+# define CONVERT_DEGREES 57.2957795130823228647
+
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 53
 # define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 34
 # define MAX_ENEMY_SPRITES 13
-# define CONVERT_RADIANS 0.0174532925199432955
-# define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 25
-# define NB_BUTTON 10
-# define AMMO_HUD 26
-# define ARMOR_LIFE_HUD 27
-# define THREADS 4
-# define MAX_W 2560
-# define MAX_H 1440
-# define LOST_SOUL 0
-# define CYBER_DEMON 5
-# define MINIGUN 0
-# define HEALTH_PACK 2
-# define SHELL_AMMO 3
-# define ROCKETS_AMMO 4
-# define REGULAR_AMMO 5
-# define ENERGY_AMMO 6
-# define LAMP 7
-# define MONITOR_OFF 11
-# define MONITOR_ON 12
-# define MONITOR_DESTROYED 16
-# define GREEN_ARMOR 17
-# define CANDLE 18
-# define BARREL 20
-# define GRID 23
-# define BUTTON_OFF 24
-# define BUTTON_ON 25
-# define BULLET_HOLE 26
-# define LOST_SOUL_OBJECT 27
-# define CYBER_DEMON_OBJECT 28
-# define NB_MUSICS 3
-# define NB_SOUNDS 3
-# define DOOM_GUY_FACE 29
-# define CAMERA_SPRITE 30
-# define SHOTGUN_SPRITE 31
-# define RAYGUN_SPRITE 32
-# define DOOM_GUY 33
+# define MAX_OBJECTS 24
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 69
 # define MAX_REAL_TARGET_TYPES 67
+# define NB_FONTS_FILE 8
+# define NB_FONTS 35
+# define NB_ENEMIES_FILES 32
+# define NB_EDITOR_FILES 3
+# define NB_OBJECTS_SPRITES 4
+# define NB_WALL_SPRITES 4
+# define NB_HUD_SPRITES 3
+
 # define NB_BMP_SPRITES 13
-# define NB_FONTS 8
-# define NB_HUD_FILES 32
+# define NB_HUD_FILES 36
+# define MAX_SPRITES_TEXTURES 49
+
+# define NB_BUTTON 10
+# define THREADS 4
+# define MAX_W 2560
+# define MAX_H 1440
+# define NB_MUSICS 3
+# define NB_SOUNDS 4
 
 typedef	enum		e_musics_list
 {
@@ -221,6 +204,30 @@ typedef enum		e_ui_textures
 {
 	BACKGROUND
 }					t_ui_textures;
+
+typedef struct		s_init
+{
+	int				textures[MAX_WALL_TEXTURE];
+	char			*text_name[MAX_WALL_TEXTURE];
+	int				hud[NB_HUD_FILES];
+	char			*hud_names[NB_HUD_FILES];
+	int				skyboxes[MAX_SKYBOX * 6];
+	char			*skyboxes_names[MAX_SKYBOX * 6];
+	int				sprites[MAX_SKYBOX * 6];
+	char			*sprites_names[MAX_SKYBOX * 6];
+	int				enemies[MAX_ENEMIES];
+	char			*enemy_names[MAX_ENEMIES];
+	int				objects[MAX_OBJECTS];
+	char			*objects_names[MAX_OBJECTS];
+	int				mini_skyboxes[MAX_SKYBOX];
+	char			*mini_skyboxes_names[MAX_SKYBOX];
+	int				fonts[NB_FONTS];
+	char			*fonts_names[NB_FONTS];
+	int				sounds[NB_SOUNDS];
+	char			*sounds_names[NB_SOUNDS];
+	int				musics[NB_MUSICS];
+	char			*musics_names[NB_MUSICS];
+}					t_init;
 
 typedef	struct		s_resource
 {

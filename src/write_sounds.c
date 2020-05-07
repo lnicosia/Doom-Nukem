@@ -23,7 +23,7 @@ int		write_sound(int file, int fd, char *name)
 	if (read(file, header, 44) != 44)
 		return (custom_error("Invalid wav file\n"));
 	size = read_int32(header, 4);
-	ft_dprintf(fd, "%s\n%d\n", name, size);
+	ft_dprintf(fd, "%s\n%d\n", name, size + 8);
 	write(fd, header, 44);
 	while ((ret = (read(file, resource, 10000))) > 0)
 		write(fd, resource, ret);
@@ -45,6 +45,10 @@ int		write_sounds2(int fd, t_env *env)
 	if ((file = open("./audio/footstep.wav", O_RDONLY)) < 0)
 		return (custom_error("Could not open footstep sound\n"));
 	if (write_sound(file, fd, "./audio/footstep.wav"))
+		return (-1);
+	if ((file = open("./audio/handgun_shot.wav", O_RDONLY)) < 0)
+		return (ft_printf("Could not open footstep sound\n"));
+	if (write_sound(file, fd, "./audio/handgun_shot.wav"))
 		return (-1);
 	return (0);
 }

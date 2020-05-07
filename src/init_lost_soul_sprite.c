@@ -82,7 +82,7 @@ void	init_lost_soul_sprite2(t_env *env)
 
 void	init_lost_soul_sprite(t_env *env)
 {
-	env->enemy_sprites[0].texture = 23;
+	env->enemy_sprites[0].texture = env->enemies_start + 1;
 	env->enemy_sprites[0].death_counterpart = 4;
 	env->enemy_sprites[0].pursuit_sprite = 2;
 	env->enemy_sprites[0].firing_sprite = 2;

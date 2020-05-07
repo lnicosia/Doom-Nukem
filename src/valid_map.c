@@ -16,19 +16,19 @@ int			check_vertices(t_sector sector, t_env *env)
 {
 	int			i;
 	int			j;
-	//t_vertex	v1;
-	//t_vertex	v2;
+	t_vertex	v1;
+	t_vertex	v2;
 
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
-		//v1 = env->vertices[sector.vertices[i]];
-		//v2 = env->vertices[sector.vertices[i + 1]];
+		v1 = env->vertices[sector.vertices[i]];
+		v2 = env->vertices[sector.vertices[i + 1]];
 		j = 0;
 		while (j < env->nb_sectors)
 		{
-			//if (check_intersection_with_sector(env->sectors[j], env, v1, v2))
-				//return (-1);
+			if (env->sectors[j].num != sector.num && check_intersection_with_sector(env->sectors[j], env, v1, v2))
+				return (-1);
 			j++;
 		}
 		i++;
@@ -69,12 +69,10 @@ int			distance_bewteen_ceiling_and_floor(t_sector sector)
 int			check_sector(t_sector sector, t_env *env)
 {
 	if (is_inside(sector, env))
-	{
 		return (custom_error("Sector %d is inside or contains a sector\n",
 		sector.num));
-	}
-		if (check_vertices(sector, env))
-		return (custom_error("Vertices invalid\n"));
+	if (check_vertices(sector, env))
+		return (ft_printf("Vertices invalid\n"));
 	if (check_slopes_start(sector))
 		return (custom_error("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))

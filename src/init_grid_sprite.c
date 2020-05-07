@@ -14,7 +14,7 @@
 
 void	init_grid_sprite(t_env *env)
 {
-	env->object_sprites[23].texture = 31;
+	env->object_sprites[23].texture = env->wall_sprites_start + 3;
 	env->object_sprites[23].death_counterpart = 0;
 	env->object_sprites[23].pursuit_sprite = 0;
 	env->object_sprites[23].rest_sprite = 23;

@@ -16,7 +16,7 @@ void	init_gatling_weapon(t_env *env)
 {
 	env->weapons[4].name = "Gatling";
 	env->weapons[4].possessed = 0;
-	env->weapons[4].first_sprite = 46;
+	env->weapons[4].first_sprite = env->hud_start + 28;
 	env->weapons[4].nb_sprites = 6;
 	env->weapons[4].ammo_type = REGULAR;
 	env->weapons[4].ammo = 200;

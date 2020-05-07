@@ -87,9 +87,10 @@ int		parse_map(char *file, t_env *env)
 	env->parser.objects_count = 0;
 	env->parser.enemies_count = 0;
 	env->parser.line_count = 0;
-	ft_printf("{red}");
 	if ((env->parser.fd = open(file, O_RDONLY)) < 0)
 		return (custom_error("Could not open %s\n", file));
+	if (parse_resources(env, &(env->parser)))
+		return (custom_error("Could not parse resources\n"));
 	if (init_vertices(env, &env->parser))
 		return (custom_error("Could not init vertices\n"));
 	if (parse_vertices(env, &env->parser))

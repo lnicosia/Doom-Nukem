@@ -38,17 +38,21 @@ int i)
 	env->sectors[parser->sectors_count].scale[i].x = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].scale[i].x < 1
 		|| env->sectors[parser->sectors_count].scale[i].x > 100)
+	{
 		return (custom_error_with_line("Wall scale must be"
 		"between 1 and 100", parser));
-		*line = skip_number(*line);
+	}
+	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
 		return (custom_error("Invalid for wall %d texture scale.y\n", i));
 	env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].scale[i].y < 1
 		|| env->sectors[parser->sectors_count].scale[i].y > 100)
+	{
 		return (custom_error_with_line("Wall scale must be"
 		"between 1 and 100", parser));
+	}
 		return (parse_current_texture3(env, line, parser, i));
 }
 
