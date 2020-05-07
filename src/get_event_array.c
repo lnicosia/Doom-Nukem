@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 t_event	*get_event_array2(t_env *env, t_event_trigger trigger)
 {

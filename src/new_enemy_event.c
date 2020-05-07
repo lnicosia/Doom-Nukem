@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		new_enemy_collision_event(t_env *env, t_event_trigger trigger,
 t_event event)

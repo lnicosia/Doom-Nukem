@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 static int	check_all_angle(t_v2 p[3], int res, int straight)
 {

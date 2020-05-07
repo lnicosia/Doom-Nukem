@@ -13,6 +13,7 @@
 #include "env.h"
 #include "collision.h"
 #include "events_parser.h"
+#include "parser.h"
 
 int		check_true_false_input_box(void *penv)
 {

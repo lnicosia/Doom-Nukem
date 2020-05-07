@@ -12,6 +12,7 @@
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "parser.h"
 
 void	write_condition(int fd, void (*writers[])(int, t_condition),
 t_condition condition)

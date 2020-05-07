@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		check_floor_slope_event3(t_event *event, t_sector *sector, double prec,
 t_env *env)

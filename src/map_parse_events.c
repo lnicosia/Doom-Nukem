@@ -64,6 +64,7 @@ t_events_parser *eparser)
 	eparser->event.update_func = eparser->updaters[eparser->target_index];
 	if (eparser->new_events[eparser->trigger_index](env, parser, line, eparser))
 		return (-1);
+	ft_bzero(eparser, sizeof(*eparser));
 	return (0);
 }
 
@@ -99,14 +100,12 @@ t_events_parser *eparser)
 
 int		parse_events(t_env *env, t_map_parser *parser)
 {
-	t_events_parser	eparser;
 	int				ret;
 
-	ft_bzero(&eparser, sizeof(eparser));
-	init_events_parser(&eparser);
+	init_events_parser(&env->eparser);
 	while ((parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
-		ret = parse_current_event_line(env, parser, &eparser);
+		ret = parse_current_event_line(env, parser, &env->eparser);
 		if (ret == -1)
 			return (-1);
 		else if (ret == 1)

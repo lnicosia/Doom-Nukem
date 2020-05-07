@@ -13,6 +13,7 @@
 #include "env.h"
 #include "events_parser.h"
 #include "draw.h"
+#include "events.h"
 
 void	select_player_panel_button(t_target_panel *panel, int down)
 {

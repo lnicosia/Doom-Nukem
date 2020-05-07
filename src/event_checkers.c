@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		check_int_overflow_event(t_event *event, void *penv)
 {

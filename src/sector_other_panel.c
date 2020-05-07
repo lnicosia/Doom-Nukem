@@ -13,6 +13,8 @@
 #include "env.h"
 #include "events_parser.h"
 #include "draw.h"
+#include "events.h"
+#include "parser.h"
 
 int		set_sector_other_panel_buttons_state(t_target_panel *panel, int index)
 {

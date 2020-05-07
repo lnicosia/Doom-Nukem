@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 int		set_floor_sprite2(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel, int sector)

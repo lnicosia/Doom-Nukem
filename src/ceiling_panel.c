@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 #include "draw.h"
 
 int		set_ceiling_panel_buttons_state(t_target_panel *panel, int index)

@@ -16,11 +16,13 @@
 # include "utils.h"
 # include "editor.h"
 # include "map_parser.h"
+# include "events_parser.h"
 
 typedef struct			s_env
 {
 	t_resource			resource;
 	t_map_parser		parser;
+	t_events_parser		eparser;
 	t_sdl				sdl;
 	t_player			player;
 	t_options			options;

@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
 
 void	set_event(t_env *env, t_event *event)
 {

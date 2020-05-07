@@ -122,7 +122,6 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not load enemy sprites\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
-	return (crash("", env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	return (init_game3(av, env));
 }

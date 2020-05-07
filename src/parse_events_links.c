@@ -95,6 +95,7 @@ t_events_parser *eparser)
 {
 	char			*line;
 
+	ft_strdel(&parser->line);
 	while ((parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
 		line = parser->line;

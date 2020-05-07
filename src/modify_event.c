@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
 int		modify_event5(t_env *env)
 {

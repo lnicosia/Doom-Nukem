@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 t_event	*get_global_event(t_env *env, t_events_parser *eparser, int mode)
 {

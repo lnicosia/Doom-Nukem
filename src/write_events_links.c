@@ -12,6 +12,7 @@
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "parser.h"
 
 void		write_event_links(int fd, t_event event)
 {

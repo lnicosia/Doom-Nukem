@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
 int		delete_selected_event(void *param)
 {

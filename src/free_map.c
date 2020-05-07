@@ -43,6 +43,7 @@ void	free_map(t_env *env)
 	if (env->sectors)
 		free_sectors(env);
 	free_camera(&env->player.camera);
+	free_camera(&env->fixed_camera);
 	if (env->events)
 		ft_lstdelfront(&env->events);
 	if (env->queued_values)

@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
 /*
 **	Select an event when clicking on "Select me"

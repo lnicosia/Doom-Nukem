@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		walk_out_event_exists(t_env *env, t_events_parser *eparser)
 {

@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
 int		select_sector_other_condition_target2(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel, int sector)

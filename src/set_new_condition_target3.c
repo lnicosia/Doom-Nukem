@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 void	set_condition_buttons_state2(t_env *env)
 {

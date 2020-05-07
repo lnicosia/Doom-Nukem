@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void	init_events_parser_target_parsers4(t_events_parser *eparser)
 {

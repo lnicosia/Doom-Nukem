@@ -12,6 +12,8 @@
 
 #include "update_existing_events.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 int		events_to_delete_contains(t_env *env, t_event_trigger *trigger)
 {

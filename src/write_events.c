@@ -12,6 +12,7 @@
 
 #include "events_parser.h"
 #include "save.h"
+#include "parser.h"
 
 void	write_wall_sprites_events(int fd, t_sector sector,
 		void (*writers[])(int, t_event))
