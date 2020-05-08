@@ -33,7 +33,7 @@ t_env *env)
 			env->editor.selected_start_player = 1;
 			tabs_gestion(env);
 		}
-		put_object_pixel(orender, drawer, env);
+		put_player_pixel(orender, drawer, env);
 	}
 }
 

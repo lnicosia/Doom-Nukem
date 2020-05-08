@@ -445,6 +445,8 @@ t_sprite_drawer *drawer, t_env *env);
 int					get_object_direction(t_object *object);
 void				put_object_pixel(t_render_object *orender,
 t_sprite_drawer *drawer, t_env *env);
+void				put_player_pixel(t_render_object *orender,
+t_sprite_drawer *drawer, t_env *env);
 int					draw_explosion(t_camera *camera, t_explosion *explosion,
 t_env *env, int sprite_index);
 int					threaded_object_loop(t_object *object,

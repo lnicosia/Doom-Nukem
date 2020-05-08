@@ -1,2 +1,3 @@
 Secteur sans gravite
 Bouton pour enlever la gravite
+double porte (ouvre sur les cotes)
