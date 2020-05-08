@@ -16,137 +16,138 @@
 ** TODO Protection
 */
 
-int		init_ttf(t_env *env)
+int		init_ttf5(t_env *env)
 {
-	custom_error("Initializing fonts..\n");
-	if (TTF_Init() == -1)
-		return (custom_error("SDL_Init Error: %s\n", TTF_GetError()));
-	if (init_ttf1(env))
+	if (!(env->sdl.fonts.lato40 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 40)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
-	if (init_ttf2(env))
+	}
+	if (!(env->sdl.fonts.lato45 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 45)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
-	if (init_ttf3(env))
+	}
+	if (!(env->sdl.fonts.lato50 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 50)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
-	if (init_ttf4(env))
+	}
+	if (!(env->sdl.fonts.lato_bold10 =
+		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 10)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
 		return (-1);
-	if (init_ttf5(env))
-		return (-1);
-	if (init_ttf6(env))
-		return (-1);
-	if (init_ttf7(env))
-		return (-1);
-	return (0);
+	}
+	return (init_ttf6(env));
 }
-
-int	init_ttf1(t_env *env)
+int		init_ttf4(t_env *env)
 {
-	if (!(env->init.fonts_names[0] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.amazdoom70 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 70)))
-		env->init.fonts[0] = 1;
-	if (!(env->init.fonts_names[1] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.amazdoom50 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 50)))
-		env->init.fonts[1] = 1;
-		if (!(env->init.fonts_names[2] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.amazdoom20 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 20)))
-		env->init.fonts[2] = 1;
-	if (!(env->init.fonts_names[3] = ft_strdup("./fonts/Alice-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.alice30 =
-		TTF_OpenFont("fonts/Alice-Regular.ttf", 30)))
-		env->init.fonts[3] = 1;
-		if (!(env->init.fonts_names[4] = ft_strdup("./fonts/Alice-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.alice70 = TTF_OpenFont("fonts/Alice-Regular.ttf", 70)))
-		env->init.fonts[4] = 1;
-	return (0);
-}
-
-int		init_ttf2(t_env *env)
-{
-	if (!(env->init.fonts_names[5] = ft_strdup("./fonts/BebasNeue-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.bebasneue =
-		TTF_OpenFont("fonts/BebasNeue-Regular.ttf", 20)))
-		env->init.fonts[5] = 1;
-	if (!(env->init.fonts_names[6] = ft_strdup("./fonts/Montserrat-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.montserrat20 =
-		TTF_OpenFont("fonts/Montserrat-Regular.ttf", 20)))
-		env->init.fonts[6] = 1;
-	if (!(env->init.fonts_names[7] =
-		ft_strdup("./fonts/PlayfairDisplay-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.playfair_display20 =
-		TTF_OpenFont("fonts/PlayfairDisplay-Regular.ttf", 20)))
-		env->init.fonts[7] = 1;
-	if (!(env->init.fonts_names[8] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato10 = TTF_OpenFont("fonts/Lato-Regular.ttf", 10)))
-		env->init.fonts[8] = 1;
-	if (!(env->init.fonts_names[9] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato15 = TTF_OpenFont("fonts/Lato-Regular.ttf", 15)))
-		env->init.fonts[9] = 1;
-	return(0);
+	if (!(env->sdl.fonts.lato20 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato25 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 25)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato30 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 30)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato35 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 35)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	return (init_ttf5(env));
 }
 
 int		init_ttf3(t_env *env)
 {
-	if (!(env->init.fonts_names[10] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato20 = TTF_OpenFont("fonts/Lato-Regular.ttf", 20)))
-		env->init.fonts[10] = 1;
-	if (!(env->init.fonts_names[11] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato25 = TTF_OpenFont("fonts/Lato-Regular.ttf", 25)))
-		env->init.fonts[11] = 1;
-	if (!(env->init.fonts_names[12] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato30 = TTF_OpenFont("fonts/Lato-Regular.ttf", 30)))
-		env->init.fonts[12] = 1;
-	if (!(env->init.fonts_names[13] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato35 = TTF_OpenFont("fonts/Lato-Regular.ttf", 35)))
-		env->init.fonts[13] = 1;
-	if (!(env->init.fonts_names[14] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato40 = TTF_OpenFont("fonts/Lato-Regular.ttf", 40)))
-		env->init.fonts[14] = 1;
-	if (!(env->init.fonts_names[15] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato45 = TTF_OpenFont("fonts/Lato-Regular.ttf", 45)))
-		env->init.fonts[15] = 1;
-	return (0);
+	if (!(env->sdl.fonts.playfair_display20 =
+		TTF_OpenFont("fonts/playfair-display/PlayfairDisplay-Regular.ttf",
+		20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato10 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 10)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.lato15 =
+		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 15)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	return (init_ttf4(env));
 }
 
-int		init_ttf4(t_env *env)
+int		init_ttf2(t_env *env)
 {
-	if (!(env->init.fonts_names[16] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato50 = TTF_OpenFont("fonts/Lato-Regular.ttf", 50)))
-		env->init.fonts[16] = 1;
-	if (!(env->init.fonts_names[17] = ft_strdup("./fonts/Lato-Bold.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato_bold10 = TTF_OpenFont("fonts/Lato-Bold.ttf", 10)))
-		env->init.fonts[17] = 1;
-	if (!(env->init.fonts_names[18] = ft_strdup("./fonts/Lato-Bold.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato_bold15 = TTF_OpenFont("fonts/Lato-Bold.ttf", 15)))
-		env->init.fonts[18] = 1;
-	if (!(env->init.fonts_names[19] = ft_strdup("./fonts/Lato-Bold.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato_bold20 = TTF_OpenFont("fonts/Lato-Bold.ttf", 20)))
-		env->init.fonts[19] = 1;
-	if (!(env->init.fonts_names[20] = ft_strdup("./fonts/Lato-Bold.ttf")))
-		return (custom_error("Error while initializing a font\n"));
-	if (!(env->sdl.fonts.lato_bold25 = TTF_OpenFont("fonts/Lato-Bold.ttf", 25)))
-		env->init.fonts[20] = 1;
-	return (0);
+	if (!(env->sdl.fonts.alice30 =
+		TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 30)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.alice70 =
+		TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 70)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.bebasneue =
+		TTF_OpenFont("fonts/bebas_neue/BebasNeue-Regular.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.montserrat20 =
+		TTF_OpenFont("fonts/montserrat/Montserrat-Regular.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	return (init_ttf3(env));
 }
 
+int		init_ttf(t_env *env)
+{
+	ft_printf("Initializing fonts..\n");
+	if (TTF_Init() == -1)
+		return (ft_printf("SDL_Init Error: %s\n", TTF_GetError()));
+	if (!(env->sdl.fonts.amazdoom70 =
+		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 70)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.amazdoom50 =
+		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 50)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	if (!(env->sdl.fonts.amazdoom20 =
+		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 20)))
+	{
+		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
+		return (-1);
+	}
+	return (init_ttf2(env));
+}

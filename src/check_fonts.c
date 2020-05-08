@@ -1,134 +1,103 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_fonts.c                                      :+:      :+:    :+:   */
+/*   check_existing_fonts.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/28 14:56:02 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/28 14:56:02 by marvin           ###   ########.fr       */
+/*   Created: 2020/04/27 14:16:46 by marvin            #+#    #+#             */
+/*   Updated: 2020/04/27 14:16:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int     check_fonts4(t_env *env)
+int     check_existing_fonts(t_env *env, char *name)
 {
-	if (env->init.fonts[10] && !(env->sdl.fonts.lato20 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[11] && !(env->sdl.fonts.lato25 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 25)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[12] && !(env->sdl.fonts.lato30 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 30)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+    int i;
+
+    i = 0;
+    while (i < NB_FONTS)
+    {
+        if (!(ft_strcmp(name, env->init.fonts_names[i]))
+        && env->init.fonts[i] == 1)
+            return (1);
+        i++;
+    }
     return (0);
 }
 
-int     check_fonts5(t_env *env)
+int     check_fonts3(t_env *env)
 {
-	if (env->init.fonts[13] && !(env->sdl.fonts.lato35 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 35)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[14] && !(env->sdl.fonts.lato40 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 40)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[15] && !(env->sdl.fonts.lato45 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 45)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+	int	fd;
+
+	fd = 0;
+	if (!(env->init.fonts_names[6] = ft_strdup("./fonts/Lato-Bold.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/Lato-Bold.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+	if (!(env->init.fonts_names[7] = ft_strdup("./fonts/Lato-Black.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/Lato-Black.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
     return (0);
 }
 
-int     check_fonts6(t_env *env)
+int     check_fonts2(t_env *env)
 {
-	if (env->init.fonts[16] && !(env->sdl.fonts.lato50 =
-		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 50)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[17] && !(env->sdl.fonts.lato_bold10 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 10)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[18] && !(env->sdl.fonts.lato_bold15 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 15)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-    return (0);
+	int	fd;
+
+	fd = 0;
+	if (!(env->init.fonts_names[3] =
+	ft_strdup("./fonts/Montserrat-Regular.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/Montserrat-Regular.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+	if (!(env->init.fonts_names[4] =
+	ft_strdup("./fonts/PlayfairDisplay-Regular.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/PlayfairDisplay-Regular.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+	if (!(env->init.fonts_names[5] = ft_strdup("./fonts/Lato-Regular.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/Lato-Regular.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+    return (check_fonts3(env));
 }
 
-int     check_fonts7(t_env *env)
+int     check_fonts(t_env *env)
 {
-    if (env->init.fonts[19] && !(env->sdl.fonts.lato_bold20 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[20] && !(env->sdl.fonts.lato_bold25 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 25)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[21] && !(env->sdl.fonts.lato_bold30 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 30)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-    return (0);
-}
+	int	fd;
 
-int     check_fonts8(t_env *env)
-{
-    if (env->init.fonts[22] && !(env->sdl.fonts.lato_bold35 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 35)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[23] && !(env->sdl.fonts.lato_bold40 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 40)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[24] && !(env->sdl.fonts.lato_bold45 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 45)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-	if (env->init.fonts[25] && !(env->sdl.fonts.lato_bold50 =
-		TTF_OpenFont("fonts/lato/Lato-Bold.ttf", 50)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
-    return (0);
+	fd = 0;
+	if (!(env->init.fonts_names[0] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/AmazDoomLeft.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+	if (!(env->init.fonts_names[1] = ft_strdup("./fonts/Alice-Regular.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/Alice-Regular.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+	if (!(env->init.fonts_names[2] =
+	ft_strdup("./fonts/BebasNeue-Regular.ttf")))
+		return (ft_printf("Error while parsing fonts\n"));
+	if ((fd = open("./fonts/BebasNeue-Regular.ttf", O_RDONLY)) == -1)
+		return (custom_error("Could not open font file\n"));
+	if (close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
+    return (check_fonts2(env));
 }

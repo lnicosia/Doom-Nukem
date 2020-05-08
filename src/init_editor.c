@@ -32,6 +32,12 @@ int		init_editor4(t_env *env)
 
 int		init_editor3(t_env *env)
 {
+	if (init_object_sprites(env))
+		return (crash("Could not load object sprites\n", env));
+	if (init_enemy_sprites(env))
+		return (crash("Could not load enemy sprites\n", env));
+	if (init_editor_hud(env))
+		return (crash("Could not init hud\n", env));
 	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (crash("Could not malloc sector list\n", env));
 	view(env);
@@ -39,9 +45,29 @@ int		init_editor3(t_env *env)
 	return (init_editor4(env));
 }
 
-int		init_editor2(int ac, char **av, t_env *env)
+int		init_editor2(t_env *env)
 {
-	ft_printf("before parsing\n");
+	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
+		return (crash("Could not malloc snprintf char *\n", env));
+	if (check_resources(env))
+		return (crash("Could not check resources\n", env));
+	if (init_audio(env))
+		return (crash("Could not load sound\n", env));
+	if (init_ttf(env))
+		return (crash("Could not load fonts\n", env));
+	if (init_input_box(&env->input_box, env))
+		return (crash("Could not init input box\n", env));
+	if (init_textures(env))
+		return (crash("Could not load textures\n", env));
+	if (generate_mipmaps(env))
+		return (crash("Could not generate mipmaps\n", env));
+	return (init_editor3(env));
+}
+
+int		init_editor1(int ac, char **av, t_env *env)
+{
+	if (init_sdl(env))
+		return (crash("Could not initialize SDL\n", env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
@@ -60,34 +86,7 @@ int		init_editor2(int ac, char **av, t_env *env)
 		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
-	ft_printf("after parsing\n");
-	if (generate_mipmaps(env))
-		return (crash("Could not generate mipmaps\n", env));
-	if (init_object_sprites(env))
-		return (crash("Could not load object sprites\n", env));
-	if (init_enemy_sprites(env))
-		return (crash("Could not load enemy sprites\n", env));
-	if (init_editor_hud(env))
-		return (crash("Could not init hud\n", env));
-	return (init_editor3(env));
-}
-
-int		init_editor1(int ac, char **av, t_env *env)
-{
-	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
-		return (crash("Could not malloc snprintf char *\n", env));
-	if (init_sdl(env))
-		return (crash("Could not initialize SDL\n", env));
-	if (init_audio(env))
-		return (crash("Could not load sound\n", env));
-	if (init_ttf(env))
-		return (crash("Could not load fonts\n", env));
-	if (init_input_box(&env->input_box, env))
-		return (crash("Could not init input box\n", env));
-	init_textures(env);
-	if (generate_mipmaps(env))
-		return (crash("Could not generate mipmaps\n", env));
-	return (init_editor2(ac, av, env));
+	return (init_editor2(env));
 }
 
 int		init_editor(int ac, char **av)

@@ -26,79 +26,19 @@ int		init_sprites_textures(t_env *env)
 	return (0);
 }
 
-/*int		init_textures(t_env *env)
+int		init_textures(t_env *env)
 {
 	if (init_ui_textures(env))
-		return (-1);
+		return (custom_error("Could not init ui textures\n"));
 	if (init_wall_textures(env))
-		return (-1);
-	if (init_wall_textures1(env))
-		return (-1);
-	if (init_wall_textures2(env))
-		return (-1);
+		return (custom_error("Could not init walls textures\n"));
 	if (init_skyboxes_textures(env))
-		return (-1);
+		return (custom_error("Could not init skyboxes textures\n"));
 	if (init_skyboxes_textures1(env))
-		return (-1);
-	if (init_skyboxes_textures2(env))
-		return (-1);
-	if (init_skyboxes_textures3(env))
-		return (-1);
-	if (init_skyboxes_textures4(env))
-		return (-1);
-	if (init_skyboxes_textures5(env))
-		return (-1);
+		return (custom_error("Could not init skyboxes textures\n"));
 	if (init_sprites_textures(env))
-		return (-1);
+		return (custom_error("Could not init sprites tetxures\n"));
 	if (init_hud_textures(env))
-		return (-1);
-	if (init_hud_textures1(env))
-		return (-1);
-	if (init_hud_textures2(env))
-		return (-1);
-	if (init_hud_textures3(env))
-		return (-1);
-	if (init_hud_textures4(env))
-		return (-1);
-	if (init_hud_textures5(env))
-		return (-1);
-	if (init_hud_textures6(env))
-		return (-1);
-	if (init_hud_textures7(env))
-		return (-1);
-	if (init_hud_textures8(env))
-		return (-1);
-	if (init_hud_textures9(env))
-		return (-1);
-	if (init_mini_skyboxes_selection(env))
-		return (-1);
-	if (init_mini_skyboxes_selection2(env))
-		return (-1);
-}*/
-
-void	init_textures(t_env *env)
-{
-	init_ui_textures(env);
-	init_wall_textures(env);
-	init_wall_textures1(env);
-	init_wall_textures2(env);
-	init_skyboxes_textures(env);
-	init_skyboxes_textures1(env);
-	init_skyboxes_textures2(env);
-	init_skyboxes_textures3(env);
-	init_skyboxes_textures4(env);
-	init_skyboxes_textures5(env);
-	init_sprites_textures(env);
-	init_hud_textures(env);
-	init_hud_textures1(env);
-	init_hud_textures2(env);
-	init_hud_textures3(env);
-	init_hud_textures4(env);
-	init_hud_textures5(env);
-	init_hud_textures6(env);
-	init_hud_textures7(env);
-	init_hud_textures8(env);
-	init_hud_textures9(env);
-	init_mini_skyboxes_selection(env);
-	init_mini_skyboxes_selection2(env);
+		return (custom_error("Could not init hud textures\n"));
+	return (0);
 }

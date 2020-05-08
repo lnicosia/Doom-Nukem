@@ -221,8 +221,8 @@ typedef struct		s_init
 	char			*objects_names[MAX_OBJECTS];
 	int				mini_skyboxes[MAX_SKYBOX];
 	char			*mini_skyboxes_names[MAX_SKYBOX];
-	int				fonts[NB_FONTS];
-	char			*fonts_names[NB_FONTS];
+	int				fonts[NB_FONTS_FILE];
+	char			*fonts_names[NB_FONTS_FILE];
 	int				sounds[NB_SOUNDS];
 	char			*sounds_names[NB_SOUNDS];
 	int				musics[NB_MUSICS];

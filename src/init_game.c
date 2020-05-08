@@ -30,10 +30,10 @@ int		init_game5(t_env *env)
 	option_menu_ig_button(env);
 	return_button(env);
 	exit_button(env);
-/*	music_vol_down_button(env);
+	music_vol_down_button(env);
 	music_vol_up_button(env);
 	sounds_vol_up_button(env);
-	sounds_vol_down_button(env);*/
+	sounds_vol_down_button(env);
 	return (doom(env));
 }
 
@@ -45,9 +45,9 @@ int		init_game4(t_env *env)
 	init_animations(env);
 	init_weapons(env);
 	ft_printf("Starting music..\n");
-/*	play_music(env, &env->sound.music_chan,
+	play_music(env, &env->sound.music_chan,
 		env->sound.musics[env->sound.ambient_music].music,
-		env->sound.music_vol);*/
+		env->sound.music_vol);
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env->player.camera, env))
 		return (crash("Could not init fixed camera\n", env));
@@ -72,6 +72,8 @@ int		init_game3(t_env *env)
 	i = 0;
 	precompute_slopes(env);
 	update_player_z(env);
+	if (init_textures(env))
+		return (crash("Could not load textures\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
 	if (init_object_sprites(env))
@@ -110,9 +112,8 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not load sound\n", env));
 	if (init_ttf(env))
 		return (crash("Could not load fonts\n", env));
-	init_textures(env);
-	if (generate_mipmaps(env))
-		return (crash("Could not generate mipmaps\n", env));
+	if (check_resources(env))
+		return (crash("Could not check resources\n", env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], env))
 		return (crash("{red}Error while parsing the map{reset}\n", env));

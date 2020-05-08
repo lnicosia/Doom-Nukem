@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
-/*
+
 void	play_sound(t_env *env, FMOD_CHANNEL **chan, FMOD_SOUND *sound, float v)
 {
 	FMOD_BOOL is_playing;
@@ -30,4 +30,3 @@ void	play_music(t_env *env, FMOD_CHANNEL **chan, FMOD_SOUND *music, float v)
 	FMOD_Channel_SetVolume(*chan, v);
 	FMOD_Channel_SetPaused(*chan, 0);
 }
-*/

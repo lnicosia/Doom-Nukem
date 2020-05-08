@@ -13,7 +13,7 @@
 #include "init.h"
 #include "parser.h"
 
-void		init_mini_skyboxes_selection(t_env *env)
+int			init_mini_skyboxes_selection(t_env *env)
 {
 	if (parse_bmp_mini_skyboxes_textures("images/ui/moonlight.bmp", 0,
 		env))
@@ -36,9 +36,10 @@ void		init_mini_skyboxes_selection(t_env *env)
 		ft_strdup("images/ui/beautifull_scenery.bmp");
 		env->init.mini_skyboxes[0] = 1;
 	}
+	return (0);
 }
 
-void		init_mini_skyboxes_selection2(t_env *env)
+int			init_mini_skyboxes_selection2(t_env *env)
 {
 	if (parse_bmp_mini_skyboxes_textures("images/ui/moonlight_128.bmp",
 		3, env))
@@ -61,4 +62,5 @@ void		init_mini_skyboxes_selection2(t_env *env)
 		ft_strdup("images/ui/beautifull_scenery_128.bmp");
 		env->init.mini_skyboxes[0] = 1;
 	}
+	return (0);
 }

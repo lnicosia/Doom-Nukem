@@ -13,32 +13,30 @@
 #include "init.h"
 #include "parser.h"
 
-int		new_parsing_sprite(char *name, int index, t_env *env)
-{
-	if (check_existing_files(env, name))
-	{
-		if (parse_bmp(name, index, env))
-			return (ft_printf("Failed to load lost soul\n"));
-	}
-	return (0);
-}
-
 int     check_hud_textures(t_env *env)
 {
-	int start;
+	int	fd;
 
-	start = env->hud_start;
+	fd = 0;
 	if (check_shotgun(env))
-		return (ft_printf("Failed to load shotgun textures\n"));
+		return (custom_error("Failed to load shotgun textures\n"));
 	if (check_raygun(env))
-		return (ft_printf("Failed to load raygun textures\n"));
+		return (custom_error("Failed to load raygun textures\n"));
 	if (check_gun(env))
-		return (ft_printf("Failed to load gun textures\n"));  
+		return (custom_error("Failed to load gun textures\n"));  
     if (check_gatling(env))
-		return (ft_printf("Failed to load gatling textures\n"));
-	if (new_parsing_sprite("images/HUD/Ammo_hud.bmp", start + 34, env))
-		return (ft_printf("Invalid bmp file\n"));
-	if (new_parsing_sprite("images/HUD/Life_armor_hud.bmp", start + 35, env))
-		return (ft_printf("Invalid bmp file\n"));
+		return (custom_error("Failed to load gatling textures\n"));
+	if (!(env->init.hud_names[34] = ft_strdup("images/HUD/Ammo_hud.bmp")))
+		return (ft_perror("Error while parsing hud textures\n"));
+	if ((fd = open("images/HUD/Ammo_hud.bmp", O_RDONLY)) == -1)
+		env->init.hud[34] = 1;
+	if (close(fd))
+		return (custom_error("Could not close the fd in check hud textures\n"));
+	if (!(env->init.hud_names[35] = ft_strdup("images/HUD/Life_armor_hud.bmp")))
+		return (ft_perror("Error while parsing hud textures\n"));
+	if ((fd = open("images/HUD/Life_armor_hud.bmp", O_RDONLY)) == -1)
+		env->init.hud[35] = 1;
+	if (close(fd))
+		return (custom_error("Could not close the fd in check hud textures\n"));
     return (0);
 }

@@ -306,19 +306,20 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
-		   set_new_string_input_box.c \
+		   set_new_string_input_box.c  init_ui_textures2.c\
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
-		   is_new_sector_convex.c init_skyboxes_textures2.c\
+		   is_new_sector_convex.c check_skyboxes2.c\
 		   init_enemies_textures.c init_sprites_textures.c \
-		   init_hud_textures.c init_hud_textures2.c init_wall_textures.c \
+		   init_hud_textures.c init_wall_textures.c \
 		   init_mini_skyboxes.c check_existing_files.c \
-		   check_weapons_sprites.c check_walls_textures.c \
-		   check_sprites_textures.c check_textures.c check_hud_textures.c \
+		   check_walls_textures.c \
+		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
-		   init_ttf2.c check_existing_fonts.c check_fonts.c \
-		   check_fonts2.c check_existing_sounds.c map_parse_textures.c \
+		   init_ttf2.c check_fonts.c \
+		   check_existing_sounds.c map_parse_textures.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
-		   parse_font.c
+		   parse_font.c check_resources.c check_shotgun.c \
+		   check_gun.c check_raygun.c check_gatling.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

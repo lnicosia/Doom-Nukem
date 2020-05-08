@@ -54,16 +54,14 @@ int		generate_mipmaps(t_env *env)
 	ft_printf("Generating mipmaps..\n");
 	while (i < MAX_WALL_TEXTURE)
 	{
-		if (env->init.textures[i] != 1)
-		{
-			texture = &env->wall_textures[i];
-			nb_maps = floor(log2(fmax(texture->surface->w,
-				texture->surface->h))) + 1;
-			env->wall_textures[i].nb_maps = nb_maps;
-			if (generate_maps_for_texture(texture))
-				return (-1);
-		}
+		texture = &env->wall_textures[i];
+		nb_maps = floor(log2(fmax(texture->surface->w,
+			texture->surface->h))) + 1;
+		env->wall_textures[i].nb_maps = nb_maps;
+		if (generate_maps_for_texture(texture))
+			return (-1);
 		i++;
 	}
+	ft_printf("chech\n");
 	return (generate_mipmaps2(i, nb_maps, texture, env));
 }
