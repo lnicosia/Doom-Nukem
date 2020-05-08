@@ -105,7 +105,7 @@ int		intersects_with_sector(t_sector *sector, t_v3 pos, t_env *env)
 
 	update_sector_slope(env, sector);
 	i = 0;
-	while (i <= sector->nb_vertices)
+	while (i < sector->nb_vertices)
 	{
 		if (intersects_with_current_wall(sector, i, pos, env))
 			return (1);
