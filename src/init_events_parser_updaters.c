@@ -55,7 +55,7 @@ void	init_events_parser_updaters2(t_events_parser *eparser)
 	eparser->updaters[SECTOR_BRIGHTNESS] = &update_sector_entities_light_event;
 	eparser->updaters[SECTOR_LIGHT_COLOR] = &update_sector_entities_light_event;
 	eparser->updaters[SECTOR_INTENSITY] = &update_sector_entities_light_event;
-	eparser->updaters[SECTOR_GRAVITY] = 0;
+	eparser->updaters[SECTOR_GRAVITY] = &update_gravity_event;
 	eparser->updaters[VERTEX_X] = &update_vertex_event;
 	eparser->updaters[VERTEX_Y] = &update_vertex_event;
 	eparser->updaters[PLAYER_X] = &update_player_z_event;

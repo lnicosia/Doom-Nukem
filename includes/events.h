@@ -60,6 +60,7 @@ int						update_ceiling_sprite_event(t_event *event,
 void *penv);
 int						update_vertex_event(t_event *event, void *penv);
 int						delete_itself_event(t_event *event, void *penv);
+int						update_gravity_event(t_event *event, void *penv);
 
 /*
 **	Event panel
