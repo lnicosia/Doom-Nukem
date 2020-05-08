@@ -90,12 +90,21 @@ int			valid_map(t_env *env)
 	env->player.starting_sector =
 	get_sector_no_z(env, env->player.starting_pos);
 	if (!env->nb_sectors)
-		return (custom_error("You need at least one sector to go in"
-		" 3d mode\n"));
+	{
+		ft_printf("You need at least one sector to go in"
+		" 3d mode\n");
+		return (1);
+	}
 	if (!env->editor.player_exist)
-		return (custom_error("You need to place the player\n"));
+	{
+		ft_printf("You need to place the player\n");
+		return (1);
+	}
 	if (env->player.sector == -1 || env->player.starting_sector == -1)
-		return (custom_error("Player position is not valid\n"));
+	{
+		ft_printf("Player position is not valid\n");
+		return (1);
+	}
 	while (i < env->nb_sectors)
 	{
 		if (check_sector(env->sectors[i], env))

@@ -21,7 +21,6 @@ int			custom_error(const char *restrict format, ...)
 	init_data(&data, 1);
 	va_start(data.ap, format);
 	parse_format(format, &data);
-	write(1, "HOLQ", 2);
 	write(STDERR_FILENO, data.buffer, data.i);
 	va_end(data.ap);
 	return (-1);

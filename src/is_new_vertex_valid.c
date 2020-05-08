@@ -28,9 +28,9 @@ int index)
 	{
 		env->vertices[index].x = env->editor.start_pos.x;
 		env->vertices[index].y = env->editor.start_pos.y;
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int			check_current_sector(t_env *env, int *list_sectors, int i,
@@ -46,12 +46,12 @@ int index)
 		find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
 		if (check_sector_intersections(
 			env, env->sectors[j], last, index) == -1)
-			return (1);
+			return (0);
 		last =
 		find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
 		if (check_sector_intersections(
 			env, env->sectors[j], last, index) == -1)
-			return (1);
+			return (0);
 		j++;
 	}
 	return (check_current_sector2(env, list_sectors, i, index));
@@ -68,7 +68,7 @@ int			is_new_dragged_vertex_valid(t_env *env, int index)
 		return (-1);
 	while (i <= list_sectors[0])
 	{
-		if ((ret = check_current_sector(env, list_sectors, i, index)) != 0)
+		if ((ret = check_current_sector(env, list_sectors, i, index)) != 1)
 		{
 			ft_memdel((void**)&list_sectors);
 			return (ret);
