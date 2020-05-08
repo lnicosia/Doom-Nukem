@@ -19,20 +19,20 @@ int		check_sound_number_validity(t_map_parser *parser, t_env *env)
 
 	line = NULL;
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+		return (custom_error("Expected a '\\n' at the end of file name\n"));
 	line = parser->line;
 	if (*line && *line != 'S')
-		return (ft_printf("Expected letter: S\n"));
+		return (custom_error("Expected letter: S\n"));
 	line++;
 	if (*line && *line != ' ')
-		return (ft_printf("Expected a space\n"));
+		return (custom_error("Expected a space\n"));
 	line++;
 	if (valid_int(line, parser))
-		return (ft_printf("Invalid int for sounds number\n"));
+		return (custom_error("Invalid int for sounds number\n"));
 	env->resource.nb_sound = atoi(line);
 	if (env->resource.nb_sound > NB_MUSICS + NB_SOUNDS
 	|| env->resource.nb_sound < 0)
-		return (ft_printf("Wrong number of sounds\n"));
+		return (custom_error("Wrong number of sounds\n"));
 	return (0);
 }
 
@@ -44,7 +44,7 @@ int		parse_sounds_number(t_map_parser *parser, t_env *env)
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_printf("Could not malloc line\n"));
+			return (ft_perror("Could not malloc line\n"));
 	}
 	if (check_sound_number_validity(parser,env))
 		return (custom_error("Error while parsing sounds number validity\n"));
@@ -57,9 +57,9 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 
 	i = 0;
 	if (!(parser->tmp = ft_strnew(1)))
-		return (ft_printf("Memalloc failed\n"));
+		return (ft_perror("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
-		return (ft_printf("Could not malloc line\n"));
+		return (ft_perror("Could not malloc line\n"));
 	if (parse_sounds_number(parser, env))
 		return (custom_error("Error while parsing number of sounds\n"));
 	ft_strdel(&(parser->tmp));
@@ -67,7 +67,7 @@ int		map_parse_sounds(t_env *env, t_map_parser *parser)
 	while (i < env->resource.nb_sound)
 	{
 		if (parse_sound(env, parser))
-			return (ft_printf("Error while parsing a sound\n"));
+			return (custom_error("Error while parsing a sound\n"));
 		i++;
 	}
 	return (0);

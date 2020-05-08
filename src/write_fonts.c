@@ -34,7 +34,7 @@ int		write_font(int file, int fd, char *name)
 	if (!(size = find_size(name)))
 		return (custom_error("Couldn't find the font file size\n"));
 	ft_dprintf(fd, "%s\n%d\n", name, size);
-	ft_printf("data: %s\n%d\n", name, size);
+	//ft_printf("data: %s\n%d\n", name, size);
 	while ((ret = (read(file, resource, 10000))) > 0)
 	{
 		check_size += ret;

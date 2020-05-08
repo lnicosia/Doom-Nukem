@@ -24,7 +24,7 @@ int     new_parsed_hud_file(char *name, t_env *env)
 		&& (!(ft_strcmp(name, env->init.hud_names[i]))))
 		{
 			if (parse_bmp(name, i + env->hud_start, env))
-			    return (ft_printf("Invalid bmp file\n"));
+			    return (custom_error("Invalid bmp file\n"));
 		}
 		i++;
     }
@@ -58,9 +58,9 @@ int		skip_file(t_map_parser *parser)
 	ret = 0;
 	size = 0;
 	if (!(parser->line = ft_strnew(0)))
-		return (ft_printf("Coud not malloc\n"));
+		return (ft_perror("Coud not malloc"));
 	if (!(parser->tmp = ft_strnew(1)))
-		return (ft_printf("Coud not malloc\n"));
+		return (ft_perror("Coud not malloc"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
 	{
@@ -68,19 +68,19 @@ int		skip_file(t_map_parser *parser)
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_printf("Could not malloc line in parse bmp\n"));
+			return (custom_error("Could not malloc line in parse bmp\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of the size\n"));
+		return (custom_error("Expected a '\\n' at the end of the size\n"));
 	if (valid_int(parser->line, parser))
-		return (ft_printf("Invalid size for bmp file\n"));
+		return (custom_error("Invalid size for bmp file\n"));
 	size = ft_atoi(parser->line);
 	ft_strdel(&(parser->line));
 	ft_strdel(&(parser->tmp));
 	if (!(parser->tmp = ft_strnew(size + 1)))
-		return (ft_printf("Coud not malloc\n"));
+		return (ft_perror("Coud not malloc"));
 	if ((ret = read(parser->fd, parser->tmp, size + 1)) < size + 1)
-		return (ft_printf("Written file is smaller than the given size file\n"));
+		return (custom_error("Written file is smaller than the given size file\n"));
 	ft_strdel(&(parser->tmp));
 	return(0);
 }

@@ -15,39 +15,39 @@
 int     check_wall_textures2(t_env *env)
 {
 	if (new_parsed_textures("./images/textures/grass1.bmp", env))
-		return (ft_printf("Failed to load grass1\n"));
+		return (custom_error("Failed to load grass1\n"));
 	if (new_parsed_textures("./images/textures/grass2.bmp", env))
-		return (ft_printf("Failed to load grass2\n"));
+		return (custom_error("Failed to load grass2\n"));
 	if (new_parsed_textures("./images/textures/grass3.bmp", env))
-		return (ft_printf("Failed to load grass3\n"));
+		return (custom_error("Failed to load grass3\n"));
 	if (new_parsed_textures("./images/textures/tiles.bmp", env))
-		return (ft_printf("Failed to load tiles\n"));
+		return (custom_error("Failed to load tiles\n"));
 	if (new_parsed_textures("./images/textures/sand.bmp", env))
-		return (ft_printf("Failed to load sand\n"));
+		return (custom_error("Failed to load sand\n"));
 	if (new_parsed_textures("./images/textures/grey.bmp", env))
-		return (ft_printf("Failed to load grey\n"));
+		return (custom_error("Failed to load grey\n"));
     return (0);
 }
 
 int		check_wall_textures(t_env *env)
 {
     if (new_parsed_textures("./images/textures/wall0.bmp", env))
-	    return (ft_printf("Invalid bmp file\n"));
+	    return (custom_error("Invalid bmp file\n"));
     if (new_parsed_textures("./images/textures/wall1.bmp", env))
-		return (ft_printf("Invalid bmp file\n"));
+		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_textures("./images/textures/wall2.bmp", env))
-		return (ft_printf("Invalid bmp file\n"));
+		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_textures("./images/textures/wall3.bmp", env))
-		return (ft_printf("Invalid bmp file\n"));
+		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_textures("./images/textures/floor0.bmp", env))
-		return (ft_printf("Invalid bmp file\n"));
+		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_textures("./images/textures/floor1.bmp", env))
-		return (ft_printf("Invalid bmp file\n"));
+		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_textures("./images/textures/rust.bmp", env))
-		return (ft_printf("Failed to load rust\n"));
+		return (custom_error("Failed to load rust\n"));
 	if (new_parsed_textures("./images/textures/black_tiles.bmp", env))
-		return (ft_printf("Failed to load black_tiles\n"));
+		return (custom_error("Failed to load black_tiles\n"));
 	if (new_parsed_textures("./images/textures/rock.bmp", env))
-		return (ft_printf("Failed to load rock\n"));
+		return (custom_error("Failed to load rock\n"));
 	return (0);
 }

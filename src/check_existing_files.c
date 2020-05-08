@@ -44,10 +44,7 @@ int		sprites_textures(t_env *env, char *name)
 	{
 		if (!(ft_strcmp(name, env->init.sprites_names[i]))
 		&& env->init.sprites[i] == 1)
-		{
-			ft_printf("object sprite bullshit\n");
-			return (1);
-		}
+			return (custom_error("object sprite failed\n"));
 		i++;
 	}
 	return (0);

@@ -16,7 +16,7 @@
 int			init_object_sprites(t_env *env)
 {
 	//if (!(env->object_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite) * 23)))
-		//return (ft_printf("Could not malloc enemy sprites\n"));
+		//return (ft_perror("Could not malloc enemy sprites\n"));
 	
 	//	objects sprite sheet
 	env->object_sprites[0].texture = 22;
@@ -705,7 +705,7 @@ int			init_object_sprites(t_env *env)
 int			init_enemy_sprites(t_env *env)
 {
 	/*if (!(env->enemy_sprites = (t_sprite*)ft_memalloc(sizeof(t_sprite) * 13)))
-		return (ft_printf("Could not malloc enemy_sprites\n"));*/
+		return (ft_perror("Could not malloc enemy_sprites\n"));*/
 	// Sprite oriente, lost soul
 	env->enemy_sprites[0].texture = 23;
 	env->enemy_sprites[0].death_counterpart = 4;

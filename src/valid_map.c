@@ -27,20 +27,17 @@ int			check_vertices(t_sector sector, t_env *env)
 		j = 0;
 		while (j < env->nb_sectors)
 		{
-			if (env->sectors[j].num != sector.num && check_intersection_with_sector(env->sectors[j], env, v1, v2))
+			if (env->sectors[j].num != sector.num
+				&& check_intersection_with_sector(env->sectors[j], env, v1, v2))
 				return (-1);
 			j++;
 		}
 		i++;
 	}
 	if (is_sector_concave(sector, env))
-	{
 		return (custom_error("Sector %d is concave\n", sector.num));
-	}
 	if (check_neighbor_validity(sector, env))
-	{
 		return (custom_error("Sector %d has a invalid neighbor\n", sector.num));
-	}
 	return (0);
 }
 
@@ -72,7 +69,7 @@ int			check_sector(t_sector sector, t_env *env)
 		return (custom_error("Sector %d is inside or contains a sector\n",
 		sector.num));
 	if (check_vertices(sector, env))
-		return (ft_printf("Vertices invalid\n"));
+		return (custom_error("Vertices invalid\n"));
 	if (check_slopes_start(sector))
 		return (custom_error("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))

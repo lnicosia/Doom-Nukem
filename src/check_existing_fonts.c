@@ -16,28 +16,16 @@ int     check_fonts1(t_env *env)
 {
     if (env->init.fonts[0] && !(env->sdl.fonts.amazdoom70 =
 		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 70)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[1] && !(env->sdl.fonts.amazdoom50 =
 		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 50)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[2] && !(env->sdl.fonts.amazdoom20 =
 		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[3] && !(env->sdl.fonts.alice30 =
 		TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 30)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
     return (0);
 }
 
@@ -45,22 +33,13 @@ int     check_fonts2(t_env *env)
 {
 	if (env->init.fonts[4] && !(env->sdl.fonts.alice70 =
 		TTF_OpenFont("fonts/alice/Alice-Regular.ttf", 70)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[5] && !(env->sdl.fonts.bebasneue =
 		TTF_OpenFont("fonts/bebas_neue/BebasNeue-Regular.ttf", 20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[6] && !(env->sdl.fonts.montserrat20 =
 		TTF_OpenFont("fonts/montserrat/Montserrat-Regular.ttf", 20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
     return (0);
 }
 
@@ -69,22 +48,13 @@ int     check_fonts3(t_env *env)
 	if (env->init.fonts[7] && !(env->sdl.fonts.playfair_display20 =
 		TTF_OpenFont("fonts/playfair-display/PlayfairDisplay-Regular.ttf",
 		20)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[8] && !(env->sdl.fonts.lato10 =
 		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 10)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
 	if (env->init.fonts[9] && !(env->sdl.fonts.lato15 =
 		TTF_OpenFont("fonts/lato/Lato-Regular.ttf", 15)))
-	{
-		ft_printf("TTF_OpenFont error: %s\n", TTF_GetError());
-		return (-1);
-	}
+		return (custom_error("TTF_OpenFont error: %s\n", TTF_GetError()));
     return (0);
 }
 

@@ -15,14 +15,14 @@
 int		check_textures(t_env *env)
 {
 	if (check_wall_textures(env))
-		return (ft_printf("Could not load Wall textures\n"));
+		return (custom_error("Could not load Wall textures\n"));
 	if (check_wall_textures2(env))
-		return (ft_printf("Could not load Wall textures\n"));
+		return (custom_error("Could not load Wall textures\n"));
 	if (check_sprites_textures(env))
-		return (ft_printf("Could not load sprites textures\n"));
+		return (custom_error("Could not load sprites textures\n"));
 	if (check_skyboxes(env))
-		return (ft_printf("Could not load skyboxes textures\n"));
+		return (custom_error("Could not load skyboxes textures\n"));
 	if (check_hud_textures(env))
-		return (ft_printf("Could not load hud textures\n"));
+		return (custom_error("Could not load hud textures\n"));
 	return (0);
 }

@@ -20,12 +20,12 @@ int    init_enemies_sprites_textures(t_env *env)
 	start = env->enemies_start;
 	if (!(env->init.enemy_names[0] =
 	ft_strdup("images/sprites/cyber_demon.bmp")))
-		return (ft_printf("Error while parsing enemy sprite texture\n"));
+		return (ft_perror("Error while parsing enemy sprite texture\n"));
 	if (parse_bmp("images/sprites/cyber_demon.bmp", start + 0, env))
 		env->init.enemies[0] = 1;
 	if (!(env->init.enemy_names[1] =
 	ft_strdup("images/sprites/lost_soul.bmp")))
-		return (ft_printf("Error while parsing enemy sprite texture\n"));
+		return (ft_perror("Error while parsing enemy sprite texture\n"));
 	if (parse_bmp("images/sprites/lost_soul.bmp", start + 1, env))
 		env->init.enemies[1] = 1;
 	return (0);

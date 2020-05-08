@@ -20,7 +20,7 @@ int		init_sprites_textures(t_env *env)
 	if (init_objects_sprites_textures(env))
 		return (custom_error("Error in init obejcts sprites textures"));
 	if (init_wall_sprites_textures(env))
-		return (custom_error("Error in init wwall sprites textures"));
+		return (custom_error("Error in init wall sprites textures"));
 	if (init_editor_sprites(env))
 		return (custom_error("Error in init editor sprites textures"));
 	return (0);

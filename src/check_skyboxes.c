@@ -38,46 +38,46 @@ int     new_parsed_skyboxe(char *name, t_env *env)
 int		check_skyboxes2(t_env *env)
 {
     if (new_parsed_skyboxe("images/skyboxes/nebula_left.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/nebula_front.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/nebula_right.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/bottom.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/top.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/back.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/left.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/front.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/right.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
     return (0);
 }
 
 int		check_skyboxes(t_env *env)
 {
 	if (new_parsed_skyboxe("images/skyboxes/night_bottom.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/night_top.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/night_back.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/night_left.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/night_front.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/night_right.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/nebula_bottom.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/nebula_top.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));
+		return (custom_error("Failed to load skybox\n"));
 	if (new_parsed_skyboxe("images/skyboxes/nebula_back.bmp", env))
-		return (ft_printf("Failed to load skybox\n"));	
+		return (custom_error("Failed to load skybox\n"));	
     if (check_skyboxes2(env))
         return (-1);
 	return (0);
