@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "init.h"
+#include "env.h"
 
 int		save_enemy(void *param)
 {
@@ -27,6 +28,8 @@ int		save_enemy(void *param)
 	env->editor.current_enemy_selection.state = UP;
 	env->editor.current_enemy_selection.anim_state = REST;
 	init_enemies_data(env);
+	set_enemy_height_on_floor(&env->enemies[env->selected_enemy]);
+	update_enemy_z(env, env->selected_enemy);
 	return (0);
 }
 

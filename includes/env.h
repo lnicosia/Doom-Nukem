@@ -1137,6 +1137,7 @@ int						check_sector(t_sector sector, t_env *env);
 int						dialog_event(void *param, void *penv);
 int						set_new_string_input_box(t_input_box *box,
 void *target);
+void					set_enemy_height_on_floor(t_enemy *enemy);
 
 /*
 ** objects functions

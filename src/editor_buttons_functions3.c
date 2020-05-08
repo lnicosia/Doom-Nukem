@@ -38,7 +38,8 @@ int		change_object_scale(void *param)
 		button->target))
 		return (-1);
 	env->input_box.check = &check_entities_sprite_scale_input_box;
-	env->input_box.error_message = "Error: scale must be between 0.1 and 100";
+	env->input_box.error_message = "Error: scale must be between 0.1 and 100."
+	" The object must fit in its sector";
 	return (0);
 }
 

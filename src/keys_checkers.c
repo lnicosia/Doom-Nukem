@@ -15,7 +15,7 @@
 int		check_height_at_pos(t_env *env, t_sector *sector,
 		t_v3 pos, int target_height)
 {
-	if (get_floor_at_pos(sector, pos, env) + (double)target_height >=
+	if (pos.z + (double)target_height >=
 	get_ceiling_at_pos(sector, pos, env))
 		return (-1);
 	return (0);
