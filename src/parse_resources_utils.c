@@ -70,6 +70,8 @@ int		skip_file(t_map_parser *parser)
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 			return (ft_printf("Could not malloc line in parse bmp\n"));
 	}
+	ft_printf("line: %s\n", parser->line);
+	ft_printf("tmp: %s\n", parser->tmp);
 	if (*(parser->tmp) != '\n')
 		return (ft_printf("Expected a '\\n' at the end of the size\n"));
 	if (valid_int(parser->line, parser))

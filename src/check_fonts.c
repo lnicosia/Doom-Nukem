@@ -17,7 +17,7 @@ int     check_existing_fonts(t_env *env, char *name)
     int i;
 
     i = 0;
-    while (i < NB_FONTS)
+    while (i < NB_FONTS_FILE)
     {
         if (!(ft_strcmp(name, env->init.fonts_names[i]))
         && env->init.fonts[i] == 1)

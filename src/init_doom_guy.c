@@ -70,7 +70,7 @@ void	init_doom_guy_two(t_env *env)
 
 void	init_doom_guy(t_env *env)
 {
-	env->object_sprites[33].texture = env->editor_start + 1;
+	env->object_sprites[33].texture = env->editor_start;
 	env->object_sprites[33].oriented = 1;
 	env->object_sprites[33].rest_sprite = 33;
 	env->object_sprites[33].start[0].x = 44;

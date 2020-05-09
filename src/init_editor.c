@@ -68,6 +68,8 @@ int		init_editor1(int ac, char **av, t_env *env)
 {
 	if (init_sdl(env))
 		return (crash("Could not initialize SDL\n", env));
+	if (check_resources(env))
+		return (crash("Could not pre load resources\n", env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
@@ -79,6 +81,7 @@ int		init_editor1(int ac, char **av, t_env *env)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], env))
 			return (crash("Error while parsing the map\n", env));
+		ft_printf("valid map\n");
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))

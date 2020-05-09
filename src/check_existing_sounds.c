@@ -31,7 +31,7 @@ int		check_sounds2(t_env *env)
 	int	fd;
 
 	fd = 0;
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/footstep.wav")))
+	if (!(env->init.sounds_names[3] = ft_strdup("./audio/footstep.wav")))
 		return (ft_perror("Error while cjeck sounds\n"));
 	if ((fd = open("./audio/footstep.wav", O_RDONLY)) == -1)
 		env->init.sounds[3] = 1;
@@ -63,13 +63,13 @@ int		check_sounds(t_env *env)
 		env->init.sounds[0] = 1;
 	if (close(fd))
 		return (custom_error("Could not close the fd in check sounds\n"));
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/shotgun_shot.wav")))
+	if (!(env->init.sounds_names[1] = ft_strdup("./audio/shotgun_shot.wav")))
 		return (ft_perror("Error while check sounds\n"));
 	if ((fd = open("./audio/shotgun_shot.wav", O_RDONLY)) == -1)
 		env->init.sounds[1] = 1;
 	if (close(fd))
 		return (custom_error("Could not close the fd in check sounds\n"));
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/raygun_shot.wav")))
+	if (!(env->init.sounds_names[2] = ft_strdup("./audio/raygun_shot.wav")))
 		return (ft_perror("Error while check sounds\n"));
 	if ((fd = open("./audio/raygun_shot.wav", O_RDONLY)) == -1)
 		env->init.sounds[2] = 1;
@@ -86,7 +86,15 @@ int     check_existing_sounds(t_env *env, char *name)
     while (i < NB_SOUNDS)
     {
         if (!(ft_strcmp(name, env->init.sounds_names[i]))
-        && 1)
+        && env->init.sounds[i] == 1)
+            return (1);
+        i++;
+    }
+	i = 0;
+	while (i < NB_MUSICS)
+    {
+        if (!(ft_strcmp(name, env->init.musics_names[i]))
+        && env->init.musics[i] == 1)
             return (1);
         i++;
     }

@@ -24,13 +24,9 @@ int		parse_resources(t_env *env, t_map_parser *parser)
 		return (custom_error("Error while parsing map skyboxes\n"));
 	if (map_parse_hud(env, parser))
 		return (custom_error("Error while parsing map hud\n"));
-	if (check_textures(env))
-		return (custom_error("Error while initializing textures from map\n"));
-	if (map_parse_sounds(env, parser))
-		return (custom_error("Error while parsing map sounds\n"));
+/*	if (map_parse_sounds(env, parser))
+		return (custom_error("Error while parsing map sounds\n"));*/
 	if (map_parse_fonts(env, parser))
 		return (custom_error("Error while parsing map fonts\n"));
-	if (check_fonts(env))
-		return (custom_error("Error while initializing fonts from the map\n"));
 	return (0);
 }

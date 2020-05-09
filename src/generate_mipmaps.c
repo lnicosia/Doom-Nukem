@@ -62,6 +62,5 @@ int		generate_mipmaps(t_env *env)
 			return (-1);
 		i++;
 	}
-	ft_printf("chech\n");
 	return (generate_mipmaps2(i, nb_maps, texture, env));
 }

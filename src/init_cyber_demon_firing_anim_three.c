@@ -82,7 +82,7 @@ void	init_cyber_demon_firing_anim_three2(t_env *env)
 
 void	init_cyber_demon_firing_anim_three(t_env *env)
 {
-	env->enemy_sprites[11].texture = env->enemies_start;
+	env->enemy_sprites[11].texture = env->enemies_start + 1;
 	env->enemy_sprites[11].death_counterpart = 12;
 	env->enemy_sprites[11].pursuit_sprite = 5;
 	env->enemy_sprites[11].firing_sprite = 9;

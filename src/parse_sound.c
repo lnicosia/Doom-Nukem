@@ -61,6 +61,8 @@ int		parse_sound_name(t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_printf("Memalloc failed\n"));
+	ft_printf("sound name: %s\n", parser->resource_name);
+	ft_strdel(&(parser->resource_name));
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_printf("Coud not malloc\n"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
@@ -75,6 +77,7 @@ int		parse_sound_name(t_map_parser *parser)
 	if (*(parser->tmp) != '\n')
 		return (ft_printf("Expected a '\\n' at the end of sound file name\n"));
 	ft_strdel(&(parser->tmp));
+	ft_printf("sound name: %s\n", parser->resource_name);
 	return (0);
 }
 

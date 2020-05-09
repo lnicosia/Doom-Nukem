@@ -14,7 +14,7 @@
 
 void	init_shotgun_ammo(t_env *env)
 {
-	env->object_sprites[3].texture = env->objects_sprites_start + 1;
+	env->object_sprites[3].texture = env->objects_sprites_start;
 	env->object_sprites[3].death_counterpart = 3;
 	env->object_sprites[3].oriented = 0;
 	env->object_sprites[3].rest_sprite = 3;
@@ -29,7 +29,7 @@ void	init_shotgun_ammo(t_env *env)
 
 void	init_rocket_ammo(t_env *env)
 {
-	env->object_sprites[4].texture = env->objects_sprites_start + 1;
+	env->object_sprites[4].texture = env->objects_sprites_start;
 	env->object_sprites[4].death_counterpart = 22;
 	env->object_sprites[4].oriented = 0;
 	env->object_sprites[4].rest_sprite = 4;
@@ -44,7 +44,7 @@ void	init_rocket_ammo(t_env *env)
 
 void	init_regular_ammo(t_env *env)
 {
-	env->object_sprites[5].texture = env->objects_sprites_start + 1;
+	env->object_sprites[5].texture = env->objects_sprites_start;
 	env->object_sprites[5].death_counterpart = 5;
 	env->object_sprites[5].oriented = 0;
 	env->object_sprites[5].rest_sprite = 5;
@@ -59,7 +59,7 @@ void	init_regular_ammo(t_env *env)
 
 void	init_energy_cell(t_env *env)
 {
-	env->object_sprites[6].texture = env->objects_sprites_start + 1;
+	env->object_sprites[6].texture = env->objects_sprites_start;
 	env->object_sprites[6].death_counterpart = 6;
 	env->object_sprites[6].oriented = 0;
 	env->object_sprites[6].rest_sprite = 6;
