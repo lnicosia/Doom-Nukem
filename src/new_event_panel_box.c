@@ -67,7 +67,7 @@ int	new_event_panel_box2(t_input_box *box, int type, void *target)
 		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
-		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
+		ft_snprintf(box->str, len + 1, "%.*f", dec_len,
 		*(box->double_target));
 		if (*box->double_target < 0)
 			box->minus = 1;

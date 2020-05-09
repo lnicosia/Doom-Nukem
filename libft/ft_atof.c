@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-static void	skip_numbers(const char *str, int *count)
+static void	skip_numbers(const char **str, int *count)
 {
-	while (*str >= '0' && *str <= '9')
+	while (**str >= '0' && **str <= '9')
 	{
-		str++;
+		(*str)++;
 		(*count)++;
 	}
 }
@@ -46,13 +46,13 @@ double		ft_atof(const char *str)
 	}
 	count = 0;
 	res1 = ft_abs(ft_atoi(str));
-	skip_numbers(str, &count);
+	skip_numbers(&str, &count);
 	if (!*str || *str != '.')
 		return (neg * res1);
 	str++;
 	count = 0;
 	res2 = ft_abs(ft_atoi(str));
-	skip_numbers(str, &count);
+	skip_numbers(&str, &count);
 	get_float_part(&count, &res2);
 	res = res1 + res2;
 	return (neg * res);
