@@ -416,11 +416,12 @@ UI_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(UI_
 AUDIO_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(AUDIO_DIR))
 FONTS_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(FONTS_DIR))
 
-
 ALL_RESOURCES = $(EDITOR_DIR)
 
 RESOURCES = $(TEXTURES_FILES) $(SPRITES_FILES) $(SKYBOXES_FILES) $(HUD_FILES) \
 			$(UI_FILES) $(AUDIO_FILES) $(FONTS_FILES)
+
+RESOURCES_ARCHIVE = resources.tar.gz
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
@@ -453,12 +454,9 @@ SDL_WINDOWS = /usr/local/bin/SDL2.dll \
               -L/usr/local/lib -lcygwin -lSDL2main \
 
 SDL_OSX = -lSDL2 -lSDL2_ttf
-	  #-F ~/Library/Frameworks/ -framework SDL2 \
-	  #-F ~/Library/Frameworks/ -framework SDL2_ttf \
-	  #`sdl-config --cflags --libs` \
-	  RED := "\033[0;31m"
 
-SDL_LINUX = -Wl,-rpath,/usr/local/lib/ -Wl,--enable-new-dtags -lSDL2 -lSDL2_ttf -lm -lpthread
+SDL_LINUX = -Wl,-rpath,/usr/local/lib/ -Wl,--enable-new-dtags -lSDL2 \
+			-lSDL2_ttf -lm -lpthread
 
 ifeq ($(OS), Windows_NT)
 	SDL = $(SDL_WINDOWS)
@@ -532,11 +530,13 @@ $(AUDIO_DIR):
 $(FONTS_DIR):
 	@mkdir -p $(FONTS_PATH)
 
+$(RESOURCES_ARCHIVE):
+
 $(RESOURCES):
 	@printf "\e[0;33m[INFO] Importing resources\e[0;36m\n"
 	@wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz && rm -rf /tmp/cookies.txt
 	@printf "\e[0;33m[INFO] Unarchiving resources\e[0m\n"
-	@tar -xf resources.tar.gz
+	tar -xf resources.tar.gz
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
