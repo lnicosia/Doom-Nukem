@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = doom-nukem-project
+
 GAME_NAME = doom-nukem
 
 EDITOR_NAME = doom_editor
@@ -37,12 +39,11 @@ SHOTGUN_DIR = shotgun
 GAME_DIR = .
 EDITOR_DIR = .
 LIBFT_DIR = libft
-SDL_DIR = $(LIB_DIR)/SDL2-2.0.8/include
+SDL_DIR = $(LIB_DIR)/SDL2-2.0.8
 SDL_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
-RESOURCES =  ressources.tar.gz
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -418,10 +419,14 @@ FONTS_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(FONTS_DIR))
 
 ALL_RESOURCES = $(EDITOR_DIR)
 
+RESOURCES = $(TEXTURES_FILES) $(SPRITES_FILES) $(SKYBOXES_FILES) $(HUD_FILES) \
+			$(UI_FILES) $(AUDIO_FILES) $(FONTS_FILES)
+
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
+		  -I $(LIBFT_DIR) -I $(SDL_DIR)/include -I $(SDL_TTF_DIR) \
+		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
 		  -O3 \
 		  #-fsanitize=address -g3 \
@@ -481,6 +486,8 @@ all: $(RESOURCES)
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
 	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
+$(NAME): all
+
 game:
 	@make -C $(LIBFT_DIR) -j8
 	@make $(GAME_DIR)/$(GAME_NAME) -j8
@@ -525,36 +532,11 @@ $(AUDIO_DIR):
 $(FONTS_DIR):
 	@mkdir -p $(FONTS_PATH)
 
-$(TEXTURES_PATH)/%.bmp: $(TEXTURES_SOURCE_PATH)/%.bmp 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(SPRITES_PATH)/%.bmp: $(SPRITES_SOURCE_PATH)/%.bmp 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(SKYBOXES_PATH)/%.bmp: $(SKYBOXES_SOURCE_PATH)/%.bmp 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(HUD_PATH)/%.bmp: $(HUD_SOURCE_PATH)/%.bmp 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(UI_PATH)/%.bmp: $(UI_SOURCE_PATH)/%.bmp 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(AUDIO_PATH)/%.wav: $(AUDIO_SOURCE_PATH)/%.wav 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(FONTS_PATH)/%.ttf: $(FONTS_SOURCE_PATH)/%.ttf 
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
 $(RESOURCES):
-	@wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O ressources.tar.gz && rm -rf /tmp/cookies.txt
+	@printf "\e[0;33m[INFO] Importing resources\e[0;36m\n"
+	@wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz && rm -rf /tmp/cookies.txt
+	@printf "\e[0;33m[INFO] Unarchiving resources\e[0m\n"
+	@tar -xf resources.tar.gz
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
 	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"

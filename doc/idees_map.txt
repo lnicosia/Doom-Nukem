@@ -1,3 +1,12 @@
 Secteur sans gravite
 Bouton pour enlever la gravite
 double porte (ouvre sur les cotes)
+Murs partiellement transparents (bareme)
+Sprites oriente
+Scenario/dialogues
+Objets avec collisions
+Objets a ramasser
+Actionner plaque/bouton
+Suite d'interactions
+Actions avec animations
+Theme/Ambiance/Decors
