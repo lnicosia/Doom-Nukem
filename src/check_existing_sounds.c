@@ -90,6 +90,7 @@ int     check_existing_sounds(t_env *env, char *name)
             return (1);
         i++;
     }
+		return (-1);
 	i = 0;
 	while (i < NB_MUSICS)
     {

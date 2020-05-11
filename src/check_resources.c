@@ -30,8 +30,8 @@ int    check_resources(t_env *env)
 	if (check_textures(env))
 		return (custom_error("Error while checking resources\n"));
 	if (check_fonts(env))
-		return (custom_error("Error while checking resources\n"));
+		return (custom_error("Error while checking resources\n"));	
 	if (check_sounds(env))
-		return (custom_error("Error while checking resources\n"));
+		return (custom_error("Error while checking resources\n"));	
 	return (0);
 }
