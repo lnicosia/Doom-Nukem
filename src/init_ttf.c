@@ -40,20 +40,20 @@ int		init_ttf(t_env *env)
 
 int	init_ttf1(t_env *env)
 {
-	if (!(env->init.fonts_names[0] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
+	if (!(env->init.fonts_names[0] = ft_strdup("./fonts/AmazDooMLeft.ttf")))
 		return (ft_perror("Error while initializing a font\n"));
 	if (!(env->sdl.fonts.amazdoom70 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 70)))
+		TTF_OpenFont("fonts/AmazDooMLeft.ttf", 70)))
 		env->init.fonts[0] = 1;
-	if (!(env->init.fonts_names[1] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
+	if (!(env->init.fonts_names[1] = ft_strdup("./fonts/AmazDooMLeft.ttf")))
 		return (ft_perror("Error while initializing a font\n"));
 	if (!(env->sdl.fonts.amazdoom50 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 50)))
+		TTF_OpenFont("fonts/AmazDooMLeft.ttf", 50)))
 		env->init.fonts[1] = 1;
-		if (!(env->init.fonts_names[2] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
+		if (!(env->init.fonts_names[2] = ft_strdup("./fonts/AmazDooMLeft.ttf")))
 		return (ft_perror("Error while initializing a font\n"));
 	if (!(env->sdl.fonts.amazdoom20 =
-		TTF_OpenFont("fonts/AmazDoomLeft.ttf", 20)))
+		TTF_OpenFont("fonts/AmazDooMLeft.ttf", 20)))
 		env->init.fonts[2] = 1;
 	if (!(env->init.fonts_names[3] = ft_strdup("./fonts/Alice-Regular.ttf")))
 		return (ft_perror("Error while initializing a font\n"));
