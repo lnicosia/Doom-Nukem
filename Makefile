@@ -447,13 +447,18 @@ FMOD_WINDOWS = /usr/lib/fmod.dll /usr/lib/fmodL.dll
 
 FMOD_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
 
-FMOD_LINUX = 
+FMOD_LINUX = /usr/local/lib/libfmod.so /usr/local/lib/libfmodL.so \
+			 /usr/local/lib/libfmod.so.12 /usr/local/lib/libfmodL.so.12 \
+			 /usr/local/lib/libfmod.so.12.0 /usr/local/lib/libfmodL.so.12.0
 
-FMOD_FLAGS_WINDOWS = /usr/local/bin/fmod.dll /usr/local/bin/fmodL.dll
+FMOD_FLAGS_WINDOWS = -lfmod -lfmodL
+	#/usr/local/bin/fmod.dll /usr/local/bin/fmodL.dll
 
-FMOD_FLAGS_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
+FMOD_FLAGS_OSX = -lfmod -lfmodL
+	#/usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
 
-FMOD_FLAGS_LINUX = -L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
+FMOD_FLAGS_LINUX = -lfmod -lfmodL
+#-L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
 
 SDL2_WINDOWS = -lSDL2
 
@@ -461,7 +466,7 @@ SDL2_OSX =
 
 SDL2_LINUX = /usr/local/lib/libSDL2.so
 
-SDL2_TTF_WINDOWS = -lSDL2_ttf
+SDL2_TTF_WINDOWS = 
 
 SDL2_TTF_OSX = 
 
@@ -487,7 +492,7 @@ else
 		FMOD_FLAGS = $(FMOD_FLAGS_OSX)
 		FMOD = $(FMOD_OSX)
 	else
-		SDL2_FLAGS += -lm -lpthread
+		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
 		FMOD_FLAGS = $(FMOD_FLAGS_LINUX)
 		FMOD = $(FMOD_LINUX)
@@ -543,6 +548,20 @@ $(SDL2_TTF_INCLUDES):
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
 	@cd lib && tar -xf SDL2_ttf-2.0.15.tar.gz
 
+$(FMOD_WINDOWS):
+	@sudo cp sound_lib/fmod.dll /usr/lib/
+	@sudo cp sound_lib/fmodL.dll /usr/lib/
+
+$(FMOD_OSX):
+	@sudo cp sound_lib/libfmod.dylib /usr/local/lib
+	@sudo cp sound_lib/libfmodL.dylib /usr/local/lib
+
+$(FMOD_LINUX):
+	@sudo cp sound_lib/libfmod.so.12 /usr/lib/
+	@sudo cp sound_lib/libfmod.so.12.0 /usr/lib/
+	@sudo cp sound_lib/libfmodL.so.12 /usr/lib/
+	@sudo cp sound_lib/libfmodL.so.12.0 /usr/lib/
+
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
 
@@ -582,10 +601,11 @@ $(FONTS_DIR):
 $(RESOURCES_ARCHIVE):
 
 $(RESOURCES):
-	@printf $(YELLOW)"[INFO] Importing resources\e[0;36m\n"
+	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
 	@wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz && rm -rf /tmp/cookies.txt
-	@printf "\e[0;33m[INFO] Unarchiving resources"$(RESET)
+	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	tar -xf resources.tar.gz
+	@printf $(RESET)
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
 					$(SDL2_TTF_INCLUDES)

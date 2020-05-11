@@ -66,8 +66,12 @@ CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			#-fsanitize=address -g3 \
 			#-flto\
 
+# Color declarations
 RED := "\e[0;31m"
 GREEN := "\e[0;32m"
+YELLOW := "\e[0;33m"
+BLUE := "\e[0;34m"
+MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
 
@@ -86,11 +90,11 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
