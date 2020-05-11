@@ -45,7 +45,7 @@ int		valid_int(char *line, t_map_parser *parser)
 		else if (*line == '-' && nb_digits)
 			break ;
 		if (nb_digits > 9 + neg)
-			return (ft_printf("Too many digits\n"));
+			return (custom_error("Too many digits\n"));
 		nb_digits++;
 		line++;
 	}
@@ -83,9 +83,9 @@ int		valid_double(char *line, t_map_parser *parser)
 		if (*line == '.' && !point)
 			point = 1;
 		else if (*line == '.' && point)
-			return (ft_printf("excessive number of points\n"));
+			return (custom_error("excessive number of points\n"));
 		if (pre_point > 8 + neg || after_point > 5)
-			return (ft_printf("Too many digits\n"));
+			return (custom_error("Too many digits\n"));
 		incr_counts(&pre_point, &after_point, point);
 		line++;
 	}

@@ -66,7 +66,7 @@ t_events_parser *eparser)
 	if (!**line || **line == ']')
 		return (missing_data("event target", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for target index\n"));
+		return (custom_error("Invalid int for target index\n"));
 	eparser->target_index = ft_atoi(*line);
 	if (eparser->target_index < 0 || eparser->target_index == PLAYER_SECTOR
 		|| eparser->target_index >= MAX_TARGET_TYPES)

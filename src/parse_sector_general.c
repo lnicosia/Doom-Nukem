@@ -35,7 +35,7 @@ int		parse_sector_general3(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("sector gravity", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for gravity\n"));
+		return (custom_error("Invalid double for gravity\n"));
 	env->sectors[parser->sectors_count].gravity = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].gravity
 		&& (env->sectors[parser->sectors_count].gravity < -10 ||
@@ -67,7 +67,7 @@ int		parse_sector_general2(t_env *env, char **line, t_map_parser *parser)
 		return (missing_data("light color intensity and sector gravity",
 		parser));
 		if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for light intensity\n"));
+		return (custom_error("Invalid int for light intensity\n"));
 	env->sectors[parser->sectors_count].intensity = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].intensity < -255
 		|| env->sectors[parser->sectors_count].intensity > 255)
@@ -85,7 +85,7 @@ int		parse_sector_general(t_env *env, char **line, t_map_parser *parser)
 	if (!**line)
 		return (missing_data("sector general data", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for brightness\n"));
+		return (custom_error("Invalid int for brightness\n"));
 	env->sectors[parser->sectors_count].brightness = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].brightness < -255 ||
 			env->sectors[parser->sectors_count].brightness > 255)

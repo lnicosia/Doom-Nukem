@@ -26,7 +26,7 @@ int		doom4(t_env *env)
 			option_menu_ig(env);
 		}
 		else if (draw_game(env))
-			return (ft_printf("Crash in game loop\n"));
+			return (custom_error("Crash in game loop\n"));
 	}
 	return (0);
 }

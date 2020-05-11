@@ -20,7 +20,7 @@ t_events_parser *eparser)
 	if (!**line || **line == ']')
 		return (missing_data("event trigger", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for trigger_index\n"));
+		return (custom_error("Invalid int for trigger_index\n"));
 	eparser->trigger_index = ft_atoi(*line);
 	if (eparser->trigger_index < 0 || eparser->trigger_index
 		> MAX_TRIGGER_TYPES)

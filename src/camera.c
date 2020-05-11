@@ -45,7 +45,7 @@ int		init_camera_arrays2(t_camera *camera, t_env *env)
 {
 	if (!(camera->rendered_sectors = (int*)ft_memalloc(sizeof(int)
 		* (env->screen_sectors_size))))
-		return (ft_printf("Could not malloc rendered sectors!\n", env));
+		return (custom_error("Could not malloc rendered sectors!\n"));
 	if (!(camera->v = (t_render_vertex**)
 				malloc(sizeof(t_render_vertex*) * env->nb_sectors)))
 		return (ft_perror("Could not malloc camera sectors"));
@@ -56,28 +56,28 @@ int		init_camera_arrays(t_camera *camera, t_env *env)
 {
 	camera->size = env->nb_sectors;
 	if (!(camera->screen_pos = (int*)ft_memalloc(sizeof(int) * (env->w))))
-		return (ft_printf("Could not malloc screen pos!\n", env));
+		return (custom_error("Could not malloc screen pos!\n"));
 	if (!(camera->sector_computed = (int*)ft_memalloc(sizeof(int)
 		* (env->nb_sectors))))
-		return (ft_printf("Could not malloc xmins!\n", env));
+		return (custom_error("Could not malloc xmins!\n"));
 	if (!(camera->sectors_size = (int*)ft_memalloc(sizeof(int)
 		* (env->nb_sectors))))
-		return (ft_printf("Could not malloc xmins!\n", env));
+		return (custom_error("Could not malloc xmins!\n"));
 	if (!(camera->feet_y = (double*)ft_memalloc(sizeof(double)
 		* (env->nb_sectors))))
-		return (ft_printf("Could not malloc xmins!\n", env));
+		return (custom_error("Could not malloc xmins!\n"));
 	if (!(camera->head_y = (double*)ft_memalloc(sizeof(double)
 		* (env->nb_sectors))))
-		return (ft_printf("Could not malloc xmins!\n", env));
+		return (custom_error("Could not malloc xmins!\n"));
 	if (!(camera->xmin = (int*)ft_memalloc(sizeof(int)
 		* (env->screen_sectors_size))))
-		return (ft_printf("Could not malloc xmins!\n", env));
+		return (custom_error("Could not malloc xmins!\n"));
 	if (!(camera->xmax = (int*)ft_memalloc(sizeof(int)
 		* (env->screen_sectors_size))))
-		return (ft_printf("Could not malloc xmaxs!\n", env));
+		return (custom_error("Could not malloc xmaxs!\n"));
 	if (!(camera->screen_sectors = (int*)ft_memalloc(sizeof(int)
 		* (env->screen_sectors_size))))
-		return (ft_printf("Could not malloc screen sectors!\n", env));
+		return (custom_error("Could not malloc screen sectors!\n"));
 	return (init_camera_arrays2(camera, env));
 }
 
@@ -91,6 +91,6 @@ int		init_camera(t_camera *camera, t_env *env)
 	camera->ratio = camera->ratio_w / camera->ratio_h;
 	set_camera(camera, env);
 	if (init_camera_arrays(camera, env))
-		return (ft_printf("Could not init camera arrays\n"));
+		return (custom_error("Could not init camera arrays\n"));
 	return (0);
 }

@@ -34,7 +34,6 @@ void	set_camera(t_camera *camera, t_env *env)
 {
 	camera->vfov = (180.0 / M_PI) * atan(tan((CONVERT_RADIANS
 	* camera->hfov / 2)) / camera->ratio) * 2;
-	ft_printf("vfov = %f\n", camera->vfov);
 	camera->near_left = -tan(CONVERT_RADIANS * camera->hfov / 2)
 	* camera->near_z;
 	camera->near_right = tan(CONVERT_RADIANS * camera->hfov / 2)

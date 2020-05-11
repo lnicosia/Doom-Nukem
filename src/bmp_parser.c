@@ -18,10 +18,10 @@ static int	parse2(int fd, t_bmp_parser *parser, t_env *env)
 	if (parser->color_used || parser->bpp <= 8)
 	{
 		if (set_color_table(fd, parser))
-			return (ft_printf("Error in color table\n"));
+			return (custom_error("Error in color table\n"));
 	}
 	if (parse_pixel_data(fd, parser, env->sprite_textures))
-		return (ft_printf("Error in pixel data\n"));
+		return (custom_error("Error in pixel data\n"));
 	return (0);
 }
 
@@ -38,13 +38,13 @@ static int	parse(int fd, int index, t_env *env)
 
 	parser.index = index;
 	if (index >= MAX_TEXTURES)
-		return (ft_printf("Too much textures\n"));
+		return (custom_error("Too much textures\n"));
 	if (parse_file_header(fd, &parser))
-		return (ft_printf("Error in file header\n"));
+		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
-		return (ft_printf("Error in image header\n"));
+		return (custom_error("Error in image header\n"));
 	if (parse_image_header(fd, &parser))
-		return (ft_printf("Error in image header\n"));
+		return (custom_error("Error in image header\n"));
 	ft_printf("{red}");
 	if (!(env->sprite_textures[index].surface =
 		SDL_CreateRGBSurfaceWithFormat(

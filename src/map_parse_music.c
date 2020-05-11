@@ -34,7 +34,7 @@ int		parse_ambient_music(t_env *env, t_map_parser *parser)
 			if (!(*(parser->line)))
 				return (missing_data("music number", parser));
 			if (valid_int(parser->line, parser))
-				return (ft_printf("Invalid int for music num\n"));
+				return (custom_error("Invalid int for music num\n"));
 			env->sound.ambient_music = ft_atoi(parser->line);
 			parser->line = skip_number(parser->line);
 			if (*(parser->line) && *(parser->line) == ' ')
@@ -75,7 +75,7 @@ int		parse_fight_music(t_env *env, t_map_parser *parser)
 			if (!*(parser->line))
 				return (missing_data("music number", parser));
 			if (valid_int(parser->line, parser))
-				return (ft_printf("Invalid int for music num\n"));
+				return (custom_error("Invalid int for music num\n"));
 			env->sound.fight_music = ft_atoi(parser->line);
 			parser->line = skip_number(parser->line);
 			if (*(parser->line) && *(parser->line) == ' ')

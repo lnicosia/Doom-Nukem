@@ -39,10 +39,10 @@ int		parse_objects_init(t_env *env, t_map_parser *parser, char *line)
 	if (!*line)
 		return (missing_data("before objects number", parser));
 	if (valid_int(line, parser) == WRONG_CHAR)
-		return (ft_printf("Invalid int for nb_objects\n"));
+		return (custom_error("Invalid int for nb_objects\n"));
 	env->nb_objects = ft_atoi(line);
 	if (env->nb_objects > 100000)
-		return (ft_printf("nb_objects can't exceed 100 000\n"));
+		return (custom_error("nb_objects can't exceed 100 000\n"));
 	line = skip_number(line);
 	if (*line && *line == ' ')
 		return (extra_data("objects number", parser));

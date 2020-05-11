@@ -61,7 +61,7 @@ int		parse_pixel_data(int fd, t_bmp_parser *parser, t_texture *textures)
 	else
 		size = ceil((parser->w * parser->bpp) / 32.0) * 4 * parser->h;
 	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char) * size)))
-		return (ft_printf("Could not malloc buffer for pixel data\n"));
+		return (custom_error("Could not malloc buffer for pixel data\n"));
 	if ((parser->ret = read(fd, str, size)) > 0)
 		parse_pixels(str, parser, textures);
 	ft_memdel((void**)&str);

@@ -129,7 +129,7 @@ int		init_game(int ac, char **av)
 	t_env	env;
 
 	if (ac < 2)
-		return (ft_printf("No map file.\n"));
+		return (custom_error("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
 	env.difficulty = 1;
 	env.menu = 1;

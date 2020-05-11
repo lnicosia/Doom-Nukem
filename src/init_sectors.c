@@ -17,7 +17,7 @@ int		parse_sectors_init2(t_env *env, t_map_parser *parser)
 	int		i;
 
 	if (env->nb_sectors > 100000)
-		return (ft_printf("nb_sectors can't exceed 100 000\n"));
+		return (custom_error("nb_sectors can't exceed 100 000\n"));
 	if (!(env->sectors = (t_sector *)ft_memalloc(sizeof(t_sector)
 					* env->nb_sectors)))
 		return (custom_error("Could not malloc sectors!"));
@@ -46,7 +46,7 @@ int		parse_sectors_init(t_env *env, t_map_parser *parser, char *line)
 	if (!*line)
 		return (missing_data("sectors number", parser));
 	if (valid_int(line, parser))
-		return (ft_printf("Invalid int for nb_sectors\n"));
+		return (custom_error("Invalid int for nb_sectors\n"));
 	env->nb_sectors = ft_atoi(line);
 	env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 	line = skip_number(line);

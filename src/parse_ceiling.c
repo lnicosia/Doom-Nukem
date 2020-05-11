@@ -19,7 +19,7 @@ int		parse_ceiling5(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling scale.x", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling_map_scale.x"));
+		return (custom_error("Invalid double for ceiling_map_scale.x"));
 	env->sectors[parser->sectors_count].ceiling_map_scale.x = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].ceiling_map_scale.x < 1
 		|| env->sectors[parser->sectors_count].ceiling_map_scale.x > 100)
@@ -35,7 +35,7 @@ int		parse_ceiling5(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling scale.y", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double ceiling_map_scale.y\n"));
+		return (custom_error("Invalid double ceiling_map_scale.y\n"));
 	env->sectors[parser->sectors_count].ceiling_map_scale.y = ft_atof(*line);
 	return (parse_ceiling6(env, line, parser));
 }
@@ -43,7 +43,7 @@ int		parse_ceiling5(t_env *env, char **line, t_map_parser *parser)
 int		parse_ceiling4(t_env *env, char **line, t_map_parser *parser)
 {
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling_map_align.x\n"));
+		return (custom_error("Invalid double for ceiling_map_align.x\n"));
 	env->sectors[parser->sectors_count].ceiling_map_align.x = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -55,7 +55,7 @@ int		parse_ceiling4(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling.y", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling_map_align.y\n"));
+		return (custom_error("Invalid double for ceiling_map_align.y\n"));
 	env->sectors[parser->sectors_count].ceiling_map_align.y = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].ceiling_texture < 0)
 		env->contains_skybox = 1;
@@ -79,7 +79,7 @@ int		parse_ceiling3(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling texture", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for ceiling texture\n"));
+		return (custom_error("Invalid int for ceiling texture\n"));
 	env->sectors[parser->sectors_count].ceiling_texture = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].ceiling_texture < -MAX_SKYBOX
 		|| env->sectors[parser->sectors_count].ceiling_texture
@@ -102,7 +102,7 @@ int		parse_ceiling2(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling slope", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling slope\n"));
+		return (custom_error("Invalid double for ceiling slope\n"));
 	env->sectors[parser->sectors_count].ceiling_slope = ft_atof(*line);
 	*line = skip_number(*line);
 	if (!**line || **line == ']')
@@ -114,7 +114,7 @@ int		parse_ceiling2(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling slope direction", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for ceiling slope start\n"));
+		return (custom_error("Invalid int for ceiling slope start\n"));
 	env->sectors[parser->sectors_count].start_ceiling_slope = ft_atoi(*line);
 	*line = skip_number(*line);
 	return (parse_ceiling3(env, line, parser));
@@ -132,7 +132,7 @@ int		parse_ceiling(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling height", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for ceiling height\n"));
+		return (custom_error("Invalid double for ceiling height\n"));
 	env->sectors[parser->sectors_count].ceiling = ft_atof(*line);
 	env->sectors[parser->sectors_count].ceiling_min =
 	env->sectors[parser->sectors_count].ceiling;

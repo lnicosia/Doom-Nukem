@@ -22,7 +22,7 @@ int		parse_event_various_data2(t_map_parser *parser,
 	if (!**line)
 		return (missing_data("even maximum uses", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for event max uses\n"));
+		return (custom_error("Invalid int for event max uses\n"));
 	eparser->event.max_uses = ft_atoi(*line);
 	if (eparser->event.max_uses < 0)
 		return (custom_error_with_line("Invalid number of uses", parser));
@@ -55,7 +55,7 @@ int		parse_event_various_data(t_env *env, t_map_parser *parser,
 	if (!**line)
 		return (missing_data("event delay and maximum uses", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for event delay\n"));
+		return (custom_error("Invalid int for event delay\n"));
 	delay = ft_atoi(*line);
 	if (delay < 0)
 		return (custom_error_with_line("Invalid delay", parser));

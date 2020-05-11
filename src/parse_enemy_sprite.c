@@ -24,7 +24,7 @@ int		parse_enemy_sprite2(t_env *env, char **line, t_map_parser *parser)
 	+ env->enemies[parser->enemies_count].pos.z + 1
 	> get_ceiling_at_pos(&env->sectors[env->enemies[parser->enemies_count].
 	sector], env->enemies[parser->enemies_count].pos, env))
-		return (ft_printf("Enemy's head is too high compared to ceiling"
+		return (custom_error("Enemy's head is too high compared to ceiling"
 		" height\n"));
 	*line = skip_number(*line);
 	if (!**line)

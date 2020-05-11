@@ -44,10 +44,10 @@ int			check_slopes_start(t_sector sector)
 {
 	if (sector.start_ceiling_slope > sector.nb_vertices
 		|| sector.start_ceiling_slope < 0)
-		return (ft_printf("Ceiling "));
+		return (custom_error("Ceiling "));
 	if (sector.start_floor_slope > sector.nb_vertices
 		|| sector.start_floor_slope < 0)
-		return (ft_printf("Floor "));
+		return (custom_error("Floor "));
 	return (0);
 }
 
@@ -68,11 +68,11 @@ int			check_sector(t_sector sector, t_env *env)
 		return (ft_printf("Sector %d is inside or contains a sector\n",
 		sector.num));
 		if (check_vertices(sector, env))
-		return (ft_printf("Vertices invalid\n"));
+		return (custom_error("Vertices invalid\n"));
 	if (check_slopes_start(sector))
-		return (ft_printf("slope direction isn't valid\n"));
+		return (custom_error("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))
-		return (ft_printf("Distance between floor and ceiling exceed 1000\n"));
+		return (custom_error("Distance between floor and ceiling exceed 1000\n"));
 	if (env->sector_is_straight)
 		return (ft_printf("Sector %d is on a staight line\n", sector.num));
 	return (0);
@@ -88,12 +88,12 @@ int			valid_map(t_env *env)
 	env->player.starting_sector =
 	get_sector_no_z(env, env->player.starting_pos);
 	if (!env->nb_sectors)
-		return (ft_printf("You need at least one sector to go in"
+		return (custom_error("You need at least one sector to go in"
 		" 3d mode{reset}\n"));
 	if (!env->editor.player_exist)
-		return (ft_printf("You need to place the player\n"));
+		return (custom_error("You need to place the player\n"));
 	if (env->player.sector == -1 || env->player.starting_sector == -1)
-		return (ft_printf("Player position is not valid{reset}\n"));
+		return (custom_error("Player position is not valid{reset}\n"));
 	while (i < env->nb_sectors)
 	{
 		if (check_sector(env->sectors[i], env))

@@ -19,7 +19,7 @@ int		parse_object_sprite2(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object scale", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for object scale\n"));
+		return (custom_error("Invalid double for object scale\n"));
 	env->objects[parser->objects_count].scale = ft_atof(*line);
 	if (env->objects[parser->objects_count].scale < 0.1
 	|| env->objects[parser->objects_count].scale > 100)
@@ -47,7 +47,7 @@ int		parse_object_sprite(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object sprite and scale", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for object texture\n"));
+		return (custom_error("Invalid int for object texture\n"));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid object sprite texture",

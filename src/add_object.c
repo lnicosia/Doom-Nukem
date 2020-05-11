@@ -49,11 +49,11 @@ int		add_object(t_env *env)
 	set_object_sector(&object, env);
 	if (!(env->objects = (t_object*)ft_realloc(env->objects, sizeof(t_object)
 		* env->nb_objects, sizeof(t_object) * (env->nb_objects + 1))))
-		return (ft_printf("Could not realloc objects\n"));
+		return (custom_error("Could not realloc objects\n"));
 	if (!(env->player.colliding_objects =
 		(int*)ft_realloc(env->player.colliding_objects,
 		sizeof(int) * env->nb_objects, sizeof(int) * (env->nb_objects + 1))))
-		return (ft_printf("Could not realloc objects\n"));
+		return (custom_error("Could not realloc objects\n"));
 	env->objects[env->nb_objects] = object;
 	env->editor.create_object = 0;
 	env->editor.add_object.state = UP;

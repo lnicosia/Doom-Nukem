@@ -21,7 +21,7 @@ int	parse_file_header(int fd, t_bmp_parser *parser)
 	if ((ret = read(fd, header, 14)) > 0)
 	{
 		if ((header[0] && header[0] != 'B') || (header[1] && header[1] != 'M'))
-			return (ft_printf("File type is missing\n"));
+			return (custom_error("File type is missing\n"));
 		if ((parser->size = read_int32(header, 2)) <= 14)
 			return (ft_printf("File size is too small! (%d bytes)\n",
 						parser->size));
@@ -30,11 +30,11 @@ int	parse_file_header(int fd, t_bmp_parser *parser)
 						parser->start));
 	}
 	else if (!ret)
-		return (ft_printf("File only contains header\n"));
+		return (custom_error("File only contains header\n"));
 	else
-		return (ft_printf("Error while reading file header \n"));
+		return (custom_error("Error while reading file header \n"));
 	if (ret != 14)
-		return (ft_printf("Header is not valid\n"));
+		return (custom_error("Header is not valid\n"));
 	return (0);
 }
 
@@ -72,21 +72,21 @@ int	parse_image_header(int fd, t_bmp_parser *parser)
 
 	if (!(image_header = (unsigned char*)ft_memalloc(sizeof(unsigned char)
 					* (parser->image_header_size - 4))))
-		return (ft_printf("Could not malloc image_header array\n"));
+		return (custom_error("Could not malloc image_header array\n"));
 	if ((ret = read(fd, image_header, parser->image_header_size - 4)) > 0)
 	{
 		if (get_image_header_data(image_header, parser))
-			return (ft_printf("Image header is not valid\n"));
+			return (custom_error("Image header is not valid\n"));
 	}
 	else if (!ret)
 	{
 		ft_memdel((void**)&image_header);
-		return (ft_printf("Incomplete image header\n"));
+		return (custom_error("Incomplete image header\n"));
 	}
 	else
 	{
 		ft_memdel((void**)&image_header);
-		return (ft_printf("Error while reading image header \n"));
+		return (custom_error("Error while reading image header \n"));
 	}
 	ft_memdel((void**)&image_header);
 	return (0);
@@ -104,8 +104,8 @@ int	get_image_header_size(int fd, t_bmp_parser *parser)
 						parser->image_header_size));
 	}
 	else if (!ret)
-		return (ft_printf("Incomplete image header\n"));
+		return (custom_error("Incomplete image header\n"));
 	else
-		return (ft_printf("Error while reading image header \n"));
+		return (custom_error("Error while reading image header \n"));
 	return (0);
 }
