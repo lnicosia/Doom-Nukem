@@ -84,6 +84,8 @@ void	draw_option_menu_ig_buttons(t_env *env)
 	draw_button(env, env->fps_option, "FPS");
 	draw_button(env, env->fov_increase, NULL);
 	draw_button(env, env->fov_decrease, NULL);
+	draw_button(env, env->next_resolution, NULL);
+	draw_button(env, env->prev_resolution, NULL);
 }
 
 void	option_menu_ig(t_env *env)

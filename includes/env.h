@@ -174,6 +174,8 @@ typedef struct			s_env
 	t_button			fps_option;
 	t_button			fov_decrease;
 	t_button			fov_increase;
+	t_button			next_resolution;
+	t_button			prev_resolution;
 	pid_t				pid;
 	pid_t				c_pid;
 }						t_env;
@@ -1333,6 +1335,8 @@ int						sounds_volume_down(void *param);
 int						return_button_func(void *param);
 int						fov_increase_button(t_env *env);
 int						fov_decrease_button(t_env *env);
+int						next_resolution_button(t_env *env);
+int						prev_resolution_button(t_env *env);
 void					add_button(t_env *env, int text, int x, int y,
 int ref_but);
 int						button_leftclick(t_env *env, int nb);
