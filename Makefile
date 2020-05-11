@@ -39,8 +39,8 @@ SHOTGUN_DIR = shotgun
 GAME_DIR = .
 EDITOR_DIR = .
 LIBFT_DIR = libft
-SDL_DIR = $(LIB_DIR)/SDL2-2.0.8
-SDL_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
+SDL2_DIR = $(LIB_DIR)/SDL2-2.0.8
+SDL2_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
@@ -426,7 +426,7 @@ RESOURCES_ARCHIVE = resources.tar.gz
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
-		  -I $(LIBFT_DIR) -I $(SDL_DIR)/include -I $(SDL_TTF_DIR) \
+		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
 		  -O3 \
@@ -443,56 +443,105 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -fsanitize=address -g3
 endif
 
-SOUND_WINDOWS = fmod.dll fmodL.dll
+FMOD_WINDOWS = /usr/lib/fmod.dll /usr/lib/fmodL.dll
 
-SOUND_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
+FMOD_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
 
-SOUND_LINUX = -L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
+FMOD_LINUX = 
 
-SDL_WINDOWS = /usr/local/bin/SDL2.dll \
-              /usr/local/bin/SDL2_ttf.dll \
-              -L/usr/local/lib -lcygwin -lSDL2main \
+FMOD_FLAGS_WINDOWS = /usr/local/bin/fmod.dll /usr/local/bin/fmodL.dll
 
-SDL_OSX = -lSDL2 -lSDL2_ttf
+FMOD_FLAGS_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
 
-SDL_LINUX = -Wl,-rpath,/usr/local/lib/ -Wl,--enable-new-dtags -lSDL2 \
-			-lSDL2_ttf -lm -lpthread
+FMOD_FLAGS_LINUX = -L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
+
+SDL2_WINDOWS = -lSDL2
+
+SDL2_OSX = 
+
+SDL2_LINUX = /usr/local/lib/libSDL2.so
+
+SDL2_TTF_WINDOWS = -lSDL2_ttf
+
+SDL2_TTF_OSX = 
+
+SDL2_TTF_LINUX = /usr/local/lib/libSDL2_ttf.so 
+
+SDL2_FLAGS = -lSDL2
+
+SDL2_TTF_FLAGS = -lSDL2_ttf
+
+SDL2_INCLUDES = $(SDL2_DIR)/include/SDL.h
+
+SDL2_TTF_INCLUDES = $(SDL2_TTF_DIR)/SDL_ttf.h
 
 ifeq ($(OS), Windows_NT)
-	SDL = $(SDL_WINDOWS)
-	SOUND = $(SOUND_WINDOWS)
+	SDL2 = $(SDL2_FLAGS_WINDOWS)
+	FMOD_FLAGS = $(FMOD_FLAGS_WINDOWS)
+	FMOD = $(FMOD_WINDOWS)
 	CFLAGS += -Wno-misleading-indentation
 else
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
-		SDL = $(SDL_OSX)
-		SOUND = $(SOUND_OSX)
+		SDL2 = $(SDL2_OSX)
+		FMOD_FLAGS = $(FMOD_FLAGS_OSX)
+		FMOD = $(FMOD_OSX)
 	else
-		SDL = $(SDL_LINUX)
-		SOUND = $(SOUND_LINUX)
+		SDL2_FLAGS += -lm -lpthread
+		SDL2 = $(SDL2_LINUX)
+		FMOD_FLAGS = $(FMOD_FLAGS_LINUX)
+		FMOD = $(FMOD_LINUX)
 		CFLAGS += -Wno-misleading-indentation
 	endif
 endif
 
+# Color declarations
+RED := "\e[0;31m"
 GREEN := "\e[0;32m"
+YELLOW := "\e[0;33m"
+BLUE := "\e[0;34m"
+MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
 
 all: $(RESOURCES)
-	@make -C $(LIBFT_DIR) -j8
-	@printf "\e[0m"
-	@make $(GAME_DIR)/$(GAME_NAME) -j8
-	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
+	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@printf $(RESET)
+	@printf $(CYAN)"[INFO] Buidling game..\n"$(RESET) 
+	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME) -j8
+	@printf $(CYAN)"[INFO] Buidling editor..\n"$(RESET) 
+	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
 $(NAME): all
 
 game:
-	@make -C $(LIBFT_DIR) -j8
-	@make $(GAME_DIR)/$(GAME_NAME) -j8
+	@printf $(CYAN)"[INFO] Compiling libft..\n"$(RESET) 
+	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@printf $(CYAN)"[INFO] Compiling libft..\n"$(RESET) 
+	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME) -j8
 
 editor:
-	@make -C $(LIBFT_DIR) -j8
-	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET) 
+	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@printf $(CYAN)"[INFO] Building editor..\n"$(RESET) 
+	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+
+$(SDL2_LINUX):
+	@sudo sh install.sh
+
+$(SDL2_TTF_LINUX):
+	@sudo sh install.sh
+
+$(SDL2_INCLUDES):
+	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
+	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
+	@cd lib && tar -xf SDL2-2.0.8.tar.gz
+
+$(SDL2_TTF_INCLUDES):
+	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
+	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
+	@cd lib && tar -xf SDL2_ttf-2.0.15.tar.gz
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
@@ -533,32 +582,41 @@ $(FONTS_DIR):
 $(RESOURCES_ARCHIVE):
 
 $(RESOURCES):
-	@printf "\e[0;33m[INFO] Importing resources\e[0;36m\n"
+	@printf $(YELLOW)"[INFO] Importing resources\e[0;36m\n"
 	@wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz && rm -rf /tmp/cookies.txt
-	@printf "\e[0;33m[INFO] Unarchiving resources\e[0m\n"
+	@printf "\e[0;33m[INFO] Unarchiving resources"$(RESET)
 	tar -xf resources.tar.gz
 
-$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
+					$(SDL2_TTF_INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
+					$(SDL2_TTF_INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) 
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
+					$(SDL2_TTF_INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	@printf "\e[0;36m[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}                   \e[0m\n"
-	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) $(SOUND)
-	@printf ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!\n"${RESET}
+$(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) \
+				$(OBJ_ALL) $(SDL2) $(SDL2_TTF) $(FMOD)
+	@printf $(CYAN)"[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}...\n"$(RESET)
+	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) \
+		$(SDL2_FLAGS) $(SDL2_TTF_FLAGS) $(FMOD_FLAGS)
+	@printf ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME)"
+	@printf " with success!\n"${RESET}
 
-$(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	@printf "\e[0;36m[INFO] Linking ${GAME_DIR}/${GAME_NAME}                    \e[0m\n"
-	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) $(SOUND)
-	@printf ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!\n"${RESET}
+$(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL) \
+			  $(SDL2) $(SDL2_TTF) $(FMOD)
+	@printf $(CYAN)"[INFO] Linking ${GAME_DIR}/${GAME_NAME}\n"$(RESET)
+	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) \
+		$(SDL2_FLAGS) $(SDL2_TTF_FLAGS) $(FMOD_FLAGS)
+	@printf ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!\n"
+	@printf ${RESET}
 
 clean: 
 	@make clean -C libft

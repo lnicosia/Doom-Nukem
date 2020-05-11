@@ -70,13 +70,13 @@ int		init_hud_textures7(t_env *env)
 		return (custom_error("Error while parsing hud textures\n"));
 	if (parse_bmp("images/HUD/gun_6.bmp", start + 27, env))
 		env->init.hud[27] = 1;
-	if (!(env->init.hud_names[28] = ft_strdup("images/HUD/gatling_1.bmp")))
+	if (!(env->init.hud_names[28] = ft_strdup("images/HUD/Gatling_1.bmp")))
 		return (custom_error("Error while parsing hud textures\n"));
-	if (parse_bmp("images/HUD/gatling_1.bmp", start + 28, env))
+	if (parse_bmp("images/HUD/Gatling_1.bmp", start + 28, env))
 		env->init.hud[28] = 1;
-	if (!(env->init.hud_names[29] = ft_strdup("images/HUD/gatling_2.bmp")))
+	if (!(env->init.hud_names[29] = ft_strdup("images/HUD/Gatling_2.bmp")))
 		return (custom_error("Error while parsing hud textures\n"));
-	if (parse_bmp("images/HUD/gatling_2.bmp", start + 29, env))
+	if (parse_bmp("images/HUD/Gatling_2.bmp", start + 29, env))
 		env->init.hud[29] = 1;
 	return (0);
 }
@@ -86,21 +86,21 @@ int		init_hud_textures8(t_env *env)
 	int start;
 	
 	start = env->hud_start;
-	if (!(env->init.hud_names[30] = ft_strdup("images/HUD/gatling_3.bmp")))
+	if (!(env->init.hud_names[30] = ft_strdup("images/HUD/Gatling_3.bmp")))
 		return (custom_error("Error while parsing hud textures\n"));
-	if (parse_bmp("images/HUD/gatling_3.bmp", start + 30, env))
+	if (parse_bmp("images/HUD/Gatling_3.bmp", start + 30, env))
 		env->init.hud[30] = 1;
-	if (!(env->init.hud_names[31] = ft_strdup("images/HUD/gatling_4.bmp")))
+	if (!(env->init.hud_names[31] = ft_strdup("images/HUD/Gatling_4.bmp")))
 		return (custom_error("Error while parsing hud textures\n"));
-	if (parse_bmp("images/HUD/gatling_4.bmp", start + 31, env))
+	if (parse_bmp("images/HUD/Gatling_4.bmp", start + 31, env))
 		env->init.hud[31] = 1;
-	if (!(env->init.hud_names[32] = ft_strdup("images/HUD/gatling_5.bmp")))
+	if (!(env->init.hud_names[32] = ft_strdup("images/HUD/Gatling_5.bmp")))
 		return (custom_error("Error while parsing hud textures\n"));
-	if (parse_bmp("images/HUD/gatling_5.bmp", start + 32, env))
+	if (parse_bmp("images/HUD/Gatling_5.bmp", start + 32, env))
 		env->init.hud[32] = 1;
-	if (!(env->init.hud_names[33] = ft_strdup("images/HUD/gatling_6.bmp")))
+	if (!(env->init.hud_names[33] = ft_strdup("images/HUD/Gatling_6.bmp")))
 		return (custom_error("Error while parsing hud textures\n"));
-	if (parse_bmp("images/HUD/gatling_6.bmp", start + 33, env))
+	if (parse_bmp("images/HUD/Gatling_6.bmp", start + 33, env))
 		env->init.hud[33] = 1;
 	return (0);
 }
