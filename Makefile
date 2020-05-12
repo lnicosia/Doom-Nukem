@@ -392,11 +392,16 @@ OBJ_EDITOR = $(addprefix $(OBJ_EDITOR_DIR)/, $(SRC_EDITOR_RAW:.c=.o))
 SRC_ALL = $(addprefix $(SRC_DIR)/, $(SRC_ALL_RAW))
 OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 
-TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
-SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRITES)))
-SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
-HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
-UI_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(UI_DIR)/, $(UI)))
+TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, \
+				 $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
+SPRITES_FILES = $(addprefix $(IMAGES_DIR)/, \
+				$(addprefix $(SPRITES_DIR)/, $(SPRITES)))
+SKYBOXES_FILES = $(addprefix $(IMAGES_DIR)/, \
+				 $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
+HUD_FILES = $(addprefix $(IMAGES_DIR)/, \
+			$(addprefix $(HUD_DIR)/, $(HUD)))
+UI_FILES = $(addprefix $(IMAGES_DIR)/, \
+		   $(addprefix $(UI_DIR)/, $(UI)))
 AUDIO_FILES = $(addprefix $(AUDIO_DIR)/, $(AUDIO))
 FONTS_FILES = $(addprefix $(FONTS_DIR)/, $(FONTS))
 
@@ -407,14 +412,6 @@ HUD_PATH =  $(addprefix $(IMAGES_DIR)/, $(HUD_DIR))
 UI_PATH =  $(addprefix $(IMAGES_DIR)/, $(UI_DIR))
 AUDIO_PATH = $(AUDIO_DIR)
 FONTS_PATH = $(FONTS_DIR)
-
-TEXTURES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR)))
-SPRITES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR)))
-SKYBOXES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR)))
-HUD_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(HUD_DIR)))
-UI_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(UI_DIR)))
-AUDIO_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(AUDIO_DIR))
-FONTS_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(FONTS_DIR))
 
 ALL_RESOURCES = $(EDITOR_DIR)
 
@@ -602,7 +599,14 @@ $(RESOURCES_ARCHIVE):
 
 $(RESOURCES):
 	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
-	@wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz && rm -rf /tmp/cookies.txt
+	@wget -q --show-progress --load-cookies /tmp/cookies.txt \
+	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet \
+	--save-cookies /tmp/cookies.txt --keep-session-cookies \
+	--no-check-certificate 'https://docs.google.com/uc?export=download&id=\
+	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn \
+	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=\
+	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz \
+	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	tar -xf resources.tar.gz
 	@printf $(RESET)
@@ -653,7 +657,8 @@ fclean:
 	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
 	@rm -Rf $(GAME_DIR)/$(GAME_NAME)
 	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
-	@printf ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
+	@printf ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME)"
+	@printf "and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
 
 re: fclean all
 
