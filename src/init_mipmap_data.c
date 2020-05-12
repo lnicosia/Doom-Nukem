@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 16:48:11 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/12 11:50:54 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/12 12:53:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ static int     init_wall_map_array(t_env *env)
 {
     int i;
     int j;
-    int k;
 
-    k = 0;
     i = 0;
     while (i < env->nb_sectors)
     {
