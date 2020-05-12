@@ -44,6 +44,7 @@ SDL2_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
+INSTALL_SCRIPT = install.sh
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -550,10 +551,10 @@ editor:
 	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
 $(SDL2_LINUX):
-	@sudo sh install.sh
+	@sudo sh $(INSTALL_SCRIPT)
 
 $(SDL2_TTF_LINUX):
-	@sudo sh install.sh
+	@sudo sh $(INSTALL_SCRIPT)
 
 $(SDL2_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
