@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 16:20:32 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 15:03:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,8 @@ int	create_bullet_holes(t_env *env)
 
 int	draw_game2(t_env *env)
 {
-	if (env->player.health > 0)
-	{
-		if (draw_hud(env))
-			return (-1);
-		if (print_ammo(env))
-			return (-1);
-	}
-	else
-	{
-		if (print_results(env))
-			return (-1);
-	}
+	if (is_player_alive(env))
+		return (-1);
 	if (env->player.hit)
 		damage_anim(env);
 	if (env->hovered_wall_sprite_sprite != -1
@@ -79,16 +69,8 @@ int	draw_game2(t_env *env)
 	if (env->dialog_box && env->dialog_box_str
 		&& draw_dialog_box(&env->dialog_box_str, env))
 		return (-1);
-	if (env->options.zbuffer)
-	{
-		if (update_screen_zbuffer(env))
-			return (-1);
-	}
-	else
-	{
-		if (update_screen(env))
-			return (-1);
-	}
+	if (update_screen(env))
+		return (-1);
 	if (!env->confirmation_box.state)
 		view(env);
 	return (0);
@@ -103,23 +85,14 @@ int	draw_game(t_env *env)
 		return (-1);
 	env->shooting = 0;
 	env->test_time = SDL_GetTicks();
-	if (((env->inputs.left_click && !env->shot.on_going
-		&& !env->weapon_change.on_going) || env->shot.on_going)
-		&& !env->confirmation_box.state)
-	{
-		if (weapon_animation(env, env->player.curr_weapon))
-			return (-1);
-	}
-	else if (env->player.health > 0)
-		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
-	if (env->weapon_change.on_going && !env->shot.on_going)
-		weapon_change(env);
-	draw_crosshair(env);
+	if(draw_weapons(env))
+		return (-1);
 	if (env->options.show_fps)
 	{
 		if (fps(env))
 			return (-1);
 	}
+	draw_crosshair(env);
 	game_time(env);
 	animations(env);
 	game_minimap(env);

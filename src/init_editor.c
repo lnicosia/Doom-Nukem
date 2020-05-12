@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 10:55:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ int		init_editor2(t_env *env)
 		return (crash("Could not load fonts\n", env));
 	if (init_input_box(&env->input_box, env))
 		return (crash("Could not init input box\n", env));
-	if (init_textures(env))
-		return (crash("Could not load textures\n", env));
-	if (generate_mipmaps(env))
-		return (crash("Could not generate mipmaps\n", env));
+
 	return (init_editor3(env));
 }
 
@@ -70,6 +67,8 @@ int		init_editor1(int ac, char **av, t_env *env)
 		return (crash("Could not initialize SDL\n", env));
 	if (check_resources(env))
 		return (crash("Could not pre load resources\n", env));
+	if (init_mipmap_arrays(env))
+		return (crash("Could not init arrays for sectors", env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");

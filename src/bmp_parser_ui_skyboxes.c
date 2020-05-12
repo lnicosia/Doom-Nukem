@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser_ui_skyboxes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:04:26 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/07 11:43:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/11 15:17:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ static int	parse_mini_skyboxes_textures(int fd, int index, t_env *env)
 	ft_printf("{red}");
 	if (!(env->mini_skyboxes[index].surface = SDL_CreateRGBSurfaceWithFormat(
 		0, parser.w, parser.h, parser.bpp, SDL_PIXELFORMAT_ARGB8888)))
-		return (custom_error("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	env->mini_skyboxes[index].str = env->mini_skyboxes[index].surface->pixels;
+		return (custom_error("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
+		env->mini_skyboxes[index].str =
+		env->mini_skyboxes[index].surface->pixels;
 	env->mini_skyboxes[index].scale = 1;
 	env->mini_skyboxes[index].xpadding = 0;
 	env->mini_skyboxes[index].ypadding = 0;

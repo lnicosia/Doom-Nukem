@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser_ui.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 14:51:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/09 12:02:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 15:17:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ static int	parse_ui_textures(int fd, int index, t_env *env)
 	ft_printf("{red}");
 	if (!(env->ui_textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
 		0, parser.w, parser.h, parser.bpp, SDL_PIXELFORMAT_ARGB8888)))
-		return (custom_error("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	env->ui_textures[index].str = env->ui_textures[index].surface->pixels;
+		return (custom_error("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
+		env->ui_textures[index].str = env->ui_textures[index].surface->pixels;
 	env->ui_textures[index].scale = 1;
 	env->ui_textures[index].xpadding = 0;
 	env->ui_textures[index].ypadding = 0;

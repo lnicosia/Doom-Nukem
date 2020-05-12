@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:16:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 12:17:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 17:47:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ int		write_textures1(int fd)
 		return (-1);
 	if ((file = open("./images/textures/wall3.bmp", O_RDONLY)) < 0)
 		return (custom_error("problem with read ressource\n"));
-	if (writing_bmp(file, fd, "./images/textures/wall2.bmp"))
+	if (writing_bmp(file, fd, "./images/textures/wall3.bmp"))
 		return (-1);
 	if ((file = open("./images/textures/floor0.bmp", O_RDONLY)) < 0)
 		return (custom_error("problem with read ressource\n"));
-	if (writing_bmp(file, fd, "./images/textures/wall2.bmp"))
+	if (writing_bmp(file, fd, "./images/textures/floor0.bmp"))
 		return (-1);
 	return (0);
 }

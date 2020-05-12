@@ -64,6 +64,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
 				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
+				draw_game2.c
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
@@ -319,7 +320,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_existing_sounds.c map_parse_textures.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
-		   check_gun.c check_raygun.c check_gatling.c
+		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

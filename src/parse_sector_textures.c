@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sector_textures.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:17:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:17:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 11:53:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
 #include "parser.h"
+#include "init.h"
 
 int		parse_current_texture3(t_env *env, char **line, t_map_parser *parser,
 int i)
 {
+	if (env->sectors[parser->sectors_count].scale[i].y < 1
+		|| env->sectors[parser->sectors_count].scale[i].y > 100)
+	{
+		return (custom_error_with_line("Wall scale must be"
+		"between 1 and 100", parser));
+	}
 	*line = skip_number(*line);
-	if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
-		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
-		i, env))
-		return (-1);
+	ft_printf("i: %d | sector count: %d\n", i, parser->sectors_count);
 	(*line)++;
 	return (0);
 }
@@ -47,12 +51,6 @@ int i)
 	if (valid_double(*line, parser))
 		return (custom_error("Invalid for wall %d texture scale.y\n", i));
 	env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
-	if (env->sectors[parser->sectors_count].scale[i].y < 1
-		|| env->sectors[parser->sectors_count].scale[i].y > 100)
-	{
-		return (custom_error_with_line("Wall scale must be"
-		"between 1 and 100", parser));
-	}
 		return (parse_current_texture3(env, line, parser, i));
 }
 
@@ -92,6 +90,31 @@ int		parse_sector_textures2(char **line, t_map_parser *parser)
 	return (0);
 }
 
+static int     init_wall_map_array(t_env *env, int i)
+{
+   // int i;
+    int j;
+
+    //i = 0;
+    while (i < env->nb_sectors)
+    {
+        j = 0;
+        ft_printf("i: %d\n", i);
+        while(j < env->sectors[i].nb_vertices)
+        {
+            ft_printf("j: %d\n", j);
+            if (set_sector_wall_map_array(&env->sectors[i],
+		        &env->wall_textures[env->sectors[i].textures[j]],
+		        i, env))
+		        return (-1);
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
+
+
 int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
@@ -114,6 +137,18 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	{
 		if (parse_current_texture(env, line, parser, i))
 			return (-1);
+		if (init_textures(env))
+			return (crash("Could not load textures\n", env));
+		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
+		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
+		i, env))
+			return (-1);
+		if (init_wall_map_array(env, i))
+			return (-1);
+		if (generate_mipmaps(env))
+			return (crash("Could not generate mipmaps\n", env));
+		if (init_mipmap_arrays(env))
+   		  	return (-1);
 		i++;
 	}
 	return (parse_sector_textures2(line, parser));

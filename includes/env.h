@@ -259,6 +259,7 @@ int					map_parse_sprites(t_env *env, t_map_parser *parser);
 int					map_parse_skyboxes(t_env *env, t_map_parser *parser);
 int					map_parse_fonts(t_env *env, t_map_parser *parser);
 int					skip_file(t_map_parser *parser);
+int					init_mipmap_arrays(t_env *env);
 
 /*
 ** Editor functions
@@ -814,7 +815,8 @@ int						return_button(t_env *env);
 int						hitscan_enemies(t_env *env, int i);
 int						hitscan_objects(t_env *env, int i);
 int						damage_done(t_env *env, double rotated_pos_w);
-
+int						is_player_alive(t_env *env);
+int						draw_weapons(t_env *env);
 /*
 ** Screen utils
 */

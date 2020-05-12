@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/20 14:48:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/20 14:48:21 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/11 15:42:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		sprites_textures(t_env *env, char *name)
 	}
 	return (0);
 }
-
 
 int		skyboxes_textures(t_env *env, char *name)
 {

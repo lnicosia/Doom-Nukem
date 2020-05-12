@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 11:47:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 17:59:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,17 @@ int			check_vertices(t_sector sector, t_env *env)
 		j = 0;
 		while (j < env->nb_sectors)
 		{
-			if (env->sectors[j].num != sector.num && check_intersection_with_sector(env->sectors[j], env, v1, v2))
+			if (env->sectors[j].num != sector.num
+			&& check_intersection_with_sector(env->sectors[j], env, v1, v2))
 				return (-1);
 			j++;
 		}
 		i++;
 	}
 	if (is_sector_concave(sector, env))
-	{
 		return (custom_error("Sector %d is concave\n", sector.num));
-	}
 	if (check_neighbor_validity(sector, env))
-	{
 		return (custom_error("Sector %d has a invalid neighbor\n", sector.num));
-	}
 	return (0);
 }
 

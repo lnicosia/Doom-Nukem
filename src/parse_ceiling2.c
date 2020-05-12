@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ceiling2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:51:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:01:41 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 11:14:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int		parse_ceiling6(t_env *env, char **line, t_map_parser *parser)
 		|| env->sectors[parser->sectors_count].ceiling_map_scale.y > 100)
 		return (custom_error_with_line("Ceiling scale must be"
 		"between 1 and 100", parser));
-		if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count],
+	/*	if (set_sector_ceiling_map_array(&env->sectors[parser->sectors_count],
 		&env->wall_textures[env->sectors[parser->sectors_count].
 		ceiling_texture], env))
-		return (-1);
+		return (-1);*/
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after ceiling texture", parser));
