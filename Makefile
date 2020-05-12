@@ -554,8 +554,10 @@ $(FMOD_OSX):
 	@sudo cp sound_lib/libfmodL.dylib /usr/local/lib
 
 $(FMOD_LINUX):
+	@sudo cp sound_lib/libfmod.so /usr/lib/
 	@sudo cp sound_lib/libfmod.so.12 /usr/lib/
 	@sudo cp sound_lib/libfmod.so.12.0 /usr/lib/
+	@sudo cp sound_lib/libfmodL.so /usr/lib/
 	@sudo cp sound_lib/libfmodL.so.12 /usr/lib/
 	@sudo cp sound_lib/libfmodL.so.12.0 /usr/lib/
 
