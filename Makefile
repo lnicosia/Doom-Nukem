@@ -622,13 +622,13 @@ $(RESOURCES_ARCHIVE):
 
 $(RESOURCES):
 	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
-	@wget -q --show-progress --load-cookies /tmp/cookies.txt \
-	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet \
-	--save-cookies /tmp/cookies.txt --keep-session-cookies \
-	--no-check-certificate 'https://docs.google.com/uc?export=download&id=\
-	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn \
-	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=\
-	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz \
+	wget -q --show-progress --load-cookies /tmp/cookies.txt \
+	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
+	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
+	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
+	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn $\
+	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
+	&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	tar -xf resources.tar.gz
