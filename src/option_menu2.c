@@ -25,13 +25,16 @@ int		return_button_func(void *target)
 
 int		music_volume_up(void *target)
 {
-	t_env *env;
+	t_env	*env;
+	double	volume;
 
 	env = (t_env*)target;
-	if (env->sound.music_vol <= 0.90)
+	volume = env->sound.music_vol * 100;
+	if (volume <= 90)
 	{
 		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
-		env->sound.music_vol += 0.1;
+		volume += 10;
+		env->sound.music_vol = volume / 100;
 		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
 		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
 	}
@@ -40,13 +43,16 @@ int		music_volume_up(void *target)
 
 int		music_volume_down(void *target)
 {
-	t_env *env;
+	t_env	*env;
+	double	volume;
 
 	env = (t_env*)target;
-	if (env->sound.music_vol >= 0.10)
+	volume = env->sound.music_vol * 100;
+	if (volume >= 10)
 	{
 		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
-		env->sound.music_vol -= 0.1;
+		volume -= 10;
+		env->sound.music_vol = volume / 100;
 		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
 		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
 	}
@@ -55,14 +61,17 @@ int		music_volume_down(void *target)
 
 int		sounds_volume_down(void *target)
 {
-	t_env *env;
+	t_env	*env;
+	double	volume;
 
 	env = (t_env*)target;
-	if (env->sound.ambient_vol >= 0.10)
+	volume = env->sound.ambient_vol * 100;
+	if (volume >= 10)
 	{
 		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1);
 		FMOD_Channel_SetPaused(env->sound.footstep_chan, 1);
-		env->sound.ambient_vol -= 0.1;
+		volume -= 10;
+		env->sound.ambient_vol = volume / 100;
 		FMOD_Channel_SetVolume(env->sound.footstep_chan,
 			env->sound.ambient_vol);
 		FMOD_Channel_SetVolume(env->sound.player_shots_chan,
@@ -75,14 +84,17 @@ int		sounds_volume_down(void *target)
 
 int		sounds_volume_up(void *target)
 {
-	t_env *env;
+	t_env	*env;
+	double	volume;
 
 	env = (t_env*)target;
-	if (env->sound.ambient_vol <= 0.90)
+	volume = env->sound.ambient_vol * 100;
+	if (volume <= 90)
 	{
 		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1);
 		FMOD_Channel_SetPaused(env->sound.footstep_chan, 1);
-		env->sound.ambient_vol += 0.1;
+		volume += 10;
+		env->sound.ambient_vol = volume / 100;
 		FMOD_Channel_SetVolume(env->sound.footstep_chan,
 			env->sound.ambient_vol);
 		FMOD_Channel_SetVolume(env->sound.player_shots_chan,
