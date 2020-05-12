@@ -383,6 +383,10 @@ FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
 		Montserrat-Regular.ttf PlayfairDisplay-Regular.ttf \
 		Lato-Regular.ttf Lato-Bold.ttf Lato-Black.ttf
 
+#
+# Creation of files path
+#
+
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
@@ -391,6 +395,8 @@ OBJ_EDITOR = $(addprefix $(OBJ_EDITOR_DIR)/, $(SRC_EDITOR_RAW:.c=.o))
 
 SRC_ALL = $(addprefix $(SRC_DIR)/, $(SRC_ALL_RAW))
 OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
+
+INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
 TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, \
 				 $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
@@ -420,7 +426,7 @@ RESOURCES = $(TEXTURES_FILES) $(SPRITES_FILES) $(SKYBOXES_FILES) $(HUD_FILES) \
 
 RESOURCES_ARCHIVE = resources.tar.gz
 
-INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
+
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
@@ -434,34 +440,39 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  #-ffast-math \
 		  #-funroll-loops \
 	
-DEBUG ?= 0
+#
+# Flags for FMOD, SDL2 and SDL2_ttf linking
+#
 
-ifeq ($(DEBUG), 1)
-	CFLAGS += -fsanitize=address -g3
-endif
+FMOD_FLAGS = -lfmod -lfmodL
+
+SDL2_FLAGS = -lSDL2
+
+SDL2_TTF_FLAGS = -lSDL2_ttf
+
+#
+# Needed lib files to link
+#
+
+#### FMOD ####
 
 FMOD_WINDOWS = /usr/lib/fmod.dll /usr/lib/fmodL.dll
 
 FMOD_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
 
-FMOD_LINUX = /usr/local/lib/libfmod.so /usr/local/lib/libfmodL.so \
-			 /usr/local/lib/libfmod.so.12 /usr/local/lib/libfmodL.so.12 \
-			 /usr/local/lib/libfmod.so.12.0 /usr/local/lib/libfmodL.so.12.0
+FMOD_LINUX = /usr/lib/libfmod.so /usr/lib/libfmodL.so \
+			 /usr/lib/libfmod.so.12 /usr/lib/libfmodL.so.12 \
+			 /usr/lib/libfmod.so.12.0 /usr/lib/libfmodL.so.12.0
 
-FMOD_FLAGS_WINDOWS = -lfmod -lfmodL
-	#/usr/local/bin/fmod.dll /usr/local/bin/fmodL.dll
+#### SDL2 ####
 
-FMOD_FLAGS_OSX = -lfmod -lfmodL
-	#/usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
-
-FMOD_FLAGS_LINUX = -lfmod -lfmodL
-#-L./sound_lib -Wl,-rpath,./sound_lib -Wl,--enable-new-dtags -lfmod -lfmodL
-
-SDL2_WINDOWS = -lSDL2
+SDL2_WINDOWS = 
 
 SDL2_OSX = 
 
 SDL2_LINUX = /usr/local/lib/libSDL2.so
+
+#### SDL2_ttf ####
 
 SDL2_TTF_WINDOWS = 
 
@@ -469,35 +480,40 @@ SDL2_TTF_OSX =
 
 SDL2_TTF_LINUX = /usr/local/lib/libSDL2_ttf.so 
 
-SDL2_FLAGS = -lSDL2
-
-SDL2_TTF_FLAGS = -lSDL2_ttf
+#
+# Includes lib files needed for compilation (needs an archive to be extracted)
+#
 
 SDL2_INCLUDES = $(SDL2_DIR)/include/SDL.h
 
 SDL2_TTF_INCLUDES = $(SDL2_TTF_DIR)/SDL_ttf.h
 
+#
+# Setting right flags and files dependencies to link external libs
+# according to user's os
+#
+
 ifeq ($(OS), Windows_NT)
 	SDL2 = $(SDL2_FLAGS_WINDOWS)
-	FMOD_FLAGS = $(FMOD_FLAGS_WINDOWS)
 	FMOD = $(FMOD_WINDOWS)
 	CFLAGS += -Wno-misleading-indentation
 else
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		SDL2 = $(SDL2_OSX)
-		FMOD_FLAGS = $(FMOD_FLAGS_OSX)
 		FMOD = $(FMOD_OSX)
 	else
 		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
-		FMOD_FLAGS = $(FMOD_FLAGS_LINUX)
 		FMOD = $(FMOD_LINUX)
 		CFLAGS += -Wno-misleading-indentation
 	endif
 endif
 
+#
 # Color declarations
+#
+
 RED := "\e[0;31m"
 GREEN := "\e[0;32m"
 YELLOW := "\e[0;33m"
@@ -505,6 +521,10 @@ BLUE := "\e[0;34m"
 MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
+
+#
+# Rules
+#
 
 all: $(RESOURCES)
 	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
