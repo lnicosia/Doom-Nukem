@@ -54,10 +54,10 @@ ROOT = sudo
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-LIBS_RAW = libelf-0-8.13 libXrender-0.9.10 libXrandr-1.5.2 libxshmfence-1.3 \
+LIB_RAW = libelf-0.8.13 libXrender-0.9.10 libXrandr-1.5.2 libxshmfence-1.3 \
 		   libXxf86vm-1.1.4 xcb-proto-1.14 libxcb-1.14 libXfixes-5.0 \
-		   libXdamage-1.1 libX11-1.6.9 libcpciaccess-0.13.4 libdrm-2.4.100 \
-		   zlib-1.2.11 mesa-19.0.8
+		   libXdamage-1.1 libX11-1.6.9 libpciaccess-0.13.4 libdrm-2.4.100 \
+		   zlib-1.2.11 mesa-19.0.8 freetype-2.9
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
@@ -410,16 +410,18 @@ OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
+LIB = $(addprefix $(LIB_DIR)/, $(LIB_RAW))
+
+LIB_ARCHIVES = $(addsuffix .tar.gz, $(LIB))
+
 TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, \
 				 $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
 SPRITES_FILES = $(addprefix $(IMAGES_DIR)/, \
 				$(addprefix $(SPRITES_DIR)/, $(SPRITES)))
 SKYBOXES_FILES = $(addprefix $(IMAGES_DIR)/, \
 				 $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
-HUD_FILES = $(addprefix $(IMAGES_DIR)/, \
-			$(addprefix $(HUD_DIR)/, $(HUD)))
-UI_FILES = $(addprefix $(IMAGES_DIR)/, \
-		   $(addprefix $(UI_DIR)/, $(UI)))
+HUD_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
+UI_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(UI_DIR)/, $(UI)))
 AUDIO_FILES = $(addprefix $(AUDIO_DIR)/, $(AUDIO))
 FONTS_FILES = $(addprefix $(FONTS_DIR)/, $(FONTS))
 
@@ -431,26 +433,17 @@ UI_PATH =  $(addprefix $(IMAGES_DIR)/, $(UI_DIR))
 AUDIO_PATH = $(AUDIO_DIR)
 FONTS_PATH = $(FONTS_DIR)
 
-ALL_RESOURCES = $(EDITOR_DIR)
-
 RESOURCES = $(TEXTURES_FILES) $(SPRITES_FILES) $(SKYBOXES_FILES) $(HUD_FILES) \
 			$(UI_FILES) $(AUDIO_FILES) $(FONTS_FILES)
 
-RESOURCES_ARCHIVE = resources.tar.gz
-
-
+OPTI_FLAGS = -O3
 
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  -O3 \
+		  $(OPTI_FLAGS) \
 		  #-fsanitize=address -g3 \
-		  #-Wno-misleading-indentation \
-		  #-flto \
-		  #-fdata-sections \
-		  #-ffast-math \
-		  #-funroll-loops \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking
@@ -525,6 +518,7 @@ else
 		COMPILE_ALL = $(INSTALL_DIR)/compile_all_osx.sh
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_osx.sh
 		INSTALL_ALL = $(INSTALL_DIR)/install_all_osx.sh
+		OPTI_FLAGS += -flto
 	else
 		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
@@ -533,6 +527,7 @@ else
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_linux.sh
 		INSTALL_ALL = $(INSTALL_DIR)/install_all_linux.sh
 		CFLAGS += -Wno-misleading-indentation
+		OPTI_FLAGS += -flto
 	endif
 endif
 
@@ -575,13 +570,23 @@ editor: $(RESOURCES)
 	@printf $(CYAN)"[INFO] Building editor..\n"$(RESET) 
 	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
+$(LIB_DIR): $(LIB_DIR)%.tar.gz
+	printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
+	tar -xf $< 
+
+$(EXTRACT_ALL): $(LIB_ARCHIVE)
+
+$(EXTRACT_SDL): $(SDL2_DIR) $(SDL2_TTF_DIR)
+
 $(SDL_DEPENDENCIES):
 ifeq ($(SDL_DEPENDENCIES), compile-all)
+	$(EXTRACT_ALL)
 	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
 	@cd install
 	@$(ROOT) sh $(COMPILE_ALL)
 else
 	ifeq($(SDL_DEPENDENCIES), compile-sdl)
+		$(EXTRACT_SDL)
 		@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
 		@cd install
 		@$(ROOT) sh $(INSTALL_SDL_DEPENDENCIES)
@@ -723,23 +728,38 @@ $(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL) \
 	@printf ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!\n"
 	@printf ${RESET}
 
-clean: 
+$(CLEAN_LIB): $(LIB)
+	printf $(YELLOW)"Make clean $<\n"$(RESET)
+	make clean -C $<
+
+$(FCLEAN_LIB): $(LIB)
+	@printf $(YELLOW)"Make clean $<\n"$(RESET)
+	@cd $< && $(ROOT) make clean && cd ..
+	@printf $(YELLOW)"Removing $<\n"$(RESET)
+	@rm -rf $<
+
+clean: $(CLEAN_LIB)
+	make clean -C $(SDL2_DIR)
+	make clean -C $(SDL2_TTF_DIR)
 	@make clean -C libft
-	@rm -Rf $(OBJ_ALL_DIR)
-	@rm -Rf $(OBJ_EDITOR_DIR)
-	@rm -Rf $(OBJ_GAME_DIR)
+	@rm -rf $(OBJ_ALL_DIR)
+	@rm -rf $(OBJ_EDITOR_DIR)
+	@rm -rf $(OBJ_GAME_DIR)
 	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
 
 fclean:
+	make clean -C $(SDL2_DIR)
+	make clean -C $(SDL2_TTF_DIR)
+	make clean -C $(LIB)
 	@make fclean -C libft
-	@rm -Rf $(OBJ_ALL_DIR)
-	@rm -Rf $(OBJ_EDITOR_DIR)
-	@rm -Rf $(OBJ_GAME_DIR)
+	@rm -rf $(OBJ_ALL_DIR)
+	@rm -rf $(OBJ_EDITOR_DIR)
+	@rm -rf $(OBJ_GAME_DIR)
 	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
-	@rm -Rf $(GAME_DIR)/$(GAME_NAME)
-	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
+	@rm -rf $(GAME_DIR)/$(GAME_NAME)
+	@rm -rf $(EDITOR_DIR)/$(EDITOR_NAME)
 	@printf ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME)"
-	@printf "and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
+	@printf " and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
 
 re: fclean all
 

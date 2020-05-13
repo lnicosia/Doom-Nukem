@@ -1,7 +1,7 @@
 #!bin/bash
 echo "Compiling mesa and all its dependencies. Needed for SDL2."
 cd ../lib
-for f in *.gz; do tar -xvf "$f"; done
+#for f in *.gz; do tar -xvf "$f"; done
 cd libelf-0.8.13
 sudo ./configure
 sudo make -j4
