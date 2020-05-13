@@ -41,10 +41,10 @@ EDITOR_DIR = .
 LIBFT_DIR = libft
 SDL2_DIR = $(LIB_DIR)/SDL2-2.0.8
 SDL2_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
-FREETYPE_TTF_DIR = $(LIB_DIR)/freetype-2.9
+FREETYPE_DIR = $(LIB_DIR)/freetype-2.9
 SDL2_MAKEFILE = $(SDL2_DIR)/Makefile
 SDL2_TTF_MAKEFILE = $(SDL2_TTF_DIR)/Makefile
-FREETYPE_TTF_MAKEFILE = $(FREETYPE_DIR)/Makefile
+FREETYPE_MAKEFILE = $(FREETYPE_DIR)/Makefile
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
@@ -503,7 +503,8 @@ SDL2_TTF_INCLUDES = $(SDL2_TTF_DIR)/SDL_ttf.h
 #
 
 ifeq ($(OS), Windows_NT)
-	SDL2 = $(SDL2_FLAGS_WINDOWS)
+	SDL2 = $(SDL2_WINDOWS)
+	SDL2_TTF = $(SDL2_TTF_WINDOWS)
 	FMOD = $(FMOD_WINDOWS)
 	CFLAGS += -Wno-misleading-indentation
 	COMPILE_ALL = $(INSTALL_DIR)/compile_all_windows.sh
@@ -514,6 +515,7 @@ else
 	UNAME_S = $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		SDL2 = $(SDL2_OSX)
+		SDL2_TTF = $(SDL2_TTF_OS)
 		FMOD = $(FMOD_OSX)
 		COMPILE_ALL = $(INSTALL_DIR)/compile_all_osx.sh
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_osx.sh
@@ -522,6 +524,7 @@ else
 	else
 		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
+		SDL2_TTF = $(SDL2_TTF_LINUX)
 		FMOD = $(FMOD_LINUX)
 		COMPILE_ALL = $(INSTALL_DIR)/compile_all_linux.sh
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_linux.sh
@@ -549,12 +552,12 @@ RESET :="\e[0m"
 
 all: $(RESOURCES)
 	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
-	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@make --no-print-directory -C $(LIBFT_DIR)
 	@printf $(RESET)
 	@printf $(CYAN)"[INFO] Buidling game..\n"$(RESET) 
-	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME) -j8
+	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME)
 	@printf $(CYAN)"[INFO] Buidling editor..\n"$(RESET) 
-	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME)
 
 $(NAME): all
 
@@ -571,8 +574,8 @@ editor: $(RESOURCES)
 	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
 
 $(LIB_DIR): $(LIB_DIR)%.tar.gz
-	printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
-	tar -xf $< 
+	@printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
+	@tar -xf $< 
 
 $(EXTRACT_ALL): $(LIB_ARCHIVE)
 
@@ -582,13 +585,11 @@ $(SDL_DEPENDENCIES):
 ifeq ($(SDL_DEPENDENCIES), compile-all)
 	$(EXTRACT_ALL)
 	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
-	@cd install
 	@$(ROOT) sh $(COMPILE_ALL)
 else
 	ifeq($(SDL_DEPENDENCIES), compile-sdl)
 		$(EXTRACT_SDL)
 		@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
-		@cd install
 		@$(ROOT) sh $(INSTALL_SDL_DEPENDENCIES)
 	else
 		ifeq($(SDL_DEPENDENCIES), install-all)
@@ -614,44 +615,38 @@ $(FREETYPE_DIR):
 	@cd lib && tar -xf freetype-2.9.tar.gz
 
 $(SDL2_MAKEFILE): $(SDL2_DIR)
-	@cd $(SDL2_DIR)
 	@printf $(YELLOW)"Configuring SDL2..\n"$(RESET) 
-	@$(ROOT) ./configure
+	@cd $(SDL2_DIR) && $(ROOT) ./configure
 
-$(SDL2_TTF_MAKEFILE): $(SDL2_DIR)
-	@cd $(SDL2_DIR)
+$(SDL2_TTF_MAKEFILE): $(SDL2_TTF_DIR) $(SDL2) $(FREETYPE)
 	@printf $(YELLOW)"Configuring SDL2_ttf..\n"$(RESET) 
-	@$(ROOT) ./configure
+	@cd $(SDL2_TTF_DIR) && $(ROOT) ./configure
 
-$(FREETYPE_MAKEFILE): $(SDL2_TTF_DIR) $(SDL2) $(FREETYPE)
-	@cd $(SDL2_DIR)
+$(FREETYPE_MAKEFILE): $(FREETYPE_DIR)
 	@printf $(YELLOW)"Configuring FreeType..\n"$(RESET) 
-	@$(ROOT) ./configure
+	@cd $(FREETYPE_DIR) && $(ROOT) ./configure
 
-$(SDL2): $(SDL2_MAKEFILE) $(SDL_DEPENDENCIES)
-	@cd $(SDL2_DIR)
-	@$(ROOT) make
-	@$(ROOT) make install
+$(SDL2): $(SDL2_DEPENDENCIES) $(SDL2_MAKEFILE)
+	$(ROOT) make -C $(SDL2_DIR)
+	$(ROOT) make install -C $(SDL2_DIR)
 
 $(SDL2_TTF): $(SDL2_TTF_MAKEFILE)
-	@cd $(SDL2_TTF_DIR)
-	@$(ROOT) make
-	@$(ROOT) make install
+	@$(ROOT) make -C $(SDL2_TTF_DIR)
+	@$(ROOT) make install -C $(SDL2_TTF_DIR)
 
 $(FREETYPE): $(FREETYPE_MAKEFILE)
-	@cd $(FREETYPE_DIR)
-	@$(ROOT) make
-	@$(ROOT) make install
+	@$(ROOT) make -C $(FREETYPE_DIR)
+	@$(ROOT) make install -C $(FREETYPE_DIR)
 
 $(SDL2_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@cd lib && tar -xf SDL2-2.0.8.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 
 $(SDL2_TTF_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@cd lib && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 
 $(FMOD_WINDOWS):
 	@$(ROOT) cp sound_lib/fmod.dll /usr/lib/
@@ -696,6 +691,7 @@ $(RESOURCES):
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	tar -xf resources.tar.gz
 	@printf $(RESET)
+	@rm -rf resources.tar.gz
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
 					$(SDL2_TTF_INCLUDES)
@@ -712,16 +708,16 @@ $(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
 	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) \
-				$(OBJ_ALL) $(SDL2) $(SDL2_TTF) $(FMOD)
+$(EDITOR_NAME): $(LIBFT) $(SDL2) $(SDL2_TTF) $(FMOD) $(OBJ_EDITOR_DIR) \
+				$(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
 	@printf $(CYAN)"[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}...\n"$(RESET)
 	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) \
 		$(SDL2_FLAGS) $(SDL2_TTF_FLAGS) $(FMOD_FLAGS)
 	@printf ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME)"
 	@printf " with success!\n"${RESET}
 
-$(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL) \
-			  $(SDL2) $(SDL2_TTF) $(FMOD)
+$(GAME_NAME): $(LIBFT) $(SDL2) $(SDL2_TTF) $(FMOD) $(OBJ_GAME_DIR) \
+			  $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
 	@printf $(CYAN)"[INFO] Linking ${GAME_DIR}/${GAME_NAME}\n"$(RESET)
 	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) \
 		$(SDL2_FLAGS) $(SDL2_TTF_FLAGS) $(FMOD_FLAGS)
@@ -734,7 +730,7 @@ $(CLEAN_LIB): $(LIB)
 
 $(FCLEAN_LIB): $(LIB)
 	@printf $(YELLOW)"Make clean $<\n"$(RESET)
-	@cd $< && $(ROOT) make clean && cd ..
+	@$(ROOT) make clean -C $<
 	@printf $(YELLOW)"Removing $<\n"$(RESET)
 	@rm -rf $<
 
