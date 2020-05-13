@@ -106,7 +106,7 @@ $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
 clean: 
 	@rm -f $(OBJ)
 	@rm -Rf $(OBJ_DIR)
-	@printf ${CYAN}"[INFO] Removed objs from the libft"${RESET}
+	@printf ${CYAN}"[INFO] Removed objs from the libft\n"${RESET}
 
 fclean: clean
 	@rm -Rf $(NAME)
