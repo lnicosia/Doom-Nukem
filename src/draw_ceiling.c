@@ -20,6 +20,8 @@ void	draw_ceiling(t_sector *sector, t_render *render, t_env *env)
 	vline.x = render->x;
 	vline.start = env->ymin[vline.x];
 	vline.end = ft_min(render->current_ceiling, env->ymax[vline.x]);
+	vline.color = 0;
+	vline.draw_wall = 0;
 	if (sector->ceiling_texture < 0)
 		draw_skybox(render, CEILING, env);
 	else

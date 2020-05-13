@@ -147,7 +147,8 @@ int					ft_count(int nb);
 long				ft_atoi_base(char *str, char *base);
 int					ft_dprintf(int fd, const char *restrict format, ...);
 int					ft_printf(const char *restrict format, ...);
-int					ft_snprintf(const char *restrict format, ...);
+int					ft_snprintf(char *restrict str, size_t size,
+const char *restrict format, ...);
 size_t				ft_getlen(long nb);
 size_t				ft_getsize(long nb);
 void				*ft_realloc(void *ptr, size_t old_size, size_t new_size);
