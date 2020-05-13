@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:06:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 16:06:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/13 15:20:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@
 int		launch_events3(t_env *env)
 {
 	if (env->sectors[env->player.sector].gravity == 0)
+	{
+		reset_state(env);
 		env->player.state.fly = 1;
+	}
 	else
+	{
 		env->player.state.fly = 0;
+		init_fall(env);
+	}
 	if (env->player.sector != -1 && env->sectors[env->player.sector]
 		.nb_walk_in_events > 0)
 	{

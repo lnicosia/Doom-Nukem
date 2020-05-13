@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/30 11:37:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/13 15:09:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	player_fall(t_v3 pos, double time, t_env *env)
 
 void	correct_player_fall(double slope, t_env *env)
 {
+	ft_printf("correct fall\n");
 	env->player.pos.z = slope;
 	env->gravity.velocity = 0;
 	env->gravity.acceleration = 0;
@@ -95,15 +96,13 @@ void	gravity(t_env *env)
 		|| (env->player.state.jump && !env->player.state.fall
 		&& !env->player.state.fly))
 	{
-		env->player.state.walk = 0;
-		env->time.last_fall = SDL_GetTicks() / 1000.0;
-		env->player.state.fall = 1;
-		env->player.start_pos = env->player.pos.z;
-		env->player.velocity_start = env->gravity.velocity;
+		reset_state(env);
+		init_fall(env);
 	}
 	if (env->player.state.fall)
 		player_fall(pos, time, env);
-	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time)
+	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time
+	&& !env->events)
 		correct_player_fall(slope, env);
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 }

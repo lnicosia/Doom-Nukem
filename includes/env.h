@@ -70,6 +70,7 @@ typedef struct			s_env
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
 	int					dialog_box;
+	int					climb_sect;
 	int					dialog_box_max_lines;
 	size_t				dialog_box_line_size;
 	char				*dialog_box_str;
@@ -1008,6 +1009,8 @@ void					game_time(t_env *env);
 void					gravity(t_env *env);
 void					animations(t_env *env);
 void					fall(t_env *env);
+void					init_fall(t_env *env);
+void					reset_state(t_env *env);
 void					drop(t_env *env);
 void					jump(t_env *env);
 void					crouch(t_env *env);

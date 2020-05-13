@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:40:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/11 17:53:53 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/12 12:59:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ t_env *env)
 	set_texture_size(render, env);
 	env->editor.just_selected = 0;
 	just_selected = 0;
-	ft_printf("test\n");
 	if (threaded_wall_loop(sector, render, env) || env->fatal_error)
 		return (custom_error("threads crash\n", env));
-	ft_printf("test post test\n");
 	if (env->editor.just_selected)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)

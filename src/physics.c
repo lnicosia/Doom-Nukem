@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   physics.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 15:29:39 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/30 18:21:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 13:10:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	drop(t_env *env)
 	time = SDL_GetTicks() / 100.0;
 	if (!env->player.state.drop)
 	{
+		ft_printf("drop\n");
 		env->player.state.drop = 1;
 		env->time.last_drop = SDL_GetTicks() / 100.0;
 		env->player.velocity = 0.4;

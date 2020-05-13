@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 16:48:11 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/12 12:53:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/12 13:01:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ static int     init_wall_map_array(t_env *env)
     while (i < env->nb_sectors)
     {
         j = 0;
-        ft_printf("i: %d\n", i);
         while(j < env->sectors[i].nb_vertices)
         {
-            ft_printf("j: %d\n", j);
             if (set_sector_wall_map_array(&env->sectors[i],
 		        &env->wall_textures[env->sectors[i].textures[j]],
 		        i, env))

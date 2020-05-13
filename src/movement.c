@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:20:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 16:54:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int		move_player2(t_v3 move, int prev_sector, t_env *env)
 		movement = 1;
 	if (movement)
 	{
+		ft_printf("fall: %d | cli!mb: %d | drop: %d\n", env->player.state.fall,
+		env->player.state.climb, env->player.state.drop);	
 		update_player_pos(env);
 		animations(env);
 	}

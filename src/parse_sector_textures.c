@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:17:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/12 11:53:38 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/12 13:01:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int i)
 		"between 1 and 100", parser));
 	}
 	*line = skip_number(*line);
-	ft_printf("i: %d | sector count: %d\n", i, parser->sectors_count);
 	(*line)++;
 	return (0);
 }
@@ -99,10 +98,8 @@ static int     init_wall_map_array(t_env *env, int i)
     while (i < env->nb_sectors)
     {
         j = 0;
-        ft_printf("i: %d\n", i);
         while(j < env->sectors[i].nb_vertices)
         {
-            ft_printf("j: %d\n", j);
             if (set_sector_wall_map_array(&env->sectors[i],
 		        &env->wall_textures[env->sectors[i].textures[j]],
 		        i, env))
@@ -133,22 +130,23 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		return (sector_error("has too much textures", parser->sectors_count,
 		parser));
 		i = 0;
-	while (i < parser->sector_textures_count)
-	{
-		if (parse_current_texture(env, line, parser, i))
-			return (-1);
-		if (init_textures(env))
+	if (init_textures(env))
 			return (crash("Could not load textures\n", env));
-		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
-		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
-		i, env))
-			return (-1);
 		if (init_wall_map_array(env, i))
 			return (-1);
 		if (generate_mipmaps(env))
 			return (crash("Could not generate mipmaps\n", env));
 		if (init_mipmap_arrays(env))
    		  	return (-1);
+	while (i < parser->sector_textures_count)
+	{
+		if (parse_current_texture(env, line, parser, i))
+			return (-1);
+	
+		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
+		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
+		i, env))
+			return (-1);
 		i++;
 	}
 	return (parse_sector_textures2(line, parser));
