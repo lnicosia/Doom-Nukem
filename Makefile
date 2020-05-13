@@ -42,9 +42,9 @@ LIBFT_DIR = libft
 SDL2_DIR = $(LIB_DIR)/SDL2-2.0.8
 SDL2_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FREETYPE_DIR = $(LIB_DIR)/freetype-2.9
-SDL2_MAKEFILE = $(SDL2_DIR)/Makefile
-SDL2_TTF_MAKEFILE = $(SDL2_TTF_DIR)/Makefile
-FREETYPE_MAKEFILE = $(FREETYPE_DIR)/Makefile
+SDL2_CONFIGURED = $(SDL2_DIR)/configured
+SDL2_TTF_CONFIGURED = $(SDL2_TTF_DIR)/configured
+FREETYPE_CONFIGURED = $(FREETYPE_DIR)/configured
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
@@ -487,7 +487,11 @@ SDL2_TTF_LINUX = /usr/local/lib/libSDL2_ttf.so
 
 #### Freetype ###
 
-FREETYPE = /usr/local/lib/libfreetype.so
+FREETYPE_WINDOWS =
+
+FREETYPE_OSX =
+
+FREETYPE_LINUX = /usr/local/lib/libfreetype.so
 
 #
 # Includes lib files needed for compilation (needs an archive to be extracted)
@@ -505,6 +509,7 @@ SDL2_TTF_INCLUDES = $(SDL2_TTF_DIR)/SDL_ttf.h
 ifeq ($(OS), Windows_NT)
 	SDL2 = $(SDL2_WINDOWS)
 	SDL2_TTF = $(SDL2_TTF_WINDOWS)
+	FREETYPE = $(FREETYPE_WINDOWS)
 	FMOD = $(FMOD_WINDOWS)
 	CFLAGS += -Wno-misleading-indentation
 	COMPILE_ALL = $(INSTALL_DIR)/compile_all_windows.sh
@@ -516,6 +521,7 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		SDL2 = $(SDL2_OSX)
 		SDL2_TTF = $(SDL2_TTF_OS)
+		FREETYPE = $(FREETYPE_OSX)
 		FMOD = $(FMOD_OSX)
 		COMPILE_ALL = $(INSTALL_DIR)/compile_all_osx.sh
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_osx.sh
@@ -525,6 +531,7 @@ else
 		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
 		SDL2_TTF = $(SDL2_TTF_LINUX)
+		FREETYPE = $(FREETYPE_LINUX)
 		FMOD = $(FMOD_LINUX)
 		COMPILE_ALL = $(INSTALL_DIR)/compile_all_linux.sh
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_linux.sh
@@ -563,15 +570,15 @@ $(NAME): all
 
 game: $(RESOURCES)
 	@printf $(CYAN)"[INFO] Compiling libft..\n"$(RESET) 
-	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@make --no-print-directory -C $(LIBFT_DIR)
 	@printf $(CYAN)"[INFO] Compiling libft..\n"$(RESET) 
-	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME) -j8
+	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME)
 
 editor: $(RESOURCES)
 	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET) 
-	@make --no-print-directory -C $(LIBFT_DIR) -j8
+	@make --no-print-directory -C $(LIBFT_DIR)
 	@printf $(CYAN)"[INFO] Building editor..\n"$(RESET) 
-	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME)
 
 $(LIB_DIR): $(LIB_DIR)%.tar.gz
 	@printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
@@ -582,6 +589,7 @@ $(EXTRACT_ALL): $(LIB_ARCHIVE)
 $(EXTRACT_SDL): $(SDL2_DIR) $(SDL2_TTF_DIR)
 
 $(SDL_DEPENDENCIES):
+	@printf $(CYAN)"[INFO] Checking SDL dependencies..\n"$(RESET)
 ifeq ($(SDL_DEPENDENCIES), compile-all)
 	$(EXTRACT_ALL)
 	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
@@ -602,39 +610,42 @@ else
 	endif
 endif
 
-$(SDL2_DIR):
+$(SDL2_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@cd lib && tar -xf SDL2-2.0.8.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@touch $@
 
-$(SDL2_TTF_DIR):
+$(SDL2_TTF_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@cd lib && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@touch $@
 
-$(FREETYPE_DIR):
+$(FREETYPE_DIR)/exists:
 	@printf $(YELLOW)"Extracting FreeType archive..\n"$(RESET) 
-	@cd lib && tar -xf freetype-2.9.tar.gz
+	@cd $(LIB_DIR) && tar -xf freetype-2.9.tar.gz
+	@touch $@
 
-$(SDL2_MAKEFILE): $(SDL2_DIR)
+$(SDL2_CONFIGURED): $(SDL2_DIR)/exists
 	@printf $(YELLOW)"Configuring SDL2..\n"$(RESET) 
-	@cd $(SDL2_DIR) && $(ROOT) ./configure
+	@cd $(SDL2_DIR) && $(ROOT) ./configure && touch configured
 
-$(SDL2_TTF_MAKEFILE): $(SDL2_TTF_DIR) $(SDL2) $(FREETYPE)
-	@printf $(YELLOW)"Configuring SDL2_ttf..\n"$(RESET) 
-	@cd $(SDL2_TTF_DIR) && $(ROOT) ./configure
-
-$(FREETYPE_MAKEFILE): $(FREETYPE_DIR)
+$(FREETYPE_CONFIGURED): $(FREETYPE_DIR)/exists
 	@printf $(YELLOW)"Configuring FreeType..\n"$(RESET) 
-	@cd $(FREETYPE_DIR) && $(ROOT) ./configure
+	@cd $(FREETYPE_DIR) && $(ROOT) ./configure && touch configured
 
-$(SDL2): $(SDL2_DEPENDENCIES) $(SDL2_MAKEFILE)
+$(SDL2_TTF_CONFIGURED): $(SDL2_TTF_DIR)/exists $(SDL2) $(FREETYPE)
+	@printf $(YELLOW)"Configuring SDL2_ttf..\n"$(RESET) 
+	@cd $(SDL2_TTF_DIR) && $(ROOT) ./configure && touch configured
+
+$(SDL2): $(SDL2_DEPENDENCIES) $(SDL2_CONFIGURED)
 	$(ROOT) make -C $(SDL2_DIR)
 	$(ROOT) make install -C $(SDL2_DIR)
 
-$(SDL2_TTF): $(SDL2_TTF_MAKEFILE)
+$(SDL2_TTF): $(SDL2_TTF_CONFIGURED)
 	@$(ROOT) make -C $(SDL2_TTF_DIR)
 	@$(ROOT) make install -C $(SDL2_TTF_DIR)
 
-$(FREETYPE): $(FREETYPE_MAKEFILE)
+$(FREETYPE): $(FREETYPE_CONFIGURED)
 	@$(ROOT) make -C $(FREETYPE_DIR)
 	@$(ROOT) make install -C $(FREETYPE_DIR)
 
@@ -675,8 +686,6 @@ $(OBJ_EDITOR_DIR):
 
 $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
-
-$(RESOURCES_ARCHIVE):
 
 $(RESOURCES):
 	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
@@ -735,8 +744,6 @@ $(FCLEAN_LIB): $(LIB)
 	@rm -rf $<
 
 clean: $(CLEAN_LIB)
-	make clean -C $(SDL2_DIR)
-	make clean -C $(SDL2_TTF_DIR)
 	@make clean -C libft
 	@rm -rf $(OBJ_ALL_DIR)
 	@rm -rf $(OBJ_EDITOR_DIR)
@@ -744,9 +751,6 @@ clean: $(CLEAN_LIB)
 	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
 
 fclean:
-	make clean -C $(SDL2_DIR)
-	make clean -C $(SDL2_TTF_DIR)
-	make clean -C $(LIB)
 	@make fclean -C libft
 	@rm -rf $(OBJ_ALL_DIR)
 	@rm -rf $(OBJ_EDITOR_DIR)
@@ -759,4 +763,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: fclean all clean libft maps
+.PHONY: fclean all clean libft maps $(SDL_DEPENDENCIES)
