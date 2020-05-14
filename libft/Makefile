@@ -104,13 +104,12 @@ $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
 	@printf ${GREEN}"[INFO] Linked $(NAME) with success\n"${RESET}
 
 clean: 
-	@rm -f $(OBJ)
-	@rm -Rf $(OBJ_DIR)
-	@printf ${CYAN}"[INFO] Removed objs from the libft\n"${RESET}
+	@printf ${CYAN}"[INFO] Removing objs from the libft\n"${RESET}
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -Rf $(NAME)
-	@printf ${CYAN}"[INFO] Removed $(NAME) from the libft\n"${RESET}
+	@printf ${CYAN}"[INFO] Removing $(NAME) from the libft\n"${RESET}
+	rm -rf $(NAME)
 
 re: fclean all
 

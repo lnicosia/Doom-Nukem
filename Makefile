@@ -750,24 +750,35 @@ $(FCLEAN_LIB): $(LIB)
 	@printf $(YELLOW)"Removing $<\n"$(RESET)
 	@rm -rf $<
 
+clean_libs:
+	@printf ${CYAN}"[INFO] Removing libs\n"${RESET}
+	$(ROOT) rm -rf $(MESA_LIB)
+	$(ROOT) rm -rf $(SDL2_DIR)
+	$(ROOT) rm -rf $(SDL2_TTF_DIR)
+	$(ROOT) rm -rf $(FREETYPE_DIR)
+	$(ROOT) rm -rf $(LIB_DIR)/installed
+
 clean: $(CLEAN_LIB)
+	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	@make clean -C libft
-	@rm -rf $(OBJ_ALL_DIR)
-	@rm -rf $(OBJ_EDITOR_DIR)
-	@rm -rf $(OBJ_GAME_DIR)
-	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
+	rm -rf $(OBJ_ALL_DIR)
+	rm -rf $(OBJ_EDITOR_DIR)
+	rm -rf $(OBJ_GAME_DIR)
 
 fclean:
 	@make fclean -C libft
-	@rm -rf $(OBJ_ALL_DIR)
-	@rm -rf $(OBJ_EDITOR_DIR)
-	@rm -rf $(OBJ_GAME_DIR)
-	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
-	@rm -rf $(GAME_DIR)/$(GAME_NAME)
-	@rm -rf $(EDITOR_DIR)/$(EDITOR_NAME)
-	@printf ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME)"
+	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
+	rm -rf $(OBJ_ALL_DIR)
+	rm -rf $(OBJ_EDITOR_DIR)
+	rm -rf $(OBJ_GAME_DIR)
+	@printf ${CYAN}"[INFO] Removing $(GAME_DIR)/$(GAME_NAME)"
 	@printf " and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
+	rm -rf $(GAME_DIR)/$(GAME_NAME)
+	rm -rf $(EDITOR_DIR)/$(EDITOR_NAME)
 
 re: fclean all
+
+death_race:
+	@printf $(RED)"Une seule règle. Pas de règles.\n"
 
 .PHONY: fclean all clean libft maps $(SDL_DEPENDENCIES)
