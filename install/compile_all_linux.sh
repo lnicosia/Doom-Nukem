@@ -1,7 +1,7 @@
 #!bin/bash
 echo "Compiling mesa and all its dependencies. Needed for SDL2."
-cd ../lib
-#for f in *.gz; do tar -xvf "$f"; done
+cd lib/mesa_libs
+for f in *.gz; do tar -xvf "$f"; done
 cd libelf-0.8.13
 sudo ./configure
 sudo make -j4
@@ -56,10 +56,5 @@ sudo make -j4
 sudo make -j4 install
 cd ../mesa-19.0.8
 sudo ./configure --enable-autotools
-sudo make -j4
-sudo make -j4 install
-echo "Compiling freetype. Needed for SDL2_ttf."
-cd ../freetype-2.9
-sudo ./configure
 sudo make -j4
 sudo make -j4 install

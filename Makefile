@@ -42,6 +42,7 @@ LIBFT_DIR = libft
 SDL2_DIR = $(LIB_DIR)/SDL2-2.0.8
 SDL2_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
 FREETYPE_DIR = $(LIB_DIR)/freetype-2.9
+MESA_DIR = $(LIB_DIR)/mesa_libs
 SDL2_CONFIGURED = $(SDL2_DIR)/configured
 SDL2_TTF_CONFIGURED = $(SDL2_TTF_DIR)/configured
 FREETYPE_CONFIGURED = $(FREETYPE_DIR)/configured
@@ -49,7 +50,7 @@ FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
 INSTALL_DIR = install
-SDL_DEPENDENCIES = compile-all
+INSTALL_TYPE = all_compiled
 ROOT = sudo
 
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -399,6 +400,8 @@ FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
 # Creation of files path
 #
 
+LIB_INSTALL = $(addprefix $(LIB_DIR)/, $(INSTALL_TYPE))
+
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
@@ -410,9 +413,9 @@ OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 
 INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 
-LIB = $(addprefix $(LIB_DIR)/, $(LIB_RAW))
+MESA_LIB = $(addprefix $(MESA_DIR)/, $(LIB_RAW))
 
-LIB_ARCHIVES = $(addsuffix .tar.gz, $(LIB))
+MESA_ARCHIVES = $(addsuffix .tar.gz, $(MESA_LIB))
 
 TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, \
 				 $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
@@ -471,7 +474,7 @@ FMOD_LINUX = /usr/lib/libfmod.so /usr/lib/libfmodL.so \
 
 #### SDL2 ####
 
-SDL2_WINDOWS = 
+SDL2_WINDOWS = /usr/local/lib/SDL2.dll
 
 SDL2_OSX = 
 
@@ -479,7 +482,7 @@ SDL2_LINUX = /usr/local/lib/libSDL2.so
 
 #### SDL2_ttf ####
 
-SDL2_TTF_WINDOWS = 
+SDL2_TTF_WINDOWS = /usr/loca/bin/SDL2_ttf.dll
 
 SDL2_TTF_OSX = 
 
@@ -507,6 +510,7 @@ SDL2_TTF_INCLUDES = $(SDL2_TTF_DIR)/SDL_ttf.h
 #
 
 ifeq ($(OS), Windows_NT)
+	SDL2_FLAGS += -Wl,-rpath,/usr/local/bin
 	SDL2 = $(SDL2_WINDOWS)
 	SDL2_TTF = $(SDL2_TTF_WINDOWS)
 	FREETYPE = $(FREETYPE_WINDOWS)
@@ -518,7 +522,7 @@ ifeq ($(OS), Windows_NT)
 	ROOT = 
 else
 	UNAME_S = $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
+    ifeq ($(UNAME_S),Darwin)
 		SDL2 = $(SDL2_OSX)
 		SDL2_TTF = $(SDL2_TTF_OS)
 		FREETYPE = $(FREETYPE_OSX)
@@ -527,7 +531,7 @@ else
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_osx.sh
 		INSTALL_ALL = $(INSTALL_DIR)/install_all_osx.sh
 		OPTI_FLAGS += -flto
-	else
+    else
 		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
 		SDL2_TTF = $(SDL2_TTF_LINUX)
@@ -538,7 +542,7 @@ else
 		INSTALL_ALL = $(INSTALL_DIR)/install_all_linux.sh
 		CFLAGS += -Wno-misleading-indentation
 		OPTI_FLAGS += -flto
-	endif
+    endif
 endif
 
 #
@@ -588,26 +592,27 @@ $(EXTRACT_ALL): $(LIB_ARCHIVE)
 
 $(EXTRACT_SDL): $(SDL2_DIR) $(SDL2_TTF_DIR)
 
-$(SDL_DEPENDENCIES):
+$(LIB_INSTALL):
 	@printf $(CYAN)"[INFO] Checking SDL dependencies..\n"$(RESET)
-ifeq ($(SDL_DEPENDENCIES), compile-all)
-	$(EXTRACT_ALL)
+ifeq ($(LIB_INSTALL),$(LIB_DIR)/all_compiled)
 	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
 	@$(ROOT) sh $(COMPILE_ALL)
+	@touch $@
 else
-	ifeq($(SDL_DEPENDENCIES), compile-sdl)
-		$(EXTRACT_SDL)
-		@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
+    ifeq ($(LIB_INSTALL),$(LIB_DIR)/sdl_compiled)
+		@printf $(CYAN)"[INFO] Compiling SDL2 and SDL2_ttf..\n"$(RESET)
 		@$(ROOT) sh $(INSTALL_SDL_DEPENDENCIES)
-	else
-		ifeq($(SDL_DEPENDENCIES), install-all)
-			@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"
+		@touch $@
+    else
+        ifeq ($(LIB_INSTALL),$(LIB_DIR)/installed)
+			@printf $(CYAN)"[INFO] Installing all the libraries..\n"
 			@printf $(RESET)
 			@$(ROOT) sh $(INSTALL_ALL)
-		else
-			@printf $(RRED)"[ERROR] Unsupported OS.\n"$(RESET)
-		endif
-	endif
+			@touch $@
+        else
+			@printf $(RED)"[ERROR] Unsupported install type.\n"$(RESET)
+        endif
+     endif
 endif
 
 $(SDL2_DIR)/exists:
@@ -637,7 +642,7 @@ $(SDL2_TTF_CONFIGURED): $(SDL2_TTF_DIR)/exists $(SDL2) $(FREETYPE)
 	@printf $(YELLOW)"Configuring SDL2_ttf..\n"$(RESET) 
 	@cd $(SDL2_TTF_DIR) && $(ROOT) ./configure && touch configured
 
-$(SDL2): $(SDL2_DEPENDENCIES) $(SDL2_CONFIGURED)
+$(SDL2): $(LIB_INSTALL) $(SDL2_CONFIGURED)
 	$(ROOT) make -C $(SDL2_DIR)
 	$(ROOT) make install -C $(SDL2_DIR)
 
