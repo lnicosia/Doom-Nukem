@@ -51,6 +51,7 @@ FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
 INSTALL_DIR = install
 INSTALL_TYPE = compile_all
+LIB_INSTALL = $(LIB_DIR)/installed
 ROOT = sudo
 
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -400,8 +401,6 @@ FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
 # Creation of files path
 #
 
-LIB_INSTALL = $(addprefix $(LIB_DIR)/, $(INSTALL_TYPE))
-
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
 
@@ -594,21 +593,21 @@ $(EXTRACT_SDL): $(SDL2_DIR) $(SDL2_TTF_DIR)
 
 $(LIB_INSTALL):
 	@printf $(CYAN)"[INFO] Checking SDL dependencies..\n"$(RESET)
-ifeq ($(LIB_INSTALL),$(LIB_DIR)/compile_all)
+ifeq ($(INSTALL_TYPE),compile_all)
 	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
 	@$(ROOT) sh $(COMPILE_ALL)
-	@touch $@
+	@touch $(LIB_DIR)/installed
 else
-    ifeq ($(LIB_INSTALL),$(LIB_DIR)/compile_sdl)
+    ifeq ($(INSTALL_TYPE),compile_sdl)
 		@printf $(CYAN)"[INFO] Compiling SDL2 and SDL2_ttf..\n"$(RESET)
 		@$(ROOT) sh $(INSTALL_SDL_DEPENDENCIES)
-		@touch $@
+		@touch $(LIB_DIR)/installed
     else
-        ifeq ($(LIB_INSTALL),$(LIB_DIR)/install)
+        ifeq ($(INSTALL_TYPE),install)
 			@printf $(CYAN)"[INFO] Installing all the libraries..\n"
 			@printf $(RESET)
 			@$(ROOT) sh $(INSTALL_ALL)
-			@touch $@
+			@touch $(LIB_DIR)/installed
         else
 			@printf $(RED)"[ERROR] Unsupported install type.\n"$(RESET)
         endif
