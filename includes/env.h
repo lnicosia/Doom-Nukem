@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 14:34:01 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 19:24:15 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ typedef struct			s_env
 	t_button			fps_option;
 	t_button			fov_decrease;
 	t_button			fov_increase;
+	t_button			next_resolution;
+	t_button			prev_resolution;
 	pid_t				pid;
 	pid_t				c_pid;
 }						t_env;
@@ -510,6 +512,8 @@ void					tabs_gestion(t_env *env);
 int						change_target_texture(t_env *env);
 void					editor_show_tab(t_env *env);
 int						general_keyup(t_env *env);
+int						music_keys(t_env *env);
+int						music_keyup(t_env *env);
 int						sprite_tab_keyup(t_env *env);
 int						events_tab_keyup(t_env *env);
 int						editor_3d_tabs_keyup(t_env *env);
@@ -1330,6 +1334,8 @@ int						music_volume_up(void *param);
 int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);
 int						sounds_volume_down(void *param);
+int						next_resolution_button(t_env *env);
+int						prev_resolution_button(t_env *env);
 int						return_button_func(void *param);
 int						fov_increase_button(t_env *env);
 int						fov_decrease_button(t_env *env);

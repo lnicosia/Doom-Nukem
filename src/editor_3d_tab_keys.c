@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_tab_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 18:58:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 16:41:03 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int		editor_3d_tab_keys(t_env *env)
 	if (general_tab_keys(env))
 		return (-1);
 	if (selection_button_keys(env))
+		return (-1);
+	if (music_keys(env))
 		return (-1);
 	if (selection_tab_button_keys(env))
 		return (-1);

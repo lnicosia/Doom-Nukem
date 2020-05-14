@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/30 12:00:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 19:19:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		init_game5(t_env *env)
 	fps_option_button(env);
 	fov_increase_button(env);
 	fov_decrease_button(env);
+	next_resolution_button(env);
+	prev_resolution_button(env);
 	return (doom(env));
 }
 

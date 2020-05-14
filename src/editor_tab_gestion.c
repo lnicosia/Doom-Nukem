@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_tab_gestion.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 18:46:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 16:41:11 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		general_keyup(t_env *env)
 	if (button_keyup(&env->editor.current_object_selection, env))
 		return (-1);
 	if (button_keyup(&env->editor.texture_background, env))
+		return (-1);
+	if (music_keyup(env))
 		return (-1);
 	return (general_keyup2(env));
 }

@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/12 14:40:32 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/05/14 19:22:29 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -175,7 +175,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_sectors3.c check_ceiling_height_input_box.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c \
+		update_sector_input_box.c editor_3d_music_buttons.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -304,7 +304,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
-		   is_new_sector_convex.c option_menu4.c option_menu5.c\
+		   is_new_sector_convex.c option_menu4.c option_menu5.c option_menu6.c\
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -315,7 +315,7 @@ HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
-			rust.bmp sand.bmp wall0.bmp wall1.bmp wall2.bmp wall3.bmp \
+			menu_texture.bmp sand.bmp wall0.bmp wall1.bmp wall2.bmp wall3.bmp \
 			wall4.bmp \
 
 SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \

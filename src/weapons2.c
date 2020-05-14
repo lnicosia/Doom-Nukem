@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapons2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 12:08:44 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 12:17:37 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 19:33:14 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		weapon_animation(t_env *env, int nb)
 			play_sound(env, &env->sound.player_shots_chan,
 			env->weapons[nb].shot, env->sound.ambient_vol);
 			if (!env->player.infinite_ammo)
-				env->weapons[nb].ammo -= 0;
+				env->weapons[nb].ammo -= 1;
 		}
 	}
 	weapon_animation2(env, nb);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   option_menu.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:18:10 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/04/30 17:46:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 19:21:53 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	options_menu_hud(t_env *env)
 	int w;
 	int h;
 
+	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
+		new_point(env->w, env->h), env);
 	TTF_SizeText(env->sdl.fonts.amazdoom70, "DOOM NUKEM", &w, &h);
 	print_text(new_point(env->h / 12, env->w / 2 - w / 2),
 		new_printable_text("DOOM NUKEM", env->sdl.fonts.amazdoom70,
@@ -84,6 +86,8 @@ void	draw_option_menu_ig_buttons(t_env *env)
 	draw_button(env, env->fps_option, "FPS");
 	draw_button(env, env->fov_increase, NULL);
 	draw_button(env, env->fov_decrease, NULL);
+	draw_button(env, env->next_resolution, NULL);
+	draw_button(env, env->prev_resolution, NULL);
 }
 
 void	option_menu_ig(t_env *env)

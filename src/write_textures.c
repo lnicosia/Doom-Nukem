@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:16:20 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 12:17:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 16:15:30 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int		write_textures2(int fd)
 		return (custom_error("Could not open texture\n"));
 	if (writing_bmp(file, fd, "images/textures/floor1.bmp"))
 		return (-1);
-	if ((file = open("images/textures/rust.bmp", O_RDONLY)) < 0)
+	if ((file = open("images/textures/menu_texture.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open texture\n"));
-	if (writing_bmp(file, fd, "images/textures/rust.bmp"))
+	if (writing_bmp(file, fd, "images/textures/menu_texture.bmp"))
 		return (-1);
 	if ((file = open("images/textures/black_tiles.bmp", O_RDONLY)) < 0)
 		return (custom_error("problem with read ressource\n"));

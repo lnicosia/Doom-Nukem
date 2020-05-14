@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 19:10:37 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/14 16:15:37 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		init_wall_textures(t_env *env)
 		return (custom_error("Invalid bmp file\n"));
 	if (parse_bmp_wall_textures("images/textures/floor1.bmp", 5, env))
 		return (custom_error("Invalid bmp file\n"));
-	if (parse_bmp_wall_textures("images/textures/rust.bmp", 6, env))
+	if (parse_bmp_wall_textures("images/textures/menu_texture.bmp", 6, env))
 		return (custom_error("Failed to load rust\n"));
 	if (parse_bmp_wall_textures("images/textures/black_tiles.bmp", 7, env))
 		return (custom_error("Failed to load black_tiles\n"));
