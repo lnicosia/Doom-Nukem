@@ -474,7 +474,7 @@ FMOD_LINUX = /usr/lib/libfmod.so /usr/lib/libfmodL.so \
 
 #### SDL2 ####
 
-SDL2_WINDOWS = /usr/local/lib/SDL2.dll
+SDL2_WINDOWS = /usr/local/bin/SDL2.dll
 
 SDL2_OSX = 
 
@@ -482,7 +482,7 @@ SDL2_LINUX = /usr/local/lib/libSDL2.so
 
 #### SDL2_ttf ####
 
-SDL2_TTF_WINDOWS = /usr/loca/bin/SDL2_ttf.dll
+SDL2_TTF_WINDOWS = /usr/local/bin/SDL2_ttf.dll
 
 SDL2_TTF_OSX = 
 
@@ -643,14 +643,17 @@ $(SDL2_TTF_CONFIGURED): $(SDL2_TTF_DIR)/exists $(SDL2) $(FREETYPE)
 	@cd $(SDL2_TTF_DIR) && $(ROOT) ./configure && touch configured
 
 $(SDL2): $(LIB_INSTALL) $(SDL2_CONFIGURED)
-	$(ROOT) make -C $(SDL2_DIR)
-	$(ROOT) make install -C $(SDL2_DIR)
+	@printf $(YELLOW)"Compiling SDL2..\n"$(RESET) 
+	@$(ROOT) make -C $(SDL2_DIR)
+	@$(ROOT) make install -C $(SDL2_DIR)
 
 $(SDL2_TTF): $(SDL2_TTF_CONFIGURED)
+	@printf $(YELLOW)"Compiling SDL2_ttf..\n"$(RESET) 
 	@$(ROOT) make -C $(SDL2_TTF_DIR)
 	@$(ROOT) make install -C $(SDL2_TTF_DIR)
 
 $(FREETYPE): $(FREETYPE_CONFIGURED)
+	@printf $(YELLOW)"Compiling FreeType..\n"$(RESET) 
 	@$(ROOT) make -C $(FREETYPE_DIR)
 	@$(ROOT) make install -C $(FREETYPE_DIR)
 
