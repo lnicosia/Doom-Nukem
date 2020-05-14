@@ -213,14 +213,12 @@ typedef struct		s_init
 	char			*hud_names[NB_HUD_FILES];
 	int				skyboxes[MAX_SKYBOX * 6];
 	char			*skyboxes_names[MAX_SKYBOX * 6];
-	int				sprites[MAX_SKYBOX * 6];
-	char			*sprites_names[MAX_SKYBOX * 6];
+	int				sprites[NB_WALL_SPRITES];
+	char			*sprites_names[NB_WALL_SPRITES];
 	int				enemies[MAX_ENEMIES];
 	char			*enemy_names[MAX_ENEMIES];
 	int				objects[MAX_OBJECTS];
 	char			*objects_names[MAX_OBJECTS];
-	int				mini_skyboxes[MAX_SKYBOX];
-	char			*mini_skyboxes_names[MAX_SKYBOX];
 	int				fonts[NB_FONTS_FILE];
 	char			*fonts_names[NB_FONTS_FILE];
 	int				sounds[NB_SOUNDS];

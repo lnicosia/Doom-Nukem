@@ -48,7 +48,7 @@ int		write_sounds2(int fd, t_env *env)
 	if (write_sound(file, fd, "./audio/footstep.wav"))
 		return (-1);
 	if ((file = open("./audio/handgun_shot.wav", O_RDONLY)) < 0)
-		return (ft_printf("Could not open footstep sound\n"));
+		return (custom_error("Could not open footstep sound\n"));
 	if (write_sound(file, fd, "./audio/handgun_shot.wav"))
 		return (-1);
 	return (0);

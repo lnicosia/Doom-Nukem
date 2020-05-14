@@ -53,6 +53,7 @@ void		free_all(t_env *env)
 	if (!env)
 		return ;
 	free_parser(env);
+	free_resources_init(env);
 	free_event(&env->eparser.event);
 	if (env->editor.creating_event)
 	{

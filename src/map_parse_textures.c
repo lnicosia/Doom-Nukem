@@ -21,7 +21,7 @@ int     parse_textures(t_env *env, t_map_parser *parser)
     while (i < env->resource.nb_textures)
 	{
 		if (parse_bmp_file(env, parser))
-			return (ft_printf("Error while parsing texture %d\n", i));
+			return (ft_perror("Error while parsing textures\n"));
 		i++;
 	}
     return (0);
@@ -33,20 +33,20 @@ int		check_textures_number_validity(t_map_parser *parser, t_env *env)
 
 	line = NULL;
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+		return (ft_perror("Expected a '\\n' at the end of file name\n"));
 	line = parser->line;
 	if (*line && *line != 'T')
-		return (ft_printf("Expected letter: T\n"));
+		return (ft_perror("Expected letter: T\n"));
 	line++;
 	if (*line && *line != ' ')
-		return (ft_printf("Expected a space\n"));
+		return (ft_perror("Expected a space\n"));
 	line++;
 	if (valid_int(line, parser))
-		return (ft_printf("Invalid int for textures number\n"));
+		return (ft_perror("Invalid int for textures number\n"));
 	env->resource.nb_textures = atoi(line);
 	if (env->resource.nb_textures > MAX_WALL_TEXTURE
 	|| env->resource.nb_textures < 1)
-		return (ft_printf("Wrong number of textures\n"));
+		return (ft_perror("Wrong number of textures\n"));
 	return (0);
 }
 
@@ -59,7 +59,7 @@ int     parse_textures_number(t_map_parser *parser, t_env *env)
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_printf("Could not malloc line\n"));
+			return (ft_perror("Could not malloc line\n"));
 	}
 	if (check_textures_number_validity(parser, env))
 		return (custom_error("Error while parsing textures number\n"));
@@ -69,9 +69,9 @@ int     parse_textures_number(t_map_parser *parser, t_env *env)
 int		map_parse_textures(t_env *env, t_map_parser *parser)
 {
 	if (!(parser->tmp = ft_strnew(1)))
-		return (ft_printf("Memalloc failed\n"));
+		return (ft_perror("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
-		return (ft_printf("Could not malloc line\n"));
+		return (ft_perror("Could not malloc line\n"));
     if (parse_textures_number(parser, env))
         return (custom_error("Error while parsing textures number\n"));
 	ft_strdel(&(parser->line));

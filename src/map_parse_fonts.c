@@ -22,23 +22,23 @@ int		parse_font_number(t_map_parser *parser, char *line, t_env *env)
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (ft_printf("Could not malloc line\n"));
+			return (ft_perror("Could not malloc line\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_printf("Expected a '\\n' at the end of file name\n"));
+		return (ft_perror("Expected a '\\n' at the end of file name\n"));
 	line = parser->line;
 	if (*line && *line != 'F')
-		return (ft_printf("Expected letter: 'F'\n"));
+		return (ft_perror("Expected letter: 'F'\n"));
 	line++;
 	if (*line && *line != ' ')
-		return (ft_printf("Expected a space\n"));
+		return (ft_perror("Expected a space\n"));
 	line++;
 	if (valid_int(line, parser))
-		return (ft_printf("Invalid int for fonts number\n"));
+		return (ft_perror("Invalid int for fonts number\n"));
 	env->resource.nb_fonts = ft_atoi(line);
 	if (env->resource.nb_fonts > NB_FONTS_FILE
 	|| env->resource.nb_fonts < 1)
-		return (ft_printf("Wrong number of fonts\n"));
+		return (ft_perror("Wrong number of fonts\n"));
 	return (0);
 }
 
@@ -50,9 +50,9 @@ int		map_parse_fonts(t_env *env, t_map_parser *parser)
 	i = 0;
 	line = NULL;
 	if (!(parser->tmp = ft_strnew(1)))
-		return (ft_printf("Memalloc failed\n"));
+		return (ft_perror("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
-		return (ft_printf("Could not malloc line\n"));
+		return (ft_perror("Could not malloc line\n"));
 	if (parse_font_number(parser, line, env))
 		return (custom_error("Error while parsing fonts numbers\n"));
 	ft_strdel(&(parser->tmp));
@@ -60,7 +60,7 @@ int		map_parse_fonts(t_env *env, t_map_parser *parser)
 	while (i < env->resource.nb_fonts)
 	{
 		if (parse_font_file(env, parser))
-			return (ft_printf("Error while parsing font %d\n", i));
+			return (ft_perror("Error while parsing fonts files\n"));
 		i++;
 	}
 	return (0);

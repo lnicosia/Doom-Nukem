@@ -22,8 +22,11 @@ int		editor_render2(t_env *env)
 			return (-1);
 	}
 	game_time(env);
-	if (editor_minimap(env))
-		return (-1);
+	if (env->options.show_minimap)
+	{
+		if (editor_minimap(env))
+			return (-1);
+	}
 	if (!env->input_box.state && !env->editor.tab)
 		view(env);
 	if ((env->editor.selecting_target || env->editor.selecting_condition_target)

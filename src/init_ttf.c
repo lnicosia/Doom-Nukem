@@ -130,7 +130,7 @@ int		init_ttf(t_env *env)
 {
 	ft_printf("Initializing fonts..\n");
 	if (TTF_Init() == -1)
-		return (ft_printf("SDL_Init Error: %s\n", TTF_GetError()));
+		return (custom_error("SDL_Init Error: %s\n", TTF_GetError()));
 	if (!(env->sdl.fonts.amazdoom70 =
 		TTF_OpenFont("fonts/amazdoom/AmazDoomLeft.ttf", 70)))
 	{

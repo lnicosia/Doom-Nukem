@@ -22,7 +22,7 @@ int		save_map(void *param)
 	ft_printf("Saving map in \"%s\"...\n", env->save_file);
 	ft_printf("{red}");
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
-		return (ft_printf("Could not open %s\n", env->save_file));
+		return (custom_error("Could not open %s\n", env->save_file));
 	if (write_resources(fd, env))
 		return(-1);
 	write_vertices(fd, env);
@@ -40,6 +40,5 @@ int		save_map(void *param)
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	}
-	ft_printf("Map saved\n");
 	return (0);
 }

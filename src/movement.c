@@ -94,8 +94,6 @@ int		move_player2(t_v3 move, int prev_sector, t_env *env)
 		movement = 1;
 	if (movement)
 	{
-		ft_printf("fall: %d | cli!mb: %d | drop: %d\n", env->player.state.fall,
-		env->player.state.climb, env->player.state.drop);	
 		update_player_pos(env);
 		animations(env);
 	}

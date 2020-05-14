@@ -33,13 +33,13 @@ int     check_fonts3(t_env *env)
 
 	fd = 0;
 	if (!(env->init.fonts_names[6] = ft_strdup("./fonts/Lato-Bold.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/Lato-Bold.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
 	if (!(env->init.fonts_names[7] = ft_strdup("./fonts/Lato-Black.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/Lato-Black.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
@@ -54,20 +54,20 @@ int     check_fonts2(t_env *env)
 	fd = 0;
 	if (!(env->init.fonts_names[3] =
 	ft_strdup("./fonts/Montserrat-Regular.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/Montserrat-Regular.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
 	if (!(env->init.fonts_names[4] =
 	ft_strdup("./fonts/PlayfairDisplay-Regular.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/PlayfairDisplay-Regular.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
 	if (!(env->init.fonts_names[5] = ft_strdup("./fonts/Lato-Regular.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/Lato-Regular.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
@@ -81,20 +81,20 @@ int     check_fonts(t_env *env)
 
 	fd = 0;
 	if (!(env->init.fonts_names[0] = ft_strdup("./fonts/AmazDoomLeft.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/AmazDoomLeft.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
 	if (!(env->init.fonts_names[1] = ft_strdup("./fonts/Alice-Regular.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/Alice-Regular.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
 	if (!(env->init.fonts_names[2] =
 	ft_strdup("./fonts/BebasNeue-Regular.ttf")))
-		return (ft_printf("Error while parsing fonts\n"));
+		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/BebasNeue-Regular.ttf", O_RDONLY)) == -1)
 		return (custom_error("Could not open font file\n"));
 	if (close(fd))

@@ -6,11 +6,31 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/20 16:15:46 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/20 16:15:46 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/14 14:06:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		check_wall_textures4(t_env *env)
+{
+	int	fd;
+
+	fd = 0;
+	if (!(env->init.text_name[13] = ft_strdup("./images/textures/sand.bmp")))
+		return (ft_perror("Error while malloc texture name\n"));
+	if ((fd = open("./images/textures/sand.bmp", O_RDONLY)) == -1)
+		env->init.textures[13] = 1;
+	if (close(fd))
+		return (custom_error("Could not close the file in check textures\n"));
+	if (!(env->init.text_name[14] = ft_strdup("./images/textures/grey.bmp")))
+		return (ft_perror("Error while malloc texture name\n"));
+	if ((fd = open("./images/textures/grey.bmp", O_RDONLY)) == -1)
+		env->init.textures[14] = 1;
+	if (close(fd))
+		return (custom_error("Could not close the file in check textures\n"));
+	return (0);
+}
 
 int		check_wall_textures3(t_env *env)
 {
@@ -35,19 +55,7 @@ int		check_wall_textures3(t_env *env)
 		env->init.textures[12] = 1;
 	if (close(fd))
 		return (custom_error("Could not close the file in check textures\n"));
-	if (!(env->init.text_name[13] = ft_strdup("./images/textures/sand.bmp")))
-		return (ft_perror("Error while malloc texture name\n"));
-	if ((fd = open("./images/textures/sand.bmp", O_RDONLY)) == -1)
-		env->init.textures[13] = 1;
-	if (close(fd))
-		return (custom_error("Could not close the file in check textures\n"));
-	if (!(env->init.text_name[14] = ft_strdup("./images/textures/grey.bmp")))
-		return (ft_perror("Error while malloc texture name\n"));
-	if ((fd = open("./images/textures/grey.bmp", O_RDONLY)) == -1)
-		env->init.textures[14] = 1;
-	if (close(fd))
-		return (custom_error("Could not close the file in check textures\n"));
-	return (0);
+	return (check_wall_textures4(env));
 }
 
 int    check_wall_textures2(t_env *env)

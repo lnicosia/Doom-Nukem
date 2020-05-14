@@ -279,7 +279,10 @@ int						print_event_selection(t_env *env, size_t nb);
 void					wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void					wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
 void					editor_wall_sprites_keyup(t_env *env);
+int						general_keyup(t_env *env);
 void					start_editor_menu(t_env *env);
+int						editor_options1(t_env *env, t_point center,
+t_point size);
 int						editor_keys(t_env *env);
 int						editor_keys6(t_env *env);
 int						save_map_keys(t_env *env);

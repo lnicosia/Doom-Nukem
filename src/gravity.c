@@ -72,7 +72,6 @@ void	player_fall(t_v3 pos, double time, t_env *env)
 
 void	correct_player_fall(double slope, t_env *env)
 {
-	ft_printf("correct fall\n");
 	env->player.pos.z = slope;
 	env->gravity.velocity = 0;
 	env->gravity.acceleration = 0;

@@ -76,6 +76,13 @@ int		parse_sectors(t_env *env, t_map_parser *parser)
 {
 	char	*line;
 
+
+	if (init_textures(env))
+		return (crash("Could not load textures\n", env));
+	if (generate_mipmaps(env))
+		return (crash("Could not generate mipmaps\n", env));
+	if (init_mipmap_arrays(env))
+   	  	return (-1);
 	while (parser->sectors_count < env->nb_sectors
 			&& (parser->ret = get_next_line(parser->fd, &parser->line)))
 	{

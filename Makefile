@@ -178,7 +178,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_sectors3.c check_ceiling_height_input_box.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c\
+		update_sector_input_box.c editor_options.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -313,7 +313,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_enemies_textures.c init_sprites_textures.c \
 		   init_hud_textures.c init_wall_textures.c \
 		   init_mini_skyboxes.c check_existing_files.c \
-		   check_walls_textures.c \
+		   check_walls_textures.c free_resources_init.c\
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
 		   init_ttf2.c check_fonts.c \

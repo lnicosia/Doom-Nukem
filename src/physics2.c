@@ -47,7 +47,6 @@ void	game_time(t_env *env)
 
 void	adjust_player_z_after_climb(double slope, t_env *env)
 {
-	ft_printf("z: %f slope: %f\n", env->player.pos.z, slope);
 	if (env->player.pos.z > slope + 2)
 		init_fall(env);
 	else
@@ -79,8 +78,6 @@ void	climb(t_env *env)
 		env->time.d_time = time - env->time.last_climb;
 		env->player.pos.z += env->time.d_time * env->player.velocity;
 	}
-	ft_printf("sector: %d high: %d\n", env->player.sector,
-	env->player.highest_sect);
 	if (env->player.pos.z >= slope && (env->player.pos.z <= slope + 1
 	|| env->climb_sect != env->player.sector))
 		adjust_player_z_after_climb(slope, env);

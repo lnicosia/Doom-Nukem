@@ -20,10 +20,10 @@ int		parse_floor6(t_env *env, char **line, t_map_parser *parser)
 		|| env->sectors[parser->sectors_count].floor_map_scale.y > 100)
 		return (custom_error_with_line("Floor scale must be"
 		"between 1 and 100", parser));
-	/*if (set_sector_floor_map_array(&env->sectors[parser->sectors_count],
+	if (set_sector_floor_map_array(&env->sectors[parser->sectors_count],
 		&env->wall_textures[env->sectors[parser->sectors_count].floor_texture],
 		env))
-		return (-1);*/
+		return (-1);
 	*line = skip_number(*line);
 	if (!**line)
 		return (missing_data("']' after floor scale", parser));

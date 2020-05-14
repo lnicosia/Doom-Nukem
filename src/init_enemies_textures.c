@@ -19,8 +19,8 @@ int    init_enemies_sprites_textures(t_env *env)
 
 	start = env->enemies_start;
 	if (parse_bmp("images/sprites/lost_soul.bmp", start + 0, env))
-		return (ft_printf("Failed to load lost soul\n"));
+		return (custom_error("Failed to load lost soul\n"));
 	if (parse_bmp("images/sprites/cyber_demon.bmp", start + 1, env))
-		return (ft_printf("Failed to load cyber demon sprite sheet\n"));
+		return (custom_error("Failed to load cyber demon sprite sheet\n"));
 	return (0);   
 }

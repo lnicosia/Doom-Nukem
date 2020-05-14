@@ -52,7 +52,7 @@ int		write_hud2(int fd, int file)
 	if (writing_bmp(file, fd, "./images/HUD/raygun6.bmp"))
 		return (-1);
 	if ((file = open("./images/HUD/raygun7.bmp", O_RDONLY)) < 0)
-		return (ft_printf("Could not open the font\n"));
+		return (custom_error("Could not open the font\n"));
 	if (writing_bmp(file, fd, "./images/HUD/raygun7.bmp"))
 		return (-1);
 	return (0);

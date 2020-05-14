@@ -89,29 +89,6 @@ int		parse_sector_textures2(char **line, t_map_parser *parser)
 	return (0);
 }
 
-static int     init_wall_map_array(t_env *env, int i)
-{
-   // int i;
-    int j;
-
-    //i = 0;
-    while (i < env->nb_sectors)
-    {
-        j = 0;
-        while(j < env->sectors[i].nb_vertices)
-        {
-            if (set_sector_wall_map_array(&env->sectors[i],
-		        &env->wall_textures[env->sectors[i].textures[j]],
-		        i, env))
-		        return (-1);
-            j++;
-        }
-        i++;
-    }
-    return (0);
-}
-
-
 int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
@@ -130,14 +107,6 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 		return (sector_error("has too much textures", parser->sectors_count,
 		parser));
 		i = 0;
-	if (init_textures(env))
-			return (crash("Could not load textures\n", env));
-		if (init_wall_map_array(env, i))
-			return (-1);
-		if (generate_mipmaps(env))
-			return (crash("Could not generate mipmaps\n", env));
-		if (init_mipmap_arrays(env))
-   		  	return (-1);
 	while (i < parser->sector_textures_count)
 	{
 		if (parse_current_texture(env, line, parser, i))

@@ -107,11 +107,7 @@ void	update_player_pos2(int new_sector, t_env *env)
 		&& env->player.highest_sect != new_sector && !env->player.state.fly)
 		|| (env->player.state.climb)) && !env->player.state.drop
 		&& !env->player.state.jump && !env->player.state.fly)
-	{
-		ft_printf("floor: %f | player: %f\n", get_floor_at_pos(&env->sectors[env->player.highest_sect],
-		env->player.pos, env), env->player.pos.z);
 		climb(env);
-	}
 	else if ((((get_floor_at_pos(&env->sectors[env->player.highest_sect],
 		env->player.pos, env) < env->player.pos.z
 		&& env->player.pos.z - get_floor_at_pos(&env->sectors[env->player.
