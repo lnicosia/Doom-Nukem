@@ -50,7 +50,7 @@ FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
 INSTALL_DIR = install
-INSTALL_TYPE = all_compiled
+INSTALL_TYPE = compile_all
 ROOT = sudo
 
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -594,17 +594,17 @@ $(EXTRACT_SDL): $(SDL2_DIR) $(SDL2_TTF_DIR)
 
 $(LIB_INSTALL):
 	@printf $(CYAN)"[INFO] Checking SDL dependencies..\n"$(RESET)
-ifeq ($(LIB_INSTALL),$(LIB_DIR)/all_compiled)
+ifeq ($(LIB_INSTALL),$(LIB_DIR)/compile_all)
 	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
 	@$(ROOT) sh $(COMPILE_ALL)
 	@touch $@
 else
-    ifeq ($(LIB_INSTALL),$(LIB_DIR)/sdl_compiled)
+    ifeq ($(LIB_INSTALL),$(LIB_DIR)/compile_sdl)
 		@printf $(CYAN)"[INFO] Compiling SDL2 and SDL2_ttf..\n"$(RESET)
 		@$(ROOT) sh $(INSTALL_SDL_DEPENDENCIES)
 		@touch $@
     else
-        ifeq ($(LIB_INSTALL),$(LIB_DIR)/installed)
+        ifeq ($(LIB_INSTALL),$(LIB_DIR)/install)
 			@printf $(CYAN)"[INFO] Installing all the libraries..\n"
 			@printf $(RESET)
 			@$(ROOT) sh $(INSTALL_ALL)
