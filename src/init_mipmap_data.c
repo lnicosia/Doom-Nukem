@@ -25,7 +25,7 @@ static int     init_wall_map_array(t_env *env)
         {
             if (set_sector_wall_map_array(&env->sectors[i],
 		        &env->wall_textures[env->sectors[i].textures[j]],
-		        i, env))
+		        j, env))
 		        return (-1);
             j++;
         }
@@ -68,7 +68,7 @@ int     init_floor_map_array(t_env *env)
 
 int     init_mipmap_arrays(t_env *env)
 {
-    ft_printf("calculs post mipmap..\n");
+    ft_printf("Initializing sectors mipmap arrays..\n");
     if (init_wall_map_array(env))
         return (-1);
     if (init_floor_map_array(env))

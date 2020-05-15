@@ -32,10 +32,6 @@ int		init_editor4(t_env *env)
 
 int		init_editor3(t_env *env)
 {
-	if (init_object_sprites(env))
-		return (crash("Could not load object sprites\n", env));
-	if (init_enemy_sprites(env))
-		return (crash("Could not load enemy sprites\n", env));
 	if (init_editor_hud(env))
 		return (crash("Could not init hud\n", env));
 	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
@@ -71,6 +67,10 @@ int		init_editor1(int ac, char **av, t_env *env)
 		return (crash("Could not initialize SDL\n", env));
 	if (check_resources(env))
 		return (crash("Could not pre load resources\n", env));
+	if (init_object_sprites(env))
+		return (crash("Could not load object sprites\n", env));
+	if (init_enemy_sprites(env))
+		return (crash("Could not load enemy sprites\n", env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");

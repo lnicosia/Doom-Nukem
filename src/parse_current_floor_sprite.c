@@ -53,7 +53,7 @@ t_map_parser *parser, int i)
 
 	(*line)++;
 	if (valid_int(*line, parser))
-		return (custom_error("Invalid int	for floor sprites count\n"));
+		return (custom_error("Invalid int for floor sprites count\n"));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid floor sprite texture",

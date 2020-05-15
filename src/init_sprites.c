@@ -36,6 +36,7 @@ int		init_object_sprites(t_env *env)
 	init_raygun_sprite(env);
 	init_doom_guy(env);
 //	init_hd_sprite(env);
+	init_objects_main_sprites(env);
 	return (0);
 }
 
@@ -56,6 +57,5 @@ int		init_enemy_sprites(t_env *env)
 	init_cyber_demon_death(env);
 	env->enemies_main_sprites[0] = LOST_SOUL;
 	env->enemies_main_sprites[1] = CYBER_DEMON;
-	init_objects_main_sprites(env);
 	return (0);
 }
