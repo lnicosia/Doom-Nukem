@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 15:46:35 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/22 15:46:35 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 20:00:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int		skip_file(t_map_parser *parser)
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 			return (ft_perror("Could not malloc line in parse bmp\n"));
 	}
+//	ft_printf("line: %s\n", parser->line);
+//	ft_printf("tmp: %s\n", parser->tmp);
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of the size\n"));
 	if (valid_int(parser->line, parser))

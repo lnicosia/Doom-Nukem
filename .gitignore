@@ -6,6 +6,16 @@ src/*.swp
 maps/*.map
 *.map
 
+# textures
+images/textures/*.bmp
+*.bmp
+
+# fonts
+fonts
+
+#resources
+resources.tar.gz
+
 # Prerequisites
 *.d
 

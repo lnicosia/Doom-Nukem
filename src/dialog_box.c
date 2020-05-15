@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/15 19:47:43 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 23:05:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,31 +75,26 @@ t_env *env)
 }
 
 /*
-**	If the string is too big to fit in one line
-**	Prints the text in multiple lines
-*/
-
-int		split_text(char **str, t_point pos, t_env *env)
-{
-	int		count;
-	t_point	text_size;
-
-	count = 0;
-	text_size.x = 0;
-	text_size.y = 0;
-	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
-	{
-		if (compute_current_line(str, &pos, &text_size, env))
-			return (-1);
-		pos.x += text_size.y + 5;
-		count++;
-	}
-	return (0);
-}
-
-/*
 **	Draw the dialog box with the given string
 */
+
+int		draw_dialog_box2(char **str, t_env *env, char *tmp, t_point pos)
+{
+	if (split_text(&tmp, pos, env))
+	{
+		ft_strdel(&tmp);
+		return (-1);
+	}
+	if (env->next_dialog)
+	{
+		ft_strdel(str);
+		*str = tmp;
+		env->next_dialog = 0;
+	}
+	else
+		ft_strdel(&tmp);
+	return (0);
+}
 
 int		draw_dialog_box(char **str, t_env *env)
 {
@@ -117,18 +112,5 @@ int		draw_dialog_box(char **str, t_env *env)
 	pos = new_point(env->h - size.y + 30, env->h_w - size.x / 2 + 35);
 	apply_image(texture, new_point(env->h - size.y, env->h_w - size.x / 2),
 	size, env);
-	if (split_text(&tmp, pos, env))
-	{
-		ft_strdel(&tmp);
-		return (-1);
-	}
-	if (env->next_dialog)
-	{
-		ft_strdel(str);
-		*str = tmp;
-		env->next_dialog = 0;
-	}
-	else
-		ft_strdel(&tmp);
-	return (0);
+	return (draw_dialog_box2(str, env, tmp, pos));
 }

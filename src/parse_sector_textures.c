@@ -111,6 +111,11 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	{
 		if (parse_current_texture(env, line, parser, i))
 			return (-1);
+	
+		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
+		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
+		i, env))
+			return (-1);
 		i++;
 	}
 	return (parse_sector_textures2(line, parser));

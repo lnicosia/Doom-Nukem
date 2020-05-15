@@ -6,13 +6,28 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:06:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/13 15:20:21 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 22:20:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "collision.h"
 #include "draw.h"
+
+int		launch_events3bis(t_env *env)
+{
+	if (env->player.old_sector != -1
+			&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
+	{
+		if (start_event(&env->sectors[env->player.old_sector].
+			walk_out_events, &env->sectors[env->player.old_sector].
+			nb_walk_out_events, env))
+			return (-1);
+	}
+	env->player.changed_sector = 0;
+	env->player.old_sector = -1;
+	return (0);
+}
 
 int		launch_events3(t_env *env)
 {
@@ -33,17 +48,7 @@ int		launch_events3(t_env *env)
 		&env->sectors[env->player.sector].nb_walk_in_events, env))
 			return (-1);
 	}
-	if (env->player.old_sector != -1
-			&& env->sectors[env->player.old_sector].nb_walk_out_events > 0)
-	{
-		if (start_event(&env->sectors[env->player.old_sector].
-			walk_out_events, &env->sectors[env->player.old_sector].
-			nb_walk_out_events, env))
-			return (-1);
-	}
-	env->player.changed_sector = 0;
-	env->player.old_sector = -1;
-	return (0);
+	return (launch_events3bis(env));
 }
 
 int		launch_events2(t_env *env)

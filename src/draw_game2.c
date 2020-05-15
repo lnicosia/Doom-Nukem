@@ -6,16 +6,16 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 14:58:00 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/11 14:58:00 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 22:52:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "enemies.h"
 #include "draw.h"
 
-int     is_player_alive(t_env *env)
+int	is_player_alive(t_env *env)
 {
-    if (env->player.health > 0)
+	if (env->player.health > 0)
 	{
 		if (draw_hud(env))
 			return (-1);
@@ -27,12 +27,12 @@ int     is_player_alive(t_env *env)
 		if (print_results(env))
 			return (-1);
 	}
-    return (0);
+	return (0);
 }
 
-int     draw_weapons(t_env *env)
+int	draw_weapons(t_env *env)
 {
-    if (((env->inputs.left_click && !env->shot.on_going
+	if (((env->inputs.left_click && !env->shot.on_going
 		&& !env->weapon_change.on_going) || env->shot.on_going)
 		&& !env->confirmation_box.state)
 	{
@@ -43,5 +43,5 @@ int     draw_weapons(t_env *env)
 		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
 	if (env->weapon_change.on_going && !env->shot.on_going)
 		weapon_change(env);
-    return (0);
+	return (0);
 }

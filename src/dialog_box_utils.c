@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:03:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/15 19:25:39 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 22:17:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		size_protection(t_env *env, size_t len, t_point size, char **str)
 {
 	char *res;
-	
+
 	if (!(res = ft_strnew(0)))
 		return (0);
 	if (size.x >= env->h_w - 70)
@@ -98,5 +98,28 @@ int		find_dialog_box_max_char(t_env *env)
 	ft_strdel(&str);
 	env->dialog_box_line_size = len;
 	env->dialog_box_max_lines = (env->h_w / 3.0 - 60) / (double)size.y;
+	return (0);
+}
+
+/*
+**	If the string is too big to fit in one line
+**	Prints the text in multiple lines
+*/
+
+int		split_text(char **str, t_point pos, t_env *env)
+{
+	int		count;
+	t_point	text_size;
+
+	count = 0;
+	text_size.x = 0;
+	text_size.y = 0;
+	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
+	{
+		if (compute_current_line(str, &pos, &text_size, env))
+			return (-1);
+		pos.x += text_size.y + 5;
+		count++;
+	}
 	return (0);
 }

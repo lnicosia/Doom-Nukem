@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/11 15:03:47 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 22:50:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	draw_game(t_env *env)
 		return (-1);
 	env->shooting = 0;
 	env->test_time = SDL_GetTicks();
-	if(draw_weapons(env))
+	if (draw_weapons(env))
 		return (-1);
 	if (env->options.show_fps)
 	{

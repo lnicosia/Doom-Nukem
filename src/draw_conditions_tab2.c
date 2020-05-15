@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/15 18:18:18 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/15 18:18:18 by marvin           ###   ########.fr       */
+/*   Created: 2020/04/21 09:15:55 by marvin            #+#    #+#             */
+/*   Updated: 2020/05/15 22:44:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "events_conditions.h"
 #include "draw.h"
 
-int		print_event_link_condition(t_condition *condition, t_event_panel *panel,
+int	print_event_link_condition(t_condition *condition, t_event_panel *panel,
 t_env *env)
 {
 	t_point			text_size;
@@ -34,7 +34,7 @@ t_env *env)
 	return (0);
 }
 
-int		draw_condition(t_env *env, t_condition *condition)
+int	draw_condition(t_env *env, t_condition *condition)
 {
 	t_point			text_size;
 	t_event_panel	*panel;

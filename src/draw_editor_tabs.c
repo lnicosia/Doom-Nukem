@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_editor_tabs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:02:08 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 16:12:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 23:29:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,8 @@ int		print_sprite_tab(t_env *env)
 		if (print_floor_sprite_tab(env))
 			return (-1);
 	}
-	if (env->selected_floor_sprite != -1
-		|| env->selected_wall_sprite_sprite != -1
-		|| env->selected_ceiling_sprite != -1)
-	{
-		if (draw_button(env, env->editor.next_sprite,
-			env->editor.next_sprite.str))
-			return (-1);
-		if (draw_button(env, env->editor.previous_sprite,
-		env->editor.previous_sprite.str))
-			return (-1);
-		if (draw_button(env, env->editor.sprite_background,
-		env->editor.sprite_background.str))
-			return (-1);
-		apply_sprite(env->object_sprites[env->editor.current_sprite],
-		new_point(env->editor.current_sprite_selection.pos.y,
-		env->editor.current_sprite_selection.pos.x),
-		new_point(60, 60), env);
-	}
+	if (draw_wall_sprites_general_buttons(env))
+		return (-1);
 	return (0);
 }
 
@@ -178,21 +162,8 @@ int		draw_editor_tabs2(t_env *env)
 
 int		draw_editor_tabs(t_env *env)
 {
-	if (((env->selected_ceiling_sprite == -1
-	&& env->selected_floor_sprite == -1
-	&& env->selected_wall_sprite_sprite == -1)
-	&& (env->selected_object != -1 || env->editor.selected_wall != -1 ||
-	env->selected_floor != -1 || env->selected_enemy != -1
-	|| env->selected_ceiling != -1))
-	|| ((env->editor.selected_sector != -1
-	|| env->editor.selected_start_player != -1
-	|| env->selected_object != -1 || env->selected_enemy != -1
-	|| env->editor.selected_vertex != -1)))
-	{
-		if (draw_button(env, env->editor.general_tab,
-			env->editor.general_tab.str))
-			return (-1);
-	}
+	if (draw_editor_general_tab(env))
+		return (-1);
 	if (((env->editor.selected_start_player != -1
 		|| env->selected_enemy != -1
 	|| env->selected_object != -1)) || ((env->selected_object != -1

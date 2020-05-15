@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_tab_keys.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 18:58:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 22:58:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,7 @@ int		general_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.events_tab, env))
 		return (-1);
-	if (button_keys(&env->editor.previous_fighting_music, env))
-		return (-1);
-	if (button_keys(&env->editor.previous_ambiance_music, env))
-		return (-1);
-	if (button_keys(&env->editor.next_ambiance_music, env))
-		return (-1);
-	if (button_keys(&env->editor.next_fighting_music, env))
+	if (general_music_keys(env))
 		return (-1);
 	return (0);
 }

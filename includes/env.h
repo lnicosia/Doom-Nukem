@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 19:15:26 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 23:16:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,6 @@ int						print_event_selection(t_env *env, size_t nb);
 void					wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void					wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
 void					editor_wall_sprites_keyup(t_env *env);
-int						general_keyup(t_env *env);
 void					start_editor_menu(t_env *env);
 int						editor_options1(t_env *env, t_point center,
 t_point size);
@@ -287,6 +286,7 @@ int						editor_keys(t_env *env);
 int						editor_keys6(t_env *env);
 int						save_map_keys(t_env *env);
 int						editor_3d_keys(t_env *env);
+int						general_music_keys(t_env *env);
 int						check_move_player_conditions(t_env *env);
 int						editor_options_keys(t_env *env);
 int						editor_mouse(t_env *env);
@@ -545,6 +545,8 @@ int						selection_tab_button_keys(t_env *env);
 int						wall_edit_keys(t_env *env);
 int						wall_edit_keyup(t_env *env);
 void					editor_wall_sprites_keys(t_env *env);
+int						draw_wall_sprites_general_buttons(t_env *env);
+int						draw_editor_general_tab(t_env *env);
 int						change_textures_scales(t_env *env);
 int						change_walls_texture_scale(t_env *env);
 int						change_slopes(t_env *env);
@@ -917,6 +919,9 @@ int						find_dialog_box_max_char(t_env *env);
 int						dialog_event(void *param, void *penv);
 int						find_dialog_box_max_char(t_env *env);
 char					*get_current_line(char **str, t_env *env);
+int						split_text(char **str, t_point pos, t_env *env);
+int						compute_current_line(char **str, t_point *pos,
+t_point *text_size, t_env *env);
 
 /*
 ** Main pipeline functions
