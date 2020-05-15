@@ -697,6 +697,10 @@ $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
 $(RESOURCES):
+	@$(ROOT) rm -rf images
+	@$(ROOT) rm -rf fonts
+	@$(ROOT) rm -rf audio
+	@$(ROOT) rm -rf maps
 	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
 	@wget -q --show-progress --load-cookies /tmp/cookies.txt \
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
