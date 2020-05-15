@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 09:15:55 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/21 09:15:55 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 18:09:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int		check_skyboxes2(t_env *env)
 }
 
 int		check_skyboxes(t_env *env)
-{    
+{
 	int	fd;
 
 	fd = 0;

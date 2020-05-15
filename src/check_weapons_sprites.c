@@ -12,11 +12,11 @@
 
 #include "env.h"
 
-int     check_shotgun2(t_env *env)
+int	check_shotgun2(t_env *env)
 {
-    if (new_parsed_hud_file("images/HUD/shot8.bmp", env))
+	if (new_parsed_hud_file("images/HUD/shot8.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
-    if (new_parsed_hud_file("images/HUD/shot9.bmp", env))
+	if (new_parsed_hud_file("images/HUD/shot9.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_hud_file("images/HUD/shot10.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
@@ -30,14 +30,14 @@ int     check_shotgun2(t_env *env)
 		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_hud_file("images/HUD/shot15.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
-    return (0);
+	return (0);
 }
 
-int		check_shotgun(t_env *env)
+int	check_shotgun(t_env *env)
 {
 	if (new_parsed_hud_file("images/HUD/shot1.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
- 	if (new_parsed_hud_file("images/HUD/shot2.bmp", env))
+	if (new_parsed_hud_file("images/HUD/shot2.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_hud_file("images/HUD/shot3.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
@@ -50,11 +50,11 @@ int		check_shotgun(t_env *env)
 	if (new_parsed_hud_file("images/HUD/shot7.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
 	if (check_shotgun2(env))
-        return (custom_error("Error while loadig shotgun sprites\n"));
+		return (custom_error("Error while loadig shotgun sprites\n"));
 	return (0);
 }
 
-int		check_raygun(t_env *env)
+int	check_raygun(t_env *env)
 {
 	if (new_parsed_hud_file("images/HUD/raygun1.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
@@ -73,7 +73,7 @@ int		check_raygun(t_env *env)
 	return (0);
 }
 
-int		check_gun(t_env *env)
+int	check_gun(t_env *env)
 {
 	if (new_parsed_hud_file("images/HUD/gun_1.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
@@ -90,7 +90,7 @@ int		check_gun(t_env *env)
 	return (0);
 }
 
-int		check_gatling(t_env *env)
+int	check_gatling(t_env *env)
 {
 	if (new_parsed_hud_file("images/HUD/Gatling/Gatling_1.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
@@ -104,9 +104,9 @@ int		check_gatling(t_env *env)
 		return (custom_error("Invalid bmp file\n"));
 	if (new_parsed_hud_file("images/HUD/Gatling/Gatling_6.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
-    if (new_parsed_hud_file("images/HUD/Ammo_hud.bmp", env))
+	if (new_parsed_hud_file("images/HUD/Ammo_hud.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
-    if (new_parsed_hud_file("images/HUD/Life_armor_hud.bmp", env))
+	if (new_parsed_hud_file("images/HUD/Life_armor_hud.bmp", env))
 		return (custom_error("Invalid bmp file\n"));
 	return (0);
 }

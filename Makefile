@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/12 14:40:32 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/05/15 18:42:24 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -193,7 +193,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_sectors3.c check_ceiling_height_input_box.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c editor_options.c \
+		update_sector_input_box.c editor_options.c draw_conditions_tab2.c\
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

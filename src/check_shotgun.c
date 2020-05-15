@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 16:42:01 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/08 16:42:01 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 18:10:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int     check_shotgun5(t_env *env)
+int	check_shotgun5(t_env *env)
 {
 	int	fd;
 
@@ -38,7 +38,7 @@ int     check_shotgun5(t_env *env)
 	return (0);
 }
 
-int     check_shotgun4(t_env *env)
+int	check_shotgun4(t_env *env)
 {
 	int	fd;
 
@@ -64,7 +64,7 @@ int     check_shotgun4(t_env *env)
 	return (check_shotgun5(env));
 }
 
-int     check_shotgun3(t_env *env)
+int	check_shotgun3(t_env *env)
 {
 	int	fd;
 
@@ -90,12 +90,12 @@ int     check_shotgun3(t_env *env)
 	return (check_shotgun4(env));
 }
 
-int     check_shotgun2(t_env *env)
+int	check_shotgun2(t_env *env)
 {
 	int	fd;
 
 	fd = 0;
-    if (!(env->init.hud_names[3] = ft_strdup("images/HUD/shot4.bmp")))
+	if (!(env->init.hud_names[3] = ft_strdup("images/HUD/shot4.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("images/HUD/shot4.bmp", O_RDONLY)) == -1)
 		env->init.hud[3] = 1;
@@ -113,10 +113,10 @@ int     check_shotgun2(t_env *env)
 		env->init.hud[5] = 1;
 	if (!env->init.hud[5] && close(fd))
 		return (custom_error("Could not close the fd in check shotgun\n"));
-    return (check_shotgun3(env));
+	return (check_shotgun3(env));
 }
 
-int		check_shotgun(t_env *env)
+int	check_shotgun(t_env *env)
 {
 	int	fd;
 
@@ -129,7 +129,7 @@ int		check_shotgun(t_env *env)
 		return (custom_error("Could not close the fd in check shotgun\n"));
 	if (!(env->init.hud_names[1] = ft_strdup("images/HUD/shot2.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
- 	if ((fd = open("images/HUD/shot2.bmp", O_RDONLY)) == -1)
+	if ((fd = open("images/HUD/shot2.bmp", O_RDONLY)) == -1)
 		env->init.hud[1] = 1;
 	if (!env->init.hud[1] && close(fd))
 		return (custom_error("Could not close the fd in check shotgun\n"));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 17:08:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 19:15:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -916,6 +916,7 @@ t_rectangle rectangle);
 int						find_dialog_box_max_char(t_env *env);
 int						dialog_event(void *param, void *penv);
 int						find_dialog_box_max_char(t_env *env);
+char					*get_current_line(char **str, t_env *env);
 
 /*
 ** Main pipeline functions

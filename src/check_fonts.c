@@ -6,28 +6,28 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/27 14:16:46 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/27 14:16:46 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 17:56:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int     check_existing_fonts(t_env *env, char *name)
+int	check_existing_fonts(t_env *env, char *name)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < NB_FONTS_FILE)
-    {
-        if (!(ft_strcmp(name, env->init.fonts_names[i]))
-        && env->init.fonts[i] == 1)
-            return (1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (i < NB_FONTS_FILE)
+	{
+		if (!(ft_strcmp(name, env->init.fonts_names[i]))
+		&& env->init.fonts[i] == 1)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-int     check_fonts3(t_env *env)
+int	check_fonts3(t_env *env)
 {
 	int	fd;
 
@@ -44,10 +44,10 @@ int     check_fonts3(t_env *env)
 		env->init.fonts[7] = 1;
 	if (!env->init.fonts[7] && close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
-    return (0);
+	return (0);
 }
 
-int     check_fonts2(t_env *env)
+int	check_fonts2(t_env *env)
 {
 	int	fd;
 
@@ -72,10 +72,10 @@ int     check_fonts2(t_env *env)
 		env->init.fonts[5] = 1;
 	if (!env->init.fonts[5] && close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
-    return (check_fonts3(env));
+	return (check_fonts3(env));
 }
 
-int     check_fonts(t_env *env)
+int	check_fonts(t_env *env)
 {
 	int	fd;
 
@@ -99,5 +99,5 @@ int     check_fonts(t_env *env)
 		env->init.fonts[2] = 1;
 	if (!env->init.fonts[2] && close(fd))
 		return (custom_error("Could not close the fd in check fonts\n"));
-    return (check_fonts2(env));
+	return (check_fonts2(env));
 }

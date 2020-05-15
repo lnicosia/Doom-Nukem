@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dialog_box.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 16:02:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 19:47:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,6 @@
 /*
 **	Find the largest string of the current text characters that fit in one line
 */
-
-char	*get_current_line(char **str, t_env *env)
-{
-	size_t	len;
-	char	*res;
-	t_point	size;
-
-	size = new_point(0, 0);
-	len = 1;
-	if (!(res = ft_strnew(0)))
-		return (0);
-	while (size.x < env->h_w - 70 && len <= ft_strlen(*str))
-	{
-		ft_strdel(&res);
-		if (!(res = ft_strsub(*str, 0, len)))
-			return (0);
-		if (TTF_SizeText(env->sdl.fonts.lato_bold30, res, &size.x, &size.y))
-		{
-			ft_strdel(&res);
-			return (0);
-		}
-		len++;
-	}
-	if (size.x >= env->h_w - 70)
-	{
-		ft_strdel(&res);
-		if (!(res = ft_strsub(*str, 0, len - 2)))
-			return (0);
-	}
-	return (res);
-}
 
 int		print_line_text(t_point *pos, t_point *text_size, char *tmp2,
 t_env *env)
@@ -59,15 +28,8 @@ t_env *env)
 	return (0);
 }
 
-int		compute_current_line(char **str, t_point *pos, t_point *text_size,
-t_env *env)
+int		check_tmp(char *tmp, char *tmp2, char **str)
 {
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-
-	if (!(tmp = get_current_line(str, env)))
-		return (-1);
 	if (ft_strlen(tmp) < ft_strlen(*str) && ft_strrchr(tmp, ' '))
 	{
 		if (!(tmp2 = ft_strsub(tmp, 0,
@@ -80,6 +42,21 @@ t_env *env)
 	}
 	else
 		tmp2 = tmp;
+	return (0);
+}
+
+int		compute_current_line(char **str, t_point *pos, t_point *text_size,
+t_env *env)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+
+	tmp2 = NULL;
+	if (!(tmp = get_current_line(str, env)))
+		return (-1);
+	if (check_tmp(tmp, tmp2, str))
+		return (-1);
 	if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2) + 1,
 		ft_strlen(*str) - ft_strlen(tmp2))))
 	{
@@ -108,6 +85,8 @@ int		split_text(char **str, t_point pos, t_env *env)
 	t_point	text_size;
 
 	count = 0;
+	text_size.x = 0;
+	text_size.y = 0;
 	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
 	{
 		if (compute_current_line(str, &pos, &text_size, env))

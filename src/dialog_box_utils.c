@@ -3,14 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   dialog_box_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:03:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 16:03:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 19:25:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int		size_protection(t_env *env, size_t len, t_point size, char **str)
+{
+	char *res;
+	
+	if (!(res = ft_strnew(0)))
+		return (0);
+	if (size.x >= env->h_w - 70)
+	{
+		ft_strdel(&res);
+		if (!(res = ft_strsub(*str, 0, len - 2)))
+			return (0);
+	}
+	return (1);
+}
+
+char	*get_current_line(char **str, t_env *env)
+{
+	size_t	len;
+	char	*res;
+	t_point	size;
+
+	size = new_point(0, 0);
+	len = 1;
+	if (!(res = ft_strnew(0)))
+		return (0);
+	while (size.x < env->h_w - 70 && len <= ft_strlen(*str))
+	{
+		ft_strdel(&res);
+		if (!(res = ft_strsub(*str, 0, len)))
+			return (0);
+		if (TTF_SizeText(env->sdl.fonts.lato_bold30, res, &size.x, &size.y))
+		{
+			ft_strdel(&res);
+			return (0);
+		}
+		len++;
+	}
+	if (!(size_protection(env, len, size, str)))
+		return (0);
+	return (res);
+}
 
 int		dialog_event(void *param, void *penv)
 {
