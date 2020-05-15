@@ -702,14 +702,14 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn $\
+	1dG6njl9z_S3xSaujNlM8ijSAPRE8IIp9' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz \
+	&id=1dG6njl9z_S3xSaujNlM8ijSAPRE8IIp9" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	tar -xf resources.tar.gz
 	@printf $(RESET)
-	@rm -rf resources.tar.gz
+	rm -rf resources.tar.gz
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
 					$(SDL2_TTF_INCLUDES)
