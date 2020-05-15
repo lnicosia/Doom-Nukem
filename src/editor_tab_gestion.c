@@ -12,57 +12,7 @@
 
 #include "env.h"
 
-int		general_keyup2(t_env *env)
-{
-	if (button_keyup(&env->editor.events_tab, env))
-		return (-1);
-	if (env->selected_ceiling != -1 && ceiling_buttons_up(env))
-		return (-1);
-	if (env->editor.selected_wall != -1 && wall_buttons_up(env))
-		return (-1);
-	if (env->selected_floor != -1 && floor_buttons_up(env))
-		return (-1);
-	if (env->selected_enemy != -1 && enemy_buttons_up(env))
-		return (-1);
-	if (env->selected_object != -1 && object_buttons_up(env))
-		return (-1);
-	if (env->selected_floor_sprite != -1 && floor_sprite_buttons_up(env))
-		return (-1);
-	if (env->selected_ceiling_sprite != -1 && ceiling_sprite_buttons_up(env))
-		return (-1);
-	if (env->selected_wall_sprite_sprite != -1 && wall_sprite_buttons_up(env))
-		return (-1);
-	if (env->editor.selected_start_player != -1 && player_buttons_up(env))
-		return (-1);
-	return (0);
-}
 
-int		general_keyup(t_env *env)
-{
-	if (button_keyup(&env->editor.save, env))
-		return (-1);
-	if (button_keyup(&env->editor.sprite_tab, env))
-		return (-1);
-	else if (button_keyup(&env->editor.general_tab, env))
-		return (-1);
-	else if (button_keyup(&env->editor.sector_tab, env))
-		return (-1);
-	if (button_keyup(&env->editor.change_mode, env))
-		return (-1);
-	if (button_keyup(&env->editor.options, env))
-		return (-1);
-	if (button_keyup(&env->editor.launch_game, env))
-		return (-1);
-	if (button_keyup(&env->editor.current_texture_selection, env))
-		return (-1);
-	if (button_keyup(&env->editor.current_enemy_selection, env))
-		return (-1);
-	if (button_keyup(&env->editor.current_object_selection, env))
-		return (-1);
-	if (button_keyup(&env->editor.texture_background, env))
-		return (-1);
-	return (general_keyup2(env));
-}
 
 void	editor_options_tab_keyup(t_env *env)
 {

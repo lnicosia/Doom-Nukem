@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:22:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/13 14:24:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	animations(t_env *env)
 		gravity(env);
 	if ((env->inputs.space || env->player.state.jump)
 		&& !env->player.state.climb && !env->player.state.drop
-		&& env->player.health > 0)
+		&& env->player.health > 0 && !env->player.state.fall)
 		jump(env);
 	if (((env->inputs.ctrl && env->player.eyesight > 3)
 	|| env->player.state.crouch) && !env->editor.in_game)
@@ -35,7 +35,8 @@ void	animations(t_env *env)
 	env->player.camera.pos.z = env->player.head_z;
 	if (!env->player.state.jump && !env->player.state.fall
 		&& !env->player.state.climb && !env->player.state.drop
-		&& !env->player.state.fall && !env->player.state.fly)
+		&& !env->player.state.fall && !env->player.state.fly
+		&& env->sectors[env->player.sector].floor_slope != 0)
 		update_player_z(env);
 }
 
@@ -131,7 +132,7 @@ void	update_player_pos(t_env *env)
 	new_sector = get_sector_no_z_origin(env,
 		env->player.pos, env->player.sector);
 	motion = new_motion(new_sector, env->player.size_2d,
-	env->player.eyesight, env->player.pos);
+	env->player.eyesight, env->player.pos);	
 	if (new_sector != env->player.sector)
 	{
 		env->player.old_sector = env->player.sector;

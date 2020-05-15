@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 14:51:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 12:32:54 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/11 15:21:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ static int	parse_wall_textures(int fd, int index, t_env *env)
 		return (custom_error("Error in image header\n"));
 	ft_printf("{red}");
 	if (!(env->wall_textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
-					0,
-					parser.w,
-					parser.h,
-					parser.bpp,
-					SDL_PIXELFORMAT_ARGB8888)))
-		return (custom_error("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	env->wall_textures[index].str = env->wall_textures[index].surface->pixels;
+		0, parser.w, parser.h, parser.bpp, SDL_PIXELFORMAT_ARGB8888)))
+		return (custom_error("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
+		env->wall_textures[index].str =
+	env->wall_textures[index].surface->pixels;
 	env->wall_textures[index].scale = 1;
 	env->wall_textures[index].xpadding = 0;
 	env->wall_textures[index].ypadding = 0;

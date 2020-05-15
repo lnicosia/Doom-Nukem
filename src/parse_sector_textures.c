@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sector_textures.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:17:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:17:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 13:01:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_parser.h"
 #include "parser.h"
+#include "init.h"
 
 int		parse_current_texture3(t_env *env, char **line, t_map_parser *parser,
 int i)
 {
+	if (env->sectors[parser->sectors_count].scale[i].y < 1
+		|| env->sectors[parser->sectors_count].scale[i].y > 100)
+	{
+		return (custom_error_with_line("Wall scale must be"
+		"between 1 and 100", parser));
+	}
 	*line = skip_number(*line);
-	if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
-		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
-		i, env))
-		return (-1);
 	(*line)++;
 	return (0);
 }
@@ -47,12 +50,6 @@ int i)
 	if (valid_double(*line, parser))
 		return (custom_error("Invalid for wall %d texture scale.y\n", i));
 	env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
-	if (env->sectors[parser->sectors_count].scale[i].y < 1
-		|| env->sectors[parser->sectors_count].scale[i].y > 100)
-	{
-		return (custom_error_with_line("Wall scale must be"
-		"between 1 and 100", parser));
-	}
 		return (parse_current_texture3(env, line, parser, i));
 }
 

@@ -25,15 +25,15 @@ int		creating_new_file(t_map_parser *parser, int size)
 		return (ft_perror("Read for bmp file failed\n"));
 	if ((fd = open(parser->resource_name,
 	O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
-		return (custom_error("Could not open bmp file\n"));
+		return (ft_perror("Could not open bmp file\n"));
 	write(fd, parser->tmp, size);
 	ft_strdel(&(parser->resource_name));
 	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
 	|| *(parser->tmp) != '\n')
-		return (custom_error("Invalid file\n"));
+		return (ft_perror("Invalid file\n"));
 	ft_strdel(&(parser->tmp));
 	if (close(fd))
-		return (custom_error("Could not close fd\n"));
+		return (ft_perror("Could not close fd\n"));
 	return (0);
 }
 

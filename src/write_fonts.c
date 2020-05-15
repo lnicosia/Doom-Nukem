@@ -50,9 +50,9 @@ int		write_font(int file, int fd, char *name)
 
 int		write_fonts1(int fd, int file)
 {
-	if ((file = open("./fonts/AmazDoomLeft.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/AmazDooMLeft.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/AmazDoomLeft.ttf"))
+	if (write_font(file, fd, "./fonts/AmazDooMLeft.ttf"))
 		return (-1);
 	if ((file = open("./fonts/Alice-Regular.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));

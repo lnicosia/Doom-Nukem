@@ -30,6 +30,7 @@ t_env *env)
 	i = 0;
 	while (i < MAX_UI_TEXTURES)
 	{
+		
 		texture = &env->ui_textures[i];
 		nb_maps = floor(log2(fmax(texture->surface->w,
 			texture->surface->h))) + 1;
@@ -48,6 +49,8 @@ int		generate_mipmaps(t_env *env)
 	t_texture	*texture;
 
 	i = 0;
+	texture = NULL;
+	nb_maps = 0;
 	ft_printf("Generating mipmaps..\n");
 	while (i < MAX_WALL_TEXTURE)
 	{

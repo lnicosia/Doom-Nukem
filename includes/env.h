@@ -70,6 +70,7 @@ typedef struct			s_env
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
 	int					dialog_box;
+	int					climb_sect;
 	int					dialog_box_max_lines;
 	size_t				dialog_box_line_size;
 	char				*dialog_box_str;
@@ -200,26 +201,18 @@ int						sector_error(const char *message, int sector,
 t_map_parser *parser);
 
 //	init bmp before parsing
+int					check_resources(t_env *env);
 int					init_wall_textures(t_env *env);
-int					init_wall_textures1(t_env *env);
-int					init_wall_textures2(t_env *env);
+int					init_ui_textures(t_env *env);
+int					init_ui_textures2(t_env *env);
+int					init_ui_textures3(t_env *env);
+int					init_ui_textures4(t_env *env);
+int					init_ui_textures5(t_env *env);
+int					init_ui_textures6(t_env *env);
 int					init_sprites_textures(t_env *env);
 int					init_skyboxes_textures(t_env *env);
 int					init_skyboxes_textures1(t_env *env);
-int					init_skyboxes_textures2(t_env *env);
-int					init_skyboxes_textures3(t_env *env);	
-int					init_skyboxes_textures4(t_env *env);
-int					init_skyboxes_textures5(t_env *env);
 int					init_hud_textures(t_env *env);
-int					init_hud_textures1(t_env *env);
-int					init_hud_textures2(t_env *env);
-int					init_hud_textures3(t_env *env);
-int					init_hud_textures4(t_env *env);
-int					init_hud_textures5(t_env *env);
-int					init_hud_textures6(t_env *env);
-int					init_hud_textures7(t_env *env);
-int					init_hud_textures8(t_env *env);
-int					init_hud_textures9(t_env *env);
 int					init_enemies_sprites_textures(t_env *env);
 int					init_objects_sprites_textures(t_env *env);
 int					init_wall_sprites_textures(t_env *env);
@@ -231,10 +224,16 @@ int					check_existing_fonts(t_env *env, char *name);
 int					check_existing_sounds(t_env *env, char *name);
 int					check_wall_textures(t_env *env);
 int					check_wall_textures2(t_env *env);
+int					check_wall_textures3(t_env *env);
 int					check_textures(t_env *env);
 int					check_sprites_textures(t_env *env);
 int					check_hud_textures(t_env *env);
 int					check_skyboxes(t_env *env);
+int					check_skyboxes2(t_env *env);
+int					check_skyboxes3(t_env *env);
+int					check_skyboxes4(t_env *env);
+int					check_skyboxes5(t_env *env);
+int					check_skyboxes6(t_env *env);
 int					check_shotgun(t_env *env);
 int					check_raygun(t_env *env);
 int					check_gatling(t_env *env);
@@ -252,7 +251,6 @@ int					check_fonts8(t_env *env);
 int					check_fonts9(t_env *env);
 int					check_fonts10(t_env *env);
 int					check_fonts11(t_env *env);
-int					new_parsing_sprite(char *name, int index, t_env *env);
 int					new_parsed_hud_file(char *name, t_env *env);
 int					new_parsed_textures(char *name, t_env *env);
 int					map_parse_hud(t_env *env, t_map_parser *parser);
@@ -262,6 +260,7 @@ int					map_parse_sprites(t_env *env, t_map_parser *parser);
 int					map_parse_skyboxes(t_env *env, t_map_parser *parser);
 int					map_parse_fonts(t_env *env, t_map_parser *parser);
 int					skip_file(t_map_parser *parser);
+int					init_mipmap_arrays(t_env *env);
 
 /*
 ** Editor functions
@@ -280,7 +279,10 @@ int						print_event_selection(t_env *env, size_t nb);
 void					wall_sprites_keys(t_env *env, t_v2 *pos, t_v2 *scale);
 void					wall_sprites_keyup(t_env *env, t_v2 *pos, t_v2 *scale);
 void					editor_wall_sprites_keyup(t_env *env);
+int						general_keyup(t_env *env);
 void					start_editor_menu(t_env *env);
+int						editor_options1(t_env *env, t_point center,
+t_point size);
 int						editor_keys(t_env *env);
 int						editor_keys6(t_env *env);
 int						save_map_keys(t_env *env);
@@ -817,7 +819,8 @@ int						return_button(t_env *env);
 int						hitscan_enemies(t_env *env, int i);
 int						hitscan_objects(t_env *env, int i);
 int						damage_done(t_env *env, double rotated_pos_w);
-
+int						is_player_alive(t_env *env);
+int						draw_weapons(t_env *env);
 /*
 ** Screen utils
 */
@@ -1009,6 +1012,8 @@ void					game_time(t_env *env);
 void					gravity(t_env *env);
 void					animations(t_env *env);
 void					fall(t_env *env);
+void					init_fall(t_env *env);
+void					reset_state(t_env *env);
 void					drop(t_env *env);
 void					jump(t_env *env);
 void					crouch(t_env *env);

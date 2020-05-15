@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 17:14:57 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 18:03:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 17:54:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		editor(t_env *env)
 				return (crash("Render function failed\n", env));
 		}
 		if (editor1(env))
-			return (crash("", env));
+			return (crash("editor failed\n", env));
 	}
 	free_all(env);
 	return (0);

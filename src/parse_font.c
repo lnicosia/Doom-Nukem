@@ -22,13 +22,13 @@ int		create_font_file(t_map_parser *parser, int size)
 	if (!(parser->tmp = ft_strnew(size)))
 		return (ft_perror("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
-		return (custom_error("Read for bmp file failed\n"));
+		return (ft_perror("Read for bmp file failed\n"));
 	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
-		return (custom_error("Could not open bmp file\n"));
+		return (ft_perror("Could not open bmp file\n"));
 	write(fd, parser->tmp, size);
 	ft_strdel(&(parser->resource_name));
 	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
-		return (custom_error("Invalid file\n"));
+		return (ft_perror("Invalid file\n"));
 	ft_strdel(&(parser->tmp));
 	return (0);
 }
@@ -63,12 +63,12 @@ int		parse_font_name(t_map_parser *parser)
 			break;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
 		  	parser->tmp)))
-			return (custom_error("Could not realloc name in parse font\n"));
+			return (ft_perror("Could not realloc name in parse font\n"));
 	}
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of file name\n"));
 	if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, "2")))
-		return (ft_perror("Could not malloc name in parse font"));
+		return (custom_error("Could not malloc name in parse font\n"));
 	ft_strdel(&(parser->tmp));
 	return (0);
 }

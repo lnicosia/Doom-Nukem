@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/04 18:12:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 10:55:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ int		init_editor4(t_env *env)
 
 int		init_editor3(t_env *env)
 {
+	if (init_object_sprites(env))
+		return (crash("Could not load object sprites\n", env));
+	if (init_enemy_sprites(env))
+		return (crash("Could not load enemy sprites\n", env));
+	if (init_editor_hud(env))
+		return (crash("Could not init hud\n", env));
 	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (crash("Could not malloc sector list\n", env));
 	view(env);
@@ -39,8 +45,32 @@ int		init_editor3(t_env *env)
 	return (init_editor4(env));
 }
 
-int		init_editor2(int ac, char **av, t_env *env)
+int		init_editor2(t_env *env)
 {
+	if (init_textures(env))
+		return (crash("Could not init textures *\n", env));
+	if (generate_mipmaps(env))
+		return (crash("Could not init textures *\n", env));
+	if (init_mipmap_arrays(env))
+		return (crash("Could not init textures *\n", env));
+	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
+		return (crash("Could not malloc snprintf char *\n", env));
+	if (init_audio(env))
+		return (crash("Could not load sound\n", env));
+	if (init_ttf(env))
+		return (crash("Could not load fonts\n", env));
+	if (init_input_box(&env->input_box, env))
+		return (crash("Could not init input box\n", env));
+
+	return (init_editor3(env));
+}
+
+int		init_editor1(int ac, char **av, t_env *env)
+{
+	if (init_sdl(env))
+		return (crash("Could not initialize SDL\n", env));
+	if (check_resources(env))
+		return (crash("Could not pre load resources\n", env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
@@ -52,6 +82,7 @@ int		init_editor2(int ac, char **av, t_env *env)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], env))
 			return (crash("Error while parsing the map\n", env));
+		ft_printf("valid map\n");
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))
@@ -59,33 +90,7 @@ int		init_editor2(int ac, char **av, t_env *env)
 		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
-	if (generate_mipmaps(env))
-		return (crash("Could not generate mipmaps\n", env));
-	if (init_object_sprites(env))
-		return (crash("Could not load object sprites\n", env));
-	if (init_enemy_sprites(env))
-		return (crash("Could not load enemy sprites\n", env));
-	if (init_editor_hud(env))
-		return (crash("Could not init hud\n", env));
-	return (init_editor3(env));
-}
-
-int		init_editor1(int ac, char **av, t_env *env)
-{
-	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
-		return (crash("Could not malloc snprintf char *\n", env));
-	if (init_sdl(env))
-		return (crash("Could not initialize SDL\n", env));
-	if (init_audio(env))
-		return (crash("Could not load sound\n", env));
-	if (init_ttf(env))
-		return (crash("Could not load fonts\n", env));
-	if (init_input_box(&env->input_box, env))
-		return (crash("Could not init input box\n", env));
-	init_textures(env);
-	if (generate_mipmaps(env))
-		return (crash("Could not generate mipmaps\n", env));
-	return (init_editor2(ac, av, env));
+	return (init_editor2(env));
 }
 
 int		init_editor(int ac, char **av)

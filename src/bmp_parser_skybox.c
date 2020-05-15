@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser_skybox.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 14:51:34 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/28 16:57:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 15:17:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static int	parse_skybox_textures(int fd, int num_sky, int index, t_env *env)
 	if (!(env->skyboxes[num_sky].textures[index].surface =
 		SDL_CreateRGBSurfaceWithFormat(0, parser.w, parser.h, parser.bpp,
 		SDL_PIXELFORMAT_ARGB8888)))
-		return (custom_error("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	env->skyboxes[num_sky].textures[index].str =
+		return (custom_error("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
+		env->skyboxes[num_sky].textures[index].str =
 	env->skyboxes[num_sky].textures[index].surface->pixels;
 	env->skyboxes[num_sky].textures[index].scale = 1;
 	env->skyboxes[num_sky].textures[index].xpadding = 0;

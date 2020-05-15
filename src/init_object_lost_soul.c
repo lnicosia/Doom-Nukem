@@ -14,7 +14,7 @@
 
 void	init_object_lost_soul(t_env *env)
 {
-	env->object_sprites[27].texture = env->enemies_start + 1;
+	env->object_sprites[27].texture = env->enemies_start;
 	env->object_sprites[27].death_counterpart = 4;
 	env->object_sprites[27].pursuit_sprite = 2;
 	env->object_sprites[27].firing_sprite = 2;

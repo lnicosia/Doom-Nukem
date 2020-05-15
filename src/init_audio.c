@@ -14,55 +14,41 @@
 
 int		init_musics(t_env *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (!(env->init.musics_names[0] = ft_strdup("./audio/Mt_Erebus.wav")))
-		return (ft_perror("Error while init musics\n"));
-	if (FMOD_System_CreateSound(env->sound.system, "audio/Mt_Erebus.wav",
+	 if (FMOD_System_CreateSound(env->sound.system, "audio/Mt_Erebus.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[0].music) != FMOD_OK)
-		env->init.musics[0] = 1;
-	if (!(env->init.musics_names[1] = ft_strdup("./audio/bim_bam_boum.wav")))
-		return (ft_perror("Error while init musics\n"));
+		return (custom_error("Failed to load Mt_Erebus.wav"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/bim_bam_boum.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[1].music) != FMOD_OK)
-		env->init.musics[1] = 1;
-	if (!(env->init.musics_names[2] = ft_strdup("./audio/at_dooms_gate.wav")))
-		return (ft_perror("Error while init musics\n"));
+		return (custom_error("Failed to load bim_bam_boum.wav"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/at_dooms_gate.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[2].music) != FMOD_OK)
-		env->init.musics[2] = 1;
+		return (custom_error("Failed to load at_dooms_gate.wav"));
 	while (++i < NB_MUSICS)
 		FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1);
 	return (0);
 }
 
-int		init_sounds(t_env *env)
+int     init_sounds(t_env *env)
 {
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/handgun_shot.wav")))
-		return (ft_perror("Error while init sounds\n"));
-	if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
+    if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[0].shot) != FMOD_OK)
-		env->init.sounds[0] = 1;
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/shotgun_shot.wav")))
-		return (ft_perror("Error while init sounds\n"));
+		return (custom_error("Failed to load handgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[1].shot) != FMOD_OK)
-		env->init.sounds[1] = 1;
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/raygun_shot.wav")))
-		return (ft_perror("Error while init sounds\n"));
+		return (custom_error("Failed to load shotgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[2].shot) != FMOD_OK)
-		env->init.sounds[2] = 1;
-	if (!(env->init.sounds_names[0] = ft_strdup("./audio/footstep.wav")))
-		return (ft_perror("Error while init sounds\n"));
+		return (custom_error("Failed to load raygun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/footstep.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.footstep) != FMOD_OK)
-		env->init.sounds[3] = 1;
-	return (0);
+		return (custom_error("Failed to load footsteps.wav\n"));
+    return (0);
 }
 
 int		init_audio(t_env *env)

@@ -68,7 +68,7 @@ int		skip_file(t_map_parser *parser)
 		if (*(parser->tmp) == '\n')
 			break;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-			return (custom_error("Could not malloc line in parse bmp\n"));
+			return (ft_perror("Could not malloc line in parse bmp\n"));
 	}
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of the size\n"));
@@ -80,7 +80,8 @@ int		skip_file(t_map_parser *parser)
 	if (!(parser->tmp = ft_strnew(size + 1)))
 		return (ft_perror("Coud not malloc"));
 	if ((ret = read(parser->fd, parser->tmp, size + 1)) < size + 1)
-		return (custom_error("Written file is smaller than the given size file\n"));
+		return (custom_error("Written file is smaller than the given size"
+		" file\n"));
 	ft_strdel(&(parser->tmp));
 	return(0);
 }

@@ -15,80 +15,49 @@
 
 int		init_editor_sprites(t_env *env)
 {
-	int start;
+	int	start;
 
 	start = env->editor_start;
-	if (!(env->init.sprites_names[0] =
-	ft_strdup("images/sprites/camera.bmp")))
-		return (ft_perror("Error while parsing editor sprite\n"));
-	if (parse_bmp("images/sprites/camera.bmp", start + 0, env))
-		env->init.sprites[0] = 1;
-	if (!(env->init.sprites_names[1] =
-	ft_strdup("images/sprites/doom_guy.bmp")))
-		return (ft_perror("Error while parsing editor sprite\n"));
-	if (parse_bmp("images/sprites/doom_guy.bmp", start + 1, env))
-		env->init.sprites[1] = 1;
-	if (!(env->init.sprites_names[2] =
-	ft_strdup("images/sprites/doom_guy_face.bmp")))
-		return (ft_perror("Error while parsing editor sprite\n"));
-	if (parse_bmp("images/sprites/doom_guy_face.bmp", start + 2, env))
-		env->init.sprites[2] = 1;
+	if (parse_bmp("images/sprites/doom_guy.bmp",start + 0, env))
+		return (custom_error("Failed to load doom guy sprite\n"));
+	if (parse_bmp("images/sprites/doom_guy_face.bmp", start + 1, env))
+		return (custom_error("Failed to load doom guy face sprite\n"));
+	if (parse_bmp("images/sprites/camera.bmp", start + 2, env))
+		return (custom_error("Failed to load camera sprite\n"));
 	return (0);
 }
 
 int		init_wall_sprites_textures(t_env *env)
 {
-	int start;
+	int	start;
 
 	start = env->wall_sprites_start;
-	ft_printf("start: %d\n", start);
-	if (!(env->init.sprites_names[0] =
-	ft_strdup("images/sprites/bullet_hole.bmp")))
-		return (ft_perror("Error while parsing wall sprite\n"));
 	if (parse_bmp("images/sprites/bullet_hole.bmp", start + 0, env))
-		env->init.sprites[0] = 1;
-	if (!(env->init.sprites_names[1] =
-	ft_strdup("images/sprites/button_off.bmp")))
-		return (ft_perror("Error while parsing wall sprite\n"));
+		return (custom_error("Failed to load bullet hole sprite\n"));
 	if (parse_bmp("images/sprites/button_off.bmp", start + 1, env))
-		env->init.sprites[1] = 1;
-	if (!(env->init.sprites_names[2] =
-	ft_strdup("images/sprites/button_on.bmp")))
-		return (ft_perror("Error while parsing wall sprite\n"));
+		return (custom_error("Failed to load midspace\n"));
 	if (parse_bmp("images/sprites/button_on.bmp", start + 2, env))
-		env->init.sprites[2] = 1;
-	if (!(env->init.sprites_names[3] =
-	ft_strdup("images/sprites/MIDSPACE.bmp")))
-		return (ft_perror("Error while parsing wall sprite\n"));
+		return (custom_error("Failed to load midspace\n"));
 	if (parse_bmp("images/sprites/MIDSPACE.bmp", start + 3, env))
-		env->init.sprites[3] = 1;
+		return (custom_error("Failed to load midspace\n"));
 	return (0);
 }
 
 int		init_objects_sprites_textures(t_env *env)
 {
-	int start;
+	int	start;
 
 	start = env->objects_sprites_start;
-	if (!(env->init.objects_names[0] =
-	ft_strdup("images/sprites/objects_sprites.bmp")))
-		return (ft_perror("Error while parsing object sprite texture\n"));
-	if (parse_bmp("images/sprites/objects_sprites.bmp", start + 0, env))
-		env->init.objects[0] = 1;
-	if (!(env->init.objects_names[1] =
-	ft_strdup("images/sprites/sprite_sheet.bmp")))
-		return (ft_perror("Error while parsing object sprite texture\n"));
-	if (parse_bmp("images/sprites/sprite_sheet.bmp", start + 1, env))
-		env->init.objects[1] = 1;
-	if (!(env->init.objects_names[2] =
-	ft_strdup("images/sprites/projectiles_sprites.bmp")))
-		return (ft_perror("Error while parsing object sprite texture\n"));
-	if (parse_bmp("images/sprites/projectiles_sprites.bmp", start + 2, env))
-		env->init.objects[2] = 1;
-	if (!(env->init.objects_names[3] =
-	ft_strdup("images/sprites/raygun.bmp")))
-		return (ft_perror("Error while parsing object sprite texture\n"));
+	if (parse_bmp("images/sprites/sprite_sheet.bmp",
+	start + 0, env))
+		return (custom_error("Failed to load sprite sheet\n"));
+	if (parse_bmp("images/sprites/projectiles_sprites.bmp",
+	start + 1, env))
+		return (custom_error("Failed to load projectiles sprite sheet\n"));
+	if (parse_bmp("images/sprites/objects_sprites.bmp",
+	start + 2, env))
+		return (custom_error("Failed to load object sprites\n"));
 	if (parse_bmp("images/sprites/raygun.bmp", start + 3, env))
-		env->init.objects[3] = 1;
+		return (custom_error("Failed to load raygun sprite\n"));
 	return (0);
 }

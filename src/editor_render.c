@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 16:07:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 11:41:39 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 17:54:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int		editor_render2(t_env *env)
 			return (-1);
 	}
 	game_time(env);
-	if (editor_minimap(env))
-		return (-1);
+	if (env->options.show_minimap)
+	{
+		if (editor_minimap(env))
+			return (-1);
+	}
 	if (!env->input_box.state && !env->editor.tab)
 		view(env);
 	if ((env->editor.selecting_target || env->editor.selecting_condition_target)

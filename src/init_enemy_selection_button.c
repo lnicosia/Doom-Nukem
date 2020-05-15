@@ -39,9 +39,10 @@ int		init_enemy_selection_button(t_env *env)
 	{
 		if (!(new = new_button_param(env, i)))
 			return (-1);
-		env->editor.enemy_tab[i].img_up = env->wall_textures[i].maps[6];
 		env->editor.enemy_tab[i] = new_image_button(ON_RELEASE,
 		&save_enemy, new, env);
+		env->editor.enemy_tab[i].img_up =
+		env->sprite_textures[env->enemies_start].maps[0];
 		env->editor.enemy_tab[i].size_up = new_point(64, 64);
 		env->editor.enemy_tab[i].size_down = new_point(64, 64);
 		env->editor.enemy_tab[i].size_hover = new_point(64, 64);

@@ -38,7 +38,8 @@ static int	parse(int fd, int index, t_env *env)
 
 	parser.index = index;
 	if (index >= MAX_SPRITES_TEXTURES)
-		return (custom_error("Too much textures\n"));
+		return (custom_error("Too much textures (%d/%d)\n", index,
+		MAX_SPRITES_TEXTURES));
 	if (parse_file_header(fd, &parser))
 		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
