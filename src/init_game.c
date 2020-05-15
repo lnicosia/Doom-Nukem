@@ -76,10 +76,12 @@ int		init_game3(t_env *env)
 		return (crash("Could not load textures\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
-	if (init_object_sprites(env))
-		return (crash("Could not load object sprites\n", env));
-	if (init_enemy_sprites(env))
-		return (crash("Could not load enemy sprites\n", env));
+	if (init_mipmap_arrays(env))
+		return (crash("Could not init sectors map arrays\n", env));
+	if (init_audio(env))
+		return (crash("Could not load sound\n", env));
+	if (init_ttf(env))
+		return (crash("Could not load fonts\n", env));
 	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (crash("Could not allocate sector list\n", env));
 	while (i < env->nb_objects)
@@ -108,12 +110,12 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not malloc snprintf string\n", env));
 	if (init_sdl(env))
 		return (crash("Coulnt not initialize SDL\n", env));
-	if (init_audio(env))
-		return (crash("Could not load sound\n", env));
-	if (init_ttf(env))
-		return (crash("Could not load fonts\n", env));
 	if (check_resources(env))
 		return (crash("Could not check resources\n", env));
+	if (init_object_sprites(env))
+		return (crash("Could not load object sprites\n", env));
+	if (init_enemy_sprites(env))
+		return (crash("Could not load enemy sprites\n", env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], env))
 		return (crash("{red}Error while parsing the map{reset}\n", env));

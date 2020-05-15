@@ -44,13 +44,13 @@ int		init_editor3(t_env *env)
 int		init_editor2(t_env *env)
 {
 	if (init_textures(env))
-		return (crash("Could not init textures *\n", env));
+		return (crash("Could not init textures \n", env));
 	if (generate_mipmaps(env))
-		return (crash("Could not init textures *\n", env));
+		return (crash("Could not init textures \n", env));
 	if (init_mipmap_arrays(env))
-		return (crash("Could not init textures *\n", env));
+		return (crash("Could not init sectors map arrays \n", env));
 	if (!(env->snprintf = ft_strnew(SNPRINTF_SIZE)))
-		return (crash("Could not malloc snprintf char *\n", env));
+		return (crash("Could not malloc snprintf char \n", env));
 	if (init_audio(env))
 		return (crash("Could not load sound\n", env));
 	if (init_ttf(env))
