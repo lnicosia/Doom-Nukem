@@ -104,7 +104,7 @@ int		init_editor(int ac, char **av)
 	env.objects_sprites_start = MAX_ENEMIES;
 	env.wall_sprites_start = MAX_ENEMIES + NB_OBJECTS_SPRITES;
 	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
-	env.hud_start = env.editor_start + NB_HUD_SPRITES;
+	env.hud_start = env.editor_start + NB_EDITOR_SPRITES;
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);

@@ -27,6 +27,29 @@ int		wall_textures(t_env *env, char *name)
 	return (0);
 }
 
+int		sprites_textures2(t_env *env, char *name)
+{
+	int	i;
+
+	i = 0;
+	while (i < NB_EDITOR_SPRITES)
+	{
+		if (!(ft_strcmp(name, env->init.editor_names[i]))
+		&& env->init.editor[i] == 1)
+			return (1);
+		i++;
+	}
+	i = 0;
+	while (i < NB_OBJECTS_SPRITES)
+	{
+		if (!(ft_strcmp(name, env->init.objects_names[i]))
+		&& env->init.objects[i] == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		sprites_textures(t_env *env, char *name)
 {
 	int	i;
@@ -40,11 +63,11 @@ int		sprites_textures(t_env *env, char *name)
 		i++;
 	}
 	i = 0;
-	while (i < NB_OBJECTS_SPRITES)
+	while (i < NB_WALL_SPRITES)
 	{
 		if (!(ft_strcmp(name, env->init.sprites_names[i]))
 		&& env->init.sprites[i] == 1)
-			return (custom_error("object sprite failed\n"));
+			return (1);
 		i++;
 	}
 	return (0);
@@ -85,6 +108,8 @@ int		check_existing_files(t_env *env, char *name)
 	if (wall_textures(env, name))
 		return (1);
 	if (sprites_textures(env, name))
+		return (2);
+	if (sprites_textures2(env, name))
 		return (2);
 	if (skyboxes_textures(env, name))
 		return (3);

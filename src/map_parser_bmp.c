@@ -19,6 +19,8 @@ int		creating_new_file(t_map_parser *parser, int size)
 	int	fd;
 
 	fd = 0;
+	ft_printf("'%s' was missing in current directory. Extracting..\n",
+	parser->resource_name);
 	if (!(parser->tmp = ft_strnew(size)))
 		return (ft_perror("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)

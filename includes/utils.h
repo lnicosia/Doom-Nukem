@@ -45,6 +45,7 @@
 # define NB_EDITOR_FILES 3
 # define NB_OBJECTS_SPRITES 4
 # define NB_WALL_SPRITES 4
+# define NB_EDITOR_SPRITES 3
 # define NB_HUD_SPRITES 3
 
 # define NB_BMP_SPRITES 13
@@ -215,6 +216,8 @@ typedef struct		s_init
 	char			*skyboxes_names[MAX_SKYBOX * 6];
 	int				sprites[NB_WALL_SPRITES];
 	char			*sprites_names[NB_WALL_SPRITES];
+	int				editor[NB_EDITOR_SPRITES];
+	char			*editor_names[NB_EDITOR_SPRITES];
 	int				enemies[MAX_ENEMIES];
 	char			*enemy_names[MAX_ENEMIES];
 	int				objects[MAX_OBJECTS];
