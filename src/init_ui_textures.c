@@ -48,12 +48,6 @@ int		init_ui_textures4(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/onglet-hover2.bmp", 38, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/hud-button-up.bmp", 39, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/hud-button-pressed.bmp", 40, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/hud-button-hover.bmp", 41, env))
-		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/play_icon.bmp", 42, env))
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/target_icon.bmp", 43, env))
@@ -93,8 +87,6 @@ int		init_ui_textures3(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/background-hover2.bmp", 34, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/add_button.bmp", 35, env))
-		return (custom_error("Invalid bmp files\n"));
 	return (init_ui_textures4(env));
 }
 
@@ -117,12 +109,6 @@ int		init_ui_textures2(t_env *env)
 	if (parse_bmp_ui_textures("images/ui/previous-pressed2.bmp", 19, env))
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/previous-hover2.bmp", 20, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/minus-button-up.bmp", 21, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/minus-button-pressed.bmp", 22, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/minus-button-hover.bmp", 23, env))
 		return (custom_error("Invalid bmp files\n"));
 	return (init_ui_textures3(env));
 }

@@ -27,18 +27,6 @@ t_env *env)
 			return (-1);
 		i++;
 	}
-	i = 0;
-	while (i < MAX_UI_TEXTURES)
-	{
-		
-		texture = &env->ui_textures[i];
-		nb_maps = floor(log2(fmax(texture->surface->w,
-			texture->surface->h))) + 1;
-		env->ui_textures[i].nb_maps = nb_maps;
-		if (generate_maps_for_texture(texture))
-			return (-1);
-		i++;
-	}
 	return (0);
 }
 
