@@ -67,6 +67,5 @@ int		init_audio(t_env *env)
 	env->sound.musics[0].music_name = "Mt Erebus";
 	env->sound.musics[1].music_name = "Bim Bam Boum";
 	env->sound.musics[2].music_name = "At Dooms Gate";
-	env->sound.fight_music = 0;
 	return (0);
 }
