@@ -64,7 +64,8 @@ int		doom2(t_env *env)
 {
 	update_sprites_state(env);
 	if (projectiles_movement(env))
-		return (custom_error("Projectile creation or impact creation failed\n"));
+		return (custom_error("Projectile creation or impact creation"
+		" failed\n"));
 	if (!env->confirmation_box.state)
 	{
 		if (enemy_ai(env))
@@ -100,14 +101,14 @@ int		doom(t_env *env)
 		if (env->in_game && !env->menu & !env->option)
 		{
 			if (doom_poll_event(env))
-				return (crash("", env));
+				return (crash("Doom events failed", env));
 			if (doom2(env))
-				return (crash("", env));
+				return (crash("Doom part 2 failed", env));
 			if (doom3(env))
-				return (crash("", env));
+				return (crash("Doom part 3 failed", env));
 		}
 		if (doom4(env))
-			return (crash("", env));
+			return (crash("Doom part 4 failed", env));
 		FMOD_System_Update(env->sound.system);
 	}
 	free_all(env);

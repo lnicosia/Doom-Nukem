@@ -25,17 +25,17 @@ int		change_music(t_env *env, int observing_enemies)
 	if (env->player.in_combat == 0 && observing_enemies != env->nb_enemies)
 	{
 		env->player.in_combat = 1;
-	/*	play_music(env, &env->sound.music_chan,
+		play_music(env, &env->sound.music_chan,
 			env->sound.musics[env->sound.fight_music].music,
-			env->sound.music_vol);*/
+			env->sound.music_vol);
 		return (1);
 	}
 	if (env->player.in_combat == 1 && observing_enemies == env->nb_enemies)
 	{
 		env->player.in_combat = 0;
-		/*play_music(env, &env->sound.music_chan,
+		play_music(env, &env->sound.music_chan,
 			env->sound.musics[env->sound.ambient_music].music,
-			env->sound.music_vol);*/
+			env->sound.music_vol);
 		return (1);
 	}
 	return (0);
@@ -58,7 +58,7 @@ void	player_combat_state(t_env *env)
 		{
 			if (enemy_is_seeing_player(env, i))
 			{
-				/*if (change_music(env, count))*/
+				if (change_music(env, count))
 					return ;
 			}
 			else
