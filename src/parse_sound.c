@@ -19,6 +19,8 @@ int		create_new_sound_file(t_map_parser *parser, int size)
 	int	fd;
 
 	fd = 0;
+	ft_printf("'%s' was missing in current directory. Extracting..\n",
+	parser->resource_name);
 	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT
 		| O_TRUNC, 0000700)) < 0)
 		return (ft_perror("Could not open sound file\n"));
