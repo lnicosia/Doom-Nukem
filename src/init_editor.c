@@ -82,7 +82,6 @@ int		init_editor1(int ac, char **av, t_env *env)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], env))
 			return (crash("Error while parsing the map\n", env));
-		ft_printf("valid map\n");
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))

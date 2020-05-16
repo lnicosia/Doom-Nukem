@@ -90,8 +90,8 @@ int		write_resources(int fd, t_env *env)
 		return (-1);
 	if (write_ui(fd, env))
 		return (-1);
-/*	if (write_sounds(fd, env))
-		return (-1);*/
+	if (write_sounds(fd, env))
+		return (-1);
 	if (write_fonts(fd, file))
 		return (-1);
 	return (0);

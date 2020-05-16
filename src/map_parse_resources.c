@@ -26,8 +26,8 @@ int		parse_resources(t_env *env, t_map_parser *parser)
 		return (custom_error("Error while parsing map hud\n"));
 	if (map_parse_ui(env, parser))
 		return (custom_error("Error while parsing map ui\n"));
-/*	if (map_parse_sounds(env, parser))
-		return (custom_error("Error while parsing map sounds\n"));*/
+	if (map_parse_sounds(env, parser))
+		return (custom_error("Error while parsing map sounds\n"));
 	if (map_parse_fonts(env, parser))
 		return (custom_error("Error while parsing map fonts\n"));
 	return (0);

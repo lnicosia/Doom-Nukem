@@ -22,9 +22,8 @@ int		write_sound(int file, int fd, char *name)
 
 	if (read(file, header, 44) != 44)
 		return (custom_error("Invalid wav file\n"));
-	size = read_int32(header, 4);
-	ft_dprintf(fd, "%s\n%d\n", name, size + 8);
-	ft_printf("%s\n%d\n", name, size + 8);
+	size = read_int32(header, 4) + 8;
+	ft_dprintf(fd, "%s\n%d\n", name, size);
 	write(fd, header, 44);
 	while ((ret = (read(file, resource, 10000))) > 0)
 		write(fd, resource, ret);
@@ -59,7 +58,7 @@ int		write_sounds(int fd, t_env *env)
 	int	file;
 
 	(void)env;
-	ft_printf("saving musics and sounds\n");
+	ft_printf("Saving musics and sounds..\n");
 	ft_dprintf(fd, "S %d\n", NB_MUSICS + NB_SOUNDS);
 	if ((file = open("./audio/Mt_Erebus.wav", O_RDONLY)) < 0)
 		return (custom_error("Could not open music Mt_Erebus\n"));
