@@ -226,6 +226,7 @@ int					check_wall_textures(t_env *env);
 int					check_wall_textures2(t_env *env);
 int					check_wall_textures3(t_env *env);
 int					check_textures(t_env *env);
+int					check_directories(void);
 int					check_sprites_textures(t_env *env);
 int					check_hud_textures(t_env *env);
 int					check_skyboxes(t_env *env);

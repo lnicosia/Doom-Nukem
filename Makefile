@@ -324,7 +324,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
 		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
-		   is_new_sector_convex.c check_skyboxes2.c \
+		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
 		   init_enemies_textures.c init_sprites_textures.c \
 		   init_hud_textures.c init_wall_textures.c \
 		   init_mini_skyboxes.c check_existing_files.c \
