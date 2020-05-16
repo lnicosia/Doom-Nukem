@@ -395,9 +395,10 @@ UI =	button-default-up.bmp button-default-pressed.bmp \
 AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav\
 		shotgun_shot.wav raygun_shot.wav footstep.wav
 
-FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
-		Montserrat-Regular.ttf PlayfairDisplay-Regular.ttf \
-		Lato-Regular.ttf Lato-Bold.ttf Lato-Black.ttf
+FONTS = alice/Alice-Regular.ttf bebas_neue/BebasNeue-Regular.ttf \
+		amazdoom/AmazDooMLeft.ttf montserrat/Montserrat-Regular.ttf \
+		playfair-display/PlayfairDisplay-Regular.ttf \
+		lato/Lato-Regular.ttf lato/Lato-Bold.ttf lato/Lato-Black.ttf
 
 #
 # Creation of files path
@@ -706,9 +707,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1dG6njl9z_S3xSaujNlM8ijSAPRE8IIp9' -O- | sed -rn $\
+	1qV3GPh5v9K50ugVEkvU1px8S5E1iU8cU' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1dG6njl9z_S3xSaujNlM8ijSAPRE8IIp9" -O resources.tar.gz \
+	&id=1qV3GPh5v9K50ugVEkvU1px8S5E1iU8cU" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	tar -xf resources.tar.gz
