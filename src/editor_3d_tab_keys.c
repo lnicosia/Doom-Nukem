@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:14:45 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 22:58:26 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/16 12:32:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,6 @@ int		general_keys(t_env *env)
 	if (button_keys(&env->editor.options, env))
 		return (-1);
 	if (button_keys(&env->editor.launch_game, env))
-		return (-1);
-	if (button_keys(&env->editor.current_texture_selection, env))
-		return (-1);
-	if (button_keys(&env->editor.current_enemy_selection, env))
-		return (-1);
-	if (button_keys(&env->editor.current_object_selection, env))
-		return (-1);
-	if (button_keys(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keys(&env->editor.events_tab, env))
 		return (-1);

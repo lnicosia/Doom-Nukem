@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 23:16:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/16 12:32:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,7 @@ int						editor_keys6(t_env *env);
 int						save_map_keys(t_env *env);
 int						editor_3d_keys(t_env *env);
 int						general_music_keys(t_env *env);
+int						general_selection_buttons_keys(t_env *env);
 int						check_move_player_conditions(t_env *env);
 int						editor_options_keys(t_env *env);
 int						editor_mouse(t_env *env);

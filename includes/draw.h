@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:09:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 17:09:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/16 13:05:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ int						draw_minimap_sector_num(t_env *env, t_sector *sector);
 void					draw_objects_minimap(t_env *env);
 void					draw_minimap_hud(t_env *env);
 void					draw_weapon(t_env *env, int sprite);
+int						print_general_tab(t_env *env);
+int						print_sector_tab(t_env *env);
 
 #endif
