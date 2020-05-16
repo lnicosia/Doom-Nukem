@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 22:59:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/16 12:33:30 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/16 14:33:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int	general_music_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.next_fighting_music, env))
 		return (-1);
-    return (0);
+	return (0);
 }
-

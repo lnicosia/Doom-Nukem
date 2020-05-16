@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/16 13:05:26 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/16 14:46:22 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -195,7 +195,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		input_box_checkers2.c input_box_checkers3.c draw_editor_tab_utils.c\
 		update_sector_input_box.c editor_options.c draw_conditions_tab2.c\
 		editor_3d_tab_keys2.c draw_editor_general_tab.c \
-		draw_editor_sector_tab.c
+		draw_editor_sector_tab.c editor_ceiling_tabs2.c
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
