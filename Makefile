@@ -164,7 +164,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
 		update_entities.c editor_vertices_tab.c selection_tabs_keyup.c \
 		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
-		delete_sector.c delete_vertex.c weapon_picker.c \
+		delete_sector.c delete_vertex.c weapon_picker.c write_ui.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
 		editor_minimap.c init_editor_options_buttons.c delete_ceiling_sprite.c \
@@ -331,7 +331,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_walls_textures.c free_resources_init.c \
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
-		   init_ttf2.c check_fonts.c \
+		   init_ttf2.c check_fonts.c check_ui.c map_parse_ui.c \
 		   check_existing_sounds.c map_parse_textures.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \

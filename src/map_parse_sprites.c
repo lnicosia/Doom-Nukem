@@ -31,7 +31,7 @@ int		check_sprites_number_validity(t_map_parser *parser, t_env *env)
 	if (*line && *line != ' ')
 		return (custom_error("Expected a space\n"));
 	line++;
-	env->resource.nb_sprites = atoi(line);
+	env->resource.nb_sprites = ft_atoi(line);
 	if (env->resource.nb_sprites > NB_BMP_SPRITES
 	|| env->resource.nb_sprites < 1)
 		return (custom_error("Wrong number of sprites\n"));

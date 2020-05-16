@@ -103,6 +103,21 @@ int		hud_textures(t_env *env, char *name)
 	return (0);
 }
 
+int		ui_textures(t_env *env, char *name)
+{
+	int	i;
+
+	i = 0;
+	while (i < NB_UI_FILES)
+	{
+		if (!(ft_strcmp(name, env->init.ui_names[i]))
+		&& env->init.ui[i] == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		check_existing_files(t_env *env, char *name)
 {
 	if (wall_textures(env, name))
@@ -115,5 +130,7 @@ int		check_existing_files(t_env *env, char *name)
 		return (3);
 	if (hud_textures(env, name))
 		return (4);
+	if (ui_textures(env, name))
+		return (5);
 	return (0);
 }

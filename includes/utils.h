@@ -47,6 +47,7 @@
 # define NB_WALL_SPRITES 4
 # define NB_EDITOR_SPRITES 3
 # define NB_HUD_SPRITES 3
+# define NB_UI_FILES 7
 
 # define NB_BMP_SPRITES 13
 # define NB_HUD_FILES 36
@@ -228,6 +229,8 @@ typedef struct		s_init
 	char			*sounds_names[NB_SOUNDS];
 	int				musics[NB_MUSICS];
 	char			*musics_names[NB_MUSICS];
+	int				ui[NB_UI_FILES];
+	char			*ui_names[NB_UI_FILES];
 }					t_init;
 
 typedef	struct		s_resource
@@ -238,6 +241,7 @@ typedef	struct		s_resource
 	int				nb_fonts;
 	int				nb_sound;
 	int				nb_hud_files;
+	int				nb_ui_files;
 }					t_resource;
 
 typedef struct		s_state

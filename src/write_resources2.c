@@ -36,7 +36,7 @@ int		writing_bmp(int file, int fd, char *name)
 int		write_textures(int fd, t_env *env)
 {
 	(void)env;
-	ft_printf("saving textures\n");
+	ft_printf("{reset}Saving textures..\n");
 	ft_dprintf(fd, "T %d\n", MAX_WALL_TEXTURE);
 	if (write_textures1(fd))
 		return (-1);

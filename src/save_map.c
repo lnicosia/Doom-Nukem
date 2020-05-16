@@ -40,5 +40,6 @@ int		save_map(void *param)
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	}
+	ft_printf("Map saved\n");
 	return (0);
 }
