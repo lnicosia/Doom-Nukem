@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/16 12:32:43 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 12:53:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ void					editor_wall_sprites_keyup(t_env *env);
 void					start_editor_menu(t_env *env);
 int						editor_options1(t_env *env, t_point center,
 t_point size);
+int						editor_options5(t_env *env);
 int						editor_keys(t_env *env);
 int						editor_keys6(t_env *env);
 int						save_map_keys(t_env *env);
@@ -315,6 +316,7 @@ t_point center, int radius);
 void					print_vertex(t_env *env, int num);
 void					print_vertices(t_env *env);
 void					print_sectors(t_env *env);
+int						print_on_off(t_env *env, int bool, t_point p);
 TTF_Font				*get_correct_font(int size, t_env *env);
 int						get_existing_vertex(t_env *env);
 int						get_existing_not_dragged_vertex(t_env *env);
@@ -325,6 +327,7 @@ void					editor_options_rectangles(t_env *env);
 int						editor_options_buttons(t_env *env);
 int						editor_options_ceil_floor(t_env *env);
 int						editor_options_textures(t_env *env);
+int						editor_options_sprites_portals(t_env *env);
 int						get_clockwise_order(t_env *env);
 void					revert_sector_order(t_env *env);
 int						add_sector(t_env *env);

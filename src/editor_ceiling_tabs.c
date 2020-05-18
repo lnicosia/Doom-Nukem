@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:40:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/16 14:44:36 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 11:53:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ int		print_ceiling_general_tab(t_env *env)
 	env->selected_ceiling);
 	if (TTF_SizeText(env->sdl.fonts.lato_black30,
 		env->snprintf, &size.x, &size.y))
+		return (-1);
 	if (print_text(new_point(465, 200 - size.x / 2),
-		new_printable_text(env->snprintf,
-		env->sdl.fonts.lato_black30, 0x333333FF, 30), env))
+	new_printable_text(env->snprintf,
+	env->sdl.fonts.lato_black30, 0x333333FF, 30), env))
 		return (-1);
 	if (print_text(new_point(520, 60), new_printable_text("Height",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))

@@ -6,60 +6,15 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 13:37:17 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/14 13:37:17 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 11:23:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw.h"
 #include "env.h"
 
-int		editor_options4(t_env *env)
+int		editor_options4(t_env *env, t_point size)
 {
-	if (!env->editor.in_game || (env->editor.in_game && env->editor.tab))
-	{
-		if (draw_button(env, env->editor.previous_ambiance_music,
-		env->editor.previous_ambiance_music.str))
-			return (-1);
-		if (draw_button(env, env->editor.next_ambiance_music,
-		env->editor.next_ambiance_music.str))
-			return (-1);
-		if (draw_button(env, env->editor.previous_fighting_music,
-		env->editor.previous_fighting_music.str))
-			return (-1);
-		if (draw_button(env, env->editor.next_fighting_music,
-		env->editor.next_fighting_music.str))
-			return (-1);
-	}
-	draw_rectangle(env, new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
-	new_point(20, 450), new_point(360, 430));
-	if (draw_editor_tabs(env))
-		return (-1);
-	if (env->editor.draw_enemy_tab)
-	{
-		enemy_tab(env, MAX_ENEMIES);
-	}
-	if (env->editor.draw_object_tab)
-	{
-		object_tab(env, MAX_OBJECTS);
-	}
-	if (env->editor.draw_sprite_tab)
-	{
-		sprite_selection(env, MAX_OBJECTS);
-	}
-	if (env->editor.draw_texture_tab || env->editor.draw_enemy_tab
-	|| env->editor.draw_sprite_tab)
-		env->editor.texture_tab = 1;
-	else
-		env->editor.texture_tab = 0;
-	return (0);
-}
-
-int		editor_options3(t_env *env, t_point size)
-{
-	apply_sprite(env->enemy_sprites[env->editor.current_enemy],
-	new_point(env->editor.current_enemy_selection.pos.y + 32 - size.y / 2,
-	env->editor.current_enemy_selection.pos.x + 32 - size.x / 2),
-	size, env);
 	if (env->object_sprites[env->editor.current_object].size[0].x >
 		env->object_sprites[env->editor.current_object].size[0].y)
 		size = new_point(60, 60
@@ -75,6 +30,25 @@ int		editor_options3(t_env *env, t_point size)
 	new_point(env->editor.current_object_selection.pos.y + 32 - size.y / 2,
 	env->editor.current_object_selection.pos.x + 32 - size.x / 2),
 	size, env);
+	return (editor_options5(env));
+}
+
+int		editor_options3(t_env *env, t_point size)
+{
+	if (env->enemy_sprites[env->editor.current_enemy].size[0].x >
+		env->enemy_sprites[env->editor.current_enemy].size[0].y)
+		size = new_point(60, 60
+		/ (env->enemy_sprites[env->editor.current_enemy].size[0].x
+		/ (double)env->enemy_sprites[env->editor.current_enemy].size[0].y));
+	else
+		size = new_point(60
+		* (env->enemy_sprites[env->editor.current_enemy].size[0].x
+		/ (double)env->enemy_sprites[env->editor.current_enemy].size[0].y),
+		60);
+	apply_sprite(env->enemy_sprites[env->editor.current_enemy],
+	new_point(env->editor.current_enemy_selection.pos.y + 32 - size.y / 2,
+	env->editor.current_enemy_selection.pos.x + 32 - size.x / 2),
+	size, env);
 	if (draw_button(env, env->editor.change_mode, env->editor.change_mode.str))
 		return (-1);
 	if (draw_button(env, env->editor.launch_game, env->editor.launch_game.str))
@@ -83,11 +57,14 @@ int		editor_options3(t_env *env, t_point size)
 		return (-1);
 	if (draw_button(env, env->editor.save, env->editor.save.str))
 		return (-1);
-	return (editor_options4(env));
+	return (editor_options4(env, size));
 }
 
 int		editor_options2(t_env *env, t_point center, t_point size)
 {
+	if (TTF_SizeText(env->sdl.fonts.lato15,
+	env->sound.musics[env->sound.fight_music].music_name, &center.x, &center.y))
+		return (-1);
 	if (print_text(new_point(367, 105 - center.x / 2), new_printable_text(
 		env->sound.musics[env->sound.fight_music].music_name,
 		env->sdl.fonts.lato15, 0x00000000, 15), env))
@@ -105,16 +82,6 @@ int		editor_options2(t_env *env, t_point center, t_point size)
 	if (draw_button(env, env->editor.current_texture_selection,
 		env->editor.current_texture_selection.str))
 		return (-1);
-	if (env->enemy_sprites[env->editor.current_enemy].size[0].x >
-		env->enemy_sprites[env->editor.current_enemy].size[0].y)
-		size = new_point(60, 60
-		/ (env->enemy_sprites[env->editor.current_enemy].size[0].x
-		/ (double)env->enemy_sprites[env->editor.current_enemy].size[0].y));
-	else
-		size = new_point(60
-		* (env->enemy_sprites[env->editor.current_enemy].size[0].x
-		/ (double)env->enemy_sprites[env->editor.current_enemy].size[0].y),
-		60);
 	return (editor_options3(env, size));
 }
 
@@ -143,9 +110,6 @@ int		editor_options1(t_env *env, t_point center, t_point size)
 		return (-1);
 	if (print_text(new_point(345, 90), new_printable_text("Fight",
 	env->sdl.fonts.lato_bold15, 0x00000000, 15), env))
-		return (-1);
-	if (TTF_SizeText(env->sdl.fonts.lato15,
-	env->sound.musics[env->sound.fight_music].music_name, &center.x, &center.y))
 		return (-1);
 	return (editor_options2(env, center, size));
 }
