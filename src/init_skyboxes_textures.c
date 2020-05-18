@@ -43,7 +43,7 @@ int		init_skyboxes_textures1(t_env *env)
 int		init_skyboxes_textures(t_env *env)
 {
 	if (parse_bmp_skybox_textures("images/skyboxes/night_bottom.bmp",
-	1, 0, env))
+	0, 0, env))
 		return (custom_error("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/night_top.bmp", 0, 1, env))
 		return (custom_error("Failed to load skybox\n"));

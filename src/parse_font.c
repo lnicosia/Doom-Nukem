@@ -58,6 +58,8 @@ int		parse_font_name(t_map_parser *parser)
 	ft_strdel(&(parser->line));
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed"));
+	if (parser->resource_name)
+		ft_strdel(&parser->resource_name);
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_perror("Coud not malloc"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
