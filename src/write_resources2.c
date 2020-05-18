@@ -21,7 +21,12 @@ int		writing_bmp(int file, int fd, char *name)
 	int32_t			size;
 
 	if (read(file, header, 14) != 14)
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid bmp file and could not close the file\n"));
 		return (custom_error("Invalid bmp file\n"));
+	}
 	size = read_int32(header, 2);
 	ft_dprintf(fd, "%s\n%d\n", name, size);
 	write(fd, header, 14);

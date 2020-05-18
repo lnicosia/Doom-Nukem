@@ -118,7 +118,12 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not load enemy sprites\n", env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], env))
+	{
+		if (close(env->parser.fd))
+			return (ft_perror("Map parsing failed and could not close the"
+			" map file\n"));
 		return (crash("{red}Error while parsing the map{reset}\n", env));
+	}
 	if (!(env->save_file = ft_strdup(av[1])))
 		return (crash("Could not malloc map name", env));
 	if (valid_map(env))

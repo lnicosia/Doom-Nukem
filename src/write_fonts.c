@@ -32,7 +32,12 @@ int		write_font(int file, int fd, char *name)
 
 	check_size = 0;
 	if (!(size = find_size(name)))
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid font file and could not close the file\n"));
 		return (custom_error("Couldn't find the font file size\n"));
+	}
 	ft_dprintf(fd, "%s\n%d\n", name, size);
 	while ((ret = (read(file, resource, 10000))) > 0)
 	{
@@ -41,7 +46,12 @@ int		write_font(int file, int fd, char *name)
 	}
 	write(fd, "\n", 1);
 	if (check_size != size)
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid font file and could not close the file\n"));
 		return (custom_error("Invalid read size for a font file\n"));
+	}
 	if (close(file))
 		return (custom_error("Could not close the font file\n"));
 	return (0);

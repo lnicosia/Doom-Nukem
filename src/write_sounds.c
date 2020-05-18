@@ -21,7 +21,12 @@ int		write_sound(int file, int fd, char *name)
 	int32_t			size;
 
 	if (read(file, header, 44) != 44)
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid wav file and could not close the file\n"));
 		return (custom_error("Invalid wav file\n"));
+	}
 	size = read_int32(header, 4) + 8;
 	ft_dprintf(fd, "%s\n%d\n", name, size);
 	write(fd, header, 44);

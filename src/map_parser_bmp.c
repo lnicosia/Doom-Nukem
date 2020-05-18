@@ -32,7 +32,12 @@ int		creating_new_file(t_map_parser *parser, int size)
 	ft_strdel(&(parser->resource_name));
 	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
 	|| *(parser->tmp) != '\n')
+	{
+		if (close(fd))
+			return (ft_perror("Read failed and could not close the"
+			" image file\n"));
 		return (ft_perror("Invalid file\n"));
+	}
 	ft_strdel(&(parser->tmp));
 	if (close(fd))
 		return (ft_perror("Could not close fd\n"));
