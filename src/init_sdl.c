@@ -17,7 +17,9 @@ int		set_sdl2(t_env *env)
 	if (SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL) != 0)
 		return (custom_error("SDL_RendererCopy error: %s\n", SDL_GetError()));
 	SDL_RenderPresent(env->sdl.renderer);
-	SDL_SetWindowDisplayMode(env->sdl.window, NULL);
+	if (SDL_SetWindowDisplayMode(env->sdl.window, NULL))
+		return (custom_error("SDL_SetWindowDisplayMode error: %s\n",
+		SDL_GetError()));
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	return (0);
 }
