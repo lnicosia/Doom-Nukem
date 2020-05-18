@@ -446,8 +446,8 @@ OPTI_FLAGS = -O3
 CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
-          -Wno-unused-result -g3 \
-		  #$(OPTI_FLAGS) \
+          -Wno-unused-result \
+		  $(OPTI_FLAGS) \
 		  #-fsanitize=address -g3 \
 	
 #
