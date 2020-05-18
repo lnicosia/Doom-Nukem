@@ -14,12 +14,12 @@
 
 void		free_all_sdl_relative(t_env *env)
 {
-	if (env->sdl.window)
-		SDL_DestroyWindow(env->sdl.window);
-	if (env->sdl.renderer)
-		SDL_DestroyRenderer(env->sdl.renderer);
 	if (env->sdl.texture)
 		SDL_DestroyTexture(env->sdl.texture);
+	if (env->sdl.renderer)
+		SDL_DestroyRenderer(env->sdl.renderer);
+	if (env->sdl.window)
+		SDL_DestroyWindow(env->sdl.window);
 	if (env->sdl.texture_pixels)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->zbuffer)

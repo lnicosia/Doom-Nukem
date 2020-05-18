@@ -51,7 +51,7 @@ int		set_sdl(t_env *env)
 int		init_sdl(t_env *env)
 {
 	ft_printf("Initializing SDL..\n");
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (custom_error("SDL_Init error: %s\n", SDL_GetError()));
 	env->time.milli_s = 0;
 	if (set_sdl(env))
