@@ -12,12 +12,12 @@
 
 #include "env.h"
 
-int		init_musics(t_env *env)
+int	init_musics(t_env *env)
 {
 	int	i;
 
 	i = 0;
-	 if (FMOD_System_CreateSound(env->sound.system, "audio/Mt_Erebus.wav",
+	if (FMOD_System_CreateSound(env->sound.system, "audio/Mt_Erebus.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[0].music) != FMOD_OK)
 		return (custom_error("Failed to load Mt_Erebus.wav"));
@@ -34,9 +34,9 @@ int		init_musics(t_env *env)
 	return (0);
 }
 
-int     init_sounds(t_env *env)
+int	init_sounds(t_env *env)
 {
-    if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
+	if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[0].shot) != FMOD_OK)
 		return (custom_error("Failed to load handgun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/shotgun_shot.wav",
@@ -48,10 +48,10 @@ int     init_sounds(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/footstep.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.footstep) != FMOD_OK)
 		return (custom_error("Failed to load footsteps.wav\n"));
-    return (0);
+	return (0);
 }
 
-int		init_audio(t_env *env)
+int	init_audio(t_env *env)
 {
 	if (FMOD_System_Create(&env->sound.system) != FMOD_OK)
 		return (custom_error("Failed to create fmod system\n"));

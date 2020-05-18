@@ -13,7 +13,7 @@
 #include "init.h"
 #include "parser.h"
 
-int		init_mini_skyboxes_selection(t_env *env)
+int	init_mini_skyboxes_selection(t_env *env)
 {
 	if (parse_bmp_mini_skyboxes_textures("images/ui/moonlight.bmp", 0,
 		env))

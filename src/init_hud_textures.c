@@ -96,7 +96,7 @@ int		init_hud_textures(t_env *env)
 	start = env->hud_start;
 	if (parse_bmp("images/HUD/shot1.bmp", start + 0, env))
 		return (custom_error("Invalid bmp file\n"));
- 	if (parse_bmp("images/HUD/shot2.bmp", start + 1, env))
+	if (parse_bmp("images/HUD/shot2.bmp", start + 1, env))
 		return (custom_error("Invalid bmp file\n"));
 	if (parse_bmp("images/HUD/shot3.bmp", start + 2, env))
 		return (custom_error("Invalid bmp file\n"));

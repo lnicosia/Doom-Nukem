@@ -12,68 +12,68 @@
 
 #include "env.h"
 
-static int     init_wall_map_array(t_env *env)
+int	init_wall_map_array(t_env *env)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = 0;
-    while (i < env->nb_sectors)
-    {
-        j = 0;
-        while(j < env->sectors[i].nb_vertices)
-        {
-            if (set_sector_wall_map_array(&env->sectors[i],
-		        &env->wall_textures[env->sectors[i].textures[j]],
-		        j, env))
-		        return (-1);
-            j++;
-        }
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		j = 0;
+		while (j < env->sectors[i].nb_vertices)
+		{
+			if (set_sector_wall_map_array(&env->sectors[i],
+			&env->wall_textures[env->sectors[i].textures[j]],
+			j, env))
+				return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
-int     init_ceiling_map_array(t_env *env)
+int	init_ceiling_map_array(t_env *env)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < env->nb_sectors)
-    {
-        if (set_sector_ceiling_map_array(&env->sectors[i],
-	    	&env->wall_textures[env->sectors[i].
-		    ceiling_texture], env))
-		    return (-1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		if (set_sector_ceiling_map_array(&env->sectors[i],
+		&env->wall_textures[env->sectors[i].
+		ceiling_texture], env))
+			return (-1);
+		i++;
+	}
+	return (0);
 }
 
-int     init_floor_map_array(t_env *env)
+int	init_floor_map_array(t_env *env)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < env->nb_sectors)
-    {
-        if (set_sector_floor_map_array(&env->sectors[i],
-		    &env->wall_textures[env->sectors[i].floor_texture],
-		    env))
-	        return (-1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		if (set_sector_floor_map_array(&env->sectors[i],
+		&env->wall_textures[env->sectors[i].floor_texture],
+		env))
+			return (-1);
+		i++;
+	}
+	return (0);
 }
 
-int     init_mipmap_arrays(t_env *env)
+int	init_mipmap_arrays(t_env *env)
 {
-    ft_printf("Initializing sectors mipmap arrays..\n");
-    if (init_wall_map_array(env))
-        return (-1);
-    if (init_floor_map_array(env))
-        return (-1);
-    if (init_ceiling_map_array(env))
-        return (-1);
-    return (0);
+	ft_printf("Initializing sectors mipmap arrays..\n");
+	if (init_wall_map_array(env))
+		return (-1);
+	if (init_floor_map_array(env))
+		return (-1);
+	if (init_ceiling_map_array(env))
+		return (-1);
+	return (0);
 }

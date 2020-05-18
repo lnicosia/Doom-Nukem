@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites_textures.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:57:17 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/12 18:07:31 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:50:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		init_editor_sprites(t_env *env)
 	int	start;
 
 	start = env->editor_start;
-	if (parse_bmp("images/sprites/doom_guy.bmp",start + 0, env))
+	if (parse_bmp("images/sprites/doom_guy.bmp", start + 0, env))
 		return (custom_error("Failed to load doom guy sprite\n"));
 	if (parse_bmp("images/sprites/doom_guy_face.bmp", start + 1, env))
 		return (custom_error("Failed to load doom guy face sprite\n"));

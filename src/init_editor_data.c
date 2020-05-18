@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_editor_data.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:05:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/11 12:26:21 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/18 16:44:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,10 @@ void	init_editor_data(t_env *env)
 	env->player.state.fly = 1;
 	env->editor.creating_event = 0;
 	env->editor.options_from_h = 0;
+	env->enemies_start = 0;
+	env->objects_sprites_start = MAX_ENEMIES;
+	env->wall_sprites_start = MAX_ENEMIES + NB_OBJECTS_SPRITES;
+	env->editor_start = env->wall_sprites_start + NB_WALL_SPRITES;
+	env->hud_start = env->editor_start + NB_HUD_SPRITES;
 	init_selection_data(env);
 }

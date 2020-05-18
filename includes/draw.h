@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:09:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/16 13:05:08 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 18:27:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ void					draw_minimap_hud(t_env *env);
 void					draw_weapon(t_env *env, int sprite);
 int						print_general_tab(t_env *env);
 int						print_sector_tab(t_env *env);
+void					draw_selection(t_point pos, t_point size1,
+t_point size2, t_env *env);
 
 #endif

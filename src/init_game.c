@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 20:04:59 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 16:55:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 int		init_game5(t_env *env)
 {
+	env->fixed_camera.pos = new_v3(3, 3, 7);
+	env->fixed_camera.angle = 45 * CONVERT_RADIANS;
+	env->fixed_camera.angle_cos = cos(env->fixed_camera.angle);
+	env->fixed_camera.angle_sin = sin(env->fixed_camera.angle);
+	env->fixed_camera.angle_z = 10 * CONVERT_RADIANS;
 	env->fixed_camera.angle_z_cos = cos(env->fixed_camera.angle_z);
 	env->fixed_camera.angle_z_sin = sin(env->fixed_camera.angle_z);
 	update_camera_position(&env->fixed_camera);
@@ -37,8 +42,13 @@ int		init_game5(t_env *env)
 	return (doom(env));
 }
 
-int		init_game4(t_env *env)
+int		init_game4(t_env *env, int i)
 {
+	while (++i < env->nb_enemies)
+	{
+		env->enemies[i].exists = 1;
+		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
+	}
 	view(env);
 	update_camera_position(&env->player.camera);
 	SDL_SetRelativeMouseMode(1);
@@ -57,11 +67,6 @@ int		init_game4(t_env *env)
 		return (crash("Could not init skybox\n", env));
 	if (find_dialog_box_max_char(env))
 		return (crash("Could not find dialog box maximum chars\n", env));
-	env->fixed_camera.pos = new_v3(3, 3, 7);
-	env->fixed_camera.angle = 45 * CONVERT_RADIANS;
-	env->fixed_camera.angle_cos = cos(env->fixed_camera.angle);
-	env->fixed_camera.angle_sin = sin(env->fixed_camera.angle);
-	env->fixed_camera.angle_z = 10 * CONVERT_RADIANS;
 	return (init_game5(env));
 }
 
@@ -89,13 +94,7 @@ int		init_game3(t_env *env)
 		env->objects[i].exists = 1;
 		i++;
 	}
-	i = -1;
-	while (++i < env->nb_enemies)
-	{
-		env->enemies[i].exists = 1;
-		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
-	}
-	return (init_game4(env));
+	return (init_game4(env, -1));
 }
 
 int		init_game2(char **av, t_env *env)
@@ -140,12 +139,8 @@ int		init_game(int ac, char **av)
 	env.hud_start = env.editor_start + NB_HUD_SPRITES;
 	env.difficulty = 1;
 	if (ac == 3)
-	{
 		env.menu = 1;
-		env.in_game = 0;
-	}
-	else if (ac == 2)
-		env.in_game = 1;
+	env.in_game = ac == 3 ? 0 : 1;
 	env.option = 0;
 	env.menu_select = 1;
 	env.running = 1;

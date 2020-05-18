@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 20:05:19 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 16:45:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "parser.h"
 
-int		init_editor4(t_env *env)
+int	init_editor4(t_env *env)
 {
 	if (init_camera(&env->player.camera, env))
 		return (crash("Could not init camera\n", env));
@@ -30,7 +30,7 @@ int		init_editor4(t_env *env)
 	return (editor(env));
 }
 
-int		init_editor3(t_env *env)
+int	init_editor3(t_env *env)
 {
 	if (init_editor_hud(env))
 		return (crash("Could not init hud\n", env));
@@ -41,7 +41,7 @@ int		init_editor3(t_env *env)
 	return (init_editor4(env));
 }
 
-int		init_editor2(t_env *env)
+int	init_editor2(t_env *env)
 {
 	if (init_textures(env))
 		return (crash("Could not init textures \n", env));
@@ -57,16 +57,11 @@ int		init_editor2(t_env *env)
 		return (crash("Could not load fonts\n", env));
 	if (init_input_box(&env->input_box, env))
 		return (crash("Could not init input box\n", env));
-
 	return (init_editor3(env));
 }
 
-int		init_editor1(int ac, char **av, t_env *env)
+int	init_editor1(int ac, char **av, t_env *env)
 {
-	if (init_sdl(env))
-		return (crash("Could not initialize SDL\n", env));
-	if (check_resources(env))
-		return (crash("Could not pre load resources\n", env));
 	if (init_object_sprites(env))
 		return (crash("Could not load object sprites\n", env));
 	if (init_enemy_sprites(env))
@@ -82,7 +77,6 @@ int		init_editor1(int ac, char **av, t_env *env)
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], env))
 			return (crash("Error while parsing the map\n", env));
-		ft_printf("valid map\n");
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))
@@ -93,23 +87,18 @@ int		init_editor1(int ac, char **av, t_env *env)
 	return (init_editor2(env));
 }
 
-int		init_editor(int ac, char **av)
+int	init_editor(int ac, char **av)
 {
 	t_env	env;
 
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
-	env.enemies_start = 0;
-	env.objects_sprites_start = MAX_ENEMIES;
-	env.wall_sprites_start = MAX_ENEMIES + NB_OBJECTS_SPRITES;
-	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
-	env.hud_start = env.editor_start + NB_HUD_SPRITES;
+	init_editor_data(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
 	init_options(&env);
 	init_keys(&env);
-	init_editor_data(&env);
 	init_inputs(&env);
 	init_player(&env);
 	init_animations(&env);
@@ -118,5 +107,9 @@ int		init_editor(int ac, char **av)
 	init_print_condition_target_data(&env);
 	init_event_links_types(&env);
 	init_print_link_target_data(&env);
+	if (init_sdl(&env))
+		return (crash("Could not initialize SDL\n", &env));
+	if (check_resources(&env))
+		return (crash("Could not pre load resources\n", &env));
 	return (init_editor1(ac, av, &env));
 }

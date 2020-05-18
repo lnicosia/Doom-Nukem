@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:39:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 15:39:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 15:29:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ void	free_fonts(t_env *env);
 void	free_audio(t_env *env, int i);
 void	free_buttons(t_env *env);
 void	free_resources_init(t_env *env);
+void    free_sprite_textures(t_env *env);
+void    free_wall_textures(t_env *env);
+void	free_ui_textures(t_env *env);
+void	free_mini_skyboxes_textures(t_env *env);
+void	free_skyboxes(t_env *env);
 
 #endif
