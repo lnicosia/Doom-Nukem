@@ -69,8 +69,8 @@ endif
 
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			-Wno-unused-result \
-			-fsanitize=address -g3 \
-			#$(OPTI_FLAGS) \
+			$(OPTI_FLAGS) \
+			#-fsanitize=address -g3 \
 
 # Color declarations
 RED := "\e[0;31m"
@@ -80,15 +80,6 @@ BLUE := "\e[0;34m"
 MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
-
-ifneq ($(OS), Windows_NT)
-	UNAME_S = $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
-		CFLAGS += -flto
-	else
-		CFLAGS += -flto
-	endif
-endif
 
 all: $(BIN_DIR)/$(NAME)
 
