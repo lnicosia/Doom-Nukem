@@ -44,7 +44,7 @@ int		init_game4(t_env *env)
 	SDL_SetRelativeMouseMode(1);
 	init_animations(env);
 	init_weapons(env);
-	ft_printf("Starting music.. %d\n");
+	ft_printf("Starting music.. \n");
 	play_music(env, &env->sound.music_chan,
 		env->sound.musics[env->sound.ambient_music].music,
 		env->sound.music_vol);

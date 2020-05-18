@@ -32,6 +32,8 @@ int		create_font_file(t_map_parser *parser, int size)
 	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0) || *(parser->tmp) != '\n')
 		return (ft_perror("Invalid file\n"));
 	ft_strdel(&(parser->tmp));
+	if (close(fd))
+		return (ft_perror("Could not close current font\n"));
 	return (0);
 }
 
