@@ -31,9 +31,8 @@ int		parse_vertex2(t_env *env, t_map_parser *parser)
 {
 	if (check_vertex_duplicate(env, env->vertices[parser->vertices_count],
 			parser->vertices_count))
-		return (custom_error(
-			"[Line %d] Vertex %d already exists\n",
-			parser->line_count, parser->vertices_count));
+		return (custom_error("[Line %d] Vertex %d already exists\n",
+		parser->line_count, parser->vertices_count));
 	parser->vertices_count++;
 	return (0);
 }

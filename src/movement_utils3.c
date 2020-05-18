@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/13 14:24:03 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 22:06:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	update_player_pos(t_env *env)
 	new_sector = get_sector_no_z_origin(env,
 		env->player.pos, env->player.sector);
 	motion = new_motion(new_sector, env->player.size_2d,
-	env->player.eyesight, env->player.pos);	
+	env->player.eyesight, env->player.pos);
 	if (new_sector != env->player.sector)
 	{
 		env->player.old_sector = env->player.sector;

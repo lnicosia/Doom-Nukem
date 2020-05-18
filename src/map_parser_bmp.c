@@ -52,7 +52,7 @@ int		check_file_validity(t_map_parser *parser)
 	if (size < 54)
 		return (custom_error("Invalid size for bmp file, size is too small\n"));
 	if (creating_new_file(parser, size))
-			return(custom_error("Error while creating the new file\n"));
+		return (custom_error("Error while creating the new file\n"));
 	return (0);
 }
 
@@ -67,9 +67,9 @@ int		parse_file_name(t_map_parser *parser)
 	&& ft_strlen(parser->resource_name) < 100)
 	{
 		if (*(parser->tmp) == '\n')
-			break;
+			break ;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
-		  	parser->tmp)))
+		parser->tmp)))
 			return (ft_perror("Could not realloc name in parse bmp"));
 	}
 	if (*(parser->tmp) != '\n')
@@ -92,12 +92,12 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 		&& ft_strlen(parser->line) < 100)
 		{
 			if (*(parser->tmp) == '\n')
-				break;
+				break ;
 			if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 				return (ft_perror("Could not malloc line in parse bmp\n"));
 		}
 		if (check_file_validity(parser))
-			return(custom_error("Error while checking and creating file\n"));
+			return (custom_error("Error while checking and creating file\n"));
 	}
 	else
 	{

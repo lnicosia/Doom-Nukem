@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/12 11:19:28 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 21:21:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,23 @@ int		parse_sectors2(t_map_parser *parser)
 			return (0);
 }
 
-int		parse_sectors(t_env *env, t_map_parser *parser)
+int		init_textures_mipmap(t_env *env)
 {
-	char	*line;
-
-
 	if (init_textures(env))
 		return (crash("Could not load textures\n", env));
 	if (generate_mipmaps(env))
 		return (crash("Could not generate mipmaps\n", env));
 	if (init_mipmap_arrays(env))
-   	  	return (-1);
+		return (crash("Could not init mipmap arrays\n", env));
+	return (0);
+}
+
+int		parse_sectors(t_env *env, t_map_parser *parser)
+{
+	char	*line;
+
+	if (init_textures_mipmap(env))
+		return (-1);
 	while (parser->sectors_count < env->nb_sectors
 			&& (parser->ret = get_next_line(parser->fd, &parser->line)))
 	{

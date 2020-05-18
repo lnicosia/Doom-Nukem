@@ -14,13 +14,13 @@
 #include "map_parser.h"
 #include "parser.h"
 
-int		parse_font_number(t_map_parser *parser, char *line, t_env *env)
+int	parse_font_number(t_map_parser *parser, char *line, t_env *env)
 {
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
 	{
 		if (*(parser->tmp) == '\n')
-			break;
+			break ;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 			return (ft_perror("Could not malloc line\n"));
 	}
@@ -42,9 +42,9 @@ int		parse_font_number(t_map_parser *parser, char *line, t_env *env)
 	return (0);
 }
 
-int		map_parse_fonts(t_env *env, t_map_parser *parser)
+int	map_parse_fonts(t_env *env, t_map_parser *parser)
 {
-	int	i;
+	int		i;
 	char	*line;
 
 	i = 0;

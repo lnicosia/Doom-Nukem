@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:04:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 19:21:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "parser.h"
 
-int		parse_enemy(t_env *env, char *line, t_map_parser *parser)
+int	parse_enemy(t_env *env, char *line, t_map_parser *parser)
 {
 	env->enemies[parser->enemies_count].num = parser->enemies_count;
 	if (parse_enemy_pos(env, &line, parser))
@@ -25,7 +25,7 @@ int		parse_enemy(t_env *env, char *line, t_map_parser *parser)
 	return (0);
 }
 
-int		parse_enemies2(t_env *env, t_map_parser *parser)
+int	parse_enemies2(t_env *env, t_map_parser *parser)
 {
 	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
@@ -33,7 +33,7 @@ int		parse_enemies2(t_env *env, t_map_parser *parser)
 		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
 				"(every enemy has been declared)\n", parser));
-			ft_strdel(&(parser->line));
+		ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("player data", parser));
@@ -43,7 +43,7 @@ int		parse_enemies2(t_env *env, t_map_parser *parser)
 	return (0);
 }
 
-int		parse_enemies(t_env *env, t_map_parser *parser)
+int	parse_enemies(t_env *env, t_map_parser *parser)
 {
 	char	*line;
 

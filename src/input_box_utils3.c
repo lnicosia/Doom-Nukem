@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 18:04:28 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/18 19:18:12 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 19:39:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	draw_selection(t_point pos, t_point size1, t_point size2, t_env *env)
 	}
 }
 
-int		set_res(char *res, char *str, int len)
+int		check_res(char *res, char *str, int len)
 {
 	ft_strdel(&res);
 	if (!(res = ft_strsub(str, 0, len - 2)))
 		return (0);
-	return (res);
+	return (1);
 }
 
 char	*get_current_box_line(t_input_box *box, char *str)
@@ -62,7 +62,7 @@ char	*get_current_box_line(t_input_box *box, char *str)
 	}
 	if (size.x >= box->size.x * 0.99)
 	{
-		if (!(set_res(res, str, len)))
+		if (!(check_res(res, str, len)))
 			return (0);
 	}
 	return (res);

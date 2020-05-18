@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 16:57:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 19:20:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ int		keys2(t_env *env)
 
 int		keys(t_env *env)
 {
-/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
+	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
 		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
-			env->sound.ambient_vol);*/
+			env->sound.ambient_vol);
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 		|| env->crouch.on_going || env->inputs.ctrl)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_resources.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 18:21:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 21:13:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int		write_resources(int fd, t_env *env)
 		return (-1);
 	if (write_hud(fd, file))
 		return (-1);
-/*	if (write_sounds(fd, env))
-		return (-1);*/
+	if (write_sounds(fd, env))
+		return (-1);
 	if (write_fonts(fd, file))
 		return (-1);
 	return (0);

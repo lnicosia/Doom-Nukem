@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_resources.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 11:37:30 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 13:16:52 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/18 21:18:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		parse_resources(t_env *env, t_map_parser *parser)
 		return (custom_error("Error while parsing map skyboxes\n"));
 	if (map_parse_hud(env, parser))
 		return (custom_error("Error while parsing map hud\n"));
-/*	if (map_parse_sounds(env, parser))
-		return (custom_error("Error while parsing map sounds\n"));*/
+	if (map_parse_sounds(env, parser))
+		return (custom_error("Error while parsing map sounds\n"));
 	if (map_parse_fonts(env, parser))
 		return (custom_error("Error while parsing map fonts\n"));
 	return (0);
