@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 11:00:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 15:26:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ void		free_all(t_env *env)
 	free_fonts(env);
 	free_map(env);
 	i = 0;
-	while (i < 4)
+	while (++i < 4)
 	{
 		if (env->skybox[i].texture_scale)
 			ft_memdel((void**)&env->skybox[i].texture_scale);
-		i++;
 	}
 	free_all2(env);
 }

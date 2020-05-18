@@ -6,16 +6,16 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 01:56:26 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/14 01:56:26 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 15:33:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "free.h"
 
-void		free_resources_init3(t_env *env)
+void	free_resources_init3(t_env *env)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < NB_WALL_SPRITES)
 	{
@@ -36,7 +36,7 @@ void		free_resources_init3(t_env *env)
 	}
 }
 
-void		free_resources_init2(t_env *env)
+void	free_resources_init2(t_env *env)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ void		free_resources_init2(t_env *env)
 	i = 0;
 }
 
-void		free_resources_init(t_env *env)
+void	free_resources_init(t_env *env)
 {
 	int	i;
 

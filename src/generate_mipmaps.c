@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_mipmaps.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 10:49:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 11:14:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 15:36:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_env *env)
 	i = 0;
 	while (i < MAX_UI_TEXTURES)
 	{
-		
 		texture = &env->ui_textures[i];
 		nb_maps = floor(log2(fmax(texture->surface->w,
 			texture->surface->h))) + 1;

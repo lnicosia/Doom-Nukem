@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:17:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 15:35:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ int		print_difficulty(t_env *env)
 	return (0);
 }
 
-int		start_game_menu(t_env *env)
+int		start_game_menu_button(t_env *env)
 {
-	clear_image(env);
-	SDL_SetRelativeMouseMode(0);
-	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
-		new_point(env->w, env->h), env);
 	if (draw_button(env, env->start_game_button, "START"))
 		return (-1);
 	if (draw_button(env, env->next_difficulty, NULL))
@@ -56,6 +52,17 @@ int		start_game_menu(t_env *env)
 	if (draw_button(env, env->exit_button, "EXIT"))
 		return (-1);
 	if (print_difficulty(env))
+		return (-1);
+	return (0);
+}
+
+int		start_game_menu(t_env *env)
+{
+	clear_image(env);
+	SDL_SetRelativeMouseMode(0);
+	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
+		new_point(env->w, env->h), env);
+	if (start_game_menu_button(env))
 		return (-1);
 	while (SDL_PollEvent(&env->sdl.event))
 	{
