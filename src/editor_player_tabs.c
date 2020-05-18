@@ -45,7 +45,8 @@ int		print_player_sector_tab(t_env *env)
 
 	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Player", &size.x, &size.y))
 		return (-1);
-	if (print_text(new_point(465, 200 - size.x / 2), new_printable_text("Player",
+	if (print_text(new_point(465, 200 - size.x / 2),
+		new_printable_text("Player",
 		env->sdl.fonts.lato_black30, 0x333333FF, 30), env))
 		return (-1);
 	if (print_text(new_point(520, 60), new_printable_text("Brightness",

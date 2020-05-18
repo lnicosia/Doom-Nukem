@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:52:15 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/18 11:34:03 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 14:42:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 int		print_sector_general_tab4(t_env *env)
 {
+	if (print_text(new_point(760, 60), new_printable_text("Ceiling slope",
+	env->sdl.fonts.lato20, 0x333333FF, 30), env))
+		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
 	get_decimal_len(env->sectors[env->editor.selected_sector].ceiling_slope),
 	env->sectors[env->editor.selected_sector].ceiling_slope);
@@ -58,9 +61,6 @@ int		print_sector_general_tab3(t_env *env)
 	env->editor.hud.g_sector.t_floor_slope.target =
 	&env->sectors[env->editor.selected_sector].floor_slope;
 	if (draw_button(env, env->editor.hud.g_sector.floor_slope, env->snprintf))
-		return (-1);
-	if (print_text(new_point(760, 60), new_printable_text("Ceiling slope",
-	env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
 	return (print_sector_general_tab4(env));
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 12:26:40 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/18 12:29:07 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 14:30:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,3 @@ int	print_enemy_sector_tab(t_env *env)
 		return (-1);
 	return (print_enemy_sector_tab2(env));
 }
-

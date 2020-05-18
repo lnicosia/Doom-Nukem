@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 11:09:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/18 11:09:21 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 14:37:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw.h"
 #include "env.h"
 
-int		editor_options6(t_env *env)
+int	editor_options6(t_env *env)
 {
 	if (env->editor.draw_enemy_tab)
 	{
@@ -35,7 +35,7 @@ int		editor_options6(t_env *env)
 	return (0);
 }
 
-int		editor_options5(t_env *env)
+int	editor_options5(t_env *env)
 {
 	if (!env->editor.in_game || (env->editor.in_game && env->editor.tab))
 	{

@@ -6,16 +6,16 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 12:40:19 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/18 12:53:55 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 14:36:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "draw.h"
 
-int		editor_options_buttons2(t_env *env)
+int	editor_options_buttons2(t_env *env)
 {
-    if (draw_button(env, env->editor.zbuffer, env->editor.zbuffer.str))
+	if (draw_button(env, env->editor.zbuffer, env->editor.zbuffer.str))
 		return (-1);
 	if (draw_button(env, env->editor.light, env->editor.light.str))
 		return (-1);
@@ -29,10 +29,10 @@ int		editor_options_buttons2(t_env *env)
 		return (-1);
 	if (print_on_off(env, env->options.show_fps, new_point(214, 265)))
 		return (-1);
-    return (0);
+	return (0);
 }
 
-int		editor_options_buttons(t_env *env)
+int	editor_options_buttons(t_env *env)
 {
 	if (draw_button(env, env->editor.quit_options,
 		env->editor.quit_options.str))
@@ -49,17 +49,17 @@ int		editor_options_buttons(t_env *env)
 	return (editor_options_buttons2(env));
 }
 
-int		editor_options_sprites_portals2(t_env *env)
+int	editor_options_sprites_portals2(t_env *env)
 {
-    ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select %*s", 57,
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select %*s", 57,
 		"ctrl left-click");
 	if (print_text(new_point(695, 70), new_printable_text(env->snprintf,
 		env->sdl.fonts.lato15, 0x000000FF, 15), env))
 		return (-1);
-    return (0);
+	return (0);
 }
 
-int		editor_options_sprites_portals(t_env *env)
+int	editor_options_sprites_portals(t_env *env)
 {
 	if (print_text(new_point(565, 50), new_printable_text("Sprites",
 		env->sdl.fonts.lato_bold15, 0x000000FF, 15), env))

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 12:32:22 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/18 13:05:08 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 15:08:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 int	print_floor_sprite_tab3(t_env *env)
 {
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
+	get_decimal_len(env->sectors[env->selected_floor].
+	floor_sprites.scale[env->selected_floor_sprite].y),
+	env->sectors[env->selected_floor].
+	floor_sprites.scale[env->selected_floor_sprite].y);
+	env->editor.hud.sp_floor_sprite.t_scale_y.target = &env->sectors[env->
+	selected_floor].floor_sprites.scale[env->selected_floor_sprite].y;
 	if (draw_button(env, env->editor.hud.sp_floor_sprite.scale_y,
 		env->snprintf))
 		return (-1);
@@ -41,13 +48,6 @@ int	print_floor_sprite_tab2(t_env *env)
 	if (print_text(new_point(680, 60), new_printable_text("Scale Y",
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->sectors[env->selected_floor].
-	floor_sprites.scale[env->selected_floor_sprite].y),
-	env->sectors[env->selected_floor].
-	floor_sprites.scale[env->selected_floor_sprite].y);
-	env->editor.hud.sp_floor_sprite.t_scale_y.target = &env->sectors[env->
-	selected_floor].floor_sprites.scale[env->selected_floor_sprite].y;
 	return (print_floor_sprite_tab3(env));
 }
 
@@ -79,4 +79,3 @@ int	print_floor_sprite_tab(t_env *env)
 	selected_floor].floor_sprites.pos[env->selected_floor_sprite].y;
 	return (print_floor_sprite_tab2(env));
 }
-

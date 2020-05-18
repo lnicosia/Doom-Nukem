@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   editor_tab_gestion.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:03:01 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 18:46:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 15:11:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-
-
 
 void	editor_options_tab_keyup(t_env *env)
 {
