@@ -588,7 +588,7 @@ editor: $(RESOURCES)
 
 $(LIB_DIR): $(LIB_DIR)%.tar.gz
 	@printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
-	@tar -xf $< 
+	@-tar -xf $< 
 
 $(EXTRACT_ALL): $(LIB_ARCHIVE)
 
@@ -619,17 +619,17 @@ endif
 
 $(SDL2_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 	@touch $@
 
 $(SDL2_TTF_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 	@touch $@
 
 $(FREETYPE_DIR)/exists:
 	@printf $(YELLOW)"Extracting FreeType archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf freetype-2.9.tar.gz
+	@-cd $(LIB_DIR) && -tar -xf freetype-2.9.tar.gz
 	@touch $@
 
 $(SDL2_CONFIGURED): $(SDL2_DIR)/exists
@@ -662,12 +662,12 @@ $(FREETYPE): $(FREETYPE_CONFIGURED)
 $(SDL2_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 
 $(SDL2_TTF_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 
 $(FMOD_WINDOWS):
 	@$(ROOT) cp sound_lib/fmod.dll /usr/lib/
@@ -712,9 +712,9 @@ $(RESOURCES):
 	&id=1qV3GPh5v9K50ugVEkvU1px8S5E1iU8cU" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
-	tar -xf resources.tar.gz
+	@-tar -xf resources.tar.gz
 	@printf $(RESET)
-	rm -rf resources.tar.gz
+	@rm -rf resources.tar.gz
 
 $(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
 					$(SDL2_TTF_INCLUDES)
