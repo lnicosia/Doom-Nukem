@@ -32,8 +32,6 @@ int		play_music(t_env *env, FMOD_CHANNEL **chan, FMOD_SOUND *music, float v)
 {
 	int		res;
 
-	if ((res = FMOD_Channel_SetPaused(*chan, 1)) != FMOD_OK)
-		return (custom_error("FMOD_Channel_SetPaused 1 error %d\n", res));
 	if ((res = FMOD_System_PlaySound(env->sound.system, music, 0, 0, chan))
 		!= FMOD_OK)
 		return (custom_error("FMOD_System_PlaySound error %d\n", res));
