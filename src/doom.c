@@ -79,7 +79,8 @@ int		doom2(t_env *env)
 			return (custom_error("Explosion collision player error"));
 		if (enemy_melee_hit(env))
 			return (custom_error("Collision with a melee enemy failed\n"));
-		player_combat_state(env);
+		if (player_combat_state(env))
+			return (custom_error("Updating player combat state failed\n"));
 		if (keys(env))
 			return (custom_error("Keys failed\n"));
 	}
@@ -109,7 +110,8 @@ int		doom(t_env *env)
 		}
 		if (doom4(env))
 			return (crash("Doom part 4 failed", env));
-		FMOD_System_Update(env->sound.system);
+		if (FMOD_System_Update(env->sound.system))
+			return (custom_error("FMOD_System_Update error\n"));
 	}
 	free_all(env);
 	return (0);

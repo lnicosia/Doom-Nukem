@@ -1107,11 +1107,11 @@ void					shift_wall_bullet_hole_events(int sector, int wall,
 int sprite, t_env *env);
 int						projectile_on_wall_sprite(t_v2 pos, t_sector *sector,
 		int wall, t_env *env);
-void					play_sound(t_env *env, FMOD_CHANNEL **chan,
+int						play_sound(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
-void					play_music(t_env *env, FMOD_CHANNEL **chan,
+int						play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
-void					player_combat_state(t_env *env);
+int						player_combat_state(t_env *env);
 int						next_event(void *param);
 int						previous_event(void *param);
 int						next_launch_condition(void *param);

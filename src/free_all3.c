@@ -34,18 +34,23 @@ void		free_audio(t_env *env, int i)
 {
 	while (i < NB_WEAPONS)
 	{
-		FMOD_Sound_Release(env->weapons[i].shot);
+		if (FMOD_Sound_Release(env->weapons[i].shot))
+			custom_error("FMOD_Sound_Relase error\n");
 		i++;
 	}
 	i = 0;
-	FMOD_Sound_Release(env->sound.footstep);
+	if (FMOD_Sound_Release(env->sound.footstep))
+		custom_error("FMOD_Sound_Relase error\n");
 	while (i < NB_MUSICS)
 	{
-		FMOD_Sound_Release(env->sound.musics[i].music);
+		if (FMOD_Sound_Release(env->sound.musics[i].music))
+			custom_error("FMOD_Sound_Relase error\n");
 		i++;
 	}
-	FMOD_System_Close(env->sound.system);
-	FMOD_System_Release(env->sound.system);
+	if (FMOD_System_Close(env->sound.system))
+		custom_error("FMOD_System_Close error\n");
+	if (FMOD_System_Release(env->sound.system))
+		custom_error("FMOD_System_Release error\n");
 }
 
 void		free_objects(t_env *env)

@@ -45,9 +45,10 @@ int		init_game4(t_env *env)
 	init_animations(env);
 	init_weapons(env);
 	ft_printf("Starting music.. \n");
-	play_music(env, &env->sound.music_chan,
+	if (play_music(env, &env->sound.music_chan,
 		env->sound.musics[env->sound.ambient_music].music,
-		env->sound.music_vol);
+		env->sound.music_vol))
+		return (crash("Could not launch main music\n", env));
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env->player.camera, env))
 		return (crash("Could not init fixed camera\n", env));

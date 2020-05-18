@@ -30,7 +30,10 @@ int		init_musics(t_env *env)
 		&env->sound.musics[2].music) != FMOD_OK)
 		return (custom_error("Failed to load at_dooms_gate.wav"));
 	while (++i < NB_MUSICS)
-		FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1);
+	{
+		if (FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1) != FMOD_OK)
+			return (custom_error("FMOD_Sound_SetLoopCount error\n"));
+	}
 	return (0);
 }
 

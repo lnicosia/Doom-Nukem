@@ -94,8 +94,11 @@ int		keys(t_env *env)
 {
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
-			env->sound.ambient_vol);
+	{
+		if (play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
+			env->sound.ambient_vol))
+			return (-1);
+	}
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 		|| env->crouch.on_going || env->inputs.ctrl)

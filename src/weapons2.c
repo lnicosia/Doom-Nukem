@@ -47,8 +47,9 @@ int		weapon_animation(t_env *env, int nb)
 		{
 			if (shot(env))
 				return (-1);
-			play_sound(env, &env->sound.player_shots_chan,
-			env->weapons[nb].shot, env->sound.ambient_vol);
+			if (play_sound(env, &env->sound.player_shots_chan,
+			env->weapons[nb].shot, env->sound.ambient_vol))
+				return (-1);
 			if (!env->player.infinite_ammo)
 				env->weapons[nb].ammo -= 0;
 		}
