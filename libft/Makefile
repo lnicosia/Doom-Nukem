@@ -69,8 +69,8 @@ endif
 
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			-Wno-unused-result \
-			$(OPTI_FLAGS) \
-			#-fsanitize=address -g3 \
+			-fsanitize=address -g3 \
+			#$(OPTI_FLAGS) \
 
 # Color declarations
 RED := "\e[0;31m"
