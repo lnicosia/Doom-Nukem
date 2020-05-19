@@ -54,11 +54,11 @@ void	update_condition_panel_buttons_pos(t_env *env)
 	set_condition_panel_buttons_pos(&panel->different, 1.5, 0, env);
 	set_condition_panel_buttons_pos(&panel->less, 0.5, 0, env);
 	set_condition_panel_buttons_pos(&panel->greater, -0.5, 0, env);
-	set_condition_panel_buttons_pos(&panel->less_or_equals, 3, 1, env);
-	set_condition_panel_buttons_pos(&panel->greater_or_equals, 2, 1, env);
-	set_condition_panel_buttons_pos(&panel->event_ended, 1, 1, env);
-	set_condition_panel_buttons_pos(&panel->event_ended_start, 0, 1, env);
-	set_condition_panel_buttons_pos(&panel->function, -1, 1, env);
+	set_condition_panel_buttons_pos(&panel->less_or_equals, 2.5, 1, env);
+	set_condition_panel_buttons_pos(&panel->greater_or_equals, 1.5, 1, env);
+	set_condition_panel_buttons_pos(&panel->event_ended, 0.5, 1, env);
+	set_condition_panel_buttons_pos(&panel->event_ended_start, -0.5, 1, env);
+	set_condition_panel_buttons_pos(&panel->function, -1.5, 1, env);
 	set_condition_panel_buttons_pos(&panel->value, 0.75, 2, env);
 }
 
