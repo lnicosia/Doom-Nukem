@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sector_vertices.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:18:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:18:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:11:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		parse_sector_vertices(t_env *env, char **line, t_map_parser *parser)
 				parser->line_count,
 				env->sectors[parser->sectors_count].vertices[i],
 				parser->sectors_count));
-		*line = skip_number(*line);
+			*line = skip_number(*line);
 		*line = skip_spaces(*line);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/18 19:21:07 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 16:01:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	parse_enemies2(t_env *env, t_map_parser *parser)
 		if (*(parser->line))
 			return (custom_error_with_line("Must be an empty line "
 				"(every enemy has been declared)\n", parser));
-		ft_strdel(&(parser->line));
+			ft_strdel(&(parser->line));
 	}
 	else
 		return (missing_data("player data", parser));
@@ -63,7 +63,7 @@ int	parse_enemies(t_env *env, t_map_parser *parser)
 					"[Line %d] You must still declare %d enemies\n",
 					parser->line_count,
 					env->nb_enemies - parser->enemies_count));
-		ft_strdel(&(parser->line));
+				ft_strdel(&(parser->line));
 	}
 	return (parse_enemies2(env, parser));
 }

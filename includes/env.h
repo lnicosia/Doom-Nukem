@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/18 12:53:23 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 14:58:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -445,6 +445,12 @@ int						print_event_exec_condition(t_env *env,
 t_condition *condition);
 int						print_wall_sprite_sector_tab(t_env *env);
 int						print_wall_sprite_events_tab(t_env *env);
+int						print_sector_events(t_env *env);
+int						print_wall_sprite_events(t_env *env);
+int						print_global_events_tab(t_env *env);
+int						print_object_events_tab(t_env *env);
+int						print_event_selection(t_env *env, size_t nb);
+int						print_on_death_events_tab(t_env *env);
 int						print_sector_target(t_env *env, t_event *event,
 t_point pos, int size);
 int						print_wall_target(t_env *env, t_event *event,
@@ -1040,7 +1046,7 @@ int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);
 int						sounds_volume_down(void *param);
 int						return_button_func(void *param);
-void					add_button(t_env *env, int text, int x, int y,
+void					add_button(t_env *env, int text, t_point nb,
 int ref_but);
 int						button_leftclick(t_env *env, int nb);
 void					select_menu(t_env *env);

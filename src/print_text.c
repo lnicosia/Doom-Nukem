@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_text.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/19 12:00:36 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/08 18:29:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:21:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int					print_text(t_point pos, t_printable_text text, t_env *env)
 	if (!(surface = TTF_RenderText_Blended(text.font, text.str, text.color)))
 		return (custom_error("TTF_RenderText_Solid error: %s\n",
 		TTF_GetError()));
-	apply_surface(surface, pos, new_point(surface->w, surface->h), env);
+		apply_surface(surface, pos, new_point(surface->w, surface->h), env);
 	SDL_FreeSurface(surface);
 	return (0);
 }

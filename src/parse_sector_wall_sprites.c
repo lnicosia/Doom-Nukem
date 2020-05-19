@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/19 12:39:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 16:11:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ t_map_parser *parser)
 	if (parser->sector_sprites_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more sprites",
 		parser->sectors_count, parser));
-	if (parser->sector_sprites_count > parser->sector_vertices_count)
+		if (parser->sector_sprites_count > parser->sector_vertices_count)
 		return (sector_error("has too much sprites", parser->sectors_count,
 		parser));
-	i = 0;
+		i = 0;
 	while (i < parser->sector_sprites_count)
 	{
 		if (parse_current_wall_sprites(env, line, parser, i))

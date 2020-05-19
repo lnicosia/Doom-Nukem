@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:17:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/19 12:28:20 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 16:10:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int i)
 				parser->line_count,
 				env->sectors[parser->sectors_count].textures[i],
 				parser->sectors_count));
-	*line = skip_number(*line);
+		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
 		return (custom_error("Invalid wall %d texture align.x\n", i));
@@ -77,7 +77,7 @@ int i)
 	return (parse_current_texture2(env, line, parser, i));
 }
 
-int		parse_sector_textures2(char **line, t_map_parser *parser)
+int		parse_sector_textures2(t_env *env, char **line, t_map_parser *parser)
 {
 	int	i;
 
@@ -114,8 +114,8 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	if (parser->sector_textures_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more textures",
 		parser->sectors_count, parser));
-	if (parser->sector_textures_count > parser->sector_vertices_count)
+		if (parser->sector_textures_count > parser->sector_vertices_count)
 		return (sector_error("has too much textures", parser->sectors_count,
 		parser));
-	return (parse_sector_textures2(line, parser));
+		return (parse_sector_textures2(env, line, parser));
 }
