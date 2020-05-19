@@ -57,6 +57,11 @@ void	get_wall_x(t_drawer *drawer, t_render *render, t_env *env)
 	if (env->options.mipmapping)
 		render->map_lvl = get_current_wall_map(render->texture, render->z,
 		render, env);
+	else
+	{
+		render->texture_w = env->wall_textures[render->texture].surface->w;
+		render->texture_h = env->wall_textures[render->texture].surface->h;
+	}
 	drawer->x = render->alpha
 		* render->camera->v[render->sector->num][render->i].
 		texture_scale[render->map_lvl].x * render->z
