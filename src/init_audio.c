@@ -48,6 +48,12 @@ int     init_sounds(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[2].shot) != FMOD_OK)
 		return (custom_error("Failed to load raygun_shot.wav\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/gun_shot.wav",
+		FMOD_CREATESAMPLE, 0, &env->weapons[3].shot) != FMOD_OK)
+		return (custom_error("Failed to load raygun_shot.wav\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/gun_shot.wav",
+		FMOD_CREATESAMPLE, 0, &env->weapons[4].shot) != FMOD_OK)
+		return (custom_error("Failed to load raygun_shot.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/footstep.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.footstep) != FMOD_OK)
 		return (custom_error("Failed to load footsteps.wav\n"));

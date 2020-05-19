@@ -34,8 +34,11 @@ void		free_audio(t_env *env, int i)
 {
 	while (i < NB_WEAPONS)
 	{
-		if (FMOD_Sound_Release(env->weapons[i].shot))
-			custom_error("FMOD_Sound_Relase error\n");
+		if (env->weapons[i].shot)
+		{
+			if (FMOD_Sound_Release(env->weapons[i].shot))
+				custom_error("FMOD_Sound_Relase error\n");
+		}
 		i++;
 	}
 	i = 0;
