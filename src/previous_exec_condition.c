@@ -60,7 +60,9 @@ int		previous_exec_condition2(t_env *env)
 			shoot_events[env->selected_wall_sprite_sprite]
 			[env->editor.selected_event].nb_exec_conditions - 1;
 	}
-	return (previous_exec_condition3(env));
+	else
+		return (previous_exec_condition3(env));
+	return (0);
 }
 
 int		previous_exec_condition(void *penv)
@@ -83,7 +85,8 @@ int		previous_exec_condition(void *penv)
 				selected_enemy].death_events[env->editor.selected_event].
 				nb_exec_conditions - 1;
 		}
-		return (previous_exec_condition2(env));
+		else
+			return (previous_exec_condition2(env));
 	}
 	return (0);
 }

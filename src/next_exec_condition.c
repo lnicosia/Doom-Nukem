@@ -63,7 +63,9 @@ int		next_exec_condition2(int sector, t_env *env)
 		[env->editor.selected_event].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 	}
-	return (next_exec_condition3(sector, env));
+	else
+		return (next_exec_condition3(sector, env));
+	return (0);
 }
 
 int		next_exec_condition(void *penv)
@@ -87,5 +89,7 @@ int		next_exec_condition(void *penv)
 			death_events[env->editor.selected_events].nb_exec_conditions)
 			env->editor.selected_exec_condition = 0;
 	}
-	return (next_exec_condition2(sector, env));
+	else
+		return (next_exec_condition2(sector, env));
+	return (0);
 }

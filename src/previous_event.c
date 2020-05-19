@@ -41,17 +41,21 @@ int		previous_event2(int sector, t_env *env)
 	if (env->selected_wall_sprite_wall != -1)
 	{
 		if (env->editor.selected_events == 0)
+		{
 			env->editor.selected_event = env->sectors[env->
 				editor.selected_sector].wall_sprites[env->
 				selected_wall_sprite_wall].nb_press_events[env->
 				selected_wall_sprite_sprite] - 1;
+		}
 		else if (env->editor.selected_events == 1)
 			env->editor.selected_event = env->sectors[env->
 				editor.selected_sector].wall_sprites[env->
 				selected_wall_sprite_wall].nb_shoot_events[env->
 				selected_wall_sprite_sprite] - 1;
 	}
-	return (previous_event3(sector, env));
+	else
+		return (previous_event3(sector, env));
+	return (0);
 }
 
 int		previous_event(void *penv)
@@ -63,8 +67,9 @@ int		previous_event(void *penv)
 	sector = -1;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
-	env->editor.selected_event -= env->editor.selected_event > 0 ? 1 : 0;
-	if (env->editor.selected_event <= 0)
+	if (env->editor.selected_event > 0)
+		env->editor.selected_event--;
+	else
 	{
 		if (env->selected_enemy != -1)
 		{
@@ -78,7 +83,8 @@ int		previous_event(void *penv)
 		else if (env->selected_object != -1)
 			env->editor.selected_event = env->objects[env->selected_object].
 			nb_collision_events - 1;
-		return (previous_event2(sector, env));
+		else
+			return (previous_event2(sector, env));
 	}
 	return (0);
 }
