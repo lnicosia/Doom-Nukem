@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:50:56 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/15 20:00:13 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 12:43:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		check_sound_format_validity(t_map_parser *parser)
 	ft_strdel(&(parser->tmp));
 	size += 8;
 	if (create_new_sound_file(parser, size))
-			return(custom_error("Error while creating the new file\n"));
+		return (custom_error("Error while creating the new file\n"));
 	return (0);
 }
 
@@ -71,9 +71,9 @@ int		parse_sound_name(t_map_parser *parser)
 	&& ft_strlen(parser->resource_name) < 100)
 	{
 		if (*(parser->tmp) == '\n')
-			break;
+			break ;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
-		  	parser->tmp)))
+		parser->tmp)))
 			return (ft_perror("Could not realloc name in parse sound\n"));
 	}
 	if (*(parser->tmp) != '\n')
@@ -83,28 +83,35 @@ int		parse_sound_name(t_map_parser *parser)
 	return (0);
 }
 
+int		create_file_from_map(t_map_parser *parser)
+{
+	if (!(parser->tmp = ft_strnew(1)))
+		return (ft_perror("Memalloc failed\n"));
+	if (!(parser->line = ft_strnew(0)))
+		return (ft_perror("Coud not malloc\n"));
+	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
+	&& ft_strlen(parser->line) < 100)
+	{
+		if (*(parser->tmp) == '\n')
+			break ;
+		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
+			return (ft_perror("Could not malloc line in parse sound\n"));
+	}
+	if (*(parser->tmp) != '\n')
+		return (ft_perror("Expected a '\\n' at the end of sound file\n"));
+	if (check_sound_format_validity(parser))
+		return (custom_error("Error while parsing sound validity\n"));
+	return (0);
+}
+
 int		parse_sound(t_env *env, t_map_parser *parser)
 {
 	if (parse_sound_name(parser))
 		return (ft_perror("Error while pârsing sound name\n"));
 	if (check_existing_sounds(env, parser->resource_name))
 	{
-		if (!(parser->tmp = ft_strnew(1)))
-			return (ft_perror("Memalloc failed\n"));
-		if (!(parser->line = ft_strnew(0)))
-			return (ft_perror("Coud not malloc\n"));
-		while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
-		&& ft_strlen(parser->line) < 100)
-		{
-			if (*(parser->tmp) == '\n')
-				break;
-			if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
-				return (ft_perror("Could not malloc line in parse sound file\n"));
-		}
-		if (*(parser->tmp) != '\n')
-			return (ft_perror("Expected a '\\n' at the end of sound file\n"));
-		if (check_sound_format_validity(parser))
-			return (custom_error("Error while parsing sound format validity\n"));
+		if (create_file_from_map(parser))
+			return (custom_error("Failed to create sound file from map\n"));
 	}
 	else
 	{

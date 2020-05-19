@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:09:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/12 11:09:50 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 11:39:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		parse_floor4(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("floor scale.x", parser));
 	if (**line && **line != ' ')
-		return (invalid_char("after floor align.y", "a digit or space(s)",
+		return (invalid_char("after floor align.y", "a digit or space",
 			**line, parser));
 	return (parse_floor5(env, line, parser));
 }

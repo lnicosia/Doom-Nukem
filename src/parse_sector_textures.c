@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:17:34 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/12 13:01:48 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 12:28:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int i)
 	if (valid_double(*line, parser))
 		return (custom_error("Invalid for wall %d texture scale.y\n", i));
 	env->sectors[parser->sectors_count].scale[i].y = ft_atof(*line);
-		return (parse_current_texture3(env, line, parser, i));
+	return (parse_current_texture3(env, line, parser, i));
 }
 
 int		parse_current_texture(t_env *env, char **line, t_map_parser *parser,
@@ -79,6 +79,19 @@ int i)
 
 int		parse_sector_textures2(char **line, t_map_parser *parser)
 {
+	int	i;
+
+	i = 0;
+	while (i < parser->sector_textures_count)
+	{
+		if (parse_current_texture(env, line, parser, i))
+			return (-1);
+		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
+		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
+		i, env))
+			return (-1);
+		i++;
+	}
 	(*line)++;
 	if (!**line)
 		return (missing_data("sprite and light", parser));
@@ -91,8 +104,6 @@ int		parse_sector_textures2(char **line, t_map_parser *parser)
 
 int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 {
-	int	i;
-
 	if (!**line)
 		return (missing_data("textures, sprite and light", parser));
 	if (**line != '(')
@@ -103,20 +114,8 @@ int		parse_sector_textures(t_env *env, char **line, t_map_parser *parser)
 	if (parser->sector_textures_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more textures",
 		parser->sectors_count, parser));
-		if (parser->sector_textures_count > parser->sector_vertices_count)
+	if (parser->sector_textures_count > parser->sector_vertices_count)
 		return (sector_error("has too much textures", parser->sectors_count,
 		parser));
-		i = 0;
-	while (i < parser->sector_textures_count)
-	{
-		if (parse_current_texture(env, line, parser, i))
-			return (-1);
-	
-		if (set_sector_wall_map_array(&env->sectors[parser->sectors_count],
-		&env->wall_textures[env->sectors[parser->sectors_count].textures[i]],
-		i, env))
-			return (-1);
-		i++;
-	}
 	return (parse_sector_textures2(line, parser));
 }

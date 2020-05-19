@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_current_sprite.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:53:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:53:43 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 11:09:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ t_map_parser *parser, t_point index)
 
 	(*line)++;
 	if (valid_int(*line, parser))
-		return (custom_error("Invalid int for wall %d sprite texture\n",
-		index.x));
+		return (custom_error("Invalid int for wall sprite texture\n"));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse >= MAX_OBJECTS)
 		return (custom_error_with_line("Invalid sprite texture",
