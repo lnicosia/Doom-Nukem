@@ -35,7 +35,7 @@ void	init_shotgun_weapon(t_env *env)
 	env->weapons[1].name = "Shotgun";
 	env->weapons[1].possessed = 0;
 	env->weapons[1].weapon_switch = 0;
-	env->weapons[1].first_sprite = 0;
+	env->weapons[1].first_sprite = env->hud_start + 0;
 	env->weapons[1].nb_sprites = 15;
 	env->weapons[1].ammo_type = SHELL;
 	env->weapons[1].ammo = 25;
@@ -52,7 +52,7 @@ void	init_raygun_weapon(t_env *env)
 {
 	env->weapons[2].name = "Raygun";
 	env->weapons[2].possessed = 0;
-	env->weapons[2].first_sprite = 15;
+	env->weapons[2].first_sprite = env->hud_start + 15;
 	env->weapons[2].ammo_type = ENERGY;
 	env->weapons[2].nb_sprites = 7;
 	env->weapons[2].ammo = 40;
