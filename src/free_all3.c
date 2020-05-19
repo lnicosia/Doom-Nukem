@@ -42,18 +42,27 @@ void		free_audio(t_env *env, int i)
 		i++;
 	}
 	i = 0;
-	if (FMOD_Sound_Release(env->sound.footstep))
-		custom_error("FMOD_Sound_Relase error\n");
+	if (env->sound.footstep)
+	{
+		if (FMOD_Sound_Release(env->sound.footstep))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
 	while (i < NB_MUSICS)
 	{
-		if (FMOD_Sound_Release(env->sound.musics[i].music))
-			custom_error("FMOD_Sound_Relase error\n");
+		if (env->sound.musics[i].music)
+		{
+			if (FMOD_Sound_Release(env->sound.musics[i].music))
+				custom_error("FMOD_Sound_Relase error\n");
+		}
 		i++;
 	}
-	if (FMOD_System_Close(env->sound.system))
-		custom_error("FMOD_System_Close error\n");
-	if (FMOD_System_Release(env->sound.system))
-		custom_error("FMOD_System_Release error\n");
+	if (env->sound.system)
+	{
+		if (FMOD_System_Close(env->sound.system))
+			custom_error("FMOD_System_Close error\n");
+		if (FMOD_System_Release(env->sound.system))
+			custom_error("FMOD_System_Release error\n");
+	}
 }
 
 void		free_objects(t_env *env)
