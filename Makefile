@@ -79,7 +79,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
 				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
-				draw_game2.c \
+				draw_game2.c entity_hit.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \

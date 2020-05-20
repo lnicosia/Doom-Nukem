@@ -39,7 +39,10 @@ int		doom4(t_env *env)
 int		doom3(t_env *env)
 {
 	if (env->player.health <= 0)
-		death(env);
+	{
+		if (death(env))
+			return (custom_error("Crash from death\n"));
+	}
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keys(&env->confirmation_box, env))

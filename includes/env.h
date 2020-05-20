@@ -1112,6 +1112,8 @@ int						play_sound(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
 int						play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
+int						player_hit_sound(t_env *env);
+int						enemy_hit_sound(int enemy, t_env *env);
 int						player_combat_state(t_env *env);
 int						next_event(void *param);
 int						previous_event(void *param);

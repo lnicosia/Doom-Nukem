@@ -822,6 +822,7 @@ typedef struct		s_sound
 	FMOD_CHANNEL	*enemies_reaction_chan;
 	FMOD_CHANNEL	*enemies_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
+	FMOD_CHANNEL	*explosions_chan;
 	t_music_list	musics[NB_MUSICS];
 	FMOD_SOUND		*footstep;
 	FMOD_SOUND		*player_hit;

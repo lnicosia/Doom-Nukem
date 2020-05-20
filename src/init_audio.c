@@ -101,7 +101,7 @@ int		init_audio(t_env *env)
 		return (custom_error("Could not init musics\n"));
 	if (init_sounds(env) != 0)
 		return (custom_error("Could not init sounds\n"));
-	env->sound.music_vol = 0.3;
+	env->sound.music_vol = 0;
 	env->sound.ambient_vol = 0.3;
 	env->sound.musics[0].music_name = "Mt Erebus";
 	env->sound.musics[1].music_name = "Bim Bam Boum";

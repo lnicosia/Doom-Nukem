@@ -60,6 +60,8 @@ t_env *env)
 		- env->player.armor, 0, projectile->damage);
 		env->player.armor -= ft_clamp(projectile->damage,
 		0, env->player.armor);
+		if (player_hit_sound(env))
+			return (-1);
 	}
 	*tmp = ft_lstdelnode(&env->projectiles, *tmp);
 	return (0);

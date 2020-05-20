@@ -29,6 +29,9 @@ int		change_music(t_env *env, int observing_enemies)
 			env->sound.musics[env->sound.fight_music].music,
 			env->sound.music_vol))
 			return (-1);
+		if (play_sound(env, &env->sound.enemies_reaction_chan,
+			env->sound.monster_nearby, env->sound.ambient_vol))
+			return (-1);
 	}
 	if (env->player.in_combat == 1 && observing_enemies == env->nb_enemies)
 	{
@@ -77,17 +80,18 @@ int		player_combat_state(t_env *env)
 ** Applies the damage from an enemy with aimbot or a melee fighter to the player
 */
 
-void	damage_player(t_env *env, int damage)
+int		damage_player(t_env *env, int damage)
 {
 	if (env->player.invincible)
-		return ;
+		return (0);
 	env->player.hit = 1;
 	env->player.health -= ft_clamp(damage * env->difficulty - env->player.armor,
 		0, damage);
 	env->player.armor -= ft_clamp(damage * env->difficulty, 0,
 		env->player.armor);
-	if (env->player.health < 0)
-		env->player.health = 0;
+	if (player_hit_sound(env))
+		return (-1);
+	return (0);
 }
 
 /*
@@ -101,6 +105,9 @@ int		kamikaze_death(t_env *env, int i)
 		&& env->enemies[i].death_events
 		&& start_event(&env->enemies[i].death_events,
 		&env->enemies[i].nb_death_events, env))
+		return (-1);
+	if (play_sound(env, &env->sound.enemies_reaction_chan,
+		env->sound.lost_soul_death, env->sound.ambient_vol))
 		return (-1);
 	env->enemies[i].exists = 0;
 	return (0);
@@ -126,9 +133,13 @@ int		enemy_melee_hit(t_env *env)
 			if (env->enemies[i].behavior == MELEE_KAMIKAZE ||
 				env->enemies[i].behavior == MELEE_FIGHTER)
 			{
-				damage_player(env, env->enemies[i].damage);
+				if (damage_player(env, env->enemies[i].damage))
+					return (-1);
 				if (env->enemies[i].behavior == MELEE_KAMIKAZE)
-					kamikaze_death(env, i);
+				{
+					if (kamikaze_death(env, i))
+						return (-1);
+				}
 			}
 		}
 		else
