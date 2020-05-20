@@ -51,8 +51,11 @@ t_env *env)
 	{
 		if ((*events)[*i].uses >= (*events)[*i].max_uses)
 		{
-			*events = (t_event*)ft_delindex((*events),
-			sizeof(t_event) * (*size), sizeof(t_event), sizeof(t_event) * *i);
+			if (*size > 1)
+				*events = (t_event*)ft_delindex((*events), sizeof(t_event)
+				* (*size), sizeof(t_event), sizeof(t_event) * *i);
+			else
+				ft_memdel((void**)events);
 			(*size)--;
 			if (*size > 0 && !(*events))
 				return (ft_perror("Could not delindex from events array"));

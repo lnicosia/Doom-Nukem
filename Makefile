@@ -452,7 +452,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 		  #$(OPTI_FLAGS) \
 	
 #
