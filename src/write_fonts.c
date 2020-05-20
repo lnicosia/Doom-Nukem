@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_fonts.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:16:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 12:18:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 13:39:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		write_font(int file, int fd, char *name)
 	if (!(size = find_size(name)))
 		return (custom_error("Couldn't find the font file size\n"));
 	ft_dprintf(fd, "%s\n%d\n", name, size);
-	//ft_printf("data: %s\n%d\n", name, size);
 	while ((ret = (read(file, resource, 10000))) > 0)
 	{
 		check_size += ret;

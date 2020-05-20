@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   texture_selection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:10:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 11:28:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 13:14:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "draw.h"
 
-int		texture_tab2(t_env *env)
+int	texture_tab2(t_env *env)
 {
 	int	i;
 
@@ -21,14 +21,15 @@ int		texture_tab2(t_env *env)
 	while (++i < MAX_SKYBOX)
 	{
 		if (draw_button(env, env->editor.skyboxes[i],
-			env->editor.skyboxes[i].str))
+		env->editor.skyboxes[i].str))
 			return (-1);
 	}
 	return (0);
 }
-int		texture_tab(t_env *env, int nb_slots)
+
+int	texture_tab(t_env *env, int nb_slots)
 {
-	int mod;
+	int	mod;
 	int	test;
 	int	i;
 
@@ -42,12 +43,12 @@ int		texture_tab(t_env *env, int nb_slots)
 	while (test % mod != 0)
 		test++;
 	draw_rectangle(env, new_rectangle(0, 0xFF333333, 1, 5),
-		env->editor.texture_selection_pos, env->editor.texture_selection_size);
+	env->editor.texture_selection_pos, env->editor.texture_selection_size);
 	i = -1;
 	while (++i < MAX_WALL_TEXTURE)
 	{
 		if (draw_button(env, env->editor.textures[i],
-			env->editor.textures[i].str))
+		env->editor.textures[i].str))
 			return (-1);
 	}
 	return (texture_tab2(env));

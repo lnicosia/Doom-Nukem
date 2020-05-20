@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/19 14:24:11 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/20 12:35:26 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -194,7 +194,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c draw_editor_tab_utils.c\
 		update_sector_input_box.c editor_options.c draw_conditions_tab2.c\
-		editor_3d_tab_keys2.c draw_editor_general_tab.c \
+		editor_3d_tab_keys2.c draw_editor_general_tab.c target_panel2.c\
 		draw_editor_sector_tab.c editor_ceiling_tabs3.c editor_hud4.c\
 		editor_object_sector_tabs.c editor_options2.c editor_enemy_tabs2.c \
 		editor_wall_tabs4.c print_events_tabs3.c print_events_tabs4.c \
@@ -335,7 +335,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_walls_textures.c free_resources_init.c \
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
-		   init_ttf2.c check_fonts.c free_all4.c\
+		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
 		   check_existing_sounds.c map_parse_textures.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
@@ -451,7 +451,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
 		  $(OPTI_FLAGS) \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking

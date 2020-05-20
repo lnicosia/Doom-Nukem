@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 11:45:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 11:53:28 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 13:29:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			check_duplicate_vertices(t_sector sector, t_env *env)
 			env->vertices[sector.vertices[j]].y))
 				return (custom_error("Vertex %d is a duplicate of vertex %d",
 				sector.vertices[j], sector.vertices[i]));
-			j++;
+				j++;
 		}
 		i++;
 	}

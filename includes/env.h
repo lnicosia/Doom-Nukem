@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/19 14:58:25 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 13:36:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -788,6 +788,7 @@ void					reset_render_utils(t_camera *camera, t_env *env);
 
 void					set_camera(t_camera *camera, t_env *env);
 int						valid_map(t_env *env);
+int						check_valid_map_start_data(t_env *env);
 int						is_sector_concave(t_sector sector, t_env *env);
 int						check_intersection_with_sector(t_sector sector,
 t_env *env, t_vertex v1, t_vertex v2);

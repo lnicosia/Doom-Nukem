@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_skybox.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 18:09:18 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/28 10:24:13 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/20 12:19:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	skybox_loop(t_render *skybox, t_skybox_data wall_data, t_render *render,
 	t_vline			vline;
 	t_skybox_drawer	drawer;
 
+	vline.start = 0;
+	vline.end = 0;
+	vline.x = 0;
+	vline.draw_wall = 0;
+	vline.color = 0;
 	drawer.v1 = env->skybox[skybox->i];
 	drawer.render = render;
 	drawer.skybox = skybox;

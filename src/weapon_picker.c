@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon_picker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 15:17:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 10:43:05 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 13:39:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int		draw_weapon_picker(t_env *env)
 	t_point		text_size;
 
 	draw_rectangle(env, new_rectangle(0xc8ccd0, 0xc8ccd0, 1, 0),
-	env->editor.weapon_picker.pos,
-	env->editor.weapon_picker.size);
+	env->editor.weapon_picker.pos, env->editor.weapon_picker.size);
 	draw_rectangle(env, new_rectangle(0xFFf1f2f3, 0xc8ccd0, 1, 0),
 	env->editor.weapon_picker.pos,
 	new_point(env->editor.weapon_picker.size.x - 200,
