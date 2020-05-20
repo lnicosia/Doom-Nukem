@@ -12,6 +12,7 @@
 
 #include "pop_events.h"
 #include "events.h"
+#include "free.h"
 
 int		func_event(t_event *curr, t_env *env)
 {
@@ -75,10 +76,14 @@ int		execute_event(t_event *event, t_env *env)
 int		pop_event(t_events_executer *executer, t_env *env)
 {
 	int		res;
+	t_event	*event;
 
-	res = execute_event((t_event*)executer->tmp->content, env);
+	event = (t_event*)executer->tmp->content;
+	res = execute_event(event, env);
 	if (res == 1)
 	{
+		if (event->max_uses > 0 && event->uses >= event->max_uses)
+			free_event(event);
 		ft_lstpopfront(&executer->tmp);
 		if (executer->prec)
 			executer->prec->next = executer->tmp;
