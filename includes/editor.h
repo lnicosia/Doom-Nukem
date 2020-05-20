@@ -392,6 +392,10 @@ typedef struct				s_editor
 	int						creating_exec_condition;
 	int						selecting_event;
 	int						just_selected;
+	int						enemy_selection_just_closed;
+	int						object_selection_just_closed;
+	int						texture_selection_just_closed;
+	int						wall_sprite_selection_just_closed;
 	t_point					texture_selection_size;
 	t_point					object_selection_size;
 	t_point					enemy_selection_size;
