@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 13:02:18 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/16 14:14:57 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 15:55:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ int	print_sector_tab(t_env *env)
 		if (print_ceiling_sector_tab(env))
 			return (-1);
 	}
-	return (0);
+	return (print_sector_tab2(env));
 }
