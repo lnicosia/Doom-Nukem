@@ -13,11 +13,16 @@
 #include "events.h"
 #include "wall_sprite_remover.h"
 
-int		add_floor_projectile_bullet_hole3(t_sector *sector, t_env *env)
+int		add_floor_projectile_bullet_hole4(t_sector *sector, t_env *env)
 {
 	t_floor_sprite_remover	*param;
 
-	sector->floor_sprites.nb_sprites++;
+	if (!(env->floor_bullet_holes_events =
+		(t_event*)ft_realloc(env->floor_bullet_holes_events,
+		sizeof(t_event) * env->nb_floor_bullet_holes_events,
+		sizeof(t_event) * (env->nb_floor_bullet_holes_events + 1))))
+		return (ft_perror("Could not realloc bullet_holes events"
+		"to make bullet hole fade"));
 	if (!(param = (t_floor_sprite_remover*)ft_memalloc(sizeof(*param))))
 		return (ft_perror("Could not malloc wall sprite remover"));
 	param->sector = sector->num;
@@ -34,15 +39,9 @@ int		add_floor_projectile_bullet_hole3(t_sector *sector, t_env *env)
 	return (0);
 }
 
-int		add_floor_projectile_bullet_hole2(t_sector *sector,
+int		add_floor_projectile_bullet_hole3(t_sector *sector,
 t_projectile *projectile, t_env *env)
 {
-	if (!(env->floor_bullet_holes_events =
-				(t_event*)ft_realloc(env->floor_bullet_holes_events,
-					sizeof(t_event) * env->nb_floor_bullet_holes_events,
-					sizeof(t_event) * (env->nb_floor_bullet_holes_events + 1))))
-		return (ft_perror("Could not realloc bullet_holes events"
-		"to make bullet hole fade"));
 	sector->floor_sprites.sprite[sector->floor_sprites.nb_sprites] =
 	BULLET_HOLE;
 	sector->floor_sprites.scale[sector->floor_sprites.nb_sprites] =
@@ -61,31 +60,58 @@ t_projectile *projectile, t_env *env)
 		env->object_sprites[sector->floor_sprites.
 		sprite[sector->floor_sprites.nb_sprites]].size[0].y /
 		sector->floor_sprites.scale[sector->floor_sprites.nb_sprites].y;
-	return (add_floor_projectile_bullet_hole3(sector, env));
+	sector->floor_sprites.nb_sprites++;
+	return (add_floor_projectile_bullet_hole4(sector, env));
+}
+
+int		add_floor_projectile_bullet_hole2(t_sector *sector,
+t_projectile *projectile, t_env *env)
+{
+	if (!(sector->floor_sprites.nb_press_events =
+		(size_t*)ft_realloc(sector->floor_sprites.nb_press_events,
+		sizeof(size_t) * sector->floor_sprites.nb_sprites,
+		sizeof(size_t) * (sector->floor_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc floor sprites nb press events"));
+	if (!(sector->floor_sprites.nb_shoot_events =
+		(size_t*)ft_realloc(sector->floor_sprites.nb_shoot_events,
+		sizeof(size_t) * sector->floor_sprites.nb_sprites,
+		sizeof(size_t) * (sector->floor_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc floor sprites nb shoot events"));
+	if (!(sector->floor_sprites.shoot_events =
+		(t_event**)ft_realloc(sector->floor_sprites.shoot_events,
+		sizeof(t_event*) * sector->floor_sprites.nb_sprites,
+		sizeof(t_event*) * (sector->floor_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc floor sprites shoot events"));
+	if (!(sector->floor_sprites.press_events =
+		(t_event**)ft_realloc(sector->floor_sprites.press_events,
+		sizeof(t_event*) * sector->floor_sprites.nb_sprites,
+		sizeof(t_event*) * (sector->floor_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc floor sprites press events"));
+	return (add_floor_projectile_bullet_hole3(sector, projectile, env));
 }
 
 int		add_floor_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env)
 {
 	if (!(sector->floor_sprites.sprite =
-				(int*)ft_realloc(sector->floor_sprites.sprite,
-					sizeof(int) * sector->floor_sprites.nb_sprites,
-					sizeof(int) * (sector->floor_sprites.nb_sprites + 1))))
+		(int*)ft_realloc(sector->floor_sprites.sprite,
+		sizeof(int) * sector->floor_sprites.nb_sprites,
+		sizeof(int) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc floor sprites indexes"));
 	if (!(sector->floor_sprites.pos =
-				(t_v2*)ft_realloc(sector->floor_sprites.pos,
-					sizeof(t_v2) * sector->floor_sprites.nb_sprites,
-					sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
+		(t_v2*)ft_realloc(sector->floor_sprites.pos,
+		sizeof(t_v2) * sector->floor_sprites.nb_sprites,
+		sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc floor sprites pos"));
 	if (!(sector->floor_sprites.scale =
-				(t_v2*)ft_realloc(sector->floor_sprites.scale,
-					sizeof(t_v2) * sector->floor_sprites.nb_sprites,
-					sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
+		(t_v2*)ft_realloc(sector->floor_sprites.scale,
+		sizeof(t_v2) * sector->floor_sprites.nb_sprites,
+		sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc floor sprites scale"));
 	if (!(sector->floor_sprites_scale =
-				(t_v2*)ft_realloc(sector->floor_sprites_scale,
-					sizeof(t_v2) * sector->floor_sprites.nb_sprites,
-					sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
+		(t_v2*)ft_realloc(sector->floor_sprites_scale,
+		sizeof(t_v2) * sector->floor_sprites.nb_sprites,
+		sizeof(t_v2) * (sector->floor_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc floor sprites scale"));
 	return (add_floor_projectile_bullet_hole2(sector, projectile, env));
 }

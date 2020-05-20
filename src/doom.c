@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 22:39:27 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:50:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ int		doom4(t_env *env)
 int		doom3(t_env *env)
 {
 	if (env->player.health <= 0)
-		death(env);
+	{
+		if (death(env))
+			return (custom_error("Crash from death\n"));
+	}
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keys(&env->confirmation_box, env))
@@ -78,7 +81,8 @@ int		doom2(t_env *env)
 			return (custom_error("Explosion collision player error"));
 		if (enemy_melee_hit(env))
 			return (custom_error("Collision with a melee enemy failed\n"));
-		player_combat_state(env);
+		if (player_combat_state(env))
+			return (custom_error("Updating player combat state failed\n"));
 		if (keys(env))
 			return (custom_error("Keys failed\n"));
 	}
@@ -100,15 +104,16 @@ int		doom(t_env *env)
 		if (env->in_game && !env->menu & !env->option)
 		{
 			if (doom_poll_event(env))
-				return (crash("", env));
+				return (crash("Doom events failed", env));
 			if (doom2(env))
-				return (crash("", env));
+				return (crash("Doom part 2 failed", env));
 			if (doom3(env))
-				return (crash("", env));
+				return (crash("Doom part 3 failed", env));
 		}
 		if (doom4(env))
-			return (crash("", env));
-		FMOD_System_Update(env->sound.system);
+			return (crash("Doom part 4 failed", env));
+		if (FMOD_System_Update(env->sound.system))
+			return (custom_error("FMOD_System_Update error\n"));
 	}
 	free_all(env);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:50:56 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/19 12:43:26 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:39:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,49 @@ int		create_new_sound_file(t_map_parser *parser, int size)
 	int	fd;
 
 	fd = 0;
+	ft_printf("'%s' was missing in current directory. Extracting..\n",
+	parser->resource_name);
 	if ((fd = open(parser->resource_name, O_WRONLY | O_CREAT
 		| O_TRUNC, 0000700)) < 0)
 		return (ft_perror("Could not open sound file\n"));
 	ft_strdel(&(parser->resource_name));
 	if (!(parser->tmp = ft_strnew(size)))
+	{
+		if (close(fd))
+			return (ft_perror("Memalloc failed and could not close the"
+			" sound file\n"));
 		return (ft_perror("Memalloc failed\n"));
+	}
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
+	{
+		if (close(fd))
+			return (ft_perror("Read failed and could not close the"
+			" sound file\n"));
 		return (ft_perror("Read for sound failed\n"));
+	}
 	write(fd, parser->tmp, size);
 	ft_strdel(&(parser->tmp));
 	if (!(parser->tmp = ft_strnew(1)))
+	{
+		if (close(fd))
+			return (ft_perror("Memalloc failed and could not close the"
+			" sound file\n"));
 		return (ft_perror("Memalloc failed\n"));
-	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
-		|| *(parser->tmp) != '\n')
+	}
+	if ((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
+	{
+		if (close(fd))
+			return (ft_perror("read failed and could not close the"
+			" sound file\n"));
 		return (ft_perror("Invalid sound file\n"));
+	}
+	if (*(parser->tmp) != '\n')
+	{
+		if (close(fd))
+			return (ft_perror("Missing '\\n' and could not close the"
+			" sound file\n"));
+		return (custom_error("Missing '\\n' in sound file\n"));
+	}
 	ft_strdel(&(parser->tmp));
 	ft_strdel(&(parser->line));
 	if (close(fd))
@@ -47,12 +75,11 @@ int		check_sound_format_validity(t_map_parser *parser)
 
 	size = 0;
 	if (valid_int(parser->line, parser))
-		return (ft_perror("Invalid size for sound\n"));
+		return (custom_error("Invalid size for sound\n"));
 	size = ft_atoi(parser->line);
 	if (size < 44)
-		return (ft_perror("Invalid size for sound, size is too small\n"));
+		return (custom_error("Invalid size for sound, size is too small\n"));
 	ft_strdel(&(parser->tmp));
-	size += 8;
 	if (create_new_sound_file(parser, size))
 		return (custom_error("Error while creating the new file\n"));
 	return (0);
@@ -63,7 +90,6 @@ int		parse_sound_name(t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed\n"));
-	ft_printf("sound name: %s\n", parser->resource_name);
 	ft_strdel(&(parser->resource_name));
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_perror("Coud not malloc\n"));
@@ -73,13 +99,13 @@ int		parse_sound_name(t_map_parser *parser)
 		if (*(parser->tmp) == '\n')
 			break ;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
-		parser->tmp)))
-			return (ft_perror("Could not realloc name in parse sound\n"));
+		  	parser->tmp)))
+			return (custom_error("Could not realloc name in parse sound\n"));
 	}
 	if (*(parser->tmp) != '\n')
-		return (ft_perror("Expected a '\\n' at the end of sound file name\n"));
+		return (custom_error("Expected a '\\n' at the end of sound file"
+		" name\n"));
 	ft_strdel(&(parser->tmp));
-	ft_printf("sound name: %s\n", parser->resource_name);
 	return (0);
 }
 
@@ -107,7 +133,7 @@ int		create_file_from_map(t_map_parser *parser)
 int		parse_sound(t_env *env, t_map_parser *parser)
 {
 	if (parse_sound_name(parser))
-		return (ft_perror("Error while pârsing sound name\n"));
+		return (ft_perror("Error while parsing sound name\n"));
 	if (check_existing_sounds(env, parser->resource_name))
 	{
 		if (create_file_from_map(parser))

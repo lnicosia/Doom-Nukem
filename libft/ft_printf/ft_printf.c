@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 static void	(*const g_printers[128])(t_data *data) =
 {
@@ -54,6 +55,7 @@ void		init_data(t_data *data, int fd)
 	int	i;
 
 	i = -1;
+	ft_bzero(data, sizeof(*data));
 	data->i = 0;
 	data->ret = 0;
 	data->mode = STDOUT;

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 10:05:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/18 19:20:28 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:43:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,11 @@ int		keys(t_env *env)
 {
 	if (env->inputs.forward || env->inputs.backward || env->inputs.left
 			|| env->inputs.right)
-		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
-			env->sound.ambient_vol);
+	{
+		if (play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
+			env->sound.ambient_vol))
+			return (-1);
+	}
 	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
 		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
 		|| env->crouch.on_going || env->inputs.ctrl)

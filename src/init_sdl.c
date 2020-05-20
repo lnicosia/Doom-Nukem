@@ -17,7 +17,9 @@ int		set_sdl2(t_env *env)
 	if (SDL_RenderCopy(env->sdl.renderer, env->sdl.texture, NULL, NULL) != 0)
 		return (custom_error("SDL_RendererCopy error: %s\n", SDL_GetError()));
 	SDL_RenderPresent(env->sdl.renderer);
-	SDL_SetWindowDisplayMode(env->sdl.window, NULL);
+	if (SDL_SetWindowDisplayMode(env->sdl.window, NULL))
+		return (custom_error("SDL_SetWindowDisplayMode error: %s\n",
+		SDL_GetError()));
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	return (0);
 }
@@ -51,7 +53,7 @@ int		set_sdl(t_env *env)
 int		init_sdl(t_env *env)
 {
 	ft_printf("Initializing SDL..\n");
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return (custom_error("SDL_Init error: %s\n", SDL_GetError()));
 	env->time.milli_s = 0;
 	if (set_sdl(env))

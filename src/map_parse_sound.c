@@ -29,8 +29,7 @@ int		check_sound_number_validity(t_map_parser *parser, t_env *env)
 	line++;
 	if (valid_int(line, parser))
 		return (custom_error("Invalid int for sounds number\n"));
-	env->resource.nb_sound = atoi(line);
-	ft_printf("nb sounds: %d\n", env->resource.nb_sound);
+	env->resource.nb_sound = ft_atoi(line);
 	if (env->resource.nb_sound > NB_MUSICS + NB_SOUNDS
 	|| env->resource.nb_sound < 0)
 		return (custom_error("Wrong number of sounds\n"));

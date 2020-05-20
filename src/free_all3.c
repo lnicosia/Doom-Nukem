@@ -14,12 +14,12 @@
 
 void		free_all_sdl_relative(t_env *env)
 {
-	if (env->sdl.window)
-		SDL_DestroyWindow(env->sdl.window);
-	if (env->sdl.renderer)
-		SDL_DestroyRenderer(env->sdl.renderer);
 	if (env->sdl.texture)
 		SDL_DestroyTexture(env->sdl.texture);
+	if (env->sdl.renderer)
+		SDL_DestroyRenderer(env->sdl.renderer);
+	if (env->sdl.window)
+		SDL_DestroyWindow(env->sdl.window);
 	if (env->sdl.texture_pixels)
 		ft_memdel((void**)&env->sdl.texture_pixels);
 	if (env->zbuffer)
@@ -34,18 +34,75 @@ void		free_audio(t_env *env, int i)
 {
 	while (i < NB_WEAPONS)
 	{
-		FMOD_Sound_Release(env->weapons[i].shot);
+		if (env->weapons[i].shot)
+		{
+			if (FMOD_Sound_Release(env->weapons[i].shot))
+				custom_error("FMOD_Sound_Relase error\n");
+		}
 		i++;
 	}
 	i = 0;
-	FMOD_Sound_Release(env->sound.footstep);
+	if (env->sound.footstep)
+	{
+		if (FMOD_Sound_Release(env->sound.footstep))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.player_hit)
+	{
+		if (FMOD_Sound_Release(env->sound.player_hit))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.player_death)
+	{
+		if (FMOD_Sound_Release(env->sound.player_death))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.cyberdemon_death)
+	{
+		if (FMOD_Sound_Release(env->sound.cyberdemon_death))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.lost_soul_death)
+	{
+		if (FMOD_Sound_Release(env->sound.lost_soul_death))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.lost_soul_attack)
+	{
+		if (FMOD_Sound_Release(env->sound.lost_soul_attack))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.monster_hit)
+	{
+		if (FMOD_Sound_Release(env->sound.monster_hit))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.monster_nearby)
+	{
+		if (FMOD_Sound_Release(env->sound.monster_nearby))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
+	if (env->sound.explosion)
+	{
+		if (FMOD_Sound_Release(env->sound.explosion))
+			custom_error("FMOD_Sound_Relase error\n");
+	}
 	while (i < NB_MUSICS)
 	{
-		FMOD_Sound_Release(env->sound.musics[i].music);
+		if (env->sound.musics[i].music)
+		{
+			if (FMOD_Sound_Release(env->sound.musics[i].music))
+				custom_error("FMOD_Sound_Relase error\n");
+		}
 		i++;
 	}
-	FMOD_System_Close(env->sound.system);
-	FMOD_System_Release(env->sound.system);
+	if (env->sound.system)
+	{
+		if (FMOD_System_Close(env->sound.system))
+			custom_error("FMOD_System_Close error\n");
+		if (FMOD_System_Release(env->sound.system))
+			custom_error("FMOD_System_Release error\n");
+	}
 }
 
 void		free_objects(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 15:14:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/15 22:07:41 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 17:29:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		draw_condition_condition_panel2(t_env *env)
 	return (0);
 }
 
-int		draw_condition_condition_panel_buttons(t_env *env)
+int		draw_condition_condition_panel(t_env *env)
 {
 	if (draw_button(env, env->editor.condition_panel.equals, "="))
 		return (-1);
@@ -89,27 +89,6 @@ int		draw_condition_condition_panel_buttons(t_env *env)
 		return (-1);
 	if (draw_button(env, env->editor.condition_panel.event_ended_start,
 		"end(start)"))
-		return (-1);
-	if (draw_button(env, env->editor.condition_panel.function, "func"))
-		return (-1);
-	return (0);
-}
-
-int		draw_condition_condition_panel(t_env *env)
-{
-	t_point		text_size;
-
-	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your condition type",
-		&text_size.x, &text_size.y))
-		return (-1);
-	if (print_text(new_point(env->editor.event_panel.pos.y +
-		env->editor.event_panel.top_size + 17,
-		env->editor.event_panel.pos.x + 100 +
-		env->editor.event_panel.content_panel_size.x / 2 - text_size.x / 2),
-		new_printable_text("Choose your condition type",
-		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
-		return (-1);
-	if (draw_condition_condition_panel_buttons(env))
 		return (-1);
 	if (draw_condition_condition_panel2(env))
 		return (-1);

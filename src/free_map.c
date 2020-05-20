@@ -22,6 +22,8 @@ void	free_projectiles(t_env *env)
 	&env->nb_ceiling_bullet_holes_events);
 	if (env->projectiles)
 		ft_lstdelfront(&env->projectiles);
+	if (env->explosions)
+		ft_lstdelfront(&env->explosions);
 }
 
 void	free_map(t_env *env)

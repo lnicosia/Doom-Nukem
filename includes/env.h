@@ -226,6 +226,7 @@ int					check_wall_textures(t_env *env);
 int					check_wall_textures2(t_env *env);
 int					check_wall_textures3(t_env *env);
 int					check_textures(t_env *env);
+int					check_directories(void);
 int					check_sprites_textures(t_env *env);
 int					check_hud_textures(t_env *env);
 int					check_skyboxes(t_env *env);
@@ -239,6 +240,8 @@ int					check_raygun(t_env *env);
 int					check_gatling(t_env *env);
 int					check_gun(t_env *env);
 int					check_sounds(t_env *env);
+int					check_sounds6(int fd, t_env *env);
+int					check_ui(t_env *env);
 int					check_fonts(t_env *env);
 int					check_fonts1(t_env *env);
 int					check_fonts2(t_env *env);
@@ -254,6 +257,7 @@ int					check_fonts11(t_env *env);
 int					new_parsed_hud_file(char *name, t_env *env);
 int					new_parsed_textures(char *name, t_env *env);
 int					map_parse_hud(t_env *env, t_map_parser *parser);
+int					map_parse_ui(t_env *env, t_map_parser *parser);
 int					map_parse_textures(t_env *env, t_map_parser *parser);
 int					map_parse_sounds(t_env *env, t_map_parser *parser);
 int					map_parse_sprites(t_env *env, t_map_parser *parser);
@@ -1121,11 +1125,13 @@ void					shift_wall_bullet_hole_events(int sector, int wall,
 int sprite, t_env *env);
 int						projectile_on_wall_sprite(t_v2 pos, t_sector *sector,
 		int wall, t_env *env);
-void					play_sound(t_env *env, FMOD_CHANNEL **chan,
+int						play_sound(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
-void					play_music(t_env *env, FMOD_CHANNEL **chan,
+int						play_music(t_env *env, FMOD_CHANNEL **chan,
 						FMOD_SOUND *sound, float vol);
-void					player_combat_state(t_env *env);
+int						player_hit_sound(t_env *env);
+int						enemy_hit_sound(int enemy, t_env *env);
+int						player_combat_state(t_env *env);
 int						next_event(void *param);
 int						previous_event(void *param);
 int						next_launch_condition(void *param);

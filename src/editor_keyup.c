@@ -31,9 +31,11 @@ int	editor_keyup5(t_env *env)
 		reset_selection(env);
 		tabs_gestion(env);
 	}
-	if (button_keyup(&env->editor.add_enemy, env))
+	if (!is_mouse_on_any_selection_tab(env)
+		&& button_keyup(&env->editor.add_enemy, env))
 		return (-1);
-	if (button_keyup(&env->editor.add_object, env))
+	if (!is_mouse_on_any_selection_tab(env)
+		&& button_keyup(&env->editor.add_object, env))
 		return (-1);
 	if (button_keyup(&env->editor.save, env))
 		return (-1);

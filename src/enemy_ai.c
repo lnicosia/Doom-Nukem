@@ -80,9 +80,15 @@ int		ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 					env->difficulty, 0.8, foe.eyesight - 2.2),
 					new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d)))
 					return (-1);
+				if (play_sound(env, &env->sound.enemies_shots_chan,
+					env->weapons[3].shot, env->sound.ambient_vol))
+					return (-1);
 			}
 			else if (env->enemies[i].behavior == RANGED_AIMBOT)
-				damage_player(env, foe.damage);
+			{
+				if (damage_player(env, foe.damage))
+					return (-1);
+			}
 		}
 		env->enemies[i].shot = 0;
 	}

@@ -21,7 +21,7 @@ int		parse_enemy_sprite2(t_env *env, char **line, t_map_parser *parser)
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].scale = ft_atof(*line);
 	if (env->enemies[parser->enemies_count].scale
-	+ env->enemies[parser->enemies_count].pos.z + 1
+	+ env->enemies[parser->enemies_count].pos.z
 	> get_ceiling_at_pos(&env->sectors[env->enemies[parser->enemies_count].
 	sector], env->enemies[parser->enemies_count].pos, env))
 		return (custom_error("Enemy's head is too high compared to ceiling"

@@ -31,10 +31,13 @@ int		music_volume_up(void *target)
 	env = (t_env*)target;
 	if (env->sound.music_vol <= 0.90)
 	{
-		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 1))
 		env->sound.music_vol += 0.1;
-		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
-		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol))
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 0))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }
@@ -46,10 +49,13 @@ int		music_volume_down(void *target)
 	env = (t_env*)target;
 	if (env->sound.music_vol >= 0.10)
 	{
-		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 1))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		env->sound.music_vol -= 0.1;
-		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
-		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol))
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 0))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }
@@ -61,15 +67,21 @@ int		sounds_volume_down(void *target)
 	env = (t_env*)target;
 	if (env->sound.ambient_vol >= 0.10)
 	{
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 1))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		env->sound.ambient_vol -= 0.1;
-		FMOD_Channel_SetVolume(env->sound.footstep_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetVolume(env->sound.player_shots_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 0);
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.footstep_chan,
+			env->sound.ambient_vol))
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetVolume(env->sound.player_shots_chan,
+			env->sound.ambient_vol))
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 0))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }
@@ -81,15 +93,21 @@ int		sounds_volume_up(void *target)
 	env = (t_env*)target;
 	if (env->sound.ambient_vol <= 0.90)
 	{
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 1))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		env->sound.ambient_vol += 0.1;
-		FMOD_Channel_SetVolume(env->sound.footstep_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetVolume(env->sound.player_shots_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 0);
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.footstep_chan,
+			env->sound.ambient_vol))
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetVolume(env->sound.player_shots_chan,
+			env->sound.ambient_vol))
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 0))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }

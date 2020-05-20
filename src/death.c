@@ -81,7 +81,12 @@ int			respawn(void *param)
 	free_map(env);
 	init_player(env);
 	if (parse_map(env->save_file, env))
+	{
+		if (close(env->parser.fd))
+			return (ft_perror("Map parsing failed and could not close the"
+			" map file\n"));
 		return (-1);
+	}
 	if (valid_map(env))
 		return (-1);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))

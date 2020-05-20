@@ -19,6 +19,8 @@ int		creating_new_file(t_map_parser *parser, int size)
 	int	fd;
 
 	fd = 0;
+	ft_printf("'%s' was missing in current directory. Extracting..\n",
+	parser->resource_name);
 	if (!(parser->tmp = ft_strnew(size)))
 		return (ft_perror("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
@@ -30,7 +32,12 @@ int		creating_new_file(t_map_parser *parser, int size)
 	ft_strdel(&(parser->resource_name));
 	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
 	|| *(parser->tmp) != '\n')
+	{
+		if (close(fd))
+			return (ft_perror("Read failed and could not close the"
+			" image file\n"));
 		return (ft_perror("Invalid file\n"));
+	}
 	ft_strdel(&(parser->tmp));
 	if (close(fd))
 		return (ft_perror("Could not close fd\n"));
@@ -61,6 +68,8 @@ int		parse_file_name(t_map_parser *parser)
 	ft_strdel(&parser->tmp);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed"));
+	if (parser->resource_name)
+		ft_strdel(&parser->resource_name);
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_perror("Coud not malloc"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/18 16:45:10 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:46:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,12 @@ int	init_editor1(int ac, char **av, t_env *env)
 	{
 		ft_printf("Opening \"%s\"\n", av[1]);
 		if (parse_map(av[1], env))
+		{
+			if (close(env->parser.fd))
+				return (ft_perror("Map parsing failed and could not close the"
+				" map file\n"));
 			return (crash("Error while parsing the map\n", env));
+		}
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))

@@ -19,23 +19,23 @@ int		check_skyboxes6(t_env *env)
 
 	fd = 0;
 	if (!(env->init.skyboxes_names[15] =
-		ft_strdup("images/skyboxes/left.bmp")))
+		ft_strdup("./images/skyboxes/left.bmp")))
 		return (ft_perror("Error while parsing skyboxe\n"));
-	if ((fd = open("images/skyboxes/left.bmp", O_RDONLY)) == -1)
+	if ((fd = open("./images/skyboxes/left.bmp", O_RDONLY)) == -1)
 		env->init.skyboxes[15] = 1;
 	if (!env->init.skyboxes[15] && close(fd))
 		return (custom_error("Could not close the fd in check skyboxes\n"));
 	if (!(env->init.skyboxes_names[16] =
-		ft_strdup("images/skyboxes/front.bmp")))
+		ft_strdup("./images/skyboxes/front.bmp")))
 		return (ft_perror("Error while parsing skyboxe\n"));
-	if ((fd = open("images/skyboxes/front.bmp", O_RDONLY)) == -1)
+	if ((fd = open("./images/skyboxes/front.bmp", O_RDONLY)) == -1)
 		env->init.skyboxes[16] = 1;
 	if (!env->init.skyboxes[16] && close(fd))
 		return (custom_error("Could not close the fd in check skyboxes\n"));
 	if (!(env->init.skyboxes_names[17] =
-		ft_strdup("images/skyboxes/right.bmp")))
+		ft_strdup("./images/skyboxes/right.bmp")))
 		return (ft_perror("Error while parsing skyboxe\n"));
-	if ((fd = open("images/skyboxes/right.bmp", O_RDONLY)) == -1)
+	if ((fd = open("./images/skyboxes/right.bmp", O_RDONLY)) == -1)
 		env->init.skyboxes[17] = 1;
 	if (!env->init.skyboxes[17] && close(fd))
 		return (custom_error("Could not close the fd in check skyboxes\n"));

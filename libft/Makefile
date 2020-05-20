@@ -19,6 +19,7 @@ OBJ_DIR = obj
 INCLUDES_DIR = .
 BIN_DIR = .
 PRINTF_DIR = ft_printf
+OPTI_FLAGS = -O3
 
 SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_isalpha.c ft_isalnum.c ft_isdigit.c ft_isascii.c ft_isprint.c \
@@ -60,11 +61,16 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
+ifeq ($(OS), Windows_NT)
+	OPTI_FLAGS = -O3
+else
+    OPTI_FLAGS = -O3 -flto
+endif
+
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			-Wno-unused-result \
-			-O3 \
+			$(OPTI_FLAGS) \
 			#-fsanitize=address -g3 \
-			#-flto\
 
 # Color declarations
 RED := "\e[0;31m"
@@ -74,15 +80,6 @@ BLUE := "\e[0;34m"
 MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
-
-ifneq ($(OS), Windows_NT)
-	UNAME_S = $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
-		CFLAGS += -flto
-	else
-		CFLAGS += -flto
-	endif
-endif
 
 all: $(BIN_DIR)/$(NAME)
 

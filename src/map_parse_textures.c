@@ -43,9 +43,9 @@ int	check_textures_number_validity(t_map_parser *parser, t_env *env)
 	line++;
 	if (valid_int(line, parser))
 		return (custom_error("Invalid int for textures number\n"));
-	env->resource.nb_textures = atoi(line);
+	env->resource.nb_textures = ft_atoi(line);
 	if (env->resource.nb_textures > MAX_WALL_TEXTURE
-	|| env->resource.nb_textures < 1)
+		|| env->resource.nb_textures < 1)
 		return (custom_error("Wrong number of textures\n"));
 	return (0);
 }

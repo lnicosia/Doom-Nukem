@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 11:19:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/19 12:01:46 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:40:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	create_font_file(t_map_parser *parser, int size)
 
 	fd = 0;
 	ft_strdel(&(parser->tmp));
+	ft_printf("'%s' was missing in current directory. Extracting..\n",
+	parser->resource_name);
 	if (!(parser->tmp = ft_strnew(size)))
 		return (ft_perror("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
@@ -29,9 +31,16 @@ int	create_font_file(t_map_parser *parser, int size)
 	write(fd, parser->tmp, size);
 	ft_strdel(&(parser->resource_name));
 	if (((parser->ret = read(parser->fd, parser->tmp, 1)) <= 0)
-	|| *(parser->tmp) != '\n')
+		|| *(parser->tmp) != '\n')
+	{
+		if (close(fd))
+			return (ft_perror("Read failed and could not close the"
+			" font file\n"));
 		return (ft_perror("Invalid file\n"));
+	}
 	ft_strdel(&(parser->tmp));
+	if (close(fd))
+		return (ft_perror("Could not close current font\n"));
 	return (0);
 }
 
@@ -56,6 +65,8 @@ int	parse_font_name(t_map_parser *parser)
 	ft_strdel(&(parser->line));
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed"));
+	if (parser->resource_name)
+		ft_strdel(&parser->resource_name);
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_perror("Coud not malloc"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
@@ -69,8 +80,6 @@ int	parse_font_name(t_map_parser *parser)
 	}
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of file name\n"));
-	if (!(parser->resource_name = ft_strjoin_free(parser->resource_name, "2")))
-		return (custom_error("Could not malloc name in parse font\n"));
 	ft_strdel(&(parser->tmp));
 	return (0);
 }

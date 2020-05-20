@@ -20,7 +20,7 @@ int		write_hud1(int fd, int file)
 		return (-1);
 	if ((file = open("./images/HUD/Life_armor_hud.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (writing_bmp(file, fd, "./images/HUD/Life_armorhud.bmp"))
+	if (writing_bmp(file, fd, "./images/HUD/Life_armor_hud.bmp"))
 		return (-1);
 	if ((file = open("./images/HUD/raygun1.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));

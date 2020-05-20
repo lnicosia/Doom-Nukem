@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_existing_sounds.c                            :+:      :+:    :+:   */
+/*   check_sounds2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 13:14:58 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/15 21:31:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/11 15:42:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		check_existing_sounds(t_env *env, char *name)
+int		check_sounds6(int fd, t_env *env)
 {
-	int i;
-
-	i = 0;
-	while (i < NB_SOUNDS)
-	{
-		if (!(ft_strcmp(name, env->init.sounds_names[i]))
-		&& env->init.sounds[i] == 1)
-			return (1);
-		i++;
-	}
-	i = 0;
-	while (i < NB_MUSICS)
-	{
-		if (!(ft_strcmp(name, env->init.musics_names[i]))
-		&& env->init.musics[i] == 1)
-			return (1);
-		i++;
-	}
+	if (!(env->init.musics_names[2] = ft_strdup("./audio/at_dooms_gate.wav")))
+		return (ft_perror("Error while check musics\n"));
+	if ((fd = open("./audio/at_dooms_gate.wav", O_RDONLY)) == -1)
+		env->init.musics[2] = 1;
+	if (!env->init.musics[2] && close(fd))
+		return (custom_error("Could not close the fd in check sounds\n"));
 	return (0);
 }

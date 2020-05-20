@@ -29,7 +29,7 @@ void	free_resources_init3(t_env *env)
 		i++;
 	}
 	i = 0;
-	while (i < MAX_SKYBOX * 3)
+	while (i < MAX_SKYBOX * 6)
 	{
 		ft_memdel((void**)&env->init.skyboxes_names[i]);
 		i++;
@@ -60,6 +60,7 @@ void	free_resources_init2(t_env *env)
 		i++;
 	}
 	i = 0;
+	free_resources_init3(env);
 }
 
 void	free_resources_init(t_env *env)

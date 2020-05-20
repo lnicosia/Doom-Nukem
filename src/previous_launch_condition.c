@@ -66,7 +66,9 @@ int		previous_launch_condition2(t_env *env)
 			shoot_events[env->selected_wall_sprite_sprite]
 			[env->editor.selected_event].nb_launch_conditions - 1;
 	}
-	return (previous_launch_condition3(env));
+	else
+		return (previous_launch_condition3(env));
+	return (0);
 }
 
 int		previous_launch_condition(void *penv)
@@ -93,7 +95,8 @@ int		previous_launch_condition(void *penv)
 			env->editor.selected_launch_condition = env->objects[env->
 			selected_object].collision_events[env->editor.selected_event].
 			nb_launch_conditions - 1;
-		return (previous_launch_condition2(env));
+		else
+			return (previous_launch_condition2(env));
 	}
 	return (0);
 }

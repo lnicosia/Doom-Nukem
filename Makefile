@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/20 12:35:26 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/20 16:54:51 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
 				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
-				draw_game2.c \
+				draw_game2.c entity_hit.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
@@ -164,7 +164,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
 		update_entities.c editor_vertices_tab.c selection_tabs_keyup.c \
 		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
-		delete_sector.c delete_vertex.c weapon_picker.c \
+		delete_sector.c delete_vertex.c weapon_picker.c write_ui.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
 		editor_minimap.c init_editor_options_buttons.c delete_ceiling_sprite.c \
@@ -328,18 +328,20 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
 		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
-		   is_new_sector_convex.c check_skyboxes2.c input_box_utils3.c\
+		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
 		   init_enemies_textures.c init_sprites_textures.c \
-		   init_hud_textures.c init_wall_textures.c \
+		   init_hud_textures.c init_wall_textures.c input_box_utils3.c\
 		   init_mini_skyboxes.c check_existing_files.c \
 		   check_walls_textures.c free_resources_init.c \
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
 		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
+		   check_ui.c map_parse_ui.c \
 		   check_existing_sounds.c map_parse_textures.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
+		   check_sounds.c check_sounds2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -396,12 +398,17 @@ UI =	button-default-up.bmp button-default-pressed.bmp \
 		previous-hover2_pink.bmp previous-pressed2_pink.bmp \
 		previous-up2_pink.bmp
 
-AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav\
-		shotgun_shot.wav raygun_shot.wav footstep.wav
+AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav footstep.wav \
+		shotgun_shot.wav raygun_shot.wav handgun_shot.wav \
+		rocket_launcher_shot.wav gatling_shot.wav player_hit.wav \
+		player_death.wav cyberdemon_death.wav lost_soul_death.wav \
+		lost_soul_attack.wav monster_hit.wav monster_nearby.wav \
+		explosion.wav \
 
-FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
-		Montserrat-Regular.ttf PlayfairDisplay-Regular.ttf \
-		Lato-Regular.ttf Lato-Bold.ttf Lato-Black.ttf
+FONTS = alice/Alice-Regular.ttf bebas_neue/BebasNeue-Regular.ttf \
+		amazdoom/AmazDooMLeft.ttf montserrat/Montserrat-Regular.ttf \
+		playfair-display/PlayfairDisplay-Regular.ttf \
+		lato/Lato-Regular.ttf lato/Lato-Bold.ttf lato/Lato-Black.ttf
 
 #
 # Creation of files path
@@ -591,7 +598,7 @@ editor: $(RESOURCES)
 
 $(LIB_DIR): $(LIB_DIR)%.tar.gz
 	@printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
-	@tar -xf $< 
+	@-tar -xf $< 
 
 $(EXTRACT_ALL): $(LIB_ARCHIVE)
 
@@ -622,17 +629,17 @@ endif
 
 $(SDL2_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 	@touch $@
 
 $(SDL2_TTF_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 	@touch $@
 
 $(FREETYPE_DIR)/exists:
 	@printf $(YELLOW)"Extracting FreeType archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf freetype-2.9.tar.gz
+	@-cd $(LIB_DIR) && -tar -xf freetype-2.9.tar.gz
 	@touch $@
 
 $(SDL2_CONFIGURED): $(SDL2_DIR)/exists
@@ -665,12 +672,12 @@ $(FREETYPE): $(FREETYPE_CONFIGURED)
 $(SDL2_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 
 $(SDL2_TTF_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@-cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 
 $(FMOD_WINDOWS):
 	@$(ROOT) cp sound_lib/fmod.dll /usr/lib/
@@ -701,17 +708,21 @@ $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
 $(RESOURCES):
+	@rm -rf images
+	@rm -rf fonts
+	@rm -rf audio
+	@rm -rf maps
 	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
 	@wget -q --show-progress --load-cookies /tmp/cookies.txt \
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i' -O- | sed -rn $\
+	1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1KEzmgWouL8d3CLY8u_6NuCMGH3iuq87i" -O resources.tar.gz \
+	&id=1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
-	tar -xf resources.tar.gz
+	@-tar -xf resources.tar.gz
 	@printf $(RESET)
 	@rm -rf resources.tar.gz
 

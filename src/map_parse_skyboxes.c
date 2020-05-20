@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 14:58:51 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/15 20:02:15 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:43:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_skyboxes_number_validity(t_map_parser *parser, t_env *env)
 	line++;
 	if (valid_int(line, parser))
 		return (custom_error("Invalid int for skybox images number\n"));
-	env->resource.nb_skyboxes = atoi(line);
+    env->resource.nb_skyboxes = ft_atoi(line);
 	if (env->resource.nb_skyboxes > MAX_SKYBOX * 6
 	|| env->resource.nb_skyboxes < 1)
 		return (custom_error("Wrong number of sprites\n"));

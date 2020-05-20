@@ -31,6 +31,9 @@ int centered_sprite)
 
 	if (!(new = ft_lstnew(&env->explosion, sizeof(t_explosion))))
 		return (ft_perror("Error when creating explosion\n"));
+	if (play_sound(env, &env->sound.explosions_chan,
+		env->sound.explosion, env->sound.ambient_vol * 0.5))
+		return (-1);
 	ft_lstpushback(&env->explosions, new);
 	((t_explosion*)new->content)->sprite = data.sprite;
 	((t_explosion*)new->content)->damage = data.damage;
@@ -56,7 +59,7 @@ void				activate_explosions(t_env *env)
 	}
 }
 
-void				explosion_collision_enemy(t_explosion *explosion, int i,
+int					explosion_collision_enemy(t_explosion *explosion, int i,
 t_env *env)
 {
 	double	distance;
@@ -71,8 +74,11 @@ t_env *env)
 			damage = aoe_damage(distance, explosion->radius, explosion->damage);
 			env->enemies[i].health -= damage;
 			env->enemies[i].hit = 1;
+			if (enemy_hit_sound(i, env))
+				return (-1);
 		}
 	}
+	return (0);
 }
 
 int					explosion_collision_enemies(t_env *env)
@@ -86,7 +92,8 @@ int					explosion_collision_enemies(t_env *env)
 		i = 0;
 		while (i < env->nb_enemies)
 		{
-			explosion_collision_enemy(((t_explosion*)tmp->content), i, env);
+			if (explosion_collision_enemy(((t_explosion*)tmp->content), i, env))
+				return (-1);
 			i++;
 		}
 		tmp = tmp->next;

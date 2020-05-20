@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	current_explosion_collision_player(t_explosion *explosion, t_env *env)
+int		current_explosion_collision_player(t_explosion *explosion, t_env *env)
 {
 	double	distance;
 	int		damage;
@@ -33,11 +33,14 @@ void	current_explosion_collision_player(t_explosion *explosion, t_env *env)
 				ft_clamp(damage - env->player.armor, 0, damage);
 				env->player.armor -=
 				ft_clamp(damage, 0, env->player.armor);
+				if (player_hit_sound(env))
+					return (-1);
 			}
 		}
 		explosion->damage_burst = 0;
 		env->nb_explosions--;
 	}
+	return (0);
 }
 
 int		explosion_collision_player(t_env *env)
@@ -47,7 +50,9 @@ int		explosion_collision_player(t_env *env)
 	tmp = env->explosions;
 	while (tmp)
 	{
-		current_explosion_collision_player(((t_explosion*)tmp->content), env);
+		if (current_explosion_collision_player(((t_explosion*)tmp->content),
+			env))
+			return (-1);
 		tmp = tmp->next;
 	}
 	return (0);

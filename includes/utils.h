@@ -35,7 +35,7 @@
 # define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 24
+# define MAX_OBJECTS 23
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 69
 # define MAX_REAL_TARGET_TYPES 67
@@ -45,7 +45,9 @@
 # define NB_EDITOR_FILES 3
 # define NB_OBJECTS_SPRITES 4
 # define NB_WALL_SPRITES 4
+# define NB_EDITOR_SPRITES 3
 # define NB_HUD_SPRITES 3
+# define NB_UI_FILES 7
 
 # define NB_BMP_SPRITES 13
 # define NB_HUD_FILES 36
@@ -56,7 +58,7 @@
 # define MAX_W 2560
 # define MAX_H 1440
 # define NB_MUSICS 3
-# define NB_SOUNDS 4
+# define NB_SOUNDS 14
 
 typedef	enum		e_musics_list
 {
@@ -215,6 +217,8 @@ typedef struct		s_init
 	char			*skyboxes_names[MAX_SKYBOX * 6];
 	int				sprites[NB_WALL_SPRITES];
 	char			*sprites_names[NB_WALL_SPRITES];
+	int				editor[NB_EDITOR_SPRITES];
+	char			*editor_names[NB_EDITOR_SPRITES];
 	int				enemies[MAX_ENEMIES];
 	char			*enemy_names[MAX_ENEMIES];
 	int				objects[MAX_OBJECTS];
@@ -225,6 +229,8 @@ typedef struct		s_init
 	char			*sounds_names[NB_SOUNDS];
 	int				musics[NB_MUSICS];
 	char			*musics_names[NB_MUSICS];
+	int				ui[NB_UI_FILES];
+	char			*ui_names[NB_UI_FILES];
 }					t_init;
 
 typedef	struct		s_resource
@@ -235,6 +241,7 @@ typedef	struct		s_resource
 	int				nb_fonts;
 	int				nb_sound;
 	int				nb_hud_files;
+	int				nb_ui_files;
 }					t_resource;
 
 typedef struct		s_state
@@ -810,10 +817,22 @@ typedef struct		s_sound
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
+	FMOD_CHANNEL	*player_reaction_chan;
 	FMOD_CHANNEL	*player_shots_chan;
+	FMOD_CHANNEL	*enemies_reaction_chan;
+	FMOD_CHANNEL	*enemies_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
+	FMOD_CHANNEL	*explosions_chan;
 	t_music_list	musics[NB_MUSICS];
 	FMOD_SOUND		*footstep;
+	FMOD_SOUND		*player_hit;
+	FMOD_SOUND		*player_death;
+	FMOD_SOUND		*cyberdemon_death;
+	FMOD_SOUND		*lost_soul_death;
+	FMOD_SOUND		*lost_soul_attack;
+	FMOD_SOUND		*monster_hit;
+	FMOD_SOUND		*monster_nearby;
+	FMOD_SOUND		*explosion;
 }					t_sound;
 
 /*

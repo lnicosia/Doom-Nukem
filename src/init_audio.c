@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 10:56:57 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/05/15 20:05:31 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:46:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,36 @@ int	init_musics(t_env *env)
 		&env->sound.musics[2].music) != FMOD_OK)
 		return (custom_error("Failed to load at_dooms_gate.wav"));
 	while (++i < NB_MUSICS)
-		FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1);
+	{
+		if (FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1) != FMOD_OK)
+			return (custom_error("FMOD_Sound_SetLoopCount error\n"));
+	}
+	return (0);
+}
+
+int     init_sounds2(t_env *env)
+{
+	if (FMOD_System_CreateSound(env->sound.system, "audio/player_death.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.player_death) != FMOD_OK)
+		return (custom_error("Failed to load player death sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/cyberdemon_death.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.cyberdemon_death) != FMOD_OK)
+		return (custom_error("Failed to load cyberdemon death sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/lost_soul_death.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.lost_soul_death) != FMOD_OK)
+		return (custom_error("Failed to load lost soul death sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/lost_soul_attack.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.lost_soul_attack) != FMOD_OK)
+		return (custom_error("Failed to load lost soul attack sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/monster_hit.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.monster_hit) != FMOD_OK)
+		return (custom_error("Failed to load monster hit sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/monster_nearby.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.monster_nearby) != FMOD_OK)
+		return (custom_error("Failed to load monster nearby sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/explosion.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.explosion) != FMOD_OK)
+		return (custom_error("Failed to load explosion sound\n"));
 	return (0);
 }
 
@@ -45,29 +74,37 @@ int	init_sounds(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[2].shot) != FMOD_OK)
 		return (custom_error("Failed to load raygun_shot.wav\n"));
+	if (FMOD_System_CreateSound(env->sound.system,
+		"audio/rocket_launcher_shot.wav",
+		FMOD_CREATESAMPLE, 0, &env->weapons[3].shot) != FMOD_OK)
+		return (custom_error("Failed to load rocket launcher\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/gatling_shot.wav",
+		FMOD_CREATESAMPLE, 0, &env->weapons[4].shot) != FMOD_OK)
+		return (custom_error("Failed to load gatling shot\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/footstep.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.footstep) != FMOD_OK)
 		return (custom_error("Failed to load footsteps.wav\n"));
-	return (0);
+	if (FMOD_System_CreateSound(env->sound.system, "audio/player_hit.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.player_hit) != FMOD_OK)
+		return (custom_error("Failed to load player hit sound\n"));
+    return (init_sounds2(env));
 }
 
 int	init_audio(t_env *env)
 {
 	if (FMOD_System_Create(&env->sound.system) != FMOD_OK)
 		return (custom_error("Failed to create fmod system\n"));
-	if (FMOD_System_Init(env->sound.system, 42, FMOD_INIT_NORMAL, NULL)
+	if (FMOD_System_Init(env->sound.system, 32, FMOD_INIT_NORMAL, NULL)
 		!= FMOD_OK)
 		return (custom_error("Could not Init fmod system\n"));
 	if (init_musics(env) != 0)
 		return (custom_error("Could not init musics\n"));
 	if (init_sounds(env) != 0)
 		return (custom_error("Could not init sounds\n"));
-	env->sound.music_vol = 0.3;
+	env->sound.music_vol = 0;
 	env->sound.ambient_vol = 0.3;
-	env->sound.ambient_music = 0;
 	env->sound.musics[0].music_name = "Mt Erebus";
 	env->sound.musics[1].music_name = "Bim Bam Boum";
 	env->sound.musics[2].music_name = "At Dooms Gate";
-	env->sound.fight_music = 0;
 	return (0);
 }

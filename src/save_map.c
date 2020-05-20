@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:39:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/19 16:39:39 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 16:38:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int		save_map(void *param)
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
 		return (custom_error("Could not open %s\n", env->save_file));
 	if (write_resources(fd, env))
-		return (-1);
+	{
+		if (close(fd))
+			return (-1);
+		return(-1);
+	}
 	write_vertices(fd, env);
 	write_sectors(fd, env);
 	write_objects(fd, env);
@@ -38,5 +42,8 @@ int		save_map(void *param)
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	}
+	if (close(fd))
+		return (custom_error("Current map file could not be closed\n"));
+	ft_printf("Map saved\n");
 	return (0);
 }

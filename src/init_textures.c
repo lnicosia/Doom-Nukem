@@ -13,6 +13,29 @@
 #include "init.h"
 #include "parser.h"
 
+/*
+** Init images needed for game menu
+*/
+
+int		init_game_ui_textures(t_env *env)
+{
+	if (parse_bmp_ui_textures("images/ui/hud-button-up.bmp", 39, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/hud-button-pressed.bmp", 40, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/hud-button-hover.bmp", 41, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/minus-button-up.bmp", 21, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/minus-button-pressed.bmp", 22, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/minus-button-hover.bmp", 23, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/add_button.bmp", 35, env))
+		return (custom_error("Invalid bmp files\n"));
+	return (0);
+}
+
 int		init_sprites_textures(t_env *env)
 {
 	if (init_enemies_sprites_textures(env))
@@ -28,8 +51,10 @@ int		init_sprites_textures(t_env *env)
 
 int		init_textures(t_env *env)
 {
-	if (init_ui_textures(env))
+	if (!env->playing && init_ui_textures(env))
 		return (custom_error("Could not init ui textures\n"));
+	if (init_game_ui_textures(env))
+		return (custom_error("Could not init game menu ui textures\n"));
 	if (init_wall_textures(env))
 		return (custom_error("Could not init walls textures\n"));
 	if (init_skyboxes_textures(env))
@@ -39,6 +64,8 @@ int		init_textures(t_env *env)
 	if (init_sprites_textures(env))
 		return (custom_error("Could not init sprites tetxures\n"));
 	if (init_hud_textures(env))
+		return (custom_error("Could not init hud textures\n"));
+	if (init_mini_skyboxes_selection(env))
 		return (custom_error("Could not init hud textures\n"));
 	return (0);
 }

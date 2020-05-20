@@ -50,14 +50,19 @@ int		init_game4(t_env *env, int i)
 		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
 	}
 	view(env);
+	setenv("SDL_MOUSE_RELATIVE", "1", 1);
 	update_camera_position(&env->player.camera);
-	SDL_SetRelativeMouseMode(1);
+	SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1",
+	SDL_HINT_OVERRIDE);
+	if (SDL_SetRelativeMouseMode(SDL_TRUE))
+		custom_error("Could not set relative mouse mode\n");
 	init_animations(env);
 	init_weapons(env);
-	ft_printf("Starting music..\n");
-	play_music(env, &env->sound.music_chan,
+	ft_printf("Starting music.. \n");
+	if (play_music(env, &env->sound.music_chan,
 		env->sound.musics[env->sound.ambient_music].music,
-		env->sound.music_vol);
+		env->sound.music_vol))
+		return (crash("Could not launch main music\n", env));
 	ft_printf("Launching game loop..\n");
 	if (init_camera(&env->player.camera, env))
 		return (crash("Could not init fixed camera\n", env));
@@ -117,7 +122,12 @@ int		init_game2(char **av, t_env *env)
 		return (crash("Could not load enemy sprites\n", env));
 	ft_printf("Parsing map \"%s\"..\n", av[1]);
 	if (parse_map(av[1], env))
-		return (crash("{red}Error while parsing the map{reset}\n", env));
+	{
+		if (close(env->parser.fd))
+			return (ft_perror("Map parsing failed and could not close the"
+			" map file\n"));
+		return (crash("Error while parsing the map\n", env));
+	}
 	if (!(env->save_file = ft_strdup(av[1])))
 		return (crash("Could not malloc map name", env));
 	if (valid_map(env))

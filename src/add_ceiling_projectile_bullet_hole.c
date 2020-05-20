@@ -13,7 +13,7 @@
 #include "events.h"
 #include "wall_sprite_remover.h"
 
-int		add_ceiling_projectile_bullet_hole3(t_sector *sector, t_env *env)
+int		add_ceiling_projectile_bullet_hole4(t_sector *sector, t_env *env)
 {
 	t_floor_sprite_remover	*param;
 
@@ -39,7 +39,7 @@ int		add_ceiling_projectile_bullet_hole3(t_sector *sector, t_env *env)
 	return (0);
 }
 
-int		add_ceiling_projectile_bullet_hole2(t_sector *sector,
+int		add_ceiling_projectile_bullet_hole3(t_sector *sector,
 t_projectile *projectile, t_env *env)
 {
 	sector->ceiling_sprites.sprite[sector->ceiling_sprites.nb_sprites] =
@@ -61,31 +61,57 @@ t_projectile *projectile, t_env *env)
 		sprite[sector->ceiling_sprites.nb_sprites]].size[0].y /
 		sector->ceiling_sprites.scale[sector->ceiling_sprites.nb_sprites].y;
 	sector->ceiling_sprites.nb_sprites++;
-	return (add_ceiling_projectile_bullet_hole3(sector, env));
+	return (add_ceiling_projectile_bullet_hole4(sector, env));
+}
+
+int		add_ceiling_projectile_bullet_hole2(t_sector *sector,
+t_projectile *projectile, t_env *env)
+{
+	if (!(sector->ceiling_sprites.nb_press_events =
+		(size_t*)ft_realloc(sector->ceiling_sprites.nb_press_events,
+		sizeof(size_t) * sector->ceiling_sprites.nb_sprites,
+		sizeof(size_t) * (sector->ceiling_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc ceiling sprites nb press events"));
+	if (!(sector->ceiling_sprites.nb_shoot_events =
+		(size_t*)ft_realloc(sector->ceiling_sprites.nb_shoot_events,
+		sizeof(size_t) * sector->ceiling_sprites.nb_sprites,
+		sizeof(size_t) * (sector->ceiling_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc ceiling sprites nb shoot events"));
+	if (!(sector->ceiling_sprites.shoot_events =
+		(t_event**)ft_realloc(sector->ceiling_sprites.shoot_events,
+		sizeof(t_event*) * sector->ceiling_sprites.nb_sprites,
+		sizeof(t_event*) * (sector->ceiling_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc ceiling sprites shoot events"));
+	if (!(sector->ceiling_sprites.press_events =
+		(t_event**)ft_realloc(sector->ceiling_sprites.press_events,
+		sizeof(t_event*) * sector->ceiling_sprites.nb_sprites,
+		sizeof(t_event*) * (sector->ceiling_sprites.nb_sprites + 1))))
+		return (ft_perror("Could not realloc ceiling sprites press events"));
+	return (add_ceiling_projectile_bullet_hole3(sector, projectile, env));
 }
 
 int		add_ceiling_projectile_bullet_hole(t_sector *sector,
 t_projectile *projectile, t_env *env)
 {
 	if (!(sector->ceiling_sprites.sprite =
-				(int*)ft_realloc(sector->ceiling_sprites.sprite,
-					sizeof(int) * sector->ceiling_sprites.nb_sprites,
-					sizeof(int) * (sector->ceiling_sprites.nb_sprites + 1))))
+		(int*)ft_realloc(sector->ceiling_sprites.sprite,
+		sizeof(int) * sector->ceiling_sprites.nb_sprites,
+		sizeof(int) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc ceiling sprites indexes"));
 	if (!(sector->ceiling_sprites.pos =
-				(t_v2*)ft_realloc(sector->ceiling_sprites.pos,
-					sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
-					sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
+		(t_v2*)ft_realloc(sector->ceiling_sprites.pos,
+		sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
+		sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("Could not realloc ceiling sprites pos"));
 	if (!(sector->ceiling_sprites.scale =
-				(t_v2*)ft_realloc(sector->ceiling_sprites.scale,
-					sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
-					sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
+		(t_v2*)ft_realloc(sector->ceiling_sprites.scale,
+		sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
+		sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc ceiling sprites scale"));
 	if (!(sector->ceiling_sprites_scale =
-				(t_v2*)ft_realloc(sector->ceiling_sprites_scale,
-					sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
-					sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
+		(t_v2*)ft_realloc(sector->ceiling_sprites_scale,
+		sizeof(t_v2) * sector->ceiling_sprites.nb_sprites,
+		sizeof(t_v2) * (sector->ceiling_sprites.nb_sprites + 1))))
 		return (ft_perror("could not realloc ceiling sprites scale"));
 	return (add_ceiling_projectile_bullet_hole2(sector, projectile, env));
 }

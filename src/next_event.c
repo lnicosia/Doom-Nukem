@@ -52,7 +52,9 @@ int		next_event2(int sector, t_env *env)
 			nb_shoot_events[env->selected_wall_sprite_sprite]))
 			env->editor.selected_event = 0;
 	}
-	return (next_event3(sector, env));
+	else
+		return (next_event3(sector, env));
+	return (0);
 }
 
 int		next_event(void *penv)
@@ -77,5 +79,7 @@ int		next_event(void *penv)
 		&& env->editor.selected_event >= env->objects[env->selected_object].
 		nb_collision_events)
 		env->editor.selected_event = 0;
-	return (next_event2(sector, env));
+	else
+		return (next_event2(sector, env));
+	return (0);
 }
