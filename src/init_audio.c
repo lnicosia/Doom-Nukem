@@ -37,6 +37,32 @@ int		init_musics(t_env *env)
 	return (0);
 }
 
+int     init_sounds2(t_env *env)
+{
+	if (FMOD_System_CreateSound(env->sound.system, "audio/player_death.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.player_death) != FMOD_OK)
+		return (custom_error("Failed to load player death sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/cyberdemon_death.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.cyberdemon_death) != FMOD_OK)
+		return (custom_error("Failed to load cyberdemon death sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/lost_soul_death.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.lost_soul_death) != FMOD_OK)
+		return (custom_error("Failed to load lost soul death sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/lost_soul_attack.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.lost_soul_attack) != FMOD_OK)
+		return (custom_error("Failed to load lost soul attack sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/monster_hit.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.monster_hit) != FMOD_OK)
+		return (custom_error("Failed to load monster hit sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/monster_nearby.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.monster_nearby) != FMOD_OK)
+		return (custom_error("Failed to load monster nearby sound\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/explosion.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.explosion) != FMOD_OK)
+		return (custom_error("Failed to load explosion sound\n"));
+	return (0);
+}
+
 int     init_sounds(t_env *env)
 {
     if (FMOD_System_CreateSound(env->sound.system, "audio/handgun_shot.wav",
@@ -48,23 +74,27 @@ int     init_sounds(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/raygun_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[2].shot) != FMOD_OK)
 		return (custom_error("Failed to load raygun_shot.wav\n"));
-	if (FMOD_System_CreateSound(env->sound.system, "audio/gun_shot.wav",
+	if (FMOD_System_CreateSound(env->sound.system,
+		"audio/rocket_launcher_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[3].shot) != FMOD_OK)
-		return (custom_error("Failed to load raygun_shot.wav\n"));
-	if (FMOD_System_CreateSound(env->sound.system, "audio/gun_shot.wav",
+		return (custom_error("Failed to load rocket launcher\n"));
+	if (FMOD_System_CreateSound(env->sound.system, "audio/gatling_shot.wav",
 		FMOD_CREATESAMPLE, 0, &env->weapons[4].shot) != FMOD_OK)
-		return (custom_error("Failed to load raygun_shot.wav\n"));
+		return (custom_error("Failed to load gatling shot\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/footstep.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.footstep) != FMOD_OK)
 		return (custom_error("Failed to load footsteps.wav\n"));
-    return (0);
+	if (FMOD_System_CreateSound(env->sound.system, "audio/player_hit.wav",
+		FMOD_CREATESAMPLE, 0, &env->sound.player_hit) != FMOD_OK)
+		return (custom_error("Failed to load player hit sound\n"));
+    return (init_sounds2(env));
 }
 
 int		init_audio(t_env *env)
 {
 	if (FMOD_System_Create(&env->sound.system) != FMOD_OK)
 		return (custom_error("Failed to create fmod system\n"));
-	if (FMOD_System_Init(env->sound.system, 42, FMOD_INIT_NORMAL, NULL)
+	if (FMOD_System_Init(env->sound.system, 32, FMOD_INIT_NORMAL, NULL)
 		!= FMOD_OK)
 		return (custom_error("Could not Init fmod system\n"));
 	if (init_musics(env) != 0)

@@ -240,6 +240,7 @@ int					check_raygun(t_env *env);
 int					check_gatling(t_env *env);
 int					check_gun(t_env *env);
 int					check_sounds(t_env *env);
+int					check_sounds6(int fd, t_env *env);
 int					check_ui(t_env *env);
 int					check_fonts(t_env *env);
 int					check_fonts1(t_env *env);

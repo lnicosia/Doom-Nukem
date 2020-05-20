@@ -336,6 +336,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
+		   check_sounds.c check_sounds2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -392,8 +393,12 @@ UI =	button-default-up.bmp button-default-pressed.bmp \
 		previous-hover2_pink.bmp previous-pressed2_pink.bmp \
 		previous-up2_pink.bmp
 
-AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav\
-		shotgun_shot.wav raygun_shot.wav footstep.wav
+AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav footstep.wav \
+		shotgun_shot.wav raygun_shot.wav handgun_shot.wav \
+		rocket_launcher_shot.wav gatling_shot.wav player_hit.wav \
+		player_death.wav cyberdemon_death.wav lost_soul_death.wav \
+		lost_soul_attack.wav monster_hit.wav monster_nearby.wav \
+		explosion.wav \
 
 FONTS = alice/Alice-Regular.ttf bebas_neue/BebasNeue-Regular.ttf \
 		amazdoom/AmazDooMLeft.ttf montserrat/Montserrat-Regular.ttf \
@@ -707,9 +712,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1qV3GPh5v9K50ugVEkvU1px8S5E1iU8cU' -O- | sed -rn $\
+	1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1qV3GPh5v9K50ugVEkvU1px8S5E1iU8cU" -O resources.tar.gz \
+	&id=1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	@-tar -xf resources.tar.gz

@@ -58,7 +58,7 @@
 # define MAX_W 2560
 # define MAX_H 1440
 # define NB_MUSICS 3
-# define NB_SOUNDS 4
+# define NB_SOUNDS 14
 
 typedef	enum		e_musics_list
 {
@@ -817,10 +817,21 @@ typedef struct		s_sound
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
+	FMOD_CHANNEL	*player_reaction_chan;
 	FMOD_CHANNEL	*player_shots_chan;
+	FMOD_CHANNEL	*enemies_reaction_chan;
+	FMOD_CHANNEL	*enemies_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
 	t_music_list	musics[NB_MUSICS];
 	FMOD_SOUND		*footstep;
+	FMOD_SOUND		*player_hit;
+	FMOD_SOUND		*player_death;
+	FMOD_SOUND		*cyberdemon_death;
+	FMOD_SOUND		*lost_soul_death;
+	FMOD_SOUND		*lost_soul_attack;
+	FMOD_SOUND		*monster_hit;
+	FMOD_SOUND		*monster_nearby;
+	FMOD_SOUND		*explosion;
 }					t_sound;
 
 /*

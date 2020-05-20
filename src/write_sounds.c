@@ -40,46 +40,38 @@ int		write_sound(int file, int fd, char *name)
 
 int		write_sounds2(int fd, t_env *env)
 {
+	int	i;
 	int	file;
 
-	(void)env;
-	if ((file = open("./audio/shotgun_shot.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open shotgun sound\n"));
-	if (write_sound(file, fd, "./audio/shotgun_shot.wav"))
-		return (-1);
-	if ((file = open("./audio/footstep.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open footstep sound\n"));
-	if (write_sound(file, fd, "./audio/footstep.wav"))
-		return (-1);
-	if ((file = open("./audio/handgun_shot.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open footstep sound\n"));
-	if (write_sound(file, fd, "./audio/handgun_shot.wav"))
-		return (-1);
+	i = 0;
+	while (i < NB_SOUNDS)
+	{
+		if ((file = open(env->init.sounds_names[i], O_RDONLY)) < 0)
+			return (custom_error("Could not open %s to save it\n",
+			env->init.sounds_names[i]));
+		if (write_sound(file, fd, env->init.sounds_names[i]))
+			return (-1);
+		i++;
+	}
 	return (0);
 }
 
 int		write_sounds(int fd, t_env *env)
 {
+	int	i;
 	int	file;
 
-	(void)env;
 	ft_printf("Saving musics and sounds..\n");
 	ft_dprintf(fd, "S %d\n", NB_MUSICS + NB_SOUNDS);
-	if ((file = open("./audio/Mt_Erebus.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open music Mt_Erebus\n"));
-	if (write_sound(file, fd, "./audio/Mt_Erebus.wav"))
-		return (-1);
-	if ((file = open("./audio/bim_bam_boum.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open music bim bam boum\n"));
-	if (write_sound(file, fd, "./audio/bim_bam_boum.wav"))
-		return (-1);
-	if ((file = open("./audio/at_dooms_gate.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open music at dooms gate\n"));
-	if (write_sound(file, fd, "./audio/at_dooms_gate.wav"))
-		return (-1);
-	if ((file = open("./audio/raygun_shot.wav", O_RDONLY)) < 0)
-		return (custom_error("Could not open raygun sound\n"));
-	if (write_sound(file, fd, "./audio/raygun_shot.wav"))
-		return (-1);
+	i = 0;
+	while (i < NB_MUSICS)
+	{
+		if ((file = open(env->init.musics_names[i], O_RDONLY)) < 0)
+			return (custom_error("Could not open %s to save it\n",
+			env->init.musics_names[i]));
+		if (write_sound(file, fd, env->init.musics_names[i]))
+			return (-1);
+		i++;
+	}
 	return (write_sounds2(fd, env));
 }
