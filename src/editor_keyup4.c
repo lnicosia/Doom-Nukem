@@ -25,14 +25,27 @@ int		is_mouse_on_any_selection_tab(t_env *env)
 
 int		editor_left_click_up(t_env *env)
 {
-	if (!is_mouse_on_texture_selection_tab(env))
+	if (env->editor.draw_texture_tab && !is_mouse_on_texture_selection_tab(env))
+	{
 		env->editor.draw_texture_tab = 0;
-	if (!is_mouse_on_object_selection_tab(env))
+		env->editor.texture_selection_just_closed = 1;
+	}
+	if (env->editor.draw_object_tab && !is_mouse_on_object_selection_tab(env))
+	{
 		env->editor.draw_object_tab = 0;
-	if (!is_mouse_on_enemy_selection_tab(env))
+		env->editor.object_selection_just_closed = 1;
+	}
+	if (env->editor.draw_enemy_tab && !is_mouse_on_enemy_selection_tab(env))
+	{
 		env->editor.draw_enemy_tab = 0;
-	if (!is_mouse_on_wall_sprite_selection_tab(env))
+		env->editor.enemy_selection_just_closed = 1;
+	}
+	if (env->editor.draw_sprite_tab
+		&& !is_mouse_on_wall_sprite_selection_tab(env))
+	{
 		env->editor.draw_sprite_tab = 0;
+		env->editor.wall_sprite_selection_just_closed = 1;
+	}
 	if (env->editor.create_enemy && env->sdl.mx > 400)
 	{
 		if (add_enemy(env))

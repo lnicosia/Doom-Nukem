@@ -102,8 +102,6 @@ int		draw_condition_condition_panel(t_env *env)
 	if (draw_button(env, env->editor.condition_panel.event_ended_start,
 		"end(start)"))
 		return (-1);
-	if (draw_button(env, env->editor.condition_panel.function, "func"))
-		return (-1);
 	if (draw_condition_condition_panel2(env))
 		return (-1);
 	return (0);

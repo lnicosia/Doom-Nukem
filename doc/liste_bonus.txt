@@ -12,3 +12,5 @@ les textes sont centres dans leur ui respective
 portabilite
 CAMERAS
 resize d'image (avec mipmapping)
+boutons
+input boxes

@@ -65,5 +65,7 @@ int		init_textures(t_env *env)
 		return (custom_error("Could not init sprites tetxures\n"));
 	if (init_hud_textures(env))
 		return (custom_error("Could not init hud textures\n"));
+	if (init_mini_skyboxes_selection(env))
+		return (custom_error("Could not init hud textures\n"));
 	return (0);
 }

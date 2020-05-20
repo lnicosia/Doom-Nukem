@@ -45,7 +45,8 @@ int		wall_edit_keyup(t_env *env)
 		return (0);
 	if ((env->selected_ceiling != -1 || env->selected_floor != -1)
 		&& (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS
-		|| env->sdl.event.key.keysym.sym == SDLK_KP_MINUS))
+		|| env->sdl.event.key.keysym.sym == SDLK_KP_MINUS)
+		&& !env->inputs.shift)
 		change_ceiling_floor_height_keyup(env);
 	if ((env->sdl.event.key.keysym.sym == SDLK_PERIOD
 		|| env->sdl.event.key.keysym.sym == SDLK_COMMA)

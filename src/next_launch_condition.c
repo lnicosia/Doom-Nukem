@@ -68,7 +68,9 @@ int		next_launch_condition2(int sector, t_env *env)
 		[env->editor.selected_event].nb_launch_conditions)
 			env->editor.selected_launch_condition = 0;
 	}
-	return (next_launch_condition3(sector, env));
+	else
+		return (next_launch_condition3(sector, env));
+	return (0);
 }
 
 int		next_launch_condition(void *penv)
@@ -97,5 +99,7 @@ int		next_launch_condition(void *penv)
 		env->objects[env->selected_object].
 		collision_events[env->editor.selected_events].nb_launch_conditions)
 		env->editor.selected_launch_condition = 0;
-	return (next_launch_condition2(sector, env));
+	else
+		return (next_launch_condition2(sector, env));
+	return (0);
 }

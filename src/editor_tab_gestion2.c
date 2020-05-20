@@ -22,8 +22,13 @@ int		sprite_tab_keyup(t_env *env)
 			return (-1);
 		if (button_keyup(&env->editor.previous_sprite, env))
 			return (-1);
-		if (button_keyup(&env->editor.current_sprite_selection, env))
-			return (-1);
+		if (!env->editor.wall_sprite_selection_just_closed)
+		{
+			if (button_keyup(&env->editor.current_sprite_selection, env))
+				return (-1);
+		}
+		else
+			env->editor.wall_sprite_selection_just_closed = 0;
 	}
 	return (0);
 }
