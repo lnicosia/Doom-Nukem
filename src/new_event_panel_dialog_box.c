@@ -89,6 +89,8 @@ t_env *env)
 	box->accept_inputs = 0;
 	if (type == INT)
 	{
+		if (box->str)
+			ft_strdel(&box->str);
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);

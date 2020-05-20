@@ -66,10 +66,14 @@ SDL_Surface	*get_closest_mipmap(t_texture texture, t_point size)
 {
 	int		map;
 
-	map = texture.nb_maps - ceil(log2(fmax(texture.surface->w / (double)size.x,
-	texture.surface->h / (double)size.y)));
-	map = ft_clamp(map, 0, texture.nb_maps - 1);
-	return (texture.maps[map]);
+	if (texture.maps && texture.nb_maps != 0)
+	{
+		map = texture.nb_maps - ceil(log2(fmax(texture.surface->w
+		/ (double)size.x, texture.surface->h / (double)size.y)));
+		map = ft_clamp(map, 0, texture.nb_maps - 1);
+		return (texture.maps[map]);
+	}
+	return (texture.surface);
 }
 
 /*

@@ -47,7 +47,7 @@
 # define NB_WALL_SPRITES 4
 # define NB_EDITOR_SPRITES 3
 # define NB_HUD_SPRITES 3
-# define NB_UI_FILES 7
+# define NB_UI_FILES 8
 
 # define NB_BMP_SPRITES 13
 # define NB_HUD_FILES 36

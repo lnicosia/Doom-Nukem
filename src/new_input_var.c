@@ -97,6 +97,8 @@ int		new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->period_index = 0;
 	if (type == INT)
 	{
+		if (box->str)
+			ft_strdel(&box->str);
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
