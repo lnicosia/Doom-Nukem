@@ -32,8 +32,11 @@ void	*ft_delindex(void *ptr, size_t old_size, size_t type, size_t index)
 	i = 0;
 	j = 0;
 	new_size = old_size - type;
-	if (!(res = malloc(new_size)))
+	if (new_size == 0 || !(res = malloc(new_size)))
+	{
+		ft_memdel(&ptr);
 		return (NULL);
+	}
 	ft_bzero(res, new_size);
 	while (i < new_size)
 	{
