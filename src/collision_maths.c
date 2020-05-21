@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "collision.h"
+#include <math.h>
 
 /*
 ** Checks if the point p is on the segment v1 v2

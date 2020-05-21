@@ -43,10 +43,29 @@ void		respawn_entities(void *param)
 	}
 }
 
+int			respawn3(t_env *env)
+{
+	init_objects_data(env);
+	init_animations(env);
+	env->player.highest_sect = find_highest_sector(env,
+	new_motion(env->player.sector, env->player.size_2d,
+	env->player.eyesight, env->player.pos));
+	update_player_z(env);
+	SDL_SetRelativeMouseMode(1);
+	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+	return (0);
+}
+
 int			respawn2(t_env *env)
 {
 	int		i;
 
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].exists = 1;
+		i++;
+	}
 	i = -1;
 	while (++i < env->nb_enemies)
 	{
@@ -61,41 +80,33 @@ int			respawn2(t_env *env)
 	view(env);
 	init_weapons(env);
 	init_enemies_data(env);
-	init_objects_data(env);
-	init_animations(env);
-	env->player.highest_sect = find_highest_sector(env,
-	new_motion(env->player.sector, env->player.size_2d,
-	env->player.eyesight, env->player.pos));
-	update_player_z(env);
-	SDL_SetRelativeMouseMode(1);
-	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	return (0);
+	return (respawn3(env));
 }
 
 int			respawn(void *param)
 {
 	t_env	*env;
-	int		i;
 
 	env = (t_env*)param;
 	free_map(env);
 	init_player(env);
 	if (parse_map(env->save_file, env))
+	{
+		if (close(env->parser.fd))
+			return (ft_perror("Map parsing failed and could not close the"
+			" map file\n"));
 		return (-1);
+	}
 	if (valid_map(env))
 		return (-1);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (-1);
+		return (ft_perror("Could not malloc sector list"));
 	precompute_slopes(env);
 	update_player_z(env);
 	ft_bzero(&env->inputs, sizeof(env->inputs));
-	i = 0;
-	while (i < env->nb_objects)
-	{
-		env->objects[i].exists = 1;
-		i++;
-	}
 	free_camera(&env->player.camera);
+	if (init_mipmap_arrays(env))
+		return (custom_error("Could not reinit mipmap arrays\n"));
 	return (respawn2(env));
 }
 

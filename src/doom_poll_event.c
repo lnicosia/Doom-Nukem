@@ -28,7 +28,7 @@ int		doom_poll_event(t_env *env)
 			|| env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		{
 			if (keyup(env))
-				return (crash("Keyup failed\n", env));
+				return (custom_error("Keyup failed\n"));
 		}
 		if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.
 			on_going && !env->shot.on_going && env->player.health > 0)

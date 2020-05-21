@@ -20,66 +20,45 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
-# define X1 env->vertices[env->sectors[motion.sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[motion.sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
-# define PLAYER_XPOS env->player.pos.x
-# define PLAYER_YPOS env->player.pos.y
+# include "defines_images.h"
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
+# define CONVERT_RADIANS 0.0174532925199432955
+# define CONVERT_DEGREES 57.2957795130823228647
+
 # define MAX_WALL_TEXTURE 15
 # define MAX_TEXTURES 62
 # define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 34
 # define MAX_ENEMY_SPRITES 13
-# define CONVERT_RADIANS 0.0174532925199432955
-# define CONVERT_DEGREES 57.2957795130823228647
 # define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 25
-# define NB_BUTTON 10
-# define AMMO_HUD 26
-# define ARMOR_LIFE_HUD 27
-# define THREADS 4
-# define MAX_W 2560
-# define MAX_H 1440
-# define LOST_SOUL 0
-# define CYBER_DEMON 5
-# define MINIGUN 0
-# define HEALTH_PACK 2
-# define SHELL_AMMO 3
-# define ROCKETS_AMMO 4
-# define REGULAR_AMMO 5
-# define ENERGY_AMMO 6
-# define LAMP 7
-# define MONITOR_OFF 11
-# define MONITOR_ON 12
-# define MONITOR_DESTROYED 16
-# define GREEN_ARMOR 17
-# define CANDLE 18
-# define BARREL 20
-# define GRID 23
-# define BUTTON_OFF 24
-# define BUTTON_ON 25
-# define BULLET_HOLE 26
-# define LOST_SOUL_OBJECT 27
-# define CYBER_DEMON_OBJECT 28
-# define NB_MUSICS 3
-# define NB_SOUNDS 3
-# define DOOM_GUY_FACE 29
-# define CAMERA_SPRITE 30
-# define SHOTGUN_SPRITE 31
-# define RAYGUN_SPRITE 32
-# define DOOM_GUY 33
+# define MAX_OBJECTS 23
 # define MAX_TRIGGER_TYPES 8
 # define MAX_TARGET_TYPES 69
 # define MAX_REAL_TARGET_TYPES 67
+# define NB_FONTS_FILE 8
+# define NB_FONTS 35
+# define NB_ENEMIES_FILES 32
+# define NB_EDITOR_FILES 3
+# define NB_OBJECTS_SPRITES 4
+# define NB_WALL_SPRITES 4
+# define NB_EDITOR_SPRITES 3
+# define NB_HUD_SPRITES 3
+# define NB_UI_FILES 8
+
 # define NB_BMP_SPRITES 13
-# define NB_FONTS 8
-# define NB_HUD_FILES 32
+# define NB_HUD_FILES 36
+# define MAX_SPRITES_TEXTURES 49
+
+# define NB_BUTTON 10
+# define THREADS 4
+# define MAX_W 2560
+# define MAX_H 1440
+# define NB_MUSICS 3
+# define NB_SOUNDS 14
 
 typedef	enum		e_musics_list
 {
@@ -228,6 +207,32 @@ typedef enum		e_ui_textures
 	BACKGROUND
 }					t_ui_textures;
 
+typedef struct		s_init
+{
+	int				textures[MAX_WALL_TEXTURE];
+	char			*text_name[MAX_WALL_TEXTURE];
+	int				hud[NB_HUD_FILES];
+	char			*hud_names[NB_HUD_FILES];
+	int				skyboxes[MAX_SKYBOX * 6];
+	char			*skyboxes_names[MAX_SKYBOX * 6];
+	int				sprites[NB_WALL_SPRITES];
+	char			*sprites_names[NB_WALL_SPRITES];
+	int				editor[NB_EDITOR_SPRITES];
+	char			*editor_names[NB_EDITOR_SPRITES];
+	int				enemies[MAX_ENEMIES];
+	char			*enemy_names[MAX_ENEMIES];
+	int				objects[MAX_OBJECTS];
+	char			*objects_names[MAX_OBJECTS];
+	int				fonts[NB_FONTS_FILE];
+	char			*fonts_names[NB_FONTS_FILE];
+	int				sounds[NB_SOUNDS];
+	char			*sounds_names[NB_SOUNDS];
+	int				musics[NB_MUSICS];
+	char			*musics_names[NB_MUSICS];
+	int				ui[NB_UI_FILES];
+	char			*ui_names[NB_UI_FILES];
+}					t_init;
+
 typedef	struct		s_resource
 {
 	int				nb_textures;
@@ -236,6 +241,7 @@ typedef	struct		s_resource
 	int				nb_fonts;
 	int				nb_sound;
 	int				nb_hud_files;
+	int				nb_ui_files;
 }					t_resource;
 
 typedef struct		s_state
@@ -484,7 +490,6 @@ typedef struct		s_sector
 	t_list			**wall_bullet_holes;
 	t_v2			*ceiling_sprites_scale;
 	t_v2			*floor_sprites_scale;
-	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
 	int				first_angles[3];
@@ -812,10 +817,22 @@ typedef struct		s_sound
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
+	FMOD_CHANNEL	*player_reaction_chan;
 	FMOD_CHANNEL	*player_shots_chan;
+	FMOD_CHANNEL	*enemies_reaction_chan;
+	FMOD_CHANNEL	*enemies_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
+	FMOD_CHANNEL	*explosions_chan;
 	t_music_list	musics[NB_MUSICS];
 	FMOD_SOUND		*footstep;
+	FMOD_SOUND		*player_hit;
+	FMOD_SOUND		*player_death;
+	FMOD_SOUND		*cyberdemon_death;
+	FMOD_SOUND		*lost_soul_death;
+	FMOD_SOUND		*lost_soul_attack;
+	FMOD_SOUND		*monster_hit;
+	FMOD_SOUND		*monster_nearby;
+	FMOD_SOUND		*explosion;
 }					t_sound;
 
 /*

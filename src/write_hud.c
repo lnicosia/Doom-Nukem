@@ -14,17 +14,13 @@
 
 int		write_hud1(int fd, int file)
 {
-	if ((file = open("./images/HUD/hud.bmp", O_RDONLY)) < 0)
-		return (custom_error("Could not open the font\n"));
-	if (writing_bmp(file, fd, "./images/HUD/hud.bmp"))
-		return (-1);
 	if ((file = open("./images/HUD/Ammo_hud.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
 	if (writing_bmp(file, fd, "./images/HUD/Ammo_hud.bmp"))
 		return (-1);
 	if ((file = open("./images/HUD/Life_armor_hud.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (writing_bmp(file, fd, "./images/HUD/Life_armorhud.bmp"))
+	if (writing_bmp(file, fd, "./images/HUD/Life_armor_hud.bmp"))
 		return (-1);
 	if ((file = open("./images/HUD/raygun1.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
@@ -57,17 +53,13 @@ int		write_hud2(int fd, int file)
 		return (-1);
 	if ((file = open("./images/HUD/raygun7.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (writing_bmp(file, fd, "./images/HUD/raygun1.bmp"))
+	if (writing_bmp(file, fd, "./images/HUD/raygun7.bmp"))
 		return (-1);
 	return (0);
 }
 
 int		write_hud3(int fd, int file)
 {
-	if ((file = open("./images/HUD/raygun7.bmp", O_RDONLY)) < 0)
-		return (custom_error("Could not open the font\n"));
-	if (writing_bmp(file, fd, "./images/HUD/raygun1.bmp"))
-		return (-1);
 	if ((file = open("./images/HUD/Gatling_1.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
 	if (writing_bmp(file, fd, "./images/HUD/Gatling_1.bmp"))

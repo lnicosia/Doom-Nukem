@@ -16,82 +16,86 @@
 
 int		parse_ambient_music(t_env *env, t_map_parser *parser)
 {
-	while ((parser->ret = get_next_line(parser->fd, &(parser->tmp))))
+	char	*line;
+
+	while ((parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
 		parser->line_count++;
-		parser->line = parser->tmp;
-		if (*(parser->line) && *(parser->line) != '#')
+		line = parser->line;
+		if (*(line) && *(line) != '#')
 		{
-			if (*(parser->line) != 'A')
-				return (invalid_char("ambient music", "'A'", *(parser->line), parser));
-			parser->line++;
-			if (!(*(parser->line)))
+			if (*(line) != 'A')
+				return (invalid_char("ambient music", "'A'", *(line), parser));
+			line++;
+			if (!(*(line)))
 				return (missing_data("music number", parser));
-			if (*(parser->line) != ' ')
+			if (*(line) != ' ')
 				return (invalid_char("music number",
-							"space or a digit", *(parser->line), parser));
-			parser->line = skip_spaces(parser->line);
-			if (!(*(parser->line)))
+							"space or a digit", *(line), parser));
+			line = skip_spaces(line);
+			if (!(*(line)))
 				return (missing_data("music number", parser));
-			if (valid_int(parser->line, parser))
+			if (valid_int(line, parser))
 				return (custom_error("Invalid int for music num\n"));
-			env->sound.ambient_music = ft_atoi(parser->line);
-			parser->line = skip_number(parser->line);
-			if (*(parser->line) && *(parser->line) == ' ')
+			env->sound.ambient_music = ft_atoi(line);
+			line = skip_number(line);
+			if (*(line) && *(line) == ' ')
 				return (extra_data("ambient music number declaration", parser));
-			if (*(parser->line))
+			if (*(line))
 				return (invalid_char("music number",
-							"a digit", *(parser->line), parser));
+							"a digit", *(line), parser));
 			if (env->sound.ambient_music < 0
 				|| env->sound.ambient_music >= NB_MUSICS)
 				return (custom_error("Music number is invalid"));
-			ft_strdel(&(parser->tmp));
+			ft_strdel(&(parser->line));
 			return (0);
 		}
-		else if (*(parser->line) != '#')
+		else if (*(line) != '#')
 			return (missing_data("sectors number declaration", parser));
-		ft_strdel(&(parser->tmp));
+		ft_strdel(&(parser->line));
 	}
 	return (0);
 }
 
 int		parse_fight_music(t_env *env, t_map_parser *parser)
 {
-	while ((parser->ret = get_next_line(parser->fd, &(parser->tmp))))
+	char	*line;
+
+	while ((parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
 		parser->line_count++;
-		parser->line = parser->tmp;
-		if (*(parser->line) && *(parser->line) != '#')
+		line = parser->line;
+		if (*(line) && *(line) != '#')
 		{
-			if (*(parser->line) != 'F')
-				return (invalid_char("fight music", "'F'", *(parser->line), parser));
-			parser->line++;
-			if (!*(parser->line))
+			if (*(line) != 'F')
+				return (invalid_char("fight music", "'F'", *(line), parser));
+			line++;
+			if (!*(line))
 				return (missing_data("music number", parser));
-			if (*(parser->line) != ' ')
+			if (*(line) != ' ')
 				return (invalid_char("music number",
-							"space or a digit", *(parser->line), parser));
-			parser->line = skip_spaces(parser->line);
-			if (!*(parser->line))
+							"space or a digit", *(line), parser));
+			line = skip_spaces(line);
+			if (!*(line))
 				return (missing_data("music number", parser));
-			if (valid_int(parser->line, parser))
+			if (valid_int(line, parser))
 				return (custom_error("Invalid int for music num\n"));
-			env->sound.fight_music = ft_atoi(parser->line);
-			parser->line = skip_number(parser->line);
-			if (*(parser->line) && *(parser->line) == ' ')
+			env->sound.fight_music = ft_atoi(line);
+			line = skip_number(line);
+			if (*(line) && *(line) == ' ')
 				return (extra_data("fight music number declaration", parser));
-			if (*(parser->line))
+			if (*(line))
 				return (invalid_char("music number",
-							"a digit", *(parser->line), parser));
+							"a digit", *(line), parser));
 			if (env->sound.fight_music < 0
 				|| env->sound.fight_music >= NB_MUSICS)
 				return (custom_error("Music number is invalid"));
-			ft_strdel(&(parser->tmp));
+			ft_strdel(&(parser->line));
 			return (0);
 		}
-		else if (*(parser->line) != '#')
+		else if (*(line) != '#')
 			return (missing_data("sectors number declaration", parser));
-		ft_strdel(&(parser->tmp));
+		ft_strdel(&(parser->line));
 	}
 	return (0);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		change_textures_scales(t_env *env)
 {
@@ -66,7 +67,7 @@ int		save_map_3d_keys(t_env *env)
 
 int		editor_3d_keys3(t_env *env)
 {
-	if (env->inputs.minus && !env->inputs.shift
+	if (env->inputs.minus && env->inputs.shift
 	&& env->options.minimap_scale / 1.2 > 1)
 		env->options.minimap_scale /= 1.2;
 	if (env->inputs.h)
@@ -98,8 +99,8 @@ int		editor_3d_keys2(t_env *env)
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->inputs.plus && !env->inputs.shift
-	&& env->options.minimap_scale * 1.2 < 100)
+	if (env->inputs.plus && env->inputs.shift
+		&& env->options.minimap_scale * 1.2 < 100)
 		env->options.minimap_scale *= 1.2;
 	return (editor_3d_keys3(env));
 }

@@ -19,6 +19,8 @@ void	draw_floor(t_sector *sector, t_render *render, t_env *env)
 	vline.x = render->x;
 	vline.start = ft_max(0, (int)(render->current_floor));
 	vline.end = env->ymax[vline.x];
+	vline.color = 0;
+	vline.draw_wall = 0;
 	if (sector->floor_texture < 0)
 		draw_skybox(render, FLOOR, env);
 	else

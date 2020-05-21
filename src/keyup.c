@@ -16,8 +16,6 @@ int		keyup3(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->option = env->option ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
-		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keyup(&env->confirmation_box, env))

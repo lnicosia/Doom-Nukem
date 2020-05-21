@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   editor_keyup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 18:42:36 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 17:34:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int	editor_keyup5(t_env *env)
 {
@@ -30,9 +31,11 @@ int	editor_keyup5(t_env *env)
 		reset_selection(env);
 		tabs_gestion(env);
 	}
-	if (button_keyup(&env->editor.add_enemy, env))
+	if (!is_mouse_on_any_selection_tab(env)
+		&& button_keyup(&env->editor.add_enemy, env))
 		return (-1);
-	if (button_keyup(&env->editor.add_object, env))
+	if (!is_mouse_on_any_selection_tab(env)
+		&& button_keyup(&env->editor.add_object, env))
 		return (-1);
 	if (button_keyup(&env->editor.save, env))
 		return (-1);
@@ -136,8 +139,10 @@ int	editor_keyup(t_env *env)
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
+	{
 		if (delete_action(env))
 			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_TAB)

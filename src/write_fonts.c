@@ -32,9 +32,13 @@ int		write_font(int file, int fd, char *name)
 
 	check_size = 0;
 	if (!(size = find_size(name)))
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid font file and could not close the file\n"));
 		return (custom_error("Couldn't find the font file size\n"));
+	}
 	ft_dprintf(fd, "%s\n%d\n", name, size);
-	ft_printf("data: %s\n%d\n", name, size);
 	while ((ret = (read(file, resource, 10000))) > 0)
 	{
 		check_size += ret;
@@ -42,7 +46,12 @@ int		write_font(int file, int fd, char *name)
 	}
 	write(fd, "\n", 1);
 	if (check_size != size)
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid font file and could not close the file\n"));
 		return (custom_error("Invalid read size for a font file\n"));
+	}
 	if (close(file))
 		return (custom_error("Could not close the font file\n"));
 	return (0);
@@ -50,42 +59,45 @@ int		write_font(int file, int fd, char *name)
 
 int		write_fonts1(int fd, int file)
 {
-	if ((file = open("./fonts/AmazDoomLeft.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/amazdoom/AmazDooMLeft.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/AmazDoomLeft.ttf"))
+	if (write_font(file, fd, "./fonts/amazdoom/AmazDooMLeft.ttf"))
 		return (-1);
-	if ((file = open("./fonts/Alice-Regular.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/alice/Alice-Regular.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/Alice-Regular.ttf"))
+	if (write_font(file, fd, "./fonts/alice/Alice-Regular.ttf"))
 		return (-1);
-	if ((file = open("./fonts/BebasNeue-Regular.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/bebas_neue/BebasNeue-Regular.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/BebasNeue-Regular.ttf"))
+	if (write_font(file, fd, "./fonts/bebas_neue/BebasNeue-Regular.ttf"))
 		return (-1);
-	if ((file = open("./fonts/Montserrat-Regular.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/montserrat/Montserrat-Regular.ttf",
+		O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/Montserrat-Regular.ttf"))
+	if (write_font(file, fd, "./fonts/montserrat/Montserrat-Regular.ttf"))
 		return (-1);
-	if ((file = open("./fonts/PlayfairDisplay-Regular.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/playfair-display/PlayfairDisplay-Regular.ttf",
+		O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/PlayfairDisplay-Regular.ttf"))
+	if (write_font(file, fd,
+		"./fonts/playfair-display/PlayfairDisplay-Regular.ttf"))
 		return (-1);
 	return (0);
 }
 
 int		write_fonts2(int fd, int file)
 {
-	if ((file = open("./fonts/Lato-Regular.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/lato/Lato-Regular.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/Lato-Regular.ttf"))
+	if (write_font(file, fd, "./fonts/lato/Lato-Regular.ttf"))
 		return (-1);
-	if ((file = open("./fonts/Lato-Bold.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/lato/Lato-Bold.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/Lato-Bold.ttf"))
+	if (write_font(file, fd, "./fonts/lato/Lato-Bold.ttf"))
 		return (-1);
-	if ((file = open("./fonts/Lato-Black.ttf", O_RDONLY)) < 0)
+	if ((file = open("./fonts/lato/Lato-Black.ttf", O_RDONLY)) < 0)
 		return (custom_error("Could not open the font\n"));
-	if (write_font(file, fd, "./fonts/Lato-Black.ttf"))
+	if (write_font(file, fd, "./fonts/lato/Lato-Black.ttf"))
 		return (-1);
 	return (0);
 }

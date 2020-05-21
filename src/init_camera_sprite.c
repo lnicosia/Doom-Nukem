@@ -14,7 +14,7 @@
 
 void	init_camera_sprite(t_env *env)
 {
-	env->object_sprites[30].texture = 38;
+	env->object_sprites[30].texture = env->editor_start + 2;
 	env->object_sprites[30].oriented = 0;
 	env->object_sprites[30].rest_sprite = 30;
 	env->object_sprites[30].start[0].x = 0;

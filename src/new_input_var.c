@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
+#include "events.h"
 
 int		new_input_var4(t_input_box *box)
 {
@@ -46,10 +47,8 @@ int		new_input_var3(t_input_box *box, int type, void *target)
 	}
 	else if (type == STRING)
 	{
-		box->str_target = (char**)target;
-		if (box->str)
-			ft_strdel(&box->str);
-		box->str = ft_strdup(*(char**)target);
+		if (set_new_string_input_box(box, target))
+			return (-1);
 	}
 	return (new_input_var4(box));
 }
@@ -76,7 +75,7 @@ int		new_input_var2(t_input_box *box, int type, void *target)
 			box->period = 1;
 			box->period_index = len - dec_len;
 		}
-		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
+		ft_snprintf(box->str, len + 1, "%.*f", dec_len,
 		*(box->double_target));
 		set_double_stats(box);
 	}
@@ -98,6 +97,8 @@ int		new_input_var(t_input_box *box, t_point pos, int type, void *target)
 	box->period_index = 0;
 	if (type == INT)
 	{
+		if (box->str)
+			ft_strdel(&box->str);
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);

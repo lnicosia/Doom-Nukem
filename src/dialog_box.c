@@ -31,7 +31,11 @@ char	*get_current_line(char **str, t_env *env)
 		ft_strdel(&res);
 		if (!(res = ft_strsub(*str, 0, len)))
 			return (0);
-		TTF_SizeText(env->sdl.fonts.lato_bold30, res, &size.x, &size.y);
+		if (TTF_SizeText(env->sdl.fonts.lato_bold30, res, &size.x, &size.y))
+		{
+			ft_strdel(&res);
+			return (0);
+		}
 		len++;
 	}
 	if (size.x >= env->h_w - 70)
@@ -43,13 +47,16 @@ char	*get_current_line(char **str, t_env *env)
 	return (res);
 }
 
-void	print_line_text(t_point *pos, t_point *text_size, char *tmp2,
+int		print_line_text(t_point *pos, t_point *text_size, char *tmp2,
 t_env *env)
 {
-	TTF_SizeText(env->sdl.fonts.lato_bold30, tmp2, &text_size->x,
-	&text_size->y);
-	print_text(*pos, new_printable_text(tmp2, env->sdl.fonts.lato_bold30,
-	0xFFFFFFFF, 0), env);
+	if (TTF_SizeText(env->sdl.fonts.lato_bold30, tmp2, &text_size->x,
+		&text_size->y))
+		return (-1);
+	if (print_text(*pos, new_printable_text(tmp2, env->sdl.fonts.lato_bold30,
+		0xFFFFFFFF, 0), env))
+		return (-1);
+	return (0);
 }
 
 int		compute_current_line(char **str, t_point *pos, t_point *text_size,
@@ -65,17 +72,27 @@ t_env *env)
 	{
 		if (!(tmp2 = ft_strsub(tmp, 0,
 			ft_strlen(tmp) - ft_strlen(ft_strrchr(tmp, ' ')))))
+		{
+			ft_strdel(&tmp);
 			return (-1);
+		}
 		ft_strdel(&tmp);
 	}
 	else
 		tmp2 = tmp;
 	if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2) + 1,
 		ft_strlen(*str) - ft_strlen(tmp2))))
+	{
+		ft_strdel(&tmp2);
 		return (-1);
+	}
 	ft_strdel(str);
 	*str = tmp3;
-	print_line_text(pos, text_size, tmp2, env);
+	if (print_line_text(pos, text_size, tmp2, env))
+	{
+		ft_strdel(&tmp2);
+		return (-1);
+	}
 	ft_strdel(&tmp2);
 	return (0);
 }
@@ -91,6 +108,9 @@ int		split_text(char **str, t_point pos, t_env *env)
 	t_point	text_size;
 
 	count = 0;
+	if (TTF_SizeText(env->sdl.fonts.lato_bold30, *str, &text_size.x,
+		&text_size.y))
+		return (-1);
 	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
 	{
 		if (compute_current_line(str, &pos, &text_size, env))
@@ -122,7 +142,10 @@ int		draw_dialog_box(char **str, t_env *env)
 	apply_image(texture, new_point(env->h - size.y, env->h_w - size.x / 2),
 	size, env);
 	if (split_text(&tmp, pos, env))
+	{
+		ft_strdel(&tmp);
 		return (-1);
+	}
 	if (env->next_dialog)
 	{
 		ft_strdel(str);

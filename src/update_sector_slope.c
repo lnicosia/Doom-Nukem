@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 void	compute_current_wall_slope2(int i, t_sector *sector, t_env *env)
 {
@@ -51,9 +52,6 @@ void	update_sector_slope(t_env *env, t_sector *sector)
 {
 	int			i;
 
-	if (sector->num < 0 || sector->num > env->nb_sectors)
-		ft_printf("Error when updating sector %d slope:"
-		" sector does not exist\n");
 	sector->floor_max = sector->floor;
 	sector->floor_min = sector->floor;
 	sector->ceiling_max = sector->ceiling;

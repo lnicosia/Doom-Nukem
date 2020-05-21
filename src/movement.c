@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 10:19:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:20:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 16:54:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	get_speed(t_env *env)
 	time = SDL_GetTicks() - env->time.milli_s;
 	if (env->inputs.shift && !env->inputs.ctrl)
 		speed = env->player.speed * 1.5;
-	else if (env->inputs.ctrl)
+	else if (env->inputs.ctrl && env->in_game)
 		speed = env->player.speed / 1.5;
 	else
 		speed = env->player.speed;

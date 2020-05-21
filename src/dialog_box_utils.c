@@ -46,7 +46,11 @@ int		find_dialog_box_max_char(t_env *env)
 		if (!(str = ft_strnew(len)))
 			return (-1);
 		ft_memset(str, 'a', len);
-		TTF_SizeText(env->sdl.fonts.lato_bold30, str, &size.x, &size.y);
+		if (TTF_SizeText(env->sdl.fonts.lato_bold30, str, &size.x, &size.y))
+		{
+			ft_strdel(&str);
+			return (-1);
+		}
 		len++;
 	}
 	ft_strdel(&str);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 
 int	new_event_panel_dialog_box4(t_input_box *box)
 {
@@ -46,10 +46,8 @@ int	new_event_panel_dialog_box3(t_input_box *box, int type, void *target)
 	}
 	else if (type == STRING)
 	{
-		box->str_target = (char**)target;
-		if (box->str)
-			ft_strdel(&box->str);
-		box->str = ft_strdup(*(char**)target);
+		if (set_new_string_input_box(box, target))
+			return (-1);
 	}
 	return (new_event_panel_dialog_box4(box));
 }
@@ -69,7 +67,7 @@ int	new_event_panel_dialog_box2(t_input_box *box, int type, void *target)
 		dec_len = get_decimal_len(*(box->double_target));
 		if (!(box->str = ft_strnew(len)))
 			return (-1);
-		ft_snprintf(box->str, len + 1, "%.5f", dec_len,
+		ft_snprintf(box->str, len + 1, "%.*f", dec_len,
 		*(box->double_target));
 		set_double_stats(box);
 	}
@@ -91,6 +89,8 @@ t_env *env)
 	box->accept_inputs = 0;
 	if (type == INT)
 	{
+		if (box->str)
+			ft_strdel(&box->str);
 		box->int_target = (int*)target;
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);

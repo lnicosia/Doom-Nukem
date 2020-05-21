@@ -44,7 +44,10 @@ int		open_enemy_selection(void *param)
 	t_env *env;
 
 	env = (t_env *)param;
-	env->editor.draw_enemy_tab = 1;
+	if (!env->editor.draw_enemy_tab)
+		env->editor.draw_enemy_tab = 1;
+	else
+		env->editor.draw_enemy_tab = 0;
 	return (0);
 }
 

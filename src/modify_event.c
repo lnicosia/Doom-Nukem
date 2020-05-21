@@ -11,8 +11,10 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
-int		modify_event5(t_env *env)
+int		apply_modifications_to_event(t_env *env)
 {
 	set_modified_event(env, &env->editor.event_panel.event);
 	env->editor.event_panel.ok.release_action = &save_event;
@@ -44,7 +46,7 @@ int		modify_event4(t_env *env, int sector)
 	else if (env->selected_floor == -1 && env->editor.selected_sector == -1)
 		env->editor.event_panel.event =
 		env->global_events[env->editor.selected_event];
-	return (modify_event5(env));
+	return (0);
 }
 
 int		modify_event3(t_env *env, int sector)
@@ -68,7 +70,9 @@ int		modify_event3(t_env *env, int sector)
 			[env->editor.selected_event];
 		}
 	}
-	return (modify_event4(env, sector));
+	else
+		modify_event4(env, sector);
+	return (0);
 }
 
 int		modify_event2(t_env *env, int sector)
@@ -85,7 +89,9 @@ int		modify_event2(t_env *env, int sector)
 	else if (env->selected_object != -1)
 		env->editor.event_panel.event = env->objects[env->selected_object].
 		collision_events[env->editor.selected_event];
-	return (modify_event3(env, sector));
+	else
+		modify_event3(env, sector);
+	return (0);
 }
 
 int		modify_event(void *param)
@@ -106,5 +112,6 @@ int		modify_event(void *param)
 		sector = env->selected_floor;
 	else
 		sector = env->editor.selected_sector;
-	return (modify_event2(env, sector));
+	modify_event2(env, sector);
+	return (apply_modifications_to_event(env));
 }

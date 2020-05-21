@@ -39,7 +39,7 @@ int		parse_object_pos3(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for object %d angle\n",
+		return (custom_error("Invalid double for object %d angle\n",
 		parser->objects_count));
 		env->objects[parser->objects_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
@@ -75,7 +75,7 @@ int		parse_object_pos2(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object z and angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for object %d pos.z\n",
+		return (custom_error("Invalid double for object %d pos.z\n",
 			parser->objects_count));
 		env->objects[parser->objects_count].pos.z = ft_atof(*line);
 	*line = skip_number(*line);
@@ -96,7 +96,7 @@ int		parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object y, x, z and angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for object %d pos.y\n",
+		return (custom_error("Invalid double for object %d pos.y\n",
 		parser->objects_count));
 		env->objects[parser->objects_count].pos.y = ft_atof(*line);
 	*line = skip_number(*line);
@@ -109,7 +109,7 @@ int		parse_object_pos(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("object x, z and angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for object %d pos.x\n",
+		return (custom_error("Invalid double for object %d pos.x\n",
 		parser->objects_count));
 		return (parse_object_pos2(env, line, parser));
 }

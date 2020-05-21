@@ -10,12 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = doom-nukem-project
+
 GAME_NAME = doom-nukem
 
 EDITOR_NAME = doom_editor
 
 MAKEFILE = Makefile
 
+LIB_DIR = lib
 SRC_DIR = src
 OBJ_GAME_DIR = obj_game
 OBJ_EDITOR_DIR = obj_editor
@@ -36,13 +39,27 @@ SHOTGUN_DIR = shotgun
 GAME_DIR = .
 EDITOR_DIR = .
 LIBFT_DIR = libft
-SDL_DIR = SDL2-2.0.8/include
-SDL_TTF_DIR = SDL2_ttf-2.0.15
+SDL2_DIR = $(LIB_DIR)/SDL2-2.0.8
+SDL2_TTF_DIR = $(LIB_DIR)/SDL2_ttf-2.0.15
+FREETYPE_DIR = $(LIB_DIR)/freetype-2.9
+MESA_DIR = $(LIB_DIR)/mesa_libs
+SDL2_CONFIGURED = $(SDL2_DIR)/configured
+SDL2_TTF_CONFIGURED = $(SDL2_TTF_DIR)/configured
+FREETYPE_CONFIGURED = $(FREETYPE_DIR)/configured
 FMOD_LIB_DIR = sound_lib
 FMOD_INC_DIR = sound_inc
 SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
+INSTALL_DIR = install
+INSTALL_TYPE = compile_all
+LIB_INSTALL = $(LIB_DIR)/installed
+ROOT = sudo
 
 LIBFT = $(LIBFT_DIR)/libft.a
+
+LIB_RAW = libelf-0.8.13 libXrender-0.9.10 libXrandr-1.5.2 libxshmfence-1.3 \
+		   libXxf86vm-1.1.4 xcb-proto-1.14 libxcb-1.14 libXfixes-5.0 \
+		   libXdamage-1.1 libX11-1.6.9 libpciaccess-0.13.4 libdrm-2.4.100 \
+		   zlib-1.2.11 mesa-19.0.8 freetype-2.9
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
@@ -62,6 +79,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
 				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
+				draw_game2.c entity_hit.c \
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
@@ -146,10 +164,10 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		add_floor_sprite.c add_ceiling_sprite.c add_wall_sprite.c \
 		update_entities.c editor_vertices_tab.c selection_tabs_keyup.c \
 		editor_vertices_tab_button.c editor_env_vertices_buttons.c \
-		delete_sector.c delete_vertex.c weapon_picker.c \
+		delete_sector.c delete_vertex.c weapon_picker.c write_ui.c \
 		write_musics_choices.c write_resources.c write_textures.c \
 		write_sounds.c write_sprites.c write_skyboxes.c write_fonts.c\
-		editor_minimap.c init_editor_options_buttons.c \
+		editor_minimap.c init_editor_options_buttons.c delete_ceiling_sprite.c \
 		editor_option_keys.c write_hud.c write_hud2.c previous_exec_condition.c\
 		update_sector_with_deleted_vertex.c check_move_player_conditions.c \
 		editor_buttons_functions2.c editor_buttons_functions3.c \
@@ -175,7 +193,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_sectors3.c check_ceiling_height_input_box.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c editor_3d_music_buttons.c\
+		update_sector_input_box.c editor_options.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -209,7 +227,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
-		   validate_input.c button_event.c init_weapons_sprites.c\
+		   validate_input.c button_event.c \
 		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
@@ -227,7 +245,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c tabs_gestion.c \
 		   free_sector.c init_screen_size.c dialog_parser.c update_event.c \
-		   print_press_text.c modify_wall_sprite.c realloc_sector_arrays.c \
+		   print_press_text.c realloc_sector_arrays.c \
 		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
@@ -278,7 +296,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_cyber_demon_pursuit_four.c init_cyber_demon_firing_anim.c \
 		   init_cyber_demon_firing_anim_two.c init_cyber_demon_death.c \
 		   init_cyber_demon_firing_anim_three.c init_lamp.c init_barrel.c \
-		   init_monitor.c init_candle.c init_camera_sprite.c \
+		   init_monitor.c init_candle.c init_camera_sprite.c free_buttons.c \
 		   init_armor_green.c init_explosion.c init_grid_sprite.c \
 		   init_bullet_hole.c init_object_lost_soul.c init_object_cyber_demon.c\
 		   init_shotgun_sprite.c init_raygun_sprite.c init_doom_guy.c \
@@ -304,15 +322,29 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
-		   is_new_sector_convex.c option_menu4.c option_menu5.c option_menu6.c\
-		   init_weapons_sprites2.c
+		   option_menu4.c option_menu5.c option_menu6.c init_weapons_sprites2.c \
+		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
+		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
+		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
+		   init_enemies_textures.c init_sprites_textures.c \
+		   init_hud_textures.c init_wall_textures.c \
+		   init_mini_skyboxes.c check_existing_files.c \
+		   check_walls_textures.c free_resources_init.c \
+		   check_sprites_textures.c check_hud_textures.c \
+		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
+		   init_ttf2.c check_fonts.c check_ui.c map_parse_ui.c \
+		   check_existing_sounds.c map_parse_textures.c \
+		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
+		   parse_font.c check_resources.c check_shotgun.c \
+		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
+		   check_sounds.c check_sounds2.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
-		  wall_sprite_remover.h wall_sprite_modifier.h events_conditions.h \
+		  wall_sprite_remover.h events_conditions.h \
 		  events_parser.h draw_grid_walls.h valid_map.h events.h free.h\
 		  draw_skybox.h pop_events.h events_protection.h init.h \
-		  parser.h enemies.h \
+		  parser.h enemies.h draw.h defines_images.h\
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
@@ -365,12 +397,21 @@ UI =	button-default-up.bmp button-default-pressed.bmp \
 		previous-hover2_pink.bmp previous-pressed2_pink.bmp \
 		previous-up2_pink.bmp
 
-AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav\
-		shotgun_shot.wav raygun_shot.wav footstep.wav
+AUDIO = Mt_Erebus.wav bim_bam_boum.wav at_dooms_gate.wav footstep.wav \
+		shotgun_shot.wav raygun_shot.wav handgun_shot.wav \
+		rocket_launcher_shot.wav gatling_shot.wav player_hit.wav \
+		player_death.wav cyberdemon_death.wav lost_soul_death.wav \
+		lost_soul_attack.wav monster_hit.wav monster_nearby.wav \
+		explosion.wav \
 
-FONTS = Alice-Regular.ttf BebasNeue-Regular.ttf AmazDooMLeft.ttf \
-		Montserrat-Regular.ttf PlayfairDisplay-Regular.ttf \
-		Lato-Regular.ttf Lato-Bold.ttf Lato-Black.ttf
+FONTS = alice/Alice-Regular.ttf bebas_neue/BebasNeue-Regular.ttf \
+		amazdoom/AmazDooMLeft.ttf montserrat/Montserrat-Regular.ttf \
+		playfair-display/PlayfairDisplay-Regular.ttf \
+		lato/Lato-Regular.ttf lato/Lato-Bold.ttf lato/Lato-Black.ttf
+
+#
+# Creation of files path
+#
 
 SRC_GAME = $(addprefix $(SRC_DIR)/, $(SRC_GAME_RAW))
 OBJ_GAME = $(addprefix $(OBJ_GAME_DIR)/, $(SRC_GAME_RAW:.c=.o))
@@ -381,11 +422,20 @@ OBJ_EDITOR = $(addprefix $(OBJ_EDITOR_DIR)/, $(SRC_EDITOR_RAW:.c=.o))
 SRC_ALL = $(addprefix $(SRC_DIR)/, $(SRC_ALL_RAW))
 OBJ_ALL = $(addprefix $(OBJ_ALL_DIR)/, $(SRC_ALL_RAW:.c=.o))
 
-TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
-SPRITES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SPRITES_DIR)/, $(SPRITES)))
-SKYBOXES_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
-HUD_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
-UI_FILES =  $(addprefix $(IMAGES_DIR)/, $(addprefix $(UI_DIR)/, $(UI)))
+INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
+
+MESA_LIB = $(addprefix $(MESA_DIR)/, $(LIB_RAW))
+
+MESA_ARCHIVES = $(addsuffix .tar.gz, $(MESA_LIB))
+
+TEXTURES_FILES = $(addprefix $(IMAGES_DIR)/, \
+				 $(addprefix $(TEXTURES_DIR)/, $(TEXTURES)))
+SPRITES_FILES = $(addprefix $(IMAGES_DIR)/, \
+				$(addprefix $(SPRITES_DIR)/, $(SPRITES)))
+SKYBOXES_FILES = $(addprefix $(IMAGES_DIR)/, \
+				 $(addprefix $(SKYBOXES_DIR)/, $(SKYBOXES)))
+HUD_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(HUD_DIR)/, $(HUD)))
+UI_FILES = $(addprefix $(IMAGES_DIR)/, $(addprefix $(UI_DIR)/, $(UI)))
 AUDIO_FILES = $(addprefix $(AUDIO_DIR)/, $(AUDIO))
 FONTS_FILES = $(addprefix $(FONTS_DIR)/, $(FONTS))
 
@@ -397,84 +447,252 @@ UI_PATH =  $(addprefix $(IMAGES_DIR)/, $(UI_DIR))
 AUDIO_PATH = $(AUDIO_DIR)
 FONTS_PATH = $(FONTS_DIR)
 
-TEXTURES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(TEXTURES_DIR)))
-SPRITES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SPRITES_DIR)))
-SKYBOXES_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(SKYBOXES_DIR)))
-HUD_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(HUD_DIR)))
-UI_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(addprefix $(IMAGES_DIR)/, $(UI_DIR)))
-AUDIO_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(AUDIO_DIR))
-FONTS_SOURCE_PATH = $(addprefix $(SOURCES_PATH)/, $(FONTS_DIR))
+RESOURCES = $(TEXTURES_FILES) $(SPRITES_FILES) $(SKYBOXES_FILES) $(HUD_FILES) \
+			$(UI_FILES) $(AUDIO_FILES) $(FONTS_FILES)
 
+OPTI_FLAGS = -O3
 
-ALL_RESOURCES = $(EDITOR_DIR)
-
-INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
-
-CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) -Wno-misleading-indentation \
+CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
+		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
+		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  -I $(LIBFT_DIR) -I $(SDL_DIR) -I $(SDL_TTF_DIR) -I $(FMOD_INC_DIR)\
-		  -Ofast\
-		  #-fsanitize=address -g3 \
-		  #-flto \
-		  #-fdata-sections \
-		  #-ffast-math \
-		  #-funroll-loops \
+		  -fsanitize=address -g3 \
+		  #$(OPTI_FLAGS) \
 	
-DEBUG ?= 0
+#
+# Flags for FMOD, SDL2 and SDL2_ttf linking
+#
 
-ifeq ($(DEBUG), 1)
-	CFLAGS += -fsanitize=address -g3
-endif
+FMOD_FLAGS = -lfmod -lfmodL
 
-SOUND_WINDOWS = fmod.dll fmodL.dll
+SDL2_FLAGS = -lSDL2
 
-SOUND_OSX = sound_lib/libfmod.dylib sound_lib/libfmodL.dylib
+SDL2_TTF_FLAGS = -lSDL2_ttf
 
-SOUND_LINUX = libfmod.so libfmodL.so
+#
+# Needed lib files to link
+#
 
-SDL_WINDOWS = /usr/local/bin/SDL2.dll \
-              /usr/local/bin/SDL2_ttf.dll \
-              -L/usr/local/lib -lcygwin -lSDL2main \
+#### FMOD ####
 
-SDL_OSX = -F ~/Library/Frameworks/ -framework SDL2 \
-	  -F ~/Library/Frameworks/ -framework SDL2_ttf \
-	  #`sdl-config --cflags --libs` \
-	  RED := "\033[0;31m"
+FMOD_WINDOWS = /usr/lib/fmod.dll /usr/lib/fmodL.dll
 
-SDL_LINUX = -lSDL2 -lSDL2_ttf -lm -lpthread
+FMOD_OSX = /usr/local/lib/libfmod.dylib /usr/local/lib/libfmodL.dylib
+
+FMOD_LINUX = /usr/lib/libfmod.so /usr/lib/libfmodL.so \
+			 /usr/lib/libfmod.so.12 /usr/lib/libfmodL.so.12 \
+			 /usr/lib/libfmod.so.12.0 /usr/lib/libfmodL.so.12.0
+
+#### SDL2 ####
+
+SDL2_WINDOWS = /usr/local/bin/SDL2.dll
+
+SDL2_OSX = 
+
+SDL2_LINUX = /usr/local/lib/libSDL2.so
+
+#### SDL2_ttf ####
+
+SDL2_TTF_WINDOWS = /usr/local/bin/SDL2_ttf.dll
+
+SDL2_TTF_OSX = 
+
+SDL2_TTF_LINUX = /usr/local/lib/libSDL2_ttf.so 
+
+#### Freetype ###
+
+FREETYPE_WINDOWS =
+
+FREETYPE_OSX =
+
+FREETYPE_LINUX = /usr/local/lib/libfreetype.so
+
+#
+# Includes lib files needed for compilation (needs an archive to be extracted)
+#
+
+SDL2_INCLUDES = $(SDL2_DIR)/include/SDL.h
+
+SDL2_TTF_INCLUDES = $(SDL2_TTF_DIR)/SDL_ttf.h
+
+#
+# Setting right flags and files dependencies to link external libs
+# according to user's os
+#
 
 ifeq ($(OS), Windows_NT)
-	SDL = $(SDL_WINDOWS)
-	SOUND = $(SOUND_WINDOWS)
+	SDL2_FLAGS += -Wl,-rpath,/usr/local/bin
+	SDL2 = $(SDL2_WINDOWS)
+	SDL2_TTF = $(SDL2_TTF_WINDOWS)
+	FREETYPE = $(FREETYPE_WINDOWS)
+	FMOD = $(FMOD_WINDOWS)
+	CFLAGS += -Wno-misleading-indentation
+	COMPILE_ALL = $(INSTALL_DIR)/compile_all_windows.sh
+	INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_windows.sh
+	INSTALL_ALL = $(INSTALL_DIR)/install_all_windows.sh
+	ROOT = 
 else
 	UNAME_S = $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
-		SDL = $(SDL_OSX)
-		SOUND = $(SOUND_OSX) install_name_tool -add_rpath @executable_path/sound_lib $(EDITOR_NAME)
-	else
-		SDL = $(SDL_LINUX)
-		SOUND = $(SOUND_LINUX)
-	endif
+    ifeq ($(UNAME_S),Darwin)
+		SDL2 = $(SDL2_OSX)
+		SDL2_TTF = $(SDL2_TTF_OS)
+		FREETYPE = $(FREETYPE_OSX)
+		FMOD = $(FMOD_OSX)
+		COMPILE_ALL = $(INSTALL_DIR)/compile_all_osx.sh
+		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_osx.sh
+		INSTALL_ALL = $(INSTALL_DIR)/install_all_osx.sh
+		OPTI_FLAGS += -flto
+    else
+		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
+		SDL2 = $(SDL2_LINUX)
+		SDL2_TTF = $(SDL2_TTF_LINUX)
+		FREETYPE = $(FREETYPE_LINUX)
+		FMOD = $(FMOD_LINUX)
+		COMPILE_ALL = $(INSTALL_DIR)/compile_all_linux.sh
+		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_linux.sh
+		INSTALL_ALL = $(INSTALL_DIR)/install_all_linux.sh
+		CFLAGS += -Wno-misleading-indentation
+		OPTI_FLAGS += -flto
+    endif
 endif
 
+#
+# Color declarations
+#
+
+RED := "\e[0;31m"
 GREEN := "\e[0;32m"
+YELLOW := "\e[0;33m"
+BLUE := "\e[0;34m"
+MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
 
-all:
-	@make $(ALL_RESOURCES)
-	@make -C $(LIBFT_DIR) -j8
-	@printf "\e[0m"
-	@make $(GAME_DIR)/$(GAME_NAME) -j8
-	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+#
+# Rules
+#
 
-game:
-	@make -C $(LIBFT_DIR) -j8
-	@make $(GAME_DIR)/$(GAME_NAME) -j8
+all: $(RESOURCES)
+	@printf $(CYAN)"[INFO] Buidling libft..\n"$(RESET) 
+	@make --no-print-directory -C $(LIBFT_DIR)
+	@printf $(RESET)
+	@printf $(CYAN)"[INFO] Buidling game..\n"$(RESET) 
+	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME)
+	@printf $(CYAN)"[INFO] Buidling editor..\n"$(RESET) 
+	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME)
 
-editor:
-	@make -C $(LIBFT_DIR) -j8
-	@make $(EDITOR_DIR)/$(EDITOR_NAME) -j8
+$(NAME): all
+
+game: $(RESOURCES)
+	@printf $(CYAN)"[INFO] Compiling libft..\n"$(RESET) 
+	@make --no-print-directory -C $(LIBFT_DIR)
+	@printf $(CYAN)"[INFO] Compiling libft..\n"$(RESET) 
+	@make --no-print-directory $(GAME_DIR)/$(GAME_NAME)
+
+editor: $(RESOURCES)
+	@printf $(CYAN)"[INFO] Building libft..\n"$(RESET) 
+	@make --no-print-directory -C $(LIBFT_DIR)
+	@printf $(CYAN)"[INFO] Building editor..\n"$(RESET) 
+	@make --no-print-directory $(EDITOR_DIR)/$(EDITOR_NAME)
+
+$(LIB_DIR): $(LIB_DIR)%.tar.gz
+	@printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
+	@tar -xf $< 
+
+$(EXTRACT_ALL): $(LIB_ARCHIVE)
+
+$(EXTRACT_SDL): $(SDL2_DIR) $(SDL2_TTF_DIR)
+
+$(LIB_INSTALL):
+	@printf $(CYAN)"[INFO] Checking SDL dependencies..\n"$(RESET)
+ifeq ($(INSTALL_TYPE),compile_all)
+	@printf $(CYAN)"[INFO] Manually compiling all the libraries..\n"$(RESET)
+	@$(ROOT) sh $(COMPILE_ALL)
+	@touch $(LIB_DIR)/installed
+else
+    ifeq ($(INSTALL_TYPE),compile_sdl)
+		@printf $(CYAN)"[INFO] Compiling SDL2 and SDL2_ttf..\n"$(RESET)
+		@$(ROOT) sh $(INSTALL_SDL_DEPENDENCIES)
+		@touch $(LIB_DIR)/installed
+    else
+        ifeq ($(INSTALL_TYPE),install)
+			@printf $(CYAN)"[INFO] Installing all the libraries..\n"
+			@printf $(RESET)
+			@$(ROOT) sh $(INSTALL_ALL)
+			@touch $(LIB_DIR)/installed
+        else
+			@printf $(RED)"[ERROR] Unsupported install type.\n"$(RESET)
+        endif
+     endif
+endif
+
+$(SDL2_DIR)/exists:
+	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
+	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@touch $@
+
+$(SDL2_TTF_DIR)/exists:
+	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
+	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@touch $@
+
+$(FREETYPE_DIR)/exists:
+	@printf $(YELLOW)"Extracting FreeType archive..\n"$(RESET) 
+	@cd $(LIB_DIR) && tar -xf freetype-2.9.tar.gz
+	@touch $@
+
+$(SDL2_CONFIGURED): $(SDL2_DIR)/exists
+	@printf $(YELLOW)"Configuring SDL2..\n"$(RESET) 
+	@cd $(SDL2_DIR) && $(ROOT) ./configure && touch configured
+
+$(FREETYPE_CONFIGURED): $(FREETYPE_DIR)/exists
+	@printf $(YELLOW)"Configuring FreeType..\n"$(RESET) 
+	@cd $(FREETYPE_DIR) && $(ROOT) ./configure && touch configured
+
+$(SDL2_TTF_CONFIGURED): $(SDL2_TTF_DIR)/exists $(SDL2) $(FREETYPE)
+	@printf $(YELLOW)"Configuring SDL2_ttf..\n"$(RESET) 
+	@cd $(SDL2_TTF_DIR) && $(ROOT) ./configure && touch configured
+
+$(SDL2): $(LIB_INSTALL) $(SDL2_CONFIGURED)
+	@printf $(YELLOW)"Compiling SDL2..\n"$(RESET) 
+	@$(ROOT) make -C $(SDL2_DIR)
+	@$(ROOT) make install -C $(SDL2_DIR)
+
+$(SDL2_TTF): $(SDL2_TTF_CONFIGURED)
+	@printf $(YELLOW)"Compiling SDL2_ttf..\n"$(RESET) 
+	@$(ROOT) make -C $(SDL2_TTF_DIR)
+	@$(ROOT) make install -C $(SDL2_TTF_DIR)
+
+$(FREETYPE): $(FREETYPE_CONFIGURED)
+	@printf $(YELLOW)"Compiling FreeType..\n"$(RESET) 
+	@$(ROOT) make -C $(FREETYPE_DIR)
+	@$(ROOT) make install -C $(FREETYPE_DIR)
+
+$(SDL2_INCLUDES):
+	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
+	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
+	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+
+$(SDL2_TTF_INCLUDES):
+	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
+	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
+	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+
+$(FMOD_WINDOWS):
+	@$(ROOT) cp sound_lib/fmod.dll /usr/lib/
+	@$(ROOT) cp sound_lib/fmodL.dll /usr/lib/
+
+$(FMOD_OSX):
+	@$(ROOT) cp sound_lib/libfmod.dylib /usr/local/lib
+	@$(ROOT) cp sound_lib/libfmodL.dylib /usr/local/lib
+
+$(FMOD_LINUX):
+	@$(ROOT) cp sound_lib/libfmod.so /usr/lib/
+	@$(ROOT) cp sound_lib/libfmod.so.12 /usr/lib/
+	@$(ROOT) cp sound_lib/libfmod.so.12.0 /usr/lib/
+	@$(ROOT) cp sound_lib/libfmodL.so /usr/lib/
+	@$(ROOT) cp sound_lib/libfmodL.so.12 /usr/lib/
+	@$(ROOT) cp sound_lib/libfmodL.so.12.0 /usr/lib/
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR) -j8
@@ -488,105 +706,95 @@ $(OBJ_EDITOR_DIR):
 $(OBJ_ALL_DIR):
 	@mkdir -p $(OBJ_ALL_DIR)
 
-$(IMAGES_DIR):
-	@mkdir -p $(IMAGES_DIR)
+$(RESOURCES):
+	@rm -rf images
+	@rm -rf fonts
+	@rm -rf audio
+	@rm -rf maps
+	@printf $(CYAN)"[INFO] Importing resources\n"$(YELLOW)
+	@wget -q --show-progress --load-cookies /tmp/cookies.txt \
+	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
+	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
+	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
+	1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr' -O- | sed -rn $\
+	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
+	&id=1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr" -O resources.tar.gz \
+	&& rm -rf /tmp/cookies.txt
+	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
+	@tar -xf resources.tar.gz
+	@printf $(RESET)
+	@rm -rf resources.tar.gz
 
-$(TEXTURES_DIR):
-	@mkdir -p $(TEXTURES_PATH)
-
-$(SPRITES_DIR):
-	@mkdir -p $(SPRITES_PATH)
-	
-$(SKYBOXES_DIR):
-	@mkdir -p $(SKYBOXES_PATH)
-
-$(HUD_DIR):
-	@mkdir -p $(HUD_PATH)
-
-$(UI_DIR):
-	@mkdir -p $(UI_PATH)
-
-$(AUDIO_DIR):
-	@mkdir -p $(AUDIO_PATH)
-
-$(FONTS_DIR):
-	@mkdir -p $(FONTS_PATH)
-
-$(TEXTURES_PATH)/%.bmp: $(TEXTURES_SOURCE_PATH)/%.bmp $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(SPRITES_PATH)/%.bmp: $(SPRITES_SOURCE_PATH)/%.bmp $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(SKYBOXES_PATH)/%.bmp: $(SKYBOXES_SOURCE_PATH)/%.bmp $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(HUD_PATH)/%.bmp: $(HUD_SOURCE_PATH)/%.bmp $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(UI_PATH)/%.bmp: $(UI_SOURCE_PATH)/%.bmp $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(AUDIO_PATH)/%.wav: $(AUDIO_SOURCE_PATH)/%.wav $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(FONTS_PATH)/%.ttf: $(FONTS_SOURCE_PATH)/%.ttf $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Importing $<\e[0m\n"
-	@cp $< $@
-
-$(ALL_RESOURCES):	$(TEXTURES_DIR) $(TEXTURES_FILES) \
-					$(SPRITES_DIR) $(SPRITES_FILES) \
-					$(SKYBOXES_DIR) $(SKYBOXES_FILES) \
-					$(HUD_DIR) $(HUD_FILES) \
-					$(UI_DIR) $(UI_FILES) \
-					$(AUDIO_DIR) $(AUDIO_FILES) \
-					$(FONTS_DIR) $(FONTS_FILES)
-
-$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+$(OBJ_ALL_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
+					$(SDL2_TTF_INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+$(OBJ_GAME_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
+					$(SDL2_TTF_INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+$(OBJ_EDITOR_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(SDL2_INCLUDES) \
+					$(SDL2_TTF_INCLUDES)
+	@printf $(YELLOW)"Compiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(EDITOR_NAME): $(LIBFT) $(OBJ_EDITOR_DIR) $(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
-	@printf "\e[0;36m[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}                   \e[0m\n"
-	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) $(SDL) $(SOUND)
-	@printf ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME) with success!\n"${RESET}
+$(EDITOR_NAME): $(LIBFT) $(SDL2) $(SDL2_TTF) $(FMOD) $(OBJ_EDITOR_DIR) \
+				$(OBJ_ALL_DIR) $(OBJ_EDITOR) $(OBJ_ALL)
+	@printf $(CYAN)"[INFO] Linking ${EDITOR_DIR}/${EDITOR_NAME}...\n"$(RESET)
+	@gcc $(CFLAGS) $(OBJ_EDITOR) $(OBJ_ALL) $(LIBFT) -o $(EDITOR_NAME) \
+		$(SDL2_FLAGS) $(SDL2_TTF_FLAGS) $(FMOD_FLAGS)
+	@printf ${GREEN}"[INFO] Compiled $(EDITOR_DIR)/$(EDITOR_NAME)"
+	@printf " with success!\n"${RESET}
 
-$(GAME_NAME): $(LIBFT) $(OBJ_GAME_DIR) $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
-	@printf "\e[0;36m[INFO] Linking ${GAME_DIR}/${GAME_NAME}                    \e[0m\n"
-	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) $(SDL) $(SOUND)
-	@printf ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!\n"${RESET}
+$(GAME_NAME): $(LIBFT) $(SDL2) $(SDL2_TTF) $(FMOD) $(OBJ_GAME_DIR) \
+			  $(OBJ_ALL_DIR) $(OBJ_GAME) $(OBJ_ALL)
+	@printf $(CYAN)"[INFO] Linking ${GAME_DIR}/${GAME_NAME}\n"$(RESET)
+	@gcc $(CFLAGS) $(OBJ_GAME) $(OBJ_ALL) $(LIBFT) -o $(GAME_NAME) \
+		$(SDL2_FLAGS) $(SDL2_TTF_FLAGS) $(FMOD_FLAGS)
+	@printf ${GREEN}"[INFO] Compiled $(GAME_DIR)/$(GAME_NAME) with success!\n"
+	@printf ${RESET}
 
-clean: 
+$(CLEAN_LIB): $(LIB)
+	printf $(YELLOW)"Make clean $<\n"$(RESET)
+	make clean -C $<
+
+$(FCLEAN_LIB): $(LIB)
+	@printf $(YELLOW)"Make clean $<\n"$(RESET)
+	@$(ROOT) make clean -C $<
+	@printf $(YELLOW)"Removing $<\n"$(RESET)
+	@rm -rf $<
+
+clean_libs:
+	@printf ${CYAN}"[INFO] Removing libs\n"${RESET}
+	$(ROOT) rm -rf $(MESA_LIB)
+	$(ROOT) rm -rf $(SDL2_DIR)
+	$(ROOT) rm -rf $(SDL2_TTF_DIR)
+	$(ROOT) rm -rf $(FREETYPE_DIR)
+	$(ROOT) rm -rf $(LIB_DIR)/installed
+
+clean: $(CLEAN_LIB)
+	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
 	@make clean -C libft
-	@rm -Rf $(OBJ_ALL_DIR)
-	@rm -Rf $(OBJ_EDITOR_DIR)
-	@rm -Rf $(OBJ_GAME_DIR)
-	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
+	rm -rf $(OBJ_ALL_DIR)
+	rm -rf $(OBJ_EDITOR_DIR)
+	rm -rf $(OBJ_GAME_DIR)
 
 fclean:
 	@make fclean -C libft
-	@rm -Rf $(OBJ_ALL_DIR)
-	@rm -Rf $(OBJ_EDITOR_DIR)
-	@rm -Rf $(OBJ_GAME_DIR)
-	@printf ${CYAN}"[INFO] Removed objs\n"${RESET}
-	@rm -Rf $(GAME_DIR)/$(GAME_NAME)
-	@rm -Rf $(EDITOR_DIR)/$(EDITOR_NAME)
-	@printf ${CYAN}"[INFO] Removed $(GAME_DIR)/$(GAME_NAME) and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
+	@printf ${CYAN}"[INFO] Removing objs\n"${RESET}
+	rm -rf $(OBJ_ALL_DIR)
+	rm -rf $(OBJ_EDITOR_DIR)
+	rm -rf $(OBJ_GAME_DIR)
+	@printf ${CYAN}"[INFO] Removing $(GAME_DIR)/$(GAME_NAME)"
+	@printf " and $(EDITOR_DIR)/$(EDITOR_NAME)\n"${RESET}
+	rm -rf $(GAME_DIR)/$(GAME_NAME)
+	rm -rf $(EDITOR_DIR)/$(EDITOR_NAME)
 
 re: fclean all
 
-.PHONY: fclean all clean libft maps
+death_race:
+	@printf $(RED)"Une seule règle. Pas de règles.\n"
+
+.PHONY: fclean all clean libft maps $(SDL_DEPENDENCIES)

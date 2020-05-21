@@ -61,3 +61,37 @@ int		write_hud7(int fd, int file)
 		return (-1);
 	return (0);
 }
+
+int		write_hud8(int fd, int file)
+{
+	if ((file = open("./images/HUD/gun_1.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the font\n"));
+	if (writing_bmp(file, fd, "./images/HUD/gun_1.bmp"))
+		return (-1);
+	if ((file = open("./images/HUD/gun_2.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the font\n"));
+	if (writing_bmp(file, fd, "./images/HUD/gun_2.bmp"))
+		return (-1);
+	if ((file = open("./images/HUD/gun_3.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the font\n"));
+	if (writing_bmp(file, fd, "./images/HUD/gun_3.bmp"))
+		return (-1);
+	return (0);
+}
+
+int		write_hud9(int fd, int file)
+{
+	if ((file = open("./images/HUD/gun_4.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the font\n"));
+	if (writing_bmp(file, fd, "./images/HUD/gun_4.bmp"))
+		return (-1);
+	if ((file = open("./images/HUD/gun_5.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the font\n"));
+	if (writing_bmp(file, fd, "./images/HUD/gun_5.bmp"))
+		return (-1);
+	if ((file = open("./images/HUD/gun_6.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the font\n"));
+	if (writing_bmp(file, fd, "./images/HUD/gun_6.bmp"))
+		return (-1);
+	return (0);
+}

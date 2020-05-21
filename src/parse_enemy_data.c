@@ -43,7 +43,7 @@ int		parse_enemy_data2(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy damage", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for enemy %d damage\n",
+		return (custom_error("Invalid int for enemy %d damage\n",
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].damage = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].damage <= 0)
@@ -60,7 +60,7 @@ int		parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy health, speed and damage", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for enemy %d hp\n",
+		return (custom_error("Invalid int for enemy %d hp\n",
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].map_hp = ft_atoi(*line);
 	if (env->enemies[parser->enemies_count].map_hp <= 0)
@@ -76,7 +76,7 @@ int		parse_enemy_data(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy speed and damage", parser));
 	if (valid_int(*line, parser))
-		return (ft_printf("Invalid int for enemy %d speed\n",
+		return (custom_error("Invalid int for enemy %d speed\n",
 		parser->enemies_count));
 		return (parse_enemy_data2(env, line, parser));
 }

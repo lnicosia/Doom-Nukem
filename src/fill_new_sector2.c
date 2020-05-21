@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	revert_sector(t_sector *sector, t_env *env)
+int		revert_sector(t_sector *sector, t_env *env)
 {
 	int			i;
 	int			index;
@@ -22,7 +22,7 @@ void	revert_sector(t_sector *sector, t_env *env)
 	i = 1;
 	j = 1;
 	if (!(tmp = (int *)ft_memalloc(sizeof(int) * (sector->nb_vertices + 1))))
-		return ;
+		return (ft_perror("Could not malloc revert sector tmp"));
 	tmp[0] = sector->vertices[0];
 	while (i < sector->nb_vertices)
 	{
@@ -37,6 +37,7 @@ void	revert_sector(t_sector *sector, t_env *env)
 	tmp[sector->nb_vertices] = tmp[0];
 	free(sector->vertices);
 	sector->vertices = tmp;
+	return (0);
 }
 
 int		fill_sector_first_vertex(t_sector *sector, t_env *env)

@@ -29,7 +29,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("vertex number", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before vertex number", "a digit", **line,
 		parser));
 		eparser->current_vertex = ft_atoi(*line);

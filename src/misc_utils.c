@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 void	init_sector_list(t_env *env, int curr)
 {

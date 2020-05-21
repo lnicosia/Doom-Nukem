@@ -12,8 +12,9 @@
 
 #include "env.h"
 #include "events_conditions.h"
+#include "draw.h"
 
-void	draw_condition_type_tab(t_env *env)
+int		draw_condition_type_tab(t_env *env)
 {
 	SDL_Surface	*img;
 
@@ -24,14 +25,16 @@ void	draw_condition_type_tab(t_env *env)
 		img = env->ui_textures[ACTION_ICON_DOWN].surface;
 	else
 		img = env->ui_textures[ACTION_ICON].surface;
-	draw_button(env, env->editor.event_panel.target_tab, NULL);
+	if (draw_button(env, env->editor.event_panel.target_tab, NULL))
+		return (-1);
 	apply_surface(img, new_point(env->editor.event_panel.pos.y
 	+ env->editor.event_panel.top_size + (50 - img->h / 2),
 	env->editor.event_panel.pos.x + (50 - img->h / 2)),
 	new_point(img->w, img->h), env);
+	return (0);
 }
 
-void	draw_condition_target_tab(t_env *env)
+int		draw_condition_target_tab(t_env *env)
 {
 	SDL_Surface	*img;
 
@@ -42,14 +45,16 @@ void	draw_condition_target_tab(t_env *env)
 		img = env->ui_textures[TARGET_ICON_DOWN].surface;
 	else
 		img = env->ui_textures[TARGET_ICON].surface;
-	draw_button(env, env->editor.event_panel.action_tab, NULL);
+	if (draw_button(env, env->editor.event_panel.action_tab, NULL))
+		return (-1);
 	apply_surface(img, new_point(env->editor.event_panel.pos.y
 	+ env->editor.event_panel.top_size + 100 + (50 - img->h / 2),
 	env->editor.event_panel.pos.x + (50 - img->h / 2)),
 	new_point(img->w, img->h), env);
+	return (0);
 }
 
-void	draw_condition_condition_panel2(t_env *env)
+int		draw_condition_condition_panel2(t_env *env)
 {
 	if (env->editor.condition_panel.condition.target_type == INT)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d",
@@ -61,30 +66,43 @@ void	draw_condition_condition_panel2(t_env *env)
 	else if (env->editor.condition_panel.condition.target_type == UINT32)
 		ft_snprintf(env->snprintf, SNPRINTF_SIZE, "0x%X",
 		env->editor.condition_panel.uint32_value);
-	draw_button(env, env->editor.condition_panel.value, env->snprintf);
+	if (draw_button(env, env->editor.condition_panel.value, env->snprintf))
+		return (-1);
+	return (0);
 }
 
-void	draw_condition_condition_panel(t_env *env)
+int		draw_condition_condition_panel(t_env *env)
 {
 	t_point		text_size;
 
-	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your condition type",
-	&text_size.x, &text_size.y);
-	print_text(new_point(env->editor.event_panel.pos.y +
-	env->editor.event_panel.top_size + 17,
-	env->editor.event_panel.pos.x + 100 +
-	env->editor.event_panel.content_panel_size.x / 2 - text_size.x / 2),
-	new_printable_text("Choose your condition type",
-	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
-	draw_button(env, env->editor.condition_panel.equals, "=");
-	draw_button(env, env->editor.condition_panel.different, "!=");
-	draw_button(env, env->editor.condition_panel.less, "<");
-	draw_button(env, env->editor.condition_panel.greater, ">");
-	draw_button(env, env->editor.condition_panel.less_or_equals, "<=");
-	draw_button(env, env->editor.condition_panel.greater_or_equals, ">=");
-	draw_button(env, env->editor.condition_panel.event_ended, "end");
-	draw_button(env, env->editor.condition_panel.event_ended_start,
-	"end(start)");
-	draw_button(env, env->editor.condition_panel.function, "func");
-	draw_condition_condition_panel2(env);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your condition type",
+		&text_size.x, &text_size.y))
+		return (-1);
+	if (print_text(new_point(env->editor.event_panel.pos.y +
+		env->editor.event_panel.top_size + 17,
+		env->editor.event_panel.pos.x + 100 +
+		env->editor.event_panel.content_panel_size.x / 2 - text_size.x / 2),
+		new_printable_text("Choose your condition type",
+		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.equals, "="))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.different, "!="))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.less, "<"))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.greater, ">"))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.less_or_equals, "<="))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.greater_or_equals, ">="))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.event_ended, "end"))
+		return (-1);
+	if (draw_button(env, env->editor.condition_panel.event_ended_start,
+		"end(start)"))
+		return (-1);
+	if (draw_condition_condition_panel2(env))
+		return (-1);
+	return (0);
 }

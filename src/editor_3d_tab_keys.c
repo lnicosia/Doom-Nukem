@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		general_tab_keys(t_env *env)
 {
@@ -66,6 +67,14 @@ int		general_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.events_tab, env))
 		return (-1);
+	if (button_keys(&env->editor.previous_fighting_music, env))
+		return (-1);
+	if (button_keys(&env->editor.previous_ambiance_music, env))
+		return (-1);
+	if (button_keys(&env->editor.next_ambiance_music, env))
+		return (-1);
+	if (button_keys(&env->editor.next_fighting_music, env))
+		return (-1);
 	return (0);
 }
 
@@ -113,8 +122,6 @@ int		editor_3d_tab_keys(t_env *env)
 	if (general_tab_keys(env))
 		return (-1);
 	if (selection_button_keys(env))
-		return (-1);
-	if (music_keys(env))
 		return (-1);
 	if (selection_tab_button_keys(env))
 		return (-1);

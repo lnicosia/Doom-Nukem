@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int	get_existing_not_dragged_vertex(t_env *env)
 {

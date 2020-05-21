@@ -113,12 +113,27 @@ int		editor_keyup6(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);
-	if (button_keyup(&env->editor.current_texture_selection, env))
-		return (-1);
-	if (button_keyup(&env->editor.current_enemy_selection, env))
-		return (-1);
-	if (button_keyup(&env->editor.current_object_selection, env))
-		return (-1);
+	if (!env->editor.texture_selection_just_closed)
+	{
+		if (button_keyup(&env->editor.current_texture_selection, env))
+			return (-1);
+	}
+	else
+		env->editor.texture_selection_just_closed = 0;
+	if (!env->editor.enemy_selection_just_closed)
+	{
+		if (button_keyup(&env->editor.current_enemy_selection, env))
+			return (-1);
+	}
+	else
+		env->editor.enemy_selection_just_closed = 0;
+	if (!env->editor.object_selection_just_closed)
+	{
+		if (button_keyup(&env->editor.current_object_selection, env))
+			return (-1);
+	}
+	else
+		env->editor.object_selection_just_closed = 0;
 	if (button_keyup(&env->editor.texture_background, env))
 		return (-1);
 	if (button_keyup(&env->editor.enemy_background, env))

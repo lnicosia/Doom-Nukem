@@ -82,7 +82,7 @@ void	init_rocket2(t_env *env)
 
 void	init_rocket(t_env *env)
 {
-	env->object_sprites[1].texture = 25;
+	env->object_sprites[1].texture = env->objects_sprites_start + 1;
 	env->object_sprites[1].death_counterpart = 22;
 	env->object_sprites[1].pursuit_sprite = 1;
 	env->object_sprites[1].firing_sprite = 1;

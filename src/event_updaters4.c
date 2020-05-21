@@ -12,6 +12,20 @@
 
 #include "env.h"
 
+int			update_gravity_event(t_event *event, void *penv)
+{
+	t_env	*env;
+
+	env = (t_env*)penv;
+	if (env->player.sector != event->update_param.sector)
+		return (0);
+	if (env->sectors[event->update_param.sector].gravity == 0)
+		env->player.state.fly = 1;
+	else
+		env->player.state.fly = 0;
+	return (0);
+}
+
 int			update_sector_entities_light_event(t_event *event, void *penv)
 {
 	t_env	*env;

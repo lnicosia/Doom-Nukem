@@ -21,11 +21,11 @@ int		init_screen_size(t_env *env)
 	env->screen_w[0] = 1600;
 	env->screen_h[0] = 900;
 	if (!(env->res[2] = ft_strdup("2560 x 1440")))
-		return (custom_error("Could not malloc screen size 0\n"));
+		return (ft_perror("Could not malloc screen size 0"));
 	if (!(env->res[1] = ft_strdup("1920 x 1080")))
-		return (custom_error("Could not malloc screen size 1\n"));
+		return (ft_perror("Could not malloc screen size 1"));
 	if (!(env->res[0] = ft_strdup("1600 x 900")))
-		return (custom_error("Could not malloc screen size 2\n"));
+		return (ft_perror("Could not malloc screen size 2"));
 	set_screen_size(env);
 	return (0);
 }

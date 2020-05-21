@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void		draw_rectangle_button(t_env *env, t_button b)
 {
@@ -36,7 +37,7 @@ void		draw_image_button(t_env *env, t_button b, t_point pos)
 		apply_surface(b.img_down, pos, b.size_down, env);
 }
 
-void		draw_button(t_env *env, t_button b, char *str)
+int			draw_button(t_env *env, t_button b, char *str)
 {
 	if (!b.img_up || !b.img_pressed || !b.img_down || !b.img_hover)
 	{
@@ -46,5 +47,7 @@ void		draw_button(t_env *env, t_button b, char *str)
 	{
 		draw_image_button(env, b, new_point(b.pos.y, b.pos.x));
 	}
-	draw_button_text(b, str, env);
+	if (draw_button_text(b, str, env))
+		return (-1);
+	return (0);
 }

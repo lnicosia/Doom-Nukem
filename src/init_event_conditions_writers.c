@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void	init_event_conditions_writers3(void (*writers[])(int, t_condition))
 {

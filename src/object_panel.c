@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
 
 int		set_object_panel_buttons_state(t_target_panel *panel, int index)
 {
@@ -78,12 +79,19 @@ int		select_object(void *param)
 
 int		draw_object_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Sprite");
-	draw_button(env, panel->targets[1], "X");
-	draw_button(env, panel->targets[2], "Y");
-	draw_button(env, panel->targets[3], "Z");
-	draw_button(env, panel->targets[4], "Scale");
-	draw_button(env, panel->targets[5], "Damage");
-	draw_button(env, panel->targets[6], "Health");
+	if (draw_button(env, panel->targets[0], "Sprite"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "X"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Z"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Scale"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Damage"))
+		return (-1);
+	if (draw_button(env, panel->targets[6], "Health"))
+		return (-1);
 	return (0);
 }

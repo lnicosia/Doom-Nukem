@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
+#include "events.h"
 
 int		draw_condition_targets_panel(t_env *env)
 {
@@ -19,12 +21,14 @@ int		draw_condition_targets_panel(t_env *env)
 	int				phase;
 
 	panel = env->editor.event_panel;
-	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your condition's target",
-	&text_size1.x, &text_size1.y);
-	print_text(new_point(panel.pos.y + panel.top_size + 17,
-	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
-	new_printable_text("Choose your condition's target",
-	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30,
+		"Choose your condition's target", &text_size1.x, &text_size1.y))
+		return (-1);
+	if (print_text(new_point(panel.pos.y + panel.top_size + 17,
+		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
+		new_printable_text("Choose your condition's target",
+		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
+		return (-1);
 	phase =
 	get_target_selection_phase(&env->editor.condition_panel.target_panel);
 	if (phase == 0)

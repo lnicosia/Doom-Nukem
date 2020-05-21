@@ -14,14 +14,16 @@
 
 void	free_projectiles(t_env *env)
 {
-	free_events(env->wall_bullet_holes_events,
-	env->nb_wall_bullet_holes_events);
-	free_events(env->floor_bullet_holes_events,
-	env->nb_floor_bullet_holes_events);
-	free_events(env->ceiling_bullet_holes_events,
-	env->nb_ceiling_bullet_holes_events);
+	free_events(&env->wall_bullet_holes_events,
+	&env->nb_wall_bullet_holes_events);
+	free_events(&env->floor_bullet_holes_events,
+	&env->nb_floor_bullet_holes_events);
+	free_events(&env->ceiling_bullet_holes_events,
+	&env->nb_ceiling_bullet_holes_events);
 	if (env->projectiles)
 		ft_lstdelfront(&env->projectiles);
+	if (env->explosions)
+		ft_lstdelfront(&env->explosions);
 }
 
 void	free_map(t_env *env)
@@ -39,8 +41,15 @@ void	free_map(t_env *env)
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
 	free_projectiles(env);
-	free_events(env->global_events, env->nb_global_events);
+	free_events(&env->global_events, &env->nb_global_events);
 	if (env->sectors)
 		free_sectors(env);
 	free_camera(&env->player.camera);
+	free_camera(&env->fixed_camera);
+	if (env->events)
+		ft_lstdelfront(&env->events);
+	if (env->queued_values)
+		ft_lstdelfront(&env->queued_values);
+	if (env->dialog_box_str)
+		ft_strdel(&env->dialog_box_str);
 }

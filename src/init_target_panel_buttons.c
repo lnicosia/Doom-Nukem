@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 void	set_target_panel_button_pos(t_button *button, double side,
 double nb, t_env *env)

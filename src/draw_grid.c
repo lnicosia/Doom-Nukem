@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
 #include "env.h"
 
 void	draw_vertical_axes(t_env *env)

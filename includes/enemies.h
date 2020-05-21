@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemies.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/01 17:09:17 by lnicosia          #+#    #+#             */
+/*   Updated: 2020/05/01 17:09:18 by lnicosia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ENEMIES_H
 # define ENEMIES_H
-# include "env.h" 
+# include "env.h"
+
 /*
 ** enemies functions
 */
@@ -23,7 +36,7 @@ int						check_segment_in_sector(t_env *env, t_v2 enemy,
 	t_v2 player, int sector);
 void					enemy_far_left_right(t_env *env, int nb);
 void					update_enemy_pos(t_env *env, int nb, t_v3 move);
-void					damage_player(t_env *env, int damage);
+int						damage_player(t_env *env, int damage);
 double					enemy_angle_z(t_env *env, int i);
 int						direction_of_point(t_v2 a, t_v2 b, t_v2 p);
 void					relative_pos(int direction, int *left, int *right);

@@ -23,7 +23,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line)
 		return (missing_data("target index", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before target index", "a digit", **line, parser));
 	eparser->current_index = ft_atoi(*line);
 	if (eparser->current_index < 0
@@ -49,7 +49,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line)
 		return (missing_data("target type", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before target type", "a digit", **line, parser));
 	eparser->target_type = ft_atoi(*line);
 	if (eparser->target_type < 0 || eparser->target_type > MAX_TRIGGER_TYPES)

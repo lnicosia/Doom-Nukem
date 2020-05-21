@@ -22,7 +22,7 @@ void	free_screen_sectors(t_env *env);
 void	free_sector(t_sector *sector);
 void	free_wall_sprites(t_wall_sprites *wall);
 void	free_event(t_event *event);
-void	free_events(t_event *event, size_t size);
+void	free_events(t_event **event, size_t *size);
 void	free_map(t_env *env);
 void	free_enemies(t_env *env);
 void	free_objects(t_env *env);
@@ -30,5 +30,7 @@ void	free_sectors(t_env *env);
 void	free_textures(t_env *env);
 void	free_fonts(t_env *env);
 void	free_audio(t_env *env, int i);
+void	free_buttons(t_env *env);
+void	free_resources_init(t_env *env);
 
 #endif

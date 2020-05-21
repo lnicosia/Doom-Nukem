@@ -12,6 +12,7 @@
 
 #include "collision.h"
 #include "events_parser.h"
+#include "parser.h"
 
 int		check_z_collision_event2(t_event *event, t_motion movement, t_env *env)
 {
@@ -45,9 +46,9 @@ int		check_z_collision_event(t_event *event, void *penv)
 
 	env = (t_env*)penv;
 	ft_bzero(&movement, sizeof(t_motion));
-	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
 	movement = new_motion(env->player.sector, env->player.size_2d,
 			env->player.eyesight, env->player.pos);
+	movement.lowest_ceiling = find_lowest_ceiling(env, movement);
 	movement.flight = env->player.state.fly;
 	return (check_z_collision_event2(event, movement, env));
 }

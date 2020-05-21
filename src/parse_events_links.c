@@ -16,7 +16,7 @@
 int		parse_link_source2(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before source index", "a digit", **line, parser));
 	eparser->current_index = ft_atoi(*line);
 	if (eparser->current_index < 0
@@ -35,7 +35,7 @@ t_events_parser *eparser)
 int		parse_link_source(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before source type", "a digit", **line, parser));
 	eparser->source_type = ft_atoi(*line);
 	if (eparser->source_type < 0 || eparser->source_type > MAX_TRIGGER_TYPES)
@@ -75,7 +75,7 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']')
 		return (missing_data("link type", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before link type", "a digit", **line, parser));
 	eparser->link_type = ft_atoi(*line);
 	if (eparser->link_type != 0 && eparser->link_type != 1)
@@ -95,6 +95,7 @@ t_events_parser *eparser)
 {
 	char			*line;
 
+	ft_strdel(&parser->line);
 	while ((parser->ret = get_next_line(parser->fd, &parser->line)))
 	{
 		line = parser->line;

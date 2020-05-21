@@ -30,7 +30,7 @@ void			get_current_wall_angle(int i, t_grid_wall_drawer *drawer,
 t_env *env);
 void			get_last_wall_angle(int i, t_grid_wall_drawer *drawer,
 t_env *env);
-void			print_minimap_sector_num(t_grid_wall_drawer *drawer,
+int				print_minimap_sector_num(t_grid_wall_drawer *drawer,
 t_env *env);
 
 #endif

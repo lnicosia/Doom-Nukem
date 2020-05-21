@@ -20,7 +20,7 @@ int		parse_enemy_pos4(t_env *env, t_map_parser *parser)
 		if (env->enemies[parser->enemies_count].pos.z
 		< get_floor_at_pos(&env->sectors[env->enemies[parser->enemies_count].
 		sector], env->enemies[parser->enemies_count].pos, env))
-			return (ft_printf("Enemy %d is under the floor\n",
+			return (custom_error("Enemy %d is under the floor\n",
 			parser->enemies_count));
 			env->enemies[parser->enemies_count].brightness =
 		env->sectors[env->enemies[parser->enemies_count].sector].brightness;
@@ -43,7 +43,7 @@ int		parse_enemy_pos3(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for enemy %d angle\n",
+		return (custom_error("Invalid double for enemy %d angle\n",
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].angle = ft_atof(*line);
 	*line = skip_number(*line);
@@ -79,7 +79,7 @@ int		parse_enemy_pos2(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy z and angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for enemy %d pos.z\n",
+		return (custom_error("Invalid double for enemy %d pos.z\n",
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].pos.z = ft_atof(*line);
 	*line = skip_number(*line);
@@ -100,7 +100,7 @@ int		parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy y, x, z and angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for enemy %d pos.y\n",
+		return (custom_error("Invalid double for enemy %d pos.y\n",
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].pos.y = ft_atof(*line);
 	*line = skip_number(*line);
@@ -113,7 +113,7 @@ int		parse_enemy_pos(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("enemy x, z and angle", parser));
 	if (valid_double(*line, parser))
-		return (ft_printf("Invalid double for enemy %d pos.x\n",
+		return (custom_error("Invalid double for enemy %d pos.x\n",
 		parser->enemies_count));
 		return (parse_enemy_pos2(env, line, parser));
 }

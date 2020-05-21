@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "draw_grid_walls.h"
+#include "draw.h"
 
 void	draw_enemy_minimap(int i, t_enemy *enemy, t_sprite *sprite, t_env *env)
 {
@@ -72,7 +73,7 @@ void	draw_current_wall_minimap(int v, int s, t_sector *sect, t_env *env)
 	draw_line_minimap(line.p0, line.p1, env, line.color);
 }
 
-void	editor_minimap(t_env *env)
+int		editor_minimap(t_env *env)
 {
 	int			s;
 	int			v;
@@ -84,7 +85,8 @@ void	editor_minimap(t_env *env)
 	{
 		sect = &env->sectors[s];
 		v = 0;
-		draw_minimap_sector_num(env, sect);
+		if (draw_minimap_sector_num(env, sect))
+			return (-1);
 		while (v < sect->nb_vertices)
 		{
 			draw_current_wall_minimap(v, s, sect, env);
@@ -95,4 +97,5 @@ void	editor_minimap(t_env *env)
 	draw_objects_minimap(env);
 	draw_enemies_minimap(env);
 	draw_minimap_player(env);
+	return (0);
 }

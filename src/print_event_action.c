@@ -44,7 +44,7 @@ void	print_fixed_action(t_env *env, t_event *event)
 		get_decimal_len(event->speed), event->speed);
 }
 
-void	print_event_action(t_env *env, t_event *event)
+int		print_event_action(t_env *env, t_event *event)
 {
 	t_point	text_size;
 
@@ -61,10 +61,13 @@ void	print_event_action(t_env *env, t_event *event)
 	}
 	else
 	{
-		TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
-		&text_size.y);
-		print_text(new_point(570, 200 - text_size.x / 2),
+		if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &text_size.x,
+		&text_size.y))
+			return (-1);
+		if (print_text(new_point(570, 200 - text_size.x / 2),
 		new_printable_text(env->snprintf,
-		env->sdl.fonts.lato20, 0x333333FF, 30), env);
+		env->sdl.fonts.lato20, 0x333333FF, 30), env))
+			return (-1);
 	}
+	return (0);
 }

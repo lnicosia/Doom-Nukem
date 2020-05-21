@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void	*set_condition_target3(t_env *env, t_events_parser *eparser)
 {

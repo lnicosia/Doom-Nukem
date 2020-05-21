@@ -14,7 +14,7 @@
 
 void	init_doom_guy_face(t_env *env)
 {
-	env->object_sprites[29].texture = 37;
+	env->object_sprites[29].texture = env->editor_start + 1;
 	env->object_sprites[29].oriented = 0;
 	env->object_sprites[29].rest_sprite = 29;
 	env->object_sprites[29].start[0].x = 40;

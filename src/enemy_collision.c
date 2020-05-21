@@ -41,7 +41,7 @@ int		enemy_collision_player(t_env *env, int i)
 {
 	if (env->enemies[i].health > 0
 		&& distance_two_points_2d(env->enemies[i].pos.x,
-		env->enemies[i].pos.y, PLAYER_XPOS, PLAYER_YPOS) < 1.75
+		env->enemies[i].pos.y, env->player.pos.x, env->player.pos.y) < 1.75
 		&& env->enemies[i].exists
 		&& env->enemies[i].pos.z >= env->player.pos.z - 1
 		&& env->enemies[i].pos.z <= env->player.head_z + 1)

@@ -12,6 +12,7 @@
 
 #include "add_vertex.h"
 #include "collision.h"
+#include <math.h>
 
 int		is_sector_clicked(t_sector *sector, int j, int v1, int v2)
 {

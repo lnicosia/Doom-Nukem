@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_floor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:09:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:09:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 11:09:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		parse_floor4(t_env *env, char **line, t_map_parser *parser)
 	if (**line && **line != ' ')
 		return (invalid_char("after floor align.y", "a digit or space(s)",
 			**line, parser));
-		return (parse_floor5(env, line, parser));
+	return (parse_floor5(env, line, parser));
 }
 
 int		parse_floor3(t_env *env, char **line, t_map_parser *parser)
@@ -113,7 +113,7 @@ int		parse_floor2(t_env *env, char **line, t_map_parser *parser)
 	if (**line && **line != ' ')
 		return (invalid_char("after floor slope", "a digit or space(s)",
 			**line, parser));
-		return (parse_floor3(env, line, parser));
+	return (parse_floor3(env, line, parser));
 }
 
 int		parse_floor(t_env *env, char **line, t_map_parser *parser)

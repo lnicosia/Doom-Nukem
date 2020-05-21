@@ -14,7 +14,7 @@
 
 void	init_barrel_normal(t_env *env)
 {
-	env->object_sprites[20].texture = 34;
+	env->object_sprites[20].texture = env->objects_sprites_start + 2;
 	env->object_sprites[20].death_counterpart = 21;
 	env->object_sprites[20].nb_death_sprites = 8;
 	env->object_sprites[20].oriented = 0;
@@ -30,7 +30,7 @@ void	init_barrel_normal(t_env *env)
 
 void	init_barrel_exploding(t_env *env)
 {
-	env->object_sprites[21].texture = 34;
+	env->object_sprites[21].texture = env->objects_sprites_start + 2;
 	env->object_sprites[21].death_counterpart = 21;
 	env->object_sprites[21].nb_death_sprites = 8;
 	env->object_sprites[21].oriented = 0;

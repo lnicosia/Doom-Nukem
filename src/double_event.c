@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		double_incr_event(t_event *curr, double *target)
 {

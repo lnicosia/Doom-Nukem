@@ -40,13 +40,13 @@ t_env *env)
 {
 	t_list		*new;
 
+	(*events)[*i].uses++;
+	(*events)[*i].happened = 1;
 	if (!(new = ft_lstnew(&(*events)[*i], sizeof(t_event))))
 		return (ft_perror("Could not malloc new event"));
 	ft_lstpushback(&env->events, new);
 	if (update_queued_events_list(events, i, env))
 		return (-1);
-	(*events)[*i].uses++;
-	(*events)[*i].happened = 1;
 	if ((*events)[*i].max_uses > 0)
 	{
 		if ((*events)[*i].uses >= (*events)[*i].max_uses)
@@ -55,7 +55,7 @@ t_env *env)
 			sizeof(t_event) * (*size), sizeof(t_event), sizeof(t_event) * *i);
 			(*size)--;
 			if (*size > 0 && !(*events))
-				return (-1);
+				return (ft_perror("Could not delindex from events array"));
 		}
 		else
 			(*i)++;

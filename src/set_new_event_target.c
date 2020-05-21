@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 int		set_new_event_target2(t_event_panel *panel, t_env *env)
 {

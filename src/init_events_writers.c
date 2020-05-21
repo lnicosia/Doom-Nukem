@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void	init_events_writers4(void (*writers[])(int, t_event))
 {

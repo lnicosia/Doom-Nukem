@@ -50,7 +50,7 @@ int		add_enemy(t_env *env)
 	if (!(env->enemies = (t_enemy*)ft_realloc(env->enemies,
 		sizeof(t_enemy) * env->nb_enemies, sizeof(t_enemy)
 		* (env->nb_enemies + 1))))
-		return (custom_error("Could not realloc enemies\n"));
+		return (ft_perror("Could not realloc enemies"));
 	env->enemies[env->nb_enemies] = enemy;
 	env->editor.create_enemy = 0;
 	update_enemy(env, env->nb_enemies);

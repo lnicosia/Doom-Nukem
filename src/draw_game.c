@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "enemies.h"
+#include "draw.h"
 
 int	draw_render(t_camera *camera, t_env *env)
 {
@@ -49,28 +50,27 @@ int	create_bullet_holes(t_env *env)
 
 int	draw_game2(t_env *env)
 {
-	if (env->player.health > 0)
-	{
-		draw_hud(env);
-		print_ammo(env);
-	}
-	else
-		print_results(env);
+	if (is_player_alive(env))
+		return (-1);
 	if (env->player.hit)
 		damage_anim(env);
 	if (env->hovered_wall_sprite_sprite != -1
 		&& env->hovered_wall_sprite_wall != -1
 		&& env->hovered_wall_sprite_sector != -1)
-		print_press_text(env);
+	{
+		if (print_press_text(env))
+			return (-1);
+	}
 	if (env->confirmation_box.state)
-		draw_confirmation_box(&env->confirmation_box, env);
+	{
+		if (draw_confirmation_box(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->dialog_box && env->dialog_box_str
 		&& draw_dialog_box(&env->dialog_box_str, env))
 		return (-1);
-	if (env->options.zbuffer)
-		update_screen_zbuffer(env);
-	else
-		update_screen(env);
+	if (update_screen(env))
+		return (-1);
 	if (!env->confirmation_box.state)
 		view(env);
 	return (0);
@@ -85,20 +85,14 @@ int	draw_game(t_env *env)
 		return (-1);
 	env->shooting = 0;
 	env->test_time = SDL_GetTicks();
-	if (((env->inputs.left_click && !env->shot.on_going
-		&& !env->weapon_change.on_going) || env->shot.on_going)
-		&& !env->confirmation_box.state)
+	if(draw_weapons(env))
+		return (-1);
+	if (env->options.show_fps)
 	{
-		if (weapon_animation(env, env->player.curr_weapon))
+		if (fps(env))
 			return (-1);
 	}
-	else if (env->player.health > 0)
-		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
-	if (env->weapon_change.on_going && !env->shot.on_going)
-		weapon_change(env);
 	draw_crosshair(env);
-	if (env->options.show_fps)
-		fps(env);
 	game_time(env);
 	animations(env);
 	game_minimap(env);

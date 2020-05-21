@@ -14,7 +14,7 @@
 
 void	init_armor_green(t_env *env)
 {
-	env->object_sprites[17].texture = 22;
+	env->object_sprites[17].texture = env->objects_sprites_start;
 	env->object_sprites[17].death_counterpart = 17;
 	env->object_sprites[17].oriented = 0;
 	env->object_sprites[17].rest_sprite = 17;

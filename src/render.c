@@ -74,7 +74,8 @@ int		render_walls(t_camera *camera, t_env *env)
 		render.camera = camera;
 		render.ystart = 0;
 		render.yend = env->h - 1;
-		render_sector(render, env);
+		if (render_sector(render, env))
+			return (-1);
 		i++;
 	}
 	return (0);

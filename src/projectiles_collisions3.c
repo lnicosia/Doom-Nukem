@@ -24,8 +24,12 @@ t_motion motion, int i)
 		env->vertices[env->sectors[motion.sector].vertices[i + 1]].y),
 		new_v2(motion.pos.x, motion.pos.y), new_v2(motion.future.x,
 		motion.future.y))
-		|| hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2),
-		new_v2(motion.future.x, motion.future.y), motion.size_2d)))
+		|| hitbox_collision(new_v2(env->vertices[env->sectors[motion.sector].
+		vertices[i]].x, env->vertices[env->sectors[motion.sector].
+		vertices[i]].y), new_v2(env->vertices[env->sectors[motion.sector].
+		vertices[i + 1]].x, env->vertices[env->sectors[motion.sector].
+		vertices[i + 1]].y), new_v2(motion.future.x, motion.future.y),
+		motion.size_2d)))
 		return (i);
 	return (-1);
 }
@@ -37,12 +41,16 @@ int		collision_projectiles2(t_env *env, t_v3 move, t_motion motion)
 	i = 0;
 	while (i < env->sectors[motion.sector].nb_vertices)
 	{
-		if ((hitbox_collision(new_v2(X1, Y1), new_v2(X2, Y2),
+		if ((hitbox_collision(new_v2(env->vertices[env->sectors[motion.sector].
+			vertices[i]].x, env->vertices[env->sectors[motion.sector].
+			vertices[i]].y), new_v2(env->vertices[env->sectors[motion.sector].
+			vertices[i + 1]].x, env->vertices[env->sectors[motion.sector].
+			vertices[i + 1]].y),
 			new_v2(motion.future.x, motion.future.y), motion.size_2d))
-			&& NEIGHBOR >= 0)
+			&& env->sectors[motion.sector].neighbors[i] >= 0)
 		{
 			motion.wall.sector_or = motion.sector;
-			motion.wall.sector_dest = NEIGHBOR;
+			motion.wall.sector_dest = env->sectors[motion.sector].neighbors[i];
 			if (!collision_projectiles_rec(env, move, motion))
 				return (i);
 		}

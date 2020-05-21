@@ -11,69 +11,131 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
-void	print_sprite_tab(t_env *env)
+int		print_sprite_tab(t_env *env)
 {
 	if (env->selected_wall_sprite_wall != -1)
-		print_wall_sprite_tab(env);
+	{
+		if (print_wall_sprite_tab(env))
+			return (-1);
+	}
 	else if (env->selected_ceiling_sprite != -1)
-		print_ceiling_sprite_tab(env);
+	{
+		if (print_ceiling_sprite_tab(env))
+			return (-1);
+	}
 	else if (env->selected_floor_sprite != -1)
-		print_floor_sprite_tab(env);
+	{
+		if (print_floor_sprite_tab(env))
+			return (-1);
+	}
 	if (env->selected_floor_sprite != -1
 		|| env->selected_wall_sprite_sprite != -1
 		|| env->selected_ceiling_sprite != -1)
 	{
-		draw_button(env, env->editor.next_sprite, env->editor.next_sprite.str);
-		draw_button(env, env->editor.previous_sprite,
-		env->editor.previous_sprite.str);
-		draw_button(env, env->editor.sprite_background,
-		env->editor.sprite_background.str);
+		if (draw_button(env, env->editor.next_sprite,
+			env->editor.next_sprite.str))
+			return (-1);
+		if (draw_button(env, env->editor.previous_sprite,
+		env->editor.previous_sprite.str))
+			return (-1);
+		if (draw_button(env, env->editor.sprite_background,
+		env->editor.sprite_background.str))
+			return (-1);
 		apply_sprite(env->object_sprites[env->editor.current_sprite],
 		new_point(env->editor.current_sprite_selection.pos.y,
 		env->editor.current_sprite_selection.pos.x),
 		new_point(60, 60), env);
 	}
+	return (0);
 }
 
-void	print_sector_tab(t_env *env)
+int		print_sector_tab(t_env *env)
 {
 	if (env->selected_object != -1 || env->selected_object != -1)
-		print_object_sector_tab(env);
+	{
+		if (print_object_sector_tab(env))
+			return (-1);
+	}
 	else if (env->selected_enemy != -1)
-		print_enemy_sector_tab(env);
+	{
+		if (print_enemy_sector_tab(env))
+			return (-1);
+	}
 	else if (env->editor.selected_start_player != -1)
-		print_player_sector_tab(env);
+	{
+		if (print_player_sector_tab(env))
+			return (-1);
+	}
 	else if (env->selected_ceiling != -1)
-		print_ceiling_sector_tab(env);
+	{
+		if (print_ceiling_sector_tab(env))
+			return (-1);
+	}
 	else if (env->selected_floor != -1)
-		print_floor_sector_tab(env);
+	{
+		if (print_floor_sector_tab(env))
+			return (-1);
+	}
 	else if (env->editor.selected_wall != -1
 	&& env->editor.selected_sector != -1)
-		print_wall_sector_tab(env);
+	{
+		if (print_wall_sector_tab(env))
+			return (-1);
+	}
 	else if (env->selected_wall_sprite_sprite != -1)
-		print_wall_sprite_sector_tab(env);
+	{
+		if (print_wall_sprite_sector_tab(env))
+			return (-1);
+	}
+	return (0);
 }
 
-void	print_general_tab(t_env *env)
+int		print_general_tab(t_env *env)
 {
 	if (env->selected_object != -1 || env->selected_object != -1)
-		print_object_general_tab(env);
+	{
+		if (print_object_general_tab(env))
+			return (-1);
+	}
 	else if (env->editor.selected_sector != -1 && !env->editor.in_game)
-		print_sector_general_tab(env);
+	{
+		if (print_sector_general_tab(env))
+			return (-1);
+	}
 	else if (env->selected_ceiling != -1)
-		print_ceiling_general_tab(env);
+	{
+		if (print_ceiling_general_tab(env))
+			return (-1);
+	}
 	else if (env->selected_floor != -1)
-		print_floor_general_tab(env);
+	{
+		if (print_floor_general_tab(env))
+			return (-1);
+	}
 	else if (env->editor.selected_start_player != -1)
-		print_player_general_tab(env);
+	{
+		if (print_player_general_tab(env))
+			return (-1);
+	}
 	else if (env->editor.selected_wall != -1
 		&& env->editor.selected_sector != -1)
-		print_wall_general_tab(env);
+	{
+		if (print_wall_general_tab(env))
+			return (-1);
+	}
 	else if (env->selected_enemy != -1)
-		print_enemy_general_tab(env);
+	{
+		if (print_enemy_general_tab(env))
+			return (-1);
+	}
 	else if (env->editor.selected_vertex != -1)
-		print_vertices_general_tab(env);
+	{
+		if (print_vertices_general_tab(env))
+			return (-1);
+	}
+	return (0);
 }
 
 int		draw_editor_tabs2(t_env *env)
@@ -81,17 +143,36 @@ int		draw_editor_tabs2(t_env *env)
 	if (env->editor.tab &&
 	(env->selected_ceiling_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_wall_sprite_sprite != -1))
-		draw_button(env, env->editor.sprite_tab, env->editor.sprite_tab.str);
+	{
+		if (draw_button(env, env->editor.sprite_tab,
+			env->editor.sprite_tab.str))
+			return (-1);
+	}
 	if (env->editor.sector_tab.state == DOWN)
-		print_sector_tab(env);
+	{
+		if (print_sector_tab(env))
+			return (-1);
+	}
 	else if (env->editor.sprite_tab.state == DOWN)
-		print_sprite_tab(env);
+	{
+		if (print_sprite_tab(env))
+			return (-1);
+	}
 	else if (env->editor.general_tab.state == DOWN)
-		print_general_tab(env);
+	{
+		if (print_general_tab(env))
+			return (-1);
+	}
 	if (env->editor.events_tab.state == DOWN)
-		print_events_tab(env);
+	{
+		if (print_events_tab(env))
+			return (-1);
+	}
 	if (env->editor.draw_texture_tab)
-		texture_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX);
+	{
+		if (texture_tab(env, MAX_WALL_TEXTURE + MAX_SKYBOX))
+			return (-1);
+	}
 	return (0);
 }
 
@@ -107,7 +188,11 @@ int		draw_editor_tabs(t_env *env)
 	|| env->editor.selected_start_player != -1
 	|| env->selected_object != -1 || env->selected_enemy != -1
 	|| env->editor.selected_vertex != -1)))
-		draw_button(env, env->editor.general_tab, env->editor.general_tab.str);
+	{
+		if (draw_button(env, env->editor.general_tab,
+			env->editor.general_tab.str))
+			return (-1);
+	}
 	if (((env->editor.selected_start_player != -1
 		|| env->selected_enemy != -1
 	|| env->selected_object != -1)) || ((env->selected_object != -1
@@ -115,7 +200,12 @@ int		draw_editor_tabs(t_env *env)
 	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1
 	|| env->selected_floor != -1 || env->selected_enemy != -1
 	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1)))
-		draw_button(env, env->editor.sector_tab, env->editor.sector_tab.str);
-	draw_button(env, env->editor.events_tab, env->editor.events_tab.str);
+	{
+		if (draw_button(env, env->editor.sector_tab,
+			env->editor.sector_tab.str))
+			return (-1);
+	}
+	if (draw_button(env, env->editor.events_tab, env->editor.events_tab.str))
+		return (-1);
 	return (draw_editor_tabs2(env));
 }

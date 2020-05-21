@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 11:05:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 12:37:03 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/01 18:58:52 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ int		lst_contains(t_list *lst, t_read **curr, int fd)
 
 int		free_link(t_list **datas, t_read *curr)
 {
-	//t_read	*read;
-
 	(void)curr;
 	if (*datas == NULL)
 		return (-1);
-	//read = (t_read*)((*datas)->content);
 	return (0);
 }
 

@@ -12,6 +12,7 @@
 
 #include "collision.h"
 #include "events_parser.h"
+#include "parser.h"
 
 int		check_x_collision_event2(t_event *event, t_motion movement, t_env *env)
 {

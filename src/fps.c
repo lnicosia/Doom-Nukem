@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-void	fps(t_env *env)
+int		fps(t_env *env)
 {
 	Uint32			new_time;
 
@@ -25,7 +25,9 @@ void	fps(t_env *env)
 		env->fps_count = 0;
 	}
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d", env->fps);
-	print_text(new_point(0, 10), new_printable_text(
-		env->snprintf, env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env);
+	if (print_text(new_point(0, 10), new_printable_text(
+		env->snprintf, env->sdl.fonts.lato20, 0xFFFFFFFF, 0), env))
+		return (-1);
 	env->sdl.time = new_time;
+	return (0);
 }

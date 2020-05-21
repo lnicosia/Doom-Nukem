@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		first_phase_keys(t_env *env, t_target_panel *panel)
 {

@@ -12,22 +12,37 @@
 
 #include "env.h"
 #include "events_conditions.h"
+#include "draw.h"
 
-void	draw_condition_target_panel(t_env *env)
+int		draw_condition_target_panel(t_env *env)
 {
 	if (env->editor.condition_panel.condition.type < EVENT_ENDED)
-		draw_condition_targets_panel(env);
+	{
+		if (draw_condition_targets_panel(env))
+			return (-1);
+	}
 	else if (env->editor.condition_panel.condition.type == EVENT_ENDED
 		|| env->editor.condition_panel.condition.type == EVENT_ENDED_START)
-		draw_condition_event_panel(env);
+	{
+		if (draw_condition_event_panel(env))
+			return (-1);
+	}
+	return (0);
 }
 
-void	draw_condition_panel_tab_content(t_env *env)
+int		draw_condition_panel_tab_content(t_env *env)
 {
 	if (env->editor.event_panel.target_tab.state == DOWN)
-		draw_condition_condition_panel(env);
+	{
+		if (draw_condition_condition_panel(env))
+			return (-1);
+	}
 	else if (env->editor.event_panel.action_tab.state == DOWN)
-		draw_condition_target_panel(env);
+	{
+		if (draw_condition_target_panel(env))
+			return (-1);
+	}
+	return (0);
 }
 
 int		draw_condition_panel2(t_env *env)
@@ -41,11 +56,16 @@ int		draw_condition_panel2(t_env *env)
 	env->ui_textures[CONDITION_ICON].surface->h / 2)),
 	new_point(env->ui_textures[CONDITION_ICON].surface->w,
 	env->ui_textures[CONDITION_ICON].surface->h), env);
-	draw_button(env, env->editor.event_panel.ok, "OK");
-	draw_button(env, env->editor.event_panel.cancel, "X");
-	draw_condition_type_tab(env);
-	draw_condition_target_tab(env);
-	draw_condition_panel_tab_content(env);
+	if (draw_button(env, env->editor.event_panel.ok, "OK"))
+		return (-1);
+	if (draw_button(env, env->editor.event_panel.cancel, "X"))
+		return (-1);
+	if (draw_condition_type_tab(env))
+		return (-1);
+	if (draw_condition_target_tab(env))
+		return (-1);
+	if (draw_condition_panel_tab_content(env))
+		return (-1);
 	return (0);
 }
 
@@ -65,10 +85,12 @@ int		draw_condition_panel(t_env *env)
 	env->editor.event_panel.pos.y + env->editor.event_panel.top_size),
 	new_point(env->editor.event_panel.size.x - 100,
 	env->editor.event_panel.size.y - env->editor.event_panel.top_size - 100));
-	TTF_SizeText(env->sdl.fonts.lato_black30, "Condition", &text_size.x,
-	&text_size.y);
-	print_text(new_point(env->editor.event_panel.pos.y + 20,
-	env->editor.event_panel.pos.x + 75), new_printable_text("Condition",
-	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Condition", &text_size.x,
+		&text_size.y))
+		return (-1);
+	if (print_text(new_point(env->editor.event_panel.pos.y + 20,
+		env->editor.event_panel.pos.x + 75), new_printable_text("Condition",
+		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
+		return (-1);
 	return (draw_condition_panel2(env));
 }

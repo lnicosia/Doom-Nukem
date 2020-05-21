@@ -14,7 +14,7 @@
 
 void	init_explosion(t_env *env)
 {
-	env->object_sprites[22].texture = 25;
+	env->object_sprites[22].texture = env->objects_sprites_start + 1;
 	env->object_sprites[22].death_counterpart = 22;
 	env->object_sprites[22].curr_sprite = 22;
 	env->object_sprites[22].nb_death_sprites = 3;

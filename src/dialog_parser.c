@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		dialog_parser2(size_t len, t_map_parser *parser, char **line,
 t_events_parser *eparser)
@@ -45,7 +46,7 @@ t_events_parser *eparser)
 	if (**line != '(')
 		return (invalid_char("before dialog text", "a space", **line, parser));
 	(*line)++;
-	if (!**line || **line == ']' || **line == ')')
+	if (!**line || **line == ']')
 		return (missing_data("dialog data", parser));
 	len = 0;
 	while ((*line)[len] && (*line)[len] != ')' && len < 1024)

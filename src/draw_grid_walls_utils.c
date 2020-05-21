@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 #include "draw_grid_walls.h"
 
 void		draw_current_sector_last_wall(t_point v1, t_point v2, t_env *env)

@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "draw_grid_walls.h"
+#include "draw.h"
 
 void	draw_minimap_near_z(t_env *env)
 {

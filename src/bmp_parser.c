@@ -37,8 +37,9 @@ static int	parse(int fd, int index, t_env *env)
 	t_bmp_parser	parser;
 
 	parser.index = index;
-	if (index >= MAX_TEXTURES)
-		return (custom_error("Too much textures\n"));
+	if (index >= MAX_SPRITES_TEXTURES)
+		return (custom_error("Too much textures (%d/%d)\n", index,
+		MAX_SPRITES_TEXTURES));
 	if (parse_file_header(fd, &parser))
 		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))
@@ -50,7 +51,7 @@ static int	parse(int fd, int index, t_env *env)
 		SDL_CreateRGBSurfaceWithFormat(
 		0, parser.w, parser.h, parser.bpp,
 		SDL_PIXELFORMAT_ARGB8888)))
-		return (ft_printf("SDL_CreateRGBSurface error: %s\n",
+		return (custom_error("SDL_CreateRGBSurface error: %s\n",
 		SDL_GetError()));
 		env->sprite_textures[index].str =
 	env->sprite_textures[index].surface->pixels;
@@ -73,11 +74,16 @@ int			parse_bmp(char *file, int index, t_env *env)
 	int	fd;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		return (ft_printf("Could not open \"%s\"\n", file));
+		return (custom_error("Could not open \"%s\"\n", file));
 	if (parse(fd, index, env))
-		return (ft_printf("Error while parsing \"%s\"\n", file));
+	{
+		if (close(fd))
+			return (ft_perror("Bmp parsing failed and could not close the"
+			" file\n"));
+		return (custom_error("Error while parsing \"%s\"\n", file));
+	}
 	if (close(fd))
-		return (ft_printf("Could not close \"%s\"\n", file));
+		return (custom_error("Could not close \"%s\"\n", file));
 	ft_printf("{reset}");
 	return (0);
 }

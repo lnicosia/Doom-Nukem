@@ -19,7 +19,9 @@ int		change_var(void *target)
 
 	button = (t_button_tab *)target;
 	env = button->env;
-	new_input_var(&env->input_box, button->pos, button->type, button->target);
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
 	return (0);
 }
 

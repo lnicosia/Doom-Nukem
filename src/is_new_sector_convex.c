@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int			check_sector_convexity2(t_v2 *p, int len, int *res)
 {
@@ -44,7 +45,7 @@ int			check_sector_convexity(t_env *env, t_list *tmp, int len, int *res)
 	i = 0;
 	len += 3;
 	if (!(p = (t_v2*)ft_memalloc(sizeof(t_v2) * (len))))
-		return (-1);
+		return (ft_perror("Could not malloc check_sector_convexity p"));
 	p[len - 3].x = round((env->sdl.mx - env->editor.center.x)
 	/ env->editor.scale);
 	p[len - 3].y = round((env->sdl.my - env->editor.center.y)

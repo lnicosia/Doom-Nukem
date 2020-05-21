@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:14:16 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 13:34:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/12 11:19:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		parse_sector(t_env *env, char *line, t_map_parser *parser)
 	parser->sector_neighbors_count = 0;
 	parser->sector_textures_count = 0;
 	parser->sector_sprites_count = 0;
-	env->sectors[parser->sectors_count].sprite_time = 0;
 	env->sectors[parser->sectors_count].num = parser->sectors_count;
 	env->sectors[parser->sectors_count].gravity = -9.81;
 	if (parse_floor(env, &line, parser))
@@ -70,7 +69,7 @@ int		parse_sectors2(t_map_parser *parser)
 	else
 		return (missing_data("objects, enemies, events and player data",
 			parser));
-	return (0);
+			return (0);
 }
 
 int		parse_sectors(t_env *env, t_map_parser *parser)
@@ -90,9 +89,9 @@ int		parse_sectors(t_env *env, t_map_parser *parser)
 		}
 		else
 		{
-			ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"[Line %d] You must still declare %d sector(s)\n",
-				parser->line_count, env->nb_sectors - parser->sectors_count);
+				parser->line_count, env->nb_sectors - parser->sectors_count));
 			return (-1);
 		}
 		ft_strdel(&parser->line);

@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
 
 int		set_wall_panel_buttons_state(t_target_panel *panel, int index)
 {
@@ -79,11 +80,17 @@ int		select_wall(void *param)
 
 int		draw_wall_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Texture");
-	draw_button(env, panel->targets[1], "Portal");
-	draw_button(env, panel->targets[2], "Align X");
-	draw_button(env, panel->targets[3], "Align Y");
-	draw_button(env, panel->targets[4], "Scale X");
-	draw_button(env, panel->targets[5], "Scale Y");
+	if (draw_button(env, panel->targets[0], "Texture"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Portal"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Align X"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Align Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Scale X"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Scale Y"))
+		return (-1);
 	return (0);
 }

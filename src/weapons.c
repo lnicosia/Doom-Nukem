@@ -11,15 +11,18 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
-void	print_ammo(t_env *env)
+int		print_ammo(t_env *env)
 {
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%d/%d",
 	env->weapons[env->player.curr_weapon].ammo,
 	env->weapons[env->player.curr_weapon].max_ammo);
-	print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5),
+	if (print_text(new_point(env->h - env->h / 12, env->w - env->w / 14 - 5),
 	new_printable_text(env->snprintf, env->sdl.fonts.amazdoom50, 0xfff1f2f3, 0),
-	env);
+	env))
+		return (-1);
+	return (0);
 }
 
 int		aoe_damage(double distance, double radius, int damage)

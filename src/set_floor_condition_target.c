@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 int		select_floor_condition_target2(t_env *env, t_condition_panel *panel,
 t_target_panel *target_panel, int sector)

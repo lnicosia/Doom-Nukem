@@ -39,10 +39,10 @@ void		free_wall_sprites(t_wall_sprites *wall)
 	{
 		if (wall->nb_shoot_events && wall->nb_shoot_events[i] > 0
 			&& wall->shoot_events && wall->shoot_events[i])
-			free_events(wall->shoot_events[i], wall->nb_shoot_events[i]);
+			free_events(&wall->shoot_events[i], &wall->nb_shoot_events[i]);
 		if (wall->nb_press_events && wall->nb_press_events[i] > 0
 			&& wall->press_events && wall->press_events[i])
-			free_events(wall->press_events[i], wall->nb_press_events[i]);
+			free_events(&wall->press_events[i], &wall->nb_press_events[i]);
 		i++;
 	}
 	free_wall_sprites2(wall);

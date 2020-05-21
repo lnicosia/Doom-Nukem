@@ -14,7 +14,7 @@
 
 void	init_object_cyber_demon(t_env *env)
 {
-	env->object_sprites[28].texture = 24;
+	env->object_sprites[28].texture = env->enemies_start + 1;
 	env->object_sprites[28].death_counterpart = 12;
 	env->object_sprites[28].pursuit_sprite = 6;
 	env->object_sprites[28].firing_sprite = 9;

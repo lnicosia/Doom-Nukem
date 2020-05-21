@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "add_vertex.h"
+#include <math.h>
 
 int		update_sector_textures(t_env *env, int sect)
 {

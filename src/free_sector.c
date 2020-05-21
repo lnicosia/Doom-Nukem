@@ -72,9 +72,9 @@ void		free_sector3(t_sector *sector)
 		ft_memdel((void**)&sector->floor_sprites.pos);
 	free_wall_sprites(&sector->floor_sprites);
 	free_wall_sprites(&sector->ceiling_sprites);
-	free_events(sector->stand_events, sector->nb_stand_events);
-	free_events(sector->walk_in_events, sector->nb_walk_in_events);
-	free_events(sector->walk_out_events, sector->nb_walk_out_events);
+	free_events(&sector->stand_events, &sector->nb_stand_events);
+	free_events(&sector->walk_in_events, &sector->nb_walk_in_events);
+	free_events(&sector->walk_out_events, &sector->nb_walk_out_events);
 	free_sector4(sector);
 }
 

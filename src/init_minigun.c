@@ -14,7 +14,7 @@
 
 void	init_minigun(t_env *env)
 {
-	env->object_sprites[0].texture = 22;
+	env->object_sprites[0].texture = env->objects_sprites_start;
 	env->object_sprites[0].death_counterpart = 0;
 	env->object_sprites[0].oriented = 0;
 	env->object_sprites[0].rest_sprite = 0;

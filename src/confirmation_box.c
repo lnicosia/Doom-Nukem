@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	new_buttons2(t_confirmation_box *box, int height, t_env *env)
 {
@@ -72,8 +73,10 @@ int		get_box_size(t_confirmation_box *box)
 	t_point	text_size;
 	t_point	yes_size;
 
-	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
-	TTF_SizeText(box->font, "Yes", &yes_size.x, &yes_size.y);
+	if (TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y))
+		return (-1);
+	if (TTF_SizeText(box->font, "Yes", &yes_size.x, &yes_size.y))
+		return (-1);
 	box->size.x = ft_max(yes_size.x * 3, text_size.x + 20);
 	box->size.y = ft_max(yes_size.y * 3, 50);
 	if (box->type != YESNO)
@@ -84,14 +87,18 @@ int		get_box_size(t_confirmation_box *box)
 int		update_confirmation_box(t_confirmation_box *box, char *str,
 int type, t_env *env)
 {
+	int		size;
+
 	if (!str)
-		return (custom_error("Confirmation box message is empty"));
+		return (custom_error("Confirmation box message is empty\n"));
 	if (!box->font)
-		return (custom_error("Confirmation box font is NULL"));
+		return (custom_error("Confirmation box font is NULL\n"));
 	box->str = str;
 	box->state = 1;
 	box->type = type;
-	new_buttons(box, get_box_size(box), env);
+	if ((size = get_box_size(box)) == -1)
+		return (-1);
+	new_buttons(box, size, env);
 	box->yes_action = NULL;
 	box->yes_target = NULL;
 	box->no_action = NULL;
@@ -112,12 +119,18 @@ int		draw_confirmation_box(t_confirmation_box *box, t_env *env)
 			new_point(env->w / 2 - box->size.x / 2,
 			env->h / 2 - box->size.y / 2),
 			new_point(box->size.x, box->size.y));
-	draw_button(env, box->yes, box->yes.str);
+	if (draw_button(env, box->yes, box->yes.str))
+		return (-1);
 	if (box->type == YESNO)
-		draw_button(env, box->no, box->no.str);
-	TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y);
-	print_text(new_point(env->h / 2 - box->size.y / 3,
+	{
+		if (draw_button(env, box->no, box->no.str))
+			return (-1);
+	}
+	if (TTF_SizeText(box->font, box->str, &text_size.x, &text_size.y))
+		return (-1);
+	if (print_text(new_point(env->h / 2 - box->size.y / 3,
 				env->w / 2 - text_size.x / 2),
-			new_printable_text(box->str, box->font, 0xFFFFFFFF, 0), env);
+			new_printable_text(box->str, box->font, 0xFFFFFFFF, 0), env))
+		return (-1);
 	return (0);
 }

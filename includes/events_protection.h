@@ -12,7 +12,7 @@
 
 #ifndef EVENTS_PROTECTION_H
 # define EVENTS_PROTECTION_H
-# include "env.h"
+# include "events.h"
 
 /*
 **	Event protection functions

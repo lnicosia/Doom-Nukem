@@ -57,8 +57,10 @@ double		floor_height(t_env *env, t_motion motion, int sector_dest)
 	double	height;
 
 	height = motion.eyesight + env->sectors[sector_dest].floor +
-		(env->sectors[sector_dest].floor_normal.x
-		* (motion.pos.x - FUTURE_V0X) - env->sectors[sector_dest].floor_normal.y
-		* (motion.pos.y - FUTURE_V0Y)) * env->sectors[sector_dest].floor_slope;
+		(env->sectors[sector_dest].floor_normal.x * (motion.pos.x
+		- env->vertices[env->sectors[sector_dest].vertices[0]].x)
+		- env->sectors[sector_dest].floor_normal.y * (motion.pos.y
+		- env->vertices[env->sectors[sector_dest].vertices[0]].y))
+		* env->sectors[sector_dest].floor_slope;
 	return (height);
 }

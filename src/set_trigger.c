@@ -59,5 +59,6 @@ void	set_trigger(t_env *env, t_event_trigger *trigger)
 		trigger->wall = env->selected_wall_sprite_wall;
 		trigger->sprite = env->selected_wall_sprite_sprite;
 	}
-	set_trigger2(env, trigger);
+	else
+		set_trigger2(env, trigger);
 }

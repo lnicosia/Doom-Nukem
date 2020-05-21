@@ -120,6 +120,8 @@ t_render *render, t_env *env)
 	t_drawer	drawer;
 
 	drawer.vline = vline;
+	drawer.i = 0;
+	drawer.texture_pixels = 0;
 	get_skybox_x(&drawer, render, wall_data, env);
 	while (drawer.i <= drawer.vline.end)
 	{

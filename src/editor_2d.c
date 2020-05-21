@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "enemies.h"
+#include "draw.h"
 
 int		draw_current_creation(t_env *env)
 {
@@ -42,7 +43,7 @@ int		editor_2d(t_env *env)
 	if (!env->input_box.state && !env->options.editor_options)
 	{
 		if (editor_keys(env))
-			return (crash("Crash from editor 2D keys\n", env));
+			return (custom_error("Crash from editor 2D keys\n"));
 	}
 	else if (!env->input_box.state)
 	{
@@ -62,7 +63,8 @@ int		editor_2d(t_env *env)
 	if (env->editor.start_vertex != -1)
 		draw_grid_current_sector(env);
 	draw_current_creation(env);
-	draw_grid_sectors(env);
+	if (draw_grid_sectors(env))
+		return (-1);
 	return (0);
 }
 

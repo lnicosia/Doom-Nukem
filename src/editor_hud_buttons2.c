@@ -12,11 +12,11 @@
 
 #include "env.h"
 
-int		change_mode(void *target)
+int		change_mode(void *param)
 {
 	t_env *env;
 
-	env = (t_env*)target;
+	env = (t_env*)param;
 	if (env->nb_sectors >= 1)
 	{
 		if (env->editor.in_game)
@@ -27,12 +27,12 @@ int		change_mode(void *target)
 	return (0);
 }
 
-int		save_button(void *target)
+int		save_button(void *param)
 {
 	t_env	*env;
 	int		ret;
 
-	env = (t_env*)target;
+	env = (t_env*)param;
 	ret = valid_map(env);
 	if (ret == -1)
 		return (-1);
@@ -40,19 +40,20 @@ int		save_button(void *target)
 	{
 		SDL_SetRelativeMouseMode(0);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-		new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-		STRING, &env->save_file);
+		if (new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+		STRING, &env->save_file))
+			return (-1);
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
 	return (0);
 }
 
-int		editor_options(void *target)
+int		editor_options(void *param)
 {
 	t_env *env;
 
-	env = (t_env*)target;
+	env = (t_env*)param;
 	if (env->options.editor_options == 0)
 		env->options.editor_options = 1;
 	else

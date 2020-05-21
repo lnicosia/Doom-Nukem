@@ -19,7 +19,7 @@ int		parse_ceiling5(t_env *env, char **line, t_map_parser *parser)
 	if (!**line || **line == ']')
 		return (missing_data("ceiling scale.x", parser));
 	if (valid_double(*line, parser))
-		return (custom_error("Invalid double for ceiling_map_scale.x"));
+		return (custom_error("Invalid double for ceiling_map_scale.x\n"));
 	env->sectors[parser->sectors_count].ceiling_map_scale.x = ft_atof(*line);
 	if (env->sectors[parser->sectors_count].ceiling_map_scale.x < 1
 		|| env->sectors[parser->sectors_count].ceiling_map_scale.x > 100)

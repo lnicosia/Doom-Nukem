@@ -71,6 +71,8 @@ int		launch_game(void *target)
 	char	*map_name;
 
 	env = (t_env*)target;
+	if (env->editor.in_game)
+		going_in_2d_mode(env);
 	if (env->editor.creating_event)
 	{
 		if (update_confirmation_box(&env->confirmation_box,

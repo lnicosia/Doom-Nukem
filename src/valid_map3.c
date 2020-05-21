@@ -75,10 +75,8 @@ int			check_duplicate_vertices(t_sector sector, t_env *env)
 			env->vertices[sector.vertices[j]].x)
 			&& (env->vertices[sector.vertices[i]].y ==
 			env->vertices[sector.vertices[j]].y))
-			{
-				return (ft_printf("vertex %d is a duplicate of vertex %d",
+				return (custom_error("Vertex %d is a duplicate of vertex %d",
 				sector.vertices[j], sector.vertices[i]));
-			}
 			j++;
 		}
 		i++;
@@ -113,7 +111,8 @@ int			check_neighbor_validity(t_sector sector, t_env *env)
 	t_sector	neighbor;
 
 	i = 0;
-	while (i < env->sectors[sector.num].nb_vertices)
+	while (i < env->sectors[sector.num].nb_vertices
+	&& env->nb_sectors > 0)
 	{
 		if (env->sectors[sector.num].neighbors[i] != -1)
 		{

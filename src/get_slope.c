@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "render.h"
+#include <math.h>
 
 /*
 **	rotate vertices in selected sector wich make the slope rotate too

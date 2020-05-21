@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:21:53 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 13:56:53 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 18:17:40 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,12 +172,12 @@ typedef struct				s_hud
 	t_var_sp				sp_player_sprite;
 }							t_hud;
 
-typedef struct  			s_add_vertex
+typedef struct				s_add_vertex
 {
-    int						*sector_list;
-    int						v1;
-    int						v2;
-}               			t_add_vertex;
+	int						*sector_list;
+	int						v1;
+	int						v2;
+}							t_add_vertex;
 
 typedef	struct				s_split
 {
@@ -186,11 +186,11 @@ typedef	struct				s_split
 	int						sector;
 }							t_split;
 
-typedef struct				s_button_target
+typedef struct				s_button_param
 {
 	void					*env;
 	int						i;
-}							t_button_target;
+}							t_button_param;
 
 typedef struct				s_action_panel
 {
@@ -392,6 +392,10 @@ typedef struct				s_editor
 	int						creating_exec_condition;
 	int						selecting_event;
 	int						just_selected;
+	int						enemy_selection_just_closed;
+	int						object_selection_just_closed;
+	int						texture_selection_just_closed;
+	int						wall_sprite_selection_just_closed;
 	t_point					texture_selection_size;
 	t_point					object_selection_size;
 	t_point					enemy_selection_size;
@@ -400,7 +404,6 @@ typedef struct				s_editor
 	t_point					object_selection_pos;
 	t_point					enemy_selection_pos;
 	t_point					wall_sprite_selection_pos;
-	t_texture				miniature;
 	t_button				current_texture_selection;
 	t_button				current_enemy_selection;
 	t_button				current_object_selection;

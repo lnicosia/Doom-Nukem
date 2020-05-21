@@ -70,8 +70,9 @@ dkms.conf
 photoshop_sprite
 
 # Windows objects
-doom.exe.stackdump
+doom-nukem.exe.stackdump
 doom_editor.exe.stackdump
+*.stackdump
 
 # Perf log file
 benchmark.txt
@@ -79,3 +80,15 @@ benchmark.txt
 # Pre commit file
 done.txt
 test.c
+
+# Resources archive
+resources.tar.gz
+
+# Resources
+images/
+audio/
+fonts/
+maps/
+
+# Lib files
+lib/*

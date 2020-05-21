@@ -14,7 +14,7 @@
 
 void	init_candle_on(t_env *env)
 {
-	env->object_sprites[18].texture = 22;
+	env->object_sprites[18].texture = env->objects_sprites_start;
 	env->object_sprites[18].death_counterpart = 19;
 	env->object_sprites[18].nb_death_sprites = 1;
 	env->object_sprites[18].oriented = 0;
@@ -30,7 +30,7 @@ void	init_candle_on(t_env *env)
 
 void	init_candle_destroyed(t_env *env)
 {
-	env->object_sprites[19].texture = 22;
+	env->object_sprites[19].texture = env->objects_sprites_start;
 	env->object_sprites[19].death_counterpart = 19;
 	env->object_sprites[19].oriented = 0;
 	env->object_sprites[19].rest_sprite = 19;

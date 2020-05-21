@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		get_color(int x, int y, int w, Uint32 *prec_pixels)
 {
@@ -71,7 +72,7 @@ int		generate_map_at_lvl(t_texture *texture, int lvl)
 		ft_max((int)(texture->maps[texture->nb_maps - 1]->h
 		/ (pow(2, texture->nb_maps - 1 - lvl))), 1),
 		24, SDL_PIXELFORMAT_ARGB8888)))
-		return (custom_error("Can not malloc one of the texture maps"));
+		return (ft_perror("Can not malloc one of the texture maps"));
 	fill_map_at_lvl(texture, lvl);
 	return (0);
 }
@@ -82,12 +83,13 @@ int		generate_maps_for_texture(t_texture *texture)
 
 	if (!(texture->maps = (SDL_Surface**)ft_memalloc(sizeof(SDL_Surface*)
 		* texture->nb_maps)))
-		return (custom_error("Can not malloc textures maps array\n"));
+		return (ft_perror("Can not malloc textures maps array"));
 	texture->maps[texture->nb_maps - 1] = texture->surface;
 	i = texture->nb_maps - 2;
 	while (i >= 0)
 	{
-		generate_map_at_lvl(texture, i);
+		if (generate_map_at_lvl(texture, i))
+			return (-1);
 		i--;
 	}
 	return (0);

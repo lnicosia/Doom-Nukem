@@ -14,7 +14,7 @@
 
 void	init_lamp_anim_four(t_env *env)
 {
-	env->object_sprites[10].texture = 22;
+	env->object_sprites[10].texture = env->objects_sprites_start;
 	env->object_sprites[10].death_counterpart = 10;
 	env->object_sprites[10].oriented = 0;
 	env->object_sprites[10].rest_sprite = 7;
@@ -29,7 +29,7 @@ void	init_lamp_anim_four(t_env *env)
 
 void	init_lamp_anim_three(t_env *env)
 {
-	env->object_sprites[9].texture = 22;
+	env->object_sprites[9].texture = env->objects_sprites_start;
 	env->object_sprites[9].death_counterpart = 9;
 	env->object_sprites[9].oriented = 0;
 	env->object_sprites[9].rest_sprite = 10;
@@ -44,7 +44,7 @@ void	init_lamp_anim_three(t_env *env)
 
 void	init_lamp_anim_two(t_env *env)
 {
-	env->object_sprites[8].texture = 22;
+	env->object_sprites[8].texture = env->objects_sprites_start;
 	env->object_sprites[8].death_counterpart = 8;
 	env->object_sprites[8].oriented = 0;
 	env->object_sprites[8].rest_sprite = 9;
@@ -59,7 +59,7 @@ void	init_lamp_anim_two(t_env *env)
 
 void	init_lamp_anim(t_env *env)
 {
-	env->object_sprites[7].texture = 22;
+	env->object_sprites[7].texture = env->objects_sprites_start;
 	env->object_sprites[7].death_counterpart = 7;
 	env->object_sprites[7].oriented = 0;
 	env->object_sprites[7].rest_sprite = 8;

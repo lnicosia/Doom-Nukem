@@ -14,11 +14,5 @@
 
 int		main(int ac, char **av)
 {
-	int i;
-
-	i = 1;
-	if (i == 1 &&
-		i == 1)
-		init_game(ac, av);
-	return (0);
+	return (init_game(ac, av));
 }

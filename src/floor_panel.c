@@ -12,6 +12,9 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
+#include "events.h"
+#include "parser.h"
 
 int		set_floor_panel_buttons_state(t_target_panel *panel, int index)
 {
@@ -81,12 +84,19 @@ int		select_floor(void *param)
 
 int		draw_floor_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Height");
-	draw_button(env, panel->targets[1], "Texture");
-	draw_button(env, panel->targets[2], "Slope");
-	draw_button(env, panel->targets[3], "Align X");
-	draw_button(env, panel->targets[4], "Align Y");
-	draw_button(env, panel->targets[5], "Scale X");
-	draw_button(env, panel->targets[6], "Scale Y");
+	if (draw_button(env, panel->targets[0], "Height"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Texture"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Slope"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Align X"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Align Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Scale X"))
+		return (-1);
+	if (draw_button(env, panel->targets[6], "Scale Y"))
+		return (-1);
 	return (0);
 }

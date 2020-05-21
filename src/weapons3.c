@@ -11,11 +11,14 @@
 /* ************************************************************************** */
 
 #include "events.h"
+#include "draw.h"
 
 int		enemy_hit(t_env *env, int i)
 {
 	env->enemies[i].health -= damage_done(env, env->enemies[i].rotated_pos.z);
 	env->player.touched = 1;
+	if (enemy_hit_sound(i, env))
+		return (-1);
 	if (env->enemies[i].health <= 0)
 	{
 		env->player.killed++;

@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
-void	draw_target_tab(t_env *env)
+int		draw_target_tab(t_env *env)
 {
 	SDL_Surface	*img;
 
@@ -23,14 +24,16 @@ void	draw_target_tab(t_env *env)
 		img = env->ui_textures[TARGET_ICON_DOWN].surface;
 	else
 		img = env->ui_textures[TARGET_ICON].surface;
-	draw_button(env, env->editor.event_panel.target_tab, NULL);
+	if (draw_button(env, env->editor.event_panel.target_tab, NULL))
+		return (-1);
 	apply_surface(img, new_point(env->editor.event_panel.pos.y
 	+ env->editor.event_panel.top_size + (50 - img->h / 2),
 	env->editor.event_panel.pos.x + (50 - img->h / 2)),
 	new_point(img->w, img->h), env);
+	return (0);
 }
 
-void	draw_action_tab(t_env *env)
+int		draw_action_tab(t_env *env)
 {
 	SDL_Surface	*img;
 
@@ -41,9 +44,11 @@ void	draw_action_tab(t_env *env)
 		img = env->ui_textures[ACTION_ICON_DOWN].surface;
 	else
 		img = env->ui_textures[ACTION_ICON].surface;
-	draw_button(env, env->editor.event_panel.action_tab, NULL);
+	if (draw_button(env, env->editor.event_panel.action_tab, NULL))
+		return (-1);
 	apply_surface(img, new_point(env->editor.event_panel.pos.y
 	+ env->editor.event_panel.top_size + 100 + (50 - img->h / 2),
 	env->editor.event_panel.pos.x + (50 - img->h / 2)),
 	new_point(img->w, img->h), env);
+	return (0);
 }

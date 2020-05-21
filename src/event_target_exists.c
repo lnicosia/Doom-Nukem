@@ -12,6 +12,7 @@
 
 #include "events_parser.h"
 #include "events_conditions.h"
+#include "parser.h"
 
 int		condition_target_exists(t_condition *condition, t_env *env)
 {

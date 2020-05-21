@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_editor_mode.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:44:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 14:56:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/11 17:36:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		going_in_3d_mode(t_env *env)
 	if (env->sector_list)
 		ft_memdel((void**)&env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (custom_error("Could not allocate sector list\n"));
+		return (ft_perror("Could not allocate sector list\n"));
 	update_camera_position(&env->player.camera);
 	update_player_z(env);
 	ft_bzero(&env->inputs, sizeof(env->inputs));

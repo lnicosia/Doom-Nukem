@@ -14,7 +14,7 @@
 
 void	init_bullet_hole(t_env *env)
 {
-	env->object_sprites[26].texture = 35;
+	env->object_sprites[26].texture = env->wall_sprites_start;
 	env->object_sprites[26].death_counterpart = 3;
 	env->object_sprites[26].pursuit_sprite = 3;
 	env->object_sprites[26].rest_sprite = 26;

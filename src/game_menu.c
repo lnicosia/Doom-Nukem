@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
-void	print_difficulty(t_env *env)
+int		print_difficulty(t_env *env)
 {
 	int		w;
 	int		h;
@@ -28,6 +29,7 @@ void	print_difficulty(t_env *env)
 	print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
 		env->h_w - w / 2), new_printable_text(str,
 		env->sdl.fonts.lato30, 0x222222FF, 30), env);
+	return (0);
 }
 
 void	game_menu_hud(t_env *env)
@@ -47,17 +49,30 @@ void	game_menu_hud(t_env *env)
 			3 * env->h / 4));
 }
 
-void	start_game_menu(t_env *env)
+int		draw_menu_buttons(t_env *env)
+{
+	if (draw_button(env, env->start_game_button, "START"))
+		return (-1);
+	if (draw_button(env, env->next_difficulty, NULL))
+		return (-1);
+	if (draw_button(env, env->previous_difficulty, NULL))
+		return (-1);
+	if (draw_button(env, env->option_menu_ig, "OPTIONS"))
+		return (-1);
+	if (draw_button(env, env->exit_button, "EXIT"))
+		return (-1);
+	if (print_difficulty(env))
+		return (-1);
+	return (0);
+}
+
+int		start_game_menu(t_env *env)
 {
 	clear_image(env);
 	game_menu_hud(env);
 	SDL_SetRelativeMouseMode(0);
-	draw_button(env, env->start_game_button, "START");
-	draw_button(env, env->next_difficulty, NULL);
-	draw_button(env, env->previous_difficulty, NULL);
-	draw_button(env, env->option_menu_ig, "OPTIONS");
-	draw_button(env, env->exit_button, "EXIT");
-	print_difficulty(env);
+	if (draw_menu_buttons(env) == -1)
+		return (-1);
 	while (SDL_PollEvent(&env->sdl.event))
 	{
 		if (env->sdl.event.type == SDL_QUIT ||
@@ -69,5 +84,7 @@ void	start_game_menu(t_env *env)
 			menu_keyup(env);
 		menu_keys(env);
 	}
-	update_screen(env);
+	if (update_screen(env))
+		return (-1);
+	return (0);
 }

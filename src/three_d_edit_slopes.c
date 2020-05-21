@@ -16,12 +16,12 @@ int		increase_slope(t_env *env)
 {
 	if (env->selected_ceiling != -1)
 	{
-		env->sectors[env->selected_ceiling].ceiling_slope += 0.01;
+		env->sectors[env->selected_ceiling].ceiling_slope += 1;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 	}
 	if (env->selected_floor != -1)
 	{
-		env->sectors[env->selected_floor].floor_slope += 0.01;
+		env->sectors[env->selected_floor].floor_slope += 1;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_sector_entities_z(env, env->selected_floor);
 	}
@@ -32,12 +32,12 @@ int		decrease_slope(t_env *env)
 {
 	if (env->selected_ceiling != -1)
 	{
-		env->sectors[env->selected_ceiling].ceiling_slope -= 0.01;
+		env->sectors[env->selected_ceiling].ceiling_slope -= 1;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 	}
 	if (env->selected_floor != -1)
 	{
-		env->sectors[env->selected_floor].floor_slope -= 0.01;
+		env->sectors[env->selected_floor].floor_slope -= 1;
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_sector_entities_z(env, env->selected_floor);
 	}

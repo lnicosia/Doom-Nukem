@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
+#include "events.h"
 
 void	select_player_panel_button(t_target_panel *panel, int down)
 {
@@ -90,15 +92,26 @@ int		select_player(void *param)
 
 int		draw_player_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "X");
-	draw_button(env, panel->targets[1], "Y");
-	draw_button(env, panel->targets[2], "Z");
-	draw_button(env, panel->targets[3], "Health");
-	draw_button(env, panel->targets[4], "Armor");
-	draw_button(env, panel->targets[5], "Speed");
-	draw_button(env, panel->targets[6], "Invincible");
-	draw_button(env, panel->targets[7], "Infinite ammo");
+	if (draw_button(env, panel->targets[0], "X"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Z"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Health"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Armor"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Speed"))
+		return (-1);
+	if (draw_button(env, panel->targets[6], "Invincible"))
+		return (-1);
+	if (draw_button(env, panel->targets[7], "Infinite ammo"))
+		return (-1);
 	if (env->editor.creating_condition)
-		draw_button(env, panel->targets[8], "Sector");
+	{
+		if (draw_button(env, panel->targets[8], "Sector"))
+		return (-1);
+	}
 	return (0);
 }

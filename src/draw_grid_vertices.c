@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
+#include <math.h>
 
 void	select_grid_vertex(int i, t_env *env)
 {

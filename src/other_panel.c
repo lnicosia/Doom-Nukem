@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "draw.h"
+#include "events.h"
+#include "parser.h"
 
 int		set_other_panel_buttons_state(t_target_panel *panel, int index)
 {
@@ -52,7 +55,9 @@ int		select_other(void *param)
 
 int		draw_other_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Win");
-	draw_button(env, panel->targets[1], "Dialog");
+	if (draw_button(env, panel->targets[0], "Win"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Dialog"))
+		return (-1);
 	return (0);
 }

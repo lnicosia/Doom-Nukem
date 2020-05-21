@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	options_menu_hud(t_env *env)
 {
@@ -56,7 +57,7 @@ void	print_music_vol(t_env *env)
 		0x222222FF, 30), env);
 }
 
-void	print_sounds_vol(t_env *env)
+int		print_sounds_vol(t_env *env)
 {
 	int w;
 	int h;
@@ -73,29 +74,43 @@ void	print_sounds_vol(t_env *env)
 		env->sounds_vol_up.size_down.y + 35, env->h_w - w / 2),
 		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
 		0x222222FF, 30), env);
+	return (0);
 }
 
-void	draw_option_menu_ig_buttons(t_env *env)
+int		draw_option_menu_ig_buttons(t_env *env)
 {
-	draw_button(env, env->return_button, "RETURN");
-	draw_button(env, env->exit_button, "EXIT");
-	draw_button(env, env->music_vol_up, NULL);
-	draw_button(env, env->music_vol_down, NULL);
-	draw_button(env, env->sounds_vol_up, NULL);
-	draw_button(env, env->sounds_vol_down, NULL);
-	draw_button(env, env->fps_option, "FPS");
-	draw_button(env, env->fov_increase, NULL);
-	draw_button(env, env->fov_decrease, NULL);
-	draw_button(env, env->next_resolution, NULL);
-	draw_button(env, env->prev_resolution, NULL);
+	if (draw_button(env, env->return_button, "RETURN"))
+		return (-1);
+	if (draw_button(env, env->exit_button, "EXIT"))
+		return (-1);
+	if (draw_button(env, env->music_vol_up, NULL))
+		return (-1);
+	if (draw_button(env, env->music_vol_down, NULL))
+		return (-1);
+	if (draw_button(env, env->sounds_vol_up, NULL))
+		return (-1);
+	if (draw_button(env, env->sounds_vol_down, NULL))
+		return (-1);
+	if (draw_button(env, env->fps_option, "FPS"))
+		return (-1);
+	if (draw_button(env, env->fov_increase, NULL))
+		return (-1);
+	if (draw_button(env, env->fov_decrease, NULL))
+		return (-1);
+	if (draw_button(env, env->next_resolution, NULL))
+		return (-1);
+	if (draw_button(env, env->prev_resolution, NULL))
+		return (-1);
+	return (0);
 }
 
-void	option_menu_ig(t_env *env)
+int		option_menu_ig(t_env *env)
 {
 	clear_image(env);
 	SDL_SetRelativeMouseMode(0);
 	options_menu_hud(env);
-	draw_option_menu_ig_buttons(env);
+	if (draw_option_menu_ig_buttons(env) == -1)
+		return (-1);
 	print_music_vol(env);
 	print_sounds_vol(env);
 	print_hfov_value(env);
@@ -110,5 +125,7 @@ void	option_menu_ig(t_env *env)
 			option_menu_ig_keyup(env);
 		option_menu_ig_keys(env);
 	}
-	update_screen(env);
+	if (update_screen(env))
+		return (-1);
+	return (0);
 }

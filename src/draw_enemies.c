@@ -12,6 +12,7 @@
 
 #include "render.h"
 #include "enemies.h"
+#include <math.h>
 
 int			get_enemy_direction2(t_enemy *enemy, double angle)
 {

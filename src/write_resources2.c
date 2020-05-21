@@ -21,7 +21,12 @@ int		writing_bmp(int file, int fd, char *name)
 	int32_t			size;
 
 	if (read(file, header, 14) != 14)
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid bmp file and could not close the file\n"));
 		return (custom_error("Invalid bmp file\n"));
+	}
 	size = read_int32(header, 2);
 	ft_dprintf(fd, "%s\n%d\n", name, size);
 	write(fd, header, 14);
@@ -36,7 +41,7 @@ int		writing_bmp(int file, int fd, char *name)
 int		write_textures(int fd, t_env *env)
 {
 	(void)env;
-	ft_printf("saving textures\n");
+	ft_printf("{reset}Saving textures..\n");
 	ft_dprintf(fd, "T %d\n", MAX_WALL_TEXTURE);
 	if (write_textures1(fd))
 		return (-1);

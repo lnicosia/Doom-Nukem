@@ -50,7 +50,11 @@ int		find_input_box_max_char(t_input_box *box)
 		if (!(str = ft_strnew(len)))
 			return (-1);
 		ft_memset(str, 'a', len);
-		TTF_SizeText(box->font, str, &size.x, &size.y);
+		if (TTF_SizeText(box->font, str, &size.x, &size.y))
+		{
+			ft_strdel(&str);
+			return (-1);
+		}
 		len++;
 	}
 	ft_strdel(&str);
@@ -78,7 +82,11 @@ char	*get_current_box_line(t_input_box *box, char *str)
 		ft_strdel(&res);
 		if (!(res = ft_strsub(str, 0, len)))
 			return (0);
-		TTF_SizeText(box->font, res, &size.x, &size.y);
+		if (TTF_SizeText(box->font, res, &size.x, &size.y))
+		{
+			ft_strdel(&res);
+			return (0);
+		}
 		len++;
 	}
 	if (size.x >= box->size.x * 0.99)
@@ -101,7 +109,8 @@ int		draw_cursor(t_input_box *box, t_point pos, char *sub, t_env *env)
 
 	if (!sub)
 		return (-1);
-	TTF_SizeText(box->font, sub, &size.x, &size.y);
+	if (TTF_SizeText(box->font, sub, &size.x, &size.y))
+		return (-1);
 	y = pos.x;
 	while (y < pos.x + size.y)
 	{

@@ -21,13 +21,14 @@ int		init_enemy_selection_button2(t_env *env)
 	env->editor.current_enemy_selection.size_hover = new_point(64, 64);
 	env->editor.current_enemy_selection.size_pressed = new_point(64, 64);
 	env->editor.current_enemy_selection.pos = new_point(233, 317);
-	return (1);
+	return (0);
 }
 
 int		init_enemy_selection_button(t_env *env)
 {
-	int	i;
-	int	mod;
+	int				i;
+	int				mod;
+	t_button_param	*new;
 
 	if (MAX_ENEMIES > 20)
 		mod = 10;
@@ -36,9 +37,12 @@ int		init_enemy_selection_button(t_env *env)
 	i = 0;
 	while (i < MAX_ENEMIES)
 	{
-		env->editor.enemy_tab[i].img_up = env->wall_textures[i].maps[6];
+		if (!(new = new_button_param(env, i)))
+			return (-1);
 		env->editor.enemy_tab[i] = new_image_button(ON_RELEASE,
-		&save_enemy, new_button_target(env, i), env);
+		&save_enemy, new, env);
+		env->editor.enemy_tab[i].img_up =
+		env->sprite_textures[env->enemies_start].maps[0];
 		env->editor.enemy_tab[i].size_up = new_point(64, 64);
 		env->editor.enemy_tab[i].size_down = new_point(64, 64);
 		env->editor.enemy_tab[i].size_hover = new_point(64, 64);

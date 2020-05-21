@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/30 11:37:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/13 15:09:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 double	apply_climb(double vel)
 {
@@ -94,11 +95,8 @@ void	gravity(t_env *env)
 		|| (env->player.state.jump && !env->player.state.fall
 		&& !env->player.state.fly))
 	{
-		env->player.state.walk = 0;
-		env->time.last_fall = SDL_GetTicks() / 1000.0;
-		env->player.state.fall = 1;
-		env->player.start_pos = env->player.pos.z;
-		env->player.velocity_start = env->gravity.velocity;
+		reset_state(env);
+		init_fall(env);
 	}
 	if (env->player.state.fall)
 		player_fall(pos, time, env);

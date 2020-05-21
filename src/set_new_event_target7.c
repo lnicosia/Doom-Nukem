@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 int		select_other_target(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel)

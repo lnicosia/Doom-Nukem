@@ -21,6 +21,7 @@
 int		write_resources(int fd, t_env *env);
 int		write_sounds(int fd, t_env *env);
 int		write_sound(int file, int fd, char *name);
+int		write_ui(int fd, t_env *env);
 int		write_textures1(int fd);
 int		write_textures2(int fd);
 int		write_textures3(int fd);
@@ -39,6 +40,8 @@ int		write_hud4(int fd, int file);
 int		write_hud5(int fd, int file);
 int		write_hud6(int fd, int file);
 int		write_hud7(int fd, int file);
+int		write_hud8(int fd, int file);
+int		write_hud9(int fd, int file);
 int		writing_bmp(int file, int fd, char *name);
 void	write_vertices(int fd, t_env *env);
 void	write_sectors(int fd, t_env *env);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include <math.h>
 
 void	update_objects_z(t_env *env)
 {

@@ -26,7 +26,7 @@ int		count_portals(char *line, t_map_parser *parser)
 	{
 		if (!*line)
 			return (missing_data("')' after sector portals", parser));
-		if (valid_number(line, parser))
+		if (valid_int(line, parser))
 			return (invalid_char("in sector portals", "a digit, a ')'"
 				"or space(s)", *line, parser));
 			line = skip_number(line);

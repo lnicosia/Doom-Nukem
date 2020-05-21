@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include <math.h>
 
 int		realloc_sector_walls_map_lvl(t_sector *sector, t_texture *texture,
 int i)
@@ -19,7 +20,7 @@ int i)
 		free(sector->walls_map_lvl[i]);
 	if (!(sector->walls_map_lvl[i] = (double*)ft_memalloc(sizeof(double)
 		* texture->nb_maps)))
-		return (custom_error("Could not malloc a sector map_lvl array"));
+		return (ft_perror("Could not malloc a sector map_lvl array"));
 	return (0);
 }
 

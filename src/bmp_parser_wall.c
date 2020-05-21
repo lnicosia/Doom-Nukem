@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser_wall.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 14:51:04 by sipatry           #+#    #+#             */
-/*   Updated: 2019/11/14 17:08:38 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/11 15:21:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ static int	parse_wall_textures(int fd, int index, t_env *env)
 		return (custom_error("Error in image header\n"));
 	ft_printf("{red}");
 	if (!(env->wall_textures[index].surface = SDL_CreateRGBSurfaceWithFormat(
-					0,
-					parser.w,
-					parser.h,
-					parser.bpp,
-					SDL_PIXELFORMAT_ARGB8888)))
-		return (ft_printf("SDL_CreateRGBSurface error: %s\n", SDL_GetError()));
-	env->wall_textures[index].str = env->wall_textures[index].surface->pixels;
+		0, parser.w, parser.h, parser.bpp, SDL_PIXELFORMAT_ARGB8888)))
+		return (custom_error("SDL_CreateRGBSurface error: %s\n",
+		SDL_GetError()));
+		env->wall_textures[index].str =
+	env->wall_textures[index].surface->pixels;
 	env->wall_textures[index].scale = 1;
 	env->wall_textures[index].xpadding = 0;
 	env->wall_textures[index].ypadding = 0;
@@ -58,11 +56,16 @@ int			parse_bmp_wall_textures(char *file, int index, t_env *env)
 	int	fd;
 
 	if ((fd = open(file, O_RDONLY)) == -1)
-		return (ft_printf("Could not open \"%s\"\n", file));
+		return (custom_error("Could not open \"%s\"\n", file));
 	if (parse_wall_textures(fd, index, env))
-		return (ft_printf("Error while parsing \"%s\"\n", file));
+	{
+		if (close(fd))
+			return (ft_perror("Bmp parsing failed and could not close the"
+			" file\n"));
+		return (custom_error("Error while parsing \"%s\"\n", file));
+	}
 	if (close(fd))
-		return (ft_printf("Could not close \"%s\"\n", file));
+		return (custom_error("Could not close \"%s\"\n", file));
 	ft_printf("{reset}");
 	return (0);
 }

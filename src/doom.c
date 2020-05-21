@@ -14,16 +14,21 @@
 #include "collision.h"
 #include "events.h"
 #include "enemies.h"
+#include "draw.h"
 
 int		doom4(t_env *env)
 {
 	if (env->menu && !env->in_game && !env->option)
-		start_game_menu(env);
+	{
+		if (start_game_menu(env))
+			return (custom_error("Start game menu error"));
+	}
 	else
 	{
 		if (env->option)
 		{
-			option_menu_ig(env);
+			if (option_menu_ig(env))
+				return (custom_error("Option menu in game error"));
 		}
 		else if (draw_game(env))
 			return (custom_error("Crash in game loop\n"));
@@ -34,11 +39,14 @@ int		doom4(t_env *env)
 int		doom3(t_env *env)
 {
 	if (env->player.health <= 0)
-		death(env);
+	{
+		if (death(env))
+			return (custom_error("Crash from death\n"));
+	}
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keys(&env->confirmation_box, env))
-			return (crash("Crash from a confirmation box\n", env));
+			return (custom_error("Crash from a confirmation box\n"));
 	}
 	return (0);
 }
@@ -48,10 +56,10 @@ int		doom_events(t_env *env)
 	if (env->events)
 	{
 		if (pop_events(env))
-			return (crash("Events failed\n", env));
+			return (custom_error("Events failed\n"));
 	}
 	if (launch_events(env))
-		return (crash("Events Failed\n", env));
+		return (custom_error("Events Failed\n"));
 	return (0);
 }
 
@@ -59,26 +67,28 @@ int		doom2(t_env *env)
 {
 	update_sprites_state(env);
 	if (projectiles_movement(env))
-		return (crash("Projectile creation or impact creation failed\n", env));
+		return (custom_error("Projectile creation or impact creation"
+		" failed\n"));
 	if (!env->confirmation_box.state)
 	{
 		if (enemy_ai(env))
-			return (-1);
+			return (custom_error("Enemy ai error"));
 		objects_collision(env, env->player.pos);
 		if (explosion_collision_objects(env))
-			return (-1);
+			return (custom_error("Explosion collision objects error"));
 		if (explosion_collision_enemies(env))
-			return (-1);
+			return (custom_error("Explosion collision enmies error"));
 		if (explosion_collision_player(env))
-			return (-1);
+			return (custom_error("Explosion collision player error"));
 		if (enemy_melee_hit(env))
-			return (crash("Collision with a melee enemy failed\n", env));
-		player_combat_state(env);
+			return (custom_error("Collision with a melee enemy failed\n"));
+		if (player_combat_state(env))
+			return (custom_error("Updating player combat state failed\n"));
 		if (keys(env))
-			return (crash("Keys failed\n", env));
+			return (custom_error("Keys failed\n"));
 	}
 	if (doom_events(env))
-		return (-1);
+		return (custom_error("", env));
 	return (0);
 }
 
@@ -95,15 +105,16 @@ int		doom(t_env *env)
 		if (env->in_game && !env->menu & !env->option)
 		{
 			if (doom_poll_event(env))
-				return (crash("", env));
+				return (crash("Doom events failed", env));
 			if (doom2(env))
-				return (crash("", env));
+				return (crash("Doom part 2 failed", env));
 			if (doom3(env))
-				return (crash("", env));
+				return (crash("Doom part 3 failed", env));
 		}
 		if (doom4(env))
-			return (crash("", env));
-		FMOD_System_Update(env->sound.system);
+			return (crash("Doom part 4 failed", env));
+		if (FMOD_System_Update(env->sound.system))
+			return (custom_error("FMOD_System_Update error\n"));
 	}
 	free_all(env);
 	return (0);

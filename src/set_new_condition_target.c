@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
 int		set_new_condition_target2(t_env *env, t_condition_panel *panel)
 {

@@ -37,5 +37,4 @@ void	init_objects_main_sprites(t_env *env)
 	env->objects_main_sprites[20] = CAMERA_SPRITE;
 	env->objects_main_sprites[21] = SHOTGUN_SPRITE;
 	env->objects_main_sprites[22] = RAYGUN_SPRITE;
-	env->objects_main_sprites[23] = 34;
 }

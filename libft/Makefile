@@ -19,6 +19,7 @@ OBJ_DIR = obj
 INCLUDES_DIR = .
 BIN_DIR = .
 PRINTF_DIR = ft_printf
+OPTI_FLAGS = -O3
 
 SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_isalpha.c ft_isalnum.c ft_isdigit.c ft_isascii.c ft_isprint.c \
@@ -33,7 +34,7 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_strsplit.c ft_itoa.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 		  ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstlen.c ft_lstpushback.c \
 		  ft_abs.c get_next_line.c ft_strjoin_free.c ft_min.c ft_max.c \
-		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c errors.c \
+		  ft_fmin.c ft_fmax.c ft_count.c ft_fabs.c ft_atoi_base.c \
 		  ft_clamp.c ft_fclamp.c ft_fclamp.c ft_atof.c ft_getlen.c \
 		  ft_sitoa.c ft_realloc.c ft_getsize.c ft_delindex.c ft_perror.c \
 		  ft_lstcontains.c vector_utils.c segments_intersect.c \
@@ -48,7 +49,8 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 pf_invalid.c pf_putaddr.c pf_putchar.c pf_putfloat.c \
 				 pf_putlong_base.c pf_putnbr.c pf_putnbr_base.c \
 				 pf_putpercent.c pf_putstr.c pf_putunbr.c pf_strnequ.c \
-				 put_padding.c putfloat_utils.c ft_snprintf.c \
+				 put_padding.c putfloat_utils.c ft_snprintf.c fill_buffer.c \
+				 custom_error.c
 
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
 
@@ -59,25 +61,25 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(HEADERS))
 PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC_RAW))
 PRINTF_OBJ = $(addprefix $(OBJ_DIR)/, $(PRINTF_SRC_RAW:.c=.o))
 
+ifeq ($(OS), Windows_NT)
+	OPTI_FLAGS = -O3
+else
+    OPTI_FLAGS = -O3 -flto
+endif
+
 CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR) -I $(PRINTF_DIR) \
 			-Wno-unused-result \
-			-Ofast \
-			#-flto\
+			$(OPTI_FLAGS) \
 			#-fsanitize=address -g3 \
 
+# Color declarations
 RED := "\e[0;31m"
 GREEN := "\e[0;32m"
+YELLOW := "\e[0;33m"
+BLUE := "\e[0;34m"
+MAGENTA := "\e[0;35m"
 CYAN := "\e[0;36m"
 RESET :="\e[0m"
-
-ifneq ($(OS), Windows_NT)
-	UNAME_S = $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
-		CFLAGS += -flto
-	else
-		CFLAGS += -flto
-	endif
-endif
 
 all: $(BIN_DIR)/$(NAME)
 
@@ -85,11 +87,11 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR) $(MAKEFILE)
-	@printf "\e[0;33m[INFO] Compiling $<\e[0m\n"
+	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
 $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
@@ -99,13 +101,12 @@ $(BIN_DIR)/$(NAME): $(OBJ_DIR) $(OBJ) $(PRINTF_OBJ)
 	@printf ${GREEN}"[INFO] Linked $(NAME) with success\n"${RESET}
 
 clean: 
-	@rm -f $(OBJ)
-	@rm -Rf $(OBJ_DIR)
-	@printf ${CYAN}"[INFO] Removed objs from the libft"${RESET}
+	@printf ${CYAN}"[INFO] Removing objs from the libft\n"${RESET}
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -Rf $(NAME)
-	@printf ${CYAN}"[INFO] Removed $(NAME) from the libft\n"${RESET}
+	@printf ${CYAN}"[INFO] Removing $(NAME) from the libft\n"${RESET}
+	rm -rf $(NAME)
 
 re: fclean all
 

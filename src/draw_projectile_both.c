@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
 #include "render.h"
 
 void	*projectile_loop_both(void *param)

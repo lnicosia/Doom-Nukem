@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 int		return_button_func(void *target)
 {
@@ -32,11 +33,15 @@ int		music_volume_up(void *target)
 	volume = env->sound.music_vol * 100;
 	if (volume <= 90)
 	{
-		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 1))
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		volume += 10;
 		env->sound.music_vol = volume / 100;
-		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
-		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.music_chan,
+			env->sound.music_vol) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 0) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }
@@ -50,11 +55,15 @@ int		music_volume_down(void *target)
 	volume = env->sound.music_vol * 100;
 	if (volume >= 10)
 	{
-		FMOD_Channel_SetPaused(env->sound.music_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 1) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		volume -= 10;
 		env->sound.music_vol = volume / 100;
-		FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol);
-		FMOD_Channel_SetPaused(env->sound.music_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.music_chan,
+			env->sound.music_vol) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 0) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }
@@ -68,16 +77,22 @@ int		sounds_volume_down(void *target)
 	volume = env->sound.ambient_vol * 100;
 	if (volume >= 10)
 	{
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 1) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		volume -= 10;
 		env->sound.ambient_vol = volume / 100;
-		FMOD_Channel_SetVolume(env->sound.footstep_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetVolume(env->sound.player_shots_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 0);
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.footstep_chan,
+			env->sound.ambient_vol) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetVolume(env->sound.player_shots_chan,
+			env->sound.ambient_vol) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 0) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }
@@ -91,16 +106,22 @@ int		sounds_volume_up(void *target)
 	volume = env->sound.ambient_vol * 100;
 	if (volume <= 90)
 	{
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 1);
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 1) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 1) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		volume += 10;
 		env->sound.ambient_vol = volume / 100;
-		FMOD_Channel_SetVolume(env->sound.footstep_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetVolume(env->sound.player_shots_chan,
-			env->sound.ambient_vol);
-		FMOD_Channel_SetPaused(env->sound.footstep_chan, 0);
-		FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0);
+		if (FMOD_Channel_SetVolume(env->sound.footstep_chan,
+			env->sound.ambient_vol) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetVolume(env->sound.player_shots_chan,
+			env->sound.ambient_vol) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetVolume error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.footstep_chan, 0) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
+		if (FMOD_Channel_SetPaused(env->sound.player_shots_chan, 0) != FMOD_OK)
+			return (custom_error("FMOD_Channel_SetPaused error\n"));
 	}
 	return (1);
 }

@@ -13,32 +13,32 @@
 #include "env.h"
 #include "collision.h"
 
-/*
-**BOTH FUNCTIONS ARE ONLY USEFUL FOR OLD INSIDE TMP SECT
-**
-**int		diff_sign_no_zero(double nb1, double nb2)
-**{
-**	if ((nb1 > 0 && nb2 > 0) || (nb1 < 0 && nb2 < 0))
-**		return (0);
-**	return (1);
-**}
-**
-**double	find_xmax(t_vertex *tmp_sect, int size)
-**{
-**	double	xmax;
-**	int		i;
-**
-**	i = 0;
-**	xmax = tmp_sect[0].x;
-**	while (i < size)
-**	{
-**		if (xmax < tmp_sect[i].x)
-**			xmax = tmp_sect[i].x;
-**		i++;
-**	}
-**	return (xmax);
-**}
-*/
+double	get_start_pos(t_v2 pos, int sector, int i, t_env *env)
+{
+	double	res;
+
+	res = (pos.x - env->vertices[env->sectors[sector].vertices[i]].x)
+	* (env->vertices[env->sectors[sector].vertices[i + 1]].y
+	- env->vertices[env->sectors[sector].vertices[i]].y)
+	- (pos.y - env->vertices[env->sectors[sector].vertices[i]].y)
+	* (env->vertices[env->sectors[sector].vertices[i + 1]].x
+	- env->vertices[env->sectors[sector].vertices[i]].x);
+	return (res);
+}
+
+double	get_end_pos(t_v2 pos, int sector, int i, t_env *env)
+{
+	double	res;
+
+	res = (env->sectors[sector].x_max + 1
+	- env->vertices[env->sectors[sector].vertices[i]].x)
+	* (env->vertices[env->sectors[sector].vertices[i + 1]].y
+	- env->vertices[env->sectors[sector].vertices[i]].y)
+	- (pos.y - env->vertices[env->sectors[sector].vertices[i]].y)
+	* (env->vertices[env->sectors[sector].vertices[i + 1]].x
+	- env->vertices[env->sectors[sector].vertices[i]].x);
+	return (res);
+}
 
 /*
 **	Returns if a pos is in a certain sector
@@ -61,62 +61,16 @@ int		is_in_sector(t_env *env, int sector, t_v3 pos)
 		return (0);
 	while (++i < env->sectors[sector].nb_vertices)
 	{
-		start_pos = (pos.x - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1)
-		- (pos.y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
-		end_pos = (env->sectors[sector].x_max + 1 - SECTOR_X1) * (SECTOR_Y2
-		- SECTOR_Y1) - (pos.y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
+		start_pos = get_start_pos(new_v2(pos.x, pos.y), sector, i, env);
+		end_pos = get_end_pos(new_v2(pos.x, pos.y), sector, i, env);
 		if (diff_sign(start_pos, end_pos)
-			&& in_range(pos.y, SECTOR_Y1, SECTOR_Y2))
+			&& in_range(pos.y,
+			env->vertices[env->sectors[sector].vertices[i]].y,
+			env->vertices[env->sectors[sector].vertices[i + 1]].y))
 			count++;
 	}
 	return (count % 2 == 0 ? 0 : 1);
 }
-
-/*
-** OLD INSIDE TMP SECT
-**
-**
-**int		inside_tmp_sect(t_vertex v1, t_vertex *tmp_sect, int size)
-**{
-**	int		count;
-**	int		i;
-**	double	start_pos;
-**	double	end_pos;
-**	double	xmax;
-**
-**	i = 0;
-**	count = 0;
-**	xmax = find_xmax(tmp_sect, size);
-**	while (i < size - 1)
-**	{
-**		start_pos = (v1.x - tmp_sect[i].x) *
-**			(tmp_sect[i + 1].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
-**			(tmp_sect[i + 1].x - tmp_sect[i].x);
-**		end_pos = (xmax + 1 - tmp_sect[i].x) *
-**			(tmp_sect[i + 1].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
-**			(tmp_sect[i + 1].x - tmp_sect[i].x);
-**		ft_printf("start = %f, end = %f\n", start_pos, end_pos);
-**		if (diff_sign_no_zero(start_pos, end_pos) && in_range_not_included(v1.y,
-**			tmp_sect[i].y, tmp_sect[i + 1].y))
-**			count++;
-**		i++;
-**	}
-**	start_pos = (v1.x - tmp_sect[i].x) *
-**		(tmp_sect[0].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
-**		(tmp_sect[0].x - tmp_sect[i].x);
-**	end_pos = (xmax + 1 - tmp_sect[i].x) *
-**		(tmp_sect[0].y - tmp_sect[i].y) - (v1.y - tmp_sect[i].y) *
-**		(tmp_sect[0].x - tmp_sect[i].x);
-**	ft_printf("start = %f, end = %f\n", start_pos, end_pos);
-**	if (diff_sign_no_zero(start_pos, end_pos) && in_range_not_included(v1.y,
-**		tmp_sect[i].y, tmp_sect[0].y))
-**		count++;
-**	ft_printf("count = %d\n", count);
-**	if (count % 2 == 0)
-**		return (0);
-**	return (1);
-**}
-*/
 
 int		inside_tmp_sect(t_vertex v1, t_vertex *tmp_sect, int size)
 {
@@ -162,13 +116,12 @@ int		is_in_sector_no_z(t_env *env, int sector, t_v2 pos)
 		return (0);
 	while (i < env->sectors[sector].nb_vertices)
 	{
-		start_pos = (pos.x - SECTOR_X1) * (SECTOR_Y2 - SECTOR_Y1)
-		- (pos.y - SECTOR_Y1) * (SECTOR_X2 - SECTOR_X1);
-		end_pos = (env->sectors[sector].x_max + 1 - SECTOR_X1)
-		* (SECTOR_Y2 - SECTOR_Y1) - (pos.y - SECTOR_Y1)
-		* (SECTOR_X2 - SECTOR_X1);
+		start_pos = get_start_pos(pos, sector, i, env);
+		end_pos = get_end_pos(pos, sector, i, env);
 		if (diff_sign(start_pos, end_pos)
-			&& in_range(pos.y, SECTOR_Y1, SECTOR_Y2))
+			&& in_range(pos.y,
+			env->vertices[env->sectors[sector].vertices[i]].y,
+			env->vertices[env->sectors[sector].vertices[i + 1]].y))
 			count++;
 		i++;
 	}

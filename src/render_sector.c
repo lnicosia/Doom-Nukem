@@ -37,7 +37,8 @@ t_env *env)
 	new.xmin = render->xstart;
 	new.sector = &env->sectors[sector->neighbors[render->i]];
 	new.xmax = render->xend;
-	render_sector(new, env);
+	if (render_sector(new, env))
+		return (-1);
 	if (env->editor.selected_wall == render->i && !just_selected
 		&& env->editor.selected_sector == sector->num)
 	{
@@ -52,7 +53,7 @@ t_env *env)
 		if (select_portal(sector, render, env))
 			return (-1);
 	}
-	reset_screen_limits(env);
+	reset_screen_limits(render, env);
 	return (0);
 }
 
@@ -75,7 +76,7 @@ t_env *env)
 	env->editor.just_selected = 0;
 	just_selected = 0;
 	if (threaded_wall_loop(sector, render, env) || env->fatal_error)
-		return (-1);
+		return (custom_error("threads crash\n", env));
 	if (env->editor.just_selected)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)
@@ -99,8 +100,8 @@ int		render_sector(t_render render, t_env *env)
 	j = -1;
 	while (++j < env->w)
 	{
-		env->tmp_max[j] = env->ymax[j];
-		env->tmp_min[j] = env->ymin[j];
+		render.tmp_max[j] = env->ymax[j];
+		render.tmp_min[j] = env->ymin[j];
 	}
 	i = -1;
 	while (++i < sector->nb_vertices)

@@ -17,10 +17,10 @@ int		parse_sectors_init2(t_env *env, t_map_parser *parser)
 	int		i;
 
 	if (env->nb_sectors > 100000)
-		return (custom_error("nb_sectors can't exceed 100 000\n"));
+		return (ft_perror("nb_sectors can't exceed 100 000"));
 	if (!(env->sectors = (t_sector *)ft_memalloc(sizeof(t_sector)
 					* env->nb_sectors)))
-		return (custom_error("Could not malloc sectors!"));
+		return (ft_perror("Could not malloc sectors!"));
 	i = 0;
 	while (i < env->nb_sectors)
 	{

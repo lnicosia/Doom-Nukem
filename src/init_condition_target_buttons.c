@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 void		update_condition_target_buttons_pos2(t_target_panel *panel,
 t_env *env)

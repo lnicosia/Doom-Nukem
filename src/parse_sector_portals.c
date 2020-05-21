@@ -19,14 +19,11 @@ int i)
 	env->sectors[parser->sectors_count].portals[i] = ft_atoi(*line);
 	if (env->sectors[parser->sectors_count].portals[i] < 0 || env->
 			sectors[parser->sectors_count].portals[i] > 1)
-	{
-		ft_dprintf(STDERR_FILENO,
+		return (custom_error(
 			"[Line %d] Portal value should be 1 or 0 instead of"
 			" \'%d\' in sector %d\n", parser->line_count,
 			env->sectors[parser->sectors_count].portals[i],
-			parser->sectors_count);
-		return (-1);
-	}
+			parser->sectors_count));
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	return (0);

@@ -1,0 +1,16 @@
+mip mapping
+mini map (semi transparence, champ de vision)
+impacts de balles murs, sols, plafonds
+zbuffer
+wall sprites sur sol et plafond
+fov
+plusieurs resolutions
+changer mur de depart de la pente
+sens de pente different entre sol et plafond
+lancer le jeu via l'editeur (peut etre)
+les textes sont centres dans leur ui respective
+portabilite
+CAMERAS
+resize d'image (avec mipmapping)
+boutons
+input boxes

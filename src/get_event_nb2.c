@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 size_t	*get_walk_out_event_nb(t_env *env, t_events_parser *eparser, int mode)
 {

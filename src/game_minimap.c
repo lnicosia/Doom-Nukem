@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	draw_minimap_player_game3(t_point p0, t_point p1,
 t_env *env)

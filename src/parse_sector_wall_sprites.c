@@ -21,15 +21,16 @@ t_map_parser *parser, int i)
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].
 		nb_press_events = (size_t*)ft_memalloc(sizeof(size_t)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite"
+		" nb press events"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].press_events =
 		(t_event**)ft_memalloc(sizeof(t_event*)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite pres events"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].shoot_events =
 		(t_event**)ft_memalloc(sizeof(t_event*)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite shoot events"));
 	j = -1;
 	while (++j < env->sectors[parser->sectors_count].wall_sprites[i].
 		nb_sprites)
@@ -55,19 +56,20 @@ t_map_parser *parser, int i)
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].sprite =
 		(int*)ft_memalloc(sizeof(int)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite index"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].pos =
 		(t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite pos"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].scale =
 		(t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite scale"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].
 		nb_shoot_events = (size_t*)ft_memalloc(sizeof(size_t)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (-1);
+		return (ft_perror("Could not malloc sector wall sprite"
+		" nb shoot events"));
 	return (parse_current_wall_sprites2(env, line, parser, i));
 }
 
@@ -95,7 +97,7 @@ t_map_parser *parser)
 		return (invalid_char("before sector sprites", "'('", **line, parser));
 	(*line)++;
 	if ((parser->sector_sprites_count = count_sprites(*line, parser)) == -1)
-		return (custom_error("Error while counting sprites"));
+		return (custom_error("Error while counting sprites\n"));
 	if (parser->sector_sprites_count < parser->sector_vertices_count)
 		return (sector_error("is missing one or more sprites",
 		parser->sectors_count, parser));

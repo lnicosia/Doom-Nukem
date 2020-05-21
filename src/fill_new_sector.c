@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 int		fill_sector_with_current_vertex(t_vertex *vertex, t_sector *sector,
 int i, t_env *env)
@@ -47,7 +48,7 @@ int		fill_sector_extremities(t_sector *sector, t_env *env)
 	}
 	else
 	{
-		if (fill_sector_last_vertex(sector, env))
+		if (fill_sector_first_vertex(sector, env))
 			return (-1);
 	}
 	return (0);

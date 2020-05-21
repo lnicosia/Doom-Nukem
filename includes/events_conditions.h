@@ -12,7 +12,7 @@
 
 #ifndef EVENTS_CONDITIONS_H
 # define EVENTS_CONDITIONS_H
-# include "env.h"
+# include "events.h"
 # define MAX_CONDITION_TYPES 9
 
 typedef enum		e_condition_type

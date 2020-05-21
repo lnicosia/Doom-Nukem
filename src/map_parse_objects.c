@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "parser.h"
 
 int		parse_object(t_env *env, char *line, t_map_parser *parser)
 {
@@ -56,12 +57,9 @@ int		parse_objects(t_env *env, t_map_parser *parser)
 			parser->objects_count++;
 		}
 		else
-		{
-			ft_dprintf(STDERR_FILENO,
+			return (custom_error(
 				"[Line %d] You must still declare %d objects\n",
-				parser->line_count, env->nb_objects - parser->objects_count);
-			return (-1);
-		}
+				parser->line_count, env->nb_objects - parser->objects_count));
 		ft_strdel(&(parser->line));
 	}
 	return (parse_objects2(env, parser));
