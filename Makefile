@@ -6,7 +6,7 @@
 #    By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/14 19:22:29 by gaerhard         ###   ########.fr        #
+#    Updated: 2020/05/21 16:27:42 by gaerhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -305,6 +305,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
 		   is_new_sector_convex.c option_menu4.c option_menu5.c option_menu6.c\
+		   init_weapons_sprites2.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -333,7 +334,10 @@ HUD =	hud.bmp Ammo_hud.bmp Life_armor_hud.bmp raygun1.bmp raygun2.bmp \
 		shot1.bmp shot2.bmp shot3.bmp shot4.bmp shot5.bmp shot6.bmp shot7.bmp \
 		shot8.bmp shot9.bmp shot10.bmp shot11.bmp shot12.bmp shot13.bmp \
 		shot14.bmp shot15.bmp Gatling_1.bmp Gatling_2.bmp Gatling_3.bmp \
-		Gatling_4.bmp Gatling_5.bmp Gatling_6.bmp
+		Gatling_4.bmp Gatling_5.bmp Gatling_6.bmp rocket_launcher1.bmp \
+		rocket_launcher2.bmp rocket_launcher3.bmp rocket_launcher4.bmp \
+		rocket_launcher5.bmp rocket_launcher6.bmp rocket_launcher7.bmp \
+		rocket_launcher8.bmp rocket_launcher9.bmp
 
 UI =	button-default-up.bmp button-default-pressed.bmp \
 		button-default-hover.bmp background-up-64.bmp \

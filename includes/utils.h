@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 14:09:23 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 16:27:41 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 53
+# define MAX_TEXTURES 62
 # define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 34

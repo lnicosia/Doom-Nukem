@@ -6,7 +6,7 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/14 16:15:37 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/21 16:27:44 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int		init_textures(t_env *env)
 		return (custom_error("Failed to load gun textures\n"));
 	if (init_gatling(env))
 		return (custom_error("Failed to load gatling textures\n"));
+	if (init_rocket_launcher(env))
+		return (custom_error("Failed to load rocket launcher textures\n"));
 	if (parse_bmp("images/sprites/sprite_sheet.bmp", 22, env))
 		return (custom_error("Failed to load sprite sheet\n"));
 	if (parse_bmp("images/sprites/lost_soul.bmp", 23, env))
