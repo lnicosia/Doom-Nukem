@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 16:16:31 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/20 13:39:55 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 17:40:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ int		find_size(char *name)
 		return (0);
 }
 
+int		write_font2(int file, int check_size, int size)
+{
+	if (check_size != size)
+	{
+		if (close(file))
+			return (custom_error(
+			"Invalid font file and could not close the file\n"));
+			return (custom_error("Invalid read size for a font file\n"));
+	}
+	if (close(file))
+		return (custom_error("Could not close the font file\n"));
+	return (0);
+}
+
 int		write_font(int file, int fd, char *name)
 {
 	int				size;
@@ -36,7 +50,7 @@ int		write_font(int file, int fd, char *name)
 		if (close(file))
 			return (custom_error(
 			"Invalid font file and could not close the file\n"));
-		return (custom_error("Couldn't find the font file size\n"));
+			return (custom_error("Couldn't find the font file size\n"));
 	}
 	ft_dprintf(fd, "%s\n%d\n", name, size);
 	while ((ret = (read(file, resource, 10000))) > 0)
@@ -45,16 +59,7 @@ int		write_font(int file, int fd, char *name)
 		write(fd, resource, ret);
 	}
 	write(fd, "\n", 1);
-	if (check_size != size)
-	{
-		if (close(file))
-			return (custom_error(
-			"Invalid font file and could not close the file\n"));
-		return (custom_error("Invalid read size for a font file\n"));
-	}
-	if (close(file))
-		return (custom_error("Could not close the font file\n"));
-	return (0);
+	return (write_font2(file, check_size, size));
 }
 
 int		write_fonts1(int fd, int file)

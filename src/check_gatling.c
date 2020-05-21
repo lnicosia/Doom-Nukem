@@ -17,7 +17,7 @@ int	check_gatling2(t_env *env)
 	int	fd;
 
 	fd = 0;
-    if (!(env->init.hud_names[31] = ft_strdup("./images/HUD/Gatling_4.bmp")))
+	if (!(env->init.hud_names[31] = ft_strdup("./images/HUD/Gatling_4.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/Gatling_4.bmp", O_RDONLY)) == -1)
 		env->init.hud[31] = 1;
@@ -42,8 +42,8 @@ int	check_gatling(t_env *env)
 {
 	int fd;
 
-    fd = 0;
-    if (!(env->init.hud_names[28] = ft_strdup("./images/HUD/Gatling_1.bmp")))
+	fd = 0;
+	if (!(env->init.hud_names[28] = ft_strdup("./images/HUD/Gatling_1.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/Gatling_1.bmp", O_RDONLY)) == -1)
 		env->init.hud[28] = 1;
@@ -55,7 +55,7 @@ int	check_gatling(t_env *env)
 		env->init.hud[29] = 1;
 	if (!env->init.hud[29] && close(fd))
 		return (custom_error("Could not close the fd in check Gatling\n"));
-    if (!(env->init.hud_names[30] = ft_strdup("./images/HUD/Gatling_3.bmp")))
+	if (!(env->init.hud_names[30] = ft_strdup("./images/HUD/Gatling_3.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/Gatling_3.bmp", O_RDONLY)) == -1)
 		env->init.hud[30] = 1;

@@ -37,7 +37,7 @@ int		check_ui(t_env *env)
 		if (!env->init.ui[i] && close(fd))
 			return (custom_error("Could not close %s after ui check\n",
 			env->init.ui_names[i]));
-		i++;
+			i++;
 	}
 	return (0);
 }

@@ -6,12 +6,24 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 11:39:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/20 16:38:24 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 18:08:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "save.h"
+
+void	write_data(int fd, t_env *env)
+{
+	write_vertices(fd, env);
+	write_sectors(fd, env);
+	write_objects(fd, env);
+	write_enemies(fd, env);
+	write_events(fd, env);
+	write_events_links(fd, env);
+	write_music_choices(fd, env);
+	write_player(fd, env);
+}
 
 int		save_map(void *param)
 {
@@ -26,16 +38,9 @@ int		save_map(void *param)
 	{
 		if (close(fd))
 			return (-1);
-		return(-1);
+		return (-1);
 	}
-	write_vertices(fd, env);
-	write_sectors(fd, env);
-	write_objects(fd, env);
-	write_enemies(fd, env);
-	write_events(fd, env);
-	write_events_links(fd, env);
-	write_music_choices(fd, env);
-	write_player(fd, env);
+	write_data(fd, env);
 	if (env->editor.in_game && !env->editor.tab)
 	{
 		SDL_SetRelativeMouseMode(1);

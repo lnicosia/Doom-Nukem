@@ -16,7 +16,7 @@
 **	Write ui textures needed for main menu in the map
 */
 
-int		write_ui(int fd, t_env *env)
+int	write_ui(int fd, t_env *env)
 {
 	int	i;
 	int	file;
@@ -29,10 +29,10 @@ int		write_ui(int fd, t_env *env)
 		if ((file = open(env->init.ui_names[i], O_RDONLY)) < 0)
 			return (custom_error("Could not open %s to save it\n",
 			env->init.ui_names[i]));
-		if (writing_bmp(file, fd, env->init.ui_names[i]))
+			if (writing_bmp(file, fd, env->init.ui_names[i]))
 			return (custom_error("Could not write %s\n",
 			env->init.ui_names[i]));
-		i++;
+			i++;
 	}
 	return (0);
 }

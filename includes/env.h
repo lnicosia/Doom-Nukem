@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/20 13:36:28 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 18:38:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,9 +222,9 @@ int					init_editor_sprites(t_env *env);
 int					check_existing_files(t_env *env, char *name);
 int					check_existing_fonts(t_env *env, char *name);
 int					check_existing_sounds(t_env *env, char *name);
+int					hud_textures(t_env *env, char *name);
+int					skyboxes_textures(t_env *env, char *name);
 int					check_wall_textures(t_env *env);
-int					check_wall_textures2(t_env *env);
-int					check_wall_textures3(t_env *env);
 int					check_textures(t_env *env);
 int					check_directories(void);
 int					check_sprites_textures(t_env *env);
@@ -254,6 +254,7 @@ int					check_fonts8(t_env *env);
 int					check_fonts9(t_env *env);
 int					check_fonts10(t_env *env);
 int					check_fonts11(t_env *env);
+int					check_wall_sprites_textures(t_env *env);
 int					new_parsed_hud_file(char *name, t_env *env);
 int					new_parsed_textures(char *name, t_env *env);
 int					map_parse_hud(t_env *env, t_map_parser *parser);
@@ -265,7 +266,7 @@ int					map_parse_skyboxes(t_env *env, t_map_parser *parser);
 int					map_parse_fonts(t_env *env, t_map_parser *parser);
 int					skip_file(t_map_parser *parser);
 int					init_mipmap_arrays(t_env *env);
-
+int					create_new_sound_file(t_map_parser *parser, int size);
 /*
 ** Editor functions
 */
@@ -933,11 +934,12 @@ t_rectangle rectangle);
 int						find_dialog_box_max_char(t_env *env);
 int						dialog_event(void *param, void *penv);
 int						find_dialog_box_max_char(t_env *env);
-char					*get_current_line(char **str, t_env *env);
+char					*get_current_line(char **str, t_env *env, size_t len);
 int						split_text(char **str, t_point pos, t_env *env);
 int						compute_current_line(char **str, t_point *pos,
 t_point *text_size, t_env *env);
-
+int						print_line_text(t_point *pos, t_point *text_size,
+char *tmp2, t_env *env);
 /*
 ** Main pipeline functions
 */
@@ -1075,6 +1077,7 @@ t_env *env);
 void					update_sprites_state(t_env *env);
 int						death(t_env *env);
 int						stop_game(void *param);
+void					refresh_env(t_env *env);
 int						respawn(void *param);
 int						print_results(t_env *env);
 int						check_player_z(t_env *env);

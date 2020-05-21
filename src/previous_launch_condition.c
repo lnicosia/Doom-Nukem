@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   previous_launch_condition.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:38:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 19:02:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 18:14:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,18 @@ int		previous_launch_condition2(t_env *env)
 	return (0);
 }
 
+void	previous_enemy_launch_condition(t_env *env)
+{
+	if (env->editor.selected_events == 0)
+		env->editor.selected_launch_condition = env->enemies[env->
+		selected_enemy].collision_events[env->editor.selected_event].
+		nb_launch_conditions - 1;
+	else if (env->editor.selected_events == 1)
+		env->editor.selected_launch_condition = env->enemies[env->
+		selected_enemy].death_events[env->editor.selected_event].
+		nb_launch_conditions - 1;
+}
+
 int		previous_launch_condition(void *penv)
 {
 	t_env	*env;
@@ -81,16 +93,7 @@ int		previous_launch_condition(void *penv)
 	else
 	{
 		if (env->selected_enemy != -1)
-		{
-			if (env->editor.selected_events == 0)
-				env->editor.selected_launch_condition = env->enemies[env->
-				selected_enemy].collision_events[env->editor.selected_event].
-				nb_launch_conditions - 1;
-			else if (env->editor.selected_events == 1)
-				env->editor.selected_launch_condition = env->enemies[env->
-				selected_enemy].death_events[env->editor.selected_event].
-				nb_launch_conditions - 1;
-		}
+			previous_enemy_launch_condition(env);
 		else if (env->selected_object != -1)
 			env->editor.selected_launch_condition = env->objects[env->
 			selected_object].collision_events[env->editor.selected_event].

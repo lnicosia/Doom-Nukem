@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/18 22:06:17 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 16:20:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void	animations(t_env *env)
 		&& !env->player.state.climb && !env->player.state.drop
 		&& !env->player.state.fall && !env->player.state.fly
 		&& env->sectors[env->player.sector].floor_slope != 0)
+	{
 		update_player_z(env);
+	}
 }
 
 int		check_blocage2(t_env *env, t_motion motion, double speed, int index)

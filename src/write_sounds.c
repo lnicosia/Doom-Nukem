@@ -25,7 +25,7 @@ int		write_sound(int file, int fd, char *name)
 		if (close(file))
 			return (custom_error(
 			"Invalid wav file and could not close the file\n"));
-		return (custom_error("Invalid wav file\n"));
+			return (custom_error("Invalid wav file\n"));
 	}
 	size = read_int32(header, 4) + 8;
 	ft_dprintf(fd, "%s\n%d\n", name, size);
@@ -49,7 +49,7 @@ int		write_sounds2(int fd, t_env *env)
 		if ((file = open(env->init.sounds_names[i], O_RDONLY)) < 0)
 			return (custom_error("Could not open %s to save it\n",
 			env->init.sounds_names[i]));
-		if (write_sound(file, fd, env->init.sounds_names[i]))
+			if (write_sound(file, fd, env->init.sounds_names[i]))
 			return (-1);
 		i++;
 	}
@@ -69,7 +69,7 @@ int		write_sounds(int fd, t_env *env)
 		if ((file = open(env->init.musics_names[i], O_RDONLY)) < 0)
 			return (custom_error("Could not open %s to save it\n",
 			env->init.musics_names[i]));
-		if (write_sound(file, fd, env->init.musics_names[i]))
+			if (write_sound(file, fd, env->init.musics_names[i]))
 			return (-1);
 		i++;
 	}

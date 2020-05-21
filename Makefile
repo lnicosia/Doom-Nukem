@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/20 16:54:51 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/21 18:29:27 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -231,7 +231,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
-		   validate_input.c button_event.c \
+		   validate_input.c button_event.c death_utils.c\
 		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
@@ -307,7 +307,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_hd_sprite.c init_button_sprite.c new_input_box.c \
 		   init_doom_guy_face.c init_skyboxes_textures.c new_input_var.c \
 		   split_box_text.c input_box_utils2.c input_box_keys.c \
-		   input_box_keys2.c init_inputs.c pos_changed.c \
+		   input_box_keys2.c init_inputs.c pos_changed.c valid_map5.c\
 		   is_in_sector_utils.c init_vertices.c init_sectors.c \
 		   parse_enemy_data.c parse_enemy_sprite.c parse_enemy_pos.c \
 		   parse_object_sprite.c parse_object_pos.c map_parse_sectors_utils2.c \
@@ -331,17 +331,17 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
 		   init_enemies_textures.c init_sprites_textures.c \
 		   init_hud_textures.c init_wall_textures.c input_box_utils3.c\
-		   init_mini_skyboxes.c check_existing_files.c \
+		   init_mini_skyboxes.c check_existing_files.c create_sound_file.c\
 		   check_walls_textures.c free_resources_init.c \
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
 		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
-		   check_ui.c map_parse_ui.c \
+		   check_ui.c map_parse_ui.c check_existing_files2.c\
 		   check_existing_sounds.c map_parse_textures.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
-		   check_sounds.c check_sounds2.c \
+		   check_sounds.c check_sounds2.c check_wall_sprites_textures.c\
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -458,7 +458,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
 		  $(OPTI_FLAGS) \
-		  -fsanitize=address -g3 \
+		  #-fsanitize=address -g3 \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking

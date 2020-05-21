@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/04/29 15:52:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 16:29:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int			respawn2(t_env *env)
 int			respawn(void *param)
 {
 	t_env	*env;
-	int		i;
 
 	env = (t_env*)param;
 	free_map(env);
@@ -91,23 +90,8 @@ int			respawn(void *param)
 		return (-1);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not malloc sector list"));
-	precompute_slopes(env);
-	update_player_z(env);
-	ft_bzero(&env->inputs, sizeof(env->inputs));
-	i = 0;
-	while (i < env->nb_objects)
-	{
-		env->objects[i].exists = 1;
-		i++;
-	}
-	free_camera(&env->player.camera);
+	refresh_env(env);
 	return (respawn2(env));
-}
-
-int			stop_game(void *param)
-{
-	((t_env*)param)->running = 0;
-	return (0);
 }
 
 int			death(t_env *env)

@@ -6,11 +6,57 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 16:03:11 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/20 15:59:02 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 18:27:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int	split_line(char *tmp, char *tmp2, char **str)
+{
+	if (ft_strlen(tmp) < ft_strlen(*str) && ft_strrchr(tmp, ' '))
+	{
+		if (!(tmp2 = ft_strsub(tmp, 0,
+			ft_strlen(tmp) - ft_strlen(ft_strrchr(tmp, ' ')))))
+		{
+			ft_strdel(&tmp);
+			return (-1);
+		}
+		ft_strdel(&tmp);
+	}
+	else
+		tmp2 = tmp;
+	return (0);
+}
+
+int		compute_current_line(char **str, t_point *pos, t_point *text_size,
+t_env *env)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+
+	tmp2 = NULL;
+	if (!(tmp = get_current_line(str, env, 1)))
+		return (-1);
+	if (split_line(tmp, tmp2, str))
+		return (-1);
+	if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2) + 1,
+		ft_strlen(*str) - ft_strlen(tmp2))))
+	{
+		ft_strdel(&tmp2);
+		return (-1);
+	}
+	ft_strdel(str);
+	*str = tmp3;
+	if (print_line_text(pos, text_size, tmp2, env))
+	{
+		ft_strdel(&tmp2);
+		return (-1);
+	}
+	ft_strdel(&tmp2);
+	return (0);
+}
 
 int		dialog_event(void *param, void *penv)
 {

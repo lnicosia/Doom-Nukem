@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/27 14:16:46 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/15 21:31:33 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 20:40:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ int	check_fonts3(t_env *env)
 	int	fd;
 
 	fd = 0;
+	if ((fd = open("./fonts/lato/Lato-Regular.ttf", O_RDONLY)) == -1)
+		env->init.fonts[5] = 1;
+	if (!env->init.fonts[5] && close(fd))
+		return (custom_error("Could not close the fd in check fonts\n"));
 	if (!(env->init.fonts_names[6] = ft_strdup("./fonts/lato/Lato-Bold.ttf")))
 		return (ft_perror("Error while parsing fonts\n"));
 	if ((fd = open("./fonts/lato/Lato-Bold.ttf", O_RDONLY)) == -1)
@@ -71,10 +75,6 @@ int	check_fonts2(t_env *env)
 	if (!(env->init.fonts_names[5] =
 		ft_strdup("./fonts/lato/Lato-Regular.ttf")))
 		return (ft_perror("Error while parsing fonts\n"));
-	if ((fd = open("./fonts/lato/Lato-Regular.ttf", O_RDONLY)) == -1)
-		env->init.fonts[5] = 1;
-	if (!env->init.fonts[5] && close(fd))
-		return (custom_error("Could not close the fd in check fonts\n"));
 	return (check_fonts3(env));
 }
 

@@ -16,8 +16,8 @@ int	check_raygun3(t_env *env)
 {
 	int fd;
 
-    fd = 0;
-    if (!(env->init.hud_names[21] = ft_strdup("./images/HUD/raygun7.bmp")))
+	fd = 0;
+	if (!(env->init.hud_names[21] = ft_strdup("./images/HUD/raygun7.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/raygun7.bmp", O_RDONLY)) == -1)
 		env->init.hud[21] = 1;
@@ -30,14 +30,14 @@ int	check_raygun2(t_env *env)
 {
 	int fd;
 
-    fd = 0;
-    if (!(env->init.hud_names[18] = ft_strdup("./images/HUD/raygun4.bmp")))
+	fd = 0;
+	if (!(env->init.hud_names[18] = ft_strdup("./images/HUD/raygun4.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/raygun4.bmp", O_RDONLY)) == -1)
 		env->init.hud[18] = 1;
 	if (!env->init.hud[18] && close(fd))
 		return (custom_error("Could not close the fd in check raygun\n"));
-    if (!(env->init.hud_names[19] = ft_strdup("./images/HUD/raygun5.bmp")))
+	if (!(env->init.hud_names[19] = ft_strdup("./images/HUD/raygun5.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/raygun5.bmp", O_RDONLY)) == -1)
 		env->init.hud[19] = 1;
@@ -56,8 +56,8 @@ int	check_raygun(t_env *env)
 {
 	int fd;
 
-    fd = 0;
-    if (!(env->init.hud_names[15] = ft_strdup("./images/HUD/raygun1.bmp")))
+	fd = 0;
+	if (!(env->init.hud_names[15] = ft_strdup("./images/HUD/raygun1.bmp")))
 		return (ft_perror("Error while parsing hud textures\n"));
 	if ((fd = open("./images/HUD/raygun1.bmp", O_RDONLY)) == -1)
 		env->init.hud[15] = 1;

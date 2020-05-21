@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/13 15:09:20 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 15:23:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ void	gravity(t_env *env)
 	}
 	if (env->player.state.fall)
 		player_fall(pos, time, env);
-	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time
-	&& !env->events)
+	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time)
 		correct_player_fall(slope, env);
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 }
