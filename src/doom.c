@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/20 16:50:03 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 19:43:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		doom2(t_env *env)
 			return (custom_error("Explosion collision enmies error"));
 		if (explosion_collision_player(env))
 			return (custom_error("Explosion collision player error"));
-		if (enemy_melee_hit(env))
+		if (enemy_melee_hit(env, -1))
 			return (custom_error("Collision with a melee enemy failed\n"));
 		if (player_combat_state(env))
 			return (custom_error("Updating player combat state failed\n"));

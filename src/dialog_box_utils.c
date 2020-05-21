@@ -29,7 +29,7 @@ int	split_line(char *tmp, char *tmp2, char **str)
 	return (0);
 }
 
-int		compute_current_line(char **str, t_point *pos, t_point *text_size,
+int	compute_current_line(char **str, t_point *pos, t_point *text_size,
 t_env *env)
 {
 	char	*tmp;
@@ -58,7 +58,7 @@ t_env *env)
 	return (0);
 }
 
-int		dialog_event(void *param, void *penv)
+int	dialog_event(void *param, void *penv)
 {
 	t_env	*env;
 
@@ -76,7 +76,7 @@ int		dialog_event(void *param, void *penv)
 **	of the dialog box
 */
 
-int		find_dialog_box_max_char(t_env *env)
+int	find_dialog_box_max_char(t_env *env)
 {
 	char	*str;
 	size_t	len;

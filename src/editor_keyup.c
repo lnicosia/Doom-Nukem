@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:29:35 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/11 17:34:57 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 19:31:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	editor_keyup5(t_env *env)
 		&& button_keyup(&env->editor.add_object, env))
 		return (-1);
 	if (button_keyup(&env->editor.save, env))
-		return (-1);
-	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
 	return (editor_keyup6(env));
 }

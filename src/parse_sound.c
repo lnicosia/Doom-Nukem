@@ -44,7 +44,7 @@ int		parse_sound_name(t_map_parser *parser)
 		if (*(parser->tmp) == '\n')
 			break ;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
-		  	parser->tmp)))
+			parser->tmp)))
 			return (custom_error("Could not realloc name in parse sound\n"));
 	}
 	if (*(parser->tmp) != '\n')

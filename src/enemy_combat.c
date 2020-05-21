@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:34:48 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/05/20 16:56:24 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 19:43:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,8 @@ int		kamikaze_death(t_env *env, int i)
 	return (0);
 }
 
-int		enemy_melee_hit(t_env *env)
+int		enemy_melee_hit(t_env *env, int i)
 {
-	int i;
-
-	i = -1;
 	while (++i < env->nb_enemies)
 	{
 		if (enemy_collision_player(env, i))

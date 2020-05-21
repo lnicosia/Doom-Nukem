@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 11:19:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/20 16:40:26 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 19:06:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int	create_font_file(t_map_parser *parser, int size)
 	int	fd;
 
 	fd = 0;
-	ft_strdel(&(parser->tmp));
-	ft_printf("'%s' was missing in current directory. Extracting..\n",
-	parser->resource_name);
 	if (!(parser->tmp = ft_strnew(size)))
 		return (ft_perror("Memalloc failed\n"));
 	if ((parser->ret = read(parser->fd, parser->tmp, size)) <= 0)
@@ -54,6 +51,9 @@ int	check_font_validity(t_map_parser *parser)
 	if (valid_int(parser->line, parser))
 		return (custom_error("Invalid size for bmp file\n"));
 	size = ft_atoi(parser->line);
+	ft_strdel(&(parser->tmp));
+	ft_printf("'%s' was missing in current directory. Extracting..\n",
+	parser->resource_name);
 	if (create_font_file(parser, size))
 		return (custom_error("Error while creating font from map resources\n"));
 	return (0);

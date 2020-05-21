@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 11:00:25 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 11:00:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 19:55:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,81 +28,6 @@ void		free_all_sdl_relative(t_env *env)
 		ft_memdel((void**)&env->ymin);
 	if (env->ymax)
 		ft_memdel((void**)&env->ymax);
-}
-
-void		free_audio(t_env *env, int i)
-{
-	while (i < NB_WEAPONS)
-	{
-		if (env->weapons[i].shot)
-		{
-			if (FMOD_Sound_Release(env->weapons[i].shot))
-				custom_error("FMOD_Sound_Relase error\n");
-		}
-		i++;
-	}
-	i = 0;
-	if (env->sound.footstep)
-	{
-		if (FMOD_Sound_Release(env->sound.footstep))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.player_hit)
-	{
-		if (FMOD_Sound_Release(env->sound.player_hit))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.player_death)
-	{
-		if (FMOD_Sound_Release(env->sound.player_death))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.cyberdemon_death)
-	{
-		if (FMOD_Sound_Release(env->sound.cyberdemon_death))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.lost_soul_death)
-	{
-		if (FMOD_Sound_Release(env->sound.lost_soul_death))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.lost_soul_attack)
-	{
-		if (FMOD_Sound_Release(env->sound.lost_soul_attack))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.monster_hit)
-	{
-		if (FMOD_Sound_Release(env->sound.monster_hit))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.monster_nearby)
-	{
-		if (FMOD_Sound_Release(env->sound.monster_nearby))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	if (env->sound.explosion)
-	{
-		if (FMOD_Sound_Release(env->sound.explosion))
-			custom_error("FMOD_Sound_Relase error\n");
-	}
-	while (i < NB_MUSICS)
-	{
-		if (env->sound.musics[i].music)
-		{
-			if (FMOD_Sound_Release(env->sound.musics[i].music))
-				custom_error("FMOD_Sound_Relase error\n");
-		}
-		i++;
-	}
-	if (env->sound.system)
-	{
-		if (FMOD_System_Close(env->sound.system))
-			custom_error("FMOD_System_Close error\n");
-		if (FMOD_System_Release(env->sound.system))
-			custom_error("FMOD_System_Release error\n");
-	}
 }
 
 void		free_objects(t_env *env)

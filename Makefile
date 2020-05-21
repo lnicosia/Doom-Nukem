@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/21 18:29:27 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/21 19:57:09 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -337,7 +337,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
 		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
 		   check_ui.c map_parse_ui.c check_existing_files2.c\
-		   check_existing_sounds.c map_parse_textures.c \
+		   check_existing_sounds.c map_parse_textures.c free_all5.c\
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
