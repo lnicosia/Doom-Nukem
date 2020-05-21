@@ -108,6 +108,9 @@ int		split_text(char **str, t_point pos, t_env *env)
 	t_point	text_size;
 
 	count = 0;
+	if (TTF_SizeText(env->sdl.fonts.lato_bold30, *str, &text_size.x,
+		&text_size.y))
+		return (-1);
 	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
 	{
 		if (compute_current_line(str, &pos, &text_size, env))
