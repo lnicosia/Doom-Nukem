@@ -47,8 +47,6 @@ void		free_all2(t_env *env)
 
 void		free_all(t_env *env)
 {
-	int	i;
-
 	ft_printf("Freeing data..\n");
 	if (!env)
 		return ;
@@ -65,13 +63,6 @@ void		free_all(t_env *env)
 	free_all_sdl_relative(env);
 	free_fonts(env);
 	free_map(env);
-	i = 0;
-	while (i < 4)
-	{
-		if (env->skybox[i].texture_scale)
-			ft_memdel((void**)&env->skybox[i].texture_scale);
-		i++;
-	}
 	free_all2(env);
 }
 

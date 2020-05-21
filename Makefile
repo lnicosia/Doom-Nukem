@@ -453,8 +453,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  -fsanitize=address -g3 \
-		  #$(OPTI_FLAGS) \
+		  $(OPTI_FLAGS) \
+		  #-fsanitize=address -g3 \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking
@@ -713,9 +713,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr' -O- | sed -rn $\
+	15Q-xc0fESi05mxRA12ckmbnqNbA1jZt8' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr" -O resources.tar.gz \
+	&id=15Q-xc0fESi05mxRA12ckmbnqNbA1jZt8" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	@tar -xf resources.tar.gz
