@@ -20,7 +20,7 @@ int		set_sdl2(t_env *env)
 	if (SDL_SetWindowDisplayMode(env->sdl.window, NULL))
 		return (custom_error("SDL_SetWindowDisplayMode error: %s\n",
 		SDL_GetError()));
-	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	return (0);
 }
 

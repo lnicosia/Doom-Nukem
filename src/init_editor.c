@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/20 16:46:07 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 21:00:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 int	init_editor4(t_env *env)
 {
+	if (init_editor_hud(env))
+		return (crash("Could not init hud\n", env));
+	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (crash("Could not malloc sector list\n", env));
+	view(env);
+	update_camera_position(&env->player.camera);
 	if (init_camera(&env->player.camera, env))
 		return (crash("Could not init camera\n", env));
 	if (init_skybox(env))
@@ -32,17 +38,6 @@ int	init_editor4(t_env *env)
 
 int	init_editor3(t_env *env)
 {
-	if (init_editor_hud(env))
-		return (crash("Could not init hud\n", env));
-	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (crash("Could not malloc sector list\n", env));
-	view(env);
-	update_camera_position(&env->player.camera);
-	return (init_editor4(env));
-}
-
-int	init_editor2(t_env *env)
-{
 	if (init_textures(env))
 		return (crash("Could not init textures \n", env));
 	if (generate_mipmaps(env))
@@ -57,15 +52,11 @@ int	init_editor2(t_env *env)
 		return (crash("Could not load fonts\n", env));
 	if (init_input_box(&env->input_box, env))
 		return (crash("Could not init input box\n", env));
-	return (init_editor3(env));
+	return (init_editor4(env));
 }
 
-int	init_editor1(int ac, char **av, t_env *env)
+int	init_editor2(t_env *env, int ac, char **av)
 {
-	if (init_object_sprites(env))
-		return (crash("Could not load object sprites\n", env));
-	if (init_enemy_sprites(env))
-		return (crash("Could not load enemy sprites\n", env));
 	if (ac == 1)
 	{
 		ft_printf("Creating a new map\n");
@@ -89,7 +80,20 @@ int	init_editor1(int ac, char **av, t_env *env)
 		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
-	return (init_editor2(env));
+	return (init_editor3(env));
+}
+
+int	init_editor1(int ac, char **av, t_env *env)
+{
+	if (init_sdl(env))
+		return (crash("Could not initialize SDL\n", env));
+	if (check_resources(env))
+		return (crash("Could not pre load resources\n", env));
+	if (init_object_sprites(env))
+		return (crash("Could not load object sprites\n", env));
+	if (init_enemy_sprites(env))
+		return (crash("Could not load enemy sprites\n", env));
+	return (init_editor2(env, ac, av));
 }
 
 int	init_editor(int ac, char **av)
@@ -112,9 +116,5 @@ int	init_editor(int ac, char **av)
 	init_print_condition_target_data(&env);
 	init_event_links_types(&env);
 	init_print_link_target_data(&env);
-	if (init_sdl(&env))
-		return (crash("Could not initialize SDL\n", &env));
-	if (check_resources(&env))
-		return (crash("Could not pre load resources\n", &env));
 	return (init_editor1(ac, av, &env));
 }

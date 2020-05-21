@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 16:59:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 16:59:51 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 21:06:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,21 @@ int		launch_game2(t_env *env, char *map_name, char *str, char **tmp)
 	return (0);
 }
 
+int		set_map(char *map_name, char *str, char **tmp, t_env *env)
+{
+	if (!(map_name = ft_strdup(env->save_file)))
+		return (-1);
+	if (!(str = ft_strdup("./doom-nukem")))
+		return (-1);
+	if (!(tmp = ft_strsplit("./doom-nukem tmp.map", ' ')))
+		return (-1);
+	if (env->save_file)
+		ft_strdel(&env->save_file);
+	if (!(env->save_file = ft_strdup("tmp.map")))
+		return (-1);
+	return (0);
+}
+
 /*
 **	Launch the game from the editor
 */
@@ -71,6 +86,9 @@ int		launch_game(void *target)
 	char	*map_name;
 
 	env = (t_env*)target;
+	str = NULL;
+	tmp = NULL;
+	map_name = NULL;
 	if (env->editor.in_game)
 		going_in_2d_mode(env);
 	if (env->editor.creating_event)
@@ -80,15 +98,7 @@ int		launch_game(void *target)
 			return (-1);
 		return (0);
 	}
-	if (!(map_name = ft_strdup(env->save_file)))
-		return (-1);
-	if (!(str = ft_strdup("./doom-nukem")))
-		return (-1);
-	if (!(tmp = ft_strsplit("./doom-nukem tmp.map", ' ')))
-		return (-1);
-	if (env->save_file)
-		ft_strdel(&env->save_file);
-	if (!(env->save_file = ft_strdup("tmp.map")))
+	if (set_map(map_name, str, tmp, env))
 		return (-1);
 	return (launch_game2(env, map_name, str, tmp));
 }

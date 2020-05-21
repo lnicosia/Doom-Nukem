@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:39:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 15:39:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 21:09:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 */
 
 int						init_game(int ac, char **av);
+int	                	init_game6(t_env *env);
 void					init_weapon_picker(t_env *env);
 int						init_screen_size(t_env *env);
 void					set_screen_size(t_env *env);

@@ -37,7 +37,7 @@ int	init_musics(t_env *env)
 	return (0);
 }
 
-int     init_sounds2(t_env *env)
+int	init_sounds2(t_env *env)
 {
 	if (FMOD_System_CreateSound(env->sound.system, "audio/player_death.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.player_death) != FMOD_OK)
@@ -87,7 +87,7 @@ int	init_sounds(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/player_hit.wav",
 		FMOD_CREATESAMPLE, 0, &env->sound.player_hit) != FMOD_OK)
 		return (custom_error("Failed to load player hit sound\n"));
-    return (init_sounds2(env));
+	return (init_sounds2(env));
 }
 
 int	init_audio(t_env *env)

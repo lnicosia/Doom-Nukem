@@ -18,7 +18,7 @@ int		init_editor_sprites(t_env *env)
 	int	start;
 
 	start = env->editor_start;
-	if (parse_bmp("./images/sprites/doom_guy.bmp",start + 0, env))
+	if (parse_bmp("./images/sprites/doom_guy.bmp", start + 0, env))
 		return (custom_error("Failed to load doom guy sprite\n"));
 	if (parse_bmp("./images/sprites/doom_guy_face.bmp", start + 1, env))
 		return (custom_error("Failed to load doom guy face sprite\n"));

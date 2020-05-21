@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/20 18:06:39 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 21:09:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,47 +17,6 @@
 
 int		init_game5(t_env *env)
 {
-	env->fixed_camera.pos = new_v3(3, 3, 7);
-	env->fixed_camera.angle = 45 * CONVERT_RADIANS;
-	env->fixed_camera.angle_cos = cos(env->fixed_camera.angle);
-	env->fixed_camera.angle_sin = sin(env->fixed_camera.angle);
-	env->fixed_camera.angle_z = 10 * CONVERT_RADIANS;
-	env->fixed_camera.angle_z_cos = cos(env->fixed_camera.angle_z);
-	env->fixed_camera.angle_z_sin = sin(env->fixed_camera.angle_z);
-	update_camera_position(&env->fixed_camera);
-	env->confirmation_box.font = env->sdl.fonts.lato20;
-	env->player.highest_sect = find_highest_sector(env,
-		new_motion(env->player.sector, env->player.size_2d,
-		env->player.eyesight, env->player.pos));
-	start_game_button(env);
-	next_difficulty_button(env);
-	prev_difficulty_button(env);
-	option_menu_ig_button(env);
-	return_button(env);
-	exit_button(env);
-	music_vol_down_button(env);
-	music_vol_up_button(env);
-	sounds_vol_up_button(env);
-	sounds_vol_down_button(env);
-	return (doom(env));
-}
-
-int		init_game4(t_env *env, int i)
-{
-	while (++i < env->nb_enemies)
-	{
-		env->enemies[i].exists = 1;
-		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
-	}
-	view(env);
-	setenv("SDL_MOUSE_RELATIVE", "1", 1);
-	update_camera_position(&env->player.camera);
-	SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1",
-	SDL_HINT_OVERRIDE);
-	if (SDL_SetRelativeMouseMode(SDL_TRUE))
-		custom_error("Could not set relative mouse mode\n");
-	init_animations(env);
-	init_weapons(env);
 	ft_printf("Starting music.. \n");
 	if (play_music(env, &env->sound.music_chan,
 		env->sound.musics[env->sound.ambient_music].music,
@@ -72,14 +31,49 @@ int		init_game4(t_env *env, int i)
 		return (crash("Could not init skybox\n", env));
 	if (find_dialog_box_max_char(env))
 		return (crash("Could not find dialog box maximum chars\n", env));
+	env->fixed_camera.pos = new_v3(3, 3, 7);
+	env->fixed_camera.angle = 45 * CONVERT_RADIANS;
+	env->fixed_camera.angle_cos = cos(env->fixed_camera.angle);
+	env->fixed_camera.angle_sin = sin(env->fixed_camera.angle);
+	env->fixed_camera.angle_z = 10 * CONVERT_RADIANS;
+	env->fixed_camera.angle_z_cos = cos(env->fixed_camera.angle_z);
+	env->fixed_camera.angle_z_sin = sin(env->fixed_camera.angle_z);
+	update_camera_position(&env->fixed_camera);
+	env->confirmation_box.font = env->sdl.fonts.lato20;
+	return (init_game6(env));
+}
+
+int		init_game4(t_env *env, int i)
+{
+	while (i < env->nb_objects)
+	{
+		env->objects[i].exists = 1;
+		i++;
+	}
+	i = -1;
+	while (++i < env->nb_enemies)
+	{
+		env->enemies[i].exists = 1;
+		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
+	}
+	view(env);
+	setenv("SDL_MOUSE_RELATIVE", "1", 1);
+	update_camera_position(&env->player.camera);
+	SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1",
+	SDL_HINT_OVERRIDE);
+	if (SDL_SetRelativeMouseMode(SDL_TRUE))
+		custom_error("Could not set relative mouse mode\n");
+	init_animations(env);
+	init_weapons(env);
 	return (init_game5(env));
 }
 
-int		init_game3(t_env *env)
+int		init_game3(t_env *env, char **av)
 {
-	int	i;
-
-	i = 0;
+	if (!(env->save_file = ft_strdup(av[1])))
+		return (crash("Could not malloc map name", env));
+	if (valid_map(env))
+		return (crash("Invalid map!\n", env));
 	precompute_slopes(env);
 	update_player_z(env);
 	if (init_textures(env))
@@ -94,12 +88,7 @@ int		init_game3(t_env *env)
 		return (crash("Could not load fonts\n", env));
 	if (!(env->sector_list = (int *)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (crash("Could not allocate sector list\n", env));
-	while (i < env->nb_objects)
-	{
-		env->objects[i].exists = 1;
-		i++;
-	}
-	return (init_game4(env, -1));
+	return (init_game4(env, 0));
 }
 
 int		init_game2(char **av, t_env *env)
@@ -128,11 +117,7 @@ int		init_game2(char **av, t_env *env)
 			" map file\n"));
 		return (crash("Error while parsing the map\n", env));
 	}
-	if (!(env->save_file = ft_strdup(av[1])))
-		return (crash("Could not malloc map name", env));
-	if (valid_map(env))
-		return (crash("Invalid map!\n", env));
-	return (init_game3(env));
+	return (init_game3(env, av));
 }
 
 int		init_game(int ac, char **av)

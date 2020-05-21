@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:39:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 19:11:10 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 21:02:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		next_launch_condition2(int sector, t_env *env)
 		return (next_launch_condition3(sector, env));
 	return (0);
 }
+
+//void	next_enemy_launch_condition(t_env *env)
 
 int		next_launch_condition(void *penv)
 {
