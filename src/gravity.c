@@ -100,8 +100,7 @@ void	gravity(t_env *env)
 	}
 	if (env->player.state.fall)
 		player_fall(pos, time, env);
-	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time
-	&& !env->events)
+	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time)
 		correct_player_fall(slope, env);
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 }
