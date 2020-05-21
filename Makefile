@@ -194,6 +194,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
 		update_sector_input_box.c editor_options.c \
+		three_d_edit_function_slopes.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \

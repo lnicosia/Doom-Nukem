@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_edit_slopes.c                                   :+:      :+:    :+:   */
+/*   three_d_edit_slopes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,10 +18,14 @@ int		increase_slope(t_env *env)
 	{
 		env->sectors[env->selected_ceiling].ceiling_slope += 1;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+		check_slopes_protections(env, &env->sectors[env->selected_ceiling]);
+		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 	}
 	if (env->selected_floor != -1)
 	{
 		env->sectors[env->selected_floor].floor_slope += 1;
+		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		check_slopes_protections(env, &env->sectors[env->selected_floor]);
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_sector_entities_z(env, env->selected_floor);
 	}
@@ -34,10 +38,14 @@ int		decrease_slope(t_env *env)
 	{
 		env->sectors[env->selected_ceiling].ceiling_slope -= 1;
 		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
+		check_slopes_protections(env, &env->sectors[env->selected_ceiling]);
+		update_sector_slope(env, &env->sectors[env->selected_ceiling]);
 	}
 	if (env->selected_floor != -1)
 	{
 		env->sectors[env->selected_floor].floor_slope -= 1;
+		update_sector_slope(env, &env->sectors[env->selected_floor]);
+		check_slopes_protections(env, &env->sectors[env->selected_floor]);
 		update_sector_slope(env, &env->sectors[env->selected_floor]);
 		update_sector_entities_z(env, env->selected_floor);
 	}

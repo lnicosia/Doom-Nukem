@@ -714,6 +714,7 @@ int						change_slope_direction(void	*target);
 int						get_main_sprite(int sprite, t_env *env);
 void					change_ceiling_floor_height_keyup(t_env *env);
 void					check_height_protections(t_env *env, t_sector *sector);
+void					check_slopes_protections(t_env *env, t_sector *sector);
 int						get_main_enemy_sprite(int sprite, t_env *env);
 int						parse_ambient_music(t_env *env, t_map_parser *parser);
 int						parse_fight_music(t_env *env, t_map_parser *parser);
