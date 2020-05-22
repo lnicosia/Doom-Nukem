@@ -71,7 +71,8 @@ int		parse_str_input(t_input_box *box, t_env *env)
 		return (0);
 	env->sdl.event.key.keysym.sym = 0;
 	if (!(ft_isalnum(new) || new == '-' || new == '.' || new == '\''
-		|| new == '_' || new == '/' || new == ' ' || new == ','))
+		|| new == '_' || new == '/' || new == ' ' || new == ','
+		|| new == '!'))
 		return (0);
 	if (add_char(box, new))
 		return (-1);
