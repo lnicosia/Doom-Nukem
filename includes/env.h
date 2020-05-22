@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/14 19:24:15 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/22 19:47:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ int					check_skyboxes6(t_env *env);
 int					check_shotgun(t_env *env);
 int					check_raygun(t_env *env);
 int					check_gatling(t_env *env);
+int					check_rocket_launcher(t_env *env);
 int					check_gun(t_env *env);
 int					check_sounds(t_env *env);
 int					check_sounds6(int fd, t_env *env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_existing_files.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/20 14:48:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/11 15:42:32 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 20:05:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		hud_textures(t_env *env, char *name)
 	int	i;
 
 	i = 0;
-	while (i < NB_HUD_FILES)
+	while (i < 36)
 	{
 		if (!(ft_strcmp(name, env->init.hud_names[i]))
 		&& env->init.hud[i] == 1)

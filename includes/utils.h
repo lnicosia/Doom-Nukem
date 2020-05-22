@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 16:27:41 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/22 21:16:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 # define NB_UI_FILES 8
 
 # define NB_BMP_SPRITES 13
-# define NB_HUD_FILES 36
-# define MAX_SPRITES_TEXTURES 49
+# define NB_HUD_FILES 45
+# define MAX_SPRITES_TEXTURES 58
 
 # define NB_BUTTON 10
 # define THREADS 4

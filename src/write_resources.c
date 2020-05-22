@@ -72,6 +72,8 @@ int		write_hud(int fd, int file)
 		return (-1);
 	if (write_hud9(fd, file))
 		return (-1);
+	if (write_hud10(fd, file))
+		return (-1);
 	return (0);	
 }
 

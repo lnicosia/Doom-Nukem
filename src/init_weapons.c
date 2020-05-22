@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_weapons.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 14:59:37 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/05/21 16:27:48 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/22 21:47:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	init_raygun_weapon(t_env *env)
 void	init_rocket_launcher_weapon(t_env *env)
 {
 	env->weapons[3].name = "Rocket Launcher";
-	env->weapons[3].possessed = 0;
-	env->weapons[3].first_sprite = 53;
+	env->weapons[3].possessed = 1;
+	env->weapons[3].first_sprite = env->hud_start + 36;
 	env->weapons[3].nb_sprites = 9;
 	env->weapons[3].ammo_type = ROCKET;
 	env->weapons[3].ammo = 20;

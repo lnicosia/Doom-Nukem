@@ -3,15 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   init_hud_textures.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 18:09:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/16 15:11:54 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 19:52:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "parser.h"
+
+int		init_hud_textures5(t_env *env)
+{
+	int start;
+
+	start = env->hud_start;
+	if (parse_bmp("images/HUD/rocket_launcher4.bmp", start + 39, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher5.bmp", start + 40, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher6.bmp", start + 41, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher7.bmp", start + 42, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher8.bmp", start + 43, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher9.bmp", start + 44, env))
+		return (custom_error("Invalid bmp file\n"));
+	return (0);
+}
 
 int		init_hud_textures4(t_env *env)
 {
@@ -32,7 +52,13 @@ int		init_hud_textures4(t_env *env)
 		return (custom_error("Invalid bmp file\n"));
 	if (parse_bmp("images/HUD/Life_armor_hud.bmp", start + 35, env))
 		return (custom_error("Invalid bmp file\n"));
-	return (0);
+	if (parse_bmp("images/HUD/rocket_launcher1.bmp", start + 36, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher2.bmp", start + 37, env))
+		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp("images/HUD/rocket_launcher3.bmp", start + 38, env))
+		return (custom_error("Invalid bmp file\n"));
+	return (init_hud_textures5(env));
 }
 
 int		init_hud_textures3(t_env *env)
