@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 15:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 18:44:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 15:49:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int		split_text(char **str, t_point pos, t_env *env)
 	count = 0;
 	text_size.x = 0;
 	text_size.y = 0;
+	if (TTF_SizeText(env->sdl.fonts.lato_bold30, *str, &text_size.x,
+		&text_size.y))
+		return (-1);
 	while (ft_strlen(*str) && pos.x + text_size.y <= env->h)
 	{
 		if (compute_current_line(str, &pos, &text_size, env))

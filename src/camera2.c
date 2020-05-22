@@ -76,6 +76,6 @@ int		set_camera_map_array(t_camera *camera, int i, int j, t_env *env)
 		free(camera->v[i][j].texture_align);
 	if (!(camera->v[i][j].texture_align = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
-		return (ft_perror("Could not malloc camera sprites scales"));
+		return (ft_perror("Could not malloc camera sprites align"));
 	return (0);
 }

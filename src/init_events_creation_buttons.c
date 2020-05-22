@@ -80,6 +80,7 @@ int		new_event(void *param)
 	env->editor.event_panel.action_panel.int_value = 0;
 	env->editor.event_panel.selected_event = -1;
 	env->editor.event_panel.event.target_index = -1;
+	env->editor.event_panel.event.max_uses = 1;
 	reset_target_selection(&env->editor.event_panel.target_panel);
 	return (0);
 }

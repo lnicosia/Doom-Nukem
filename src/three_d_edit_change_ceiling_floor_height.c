@@ -25,7 +25,6 @@ void	edit_change_ceiling_height(t_env *env)
 		(0.1 * (env->editor.key_delay / 500));
 	check_height_protections(env, sector);
 	update_sector_slope(env, sector);
-	update_player_z(env);
 }
 
 void	edit_change_floor_height(t_env *env)
@@ -42,6 +41,7 @@ void	edit_change_floor_height(t_env *env)
 	check_height_protections(env, sector);
 	update_sector_slope(env, sector);
 	update_player_z(env);
+	update_start_player_z(env);
 }
 
 void	change_ceiling_floor_height(t_env *env)

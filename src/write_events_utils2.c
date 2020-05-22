@@ -34,5 +34,8 @@ void		object_writer(int fd, t_event event)
 
 void		dialog_writer(int fd, t_event event)
 {
-	ft_dprintf(fd, " (%s)", (char*)event.exec_param);
+	if (!event.exec_param)
+		ft_dprintf(fd, " ()");
+	else
+		ft_dprintf(fd, " (%s)", (char*)event.exec_param);
 }

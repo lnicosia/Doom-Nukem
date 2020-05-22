@@ -69,15 +69,14 @@ int	init_editor2(t_env *env, int ac, char **av)
 		if (parse_map(av[1], env))
 		{
 			if (close(env->parser.fd))
-				return (ft_perror("Map parsing failed and could not close the"
-				" map file\n"));
+				return (crash("Map parsing failed and could not close the"
+				" map file\n", env));
 			return (crash("Error while parsing the map\n", env));
 		}
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))
 			return (crash("Could not malloc save_file name\n", env));
-		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
 	return (init_editor3(env));

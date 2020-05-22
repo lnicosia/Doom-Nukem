@@ -14,3 +14,4 @@ CAMERAS
 resize d'image (avec mipmapping)
 boutons
 input boxes
+Qualite de l'editeur

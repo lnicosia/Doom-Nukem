@@ -135,7 +135,8 @@ char **line, t_events_parser *eparser)
 		if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
 		return (-1);
 	eparser->event.nb_launch_conditions = eparser->nb_conditions;
-	if (!(eparser->event.launch_conditions =
+	if (eparser->event.nb_launch_conditions
+			&& !(eparser->event.launch_conditions =
 			(t_condition*)ft_memalloc(sizeof(t_condition)
 			* eparser->nb_conditions)))
 		return (ft_perror("Could not malloc launch conditions"));

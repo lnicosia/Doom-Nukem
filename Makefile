@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/22 11:54:12 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/22 15:44:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -231,7 +231,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
-		   validate_input.c button_event.c death_utils.c\
+		   validate_input.c button_event.c check_height_at_pos.c \
 		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \
@@ -249,7 +249,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c tabs_gestion.c \
 		   free_sector.c init_screen_size.c dialog_parser.c update_event.c \
-		   print_press_text.c realloc_sector_arrays.c \
+		   print_press_text.c realloc_sector_arrays.c death_utils.c\
 		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
@@ -598,7 +598,7 @@ editor: $(RESOURCES)
 
 $(LIB_DIR): $(LIB_DIR)%.tar.gz
 	@printf $(YELLOW)"Extracting $< archive..\n"$(RESET)
-	@-tar -xf $< 
+	@tar -xf $< 
 
 $(EXTRACT_ALL): $(LIB_ARCHIVE)
 
@@ -629,17 +629,17 @@ endif
 
 $(SDL2_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@-cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 	@touch $@
 
 $(SDL2_TTF_DIR)/exists:
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@-cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 	@touch $@
 
 $(FREETYPE_DIR)/exists:
 	@printf $(YELLOW)"Extracting FreeType archive..\n"$(RESET) 
-	@-cd $(LIB_DIR) && -tar -xf freetype-2.9.tar.gz
+	@cd $(LIB_DIR) && -tar -xf freetype-2.9.tar.gz
 	@touch $@
 
 $(SDL2_CONFIGURED): $(SDL2_DIR)/exists
@@ -672,12 +672,12 @@ $(FREETYPE): $(FREETYPE_CONFIGURED)
 $(SDL2_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2 archive..\n"$(RESET) 
-	@-cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2-2.0.8.tar.gz
 
 $(SDL2_TTF_INCLUDES):
 	@printf $(CYAN)"[INFO] SDL2 includes are missing.\n"
 	@printf $(YELLOW)"Extracting SDL2_ttf archive..\n"$(RESET) 
-	@-cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
+	@cd $(LIB_DIR) && tar -xf SDL2_ttf-2.0.15.tar.gz
 
 $(FMOD_WINDOWS):
 	@$(ROOT) cp sound_lib/fmod.dll /usr/lib/
@@ -717,12 +717,12 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr' -O- | sed -rn $\
+	15Q-xc0fESi05mxRA12ckmbnqNbA1jZt8' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1mGsTbgQvXfvi4nDPJqzLOtCvPPn5Rupr" -O resources.tar.gz \
+	&id=15Q-xc0fESi05mxRA12ckmbnqNbA1jZt8" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
-	@-tar -xf resources.tar.gz
+	@tar -xf resources.tar.gz
 	@printf $(RESET)
 	@rm -rf resources.tar.gz
 

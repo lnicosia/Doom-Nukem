@@ -83,10 +83,10 @@ void	update_height_for_entities(t_env *env, t_sector *sector)
 		sector->ceiling_slope += 1;
 	else if (env->selected_ceiling != -1 && env->inputs.ctrl
 	&& env->editor.key_delay > INPUT_DELAY)
-		sector->ceiling_slope += (0.01 * (env->editor.key_delay / 500));
+		sector->ceiling_slope += (0.5 * (env->editor.key_delay / 500));
 	if (env->selected_floor != -1 && env->inputs.ctrl
 	&& env->editor.key_delay > INPUT_DELAY)
-		sector->floor_slope -= (0.01 * (env->editor.key_delay / 500));
+		sector->floor_slope -= (0.5 * (env->editor.key_delay / 500));
 	else if (env->selected_floor != -1 && env->inputs.ctrl
 	&& env->editor.keyup_allowed && env->editor.key_delay < INPUT_DELAY)
 		sector->floor_slope -= 1;

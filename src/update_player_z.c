@@ -49,3 +49,10 @@ void	update_player_z(t_env *env)
 		update_player_z_flying(env);
 	}
 }
+
+void	update_start_player_z(t_env *env)
+{
+	env->player.starting_pos.z = get_floor_at_pos(&env->sectors[
+	get_sector_no_z(env, env->player.starting_pos)], env->player.starting_pos,
+	env);
+}

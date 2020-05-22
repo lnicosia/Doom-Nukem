@@ -39,6 +39,8 @@ void	change_floor_height_keyup(t_env *env)
 		env->sectors[env->selected_floor].floor -= 0.1;
 	check_height_protections(env, sector);
 	update_sector_slope(env, sector);
+	update_player_z(env);
+	update_start_player_z(env);
 }
 
 void	change_ceiling_floor_height_keyup(t_env *env)

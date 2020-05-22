@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/22 13:48:57 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 15:50:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define NB_WALL_SPRITES 4
 # define NB_EDITOR_SPRITES 3
 # define NB_HUD_SPRITES 3
-# define NB_UI_FILES 7
+# define NB_UI_FILES 8
 # define NB_BMP_SPRITES 13
 # define NB_HUD_FILES 36
 # define MAX_SPRITES_TEXTURES 49

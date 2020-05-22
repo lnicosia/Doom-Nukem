@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/05/21 16:29:19 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 15:50:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,29 @@ void		respawn_entities(void *param)
 	}
 }
 
+int			respawn3(t_env *env)
+{
+	init_objects_data(env);
+	init_animations(env);
+	env->player.highest_sect = find_highest_sector(env,
+	new_motion(env->player.sector, env->player.size_2d,
+	env->player.eyesight, env->player.pos));
+	update_player_z(env);
+	SDL_SetRelativeMouseMode(1);
+	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+	return (0);
+}
+
 int			respawn2(t_env *env)
 {
 	int		i;
 
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].exists = 1;
+		i++;
+	}
 	i = -1;
 	while (++i < env->nb_enemies)
 	{
@@ -61,15 +80,7 @@ int			respawn2(t_env *env)
 	view(env);
 	init_weapons(env);
 	init_enemies_data(env);
-	init_objects_data(env);
-	init_animations(env);
-	env->player.highest_sect = find_highest_sector(env,
-	new_motion(env->player.sector, env->player.size_2d,
-	env->player.eyesight, env->player.pos));
-	update_player_z(env);
-	SDL_SetRelativeMouseMode(1);
-	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-	return (0);
+	return (respawn3(env));
 }
 
 int			respawn(void *param)

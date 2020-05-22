@@ -12,52 +12,40 @@
 
 #include "env.h"
 
-void	change_floor_slope_direction(t_button_next *button, t_env *env)
+int		change_floor_slope_direction(t_button_next *button, t_env *env)
 {
 	t_sector		*sector;
 
 	sector = &env->sectors[env->selected_floor];
 	if (button->button_type == NEXT)
 	{
-		sector->start_floor_slope++;
-		if (sector->start_floor_slope > sector->nb_vertices - 1)
-			sector->start_floor_slope = 0;
+		if (sector->start_floor_slope < sector->nb_vertices - 1)
+			return (increase_floor_slope_start(env));
 	}
 	else if (button->button_type == PREVIOUS)
 	{
-		sector->start_floor_slope--;
-		if (sector->start_floor_slope < 0)
-			sector->start_floor_slope = sector->nb_vertices - 1;
+		if (sector->start_floor_slope > 0)
+			return (decrease_floor_slope_start(env));
 	}
-	env->sectors[env->selected_floor].floor_normal =
-	get_sector_normal(&env->sectors[env->selected_floor], env,
-	env->sectors[env->selected_floor].start_floor_slope);
-	update_sector_slope(env, &env->sectors[env->selected_floor]);
-	update_player_z(env);
+	return (0);
 }
 
-void	change_ceiling_slope_direction(t_button_next *button, t_env *env)
+int		change_ceiling_slope_direction(t_button_next *button, t_env *env)
 {
 	t_sector		*sector;
 
 	sector = &env->sectors[env->selected_ceiling];
 	if (button->button_type == NEXT)
 	{
-		sector->start_ceiling_slope++;
-		if (sector->start_ceiling_slope > sector->nb_vertices - 1)
-			sector->start_ceiling_slope = 0;
+		if (sector->start_ceiling_slope < sector->nb_vertices - 1)
+			return (increase_ceiling_slope_start(env));
 	}
 	else if (button->button_type == PREVIOUS)
 	{
-		sector->start_ceiling_slope--;
 		if (sector->start_ceiling_slope > 0)
-			sector->start_ceiling_slope = sector->nb_vertices - 1;
+			return (decrease_ceiling_slope_start(env));
 	}
-	env->sectors[env->selected_ceiling].ceiling_normal =
-	get_sector_normal(&env->sectors[env->selected_ceiling],
-	env, env->sectors[env->selected_ceiling].start_ceiling_slope);
-	update_sector_slope(env, &env->sectors[env->selected_ceiling]);
-	update_player_z(env);
+	return (0);
 }
 
 int		change_slope_direction(void *target)

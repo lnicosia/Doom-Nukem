@@ -29,6 +29,7 @@ int		check_ui(t_env *env)
 	env->init.ui_names[4] = "./images/ui/minus-button-pressed.bmp";
 	env->init.ui_names[5] = "./images/ui/minus-button-hover.bmp";
 	env->init.ui_names[6] = "./images/ui/add_button.bmp";
+	env->init.ui_names[7] = "./images/ui/dialog_box.bmp";
 	i = 0;
 	while (i < NB_UI_FILES)
 	{

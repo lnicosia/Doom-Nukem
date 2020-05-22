@@ -12,12 +12,22 @@
 
 #include "env.h"
 
-int		check_height_at_pos(t_env *env, t_sector *sector,
-		t_v3 pos, int target_height)
+int		check_player_height(t_sector *sector, t_env *env)
 {
-	if (pos.z + (double)target_height >=
-	get_ceiling_at_pos(sector, pos, env))
-		return (-1);
+	if (env->player.sector == sector->num)
+	{
+		update_player_z(env);
+		if (check_height_at_pos(env, sector, env->player.pos,
+			env->player.eyesight + 1))
+			return (-1);
+	}
+	if (get_sector_no_z(env, env->player.starting_pos) == sector->num)
+	{
+		update_start_player_z(env);
+		if (check_height_at_pos(env, sector,
+			env->player.starting_pos, env->player.eyesight + 1))
+			return (-1);
+	}
 	return (0);
 }
 
@@ -32,6 +42,10 @@ int		check_entities_height(t_env *env)
 		sector = &env->sectors[env->selected_ceiling];
 	else if (env->selected_floor != -1)
 		sector = &env->sectors[env->selected_floor];
+	else
+		sector = &env->sectors[env->editor.selected_sector];
+	update_sector_slope(env, sector);
+	update_sector_entities_z(env, sector->num);
 	while (i < env->nb_enemies)
 	{
 		if (env->enemies[i].sector == sector->num
@@ -40,9 +54,7 @@ int		check_entities_height(t_env *env)
 			return (-1);
 		i++;
 	}
-	if (env->player.sector == sector->num
-	&& check_height_at_pos(env, sector, env->player.pos,
-	env->player.eyesight + 1))
+	if (check_player_height(sector, env))
 		return (-1);
 	return (0);
 }

@@ -11,19 +11,23 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "env.h"
 #include <math.h>
 
 int		parse_player_line3(t_env *env, t_map_parser *parser)
 {
 	if ((env->player.sector = get_sector_no_z(env, env->player.pos)) == -1)
 		return (custom_error_with_line("Player is not in any sector", parser));
+	env->player.camera.pos = env->player.pos;
 	update_player_z(env);
 	env->player.starting_pos.z = env->player.pos.z;
 	if (!env->sectors[env->player.sector].gravity)
 		env->player.state.fly = 1;
+	if (check_height_at_pos(env, &env->sectors[env->player.sector],
+		env->player.pos, env->player.eyesight + 1))
+		return (custom_error("Player starting sector is too small,"
+		" he would be stuck\n"));
 	env->player.highest_sect = env->player.sector;
-	env->player.camera.pos = env->player.pos;
-	env->player.camera.pos.z = env->player.pos.z + 8;
 	return (0);
 }
 

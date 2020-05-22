@@ -33,6 +33,8 @@ int		init_game_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/add_button.bmp", 35, env))
 		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/dialog_box.bmp", 60, env))
+		return (custom_error("Invalid bmp files\n"));
 	return (0);
 }
 

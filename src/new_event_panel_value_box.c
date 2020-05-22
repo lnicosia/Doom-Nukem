@@ -96,6 +96,8 @@ t_env *env)
 	if (type == INT)
 	{
 		box->int_target = (int*)target;
+		if (box->str)
+			ft_strdel(&box->str);
 		if (!(box->str = ft_itoa(*((int*)target))))
 			return (-1);
 		if (*box->int_target < 0)

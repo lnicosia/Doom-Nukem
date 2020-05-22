@@ -59,7 +59,7 @@ t_event **events, size_t *nb)
 	if (trigger.type == SHOOT)
 	{
 		events = &env->sectors[trigger.sector].
-		wall_sprites[trigger.wall].press_events[trigger.sprite];
+		wall_sprites[trigger.wall].shoot_events[trigger.sprite];
 		nb = &env->sectors[trigger.sector].wall_sprites[trigger.
 		wall].nb_shoot_events[trigger.sprite];
 	}

@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   check_height_at_pos.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 17:00:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2018/11/09 15:26:26 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/02/12 10:17:18 by sipatry           #+#    #+#             */
+/*   Updated: 2020/04/30 16:57:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "env.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+int		check_height_at_pos(t_env *env, t_sector *sector,
+		t_v3 pos, int target_height)
 {
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	if (!(str = ft_strnew(len)))
-		return (0);
-	while (i < len && s[start + i])
-	{
-		str[i] = s[start + i];
-		i++;
-	}
-	return (str);
+	if (pos.z + (double)target_height >
+	get_ceiling_at_pos(sector, pos, env))
+		return (-1);
+	return (0);
 }
