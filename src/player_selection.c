@@ -26,6 +26,7 @@ int		player_selection(t_env *env)
 	{
 		env->editor.dragged_player = -1;
 		env->player.sector = get_sector_no_z(env, env->player.pos);
+		env->player.highest_sect = env->player.sector;
 		if (check_player_height(&env->sectors[env->player.sector], env))
 		{
 			env->player.pos.x = env->editor.start_pos.x;
