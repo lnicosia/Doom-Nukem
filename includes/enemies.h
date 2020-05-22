@@ -19,7 +19,7 @@
 */
 
 void					draw_grid_enemies(t_env *env);
-void					enemy_drag(t_env *env);
+int						enemy_drag(t_env *env);
 int						enemy_ai(t_env *env);
 void					update_enemy_angle(t_env *env, int nb);
 void					damage_anim(t_env *env);

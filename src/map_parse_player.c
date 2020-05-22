@@ -20,13 +20,12 @@ int		parse_player_line3(t_env *env, t_map_parser *parser)
 		return (custom_error_with_line("Player is not in any sector", parser));
 	env->player.camera.pos = env->player.pos;
 	update_player_z(env);
-	env->player.starting_pos.z = env->player.pos.z;
+	update_start_player_z(env);
 	if (!env->sectors[env->player.sector].gravity)
 		env->player.state.fly = 1;
 	if (check_height_at_pos(env, &env->sectors[env->player.sector],
 		env->player.pos, env->player.eyesight + 1))
-		return (custom_error("Player starting sector is too small,"
-		" he would be stuck\n"));
+		return (custom_error("Player does not fit in its sector\n"));
 	env->player.highest_sect = env->player.sector;
 	return (0);
 }

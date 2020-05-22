@@ -85,6 +85,8 @@ void	start_player_not_clicked(t_point *pos, double *scale, t_env *env)
 		if (click_on_grid_start_player(env))
 		{
 			reset_selection(env);
+			env->editor.start_pos.x = env->player.starting_pos.x;
+			env->editor.start_pos.y = env->player.starting_pos.y;
 			env->editor.dragged_start_player = 1;
 			env->editor.selected_start_player = 1;
 			tabs_gestion(env);
