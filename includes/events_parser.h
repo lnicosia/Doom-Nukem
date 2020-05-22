@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/22 14:14:55 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 14:19:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define EVENTS_PARSER_H
 # include "utils.h"
 # include "map_parser.h"
+
+typedef struct s_env	t_env;
 
 typedef enum		e_trigger
 {
