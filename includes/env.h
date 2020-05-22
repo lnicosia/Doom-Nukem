@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/21 18:38:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 14:04:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,73 +200,80 @@ t_map_parser *parser);
 int						sector_error(const char *message, int sector,
 t_map_parser *parser);
 
-//	init bmp before parsing
-int					check_resources(t_env *env);
-int					init_wall_textures(t_env *env);
-int					init_ui_textures(t_env *env);
-int					init_ui_textures2(t_env *env);
-int					init_ui_textures3(t_env *env);
-int					init_ui_textures4(t_env *env);
-int					init_ui_textures5(t_env *env);
-int					init_ui_textures6(t_env *env);
-int					init_sprites_textures(t_env *env);
-int					init_skyboxes_textures(t_env *env);
-int					init_skyboxes_textures1(t_env *env);
-int					init_hud_textures(t_env *env);
-int					init_enemies_sprites_textures(t_env *env);
-int					init_objects_sprites_textures(t_env *env);
-int					init_wall_sprites_textures(t_env *env);
-int					init_editor_sprites(t_env *env);
+/*
+**	init bmp before parsing
+*/
 
-//	when parsing init resources again
-int					check_existing_files(t_env *env, char *name);
-int					check_existing_fonts(t_env *env, char *name);
-int					check_existing_sounds(t_env *env, char *name);
-int					hud_textures(t_env *env, char *name);
-int					skyboxes_textures(t_env *env, char *name);
-int					check_wall_textures(t_env *env);
-int					check_textures(t_env *env);
-int					check_directories(void);
-int					check_sprites_textures(t_env *env);
-int					check_hud_textures(t_env *env);
-int					check_skyboxes(t_env *env);
-int					check_skyboxes2(t_env *env);
-int					check_skyboxes3(t_env *env);
-int					check_skyboxes4(t_env *env);
-int					check_skyboxes5(t_env *env);
-int					check_skyboxes6(t_env *env);
-int					check_shotgun(t_env *env);
-int					check_raygun(t_env *env);
-int					check_gatling(t_env *env);
-int					check_gun(t_env *env);
-int					check_sounds(t_env *env);
-int					check_sounds6(int fd, t_env *env);
-int					check_ui(t_env *env);
-int					check_fonts(t_env *env);
-int					check_fonts1(t_env *env);
-int					check_fonts2(t_env *env);
-int					check_fonts3(t_env *env);
-int					check_fonts4(t_env *env);
-int					check_fonts5(t_env *env);
-int					check_fonts6(t_env *env);
-int					check_fonts7(t_env *env);
-int					check_fonts8(t_env *env);
-int					check_fonts9(t_env *env);
-int					check_fonts10(t_env *env);
-int					check_fonts11(t_env *env);
-int					check_wall_sprites_textures(t_env *env);
-int					new_parsed_hud_file(char *name, t_env *env);
-int					new_parsed_textures(char *name, t_env *env);
-int					map_parse_hud(t_env *env, t_map_parser *parser);
-int					map_parse_ui(t_env *env, t_map_parser *parser);
-int					map_parse_textures(t_env *env, t_map_parser *parser);
-int					map_parse_sounds(t_env *env, t_map_parser *parser);
-int					map_parse_sprites(t_env *env, t_map_parser *parser);
-int					map_parse_skyboxes(t_env *env, t_map_parser *parser);
-int					map_parse_fonts(t_env *env, t_map_parser *parser);
-int					skip_file(t_map_parser *parser);
-int					init_mipmap_arrays(t_env *env);
-int					create_new_sound_file(t_map_parser *parser, int size);
+int						check_resources(t_env *env);
+int						init_wall_textures(t_env *env);
+int						init_ui_textures(t_env *env);
+int						init_ui_textures2(t_env *env);
+int						init_ui_textures3(t_env *env);
+int						init_ui_textures4(t_env *env);
+int						init_ui_textures5(t_env *env);
+int						init_ui_textures6(t_env *env);
+int						init_sprites_textures(t_env *env);
+int						init_skyboxes_textures(t_env *env);
+int						init_skyboxes_textures1(t_env *env);
+int						init_hud_textures(t_env *env);
+int						init_enemies_sprites_textures(t_env *env);
+int						init_objects_sprites_textures(t_env *env);
+int						init_wall_sprites_textures(t_env *env);
+int						init_editor_sprites(t_env *env);
+
+/*
+**	when parsing init resources again
+*/
+
+int						check_existing_files(t_env *env, char *name);
+int						check_existing_fonts(t_env *env, char *name);
+int						check_existing_sounds(t_env *env, char *name);
+int						hud_textures(t_env *env, char *name);
+int						skyboxes_textures(t_env *env, char *name);
+int						check_wall_textures(t_env *env);
+int						check_textures(t_env *env);
+int						check_directories(void);
+int						check_sprites_textures(t_env *env);
+int						check_hud_textures(t_env *env);
+int						check_skyboxes(t_env *env);
+int						check_skyboxes2(t_env *env);
+int						check_skyboxes3(t_env *env);
+int						check_skyboxes4(t_env *env);
+int						check_skyboxes5(t_env *env);
+int						check_skyboxes6(t_env *env);
+int						check_shotgun(t_env *env);
+int						check_raygun(t_env *env);
+int						check_gatling(t_env *env);
+int						check_gun(t_env *env);
+int						check_sounds(t_env *env);
+int						check_sounds6(int fd, t_env *env);
+int						check_ui(t_env *env);
+int						check_fonts(t_env *env);
+int						check_fonts1(t_env *env);
+int						check_fonts2(t_env *env);
+int						check_fonts3(t_env *env);
+int						check_fonts4(t_env *env);
+int						check_fonts5(t_env *env);
+int						check_fonts6(t_env *env);
+int						check_fonts7(t_env *env);
+int						check_fonts8(t_env *env);
+int						check_fonts9(t_env *env);
+int						check_fonts10(t_env *env);
+int						check_fonts11(t_env *env);
+int						check_wall_sprites_textures(t_env *env);
+int						new_parsed_hud_file(char *name, t_env *env);
+int						new_parsed_textures(char *name, t_env *env);
+int						map_parse_hud(t_env *env, t_map_parser *parser);
+int						map_parse_ui(t_env *env, t_map_parser *parser);
+int						map_parse_textures(t_env *env, t_map_parser *parser);
+int						map_parse_sounds(t_env *env, t_map_parser *parser);
+int						map_parse_sprites(t_env *env, t_map_parser *parser);
+int						map_parse_skyboxes(t_env *env, t_map_parser *parser);
+int						map_parse_fonts(t_env *env, t_map_parser *parser);
+int						skip_file(t_map_parser *parser);
+int						init_mipmap_arrays(t_env *env);
+int						create_new_sound_file(t_map_parser *parser, int size);
+
 /*
 ** Editor functions
 */
@@ -326,7 +333,7 @@ TTF_Font				*get_correct_font(int size, t_env *env);
 int						get_existing_vertex(t_env *env);
 int						get_existing_not_dragged_vertex(t_env *env);
 void					add_player(t_env *env);
-int 					editor_hud(t_env *env);
+int						editor_hud(t_env *env);
 int						editor_options_hud(t_env *env);
 void					editor_options_rectangles(t_env *env);
 int						editor_options_buttons(t_env *env);

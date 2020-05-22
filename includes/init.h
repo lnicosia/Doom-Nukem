@@ -19,7 +19,7 @@
 */
 
 int						init_game(int ac, char **av);
-int	                	init_game6(t_env *env);
+int						init_game6(t_env *env);
 void					init_weapon_picker(t_env *env);
 int						init_screen_size(t_env *env);
 void					set_screen_size(t_env *env);
@@ -32,9 +32,9 @@ int						init_sdl(t_env *env);
 int						set_sdl(t_env *env);
 int						init_ttf(t_env *env);
 int						init_ttf6(t_env *env);
-int 					init_textures(t_env *env);
-int                     init_mini_skyboxes_selection(t_env *env);
-int                 	init_mini_skyboxes_selection2(t_env *env);
+int						init_textures(t_env *env);
+int						init_mini_skyboxes_selection(t_env *env);
+int						init_mini_skyboxes_selection2(t_env *env);
 int						init_ui_textures(t_env *env);
 int						init_skyboxes_textures(t_env *env);
 int						init_skybox(t_env *env);

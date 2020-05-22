@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 11:10:27 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/15 20:01:23 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 11:16:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 #include "map_parser.h"
 #include "parser.h"
 
-int		creating_new_file(t_map_parser *parser, int size)
+int		creating_new_file(t_map_parser *parser, int size, int fd)
 {
-	int	fd;
-
-	fd = 0;
 	ft_printf("'%s' was missing in current directory. Extracting..\n",
 	parser->resource_name);
 	if (!(parser->tmp = ft_strnew(size)))
@@ -47,8 +44,10 @@ int		creating_new_file(t_map_parser *parser, int size)
 int		check_file_validity(t_map_parser *parser)
 {
 	int	size;
+	int	fd;
 
 	size = 0;
+	fd = 0;
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of the size\n"));
 	if (valid_int(parser->line, parser))
@@ -58,7 +57,7 @@ int		check_file_validity(t_map_parser *parser)
 	ft_strdel(&(parser->tmp));
 	if (size < 54)
 		return (custom_error("Invalid size for bmp file, size is too small\n"));
-	if (creating_new_file(parser, size))
+	if (creating_new_file(parser, size, fd))
 		return (custom_error("Error while creating the new file\n"));
 	return (0);
 }

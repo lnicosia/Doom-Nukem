@@ -6,16 +6,36 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 11:45:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 17:55:35 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 13:28:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int			check_intersection_with_sector(t_sector sector, t_env *env,
+int		check_valid_intersections(t_env *env, t_point index, t_vertex vt1,
+t_vertex vt2)
+{
+	if ((env->vertices[index.x].num == vt1.num
+			&& env->vertices[index.y].num != vt2.num)
+			|| (env->vertices[index.x].num == vt2.num
+			&& env->vertices[index.y].num != vt1.num)
+			|| (env->vertices[index.x].num != vt1.num
+			&& env->vertices[index.y].num == vt2.num)
+			|| (env->vertices[index.x].num != vt2.num
+			&& env->vertices[index.y].num == vt1.num)
+			|| ((env->vertices[index.x].num == vt2.num
+			&& env->vertices[index.y].num == vt1.num)
+			|| (env->vertices[index.x].num == vt2.num
+			&& env->vertices[index.y].num == vt2.num)))
+		return (1);
+	return (0);
+}
+
+int		check_intersection_with_sector(t_sector sector, t_env *env,
 t_vertex vt1, t_vertex vt2)
 {
-	int	i;
+	int		i;
+	t_point	index;
 
 	i = -1;
 	while (++i < sector.nb_vertices)
@@ -26,18 +46,9 @@ t_vertex vt1, t_vertex vt2)
 			new_v2(env->vertices[sector.vertices[i + 1]].x,
 			env->vertices[sector.vertices[i + 1]].y)))
 		{
-			if ((env->vertices[sector.vertices[i]].num == vt1.num
-			&& env->vertices[sector.vertices[i + 1]].num != vt2.num)
-			|| (env->vertices[sector.vertices[i]].num == vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num != vt1.num)
-			|| (env->vertices[sector.vertices[i]].num != vt1.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt2.num)
-			|| (env->vertices[sector.vertices[i]].num != vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt1.num)
-			|| ((env->vertices[sector.vertices[i]].num == vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt1.num)
-			|| (env->vertices[sector.vertices[i]].num == vt2.num
-			&& env->vertices[sector.vertices[i + 1]].num == vt2.num)))
+			index.x = sector.vertices[i];
+			index.y = sector.vertices[i + 1];
+			if (check_valid_intersections(env, index, vt1, vt2))
 				i = i - 0;
 			else
 				return (-1);
@@ -46,7 +57,7 @@ t_vertex vt1, t_vertex vt2)
 	return (0);
 }
 
-void		check_current_vertex(int i, t_sector sector, t_v2 *p, t_env *env)
+void	check_current_vertex(int i, t_sector sector, t_v2 *p, t_env *env)
 {
 	t_vertex	current;
 
@@ -71,7 +82,7 @@ void		check_current_vertex(int i, t_sector sector, t_v2 *p, t_env *env)
 	}
 }
 
-int			is_sector_concave2(t_sector sector, int res, t_env *env)
+int		is_sector_concave2(t_sector sector, int res, t_env *env)
 {
 	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
 		return (-1);
@@ -82,7 +93,7 @@ int			is_sector_concave2(t_sector sector, int res, t_env *env)
 	return (0);
 }
 
-int			is_sector_concave(t_sector sector, t_env *env)
+int		is_sector_concave(t_sector sector, t_env *env)
 {
 	int			i;
 	t_v2		*p;

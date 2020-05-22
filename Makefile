@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/21 20:26:55 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/22 11:54:12 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
 				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
-				draw_game2.c entity_hit.c init_game2.c\
+				draw_game2.c entity_hit.c init_game2.c enemy_ai_utils.c\
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
@@ -120,7 +120,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		are_launch_condition_selection_buttons_visible.c \
 		are_exec_condition_selection_buttons_visible.c next_launch_condition.c \
 		are_exec_condition_selection_buttons_visible2.c save_condition_utils.c \
-		init_event_links_types.c is_event_tabs_visible.c \
+		init_event_links_types.c is_event_tabs_visible.c editor_keyup5.c\
 		print_link_target_functions.c print_condition_target_functions.c \
 		print_condition_target_functions2.c init_print_condition_target_data.c\
 		change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \

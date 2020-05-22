@@ -28,7 +28,7 @@ int	check_file_format(t_map_parser *parser, t_env *env)
 	line++;
 	if (valid_int(line, parser))
 		return (custom_error("Invalid int for hud images number\n"));
-    env->resource.nb_hud_files = ft_atoi(line);
+	env->resource.nb_hud_files = ft_atoi(line);
 	if (env->resource.nb_hud_files > NB_HUD_FILES
 	|| env->resource.nb_hud_files < 1)
 		return (custom_error("Wrong number of hud\n"));

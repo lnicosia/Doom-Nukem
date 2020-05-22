@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:09:38 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 17:51:21 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 14:14:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,25 +119,29 @@ t_map_parser *parser, char **line, t_events_parser *eparser);
 int						parse_event_various_data(t_env *env,
 t_map_parser *parser, char **line, t_events_parser *eparser);
 void					init_events_parser(t_events_parser *eparser);
-void					init_events_parser_target_parsers(t_events_parser *eparser);
-void					init_events_parser_target_types(t_events_parser *eparser);
-void					init_events_parser_checkers(t_events_parser *eparser);
-void					init_events_parser_updaters(t_events_parser *eparser);
+void					init_events_parser_target_parsers(
+t_events_parser *eparser);
+void					init_events_parser_target_types(
+t_events_parser *eparser);
+void					init_events_parser_checkers(
+t_events_parser *eparser);
+void					init_events_parser_updaters(
+t_events_parser *eparser);
 void					init_events_parser_links_protection(
 	t_events_parser *eparser);
 void					init_events_parser_var(t_events_parser *eparser);
-int						new_parser_global_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
+int						new_parser_global_event(t_env *env,
+t_map_parser *parser, char **line, t_events_parser *eparser);
 int						new_parser_press_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int						new_parser_shoot_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int						new_parser_stand_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
-int						new_parser_walk_in_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int						new_parser_walk_out_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
+int						new_parser_walk_in_event(t_env *env,
+t_map_parser *parser, char **line, t_events_parser *eparser);
+int						new_parser_walk_out_event(t_env *env,
+t_map_parser *parser, char **line, t_events_parser *eparser);
 int						new_parser_death_event(t_env *env, t_map_parser *parser,
 char **line, t_events_parser *eparser);
 int						new_parser_enemy_collision_event(t_env *env,
@@ -146,14 +150,19 @@ int						new_parser_object_collision_event(t_env *env,
 t_map_parser *parser, char **line, t_events_parser *eparser);
 void					*set_event_target(t_env *env, t_events_parser *parser);
 void					*set_event_target4(t_env *env, t_events_parser *parser);
-void					*set_condition_target(t_env *env, t_events_parser *parser);
-void					*set_condition_target4(t_env *env, t_events_parser *parser);
-void					*set_event_function(t_env *env, t_events_parser *parser);
-int						set_event_target_type(t_env *env, t_events_parser *parser);
-int						set_event_target_type4(t_env *env, t_events_parser *parser);
+void					*set_condition_target(t_env *env,
+t_events_parser *parser);
+void					*set_condition_target4(t_env *env,
+t_events_parser *parser);
+void					*set_event_function(t_env *env,
+t_events_parser *parser);
+int						set_event_target_type(t_env *env,
+t_events_parser *parser);
+int						set_event_target_type4(t_env *env,
+t_events_parser *parser);
 int						count_conditions(char *line, t_map_parser *parser);
-int						intersects_with_wall(t_sector *sector, t_v3 pos, int wall,
-t_env *env);
+int						intersects_with_wall(t_sector *sector, t_v3 pos,
+int wall, t_env *env);
 int						intersects_with_wall_no_portal_check(t_sector *sector,
 t_v3 pos, int wall, t_env *env);
 int						intersects_with_sector(t_sector *sector, t_v3 pos,
@@ -212,8 +221,10 @@ void					dialog_writer(int fd, t_event event);
 void					event_writer(int fd, t_event event);
 void					condition_no_writer(int fd, t_condition condition);
 void					condition_sector_writer(int fd, t_condition condition);
-void					condition_enemy_writer(int fd, t_condition condition);
-void					condition_wall_sprite_writer(int fd, t_condition condition);
+void					condition_enemy_writer(int fd,
+t_condition condition);
+void					condition_wall_sprite_writer(int fd,
+t_condition condition);
 void					condition_wall_writer(int fd, t_condition condition);
 void					condition_floor_sprite_writer(int fd,
 t_condition condition);
@@ -233,13 +244,20 @@ t_condition));
 */
 
 int						set_event_link(t_env *env, t_events_parser *eparser);
-int						global_event_exists(t_env *env, t_events_parser *eparser);
-int						press_event_exists(t_env *env, t_events_parser *eparser);
-int						shoot_event_exists(t_env *env, t_events_parser *eparser);
-int						stand_event_exists(t_env *env, t_events_parser *eparser);
-int						walk_out_event_exists(t_env *env, t_events_parser *eparser);
-int						walk_in_event_exists(t_env *env, t_events_parser *eparser);
-int						death_event_exists(t_env *env, t_events_parser *eparser);
+int						global_event_exists(t_env *env,
+t_events_parser *eparser);
+int						press_event_exists(t_env *env,
+t_events_parser *eparser);
+int						shoot_event_exists(t_env *env,
+t_events_parser *eparser);
+int						stand_event_exists(t_env *env,
+t_events_parser *eparser);
+int						walk_out_event_exists(t_env *env,
+t_events_parser *eparser);
+int						walk_in_event_exists(t_env *env,
+t_events_parser *eparser);
+int						death_event_exists(t_env *env,
+t_events_parser *eparser);
 int						enemy_collision_event_exists(t_env *env,
 t_events_parser *eparser);
 int						object_collision_event_exists(t_env *env,
@@ -252,16 +270,15 @@ t_event					*get_press_event(t_env *env, t_events_parser *eparser,
 int mode);
 t_event					*get_stand_event(t_env *env, t_events_parser *eparser,
 int mode);
-t_event					*get_walk_in_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event					*get_walk_out_event(t_env *env, t_events_parser *eparser,
-int mode);
+t_event					*get_walk_in_event(t_env *env,
+t_events_parser *eparser, int mode);
+t_event					*get_walk_out_event(t_env *env,
+t_events_parser *eparser, int mode);
 t_event					*get_death_event(t_env *env, t_events_parser *eparser,
 int mode);
 t_event					*get_enemy_collision_event(t_env *env,
 t_events_parser *eparser, int mode);
 t_event					*get_object_collision_event(t_env *env,
 t_events_parser *eparser, int mode);
-
 
 #endif

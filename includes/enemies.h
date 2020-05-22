@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   enemies.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:09:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 17:09:18 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 11:57:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENEMIES_H
 # define ENEMIES_H
-# include "env.h"
+# include "collision.h"
 
 /*
 ** enemies functions
@@ -21,6 +21,8 @@
 void					draw_grid_enemies(t_env *env);
 void					enemy_drag(t_env *env);
 int						enemy_ai(t_env *env);
+t_v3					random_move(t_env *env, int nb, t_motion motion,
+t_v3 move);
 void					update_enemy_angle(t_env *env, int nb);
 void					damage_anim(t_env *env);
 int						enemy_hurt(t_env *env, int i);
