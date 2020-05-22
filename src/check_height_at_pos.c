@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   three_d_edit_change_slope_start.c                  :+:      :+:    :+:   */
+/*   check_height_at_pos.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/01 11:29:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 11:29:24 by lnicosia         ###   ########.fr       */
+/*   Created: 2020/02/12 10:17:18 by sipatry           #+#    #+#             */
+/*   Updated: 2020/04/30 16:57:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		change_slope_start(t_env *env)
+int		check_height_at_pos(t_env *env, t_sector *sector,
+		t_v3 pos, int target_height)
 {
-	if (env->selected_floor != -1)
-	{
-		if (change_floor_slope_start(env))
-			return (-1);
-	}
-	else if (env->selected_ceiling != -1)
-	{
-		if (change_ceiling_slope_start(env))
-			return (-1);
-	}
+	if (pos.z + (double)target_height >
+	get_ceiling_at_pos(sector, pos, env))
+		return (-1);
 	return (0);
 }

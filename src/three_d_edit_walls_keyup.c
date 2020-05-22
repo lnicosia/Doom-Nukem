@@ -90,7 +90,7 @@ int		slopes_keyup(t_env *env)
 		&& (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_MINUS))
 		{
-			if (change_slopes(env))
+			if (change_slopes_keyup(env))
 				return (-1);
 		}
 		if (env->inputs.ctrl

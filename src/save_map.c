@@ -21,6 +21,13 @@ int		save_map(void *param)
 	env = (t_env*)param;
 	ft_printf("Saving map in \"%s\"...\n", env->save_file);
 	ft_printf("{red}");
+	if (valid_map(env))
+	{
+		if (update_confirmation_box(&env->confirmation_box, "Map is not valid",
+			ERROR, env))
+			return (-1);
+		return (0);
+	}
 	if ((fd = open(env->save_file, O_WRONLY | O_CREAT | O_TRUNC, 0000700)) < 0)
 		return (custom_error("Could not open %s\n", env->save_file));
 	if (write_resources(fd, env))

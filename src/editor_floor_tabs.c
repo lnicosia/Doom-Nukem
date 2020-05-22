@@ -57,6 +57,7 @@ int		print_floor_general_tab2(t_env *env, t_point size)
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Start slope %d",
 	env->sectors[env->selected_floor].start_floor_slope);
 	if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf, &size.x, &size.y))
+		return (-1);
 	if (print_text(new_point(600, 200 - size.x / 2),
 		new_printable_text(env->snprintf,
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))

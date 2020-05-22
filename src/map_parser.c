@@ -99,6 +99,7 @@ int		parse_map(char *file, t_env *env)
 		return (custom_error("Could not init sectors\n"));
 	if (parse_sectors(env, &env->parser))
 		return (custom_error("Error while parsing sectors\n"));
+	precompute_slopes(env);
 	if (init_objects(env, &env->parser))
 		return (custom_error("Could not init objects\n"));
 	return (parse_map2(env));

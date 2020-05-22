@@ -91,7 +91,6 @@ int		init_editor1(int ac, char **av, t_env *env)
 			return (crash("Invalid map!\n", env));
 		if (!(env->save_file = ft_strdup(av[1])))
 			return (crash("Could not malloc save_file name\n", env));
-		precompute_slopes(env);
 		ft_printf("{reset}");
 	}
 	return (init_editor2(env));

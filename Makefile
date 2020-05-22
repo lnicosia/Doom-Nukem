@@ -193,8 +193,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		write_sectors3.c check_ceiling_height_input_box.c \
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
 		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c editor_options.c \
-		three_d_edit_function_slopes.c \
+		update_sector_input_box.c editor_options.c  \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -228,7 +227,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   objects_utils.c misc_utils.c map_parse_events.c new_button2.c \
 		   gravity.c input_box_utils.c init_ui_textures.c draw_objects2.c \
 		   input_box_mouse.c delete_box_selection.c event_target_exists.c \
-		   validate_input.c button_event.c \
+		   validate_input.c button_event.c check_height_at_pos.c \
 		   pop_events.c start_event.c event_updaters.c free_map.c \
 		   generate_mipmaps.c get_current_wall_map.c get_current_floor_map.c \
 		   get_current_ceiling_map.c init_skybox.c init_sprites.c \

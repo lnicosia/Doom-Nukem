@@ -75,7 +75,6 @@ int		init_game3(t_env *env)
 	int	i;
 
 	i = 0;
-	precompute_slopes(env);
 	update_player_z(env);
 	if (init_textures(env))
 		return (crash("Could not load textures\n", env));
