@@ -39,20 +39,26 @@ int index)
 	int			j;
 	t_vertex	last;
 
-	j = 0;
-	while (j < env->nb_sectors)
+	j = -1;
+	while (++j < env->nb_sectors)
 	{
 		last =
 		find_second_vertex(env, env->sectors[list_sectors[i]], -1, index);
-		if (check_sector_intersections(
-			env, env->sectors[j], last, index) == -1)
+		if (check_sector_intersections(env, env->sectors[j], last, index) == -1)
 			return (0);
 		last =
 		find_second_vertex(env, env->sectors[list_sectors[i]], 1, index);
 		if (check_sector_intersections(
 			env, env->sectors[j], last, index) == -1)
 			return (0);
-		j++;
+		if (check_entities_height_in_sector(&env->sectors[j], env))
+		{
+			if (update_confirmation_box(&env->confirmation_box,
+				"Moving this vertex here would cause an entity to not"
+				" fit in its sector anymore", ERROR, env))
+				return (-1);
+			return (0);
+		}
 	}
 	return (check_current_sector2(env, list_sectors, i, index));
 }

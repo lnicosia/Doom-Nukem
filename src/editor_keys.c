@@ -125,9 +125,12 @@ int		editor_keys(t_env *env)
 			return (-1);
 		env->inputs.backspace = 0;
 	}
-	player_selection(env);
-	starting_player_selection(env);
-	enemy_drag(env);
+	if (env->editor.dragged_player == 1 && player_selection(env))
+		return (-1);
+	if (env->editor.dragged_start_player == 1 && starting_player_selection(env))
+		return (-1);
+	if (env->editor.dragged_enemy != -1 && enemy_drag(env))
+		return (-1);
 	objects_selection(env);
 	if (vertices_selection(env))
 		return (-1);

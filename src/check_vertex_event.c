@@ -14,6 +14,16 @@
 #include "events_protection.h"
 #include "parser.h"
 
+int		check_current_sector_event(t_sector *sector, int j, t_env *env)
+{
+	if (!is_sector_convex(env, sector)
+		|| !get_clockwise_order_sector(env, sector->num)
+		|| intersects_with_wall(sector, env->player.pos, j, env)
+		|| check_entities_height_game(sector, env))
+		return (1);
+	return (0);
+}
+
 int		check_sectors_containing_moving_vertex_x(double prec, t_event *event,
 t_env *env)
 {
@@ -28,11 +38,9 @@ t_env *env)
 		{
 			if (env->sectors[i].vertices[j] != event->check_param.vertex)
 				continue;
-			if (!is_sector_convex(env, &env->sectors[i])
-			|| !get_clockwise_order_sector(env, i)
-			|| intersects_with_wall(&env->sectors[i], env->player.pos, j, env))
+			if (check_current_sector_event(&env->sectors[i], j, env))
 			{
-				env->vertices[event->check_param.vertex].x = prec;
+				env->vertices[event->check_param.vertex].y = prec;
 				update_sectors_slope(event->check_param.vertex, env);
 				return (1);
 			}
@@ -75,9 +83,7 @@ t_env *env)
 		{
 			if (env->sectors[i].vertices[j] != event->check_param.vertex)
 				continue;
-			if (!is_sector_convex(env, &env->sectors[i])
-			|| !get_clockwise_order_sector(env, i)
-			|| intersects_with_wall(&env->sectors[i], env->player.pos, j, env))
+			if (check_current_sector_event(&env->sectors[i], j, env))
 			{
 				env->vertices[event->check_param.vertex].y = prec;
 				update_sectors_slope(event->check_param.vertex, env);

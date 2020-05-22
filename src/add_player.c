@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 15:48:29 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/28 16:09:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 19:01:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,6 @@ void		add_player(t_env *env)
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6;
 	add_player2(env);
+	ft_printf("h %d\n", env->player.highest_sect);
+	ft_printf("s %d\n", env->player.sector);
 }

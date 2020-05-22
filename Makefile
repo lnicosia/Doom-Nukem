@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/22 16:17:01 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/22 18:40:22 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,7 +138,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		three_d_edit_function.c action_panel.c conditions_tabs.c \
 		event_panel_input_box.c three_d_edit_change_ceiling_floor_height.c \
 		init_events_creation_buttons.c reduce_texture_scales_functions.c \
-		increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
+		increase_texture_scales_functions.c delete_condition.c \
 		init_condition_panel_buttons.c condition_type_buttons_functions.c \
 		condition_type_buttons_functions2.c init_condition_target_buttons.c \
 		condition_target_panel.c condition_panel.c other_panel.c  \
@@ -249,7 +249,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c tabs_gestion.c \
 		   free_sector.c init_screen_size.c dialog_parser.c update_event.c \
-		   print_press_text.c realloc_sector_arrays.c death_utils.c\
+		   print_press_text.c realloc_sector_arrays.c keys_checkers.c \
 		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
@@ -329,10 +329,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
 		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
-		   init_enemies_textures.c init_sprites_textures.c \
-		   init_hud_textures.c init_wall_textures.c input_box_utils3.c\
+		   init_enemies_textures.c init_sprites_textures.c death_utils.c\
+		   init_hud_textures.c init_wall_textures.c check_entities_height.c \
 		   init_mini_skyboxes.c check_existing_files.c create_sound_file.c\
-		   check_walls_textures.c free_resources_init.c \
+		   check_walls_textures.c free_resources_init.c input_box_utils3.c\
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
 		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
@@ -459,7 +459,7 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
 		  $(OPTI_FLAGS) \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking

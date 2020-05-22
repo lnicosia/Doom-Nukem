@@ -77,6 +77,8 @@ int			check_sector(t_sector sector, t_env *env)
 		" exceed 1000\n"));
 	if (env->sector_is_straight)
 		return (custom_error("Sector %d is on a staight line\n", sector.num));
+	if (check_entities_height_in_sector(&sector, env))
+		return (custom_error("Sector %d entities do not fit\n"));
 	return (0);
 }
 

@@ -351,8 +351,8 @@ int						editor_render(t_env *env);
 int						save_map(void *param);
 int						revert_sector(t_sector *sector, t_env *env);
 int						get_clockwise_order_sector(t_env *env, int index);
-void					player_selection(t_env *env);
-void					starting_player_selection(t_env *env);
+int						player_selection(t_env *env);
+int						starting_player_selection(t_env *env);
 void					objects_selection(t_env *env);
 int						vertices_selection(t_env *env);
 void					create_portals(t_env *env, t_sector new_sector);
@@ -551,6 +551,12 @@ int						increase_wall_texture_scale(t_env *env);
 int						increase_walls_texture_scale(t_env *env);
 int						reduce_walls_texture_scale(t_env *env);
 int						check_entities_height(t_env *env);
+int						check_entities_height_in_sector(t_sector *sector,
+t_env *env);
+int						check_entities_height_game(t_sector *sector,
+t_env *env);
+int						check_player_height(t_sector *sector, t_env *env);
+int						check_start_player_height(t_sector *sector, t_env *env);
 int						left_walls_texture_align(t_env *env);
 int						right_walls_texture_align(t_env *env);
 int						increase_wall_texture_number(t_env *env,

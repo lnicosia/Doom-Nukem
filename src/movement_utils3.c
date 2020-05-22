@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:20:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 16:20:31 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 19:37:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,18 @@ void	update_player_pos(t_env *env)
 		env->player.old_sector = env->player.sector;
 		env->player.changed_sector = 1;
 	}
-	prev_highest_sect = env->player.highest_sect;
+	ft_printf("start %d\n", env->player.highest_sect);
+	ft_printf("start s %d\n", env->player.sector);
+	if (env->player.highest_sect != -1)
+	{
+		ft_printf("!= -1\n");
+		prev_highest_sect = env->player.highest_sect;
+	}
+	else
+		prev_highest_sect = new_sector;
 	env->player.highest_sect = find_highest_sector(env, motion);
+	ft_printf("h %d\n", env->player.highest_sect);
+	ft_printf("p %d\n", prev_highest_sect);
 	if (prev_highest_sect != env->player.highest_sect
 		&& get_floor_at_pos(&env->sectors[env->player.highest_sect],
 		env->player.pos, env) < get_floor_at_pos(

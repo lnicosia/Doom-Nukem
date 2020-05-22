@@ -92,6 +92,8 @@ void	draw_grid_enemy(int i, t_env *env)
 		if (click_on_grid_enemy(env))
 		{
 			reset_selection(env);
+			env->editor.start_pos.x = env->enemies[i].pos.x;
+			env->editor.start_pos.y = env->enemies[i].pos.y;
 			env->editor.dragged_enemy = i;
 			env->selected_enemy = i;
 			tabs_gestion(env);
