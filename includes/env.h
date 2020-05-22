@@ -533,6 +533,8 @@ int						increase_wall_texture_scale(t_env *env);
 int						increase_walls_texture_scale(t_env *env);
 int						reduce_walls_texture_scale(t_env *env);
 int						check_entities_height(t_env *env);
+int						check_entities_height_game(t_sector *sector,
+t_env *env);
 int						left_walls_texture_align(t_env *env);
 int						right_walls_texture_align(t_env *env);
 int						increase_wall_texture_number(t_env *env,

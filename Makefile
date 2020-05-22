@@ -138,7 +138,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		three_d_edit_function.c action_panel.c conditions_tabs.c \
 		event_panel_input_box.c three_d_edit_change_ceiling_floor_height.c \
 		init_events_creation_buttons.c reduce_texture_scales_functions.c \
-		increase_texture_scales_functions.c keys_checkers.c delete_condition.c \
+		increase_texture_scales_functions.c delete_condition.c \
 		init_condition_panel_buttons.c condition_type_buttons_functions.c \
 		condition_type_buttons_functions2.c init_condition_target_buttons.c \
 		condition_target_panel.c condition_panel.c other_panel.c  \
@@ -245,7 +245,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \
 		   draw_vline_floor_both.c draw_vline_floor_color.c tabs_gestion.c \
 		   free_sector.c init_screen_size.c dialog_parser.c update_event.c \
-		   print_press_text.c realloc_sector_arrays.c \
+		   print_press_text.c realloc_sector_arrays.c keys_checkers.c \
 		   draw_wall_bullet_holes.c intersect_maths.c camera2.c \
 		   equals_condition.c less_condition.c greater_condition.c \
 		   less_or_equals_condition.c greater_or_equals_condition.c \
