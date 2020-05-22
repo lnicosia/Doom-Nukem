@@ -17,7 +17,7 @@ int		init_skybox(t_env *env)
 	int		j;
 
 	j = 0;
-	while (j < 5)
+	while (j < 4)
 	{
 		if (!(env->skybox[j].texture_scale = (t_v2*)ft_memalloc(sizeof(t_v2))))
 			return (ft_perror("Could not malloc skybox scales"));

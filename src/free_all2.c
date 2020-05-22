@@ -121,7 +121,7 @@ void		free_skyboxes(t_env *env)
 		i++;
 	}
 	i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		if (env->skybox[i].texture_scale)
 			ft_memdel((void**)&env->skybox[i].texture_scale);
