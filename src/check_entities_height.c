@@ -31,7 +31,7 @@ int		check_entities_height(t_env *env)
 	{
 		if (env->enemies[i].sector == sector->num
 		&& check_height_at_pos(env, sector, env->enemies[i].pos,
-		(env->enemies[i].scale + 1)))
+		(env->enemies[i].scale)))
 			return (-1);
 		i++;
 	}
@@ -52,7 +52,7 @@ int		check_entities_height_in_sector(t_sector *sector, t_env *env)
 	{
 		if (env->enemies[i].sector == sector->num
 		&& check_height_at_pos(env, sector, env->enemies[i].pos,
-		(env->enemies[i].scale + 1)))
+		(env->enemies[i].scale)))
 			return (-1);
 		i++;
 	}

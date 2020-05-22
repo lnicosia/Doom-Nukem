@@ -26,7 +26,9 @@ int		player_selection(t_env *env)
 	{
 		env->editor.dragged_player = -1;
 		env->player.sector = get_sector_no_z(env, env->player.pos);
-		if (check_player_height(&env->sectors[env->player.sector], env))
+		env->player.highest_sect = env->player.sector;
+		if (env->player.sector == -1
+			|| check_player_height(&env->sectors[env->player.sector], env))
 		{
 			env->player.pos.x = env->editor.start_pos.x;
 			env->player.pos.y = env->editor.start_pos.y;
@@ -60,7 +62,7 @@ int		starting_player_selection(t_env *env)
 		env->player.starting_sector =
 		get_sector_no_z_origin(env, env->player.starting_pos,
 		env->player.starting_sector);
-		if (check_start_player_height(
+		if (env->player.starting_sector == -1 || check_start_player_height(
 			&env->sectors[env->player.starting_sector], env))
 		{
 			env->player.starting_pos.x = env->editor.start_pos.x;
@@ -70,10 +72,7 @@ int		starting_player_selection(t_env *env)
 				return (-1);
 		}
 		if (env->player.starting_sector != -1)
-		{
-			update_player_pos(env);
 			update_start_player_z(env);
-		}
 	}
 	return (0);
 }
