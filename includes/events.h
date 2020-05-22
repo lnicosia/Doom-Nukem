@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:39:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 15:39:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 16:16:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 int						update_event(t_event *event);
 int						pop_events(t_env *env);
+int						func_event(t_event *curr, t_env *env);
 int						double_event(t_event *curr);
 int						int_event(t_event *curr);
 int						uint32_event(t_event *curr);

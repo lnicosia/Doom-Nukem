@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 11:26:04 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/21 21:00:47 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 16:10:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	init_editor2(t_env *env, int ac, char **av)
 			if (close(env->parser.fd))
 				return (crash("Map parsing failed and could not close the"
 				" map file\n", env));
-			return (crash("Error while parsing the map\n", env));
+				return (crash("Error while parsing the map\n", env));
 		}
 		if (valid_map(env))
 			return (crash("Invalid map!\n", env));

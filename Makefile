@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/22 15:44:05 by marvin           ###   ########.fr        #
+#    Updated: 2020/05/22 16:17:01 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -342,6 +342,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
 		   check_sounds.c check_sounds2.c check_wall_sprites_textures.c\
+		   pop_event2.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

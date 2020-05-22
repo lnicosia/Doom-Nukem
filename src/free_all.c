@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:39:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/22 15:52:59 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 16:07:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		free_all2(t_env *env)
 void		free_all(t_env *env)
 {
 	int	i;
-	
+
 	ft_printf("Freeing data..\n");
 	if (!env)
 		return ;
