@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 15:30:20 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 16:27:44 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/23 20:05:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		init_sprites_textures(t_env *env)
 
 int		init_textures(t_env *env)
 {
-	if (!env->playing && init_ui_textures(env))
+	if (init_ui_textures(env))
 		return (custom_error("Could not init ui textures\n"));
 	if (init_game_ui_textures(env))
 		return (custom_error("Could not init game menu ui textures\n"));
