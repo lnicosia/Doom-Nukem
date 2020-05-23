@@ -73,8 +73,8 @@ void	wall_sprites_keyup2(t_env *env, t_v2 *pos, t_v2 *scale)
 	if (env->sdl.event.key.keysym.sym == SDLK_EQUALS
 		&& check_texture_scale(env, scale))
 	{
-		scale->x *= env->inputs.shift || !env->inputs.ctrl ? 1.1 : 0;
-		scale->y *= env->inputs.shift || env->inputs.ctrl ? 1.1 : 0;
+		scale->x *= env->inputs.shift || !env->inputs.ctrl ? 1.1 : 1;
+		scale->y *= env->inputs.shift || env->inputs.ctrl ? 1.1 : 1;
 	}
 	wall_sprites_keyup3(env, scale);
 }

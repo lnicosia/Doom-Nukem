@@ -12,6 +12,13 @@
 
 #include "env.h"
 
+int		wall_edit_keyup3(t_env *env)
+{
+	if (slopes_keyup(env))
+		return (-1);
+	return (0);
+}
+
 int		wall_edit_keyup2(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_t
@@ -29,14 +36,14 @@ int		wall_edit_keyup2(t_env *env)
 		|| env->sdl.event.key.keysym.sym == SDLK_EQUALS)
 		&& (env->editor.selected_wall != -1 || env->selected_ceiling != -1
 		|| env->selected_floor != -1)
-		&& env->editor.selected_wall_sprite == -1)
+		&& env->editor.selected_wall_sprite == -1
+		&& env->selected_floor_sprite == -1
+		&& env->selected_ceiling_sprite == -1)
 	{
 		if (change_textures_scales_keyup(env))
 			return (-1);
 	}
-	if (slopes_keyup(env))
-		return (-1);
-	return (0);
+	return (wall_edit_keyup3(env));
 }
 
 int		wall_edit_keyup(t_env *env)
