@@ -61,3 +61,22 @@ int		check_entities_height_in_sector(t_sector *sector, t_env *env)
 		return (-1);
 	return (0);
 }
+
+int		check_entities_height_game(t_sector *sector, t_env *env)
+{
+	int			i;
+
+	i = 0;
+	update_sector_slope(env, sector);
+	while (i < env->nb_enemies)
+	{
+		if (env->enemies[i].sector == sector->num
+		&& check_height_at_pos(env, sector, env->enemies[i].pos,
+		(env->enemies[i].scale + 1)))
+			return (-1);
+		i++;
+	}
+	if (check_player_height(sector, env))
+		return (-1);
+	return (0);
+}

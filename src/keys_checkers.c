@@ -28,31 +28,10 @@ int		check_player_height(t_sector *sector, t_env *env)
 {
 	if (env->player.sector == sector->num)
 	{
-		update_player_z(env);
 		if (check_height_at_pos(env, sector, env->player.pos,
 			env->player.eyesight + 1))
 			return (-1);
 	}
-	return (0);
-}
-
-int		check_entities_height_game(t_sector *sector, t_env *env)
-{
-	int			i;
-
-	i = 0;
-	update_sector_slope(env, sector);
-	update_sector_entities_z(env, sector->num);
-	while (i < env->nb_enemies)
-	{
-		if (env->enemies[i].sector == sector->num
-		&& check_height_at_pos(env, sector, env->enemies[i].pos,
-		(env->enemies[i].scale + 1)))
-			return (-1);
-		i++;
-	}
-	if (check_player_height(sector, env))
-		return (-1);
 	return (0);
 }
 

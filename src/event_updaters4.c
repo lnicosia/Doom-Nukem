@@ -66,32 +66,3 @@ int			update_enemy_sector_event(t_event *event, void *penv)
 	update_enemy(env, event->update_param.enemy);
 	return (0);
 }
-
-int			update_vertex_event(t_event *event, void *penv)
-{
-	t_env	*env;
-	int		i;
-	int		j;
-
-	env = (t_env*)penv;
-	i = -1;
-	while (++i < env->nb_sectors)
-	{
-		j = -1;
-		while (++j < env->sectors[i].nb_vertices)
-		{
-			if (env->sectors[i].vertices[j] != event->update_param.vertex)
-				continue ;
-			update_sector_slope(env, &env->sectors[i]);
-			if (env->player.sector == i)
-			{
-				update_player_pos(env);
-				env->player.pos.z = get_floor_at_pos(&env->
-				sectors[env->player.sector], env->player.pos, env);
-				update_player_pos(env);
-			}
-			break ;
-		}
-	}
-	return (0);
-}

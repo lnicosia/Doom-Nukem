@@ -52,7 +52,7 @@ void	update_sector_enemies_z(t_env *env, int sector)
 void	update_sector_entities_z(t_env *env, int sector)
 {
 	update_sector_enemies_z(env, sector);
-	if (env->player.sector == sector)
+	if (env->player.sector == sector && !env->player.state.jump)
 		update_player_z(env);
 	if (get_sector_no_z(env, env->player.starting_pos) == sector)
 		update_start_player_z(env);
