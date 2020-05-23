@@ -42,7 +42,6 @@ void	set_sectors_xmax(t_env *env)
 void	init_player(t_env *env)
 {
 	env->player.eyesight = 6;
-	env->player.size_2d = 0.75;
 	env->player.sector = -1;
 	env->player.camera.angle_z_cos = cos(0);
 	env->player.camera.angle_z_sin = sin(0);

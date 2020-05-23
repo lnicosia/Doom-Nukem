@@ -13,6 +13,18 @@
 #include "events_parser.h"
 #include "collision.h"
 
+int		allow_portal(t_sector *sector, t_v3 pos, int wall, t_env *env)
+{
+	t_sector	*neighbor;
+
+	neighbor = &env->sectors[sector->neighbors[wall]];
+	if (env->player.pos.z < get_floor_at_pos(neighbor, pos, env) -2
+		|| env->player.pos.z + env->player.eyesight + 1 >
+		get_ceiling_at_pos(neighbor, pos, env))
+		return (0);
+	return (1);
+}
+
 int		intersects_with_wall(t_sector *sector, t_v3 pos, int wall, t_env *env)
 {
 	int		prec;
@@ -24,7 +36,8 @@ int		intersects_with_wall(t_sector *sector, t_v3 pos, int wall, t_env *env)
 		new_v2(env->vertices[sector->vertices[wall + 1]].x,
 		env->vertices[sector->vertices[wall + 1]].y), new_v2(pos.x, pos.y),
 		env->player.size_2d) && (!sector->portals[wall]
-		|| sector->neighbors[wall] == -1))
+		|| sector->neighbors[wall] == -1
+		|| !allow_portal(sector, pos, wall, env)))
 		return (1);
 	prec = wall == 0 ? sector->nb_vertices - 1 : wall - 1;
 	if (hitbox_collision(new_v2(env->vertices[sector->vertices[prec]].x,
@@ -32,7 +45,8 @@ int		intersects_with_wall(t_sector *sector, t_v3 pos, int wall, t_env *env)
 		new_v2(env->vertices[sector->vertices[wall]].x,
 		env->vertices[sector->vertices[wall]].y), new_v2(pos.x, pos.y),
 		env->player.size_2d) && (!sector->portals[prec]
-		|| sector->neighbors[prec] == -1))
+		|| sector->neighbors[prec] == -1
+		|| !allow_portal(sector, pos, prec, env)))
 		return (1);
 	data = new_point(wall, prec);
 	if (player_changed_sector(env, sector, data, pos))

@@ -40,7 +40,11 @@ t_env *env)
 				continue;
 			if (check_current_sector_event(&env->sectors[i], j, env))
 			{
-				env->vertices[event->check_param.vertex].y = prec;
+				ft_printf("Event stopped. Player x = %f. Actual x = %f. Prec x = %f\n",
+				env->player.pos.x,
+				env->vertices[env->sectors[i].vertices[j]].x, prec);
+				ft_printf("player size 2d = %f\n", env->player.size_2d);
+				env->vertices[event->check_param.vertex].x = prec;
 				update_sectors_slope(event->check_param.vertex, env);
 				return (1);
 			}
