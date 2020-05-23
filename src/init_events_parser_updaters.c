@@ -13,8 +13,19 @@
 #include "events_parser.h"
 #include "events.h"
 
+void	init_events_parser_updaters4(t_events_parser *eparser)
+{
+	eparser->updaters[OBJECT_Z] = &update_object_sector_event;
+	eparser->updaters[WIN] = 0;
+	eparser->updaters[DIALOG] = 0;
+}
+
 void	init_events_parser_updaters3(t_events_parser *eparser)
 {
+	eparser->updaters[PLAYER_Y] = &update_player_z_event;
+	eparser->updaters[PLAYER_Z] = 0;
+	eparser->updaters[PLAYER_HP] = 0;
+	eparser->updaters[PLAYER_ARMOR] = 0;
 	eparser->updaters[PLAYER_SPEED] = 0;
 	eparser->updaters[PLAYER_INVINCIBLE] = 0;
 	eparser->updaters[PLAYER_INFINITE_AMMO] = 0;
@@ -35,23 +46,28 @@ void	init_events_parser_updaters3(t_events_parser *eparser)
 	eparser->updaters[OBJECT_HP] = 0;
 	eparser->updaters[OBJECT_X] = &update_object_sector_event;
 	eparser->updaters[OBJECT_Y] = &update_object_sector_event;
-	eparser->updaters[OBJECT_Z] = &update_object_sector_event;
-	eparser->updaters[WIN] = 0;
-	eparser->updaters[DIALOG] = 0;
+	init_events_parser_updaters4(eparser);
 }
 
 void	init_events_parser_updaters2(t_events_parser *eparser)
 {
-	eparser->updaters[SECTOR_FLOOR_SPRITES_SPRITE] = 0;
-	eparser->updaters[SECTOR_FLOOR_SPRITES_POS_X] = 0;
-	eparser->updaters[SECTOR_FLOOR_SPRITES_POS_Y] = 0;
-	eparser->updaters[SECTOR_FLOOR_SPRITES_SCALE_X] = 0;
-	eparser->updaters[SECTOR_FLOOR_SPRITES_SCALE_Y] = 0;
-	eparser->updaters[SECTOR_CEILING_SPRITES_SPRITE] = 0;
-	eparser->updaters[SECTOR_CEILING_SPRITES_POS_X] = 0;
-	eparser->updaters[SECTOR_CEILING_SPRITES_POS_Y] = 0;
-	eparser->updaters[SECTOR_CEILING_SPRITES_SCALE_X] = 0;
-	eparser->updaters[SECTOR_CEILING_SPRITES_SCALE_Y] = 0;
+	eparser->updaters[SECTOR_FLOOR_SPRITES_SPRITE] = &update_floor_sprite_event;
+	eparser->updaters[SECTOR_FLOOR_SPRITES_POS_X] = &update_floor_sprite_event;
+	eparser->updaters[SECTOR_FLOOR_SPRITES_POS_Y] = &update_floor_sprite_event;
+	eparser->updaters[SECTOR_FLOOR_SPRITES_SCALE_X] =
+	&update_floor_sprite_event;
+	eparser->updaters[SECTOR_FLOOR_SPRITES_SCALE_Y] =
+	&update_floor_sprite_event;
+	eparser->updaters[SECTOR_CEILING_SPRITES_SPRITE] =
+	&update_ceiling_sprite_event;
+	eparser->updaters[SECTOR_CEILING_SPRITES_POS_X] =
+	&update_ceiling_sprite_event;
+	eparser->updaters[SECTOR_CEILING_SPRITES_POS_Y] =
+	&update_ceiling_sprite_event;
+	eparser->updaters[SECTOR_CEILING_SPRITES_SCALE_X] =
+	&update_ceiling_sprite_event;
+	eparser->updaters[SECTOR_CEILING_SPRITES_SCALE_Y] =
+	&update_ceiling_sprite_event;
 	eparser->updaters[SECTOR_BRIGHTNESS] = &update_sector_entities_light_event;
 	eparser->updaters[SECTOR_LIGHT_COLOR] = &update_sector_entities_light_event;
 	eparser->updaters[SECTOR_INTENSITY] = &update_sector_entities_light_event;
@@ -59,10 +75,6 @@ void	init_events_parser_updaters2(t_events_parser *eparser)
 	eparser->updaters[VERTEX_X] = &update_vertex_event;
 	eparser->updaters[VERTEX_Y] = &update_vertex_event;
 	eparser->updaters[PLAYER_X] = &update_player_z_event;
-	eparser->updaters[PLAYER_Y] = &update_player_z_event;
-	eparser->updaters[PLAYER_Z] = 0;
-	eparser->updaters[PLAYER_HP] = 0;
-	eparser->updaters[PLAYER_ARMOR] = 0;
 	init_events_parser_updaters3(eparser);
 }
 

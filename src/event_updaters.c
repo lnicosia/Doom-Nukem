@@ -54,6 +54,8 @@ int			update_floor_sprite_event(t_event *event, void *penv)
 	update_param.sprite] =
 	env->objects_main_sprites[env->sectors[event->update_param.sector]
 	.floor_sprites.sprite[event->update_param.sprite]];
+	precompute_floor_sprite_scales(event->update_param.sector,
+	event->update_param.sprite, env);
 	return (0);
 }
 
@@ -66,5 +68,7 @@ int			update_ceiling_sprite_event(t_event *event, void *penv)
 	update_param.sprite] =
 	env->objects_main_sprites[env->sectors[event->update_param.sector]
 	.ceiling_sprites.sprite[event->update_param.sprite]];
+	precompute_ceiling_sprite_scales(event->update_param.sector,
+	event->update_param.sprite, env);
 	return (0);
 }
