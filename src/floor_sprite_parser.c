@@ -17,20 +17,20 @@ int		floor_sprite_parser2(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
 {
 	if (!**line || **line == ']' || **line == ')')
-		return (missing_data("floor_sprite number", parser));
+		return (missing_data("floor sprite number", parser));
 	if (**line != ' ')
 		return (invalid_char("after sector number", "a space", **line,
 		parser));
 		(*line)++;
 	if (!**line || **line == ']' || **line == ')')
-		return (missing_data("floor_sprite and sprite", parser));
+		return (missing_data("floor sprite and sprite", parser));
 	if (valid_int(*line, parser))
-		return (invalid_char("before floor_sprite number", "a digit", **line,
+		return (invalid_char("before floor sprite number", "a digit", **line,
 		parser));
 		eparser->current_sprite = ft_atoi(*line);
 	if (eparser->current_sprite < 0 || eparser->current_sprite >=
 		env->sectors[eparser->current_sector].floor_sprites.nb_sprites)
-		return (custom_error_with_line("Invalid floor_sprite index", parser));
+		return (custom_error_with_line("Invalid floor sprite index", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')
 		return (invalid_char("after sprite index", "')'", **line, parser));
@@ -53,7 +53,7 @@ t_events_parser *eparser)
 		return (invalid_char("before sector number", "'('", **line, parser));
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
-		return (missing_data("sector, floor_sprite and sprite", parser));
+		return (missing_data("sector, floor sprite and sprite", parser));
 	if (valid_int(*line, parser))
 		return (invalid_char("before sector number", "a digit", **line,
 		parser));
