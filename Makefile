@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/05/22 19:53:05 by user42           ###   ########.fr        #
+#    Updated: 2020/05/23 20:35:16 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -337,7 +337,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
-		   check_sounds.c check_sounds2.c check_rocket_launcher.c\
+		   check_sounds.c check_sounds2.c check_rocket_launcher.c \
+		   sound_misc_functions.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

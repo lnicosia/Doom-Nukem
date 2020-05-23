@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/22 19:47:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/05/23 20:52:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1045,6 +1045,8 @@ int						music_volume_up(void *param);
 int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);
 int						sounds_volume_down(void *param);
+int						pause_sounds_channels(void *target, int mode);
+int						set_volume_sounds(t_env *env);
 int						next_resolution_button(t_env *env);
 int						prev_resolution_button(t_env *env);
 int						return_button_func(void *param);
