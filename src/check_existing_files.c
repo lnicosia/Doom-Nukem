@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/20 14:48:21 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/11 15:42:32 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 20:47:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,6 @@ int		sprites_textures(t_env *env, char *name)
 	{
 		if (!(ft_strcmp(name, env->init.sprites_names[i]))
 		&& env->init.sprites[i] == 1)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int		skyboxes_textures(t_env *env, char *name)
-{
-	int	i;
-
-	i = 0;
-	while (i < MAX_SKYBOX * 6)
-	{
-		if (!(ft_strcmp(name, env->init.skyboxes_names[i]))
-		&& env->init.skyboxes[i] == 1)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int		hud_textures(t_env *env, char *name)
-{
-	int	i;
-
-	i = 0;
-	while (i < NB_HUD_FILES)
-	{
-		if (!(ft_strcmp(name, env->init.hud_names[i]))
-		&& env->init.hud[i] == 1)
 			return (1);
 		i++;
 	}

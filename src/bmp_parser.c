@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:44:23 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/28 16:57:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 21:32:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static int	parse(int fd, int index, t_env *env)
 
 	parser.index = index;
 	if (index >= MAX_SPRITES_TEXTURES)
-		return (custom_error("Too much textures (%d/%d)\n", index,
-		MAX_SPRITES_TEXTURES));
+		return (custom_error("Too much textures \n"));
 	if (parse_file_header(fd, &parser))
 		return (custom_error("Error in file header\n"));
 	if (get_image_header_size(fd, &parser))

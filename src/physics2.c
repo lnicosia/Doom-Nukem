@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:21:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/13 14:34:44 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 15:40:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_fall(t_env *env)
 {
 	env->player.state.fall = 1;
 	env->player.state.walk = 0;
-	env->player.state.climb= 0;
+	env->player.state.climb = 0;
 	env->player.state.drop = 0;
 	env->player.state.jump = 0;
 	env->time.last_fall = SDL_GetTicks() / 1000.0;

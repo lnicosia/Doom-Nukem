@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   editor_tab_gestion2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:46:09 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 18:57:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 15:10:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		sprite_tab_keyup(t_env *env)
+int	sprite_tab_keyup(t_env *env)
 {
 	if ((env->selected_floor_sprite != -1 || env->selected_ceiling_sprite != -1
 	|| env->selected_wall_sprite_sprite != -1)
@@ -33,7 +33,7 @@ int		sprite_tab_keyup(t_env *env)
 	return (0);
 }
 
-int		events_tab_keyup(t_env *env)
+int	events_tab_keyup(t_env *env)
 {
 	if (!env->editor.selecting_target && !env->editor.selecting_event
 		&& !env->editor.selecting_condition_target
@@ -60,7 +60,7 @@ int		events_tab_keyup(t_env *env)
 	return (0);
 }
 
-int		general_keyup3(t_env *env)
+int	general_keyup3(t_env *env)
 {
 	if (button_keyup(&env->editor.previous_ambiance_music, env))
 		return (-1);
@@ -73,7 +73,7 @@ int		general_keyup3(t_env *env)
 	return (0);
 }
 
-int		general_keyup2(t_env *env)
+int	general_keyup2(t_env *env)
 {
 	if (button_keyup(&env->editor.events_tab, env))
 		return (-1);
@@ -98,7 +98,7 @@ int		general_keyup2(t_env *env)
 	return (general_keyup3(env));
 }
 
-int		general_keyup(t_env *env)
+int	general_keyup(t_env *env)
 {
 	if (button_keyup(&env->editor.save, env))
 		return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   next_launch_condition.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 17:39:45 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:39:46 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 11:26:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,20 @@ int		next_launch_condition2(int sector, t_env *env)
 	return (0);
 }
 
+void	next_enemy_launch_condition(t_env *env)
+{
+	if (env->editor.selected_events == 0
+	&& env->editor.selected_launch_condition >=
+	env->enemies[env->selected_enemy].
+	collision_events[env->editor.selected_events].nb_launch_conditions)
+		env->editor.selected_launch_condition = 0;
+	else if (env->editor.selected_events == 1
+	&& env->editor.selected_launch_condition >=
+	env->enemies[env->selected_enemy].
+	death_events[env->editor.selected_events].nb_launch_conditions)
+		env->editor.selected_launch_condition = 0;
+}
+
 int		next_launch_condition(void *penv)
 {
 	t_env	*env;
@@ -82,18 +96,7 @@ int		next_launch_condition(void *penv)
 	sector = -1;
 	env->editor.selected_launch_condition++;
 	if (env->selected_enemy != -1)
-	{
-		if (env->editor.selected_events == 0
-			&& env->editor.selected_launch_condition >=
-			env->enemies[env->selected_enemy].
-			collision_events[env->editor.selected_events].nb_launch_conditions)
-			env->editor.selected_launch_condition = 0;
-		else if (env->editor.selected_events == 1
-			&& env->editor.selected_launch_condition >=
-			env->enemies[env->selected_enemy].
-			death_events[env->editor.selected_events].nb_launch_conditions)
-			env->editor.selected_launch_condition = 0;
-	}
+		next_enemy_launch_condition(env);
 	else if (env->selected_object != -1
 		&& env->editor.selected_launch_condition >=
 		env->objects[env->selected_object].

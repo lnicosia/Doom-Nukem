@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 13:33:00 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/04 13:33:00 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 20:02:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int		parse_sounds_number(t_map_parser *parser, t_env *env)
 	&& ft_strlen(parser->line) < 100)
 	{
 		if (*(parser->tmp) == '\n')
-			break;
+			break ;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 			return (ft_perror("Could not malloc line\n"));
 	}
-	if (check_sound_number_validity(parser,env))
+	if (check_sound_number_validity(parser, env))
 		return (custom_error("Error while parsing sounds number validity\n"));
 	return (0);
 }

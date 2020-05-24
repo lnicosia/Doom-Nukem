@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_event_launch_conditions.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:00:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:04:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 11:12:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_events_parser *eparser)
 		**line, parser));
 		(*line)++;
 	if (valid_int(*line, parser))
-		return (custom_error("Invalid int for event launch condition's type\n"));
+		return (custom_error("Invalid int: event launch condition's type\n"));
 	eparser->event.launch_conditions[eparser->condition_count].type =
 	ft_atoi(*line);
 	if (eparser->event.launch_conditions[eparser->condition_count].type < 0

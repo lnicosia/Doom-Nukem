@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 17:09:26 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 17:09:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 12:35:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,13 @@ int						draw_minimap_sector_num(t_env *env, t_sector *sector);
 void					draw_objects_minimap(t_env *env);
 void					draw_minimap_hud(t_env *env);
 void					draw_weapon(t_env *env, int sprite);
+int						print_general_tab(t_env *env);
+int						print_sector_tab(t_env *env);
+void					draw_selection(t_point pos, t_point size1,
+t_point size2, t_env *env);
+int						draw_current_line(t_input_box *box, char **str,
+t_env *env);
+int						draw_third_phase_selection(t_env *env,
+t_target_panel *panel);
 
 #endif

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_enemies.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:18:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:04:55 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:01:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "parser.h"
 
-int		parse_enemy(t_env *env, char *line, t_map_parser *parser)
+int	parse_enemy(t_env *env, char *line, t_map_parser *parser)
 {
 	env->enemies[parser->enemies_count].num = parser->enemies_count;
 	if (parse_enemy_pos(env, &line, parser))
@@ -25,7 +25,7 @@ int		parse_enemy(t_env *env, char *line, t_map_parser *parser)
 	return (0);
 }
 
-int		parse_enemies2(t_env *env, t_map_parser *parser)
+int	parse_enemies2(t_env *env, t_map_parser *parser)
 {
 	if ((parser->ret = get_next_line(parser->fd, &(parser->line))))
 	{
@@ -43,7 +43,7 @@ int		parse_enemies2(t_env *env, t_map_parser *parser)
 	return (0);
 }
 
-int		parse_enemies(t_env *env, t_map_parser *parser)
+int	parse_enemies(t_env *env, t_map_parser *parser)
 {
 	char	*line;
 
@@ -63,7 +63,7 @@ int		parse_enemies(t_env *env, t_map_parser *parser)
 					"[Line %d] You must still declare %d enemies\n",
 					parser->line_count,
 					env->nb_enemies - parser->enemies_count));
-		ft_strdel(&(parser->line));
+				ft_strdel(&(parser->line));
 	}
 	return (parse_enemies2(env, parser));
 }

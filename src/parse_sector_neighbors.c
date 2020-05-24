@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sector_neighbors.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:16:22 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:16:22 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:08:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int i)
 			parser->line_count,
 			env->sectors[parser->sectors_count].neighbors[i],
 			parser->sectors_count));
-	if (env->sectors[parser->sectors_count].neighbors[i] == parser->
+		if (env->sectors[parser->sectors_count].neighbors[i] == parser->
 		sectors_count)
 		return (sector_error("can not contain a portal to itself",
 		parser->sectors_count, parser));

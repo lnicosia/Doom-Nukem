@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sector_data.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 12:07:13 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 12:07:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:00:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,17 @@ int		init_sector_data(t_env *env, char *line, t_map_parser *parser)
 {
 	if (!*line)
 		return (missing_data("vertices, neighbors, textures and light",
-					parser));
+		parser));
 		if (*line != '(')
 		return (invalid_char("before sector vertices", "'('", *line, parser));
 	line++;
 	if ((parser->sector_vertices_count = count_vertices(line, parser)) == -1)
 		return (custom_error("Error while counting vertices\n"));
 	if (parser->sector_vertices_count < 3)
-		return (custom_error(
-			"[Line %d] Sector %d must contain at least 3 vertices\n",
-			parser->line_count, parser->sectors_count));
-	env->sectors[parser->sectors_count].nb_vertices = parser->
-		sector_vertices_count;
+		return (custom_error("[Line %d] Sector need 3 vertices\n",
+		parser->line_count, parser->sectors_count));
+		env->sectors[parser->sectors_count].nb_vertices =
+		parser->sector_vertices_count;
 	if (!(env->sectors[parser->sectors_count].vertices = (int*)
 		ft_memalloc(sizeof(int) * (parser->sector_vertices_count + 1))))
 		return (ft_perror("Could not malloc sector vertices:"));

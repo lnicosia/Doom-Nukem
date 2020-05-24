@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 09:10:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/11 17:54:03 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/19 16:24:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ int		precompute_sectors(t_camera *camera, t_env *env)
 	return (0);
 }
 
+void	set_render(t_camera *camera, t_env *env, int i, t_render *render)
+{
+	render->xmin = camera->xmin[i];
+	render->xmax = camera->xmax[i];
+	render->sector = &env->sectors[camera->screen_sectors[i]];
+	render->camera = camera;
+	render->ystart = 0;
+	render->yend = env->h - 1;
+}
+
 int		render_walls(t_camera *camera, t_env *env)
 {
 	int			i;
@@ -68,12 +78,7 @@ int		render_walls(t_camera *camera, t_env *env)
 	i = 0;
 	while (i < screen_sectors)
 	{
-		render.xmin = camera->xmin[i];
-		render.xmax = camera->xmax[i];
-		render.sector = &env->sectors[camera->screen_sectors[i]];
-		render.camera = camera;
-		render.ystart = 0;
-		render.yend = env->h - 1;
+		set_render(camera, env, i, &render);
 		if (render_sector(render, env))
 			return (-1);
 		i++;

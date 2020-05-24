@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sector_portals.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:16:51 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:16:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:09:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int i)
 			" \'%d\' in sector %d\n", parser->line_count,
 			env->sectors[parser->sectors_count].portals[i],
 			parser->sectors_count));
-	*line = skip_number(*line);
+		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	return (0);
 }

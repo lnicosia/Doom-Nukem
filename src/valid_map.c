@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:57:40 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/11 17:59:51 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/20 13:36:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			check_sector(t_sector sector, t_env *env)
 	if (is_inside(sector, env))
 		return (custom_error("Sector %d is inside or contains a sector\n",
 		sector.num));
-	if (check_vertices(sector, env))
+		if (check_vertices(sector, env))
 		return (custom_error("Vertices invalid\n"));
 	if (check_slopes_start(sector))
 		return (custom_error("slope direction isn't valid\n"));
@@ -91,22 +91,8 @@ int			valid_map(t_env *env)
 	env->player.sector = get_sector_no_z(env, env->player.pos);
 	env->player.starting_sector =
 	get_sector_no_z(env, env->player.starting_pos);
-	if (!env->nb_sectors)
-	{
-		ft_printf("You need at least one sector to go in"
-		" 3d mode\n");
+	if (check_valid_map_start_data(env))
 		return (1);
-	}
-	if (!env->editor.player_exist)
-	{
-		ft_printf("You need to place the player\n");
-		return (1);
-	}
-	if (env->player.sector == -1 || env->player.starting_sector == -1)
-	{
-		ft_printf("Player position is not valid\n");
-		return (1);
-	}
 	while (i < env->nb_sectors)
 	{
 		if (check_sector(env->sectors[i], env))

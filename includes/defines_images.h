@@ -6,22 +6,17 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/20 09:50:05 by marvin            #+#    #+#             */
-/*   Updated: 2020/04/20 09:50:05 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/22 14:11:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINES_IMAGES_H
 # define DEFINES_IMAGES_H
 
-// hud sprites
 # define AMMO_HUD 47
 # define ARMOR_LIFE_HUD 48
-
-// enemies main sprite
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
-
-// objects sprites | walls sprites
 # define MINIGUN 0
 # define HEALTH_PACK 2
 # define SHELL_AMMO 3

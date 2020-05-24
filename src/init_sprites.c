@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 13:35:25 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 17:50:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int		init_object_sprites(t_env *env)
 	init_shotgun_sprite(env);
 	init_raygun_sprite(env);
 	init_doom_guy(env);
-//	init_hd_sprite(env);
 	init_objects_main_sprites(env);
 	return (0);
 }

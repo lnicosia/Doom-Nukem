@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 12:30:04 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/05/01 13:46:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 19:44:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int					check_inside_sector(t_env *env, t_motion motion);
 void				objects_collision(t_env *env, t_v3 pos);
 int					enemy_collision(t_env *env, t_v3 pos, t_v3 dest,
 						double radius);
-int					enemy_melee_hit(t_env *env);
+int					enemy_melee_hit(t_env *env, int i);
 int					hitbox_collision(t_v2 v1, t_v2 v2, t_v2 p, double size);
 int					find_highest_sector(t_env *env, t_motion motion);
 int					diff_sign(double nb1, double nb2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:39:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/04/29 16:05:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 19:43:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int		doom2(t_env *env)
 {
 	update_sprites_state(env);
 	if (projectiles_movement(env))
-		return (custom_error("Projectile creation or impact creation"
-		" failed\n"));
+		return (custom_error("Projectile or impact creation failed\n"));
 	if (!env->confirmation_box.state)
 	{
 		if (enemy_ai(env))
@@ -80,7 +79,7 @@ int		doom2(t_env *env)
 			return (custom_error("Explosion collision enmies error"));
 		if (explosion_collision_player(env))
 			return (custom_error("Explosion collision player error"));
-		if (enemy_melee_hit(env))
+		if (enemy_melee_hit(env, -1))
 			return (custom_error("Collision with a melee enemy failed\n"));
 		if (player_combat_state(env))
 			return (custom_error("Updating player combat state failed\n"));

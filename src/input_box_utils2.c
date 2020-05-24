@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_box_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 12:15:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 12:15:47 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 18:44:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,41 +61,6 @@ int		find_input_box_max_char(t_input_box *box)
 	box->line_size = len;
 	box->max_lines = (box->size.y * 0.99) / (double)size.y;
 	return (0);
-}
-
-/*
-**	Find the largest string of the current text characters that fit in one line
-*/
-
-char	*get_current_box_line(t_input_box *box, char *str)
-{
-	size_t	len;
-	char	*res;
-	t_point	size;
-
-	size = new_point(0, 0);
-	len = 1;
-	if (!(res = ft_strnew(0)))
-		return (0);
-	while (size.x < box->size.x * 0.99 && len <= ft_strlen(str))
-	{
-		ft_strdel(&res);
-		if (!(res = ft_strsub(str, 0, len)))
-			return (0);
-		if (TTF_SizeText(box->font, res, &size.x, &size.y))
-		{
-			ft_strdel(&res);
-			return (0);
-		}
-		len++;
-	}
-	if (size.x >= box->size.x * 0.99)
-	{
-		ft_strdel(&res);
-		if (!(res = ft_strsub(str, 0, len - 2)))
-			return (0);
-	}
-	return (res);
 }
 
 /*

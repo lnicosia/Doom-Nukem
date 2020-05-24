@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_enemy_selection_button.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 11:50:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 11:50:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 16:38:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ int		init_enemy_selection_button(t_env *env)
 	int				mod;
 	t_button_param	*new;
 
-	if (MAX_ENEMIES > 20)
-		mod = 10;
-	else
-		mod = 5;
 	i = 0;
+	mod = MAX_ENEMIES > 20 ? 10 : 5;
 	while (i < MAX_ENEMIES)
 	{
 		if (!(new = new_button_param(env, i)))

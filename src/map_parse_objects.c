@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse_objects.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 13:51:46 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 17:11:00 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:01:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,9 @@ int		parse_objects(t_env *env, t_map_parser *parser)
 			parser->objects_count++;
 		}
 		else
-			return (custom_error(
-				"[Line %d] You must still declare %d objects\n",
+			return (custom_error("[Line %d] still %d objects needed\n",
 				parser->line_count, env->nb_objects - parser->objects_count));
-		ft_strdel(&(parser->line));
+				ft_strdel(&(parser->line));
 	}
 	return (parse_objects2(env, parser));
 }

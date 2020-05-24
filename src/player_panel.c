@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_panel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:21:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 12:44:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		draw_player_panel(t_env *env, t_target_panel *panel)
 	if (env->editor.creating_condition)
 	{
 		if (draw_button(env, panel->targets[8], "Sector"))
-		return (-1);
+			return (-1);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_resources.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:06:40 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/01 18:21:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 16:21:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		write_hud(int fd, int file)
 		return (-1);
 	if (write_hud9(fd, file))
 		return (-1);
-	return (0);	
+	return (0);
 }
 
 int		write_resources(int fd, t_env *env)

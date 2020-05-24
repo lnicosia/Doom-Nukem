@@ -3,40 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   editor_hud3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 18:07:43 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 18:07:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 12:43:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		editor_options_sprites_portals(t_env *env)
+int		editor_options_bindings_1bis(t_env *env)
 {
-	if (print_text(new_point(565, 50), new_printable_text("Sprites",
-		env->sdl.fonts.lato_bold15, 0x000000FF, 15), env))
-		return (-1);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select%*s", 55, "left-click");
-	if (print_text(new_point(590, 70), new_printable_text(env->snprintf,
-		env->sdl.fonts.lato15, 0x000000FF, 15), env))
-		return (-1);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Scale %*s", 57,
-		"ctrl shift +/-");
-	if (print_text(new_point(610, 70), new_printable_text(env->snprintf,
-		env->sdl.fonts.lato15, 0x000000FF, 15), env))
-		return (-1);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Pos   %*s", 58,
-		"ctrl shift </>");
-	if (print_text(new_point(630, 70), new_printable_text(env->snprintf,
-		env->sdl.fonts.lato15, 0x000000FF, 15), env))
-		return (-1);
-	if (print_text(new_point(670, 50), new_printable_text("Portals",
-		env->sdl.fonts.lato_bold15, 0x000000FF, 15), env))
-		return (-1);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Select %*s", 57,
-		"ctrl left-click");
-	if (print_text(new_point(695, 70), new_printable_text(env->snprintf,
+	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "2D/3D%*s", 12, "Enter");
+	if (print_text(new_point(800, 70), new_printable_text(env->snprintf,
 		env->sdl.fonts.lato15, 0x000000FF, 15), env))
 		return (-1);
 	return (0);
@@ -67,11 +46,7 @@ int		editor_options_bindings_1(t_env *env)
 	if (print_text(new_point(800, 230), new_printable_text(env->snprintf,
 		env->sdl.fonts.lato15, 0x000000FF, 15), env))
 		return (-1);
-	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "2D/3D%*s", 12, "Enter");
-	if (print_text(new_point(800, 70), new_printable_text(env->snprintf,
-		env->sdl.fonts.lato15, 0x000000FF, 15), env))
-		return (-1);
-	return (0);
+	return (editor_options_bindings_1bis(env));
 }
 
 int		editor_options_bindings_2(t_env *env)

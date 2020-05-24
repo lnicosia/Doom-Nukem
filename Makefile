@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-#    Updated: 2020/03/12 14:40:32 by lnicosia         ###   ########.fr        #
+#    Updated: 2020/05/22 19:57:59 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 		        add_floor_projectile_bullet_hole.c projectiles_collisions2.c \
 				add_ceiling_projectile_bullet_hole.c projectiles_collisions3.c \
 				shift_floor_bullet_hole.c shift_ceiling_bullet_hole.c \
-				draw_game2.c entity_hit.c \
+				draw_game2.c entity_hit.c init_game2.c enemy_ai_utils.c\
 
 SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_grid.c editor_keys.c grid_tools.c editor_render.c next_event.c \
@@ -120,7 +120,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		are_launch_condition_selection_buttons_visible.c \
 		are_exec_condition_selection_buttons_visible.c next_launch_condition.c \
 		are_exec_condition_selection_buttons_visible2.c save_condition_utils.c \
-		init_event_links_types.c is_event_tabs_visible.c \
+		init_event_links_types.c is_event_tabs_visible.c editor_keyup5.c\
 		print_link_target_functions.c print_condition_target_functions.c \
 		print_condition_target_functions2.c init_print_condition_target_data.c\
 		change_sprite_buttons.c input_box_checkers.c input_box_updaters.c \
@@ -190,10 +190,14 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		select_floor_target.c select_ceiling_target.c check_condition_targets.c\
 		update_existing_events2.c update_existing_events3.c \
 		update_existing_events4.c write_resources2.c write_sectors2.c \
-		write_sectors3.c check_ceiling_height_input_box.c \
+		write_sectors3.c check_ceiling_height_input_box.c editor_floor_tabs3.c\
 		check_floor_slope_input_box.c check_ceiling_slope_input_box.c \
-		input_box_checkers2.c input_box_checkers3.c \
-		update_sector_input_box.c editor_options.c  \
+		input_box_checkers2.c input_box_checkers3.c draw_editor_tab_utils.c\
+		update_sector_input_box.c editor_options.c draw_conditions_tab2.c\
+		editor_3d_tab_keys2.c draw_editor_general_tab.c target_panel2.c\
+		draw_editor_sector_tab.c editor_ceiling_tabs3.c editor_hud4.c\
+		editor_object_sector_tabs.c editor_options2.c editor_enemy_tabs2.c \
+		editor_wall_tabs4.c print_events_tabs3.c print_events_tabs4.c \
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -303,7 +307,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_hd_sprite.c init_button_sprite.c new_input_box.c \
 		   init_doom_guy_face.c init_skyboxes_textures.c new_input_var.c \
 		   split_box_text.c input_box_utils2.c input_box_keys.c \
-		   input_box_keys2.c init_inputs.c pos_changed.c \
+		   input_box_keys2.c init_inputs.c pos_changed.c valid_map5.c\
 		   is_in_sector_utils.c init_vertices.c init_sectors.c \
 		   parse_enemy_data.c parse_enemy_sprite.c parse_enemy_pos.c \
 		   parse_object_sprite.c parse_object_pos.c map_parse_sectors_utils2.c \
@@ -325,18 +329,20 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
 		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
-		   init_enemies_textures.c init_sprites_textures.c \
+		   init_enemies_textures.c init_sprites_textures.c death_utils.c\
 		   init_hud_textures.c init_wall_textures.c check_entities_height.c \
-		   init_mini_skyboxes.c check_existing_files.c \
-		   check_walls_textures.c free_resources_init.c \
+		   init_mini_skyboxes.c check_existing_files.c create_sound_file.c\
+		   check_walls_textures.c free_resources_init.c input_box_utils3.c\
 		   check_sprites_textures.c check_hud_textures.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
-		   init_ttf2.c check_fonts.c check_ui.c map_parse_ui.c \
-		   check_existing_sounds.c map_parse_textures.c \
+		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
+		   check_ui.c map_parse_ui.c check_existing_files2.c\
+		   check_existing_sounds.c map_parse_textures.c free_all5.c\
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
-		   check_sounds.c check_sounds2.c event_updaters5.c \
+		   check_sounds.c check_sounds2.c check_wall_sprites_textures.c\
+		   func_event.c event_updaters5.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -634,7 +640,7 @@ $(SDL2_TTF_DIR)/exists:
 
 $(FREETYPE_DIR)/exists:
 	@printf $(YELLOW)"Extracting FreeType archive..\n"$(RESET) 
-	@cd $(LIB_DIR) && -tar -xf freetype-2.9.tar.gz
+	@cd $(LIB_DIR) && tar -xf freetype-2.9.tar.gz
 	@touch $@
 
 $(SDL2_CONFIGURED): $(SDL2_DIR)/exists

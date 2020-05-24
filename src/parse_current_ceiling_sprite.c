@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_current_ceiling_sprite.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/19 11:03:39 by marvin            #+#    #+#             */
+/*   Updated: 2020/05/19 11:08:43 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 int		parse_current_ceiling_sprite3(t_env *env, char **line,
@@ -25,8 +37,7 @@ t_map_parser *parser, int i)
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (custom_error("Invalid double for ceiling sprite %d scale.x\n",
-		i));
+		return (custom_error("Invalid double in ceiling sprite %d scale\n", i));
 	env->sectors[parser->sectors_count].ceiling_sprites.scale[i].x =
 	ft_atof(*line);
 	if ((env->sectors[parser->sectors_count].
@@ -42,9 +53,8 @@ t_map_parser *parser, int i)
 		*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (custom_error("Invalid double for ceiling sprite %d scale.y\n",
-		i));
-		return (parse_current_ceiling_sprite3(env, line, parser, i));
+		return (custom_error("Invalid double in ceiling sprite %d scale\n", i));
+	return (parse_current_ceiling_sprite3(env, line, parser, i));
 }
 
 int		parse_current_ceiling_sprite(t_env *env, char **line,
@@ -57,22 +67,19 @@ t_map_parser *parser, int i)
 		return (custom_error("Invalid int for ceiling sprite %d texture\n", i));
 	parse = ft_atoi(*line);
 	if (parse < 0 || parse > MAX_OBJECTS)
-		return (custom_error_with_line("Invalid ceiling sprite texture",
-		parser));
-		env->sectors[parser->sectors_count].ceiling_sprites.sprite[i] =
+		return (custom_error_with_line("Invalid ceil sprite texture", parser));
+	env->sectors[parser->sectors_count].ceiling_sprites.sprite[i] =
 	env->objects_main_sprites[parse];
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (custom_error("Invalid double for ceiling sprite %d pos.x\n",
-		i));
+		return (custom_error("Invalid double in ceiling sprite %d pos\n", i));
 	env->sectors[parser->sectors_count].ceiling_sprites.pos[i].x =
 	ft_atof(*line);
 	*line = skip_number(*line);
 	*line = skip_spaces(*line);
 	if (valid_double(*line, parser))
-		return (custom_error("Invalid double for ceiling sprite %d pos.y\n",
-		i));
+		return (custom_error("Invalid double in ceiling sprite %d pos\n", i));
 	env->sectors[parser->sectors_count].ceiling_sprites.pos[i].y =
 	ft_atof(*line);
 	return (parse_current_ceiling_sprite2(env, line, parser, i));

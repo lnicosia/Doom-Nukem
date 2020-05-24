@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_bmp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 11:10:27 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/11 19:02:36 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/22 11:16:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 #include "map_parser.h"
 #include "parser.h"
 
-int		creating_new_file(t_map_parser *parser, int size)
+int		creating_new_file(t_map_parser *parser, int size, int fd)
 {
-	int	fd;
-
-	fd = 0;
 	ft_printf("'%s' was missing in current directory. Extracting..\n",
 	parser->resource_name);
 	if (!(parser->tmp = ft_strnew(size)))
@@ -47,8 +44,10 @@ int		creating_new_file(t_map_parser *parser, int size)
 int		check_file_validity(t_map_parser *parser)
 {
 	int	size;
+	int	fd;
 
 	size = 0;
+	fd = 0;
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of the size\n"));
 	if (valid_int(parser->line, parser))
@@ -58,8 +57,8 @@ int		check_file_validity(t_map_parser *parser)
 	ft_strdel(&(parser->tmp));
 	if (size < 54)
 		return (custom_error("Invalid size for bmp file, size is too small\n"));
-	if (creating_new_file(parser, size))
-			return(custom_error("Error while creating the new file\n"));
+	if (creating_new_file(parser, size, fd))
+		return (custom_error("Error while creating the new file\n"));
 	return (0);
 }
 
@@ -76,9 +75,9 @@ int		parse_file_name(t_map_parser *parser)
 	&& ft_strlen(parser->resource_name) < 100)
 	{
 		if (*(parser->tmp) == '\n')
-			break;
+			break ;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
-		  	parser->tmp)))
+		parser->tmp)))
 			return (ft_perror("Could not realloc name in parse bmp"));
 	}
 	if (*(parser->tmp) != '\n')
@@ -101,12 +100,12 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 		&& ft_strlen(parser->line) < 100)
 		{
 			if (*(parser->tmp) == '\n')
-				break;
+				break ;
 			if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
 				return (ft_perror("Could not malloc line in parse bmp\n"));
 		}
 		if (check_file_validity(parser))
-			return(custom_error("Error while checking and creating file\n"));
+			return (custom_error("Error while checking and creating file\n"));
 	}
 	else
 	{

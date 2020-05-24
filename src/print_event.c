@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_event.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 16:47:06 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 10:07:44 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 12:45:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	print_event(t_env *env, t_event *event)
 	if (env->editor.selecting_event)
 	{
 		if (draw_button(env, env->editor.select_event, "Select me"))
-		return (-1);
+			return (-1);
 	}
 	return (0);
 }

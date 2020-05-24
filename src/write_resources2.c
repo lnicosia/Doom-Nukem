@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_resources2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 12:14:55 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 12:14:56 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 18:07:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		writing_bmp(int file, int fd, char *name)
 		if (close(file))
 			return (custom_error(
 			"Invalid bmp file and could not close the file\n"));
-		return (custom_error("Invalid bmp file\n"));
+			return (custom_error("Invalid bmp file\n"));
 	}
 	size = read_int32(header, 2);
 	ft_dprintf(fd, "%s\n%d\n", name, size);

@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_combat.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:34:48 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/06 18:45:40 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/21 19:43:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "collision.h"
 #include "enemies.h"
-
-/*
-** Changes the music if the player starts or leaves a fight
-** observing_enemies is the number of enemies who actually see the player
-** returns 1 if the music was changed and 0 otherwise
-*/
 
 int		change_music(t_env *env, int observing_enemies)
 {
@@ -94,10 +88,6 @@ int		damage_player(t_env *env, int damage)
 	return (0);
 }
 
-/*
-** Manages death and events of a kamikaze enemy
-*/
-
 int		kamikaze_death(t_env *env, int i)
 {
 	env->enemies[i].health = 0;
@@ -113,16 +103,8 @@ int		kamikaze_death(t_env *env, int i)
 	return (0);
 }
 
-/*
-** Manages the collisions between an enemy and the player and the consequences
-** of that collision: event, player damage, enemy death for instance
-*/
-
-int		enemy_melee_hit(t_env *env)
+int		enemy_melee_hit(t_env *env, int i)
 {
-	int i;
-
-	i = -1;
 	while (++i < env->nb_enemies)
 	{
 		if (enemy_collision_player(env, i))

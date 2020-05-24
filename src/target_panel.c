@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   target_panel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:30:12 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 15:45:26 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/20 13:27:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "draw.h"
 #include "events.h"
 
-int		draw_first_phase_selection(t_env *env, t_target_panel *panel)
+int	draw_first_phase_selection(t_env *env, t_target_panel *panel)
 {
 	if (draw_button(env, panel->sector, "Sector"))
 		return (-1);
@@ -37,69 +37,7 @@ int		draw_first_phase_selection(t_env *env, t_target_panel *panel)
 	return (0);
 }
 
-int		draw_third_phase_selection(t_env *env, t_target_panel *panel)
-{
-	if (draw_button(env, panel->previous, NULL))
-		return (-1);
-	if (panel->wall_type)
-	{
-		if (draw_wall_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->wall_sprite_type)
-	{
-		if (draw_wall_sprite_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->object_type)
-	{
-		if (draw_object_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->weapon_type)
-	{
-		if (draw_weapon_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->enemy_type)
-	{
-		if (draw_enemy_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->player_type)
-	{
-		if (draw_player_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->vertex_type)
-	{
-		if (draw_vertex_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->floor_type)
-	{
-		if (draw_floor_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->ceiling_type)
-	{
-		if (draw_ceiling_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->sector_other_type)
-	{
-		if (draw_sector_other_panel(env, panel))
-			return (-1);
-	}
-	else if (panel->other_type)
-	{
-		if (draw_other_panel(env, panel))
-			return (-1);
-	}
-	return (0);
-}
-
-int		draw_second_phase_selection(t_env *env, t_target_panel *panel)
+int	draw_second_phase_selection(t_env *env, t_target_panel *panel)
 {
 	if (draw_button(env, panel->previous, NULL))
 		return (-1);
@@ -112,7 +50,7 @@ int		draw_second_phase_selection(t_env *env, t_target_panel *panel)
 	return (0);
 }
 
-int		draw_target_panel2(t_env *env)
+int	draw_target_panel2(t_env *env)
 {
 	int		phase;
 
@@ -138,7 +76,25 @@ int		draw_target_panel2(t_env *env)
 	return (0);
 }
 
-int		draw_target_panel(t_env *env)
+int	draw_target_event_panel(t_env *env, t_point text_size1, t_point text_size2,
+t_event_panel panel)
+{
+	env->print_target_data[panel.event.target_index](env, &panel.event,
+	new_point(panel.pos.y + panel.top_size + 17 + text_size1.y,
+	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
+	20);
+	if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf,
+	&text_size2.x, &text_size2.y))
+		return (-1);
+	if (print_text(new_point(panel.pos.y + panel.top_size + 17
+	+ text_size1.y, panel.pos.x + 100 + panel.content_panel_size.x / 2
+	- text_size2.x / 2), new_printable_text(env->snprintf,
+	env->sdl.fonts.lato20, 0x333333FF, 0), env))
+		return (-1);
+	return (0);
+}
+
+int	draw_target_panel(t_env *env)
 {
 	t_point			text_size1;
 	t_point			text_size2;
@@ -155,17 +111,7 @@ int		draw_target_panel(t_env *env)
 		return (-1);
 	if (panel.event.target)
 	{
-		env->print_target_data[panel.event.target_index](env, &panel.event,
-		new_point(panel.pos.y + panel.top_size + 17 + text_size1.y,
-		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
-		20);
-		if (TTF_SizeText(env->sdl.fonts.lato20, env->snprintf,
-		&text_size2.x, &text_size2.y))
-			return (-1);
-		if (print_text(new_point(panel.pos.y + panel.top_size + 17
-		+ text_size1.y, panel.pos.x + 100 + panel.content_panel_size.x / 2
-		- text_size2.x / 2), new_printable_text(env->snprintf,
-		env->sdl.fonts.lato20, 0x333333FF, 0), env))
+		if (draw_target_event_panel(env, text_size1, text_size2, panel))
 			return (-1);
 	}
 	return (draw_target_panel2(env));

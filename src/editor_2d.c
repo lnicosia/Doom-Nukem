@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   editor_2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 17:52:15 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/29 17:52:30 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 22:57:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ int		draw_current_creation(t_env *env)
 	return (0);
 }
 
+void	draw_grid_informations(t_env *env)
+{
+	if (env->editor.player_exist || env->editor.dragged_player == 1)
+		draw_grid_player(env);
+	if (env->editor.player_exist || env->editor.dragged_start_player == 1)
+		draw_grid_start_player(env);
+	if (env->editor.dragged_object != -1 || env->nb_objects > 0)
+		draw_grid_objects(env);
+	if (env->editor.dragged_enemy != -1 || env->nb_enemies > 0)
+		draw_grid_enemies(env);
+	if (env->editor.start_vertex != -1)
+		draw_grid_current_sector(env);
+}
+
 int		editor_2d(t_env *env)
 {
 	if (!env->input_box.state && !env->options.editor_options)
@@ -52,16 +66,7 @@ int		editor_2d(t_env *env)
 	}
 	draw_grid(env);
 	draw_grid_vertices(env);
-	if (env->editor.player_exist || env->editor.dragged_player == 1)
-		draw_grid_player(env);
-	if (env->editor.player_exist || env->editor.dragged_start_player == 1)
-		draw_grid_start_player(env);
-	if (env->editor.dragged_object != -1 || env->nb_objects > 0)
-		draw_grid_objects(env);
-	if (env->editor.dragged_enemy != -1 || env->nb_enemies > 0)
-		draw_grid_enemies(env);
-	if (env->editor.start_vertex != -1)
-		draw_grid_current_sector(env);
+	draw_grid_informations(env);
 	draw_current_creation(env);
 	if (draw_grid_sectors(env))
 		return (-1);

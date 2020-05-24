@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pop_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:53:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:23:04 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 16:36:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pop_events.h"
 #include "events.h"
 #include "free.h"
-
-int		func_event(t_event *curr, t_env *env)
-{
-	if (curr->exec_func)
-		return (curr->exec_func(curr->exec_param, env));
-	return (1);
-}
 
 int		execute_event2(int *res, t_event *event, t_env *env)
 {
@@ -73,6 +66,14 @@ int		execute_event(t_event *event, t_env *env)
 	return (execute_event2(&res, event, env));
 }
 
+void	set_next_event(t_events_executer *executer)
+{
+	executer->prec = executer->tmp;
+	executer->tmp = executer->tmp->next;
+	executer->prec_values = executer->tmp_values;
+	executer->tmp_values = executer->tmp_values->next;
+}
+
 int		pop_event(t_events_executer *executer, t_env *env)
 {
 	int		res;
@@ -96,12 +97,7 @@ int		pop_event(t_events_executer *executer, t_env *env)
 			env->queued_values = executer->tmp_values;
 	}
 	else if (res == 0)
-	{
-		executer->prec = executer->tmp;
-		executer->tmp = executer->tmp->next;
-		executer->prec_values = executer->tmp_values;
-		executer->tmp_values = executer->tmp_values->next;
-	}
+		set_next_event(executer);
 	return (res == -1 ? -1 : 0);
 }
 

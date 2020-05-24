@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:35:07 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/27 16:07:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 19:05:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		player_selection(t_env *env)
 				"The player does not fit at this pos", ERROR, env))
 				return (-1);
 		}
+		if (env->player.highest_sect == -1 && env->player.sector != -1)
+			env->player.highest_sect = env->player.sector;
 		if (env->player.sector != -1)
 		{
 			update_player_pos(env);

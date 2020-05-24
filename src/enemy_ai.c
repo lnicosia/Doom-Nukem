@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_ai.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:20:09 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/04/29 18:59:14 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 12:00:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "enemies.h"
 #include "collision.h"
-
-/*
-** Tests a random direction to free the enemy if he's stuck
-*/
-
-t_v3	random_move(t_env *env, int nb, t_motion motion, t_v3 move)
-{
-	env->enemies[nb].dir = rand_dir(env, nb);
-	move.x = (env->enemies[nb].dir) ? move.y : -move.y;
-	move.y = (env->enemies[nb].dir) ? -move.x : move.x;
-	move = check_collision(env, move, motion);
-	return (move);
-}
 
 /*
 ** Manages the ai of a melee enemy
@@ -63,6 +50,20 @@ void	melee_ai(t_env *env, t_enemy foe, int i)
 ** i is the number of the enemy
 */
 
+int		range_enemy_behavior(t_enemy foe, t_env *env, int i)
+{
+	if (create_projectile(env, new_projectile_data(foe.pos,
+		foe.angle * CONVERT_RADIANS, 1, 1),
+		new_projectile_stats(0.6, foe.damage *
+		env->difficulty, 0.8, foe.eyesight - 2.2),
+		new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d)))
+		return (-1);
+	if (play_sound(env, &env->sound.enemies_shots_chan,
+		env->weapons[3].shot, env->sound.ambient_vol))
+		return (-1);
+	return (0);
+}
+
 int		ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 {
 	env->enemies[i].saw_player = 0;
@@ -74,14 +75,7 @@ int		ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 		{
 			if (env->enemies[i].behavior == RANGED_PROJECTILE)
 			{
-				if (create_projectile(env, new_projectile_data(foe.pos,
-					foe.angle * CONVERT_RADIANS, 1, 1),
-					new_projectile_stats(0.6, foe.damage *
-					env->difficulty, 0.8, foe.eyesight - 2.2),
-					new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d)))
-					return (-1);
-				if (play_sound(env, &env->sound.enemies_shots_chan,
-					env->weapons[3].shot, env->sound.ambient_vol))
+				if (range_enemy_behavior(foe, env, i))
 					return (-1);
 			}
 			else if (env->enemies[i].behavior == RANGED_AIMBOT)

@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_skyboxes_textures.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:18:36 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/12 18:07:14 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/05/18 17:45:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "parser.h"
 
-
-int		init_skyboxes_textures1(t_env *env)
+int	init_skyboxes_textures1(t_env *env)
 {
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_left.bmp",
 	1, 3, env))
@@ -25,7 +24,8 @@ int		init_skyboxes_textures1(t_env *env)
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_right.bmp",
 	1, 5, env))
 		return (custom_error("Failed to load skybox\n"));
-	if (parse_bmp_skybox_textures("images/skyboxes/bottom.bmp", 2, 0, env))
+	if (parse_bmp_skybox_textures("images/skyboxes/bottom.bmp",
+	2, 0, env))
 		return (custom_error("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/top.bmp", 2, 1, env))
 		return (custom_error("Failed to load skybox\n"));
@@ -40,7 +40,7 @@ int		init_skyboxes_textures1(t_env *env)
 	return (0);
 }
 
-int		init_skyboxes_textures(t_env *env)
+int	init_skyboxes_textures(t_env *env)
 {
 	if (parse_bmp_skybox_textures("images/skyboxes/night_bottom.bmp",
 	0, 0, env))
@@ -65,6 +65,6 @@ int		init_skyboxes_textures(t_env *env)
 		return (custom_error("Failed to load skybox\n"));
 	if (parse_bmp_skybox_textures("images/skyboxes/nebula_back.bmp",
 	1, 2, env))
-		return (custom_error("Failed to load skybox\n"));	
+		return (custom_error("Failed to load skybox\n"));
 	return (0);
 }

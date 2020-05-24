@@ -6,13 +6,12 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:59 by marvin            #+#    #+#             */
-/*   Updated: 2020/05/08 15:57:59 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/15 21:13:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "parser.h"
-
 
 int		check_skyboxes6(t_env *env)
 {

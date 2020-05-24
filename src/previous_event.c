@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   previous_event.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:30:59 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:30:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 18:14:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,16 @@ int		previous_event2(int sector, t_env *env)
 	return (0);
 }
 
+void	previous_enemy_event(t_env *env)
+{
+	if (env->editor.selected_events == 0)
+		env->editor.selected_event = env->enemies[env->selected_enemy].
+		nb_collision_events - 1;
+	else if (env->editor.selected_events == 1)
+		env->editor.selected_event = env->enemies[env->selected_enemy].
+		nb_death_events - 1;
+}
+
 int		previous_event(void *penv)
 {
 	t_env	*env;
@@ -72,14 +82,7 @@ int		previous_event(void *penv)
 	else
 	{
 		if (env->selected_enemy != -1)
-		{
-			if (env->editor.selected_events == 0)
-				env->editor.selected_event = env->enemies[env->selected_enemy].
-				nb_collision_events - 1;
-			else if (env->editor.selected_events == 1)
-				env->editor.selected_event = env->enemies[env->selected_enemy].
-				nb_death_events - 1;
-		}
+			previous_enemy_event(env);
 		else if (env->selected_object != -1)
 			env->editor.selected_event = env->objects[env->selected_object].
 			nb_collision_events - 1;

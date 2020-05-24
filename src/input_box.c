@@ -3,37 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   input_box.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 09:59:10 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 12:12:33 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/18 19:18:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input_box_utils.h"
 #include "draw.h"
 
-void	draw_selection(t_point pos, t_point size1, t_point size2, t_env *env)
-{
-	int		x;
-	int		y;
-
-	y = pos.x;
-	while (y < pos.x + size2.y)
-	{
-		x = pos.y + size1.x;
-		while (x < pos.y + size1.x + size2.x)
-		{
-			env->sdl.texture_pixels[x + y * env->w] = 0xFF71B3D1;
-			x++;
-		}
-		y++;
-	}
-}
-
 /*
 **	Highlight the current selection with blue
 */
+
+int		draw_box_selection2(t_input_box *box, char *sub, t_point size2)
+{
+	if (TTF_SizeText(box->font, sub, &size2.x, &size2.y))
+	{
+		ft_strdel(&sub);
+		return (-1);
+	}
+	if (sub)
+		ft_strdel(&sub);
+	return (0);
+}
 
 int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
 {
@@ -55,13 +49,8 @@ int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
 		ft_strdel(&sub);
 	if (!(sub = ft_strsub(str, start, end - start)) && end - start)
 		return (-1);
-	if (TTF_SizeText(box->font, sub, &size2.x, &size2.y))
-	{
-		ft_strdel(&sub);
+	if (draw_box_selection2(box, sub, size2))
 		return (-1);
-	}
-	if (sub)
-		ft_strdel(&sub);
 	draw_selection(pos, size1, size2, env);
 	return (0);
 }

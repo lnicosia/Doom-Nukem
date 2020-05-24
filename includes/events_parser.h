@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_parser.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/01 13:59:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 14:19:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "utils.h"
 # include "map_parser.h"
 
-typedef struct s_env t_env;
+typedef struct s_env	t_env;
 
 typedef enum		e_trigger
 {

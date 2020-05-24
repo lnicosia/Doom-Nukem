@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sector_wall_sprites.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/30 18:20:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/04/30 18:20:38 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 16:11:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ t_map_parser *parser, int i)
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].
 		nb_press_events = (size_t*)ft_memalloc(sizeof(size_t)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (ft_perror("Could not malloc sector wall sprite"
-		" nb press events"));
+		return (ft_perror("Could not malloc sector nb press event"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].press_events =
 		(t_event**)ft_memalloc(sizeof(t_event*)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (ft_perror("Could not malloc sector wall sprite pres events"));
+		return (ft_perror("Could not malloc sector press events"));
 	if (!(env->sectors[parser->sectors_count].wall_sprites[i].shoot_events =
 		(t_event**)ft_memalloc(sizeof(t_event*)
 		* env->sectors[parser->sectors_count].wall_sprites[i].nb_sprites)))
-		return (ft_perror("Could not malloc sector wall sprite shoot events"));
+		return (ft_perror("Could not malloc sector shoot events"));
 	j = -1;
 	while (++j < env->sectors[parser->sectors_count].wall_sprites[i].
 		nb_sprites)

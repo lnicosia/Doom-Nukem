@@ -31,8 +31,8 @@ int		music_volume_up(void *target)
 	env = (t_env*)target;
 	if (env->sound.music_vol <= 0.90)
 	{
-		if (FMOD_Channel_SetPaused(env->sound.music_chan, 1))
 		env->sound.music_vol += 0.1;
+		if (FMOD_Channel_SetPaused(env->sound.music_chan, 1))
 			return (custom_error("FMOD_Channel_SetPaused error\n"));
 		if (FMOD_Channel_SetVolume(env->sound.music_chan, env->sound.music_vol))
 			return (custom_error("FMOD_Channel_SetVolume error\n"));
