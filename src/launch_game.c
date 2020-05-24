@@ -98,7 +98,15 @@ int		launch_game(void *target)
 			return (-1);
 		return (0);
 	}
-	if (set_map(map_name, str, tmp, env))
+	if (!(map_name = ft_strdup(env->save_file)))
+		return (-1);
+	if (!(str = ft_strdup("./doom-nukem")))
+		return (-1);
+	if (!(tmp = ft_strsplit("./doom-nukem tmp.map no_menu", ' ')))
+		return (-1);
+	if (env->save_file)
+		ft_strdel(&env->save_file);
+	if (!(env->save_file = ft_strdup("tmp.map")))
 		return (-1);
 	return (launch_game2(env, map_name, str, tmp));
 }

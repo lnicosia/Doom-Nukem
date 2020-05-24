@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/01 15:39:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/21 21:09:28 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/21 16:27:45 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int						init_raygun(t_env *env);
 int						init_shotgun(t_env *env);
 int						init_gun(t_env *env);
 int						init_gatling(t_env *env);
+int						init_rocket_launcher(t_env *env);
 void					init_events_selection_buttons(t_env *env);
 void					init_events_creation_buttons(t_env *env);
 void					init_cyber_demon_firing_anim_two(t_env *env);

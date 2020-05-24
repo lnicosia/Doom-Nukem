@@ -326,6 +326,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
+		   option_menu4.c option_menu5.c option_menu6.c \
 		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
 		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
@@ -341,8 +342,9 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   parse_sound.c map_parse_sprites.c map_parse_skyboxes.c \
 		   parse_font.c check_resources.c check_shotgun.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
-		   check_sounds.c check_sounds2.c check_wall_sprites_textures.c\
-		   func_event.c event_updaters5.c \
+		   check_sounds.c check_sounds2.c check_rocket_launcher.c \
+		   sound_misc_functions.c check_wall_sprites_textures.c func_event.c \
+		   event_updaters5.c
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -353,7 +355,7 @@ HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
-			rust.bmp sand.bmp wall0.bmp wall1.bmp wall2.bmp wall3.bmp \
+			menu_texture.bmp sand.bmp wall0.bmp wall1.bmp wall2.bmp wall3.bmp \
 			wall4.bmp \
 
 SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \
@@ -371,7 +373,10 @@ HUD =	hud.bmp Ammo_hud.bmp Life_armor_hud.bmp raygun1.bmp raygun2.bmp \
 		shot1.bmp shot2.bmp shot3.bmp shot4.bmp shot5.bmp shot6.bmp shot7.bmp \
 		shot8.bmp shot9.bmp shot10.bmp shot11.bmp shot12.bmp shot13.bmp \
 		shot14.bmp shot15.bmp Gatling_1.bmp Gatling_2.bmp Gatling_3.bmp \
-		Gatling_4.bmp Gatling_5.bmp Gatling_6.bmp
+		Gatling_4.bmp Gatling_5.bmp Gatling_6.bmp rocket_launcher1.bmp \
+		rocket_launcher2.bmp rocket_launcher3.bmp rocket_launcher4.bmp \
+		rocket_launcher5.bmp rocket_launcher6.bmp rocket_launcher7.bmp \
+		rocket_launcher8.bmp rocket_launcher9.bmp
 
 UI =	button-default-up.bmp button-default-pressed.bmp \
 		button-default-hover.bmp background-up-64.bmp \
@@ -458,8 +463,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  $(OPTI_FLAGS) \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #$(OPTI_FLAGS) \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking

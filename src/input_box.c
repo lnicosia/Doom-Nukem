@@ -17,15 +17,15 @@
 **	Highlight the current selection with blue
 */
 
-int		draw_box_selection2(t_input_box *box, char *sub, t_point size2)
+int		draw_box_selection2(t_input_box *box, char **sub, t_point *size2)
 {
-	if (TTF_SizeText(box->font, sub, &size2.x, &size2.y))
+	if (TTF_SizeText(box->font, *sub, &size2->x, &size2->y))
 	{
-		ft_strdel(&sub);
+		ft_strdel(sub);
 		return (-1);
 	}
-	if (sub)
-		ft_strdel(&sub);
+	if (*sub)
+		ft_strdel(sub);
 	return (0);
 }
 
@@ -49,7 +49,7 @@ int		draw_box_selection(t_input_box *box, t_point pos, char *str, t_env *env)
 		ft_strdel(&sub);
 	if (!(sub = ft_strsub(str, start, end - start)) && end - start)
 		return (-1);
-	if (draw_box_selection2(box, sub, size2))
+	if (draw_box_selection2(box, &sub, &size2))
 		return (-1);
 	draw_selection(pos, size1, size2, env);
 	return (0);

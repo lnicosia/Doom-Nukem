@@ -37,7 +37,7 @@ t_env *env)
 	return (0);
 }
 
-int		process_current_projectile2(t_v3 move, t_projectile *projectile,
+int		process_current_projectile3(t_v3 move, t_projectile *projectile,
 t_list **tmp, t_env *env)
 {
 	int		collision;
@@ -55,6 +55,21 @@ t_list **tmp, t_env *env)
 	return (0);
 }
 
+int		process_current_projectile2(t_v3 move, t_projectile *projectile,
+t_list **tmp, t_env *env)
+{
+	if (projectile_player_collision(env, projectile->pos,
+		new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
+		projectile->pos.z + move.z), projectile->size_2d))
+	{
+		if (projectile->hurts_player)
+			return (projectile_hits_player(projectile, tmp, env));
+		else
+			projectile->hurts_player = 1;
+	}
+	return (process_current_projectile3(move, projectile, tmp, env));
+}
+
 int		process_current_projectile(t_projectile *projectile, t_list **tmp,
 t_env *env)
 {
@@ -67,16 +82,17 @@ t_env *env)
 	new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
 	projectile->pos.z + move.z), projectile->size_2d);
 	if (nb >= 0)
-		return (projectile_hits_enemy(nb, projectile, tmp, env));
+	{
+		if (projectile->hurts_enemies)
+			return (projectile_hits_enemy(nb, projectile, tmp, env));
+		else
+			projectile->hurts_enemies = 1;
+	}
 	nb = projectile_object_collision(env, projectile->pos,
 		new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
 		projectile->pos.z + move.z), projectile->size_2d);
 	if (nb >= 0 && env->objects[nb].solid)
 		return (projectile_hits_object(projectile, tmp, env));
-	if (projectile_player_collision(env, projectile->pos,
-		new_v3(projectile->pos.x + move.x, projectile->pos.y + move.y,
-		projectile->pos.z + move.z), projectile->size_2d))
-		return (projectile_hits_player(projectile, tmp, env));
 	return (process_current_projectile2(move, projectile, tmp, env));
 }
 

@@ -21,6 +21,8 @@ int		init_wall_textures2(t_env *env)
 		return (custom_error("Invalid bmp file\n"));
 	if (parse_bmp_wall_textures("./images/textures/grey.bmp", 14, env))
 		return (custom_error("Invalid bmp file\n"));
+	if (parse_bmp_wall_textures("./images/textures/menu_texture.bmp", 15, env))
+		return (custom_error("Invalid bmp file\n"));
 	return (0);
 }
 

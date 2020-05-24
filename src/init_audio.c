@@ -20,15 +20,15 @@ int	init_musics(t_env *env)
 	if (FMOD_System_CreateSound(env->sound.system, "audio/Mt_Erebus.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[0].music) != FMOD_OK)
-		return (custom_error("Failed to load Mt_Erebus.wav"));
+		return (custom_error("Failed to load Mt_Erebus.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/bim_bam_boum.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[1].music) != FMOD_OK)
-		return (custom_error("Failed to load bim_bam_boum.wav"));
+		return (custom_error("Failed to load bim_bam_boum.wav\n"));
 	if (FMOD_System_CreateSound(env->sound.system, "audio/at_dooms_gate.wav",
 		FMOD_2D | FMOD_CREATESTREAM | FMOD_LOOP_NORMAL, 0,
 		&env->sound.musics[2].music) != FMOD_OK)
-		return (custom_error("Failed to load at_dooms_gate.wav"));
+		return (custom_error("Failed to load at_dooms_gate.wav\n"));
 	while (++i < NB_MUSICS)
 	{
 		if (FMOD_Sound_SetLoopCount(env->sound.musics[i].music, -1) != FMOD_OK)
@@ -101,7 +101,7 @@ int	init_audio(t_env *env)
 		return (custom_error("Could not init musics\n"));
 	if (init_sounds(env) != 0)
 		return (custom_error("Could not init sounds\n"));
-	env->sound.music_vol = 0;
+	env->sound.music_vol = 0.3;
 	env->sound.ambient_vol = 0.3;
 	env->sound.musics[0].music_name = "Mt Erebus";
 	env->sound.musics[1].music_name = "Bim Bam Boum";

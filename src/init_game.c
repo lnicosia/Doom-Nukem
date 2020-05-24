@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 11:56:46 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/22 15:47:05 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/14 19:19:32 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,14 @@ int		init_game(int ac, char **av)
 	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
 	env.hud_start = env.editor_start + NB_HUD_SPRITES;
 	env.difficulty = 1;
+	env.menu = 1;
 	if (ac == 3)
-		env.menu = 1;
-	env.in_game = ac == 3 ? 0 : 1;
+	{
+		env.menu = 0;
+		env.in_game = 1;
+	}
+	else if (ac == 2)
+		env.in_game = 0;
 	env.option = 0;
 	env.menu_select = 1;
 	env.running = 1;

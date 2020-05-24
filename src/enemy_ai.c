@@ -56,7 +56,7 @@ int		range_enemy_behavior(t_enemy foe, t_env *env, int i)
 		foe.angle * CONVERT_RADIANS, 1, 1),
 		new_projectile_stats(0.6, foe.damage *
 		env->difficulty, 0.8, foe.eyesight - 2.2),
-		new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d)))
+		new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d, 1, 0)))
 		return (-1);
 	if (play_sound(env, &env->sound.enemies_shots_chan,
 		env->weapons[3].shot, env->sound.ambient_vol))

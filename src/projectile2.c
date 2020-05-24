@@ -17,9 +17,9 @@
 void	projectile_coord(t_v3 pos, t_projectile *projectile,
 t_projectile_data_2 data2, double height)
 {
-	projectile->pos.x = (data2.radius + 2.5) * cos(projectile->angle) + pos.x;
-	projectile->pos.y = (data2.radius + 2.5) * sin(projectile->angle) + pos.y;
-	projectile->pos.z = (data2.radius + 2.5) * -data2.angle_z + pos.z + height;
+	projectile->pos.x = (data2.radius) * cos(projectile->angle) + pos.x;
+	projectile->pos.y = (data2.radius) * sin(projectile->angle) + pos.y;
+	projectile->pos.z = (data2.radius) * -data2.angle_z + pos.z + height;
 	projectile->dest.x = 100000000 * cos(projectile->angle)
 	+ projectile->pos.x;
 	projectile->dest.y = 100000000 * sin(projectile->angle)
@@ -47,6 +47,8 @@ t_projectile_stats stats, t_projectile_data_2 data2)
 	((t_projectile*)new->content)->sector = get_sector_no_z(env,
 	((t_projectile*)new->content)->pos);
 	((t_projectile*)new->content)->angle = data.angle * CONVERT_DEGREES;
+	((t_projectile*)new->content)->hurts_player = data2.hurts_player;
+	((t_projectile*)new->content)->hurts_enemies = data2.hurts_enemies;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/05/22 15:50:48 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/23 20:33:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define INPUT_DELAY 500
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
-# define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 53
+# define MAX_WALL_TEXTURE 16
+# define MAX_TEXTURES 62
 # define MAX_UI_TEXTURES 64
 # define MAX_MONSTER_MINI 2
 # define MAX_OBJECT_SPRITES 34
@@ -48,8 +48,9 @@
 # define NB_HUD_SPRITES 3
 # define NB_UI_FILES 8
 # define NB_BMP_SPRITES 13
-# define NB_HUD_FILES 36
-# define MAX_SPRITES_TEXTURES 49
+# define NB_HUD_FILES 45
+# define MAX_SPRITES_TEXTURES 58
+
 # define NB_BUTTON 10
 # define THREADS 4
 # define MAX_W 2560
@@ -918,6 +919,8 @@ typedef struct		s_projectile_data_2
 {
 	double			angle_z;
 	double			radius;
+	int				hurts_player;
+	int				hurts_enemies;
 }					t_projectile_data_2;
 
 /*
@@ -945,6 +948,8 @@ typedef	struct		s_projectile
 	double			speed;
 	int				sprite;
 	int				damage;
+	int				hurts_player;
+	int				hurts_enemies;
 }					t_projectile;
 
 typedef	struct		s_explosion_data

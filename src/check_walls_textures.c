@@ -26,6 +26,13 @@ int	check_wall_textures5(t_env *env, int fd)
 		env->init.textures[14] = 1;
 	if (!env->init.textures[14] && close(fd))
 		return (custom_error("Could not close the file in check textures\n"));
+	if (!(env->init.text_name[15] =
+		ft_strdup("./images/textures/menu_texture.bmp")))
+		return (ft_perror("Error while malloc texture name\n"));
+	if ((fd = open("./images/textures/menu_texture.bmp", O_RDONLY)) == -1)
+		env->init.textures[15] = 1;
+	if (!env->init.textures[15] && close(fd))
+		return (custom_error("Could not close the file in check textures\n"));
 	return (0);
 }
 

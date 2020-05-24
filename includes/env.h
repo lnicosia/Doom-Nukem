@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 14:51:13 by sipatry           #+#    #+#             */
-/*   Updated: 2020/05/22 14:04:08 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/23 20:52:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ typedef struct			s_env
 	t_button			music_vol_up;
 	t_button			sounds_vol_up;
 	t_button			sounds_vol_down;
+	t_button			fps_option;
+	t_button			fov_decrease;
+	t_button			fov_increase;
+	t_button			next_resolution;
+	t_button			prev_resolution;
 	pid_t				pid;
 	pid_t				c_pid;
 	t_init				init;
@@ -244,6 +249,7 @@ int						check_skyboxes6(t_env *env);
 int						check_shotgun(t_env *env);
 int						check_raygun(t_env *env);
 int						check_gatling(t_env *env);
+int						check_rocket_launcher(t_env *env);
 int						check_gun(t_env *env);
 int						check_sounds(t_env *env);
 int						check_sounds6(int fd, t_env *env);
@@ -536,6 +542,8 @@ void					tabs_gestion(t_env *env);
 int						change_target_texture(t_env *env);
 void					editor_show_tab(t_env *env);
 int						general_keyup(t_env *env);
+int						music_keys(t_env *env);
+int						music_keyup(t_env *env);
 int						sprite_tab_keyup(t_env *env);
 int						events_tab_keyup(t_env *env);
 int						editor_3d_tabs_keyup(t_env *env);
@@ -773,6 +781,7 @@ int						print_object_sector_tab(t_env *env);
 int						print_floor_sprite_tab(t_env *env);
 int						print_ceiling_sprite_tab(t_env *env);
 int						print_wall_sprite_tab(t_env *env);
+void					print_hfov_value(t_env *env);
 
 /*
 **	buttons for selections
@@ -840,7 +849,8 @@ int						set_sector_ceiling_map_array(t_sector *sector,
 t_texture *texture, t_env *env);
 t_projectile_data		new_projectile_data(t_v3 pos, double angle,
 double scale, int sprite);
-t_projectile_data_2		new_projectile_data_2(double angle_z, double radius);
+t_projectile_data_2		new_projectile_data_2(double angle_z, double radius,
+int hurts_player, int hurts_enemies);
 t_projectile_stats		new_projectile_stats(double size_2d, int damage,
 double speed, double height);
 t_explosion_data		new_explosion_data(t_v3 pos, double radius, int damage,
@@ -853,6 +863,7 @@ int						music_vol_down_button(t_env *env);
 int						sounds_vol_up_button(t_env *env);
 int						sounds_vol_down_button(t_env *env);
 int						option_menu_ig_button(t_env *env);
+int						fps_option_button(t_env *env);
 int						exit_button(t_env *env);
 int						return_button(t_env *env);
 int						hitscan_enemies(t_env *env, int i);
@@ -860,6 +871,7 @@ int						hitscan_objects(t_env *env, int i);
 int						damage_done(t_env *env, double rotated_pos_w);
 int						is_player_alive(t_env *env);
 int						draw_weapons(t_env *env);
+
 /*
 ** Screen utils
 */
@@ -1074,7 +1086,13 @@ int						music_volume_up(void *param);
 int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);
 int						sounds_volume_down(void *param);
+int						pause_sounds_channels(void *target, int mode);
+int						set_volume_sounds(t_env *env);
+int						next_resolution_button(t_env *env);
+int						prev_resolution_button(t_env *env);
 int						return_button_func(void *param);
+int						fov_increase_button(t_env *env);
+int						fov_decrease_button(t_env *env);
 void					add_button(t_env *env, int text, t_point nb,
 int ref_but);
 int						button_leftclick(t_env *env, int nb);

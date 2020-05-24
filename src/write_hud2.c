@@ -93,5 +93,46 @@ int		write_hud9(int fd, int file)
 		return (ft_perror("Could not open the font\n"));
 	if (writing_bmp(file, fd, "./images/HUD/gun_6.bmp"))
 		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher1.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher1.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher2.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher2.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher3.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher3.bmp"))
+		return (-1);
+	return (0);
+}
+
+int		write_hud10(int fd, int file)
+{
+	if ((file = open("./image/HUD/rocket_launcher4.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher4.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher5.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher5.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher6.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher6.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher7.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher7.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher8.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher8.bmp"))
+		return (-1);
+	if ((file = open("./image/HUD/rocket_launcher9.bmp", O_RDONLY)) < 0)
+		return (ft_perror("Could not open the image\n"));
+	if (writing_bmp(file, fd, "./images/rocket_launcher9.bmp"))
+		return (-1);
 	return (0);
 }
