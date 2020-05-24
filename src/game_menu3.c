@@ -46,7 +46,8 @@ int		next_difficulty_button(t_env *env)
 	int w;
 	int h;
 
-	TTF_SizeText(env->sdl.fonts.lato30, "NORMAL", &w, &h);
+	if (TTF_SizeText(env->sdl.fonts.lato30, "NORMAL", &w, &h))
+		return (-1);
 	env->next_difficulty = new_next_button(ON_RELEASE, &next_difficulty, env,
 		env);
 	env->next_difficulty.pos = new_point(env->h_w + 1.5 * w,
@@ -59,7 +60,8 @@ int		prev_difficulty_button(t_env *env)
 	int w;
 	int h;
 
-	TTF_SizeText(env->sdl.fonts.lato30, "NORMAL", &w, &h);
+	if (TTF_SizeText(env->sdl.fonts.lato30, "NORMAL", &w, &h))
+		return (-1);
 	env->previous_difficulty = new_previous_button(ON_RELEASE,
 		&previous_difficulty, env, env);
 	env->previous_difficulty.pos = new_point(env->h_w - 1.5 * w,

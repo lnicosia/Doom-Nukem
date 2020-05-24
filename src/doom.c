@@ -21,14 +21,14 @@ int		doom4(t_env *env)
 	if (env->menu && !env->in_game && !env->option)
 	{
 		if (start_game_menu(env))
-			return (custom_error("Start game menu error"));
+			return (custom_error("Start game menu error\n"));
 	}
 	else
 	{
 		if (env->option)
 		{
 			if (option_menu_ig(env))
-				return (custom_error("Option menu in game error"));
+				return (custom_error("Option menu in game error\n"));
 		}
 		else if (draw_game(env))
 			return (custom_error("Crash in game loop\n"));
@@ -71,14 +71,14 @@ int		doom2(t_env *env)
 	if (!env->confirmation_box.state)
 	{
 		if (enemy_ai(env))
-			return (custom_error("Enemy ai error"));
+			return (custom_error("Enemy ai error\n"));
 		objects_collision(env, env->player.pos);
 		if (explosion_collision_objects(env))
-			return (custom_error("Explosion collision objects error"));
+			return (custom_error("Explosion collision objects error\n"));
 		if (explosion_collision_enemies(env))
-			return (custom_error("Explosion collision enmies error"));
+			return (custom_error("Explosion collision enmies error\n"));
 		if (explosion_collision_player(env))
-			return (custom_error("Explosion collision player error"));
+			return (custom_error("Explosion collision player error\n"));
 		if (enemy_melee_hit(env, -1))
 			return (custom_error("Collision with a melee enemy failed\n"));
 		if (player_combat_state(env))
@@ -104,15 +104,15 @@ int		doom(t_env *env)
 		if (env->in_game && !env->menu & !env->option)
 		{
 			if (doom_poll_event(env))
-				return (crash("Doom events failed", env));
+				return (crash("Doom events failed\n", env));
 			if (doom2(env))
-				return (crash("Doom part 2 failed", env));
+				return (crash("Doom part 2 failed\n", env));
 			if (doom3(env))
-				return (crash("Doom part 3 failed", env));
+				return (crash("Doom part 3 failed\n", env));
 		}
 		if (doom4(env))
-			return (crash("Doom part 4 failed", env));
-		if (FMOD_System_Update(env->sound.system))
+			return (crash("Doom part 4 failed\n", env));
+		if (FMOD_System_Update(env->sound.system) != FMOD_OK)
 			return (custom_error("FMOD_System_Update error\n"));
 	}
 	free_all(env);

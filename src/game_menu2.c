@@ -22,7 +22,7 @@ int		start_game(void *target)
 	env->option = 0;
 	env->in_game = 1;
 	SDL_SetRelativeMouseMode(1);
-	return (1);
+	return (0);
 }
 
 int		next_difficulty(void *target)
@@ -32,7 +32,7 @@ int		next_difficulty(void *target)
 	env = (t_env*)target;
 	if (env->difficulty < 1.5)
 		env->difficulty += 0.5;
-	return (1);
+	return (0);
 }
 
 int		previous_difficulty(void *target)
@@ -42,7 +42,7 @@ int		previous_difficulty(void *target)
 	env = (t_env*)target;
 	if (env->difficulty > 0.5)
 		env->difficulty -= 0.5;
-	return (1);
+	return (0);
 }
 
 int		open_options(void *target)
@@ -53,7 +53,7 @@ int		open_options(void *target)
 	env->menu = 1;
 	env->option = 1;
 	env->in_game = 0;
-	return (1);
+	return (0);
 }
 
 int		exit_button_func(void *target)
@@ -62,5 +62,5 @@ int		exit_button_func(void *target)
 
 	env = (t_env*)target;
 	env->running = 0;
-	return (1);
+	return (0);
 }

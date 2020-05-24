@@ -807,8 +807,8 @@ typedef	struct		s_music_list
 
 typedef struct		s_sound
 {
-	double			music_vol;
-	double			ambient_vol;
+	float			music_vol;
+	float			ambient_vol;
 	int				ambient_music;
 	int				fight_music;
 	FMOD_SYSTEM		*system;

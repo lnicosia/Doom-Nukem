@@ -26,6 +26,7 @@ void					set_screen_size(t_env *env);
 void					init_weapons(t_env *env);
 void					init_gatling_weapon(t_env *env);
 int						init_audio(t_env *env);
+int						set_channels(t_env *env);
 void					init_animations(t_env *env);
 void					init_pointers(t_env *env);
 int						init_sdl(t_env *env);

@@ -14,24 +14,30 @@
 
 int		menu_keys(t_env *env)
 {
-	button_keys(&env->start_game_button, env);
-	button_keys(&env->previous_difficulty, env);
-	button_keys(&env->next_difficulty, env);
-	button_keys(&env->exit_button, env);
-	button_keys(&env->option_menu_ig, env);
-	button_keys(&env->music_vol_down, env);
-	button_keys(&env->music_vol_down, env);
+	if (button_keys(&env->start_game_button, env))
+		return (-1);
+	if (button_keys(&env->previous_difficulty, env))
+		return (-1);
+	if (button_keys(&env->next_difficulty, env))
+		return (-1);
+	if (button_keys(&env->exit_button, env))
+		return (-1);
+	if (button_keys(&env->option_menu_ig, env))
+		return (-1);
 	return (0);
 }
 
 int		menu_keyup(t_env *env)
 {
-	button_keyup(&env->start_game_button, env);
-	button_keyup(&env->next_difficulty, env);
-	button_keyup(&env->previous_difficulty, env);
-	button_keyup(&env->exit_button, env);
-	button_keyup(&env->option_menu_ig, env);
-	button_keyup(&env->music_vol_down, env);
-	button_keyup(&env->music_vol_up, env);
+	if (button_keyup(&env->start_game_button, env))
+		return (-1);
+	if (button_keyup(&env->next_difficulty, env))
+		return (-1);
+	if (button_keyup(&env->previous_difficulty, env))
+		return (-1);
+	if (button_keyup(&env->exit_button, env))
+		return (-1);
+	if (button_keyup(&env->option_menu_ig, env))
+		return (-1);
 	return (0);
 }

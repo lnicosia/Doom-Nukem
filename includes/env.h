@@ -781,7 +781,7 @@ int						print_object_sector_tab(t_env *env);
 int						print_floor_sprite_tab(t_env *env);
 int						print_ceiling_sprite_tab(t_env *env);
 int						print_wall_sprite_tab(t_env *env);
-void					print_hfov_value(t_env *env);
+int						print_hfov_value(t_env *env);
 
 /*
 **	buttons for selections
@@ -1086,8 +1086,9 @@ int						music_volume_up(void *param);
 int						music_volume_down(void *param);
 int						sounds_volume_up(void *param);
 int						sounds_volume_down(void *param);
-int						pause_sounds_channels(void *target, int mode);
-int						set_volume_sounds(t_env *env);
+int						change_volume_if_playing(FMOD_CHANNEL *channel,
+float volume);
+int						change_sounds_volume(float volume, t_env *env);
 int						next_resolution_button(t_env *env);
 int						prev_resolution_button(t_env *env);
 int						return_button_func(void *param);

@@ -18,7 +18,7 @@ int     fps_option_func(void *target)
 
     env = (t_env*)target;
     env->options.show_fps = (env->options.show_fps ? 0 : 1);
-    return (1);
+    return (0);
 }
 
 int		fps_option_button(t_env *env)

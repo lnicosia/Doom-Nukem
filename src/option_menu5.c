@@ -12,23 +12,28 @@
 
 #include "env.h"
 
-void	print_hfov_value(t_env *env)
+int		print_hfov_value(t_env *env)
 {
 	int w;
 	int h;
 
-	TTF_SizeText(env->sdl.fonts.lato30, "FOV", &w, &h);
-	print_text(new_point(env->h_h - env->h_h / 4 +
+	if (TTF_SizeText(env->sdl.fonts.lato30, "FOV", &w, &h))
+		return (-1);
+	if (print_text(new_point(env->h_h - env->h_h / 4 +
 		env->fov_increase.size_down.y, env->h_w - w / 2),
 		new_printable_text("FOV", env->sdl.fonts.lato30,
-		0x222222FF, 30), env);
+		0x222222FF, 30), env))
+		return (-1);
 	ft_snprintf(env->snprintf, 4, "%.f",
 		env->player.camera.hfov);
-	TTF_SizeText(env->sdl.fonts.lato30, env->snprintf, &w, &h);
-	print_text(new_point(env->h_h - env->h_h / 4 +
+	if (TTF_SizeText(env->sdl.fonts.lato30, env->snprintf, &w, &h))
+		return (-1);
+	if (print_text(new_point(env->h_h - env->h_h / 4 +
 		env->fov_increase.size_down.y + 35, env->h_w - w / 2),
 		new_printable_text(env->snprintf, env->sdl.fonts.lato30,
-		0x222222FF, 30), env);
+		0x222222FF, 30), env))
+		return (-1);
+	return (0);
 }
 
 int		fov_increase(void *target)

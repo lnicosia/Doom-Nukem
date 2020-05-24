@@ -90,6 +90,44 @@ int	init_sounds(t_env *env)
 	return (init_sounds2(env));
 }
 
+int	set_channels2(t_env *env)
+{
+	int		err;
+
+	if ((err = FMOD_System_GetChannel(env->sound.system, 7,
+		&env->sound.explosions_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 7. Error %d\n", err));
+	return (0);
+}
+
+int	set_channels(t_env *env)
+{
+	int		err;
+
+	if ((err = FMOD_System_GetChannel(env->sound.system, 0,
+		&env->sound.music_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 0. Error %d\n", err));
+	if ((err = FMOD_System_GetChannel(env->sound.system, 1,
+		&env->sound.player_movement_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 1. Error %d\n", err));
+	if ((err = FMOD_System_GetChannel(env->sound.system, 2,
+		&env->sound.player_reaction_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 2. Error %d\n", err));
+	if ((err = FMOD_System_GetChannel(env->sound.system, 3,
+		&env->sound.player_shots_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 3. Error %d\n", err));
+	if ((err = FMOD_System_GetChannel(env->sound.system, 4,
+		&env->sound.enemies_reaction_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 4. Error %d\n", err));
+	if ((err = FMOD_System_GetChannel(env->sound.system, 5,
+		&env->sound.enemies_shots_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 5. Error %d\n", err));
+	if ((err = FMOD_System_GetChannel(env->sound.system, 6,
+		&env->sound.footstep_chan)) != FMOD_OK)
+		return (custom_error("Could not set channel 6. Error %d\n", err));
+	return (set_channels2(env));
+}
+
 int	init_audio(t_env *env)
 {
 	if (FMOD_System_Create(&env->sound.system) != FMOD_OK)
@@ -101,6 +139,8 @@ int	init_audio(t_env *env)
 		return (custom_error("Could not init musics\n"));
 	if (init_sounds(env) != 0)
 		return (custom_error("Could not init sounds\n"));
+	if (set_channels(env))
+		return (custom_error("Could not set channels\n"));
 	env->sound.music_vol = 0.3;
 	env->sound.ambient_vol = 0.3;
 	env->sound.musics[0].music_name = "Mt Erebus";

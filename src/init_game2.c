@@ -25,8 +25,10 @@ int		init_game6(t_env *env)
 		new_motion(env->player.sector, env->player.size_2d,
 		env->player.eyesight, env->player.pos));
 	start_game_button(env);
-	next_difficulty_button(env);
-	prev_difficulty_button(env);
+	if (next_difficulty_button(env))
+		return (crash("Could not init next difficulty menu button\n", env));
+	if (prev_difficulty_button(env))
+		return (crash("Could not init previous difficulty menu button\n", env));
 	option_menu_ig_button(env);
 	return_button(env);
 	exit_button(env);
