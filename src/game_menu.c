@@ -37,7 +37,7 @@ void	game_menu_hud(t_env *env)
 	int w;
 	int h;
 
-	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
+	apply_surface(env->wall_textures[15].surface, new_point(0, 0),
 		new_point(env->w, env->h), env);
 	TTF_SizeText(env->sdl.fonts.amazdoom70, "DOOM NUKEM", &w, &h);
 	print_text(new_point(env->h / 12, env->w / 2 - w / 2),

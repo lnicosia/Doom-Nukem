@@ -48,9 +48,9 @@ int		write_textures2(int fd)
 		return (custom_error("Could not open texture\n"));
 	if (writing_bmp(file, fd, "./images/textures/floor1.bmp"))
 		return (-1);
-	if ((file = open("./images/textures/menu_texture.bmp", O_RDONLY)) < 0)
+	if ((file = open("./images/textures/rust.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open texture\n"));
-	if (writing_bmp(file, fd, "./images/textures/menu_texture.bmp"))
+	if (writing_bmp(file, fd, "./images/textures/rust.bmp"))
 		return (-1);
 	if ((file = open("./images/textures/black_tiles.bmp", O_RDONLY)) < 0)
 		return (custom_error("problem with read ressource\n"));
@@ -64,6 +64,10 @@ int		write_textures2(int fd)
 		return (custom_error("problem with read ressource\n"));
 	if (writing_bmp(file, fd, "./images/textures/grass1.bmp"))
 		return (-1);
+	if ((file = open("./images/textures/grass2.bmp", O_RDONLY)) < 0)
+		return (custom_error("Could not open texture\n"));
+	if (writing_bmp(file, fd, "./images/textures/grass2.bmp"))
+		return (-1);
 	return (0);
 }
 
@@ -71,10 +75,6 @@ int		write_textures3(int fd)
 {
 	int		file;
 
-	if ((file = open("./images/textures/grass2.bmp", O_RDONLY)) < 0)
-		return (custom_error("Could not open texture\n"));
-	if (writing_bmp(file, fd, "./images/textures/grass2.bmp"))
-		return (-1);
 	if ((file = open("./images/textures/grass3.bmp", O_RDONLY)) < 0)
 		return (custom_error("Could not open texture\n"));
 	if (writing_bmp(file, fd, "./images/textures/grass3.bmp"))
@@ -90,6 +90,10 @@ int		write_textures3(int fd)
 	if ((file = open("./images/textures/grey.bmp", O_RDONLY)) < 0)
 		return (custom_error("problem with read ressource\n"));
 	if (writing_bmp(file, fd, "./images/textures/grey.bmp"))
+		return (-1);
+	if ((file = open("./images/textures/menu_texture.bmp", O_RDONLY)) < 0)
+		return (custom_error("Could not open texture\n"));
+	if (writing_bmp(file, fd, "./images/textures/menu_texture.bmp"))
 		return (-1);
 	return (0);
 }
