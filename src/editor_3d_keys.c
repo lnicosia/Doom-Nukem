@@ -62,7 +62,7 @@ int		save_map_3d_keys(t_env *env)
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
-	return (1);
+	return (0);
 }
 
 int		editor_3d_keys3(t_env *env)
@@ -81,12 +81,10 @@ int		editor_3d_keys3(t_env *env)
 
 int		editor_3d_keys2(t_env *env)
 {
-	int		ret;
-
 	if (env->inputs.s && env->inputs.ctrl)
 	{
-		if ((ret = save_map_3d_keys(env)) != 1)
-			return (ret);
+		if (save_map_3d_keys(env) == -1)
+			return (-1);
 	}
 	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
 		&& !env->confirmation_box.state)

@@ -12,8 +12,6 @@
 
 NAME = libft.a
 
-MAKEFILE = Makefile
-
 SRC_DIR = .
 OBJ_DIR = obj
 INCLUDES_DIR = .
@@ -50,7 +48,7 @@ PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 pf_putlong_base.c pf_putnbr.c pf_putnbr_base.c \
 				 pf_putpercent.c pf_putstr.c pf_putunbr.c pf_strnequ.c \
 				 put_padding.c putfloat_utils.c ft_snprintf.c fill_buffer.c \
-				 custom_error.c
+				 custom_error.c custom_invalid.c
 
 PRINTF_HEADERS = ft_printf.h base_utils.h color.h put_padding.h
 
@@ -86,11 +84,11 @@ all: $(BIN_DIR)/$(NAME)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(MAKEFILE)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 
-$(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR) $(MAKEFILE)
+$(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c $(PRINTF_DIR)
 	@printf $(YELLOW)"\e[0;33mCompiling $<\n"$(RESET)
 	@gcc -c $< -o $@ $(CFLAGS) 
 

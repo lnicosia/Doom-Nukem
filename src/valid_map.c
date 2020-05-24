@@ -18,6 +18,7 @@ int			check_vertices(t_sector sector, t_env *env)
 	int			j;
 	t_vertex	v1;
 	t_vertex	v2;
+	int			res;
 
 	i = 0;
 	while (i < sector.nb_vertices)
@@ -34,8 +35,11 @@ int			check_vertices(t_sector sector, t_env *env)
 		}
 		i++;
 	}
-	if (is_sector_concave(sector, env))
-		return (custom_error("Sector %d is concave\n", sector.num));
+	res = is_sector_concave(sector, env);
+	if (res == -1)
+		return (custom_error("Concave check had a system error"));
+	else if (res)
+		return (custom_invalid("Sector %d is concave\n", sector.num));
 	if (check_neighbor_validity(sector, env))
 		return (custom_error("Sector %d has a invalid neighbor\n", sector.num));
 	return (0);
@@ -45,10 +49,10 @@ int			check_slopes_start(t_sector sector)
 {
 	if (sector.start_ceiling_slope > sector.nb_vertices
 		|| sector.start_ceiling_slope < 0)
-		return (custom_error("Ceiling "));
+		return (custom_error("Ceiling start slope is invalid"));
 	if (sector.start_floor_slope > sector.nb_vertices
 		|| sector.start_floor_slope < 0)
-		return (custom_error("Floor "));
+		return (custom_error("Floor start slope is invalid"));
 	return (0);
 }
 
@@ -65,26 +69,32 @@ int			distance_bewteen_ceiling_and_floor(t_sector sector)
 
 int			check_sector(t_sector sector, t_env *env)
 {
+	int		res;
+
 	if (is_inside(sector, env))
-		return (custom_error("Sector %d is inside or contains a sector\n",
+		return (custom_invalid("Sector %d is inside or contains a sector\n",
 		sector.num));
-		if (check_vertices(sector, env))
-		return (custom_error("Vertices invalid\n"));
+		res = check_vertices(sector, env);
+	if (res == -1)
+		return (custom_error("Vertices check had a system error\n"));
+	else if (res)
+		return (custom_invalid("Vertices are invalid for some reasons\n"));
 	if (check_slopes_start(sector))
-		return (custom_error("slope direction isn't valid\n"));
+		return (custom_invalid("slope direction isn't valid\n"));
 	if (distance_bewteen_ceiling_and_floor(sector))
-		return (custom_error("Distance between floor and ceiling"
-		" exceed 1000\n"));
+		return (custom_invalid("Distance between floor and ceiling"
+		"cannot exceed 1000\n"));
 	if (env->sector_is_straight)
-		return (custom_error("Sector %d is on a staight line\n", sector.num));
+		return (custom_invalid("Sector %d is on a staight line\n", sector.num));
 	if (check_entities_height_in_sector(&sector, env))
-		return (custom_error("Sector %d entities do not fit\n"));
+		return (custom_invalid("Sector %d entities do not fit\n"));
 	return (0);
 }
 
 int			valid_map(t_env *env)
 {
 	int	i;
+	int	res;
 
 	ft_printf("{reset}Checking map validity..{red}\n");
 	i = 0;
@@ -95,8 +105,8 @@ int			valid_map(t_env *env)
 		return (1);
 	while (i < env->nb_sectors)
 	{
-		if (check_sector(env->sectors[i], env))
-			return (-1);
+		if ((res = check_sector(env->sectors[i], env)))
+			return (res);
 		i++;
 	}
 	ft_printf("{reset}");

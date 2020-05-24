@@ -91,8 +91,6 @@ int		editor_keys3(t_env *env)
 
 int		editor_keys2(t_env *env)
 {
-	int		ret;
-
 	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.x -= 3;
 	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
@@ -103,8 +101,8 @@ int		editor_keys2(t_env *env)
 		env->editor.center.y += 3;
 	if (env->inputs.s && env->inputs.ctrl)
 	{
-		if ((ret = save_map_keys(env)) != 1)
-			return (ret);
+		if (save_map_keys(env) == -1)
+			return (-1);
 	}
 	if (button_keys(&env->editor.add_enemy, env))
 		return (-1);

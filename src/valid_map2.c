@@ -85,7 +85,7 @@ void	check_current_vertex(int i, t_sector sector, t_v2 *p, t_env *env)
 int		is_sector_concave2(t_sector sector, int res, t_env *env)
 {
 	if (res != -(sector.nb_vertices) && res != sector.nb_vertices && res)
-		return (-1);
+		return (1);
 	if (!res)
 		env->sector_is_straight = 1;
 	else

@@ -38,7 +38,7 @@ int		save_map_keys(t_env *env)
 		env->inputs.ctrl = 0;
 		env->input_box.text_size = 42;
 	}
-	return (1);
+	return (0);
 }
 
 int		editor_keys8(t_env *env)

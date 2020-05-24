@@ -164,6 +164,7 @@ int					segments_intersect(t_v2 p1, t_v2 p2, t_v2 p3, t_v2 p4);
 int					check_line_intersection(t_v2 p1, t_v2 p2, t_v2 p3,
 t_v2 p4);
 int					custom_error(const char *restrict message, ...);
+int					custom_invalid(const char *restrict message, ...);
 t_list				*ft_lstdelnode(t_list **list, t_list *node);
 t_plane				new_plane(t_v3 p1, t_v3 p2, t_v3 p3);
 t_v3				get_intersection_line_plane(t_v3 p1, t_v3 p2,

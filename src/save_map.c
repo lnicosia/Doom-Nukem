@@ -50,11 +50,15 @@ int		save_map(void *param)
 {
 	t_env			*env;
 	int				fd;
+	int				ret;
 
 	env = (t_env*)param;
 	ft_printf("Saving map in \"%s\"...\n", env->save_file);
 	ft_printf("{red}");
-	if (valid_map(env))
+	ret = valid_map(env);
+	if (ret == -1)
+		return (-1);
+	if (ret == 1)
 	{
 		if (update_confirmation_box(&env->confirmation_box, "Map is not valid",
 			ERROR, env))
