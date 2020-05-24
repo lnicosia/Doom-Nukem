@@ -6,11 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 15:56:21 by lnicosia          #+#    #+#              #
-<<<<<<< HEAD
 #    Updated: 2020/03/06 14:17:34 by gaerhard         ###   ########.fr        #
-=======
-#    Updated: 2020/05/22 19:57:59 by marvin           ###   ########.fr        #
->>>>>>> lucas
 #                                                                              #
 # **************************************************************************** #
 
@@ -467,8 +463,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  -fsanitize=address -g3 \
-		  #$(OPTI_FLAGS) \
+		  $(OPTI_FLAGS) \
+		  #-fsanitize=address -g3 \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking
