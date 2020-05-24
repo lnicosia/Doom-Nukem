@@ -49,7 +49,7 @@ int		init_skybox_small(int i, int mod, int mod_e, t_env *env)
 	env->editor.skyboxes[i].size_down = new_point(64, 64);
 	env->editor.skyboxes[i].pos =
 	new_point(300 + (66 * (i % mod)) + 7,
-	(150 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64))
+	(214 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64))
 	+ 64 * (i / mod) + 5);
 	return (0);
 }
