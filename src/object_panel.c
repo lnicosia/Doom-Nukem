@@ -6,18 +6,19 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:51:07 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:25:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
 
 int		set_object_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
 
-	down = 0;
+	down = -1;
 	if (index == OBJECT_SPRITE)
 		down = 0;
 	else if (index == OBJECT_X)
@@ -32,9 +33,19 @@ int		set_object_panel_buttons_state(t_target_panel *panel, int index)
 		down = 5;
 	else if (index == OBJECT_HP)
 		down = 6;
-	panel->targets[down].state = DOWN;
-	panel->selected_button = down;
+	if (down != -1)
+	{
+		panel->targets[down].state = DOWN;
+		panel->selected_button = down;
+	}
 	return (0);
+}
+
+void	select_object2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.event_panel.event.target)
+		set_object_panel_buttons_state(panel,
+		env->editor.event_panel.event.target_index);
 }
 
 int		select_object(void *param)
@@ -49,12 +60,11 @@ int		select_object(void *param)
 	else
 		panel = &env->editor.event_panel.target_panel;
 	panel->object_type = 1;
-	i = 0;
-	while (i < 8)
+	i = -1;
+	while (++i < 8)
 	{
 		panel->targets[i].state = UP;
 		panel->targets[i].anim_state = REST;
-		i++;
 	}
 	if (env->editor.creating_condition)
 	{
@@ -63,22 +73,25 @@ int		select_object(void *param)
 			env->editor.condition_panel.condition.target_index);
 	}
 	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_object_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
+		select_object2(panel, env);
 	return (0);
 }
 
 int		draw_object_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Sprite");
-	draw_button(env, panel->targets[1], "X");
-	draw_button(env, panel->targets[2], "Y");
-	draw_button(env, panel->targets[3], "Z");
-	draw_button(env, panel->targets[4], "Scale");
-	draw_button(env, panel->targets[5], "Damage");
-	draw_button(env, panel->targets[6], "Health");
+	if (draw_button(env, panel->targets[0], "Sprite"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "X"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Z"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Scale"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Damage"))
+		return (-1);
+	if (draw_button(env, panel->targets[6], "Health"))
+		return (-1);
 	return (0);
 }

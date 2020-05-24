@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   editor_3d_keys.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:18:01 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 10:23:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:35:20 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int		change_textures_scales(t_env *env)
 {
@@ -37,28 +38,83 @@ int		change_textures_scales(t_env *env)
 	return (0);
 }
 
-int		check_move_player_conditions(t_env *env)
+int		save_map_3d_keys(t_env *env)
 {
-	if ((((env->inputs.forward || env->inputs.backward || env->inputs.left
-		|| env->inputs.right || env->inputs.space || env->jump.on_going == 1
-		|| env->crouch.on_going || env->inputs.lgui)
-		&& env->player.health > 0 && !env->inputs.ctrl
-		&&  (((env->selected_enemy == -1 && env->editor.tab)
-		|| (env->selected_enemy != -1 && !env->editor.tab))
-		|| (env->selected_enemy == -1 && !env->editor.tab)))
-		|| (env->player.state.climb || env->player.state.drop))
-		&& !env->editor.tab)
-		return (1);
+	int	ret;
+
+	if ((ret = valid_map(env)))
+		return (ret);
+	if (env->editor.creating_event)
+	{
+		if (update_confirmation_box(&env->confirmation_box,
+			"Please save your event before saving the map", ERROR, env))
+			return (-1);
+	}
+	else
+	{
+		SDL_SetRelativeMouseMode(0);
+		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
+		if (new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
+				STRING, &env->save_file))
+			return (-1);
+		env->input_box.text_size = 50;
+		env->input_box.update = &save_map;
+		env->inputs.s = 0;
+		env->inputs.ctrl = 0;
+	}
+	return (1);
+}
+
+int		editor_3d_keys3(t_env *env)
+{
+	if (env->inputs.minus && env->inputs.shift
+	&& env->options.minimap_scale / 1.2 > 1)
+		env->options.minimap_scale /= 1.2;
+	if (env->inputs.h)
+	{
+		env->editor.options_from_h = 1;
+		env->editor.tab = 1;
+		env->options.editor_options = 1;
+	}
 	return (0);
+}
+
+int		editor_3d_keys2(t_env *env)
+{
+	int		ret;
+
+	if (env->inputs.s && env->inputs.ctrl)
+	{
+		if ((ret = save_map_3d_keys(env)) != 1)
+			return (ret);
+	}
+	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
+		&& !env->confirmation_box.state)
+	{
+		if (weapon_picker_keys(env))
+			return (-1);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keys(&env->confirmation_box, env))
+			return (-1);
+	}
+	if (env->inputs.plus && env->inputs.shift
+		&& env->options.minimap_scale * 1.2 < 100)
+		env->options.minimap_scale *= 1.2;
+	return (editor_3d_keys3(env));
 }
 
 int		editor_3d_keys(t_env *env)
 {
-	int		ret;
-
 	if (env->editor.tab)
 	{
-		if (editor_3d_tab_keys(env))
+		if (!env->options.editor_options)
+		{
+			if (editor_3d_tab_keys(env))
+				return (-1);
+		}
+		else if (editor_options_keys(env))
 			return (-1);
 	}
 	if (wall_edit_keys(env))
@@ -73,50 +129,5 @@ int		editor_3d_keys(t_env *env)
 		reset_selection(env);
 		tabs_gestion(env);
 	}
-	if (env->inputs.s && env->inputs.ctrl)
-	{
-		ret = valid_map(env);
-		if (ret == -1)
-			return (-1);
-		else if (ret)
-			return (0);
-		if (env->editor.creating_event)
-		{
-			if (update_confirmation_box(&env->confirmation_box,
-				"Please save your event before saving the map", ERROR, env))
-				return (-1);
-		}
-		else
-		{
-			SDL_SetRelativeMouseMode(0);
-			SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
-			new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
-					STRING, &env->save_file);
-			env->input_box.update = &save_map;
-			env->inputs.s = 0;
-			env->inputs.ctrl = 0;
-		}
-	}
-	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
-		&& !env->confirmation_box.state)
-	{
-		if (weapon_picker_keys(env))
-			return (-1);
-	}
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keys(&env->confirmation_box, env))
-			return (-1);
-	}
-/*	if (env->inputs.forward || env->inputs.backward || env->inputs.left
-			|| env->inputs.right)
-		play_sound(env, &env->sound.footstep_chan, env->sound.footstep,
-			env->sound.ambient_vol);*/
-	if (env->inputs.plus && !env->inputs.shift
-	&& env->options.minimap_scale * 1.2 < 100)
-		env->options.minimap_scale *= 1.2;
-	if (env->inputs.minus && !env->inputs.shift
-	&& env->options.minimap_scale / 1.2 > 1)
-		env->options.minimap_scale /= 1.2;
-	return (0);
+	return (editor_3d_keys2(env));
 }

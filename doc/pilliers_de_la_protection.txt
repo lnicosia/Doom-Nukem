@@ -1,0 +1,5 @@
+4 niveaux a proteger dans la map:
+_Au moment du parsing
+_Lorsqu'on modifie une valeur dans l'editeur a l'ecrit
+_Lorsqu'on modifie une valeur dans l'editeur avec les touches
+_Lorsqu'un event modifie une valeur

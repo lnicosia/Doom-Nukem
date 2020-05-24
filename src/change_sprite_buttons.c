@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_sprite_buttons.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 11:28:42 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/03 16:07:54 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/29 15:01:16 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		change_floor_sprite(t_button_next *button)
 }
 
 int		change_wall_sprite(t_button_next *button)
-{	
+{
 	t_env *env;
 
 	env = button->env;
@@ -78,9 +78,8 @@ int		change_wall_sprite(t_button_next *button)
 		if (env->selected_wall_sprite_sprite > 0)
 			env->selected_wall_sprite_sprite--;
 		else
-			env->selected_wall_sprite_sprite =
-			env->sectors[env->editor.selected_sector].
-			wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1;
+			env->selected_wall_sprite_sprite = env->sectors[env->editor.
+selected_sector].wall_sprites[env->selected_wall_sprite_wall].nb_sprites - 1;
 		env->editor.previous_sprite.state = UP;
 		env->editor.previous_sprite.anim_state = REST;
 	}
@@ -102,7 +101,7 @@ int		change_sprite(void *target)
 {
 	t_button_next	*button;
 	t_env			*env;
-	 
+
 	env = (t_env *)target;
 	button = NULL;
 	if (env->editor.next_sprite.state == DOWN)

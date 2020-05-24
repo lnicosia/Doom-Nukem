@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 t_v2	get_floor_bullet_hole_pos(t_sector *sector, t_projectile *projectile,
 t_env *env)

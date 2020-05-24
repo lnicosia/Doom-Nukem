@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 
 void	free_wall_sprite_events(t_wall_sprites *wall_sprites, int sprite)
 {
 	if (wall_sprites->nb_shoot_events[sprite] > 0)
-		free_events(wall_sprites->shoot_events[sprite],
-		wall_sprites->nb_shoot_events[sprite]);
+		free_events(&wall_sprites->shoot_events[sprite],
+		&wall_sprites->nb_shoot_events[sprite]);
 	if (wall_sprites->nb_press_events[sprite] > 0)
-		free_events(wall_sprites->press_events[sprite],
-		wall_sprites->nb_press_events[sprite]);
+		free_events(&wall_sprites->press_events[sprite],
+		&wall_sprites->nb_press_events[sprite]);
 }
 
 int		delete_wall_sprite2(t_wall_sprites *wall_sprites, int sprite)

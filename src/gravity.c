@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   gravity.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:06:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/01/24 17:02:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/21 15:23:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
 double	apply_climb(double vel)
 {
@@ -40,58 +41,66 @@ double	apply_drop(double vel)
 	return (move_acc - drag_acc);
 }
 
+void	player_fall(t_v3 pos, double time, t_env *env)
+{
+	double	new_velocity;
+	double	new_pos;
+
+	env->time.d_time = time - env->time.last_fall;
+	env->gravity.acceleration = env->gravity.force * 3.3;
+	new_pos = env->player.start_pos + (env->gravity.velocity
+	* env->time.d_time) + env->gravity.acceleration * env->time.d_time
+	* env->time.d_time * 0.5;
+	new_velocity = env->player.velocity_start + env->gravity.acceleration
+	* env->time.d_time;
+	env->gravity.velocity = new_velocity;
+	if (new_pos + env->player.eyesight > get_ceiling_at_pos(
+		&env->sectors[env->player.sector], pos, env) - 1)
+	{
+		new_pos = get_ceiling_at_pos(&env->sectors[env->player.sector],
+		pos, env) - 1 - env->player.eyesight;
+		env->time.d_time = 0;
+		env->gravity.velocity = 0;
+		env->player.velocity_start = 0;
+		env->gravity.acceleration = 0;
+		env->player.state.jump = 0;
+		env->player.start_pos = env->player.pos.z;
+		env->time.last_fall = SDL_GetTicks() / 1000.0;
+	}
+	env->player.pos.z = new_pos;
+}
+
+void	correct_player_fall(double slope, t_env *env)
+{
+	env->player.pos.z = slope;
+	env->gravity.velocity = 0;
+	env->gravity.acceleration = 0;
+	env->player.state.jump = 0;
+	env->time.d_time = 0;
+	env->player.state.fall = 0;
+}
+
 void	gravity(t_env *env)
 {
 	double	time;
-	double	new_pos;
-	double	new_velocity;
 	t_v3	pos;
 	double	slope;
 
 	pos.x = env->player.pos.x;
 	pos.y = env->player.pos.y;
-	slope = get_floor_at_pos(env->sectors[env->player.highest_sect], pos, env);
+	slope = get_floor_at_pos(&env->sectors[env->player.highest_sect], pos, env);
 	time = SDL_GetTicks() / 1000.0;
 	env->gravity.force = env->sectors[env->player.highest_sect].gravity;
-	if ((!env->player.state.fall
-	&& env->player.pos.z > slope + 2)
-	|| (env->player.state.jump && !env->player.state.fall && !env->player.state.fly))
+	if ((!env->player.state.fall && env->player.pos.z > slope + 2)
+		|| (env->player.state.jump && !env->player.state.fall
+		&& !env->player.state.fly))
 	{
-		env->player.state.walk = 0;
-		env->time.last_fall = SDL_GetTicks() / 1000.0;
-		env->player.state.fall = 1;
-		env->player.start_pos = env->player.pos.z;
-		env->player.velocity_start = env->gravity.velocity;
+		reset_state(env);
+		init_fall(env);
 	}
 	if (env->player.state.fall)
-	{
-		env->time.d_time = time - env->time.last_fall;
-		env->gravity.acceleration = env->gravity.force * 3.3;
-		new_pos = env->player.start_pos +  (env->gravity.velocity * env->time.d_time)
-			+ env->gravity.acceleration * env->time.d_time * env->time.d_time * 0.5;
-		new_velocity = env->player.velocity_start + env->gravity.acceleration * env->time.d_time;
-		env->gravity.velocity = new_velocity;
-		if (new_pos + env->player.eyesight > get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1)
-		{
-			new_pos = get_ceiling_at_pos(env->sectors[env->player.sector], pos, env) - 1 - env->player.eyesight;
-			env->time.d_time = 0;
-			env->gravity.velocity = 0;
-			env->player.velocity_start = 0;
-			env->gravity.acceleration = 0;
-			env->player.state.jump = 0;
-			env->player.start_pos = env->player.pos.z;
-			env->time.last_fall = SDL_GetTicks() / 1000.0;
-		}
-		env->player.pos.z = new_pos;
-	}
+		player_fall(pos, time, env);
 	if (env->player.pos.z < slope && env->player.state.fall && env->time.d_time)
-	{
-		env->player.pos.z = slope;
-		env->gravity.velocity = 0;
-		env->gravity.acceleration = 0;
-		env->player.state.jump = 0;
-		env->time.d_time = 0;
-		env->player.state.fall = 0;
-	}
+		correct_player_fall(slope, env);
 	env->player.head_z = env->player.pos.z + env->player.eyesight;
 }

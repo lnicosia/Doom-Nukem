@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "collision.h"
+#include "enemies.h"
+#include <math.h>
 
 /*
 ** Checks if a segment cross a sector and if it cross only portals and no walls

@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 14:37:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:59:48 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void	init_event_types3(t_env *env)
 {
@@ -37,10 +38,12 @@ void	init_event_types3(t_env *env)
 	env->event_types[OBJECT_Y] = "Y";
 	env->event_types[OBJECT_Z] = "Z";
 	env->event_types[WIN] = "Win";
+	env->event_types[DIALOG] = "Dialogue";
 }
 
 void	init_event_types2(t_env *env)
 {
+	env->event_types[SECTOR_WALL_SPRITES_SCALE_Y] = "scale Y";
 	env->event_types[SECTOR_FLOOR_SPRITES_SPRITE] = "sprite";
 	env->event_types[SECTOR_FLOOR_SPRITES_POS_X] = "pos X";
 	env->event_types[SECTOR_FLOOR_SPRITES_POS_Y] = "pos Y";
@@ -91,6 +94,5 @@ void	init_event_types(t_env *env)
 	env->event_types[SECTOR_WALL_SPRITES_POS_X] = "pos X";
 	env->event_types[SECTOR_WALL_SPRITES_POS_Y] = "pos Y";
 	env->event_types[SECTOR_WALL_SPRITES_SCALE_X] = "scale X";
-	env->event_types[SECTOR_WALL_SPRITES_SCALE_Y] = "scale Y";
 	init_event_types2(env);
 }

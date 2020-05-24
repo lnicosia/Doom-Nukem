@@ -6,21 +6,29 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:43:52 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:52:11 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/11 13:27:11 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "draw.h"
+#include "events.h"
+#include "parser.h"
 
 int		set_other_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
 
-	down = 0;
+	down = -1;
 	if (index == WIN)
 		down = 0;
-	panel->targets[down].state = DOWN;
-	panel->selected_button = down;
+	else if (index == DIALOG)
+		down = 1;
+	if (down != -1)
+	{
+		panel->targets[down].state = DOWN;
+		panel->selected_button = down;
+	}
 	return (0);
 }
 
@@ -34,7 +42,7 @@ int		select_other(void *param)
 	panel = &env->editor.event_panel.target_panel;
 	panel->other_type = 1;
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		panel->targets[i].state = UP;
 		i++;
@@ -47,6 +55,9 @@ int		select_other(void *param)
 
 int		draw_other_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "Win");
+	if (draw_button(env, panel->targets[0], "Win"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Dialog"))
+		return (-1);
 	return (0);
 }

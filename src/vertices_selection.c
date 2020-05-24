@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   vertices_selection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:03 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 17:18:42 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:49:38 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
-void	check_sector_order(t_env *env)
+int		check_sector_order(t_env *env)
 {
 	int	i;
 	int	j;
@@ -25,51 +26,63 @@ void	check_sector_order(t_env *env)
 		{
 			if (env->editor.dragged_vertex == env->sectors[i].vertices[j])
 			{
-				env->editor.reverted = get_clockwise_order_sector(env, i) ? 0 : 1;
-				if (env->editor.reverted)
-					ft_printf("sector is reverted\n");
-				revert_sector(&env->sectors[i], env);
-				break;
+				env->editor.reverted =
+				get_clockwise_order_sector(env, i) ? 0 : 1;
+				if (revert_sector(&env->sectors[i], env))
+					return (-1);
+				break ;
 			}
 			j++;
 		}
 		i++;
 	}
+	return (0);
 }
 
-void		vertices_selection(t_env *env)
+void	reset_vertex(t_env *env)
 {
-	int	click_vertex;
-	int	i;
+	env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
+	env->vertices[env->editor.selected_vertex].y = env->editor.start_pos.y;
+}
 
-	i = 0;
+int		check_click(t_env *env)
+{
+	int	i;
+	int	click_vertex;
+	int	ret;
+
+	i = -1;
 	click_vertex = -1;
-	if (!env->inputs.left_click && env->editor.dragged_vertex != -1
-		&& env->sdl.mx >= 400)
+	ret = is_new_dragged_vertex_valid(env, env->editor.selected_vertex);
+	if (ret == -1)
+		return (-1);
+	if (((click_vertex = get_existing_not_dragged_vertex(env)) != -1 || !ret)
+		&& (click_vertex != env->vertices[env->editor.selected_vertex].num))
+		reset_vertex(env);
+	else
 	{
-		if ((click_vertex = get_existing_not_dragged_vertex(env)) != -1
-			|| (!(is_new_dragged_vertex_valid(env, env->editor.selected_vertex))
-			&& (click_vertex != env->vertices[env->editor.selected_vertex].num)))
-		{
-			env->vertices[env->editor.selected_vertex].x = env->editor.start_pos.x;
-			env->vertices[env->editor.selected_vertex].y = env->editor.start_pos.y;
-		}
-		else
-		{
-			env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx -
-			env->editor.center.x) / env->editor.scale);
-			env->vertices[env->editor.selected_vertex].y = round((env->sdl.my -
-			env->editor.center.y) / env->editor.scale);
-			check_sector_order(env);
-			clear_portals(env);
-			while (i < env->nb_sectors)
-			{
-				create_portals(env, env->sectors[i]);
-				i++;
-			}
-			set_sectors_xmax(env);
-			precompute_slopes(env);
-		}
-		env->editor.dragged_vertex = -1;
+		env->vertices[env->editor.selected_vertex].x = round((env->sdl.mx -
+		env->editor.center.x) / env->editor.scale);
+		env->vertices[env->editor.selected_vertex].y = round((env->sdl.my -
+		env->editor.center.y) / env->editor.scale);
+		clear_portals(env);
+		while (++i < env->nb_sectors)
+			create_portals(env, env->sectors[i]);
 	}
+	return (0);
+}
+
+int		vertices_selection(t_env *env)
+{
+	if (!(!env->inputs.left_click && env->editor.dragged_vertex != -1
+		&& env->sdl.mx >= 400))
+		return (0);
+	if (check_click(env))
+		return (-1);
+	if (check_sector_order(env))
+		return (-1);
+	set_sectors_xmax(env);
+	precompute_slopes(env);
+	env->editor.dragged_vertex = -1;
+	return (0);
 }

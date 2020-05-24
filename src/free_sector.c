@@ -3,51 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   free_sector.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:08:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 10:20:40 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 11:01:57 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h" 
+#include "free.h"
 
-void		free_wall_sprites(t_wall_sprites *wall)
+void		free_sector5(t_sector *sector)
 {
-	int		i;
+	int	j;
 
-	i = 0;
-	while (i < wall->nb_sprites)
+	if (sector->wall_bullet_holes)
 	{
-		if (wall->nb_shoot_events && wall->nb_shoot_events[i] > 0
-			&& wall->shoot_events && wall->shoot_events[i])
-			free_events(wall->shoot_events[i], wall->nb_shoot_events[i]);
-		if (wall->nb_press_events && wall->nb_press_events[i] > 0
-			&& wall->press_events && wall->press_events[i])
-			free_events(wall->press_events[i], wall->nb_press_events[i]);
-		i++;
+		j = 0;
+		while (j <= sector->nb_vertices)
+		{
+			ft_lstdelfront(&sector->wall_bullet_holes[j]);
+			j++;
+		}
+		ft_memdel((void**)&sector->wall_bullet_holes);
 	}
-	if (wall->sprite)
-		ft_memdel((void**)&wall->sprite);
-	if (wall->pos)
-		ft_memdel((void**)&wall->pos);
-	if (wall->scale)
-		ft_memdel((void**)&wall->scale);
-	if (wall->nb_press_events)
-		ft_memdel((void**)&wall->nb_press_events);
-	if (wall->nb_shoot_events)
-		ft_memdel((void**)&wall->nb_shoot_events);
-	if (wall->press_events)
-		ft_memdel((void**)&wall->press_events);
-	if (wall->shoot_events)
-		ft_memdel((void**)&wall->shoot_events);
+}
+
+void		free_sector4(t_sector *sector)
+{
+	int	j;
+
+	if (sector->walls_map_lvl)
+	{
+		j = 0;
+		while (j <= sector->nb_vertices)
+		{
+			if (sector->walls_map_lvl[j])
+				ft_memdel((void**)&sector->walls_map_lvl[j]);
+			j++;
+		}
+		ft_memdel((void**)&sector->walls_map_lvl);
+	}
+	if (sector->wall_sprites)
+	{
+		j = 0;
+		while (j < sector->nb_vertices)
+		{
+			free_wall_sprites(&sector->wall_sprites[j]);
+			j++;
+		}
+		ft_memdel((void**)&sector->wall_sprites);
+	}
+	free_sector5(sector);
+}
+
+void		free_sector3(t_sector *sector)
+{
+	if (sector->ceiling_sprites.sprite)
+		ft_memdel((void**)&sector->ceiling_sprites.sprite);
+	if (sector->ceiling_sprites.scale)
+		ft_memdel((void**)&sector->ceiling_sprites.scale);
+	if (sector->ceiling_sprites.pos)
+		ft_memdel((void**)&sector->ceiling_sprites.pos);
+	if (sector->floor_sprites.sprite)
+		ft_memdel((void**)&sector->floor_sprites.sprite);
+	if (sector->floor_sprites.scale)
+		ft_memdel((void**)&sector->floor_sprites.scale);
+	if (sector->floor_sprites.pos)
+		ft_memdel((void**)&sector->floor_sprites.pos);
+	free_wall_sprites(&sector->floor_sprites);
+	free_wall_sprites(&sector->ceiling_sprites);
+	free_events(&sector->stand_events, &sector->nb_stand_events);
+	free_events(&sector->walk_in_events, &sector->nb_walk_in_events);
+	free_events(&sector->walk_out_events, &sector->nb_walk_out_events);
+	free_sector4(sector);
+}
+
+void		free_sector2(t_sector *sector)
+{
+	if (sector->scale)
+		ft_memdel((void**)&sector->scale);
+	if (sector->portals)
+		ft_memdel((void**)&sector->portals);
+	if (sector->floor_map_lvl)
+		ft_memdel((void**)&sector->floor_map_lvl);
+	if (sector->ceiling_map_lvl)
+		ft_memdel((void**)&sector->ceiling_map_lvl);
+	if (sector->floor_align)
+		ft_memdel((void**)&sector->floor_align);
+	if (sector->floor_scale)
+		ft_memdel((void**)&sector->floor_scale);
+	if (sector->ceiling_align)
+		ft_memdel((void**)&sector->ceiling_align);
+	if (sector->ceiling_scale)
+		ft_memdel((void**)&sector->ceiling_scale);
+	if (sector->selected)
+		ft_memdel((void**)&sector->selected);
+	if (sector->ceiling_sprites_scale)
+		ft_memdel((void**)&sector->ceiling_sprites_scale);
+	if (sector->floor_sprites_scale)
+		ft_memdel((void**)&sector->floor_sprites_scale);
+	free_sector3(sector);
 }
 
 void		free_sector(t_sector *sector)
 {
-	//int	i;
-	int	j;
-
 	if (sector->vertices)
 		ft_memdel((void**)&sector->vertices);
 	if (sector->neighbors)
@@ -70,77 +129,5 @@ void		free_sector(t_sector *sector)
 		ft_memdel((void**)&sector->wall_width);
 	if (sector->align)
 		ft_memdel((void**)&sector->align);
-	if (sector->scale)
-		ft_memdel((void**)&sector->scale);
-	if (sector->portals)
-		ft_memdel((void**)&sector->portals);
-	if (sector->floor_map_lvl)
-		ft_memdel((void**)&sector->floor_map_lvl);
-	if (sector->ceiling_map_lvl)
-		ft_memdel((void**)&sector->ceiling_map_lvl);
-	if (sector->floor_align)
-		ft_memdel((void**)&sector->floor_align);
-	if (sector->floor_scale)
-		ft_memdel((void**)&sector->floor_scale);
-	if (sector->ceiling_align)
-		ft_memdel((void**)&sector->ceiling_align);
-	if (sector->ceiling_scale)
-		ft_memdel((void**)&sector->ceiling_scale);
-	if (sector->selected)
-		ft_memdel((void**)&sector->selected);
-	if (sector->walls_map_lvl)
-	{
-		j = 0;
-		while (j <= sector->nb_vertices)
-		{
-			if (sector->walls_map_lvl[j])
-				ft_memdel((void**)&sector->walls_map_lvl[j]);
-			j++;
-		}
-		ft_memdel((void**)&sector->walls_map_lvl);
-	}
-	free_wall_sprites(&sector->floor_sprites);
-	free_wall_sprites(&sector->ceiling_sprites);
-	if (sector->wall_sprites)
-	{
-		j = 0;
-		while (j < sector->nb_vertices)
-		{
-			free_wall_sprites(&sector->wall_sprites[j]);
-			j++;
-		}
-		ft_memdel((void**)&sector->wall_sprites);
-	}
-	if (sector->ceiling_sprites_scale)
-		ft_memdel((void**)&sector->ceiling_sprites_scale);
-	if (sector->floor_sprites_scale)
-		ft_memdel((void**)&sector->floor_sprites_scale);
-	if (sector->ceiling_sprites.sprite)
-		ft_memdel((void**)&sector->ceiling_sprites.sprite);
-	if (sector->ceiling_sprites.scale)
-		ft_memdel((void**)&sector->ceiling_sprites.scale);
-	if (sector->ceiling_sprites.pos)
-		ft_memdel((void**)&sector->ceiling_sprites.pos);
-	if (sector->floor_sprites.sprite)
-		ft_memdel((void**)&sector->floor_sprites.sprite);
-	if (sector->floor_sprites.scale)
-		ft_memdel((void**)&sector->floor_sprites.scale);
-	if (sector->floor_sprites.pos)
-		ft_memdel((void**)&sector->floor_sprites.pos);
-	if (sector->wall_bullet_holes)
-	{
-		j = 0;
-		while (j <= sector->nb_vertices)
-		{
-			ft_lstdelfront(&sector->wall_bullet_holes[j]);
-			j++;
-		}
-		ft_memdel((void**)&sector->wall_bullet_holes);
-	}
-	free_events(sector->stand_events,
-			sector->nb_stand_events);
-	free_events(sector->walk_in_events,
-			sector->nb_walk_in_events);
-	free_events(sector->walk_out_events,
-			sector->nb_walk_out_events);
+	free_sector2(sector);
 }

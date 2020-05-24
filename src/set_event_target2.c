@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void		*set_event_target8(t_env *env, t_events_parser *eparser)
 {
@@ -106,19 +107,19 @@ void		*set_event_target4(t_env *env, t_events_parser *eparser)
 {
 	if (eparser->target_index == SECTOR_CEILING_SPRITES_SPRITE)
 		return (&env->sectors[eparser->target_sector].
-		floor_sprites.sprite[eparser->target_sprite]);
+		ceiling_sprites.sprite[eparser->target_sprite]);
 	else if (eparser->target_index == SECTOR_CEILING_SPRITES_POS_X)
 		return (&env->sectors[eparser->target_sector].
-		floor_sprites.pos[eparser->target_sprite].x);
+		ceiling_sprites.pos[eparser->target_sprite].x);
 	else if (eparser->target_index == SECTOR_CEILING_SPRITES_POS_Y)
 		return (&env->sectors[eparser->target_sector].
-		floor_sprites.pos[eparser->target_sprite].y);
+		ceiling_sprites.pos[eparser->target_sprite].y);
 	else if (eparser->target_index == SECTOR_CEILING_SPRITES_SCALE_X)
 		return (&env->sectors[eparser->target_sector].
-		floor_sprites.scale[eparser->target_sprite].x);
+		ceiling_sprites.scale[eparser->target_sprite].x);
 	else if (eparser->target_index == SECTOR_CEILING_SPRITES_SCALE_Y)
 		return (&env->sectors[eparser->target_sector].
-		floor_sprites.scale[eparser->target_sprite].y);
+		ceiling_sprites.scale[eparser->target_sprite].y);
 	else
 		return (set_event_target5(env, eparser));
 }

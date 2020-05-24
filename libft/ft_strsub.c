@@ -22,7 +22,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 		return (0);
 	if (!(str = ft_strnew(len)))
 		return (0);
-	while (s[start + i] && i < len)
+	while (i < len && s[start + i])
 	{
 		str[i] = s[start + i];
 		i++;

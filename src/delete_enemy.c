@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 
 int	delete_enemy(void *param)
 {
@@ -19,10 +19,10 @@ int	delete_enemy(void *param)
 
 	env = (t_env*)param;
 	enemy = env->selected_enemy;
-	free_events(env->enemies[enemy].collision_events,
-	env->enemies[enemy].nb_collision_events);
-	free_events(env->enemies[enemy].death_events,
-	env->enemies[enemy].nb_death_events);
+	free_events(&env->enemies[enemy].collision_events,
+	&env->enemies[enemy].nb_collision_events);
+	free_events(&env->enemies[enemy].death_events,
+	&env->enemies[enemy].nb_death_events);
 	env->enemies = (t_enemy*)ft_delindex(env->enemies,
 			sizeof(t_enemy) * env->nb_enemies,
 			sizeof(t_enemy),

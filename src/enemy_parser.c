@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_parser.c                                    :+:      :+:    :+:   */
+/*   enemy_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 19:10:59 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:50:26 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
+#include "enemies.h"
 
 int		enemy_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
@@ -20,7 +22,7 @@ t_events_parser *eparser)
 	if (**line != ' ')
 		return (invalid_char("before enemy number", "a space",
 		**line, parser));
-	(*line)++;
+		(*line)++;
 	if (!**line || **line == ' ')
 		return (missing_data("enemy data", parser));
 	if (**line != '(')
@@ -28,10 +30,10 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("enemy number", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before enemy number", "a digit", **line,
 		parser));
-	eparser->current_enemy = ft_atoi(*line);
+		eparser->current_enemy = ft_atoi(*line);
 	if (eparser->current_enemy < 0
 		|| eparser->current_enemy >= env->nb_enemies)
 		return (custom_error_with_line("Invalid enemy index", parser));

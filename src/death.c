@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:30 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 11:17:31 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 15:50:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
+#include "init.h"
 #include "collision.h"
+#include "parser.h"
 
 void		respawn_entities(void *param)
 {
-	int i;
-	t_env *env;
+	int		i;
+	t_env	*env;
 
 	i = 0;
 	env = (t_env *)param;
@@ -41,27 +43,8 @@ void		respawn_entities(void *param)
 	}
 }
 
-int			respawn(void *param)
+int			respawn3(t_env *env)
 {
-	t_env	*env;
-
-	env = (t_env*)param;
-	env->player.pos = env->player.init_data.pos;
-	env->player.killed = 0;
-	env->player.touched = 0;
-	env->player.nb_shots = 0;
-	env->player.accuracy = 0;
-	env->player.health = env->player.init_data.health;
-	env->player.sector = env->player.init_data.sector;
-	free_camera(&env->player.camera, env);
-	env->player.camera = env->player.init_data.camera;
-	if (init_camera(&env->player.camera, env))
-		return (-1);
-	update_camera_position(&env->player.camera);
-	view(env);
-	respawn_entities(param);
-	init_weapons(env);
-	init_enemies_data(env);
 	init_objects_data(env);
 	init_animations(env);
 	env->player.highest_sect = find_highest_sector(env,
@@ -73,10 +56,53 @@ int			respawn(void *param)
 	return (0);
 }
 
-int			stop_game(void *param)
+int			respawn2(t_env *env)
 {
-	((t_env*)param)->running = 0;
-	return (0);
+	int		i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].exists = 1;
+		i++;
+	}
+	i = -1;
+	while (++i < env->nb_enemies)
+	{
+		env->enemies[i].exists = 1;
+		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
+	}
+	env->dialog_box = 0;
+	env->next_dialog = 0;
+	if (init_camera(&env->player.camera, env))
+		return (-1);
+	update_camera_position(&env->player.camera);
+	view(env);
+	init_weapons(env);
+	init_enemies_data(env);
+	return (respawn3(env));
+}
+
+int			respawn(void *param)
+{
+	t_env	*env;
+
+	env = (t_env*)param;
+	free_map(env);
+	init_player(env);
+	if (parse_map(env->save_file, env))
+	{
+		if (close(env->parser.fd))
+			return (ft_perror("Map parsing failed and could not close the"
+			" map file\n"));
+		return (-1);
+	}
+	if (valid_map(env))
+		return (-1);
+	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (ft_perror("Could not malloc sector list"));
+	refresh_env(env);
+	return (respawn2(env));
 }
 
 int			death(t_env *env)
@@ -85,7 +111,8 @@ int			death(t_env *env)
 
 	i = 0;
 	if (env->player.nb_shots > 0)
-		env->player.accuracy = ((env->player.touched / env->player.nb_shots) * 100);
+		env->player.accuracy = ((env->player.touched / env->player.nb_shots)
+		* 100);
 	if (!env->confirmation_box.state)
 	{
 		SDL_SetRelativeMouseMode(0);

@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:50:08 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/16 15:37:20 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 12:08:17 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		weapon_parser(t_env *env, t_map_parser *parser, char **line,
 t_events_parser *eparser)
@@ -21,7 +22,7 @@ t_events_parser *eparser)
 	if (**line != ' ')
 		return (invalid_char("before weapon number", "a space",
 		**line, parser));
-	(*line)++;
+		(*line)++;
 	if (!**line || **line == ' ')
 		return (missing_data("weapon data", parser));
 	if (**line != '(')
@@ -29,12 +30,11 @@ t_events_parser *eparser)
 	(*line)++;
 	if (!**line || **line == ']' || **line == ')')
 		return (missing_data("weapon number", parser));
-	if (valid_number(*line, parser))
+	if (valid_int(*line, parser))
 		return (invalid_char("before weapon number", "a digit", **line,
 		parser));
-	eparser->current_weapon = ft_atoi(*line);
-	if (eparser->current_weapon < 0
-		|| eparser->current_weapon >= NB_WEAPONS)
+		eparser->current_weapon = ft_atoi(*line);
+	if (eparser->current_weapon < 0 || eparser->current_weapon >= NB_WEAPONS)
 		return (custom_error_with_line("Invalid weapon index", parser));
 	*line = skip_number(*line);
 	if (!**line || **line != ')')

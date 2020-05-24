@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 20:54:27 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 11:07:22 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/05/23 20:33:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,62 +20,43 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include "libft.h"
-# define X1 env->vertices[env->sectors[motion.sector].vertices[i]].x
-# define X2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].x
-# define Y1 env->vertices[env->sectors[motion.sector].vertices[i]].y
-# define Y2 env->vertices[env->sectors[motion.sector].vertices[i + 1]].y
-# define PLAYER_XPOS env->player.pos.x
-# define PLAYER_YPOS env->player.pos.y
+# include "defines_images.h"
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
-# define MAX_WALL_TEXTURE 15
-# define MAX_TEXTURES 52
-# define MAX_UI_TEXTURES 60
-# define MAX_MONSTER_MINI 2
-# define MAX_OBJECT_SPRITES 33
-# define MAX_ENEMY_SPRITES 13
 # define CONVERT_RADIANS 0.0174532925199432955
 # define CONVERT_DEGREES 57.2957795130823228647
+# define MAX_WALL_TEXTURE 16
+# define MAX_TEXTURES 62
+# define MAX_UI_TEXTURES 64
+# define MAX_MONSTER_MINI 2
+# define MAX_OBJECT_SPRITES 34
+# define MAX_ENEMY_SPRITES 13
 # define NB_WEAPONS 5
 # define MAX_SKYBOX 3
 # define MAX_ENEMIES 2
-# define MAX_OBJECTS 24
+# define MAX_OBJECTS 23
+# define MAX_TRIGGER_TYPES 8
+# define MAX_TARGET_TYPES 69
+# define MAX_REAL_TARGET_TYPES 67
+# define NB_FONTS_FILE 8
+# define NB_FONTS 35
+# define NB_ENEMIES_FILES 32
+# define NB_EDITOR_FILES 3
+# define NB_OBJECTS_SPRITES 4
+# define NB_WALL_SPRITES 4
+# define NB_EDITOR_SPRITES 3
+# define NB_HUD_SPRITES 3
+# define NB_UI_FILES 8
+# define NB_BMP_SPRITES 13
+# define NB_HUD_FILES 45
+# define MAX_SPRITES_TEXTURES 58
+
 # define NB_BUTTON 10
-# define AMMO_HUD 26
-# define ARMOR_LIFE_HUD 27
 # define THREADS 4
 # define MAX_W 2560
 # define MAX_H 1440
-# define LOST_SOUL 0
-# define CYBER_DEMON 5
-# define MINIGUN 0
-# define HEALTH_PACK 2
-# define SHELL_AMMO 3
-# define ROCKETS_AMMO 4
-# define REGULAR_AMMO 5
-# define ENERGY_AMMO 6
-# define LAMP 7
-# define MONITOR_OFF 11
-# define MONITOR_ON 12
-# define MONITOR_DESTROYED 16
-# define GREEN_ARMOR 17
-# define CANDLE 18
-# define BARREL 20
-# define GRID 23
-# define BUTTON_OFF 24
-# define BUTTON_ON 25
-# define BULLET_HOLE 26
-# define LOST_SOUL_OBJECT 27
-# define CYBER_DEMON_OBJECT 28
-# define DOOM_GUY_FACE 29
-# define CAMERA_SPRITE 30
-# define SHOTGUN_SPRITE 31
-# define RAYGUN_SPRITE 32
 # define NB_MUSICS 3
-# define DOOM_GUY 33
-# define MAX_TRIGGER_TYPES 8
-# define MAX_TARGET_TYPES 68
-# define MAX_REAL_TARGET_TYPES 67
+# define NB_SOUNDS 14
 
 typedef	enum		e_musics_list
 {
@@ -122,22 +103,22 @@ typedef enum		e_button_state
 {
 	UP,
 	DOWN
-}			t_button_state;
+}					t_button_state;
 
 typedef enum		e_button_anim_state
 {
 	REST,
 	PRESSED,
 	HOVER
-}			t_button_anim_state;
+}					t_button_anim_state;
 
 typedef enum		e_confirmation_box_type
 {
-		YESNO,
-		INFO,
-		ERROR,
-		CONFIRM,
-		WARNING
+	YESNO,
+	INFO,
+	ERROR,
+	CONFIRM,
+	WARNING
 }					t_confirmation_box_type;
 
 typedef enum		e_object_type
@@ -198,6 +179,11 @@ typedef enum		e_skybox_source
 	FLOOR
 }					t_skybox_source;
 
+typedef enum		e_ui_textures
+{
+	BACKGROUND
+}					t_ui_textures;
+
 typedef struct		s_line_eq
 {
 	double a;
@@ -219,10 +205,42 @@ typedef struct		s_circle
 	int				radius;
 }					t_circle;
 
-typedef enum		s_ui_textures
+typedef struct		s_init
 {
-	BACKGROUND
-}					t_ui_textures;
+	int				textures[MAX_WALL_TEXTURE];
+	char			*text_name[MAX_WALL_TEXTURE];
+	int				hud[NB_HUD_FILES];
+	char			*hud_names[NB_HUD_FILES];
+	int				skyboxes[MAX_SKYBOX * 6];
+	char			*skyboxes_names[MAX_SKYBOX * 6];
+	int				sprites[NB_WALL_SPRITES];
+	char			*sprites_names[NB_WALL_SPRITES];
+	int				editor[NB_EDITOR_SPRITES];
+	char			*editor_names[NB_EDITOR_SPRITES];
+	int				enemies[MAX_ENEMIES];
+	char			*enemy_names[MAX_ENEMIES];
+	int				objects[MAX_OBJECTS];
+	char			*objects_names[MAX_OBJECTS];
+	int				fonts[NB_FONTS_FILE];
+	char			*fonts_names[NB_FONTS_FILE];
+	int				sounds[NB_SOUNDS];
+	char			*sounds_names[NB_SOUNDS];
+	int				musics[NB_MUSICS];
+	char			*musics_names[NB_MUSICS];
+	int				ui[NB_UI_FILES];
+	char			*ui_names[NB_UI_FILES];
+}					t_init;
+
+typedef	struct		s_resource
+{
+	int				nb_textures;
+	int				nb_sprites;
+	int				nb_skyboxes;
+	int				nb_fonts;
+	int				nb_sound;
+	int				nb_hud_files;
+	int				nb_ui_files;
+}					t_resource;
 
 typedef struct		s_state
 {
@@ -331,21 +349,21 @@ typedef struct		s_sprite
 
 typedef struct		s_event_param
 {
-		int			num;
-		int			num2;
-		int			num3;
-		int			sector;
-		int			wall;
-		int			sprite;
-		int			size;
-		int			enemy;
-		int			object;
-		int			vertex;
-		int			weapon;
-		double		equ_value;
-		double		diff_value;
-		void		*target;
-		int			target_type;
+	int				num;
+	int				num2;
+	int				num3;
+	int				sector;
+	int				wall;
+	int				sprite;
+	int				size;
+	int				enemy;
+	int				object;
+	int				vertex;
+	int				weapon;
+	double			equ_value;
+	double			diff_value;
+	void			*target;
+	int				target_type;
 }					t_event_param;
 
 typedef struct		s_event_target
@@ -425,7 +443,7 @@ typedef struct		s_wall_sprites
 
 typedef struct		s_bullet_hole
 {
-  	t_v2			pos;
+	t_v2			pos;
 	t_v2			scale;
 	t_v2			map_scale;
 }					t_bullet_hole;
@@ -470,7 +488,6 @@ typedef struct		s_sector
 	t_list			**wall_bullet_holes;
 	t_v2			*ceiling_sprites_scale;
 	t_v2			*floor_sprites_scale;
-	double			sprite_time;
 	t_v2			*align;
 	t_v2			*scale;
 	int				first_angles[3];
@@ -592,7 +609,7 @@ typedef	struct		s_init_data
 	t_camera		camera;
 	int				sector;
 	double			angle;
-	int				health;	
+	int				health;
 	int				main_sprite;
 }					t_init_data;
 
@@ -679,6 +696,7 @@ typedef struct		s_keys
 	Sint32			equals;
 	Sint32			p;
 	Sint32			a;
+	Sint32			h;
 	Sint32			lgui;
 	Sint32			nb1;
 	Sint32			nb2;
@@ -721,6 +739,7 @@ typedef struct		s_inputs
 	uint8_t			home;
 	uint8_t			end;
 	uint8_t			a;
+	uint8_t			h;
 	uint8_t			lgui;
 	uint8_t			nb1;
 	uint8_t			nb2;
@@ -796,17 +815,27 @@ typedef struct		s_sound
 	FMOD_RESULT		result;
 	FMOD_CHANNEL	*music_chan;
 	FMOD_CHANNEL	*player_movement_chan;
+	FMOD_CHANNEL	*player_reaction_chan;
 	FMOD_CHANNEL	*player_shots_chan;
+	FMOD_CHANNEL	*enemies_reaction_chan;
+	FMOD_CHANNEL	*enemies_shots_chan;
 	FMOD_CHANNEL	*footstep_chan;
+	FMOD_CHANNEL	*explosions_chan;
 	t_music_list	musics[NB_MUSICS];
 	FMOD_SOUND		*footstep;
+	FMOD_SOUND		*player_hit;
+	FMOD_SOUND		*player_death;
+	FMOD_SOUND		*cyberdemon_death;
+	FMOD_SOUND		*lost_soul_death;
+	FMOD_SOUND		*lost_soul_attack;
+	FMOD_SOUND		*monster_hit;
+	FMOD_SOUND		*monster_nearby;
+	FMOD_SOUND		*explosion;
 }					t_sound;
 
 /*
 **	Contains every data needed for an animation on the screen
 */
-
-
 
 typedef struct		s_time
 {
@@ -890,6 +919,8 @@ typedef struct		s_projectile_data_2
 {
 	double			angle_z;
 	double			radius;
+	int				hurts_player;
+	int				hurts_enemies;
 }					t_projectile_data_2;
 
 /*
@@ -909,7 +940,7 @@ typedef	struct		s_projectile
 	double			scale;
 	double			angle;
 	double			size_2d;
-	int			brightness;
+	int				brightness;
 	Uint32			light_color;
 	int				intensity;
 	int				sector;
@@ -917,6 +948,8 @@ typedef	struct		s_projectile
 	double			speed;
 	int				sprite;
 	int				damage;
+	int				hurts_player;
+	int				hurts_enemies;
 }					t_projectile;
 
 typedef	struct		s_explosion_data
@@ -1095,11 +1128,11 @@ typedef struct		s_texture
 	size_t			nb_maps;
 }					t_texture;
 
-typedef struct s_skybox
+typedef struct		s_skybox
 {
-	char		*name;
-	t_texture	textures[6];
-}				t_skybox;
+	char			*name;
+	t_texture		textures[6];
+}					t_skybox;
 
 /*
 **	Contains a list of options for the game
@@ -1108,27 +1141,18 @@ typedef struct s_skybox
 typedef struct		s_options
 {
 	double			minimap_scale;
-	int				contouring;
 	int				render_sectors;
 	int				lighting;
 	int				show_minimap;
 	int				show_fps;
-	int				wall_lover;
-	int				color_clipping;
-	int				wall_color;
 	int				test;
 	int				clipping;
-	int				show_ennemies;
 	int				zbuffer;
-	int				p;
-	int				l;
 	int				o;
-	int				animations;
-	int				gamma_filter;
 	int				mipmapping;
-	int				mouse;
 	int				max_floor_sprites;
 	int				max_wall_sprites;
+	int				editor_options;
 }					t_options;
 
 /*
@@ -1167,7 +1191,7 @@ typedef struct		s_rectangle
 	int				filled;
 	int				line_size;
 }					t_rectangle;
- 
+
 /*
 **	Data for button
 */
@@ -1235,6 +1259,8 @@ typedef struct		s_input_box
 	TTF_Font		*font;
 	t_point			size;
 	t_point			pos;
+	t_point			current_line_pos;
+	t_point			current_text_size;
 	int				state;
 	int				type;
 	int				caps;
@@ -1243,6 +1269,15 @@ typedef struct		s_input_box
 	int				cursor_state;
 	int				add_period;
 	int				accept_inputs;
+	int				max_lines;
+	int				click;
+	int				down;
+	int				up;
+	int				cursor_in_line;
+	int				change_cursor_line;
+	size_t			prec_count;
+	size_t			count;
+	size_t			line_size;
 	size_t			cursor;
 	size_t			float_count;
 	size_t			int_count;
@@ -1250,6 +1285,7 @@ typedef struct		s_input_box
 	size_t			minus;
 	size_t			select_start;
 	size_t			select_end;
+	size_t			text_size;
 	char			*str;
 	char			*error_message;
 	Uint32			del_timer;

@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   player_panel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:09:54 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/03 13:46:06 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/19 12:44:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "events_parser.h"
+#include "draw.h"
+#include "events.h"
+
+void	select_player_panel_button(t_target_panel *panel, int down)
+{
+	panel->targets[down].state = DOWN;
+	panel->selected_button = down;
+}
 
 int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 {
 	int		down;
 
-	down = 0;
+	down = -1;
 	if (index == PLAYER_X)
 		down = 0;
 	else if (index == PLAYER_Y)
@@ -36,8 +44,27 @@ int		set_player_panel_buttons_state(t_target_panel *panel, int index)
 		down = 7;
 	else if (index == PLAYER_SECTOR)
 		down = 8;
-	panel->targets[down].state = DOWN;
-	panel->selected_button = down;
+	if (down != -1)
+		select_player_panel_button(panel, down);
+	return (0);
+}
+
+int		select_player2(t_target_panel *panel, t_env *env)
+{
+	if (env->editor.creating_condition)
+	{
+		if (env->editor.condition_panel.condition.target)
+			set_player_panel_buttons_state(panel,
+			env->editor.condition_panel.condition.target_index);
+	}
+	else
+	{
+		if (env->editor.event_panel.event.target)
+			set_player_panel_buttons_state(panel,
+			env->editor.event_panel.event.target_index);
+	}
+	update_condition_target_buttons_pos(env);
+	update_target_panel_buttons_pos(env);
 	return (0);
 }
 
@@ -60,34 +87,31 @@ int		select_player(void *param)
 		panel->targets[i].anim_state = REST;
 		i++;
 	}
-	if (env->editor.creating_condition)
-	{
-		if (env->editor.condition_panel.condition.target)
-			set_player_panel_buttons_state(panel,
-			env->editor.condition_panel.condition.target_index);
-	}
-	else
-	{
-		if (env->editor.event_panel.event.target)
-			set_player_panel_buttons_state(panel,
-			env->editor.event_panel.event.target_index);
-	}
-	update_condition_target_buttons_pos(env);
-	update_target_panel_buttons_pos(env);
-	return (0);
+	return (select_player2(panel, env));
 }
 
 int		draw_player_panel(t_env *env, t_target_panel *panel)
 {
-	draw_button(env, panel->targets[0], "X");
-	draw_button(env, panel->targets[1], "Y");
-	draw_button(env, panel->targets[2], "Z");
-	draw_button(env, panel->targets[3], "Health");
-	draw_button(env, panel->targets[4], "Armor");
-	draw_button(env, panel->targets[5], "Speed");
-	draw_button(env, panel->targets[6], "Invincible");
-	draw_button(env, panel->targets[7], "Infinite ammo");
+	if (draw_button(env, panel->targets[0], "X"))
+		return (-1);
+	if (draw_button(env, panel->targets[1], "Y"))
+		return (-1);
+	if (draw_button(env, panel->targets[2], "Z"))
+		return (-1);
+	if (draw_button(env, panel->targets[3], "Health"))
+		return (-1);
+	if (draw_button(env, panel->targets[4], "Armor"))
+		return (-1);
+	if (draw_button(env, panel->targets[5], "Speed"))
+		return (-1);
+	if (draw_button(env, panel->targets[6], "Invincible"))
+		return (-1);
+	if (draw_button(env, panel->targets[7], "Infinite ammo"))
+		return (-1);
 	if (env->editor.creating_condition)
-		draw_button(env, panel->targets[8], "Sector");
+	{
+		if (draw_button(env, panel->targets[8], "Sector"))
+			return (-1);
+	}
 	return (0);
 }

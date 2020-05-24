@@ -16,10 +16,18 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 {
 	char	*str;
 
-	if (!s1 || !s2)
+	if (!s1)
 		return (0);
+	if (!s2)
+	{
+		ft_strdel(&s1);
+		return (0);
+	}
 	if (!(str = ft_strnew((ft_strlen(s1) + ft_strlen(s2)))))
+	{
+		ft_strdel(&s1);
 		return (0);
+	}
 	if (!(ft_strcpy(str, s1)))
 		return (0);
 	if (!(ft_strcat(str, s2)))

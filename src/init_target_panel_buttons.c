@@ -6,63 +6,14 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:57:33 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/02 15:07:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 12:09:27 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
-int			get_target_selection_phase(t_target_panel *panel)
-{
-	if (panel->sector_type && !panel->floor_type && !panel->ceiling_type
-		&& !panel->sector_other_type)
-		return (1);
-	else if (panel->wall_type || panel->wall_sprite_type
-		|| panel->weapon_type || panel->enemy_type || panel->object_type
-		|| panel->player_type || panel->vertex_type || panel->floor_type
-		|| panel->ceiling_type || panel->sector_other_type || panel->other_type)
-		return (2);
-	return (0);
-}
-
-int			set_int_button(void *param)
-{
-	*((int*)param) = 1;
-	return (0);
-}
-
-int			previous_target_selection_phase(void *param)
-{
-	t_target_panel	*panel;
-	t_env			*env;
-
-	env = (t_env*)param;
-	if (env->editor.creating_condition)
-		panel = &env->editor.condition_panel.target_panel;
-	else
-		panel = &env->editor.event_panel.target_panel;
-	if (get_target_selection_phase(panel) == 1)
-		panel->sector_type = 0;
-	if (get_target_selection_phase(panel) == 2)
-	{
-		panel->wall_type = 0;
-		panel->wall_sprite_type = 0;
-		panel->object_type = 0;
-		panel->other_type = 0;
-		panel->weapon_type = 0;
-		panel->enemy_type = 0;
-		panel->player_type = 0;
-		panel->vertex_type = 0;
-		panel->floor_type = 0;
-		panel->ceiling_type = 0;
-		panel->sector_other_type = 0;
-	}
-	update_condition_target_buttons_pos(env);
-	update_target_panel_buttons_pos(env);
-	return (0);
-}
-
-void		set_target_panel_button_pos(t_button *button, double side,
+void	set_target_panel_button_pos(t_button *button, double side,
 double nb, t_env *env)
 {
 	button->pos =
@@ -75,7 +26,19 @@ double nb, t_env *env)
 	(button->size_up.y + 5) * nb);
 }
 
-void		update_target_panel_buttons_pos(t_env *env)
+void	update_target_panel_buttons_pos2(t_event_panel *panel, t_env *env)
+{
+	set_target_panel_button_pos(&panel->target_panel.targets[0], -1, 0, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[1], -1, 1, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[2], -1, 2, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[3], -1, 3, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[4], 1, 0, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[5], 1, 1, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[6], 1, 2, env);
+	set_target_panel_button_pos(&panel->target_panel.targets[7], 1, 3, env);
+}
+
+void	update_target_panel_buttons_pos(t_env *env)
 {
 	t_event_panel	*panel;
 
@@ -98,74 +61,31 @@ void		update_target_panel_buttons_pos(t_env *env)
 	panel->target_panel.previous.size_up.x / 2,
 	panel->pos.y + panel->top_size + panel->content_panel_size.y / 2 -
 	panel->target_panel.previous.size_up.y / 2);
-	set_target_panel_button_pos(&panel->target_panel.targets[0], -1, 0, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[1], -1, 1, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[2], -1, 2, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[3], -1, 3, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[4], 1, 0, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[5], 1, 1, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[6], 1, 2, env);
-	set_target_panel_button_pos(&panel->target_panel.targets[7], 1, 3, env);
+	update_target_panel_buttons_pos2(panel, env);
 }
 
-int			choose_target(void *param)
-{
-	t_env			*env;
-	int				i;
-	int				select;
-	t_target_panel	*panel;
-
-	env = (t_env*)param;
-	if (env->editor.creating_condition)
-	{
-		panel = &env->editor.condition_panel.target_panel;
-		env->editor.creating_condition = 0;
-		env->editor.creating_event = 0;
-		if (panel->weapon_type)
-			env->editor.selecting_condition_weapon = 1;
-		else
-			env->editor.selecting_condition_target = 1;
-	}
-	else
-	{
-		panel = &env->editor.event_panel.target_panel;
-		env->editor.creating_event = 0;
-		if (panel->weapon_type)
-			env->editor.selecting_weapon = 1;
-		else
-			env->editor.selecting_target = 1;
-	}
-	select = 0;
-	reset_selection(env);
-	new_tabs_position(env);
-	i = 0;
-	while (i < 9)
-	{
-		if (panel->targets[i].state == DOWN && panel->selected_button != i
-			&& select == 0)
-		{
-			panel->selected_button = i;
-			select = 1;
-		}
-		panel->targets[i].state = UP;
-		panel->targets[i].anim_state = REST;
-		i++;
-	}
-	if (panel->player_type || panel->other_type)
-	{
-		check_event_creation(env);
-		return (0);
-	}
-	if (update_confirmation_box(&env->confirmation_box, "Select a target",
-		CONFIRM, env))
-		return (-1);
-	return (0);
-}
-
-void		init_target_panel_buttons(t_env *env)
+void	init_target_panel_buttons2(t_env *env)
 {
 	int		i;
 
+	env->editor.event_panel.target_panel.other = new_yellow_panel_button(
+	ON_RELEASE, &select_other, env, env);
+	i = 0;
+	while (i < 9)
+	{
+		env->editor.event_panel.target_panel.targets[i] =
+		new_yellow_panel_button(WHEN_DOWN, &choose_target, env, env);
+		i++;
+	}
+	env->editor.event_panel.target_panel.next = new_next_arrow(
+	ON_RELEASE, &previous_target_selection_phase, env, env);
+	env->editor.event_panel.target_panel.previous = new_previous_arrow(
+	ON_RELEASE, &previous_target_selection_phase, env, env);
+	update_target_panel_buttons_pos(env);
+}
+
+void	init_target_panel_buttons(t_env *env)
+{
 	env->editor.event_panel.target_panel.sector = new_red_panel_button(
 	ON_RELEASE, &set_int_button,
 	&env->editor.event_panel.target_panel.sector_type, env);
@@ -189,18 +109,5 @@ void		init_target_panel_buttons(t_env *env)
 	ON_RELEASE, &select_ceiling, env, env);
 	env->editor.event_panel.target_panel.sector_other = new_yellow_panel_button(
 	ON_RELEASE, &select_sector_other, env, env);
-	env->editor.event_panel.target_panel.other = new_yellow_panel_button(
-	ON_RELEASE, &select_other, env, env);
-	i = 0;
-	while (i < 9)
-	{
-		env->editor.event_panel.target_panel.targets[i] =
-		new_yellow_panel_button(WHEN_DOWN, &choose_target, env, env);
-		i++;
-	}
-	env->editor.event_panel.target_panel.next = new_next_arrow(
-	ON_RELEASE, &previous_target_selection_phase, env, env);
-	env->editor.event_panel.target_panel.previous = new_previous_arrow(
-	ON_RELEASE, &previous_target_selection_phase, env, env);
-	update_target_panel_buttons_pos(env);
+	init_target_panel_buttons2(env);
 }

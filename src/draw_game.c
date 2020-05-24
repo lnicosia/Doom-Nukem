@@ -6,26 +6,25 @@
 /*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 15:50:14 by sipatry           #+#    #+#             */
-/*   Updated: 2020/03/05 18:26:29 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/15 01:15:02 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "enemies.h"
+#include "draw.h"
 
 int	draw_render(t_camera *camera, t_env *env)
 {
 	if (draw_walls(camera, env))
 		return (-1);
-	if (draw_objects(*camera, env))
+	if (draw_objects(camera, env))
 		return (-1);
-	if (draw_projectiles(*camera, env))
+	if (draw_projectiles(camera, env))
 		return (-1);
-	if (draw_explosions(*camera, env))
+	if (draw_explosions(camera, env))
 		return (-1);
-	if (draw_enemies(*camera, env))
+	if (draw_enemies(camera, env))
 		return (-1);
-	//if (draw_player(*camera, env))
-	//	return (-1);
 	return (0);
 }
 
@@ -49,6 +48,34 @@ int	create_bullet_holes(t_env *env)
 	return (0);
 }
 
+int	draw_game2(t_env *env)
+{
+	if (is_player_alive(env))
+		return (-1);
+	if (env->player.hit)
+		damage_anim(env);
+	if (env->hovered_wall_sprite_sprite != -1
+		&& env->hovered_wall_sprite_wall != -1
+		&& env->hovered_wall_sprite_sector != -1)
+	{
+		if (print_press_text(env))
+			return (-1);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (draw_confirmation_box(&env->confirmation_box, env))
+			return (-1);
+	}
+	if (env->dialog_box && env->dialog_box_str
+		&& draw_dialog_box(&env->dialog_box_str, env))
+		return (-1);
+	if (update_screen(env))
+		return (-1);
+	if (!env->confirmation_box.state)
+		view(env);
+	return (0);
+}
+
 int	draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
@@ -58,55 +85,16 @@ int	draw_game(t_env *env)
 		return (-1);
 	env->shooting = 0;
 	env->test_time = SDL_GetTicks();
-	if (((env->inputs.left_click && !env->shot.on_going && !env->weapon_change.on_going) || env->shot.on_going) && !env->confirmation_box.state)
-		weapon_animation(env, env->player.curr_weapon);
-	else if (env->player.health > 0)
-		draw_weapon(env, env->weapons[env->player.curr_weapon].first_sprite);
-	if (env->weapon_change.on_going && !env->shot.on_going)
-		weapon_change(env);
-	draw_crosshair(env);
+	if (draw_weapons(env))
+		return (-1);
 	if (env->options.show_fps)
-		fps(env);
-	if (env->options.test)
-		print_debug(env);
+	{
+		if (fps(env))
+			return (-1);
+	}
+	draw_crosshair(env);
 	game_time(env);
 	animations(env);
-	if (env->player.health > 0)
-	{
-		draw_hud(env);
-		print_ammo(env);
-	}
-	else
-		print_results(env);
-	if (env->player.hit)
-		damage_anim(env);
-	int i = 0;
-	if (env->options.test)
-	{
-		while (i < env->nb_enemies)
-		{
-			if (env->enemies[i].exists)
-			{
-				draw_line(new_point(env->enemies[i].left, env->enemies[i].top), new_point(env->enemies[i].right, env->enemies[i].top), *env, 0xFF00FF00);
-				draw_line(new_point(env->enemies[i].right, env->enemies[i].top), new_point(env->enemies[i].right, env->enemies[i].bottom), *env, 0xFF00FF00);
-				draw_line(new_point(env->enemies[i].right, env->enemies[i].bottom), new_point(env->enemies[i].left, env->enemies[i].bottom), *env, 0xFF00FF00);
-				draw_line(new_point(env->enemies[i].left, env->enemies[i].bottom), new_point(env->enemies[i].left, env->enemies[i].top), *env, 0xFF00FF00);
-			}
-			i++;
-		}
-	}
-	minimap(env);
-	if (env->hovered_wall_sprite_sprite != -1
-		&& env->hovered_wall_sprite_wall != -1
-		&& env->hovered_wall_sprite_sector != -1)
-		print_press_text(env);
-	if (env->confirmation_box.state)
-		draw_confirmation_box(&env->confirmation_box, env);
-	if (env->options.zbuffer)
-		update_screen_zbuffer(env);
-	else
-		update_screen(env);
-	if (!env->confirmation_box.state)
-		view(env);
-	return (0);
+	game_minimap(env);
+	return (draw_game2(env));
 }

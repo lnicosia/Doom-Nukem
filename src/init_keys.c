@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   init_keys.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:22:49 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/06 10:53:14 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/03/11 19:11:14 by sipatry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+void	init_keys2(t_env *env)
+{
+	env->keys.tab = SDLK_TAB;
+	env->keys.comma = SDLK_COMMA;
+	env->keys.period = SDLK_PERIOD;
+	env->keys.minus1 = SDLK_MINUS;
+	env->keys.equals = SDLK_EQUALS;
+	env->keys.p = SDLK_p;
+	env->keys.end = SDLK_END;
+	env->keys.home = SDLK_HOME;
+	env->keys.a = SDLK_a;
+	env->keys.h = SDLK_h;
+	env->keys.nb1 = SDLK_1;
+	env->keys.nb2 = SDLK_2;
+	env->keys.nb3 = SDLK_3;
+	env->keys.nb4 = SDLK_4;
+	env->keys.nb5 = SDLK_5;
+	env->keys.lgui = SDLK_LGUI;
+}
 
 void	init_keys(t_env *env)
 {
@@ -36,19 +56,5 @@ void	init_keys(t_env *env)
 	env->keys.enter = SDLK_RETURN;
 	env->keys.backspace = SDLK_BACKSPACE;
 	env->keys.del = SDLK_DELETE;
-	env->keys.tab = SDLK_TAB;
-	env->keys.comma = SDLK_COMMA;
-	env->keys.period = SDLK_PERIOD;
-	env->keys.minus1 = SDLK_MINUS;
-	env->keys.equals = SDLK_EQUALS;
-	env->keys.p = SDLK_p;
-	env->keys.end = SDLK_END;
-	env->keys.home = SDLK_HOME;
-	env->keys.a = SDLK_a;
-	env->keys.nb1 = SDLK_1;
-	env->keys.nb2 = SDLK_2;
-	env->keys.nb3 = SDLK_3;
-	env->keys.nb4 = SDLK_4;
-	env->keys.nb5 = SDLK_5;
-	env->keys.lgui = SDLK_LGUI;
+	init_keys2(env);
 }

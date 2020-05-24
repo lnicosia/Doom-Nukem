@@ -3,16 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   add_enemy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 13:32:16 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 14:13:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/28 15:35:47 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 
-int	add_enemy(t_env *env)
+void	set_enemy_height_on_floor(t_enemy *enemy)
+{
+	if (enemy->sprite < CYBER_DEMON)
+	{
+		enemy->height_on_floor = 5;
+		enemy->scale = 5;
+	}
+	else if (enemy->sprite < MAX_ENEMY_SPRITES)
+	{
+		enemy->height_on_floor = 0;
+		enemy->scale = 5;
+	}
+	else
+	{
+		enemy->height_on_floor = 0;
+		enemy->scale = 5;
+	}
+}
+
+int		add_enemy(t_env *env)
 {
 	t_enemy	enemy;
 
@@ -27,25 +46,11 @@ int	add_enemy(t_env *env)
 	enemy.speed = 40;
 	enemy.map_hp = 40;
 	enemy.damage = 25;
-	if (enemy.sprite < CYBER_DEMON)
-	{
-		enemy.height_on_floor = 5;
-		enemy.scale = 5;
-	}
-	else if (enemy.sprite < MAX_ENEMY_SPRITES)
-	{
-		enemy.height_on_floor = 0;
-		enemy.scale = 5;
-	}
-	else
-	{
-		enemy.height_on_floor = 0;
-		enemy.scale = 5;
-	}
+	set_enemy_height_on_floor(&enemy);
 	if (!(env->enemies = (t_enemy*)ft_realloc(env->enemies,
 		sizeof(t_enemy) * env->nb_enemies, sizeof(t_enemy)
 		* (env->nb_enemies + 1))))
-		return (ft_printf("Could not realloc enemies\n"));
+		return (ft_perror("Could not realloc enemies"));
 	env->enemies[env->nb_enemies] = enemy;
 	env->editor.create_enemy = 0;
 	update_enemy(env, env->nb_enemies);

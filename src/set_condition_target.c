@@ -6,11 +6,12 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:49:41 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/25 18:36:54 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 10:46:05 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 void	*set_condition_target3(t_env *env, t_events_parser *eparser)
 {
@@ -76,7 +77,7 @@ void	*set_condition_target1(t_env *env, t_events_parser *eparser)
 	else if (eparser->condition_index == SECTOR_WALL_SCALE_Y)
 		return (&env->sectors[eparser->condition_sector].
 		scale[eparser->condition_wall].y);
-	if (eparser->condition_index == SECTOR_WALL_PORTAL)
+		if (eparser->condition_index == SECTOR_WALL_PORTAL)
 		return (&env->sectors[eparser->condition_sector].
 		portals[eparser->condition_wall]);
 	else

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   delete_sector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:44:52 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/05 10:12:35 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 15:59:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "free.h"
 #include "update_existing_events.h"
+#include "events.h"
 
 void	modify_sector_neighbors(t_env *env, int sector)
 {
@@ -46,31 +47,10 @@ int		delete_linked_events(t_env *env)
 	return (0);
 }
 
-int		delete_sector(void *param)
+int		delete_sector2(t_env *env)
 {
-	t_env			*env;
-	int				i;
+	int	i;
 
-	env = (t_env*)param;
-	i = 0;
-	ft_printf("{red}Deleting sector{reset}\n");
-	free_sector(&env->sectors[env->editor.selected_sector]);
-	env->sectors = (t_sector*)ft_delindex(env->sectors,
-			 sizeof(t_sector) * env->nb_sectors,
-			 sizeof(t_sector),
-			 sizeof(t_sector) * env->editor.selected_sector);
-	env->nb_sectors--;
-	if (env->nb_sectors > 0 && !env->sectors)
-		return (-1);
-	free(env->sector_list);
-	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
-		return (ft_perror("Could not allocate sector list\n"));
-	i = env->editor.selected_sector;
-	while (i < env->nb_sectors)
-	{
-		env->sectors[i].num--;
-		i++;
-	}
 	if (delete_linked_events(env))
 		return (-1);
 	if (update_entities_sectors(env))
@@ -88,6 +68,34 @@ int		delete_sector(void *param)
 	}
 	env->player.sector = get_sector_global(env, env->player.pos);
 	return (0);
+}
+
+int		delete_sector(void *param)
+{
+	t_env			*env;
+	int				i;
+
+	env = (t_env*)param;
+	i = 0;
+	ft_printf("{red}Deleting sector{reset}\n");
+	free_sector(&env->sectors[env->editor.selected_sector]);
+	env->sectors = (t_sector*)ft_delindex(env->sectors,
+			sizeof(t_sector) * env->nb_sectors,
+			sizeof(t_sector),
+			sizeof(t_sector) * env->editor.selected_sector);
+	env->nb_sectors--;
+	if (env->nb_sectors > 0 && !env->sectors)
+		return (-1);
+	free(env->sector_list);
+	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (ft_perror("Could not allocate sector list"));
+	i = env->editor.selected_sector;
+	while (i < env->nb_sectors)
+	{
+		env->sectors[i].num--;
+		i++;
+	}
+	return (delete_sector2(env));
 }
 
 int		delete_invalid_sectors(t_env *env)

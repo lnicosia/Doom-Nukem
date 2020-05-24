@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 int			next_condition1(void *param)
 {
 	t_env	*env;
-	t_event	event;
 
 	env = (t_env*)param;
-	event = env->editor.event_panel.event;
 	if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
 	{
 		if (env->editor.selected_launch_condition
@@ -41,10 +40,8 @@ int			next_condition1(void *param)
 int			previous_condition1(void *param)
 {
 	t_env	*env;
-	t_event	event;
 
 	env = (t_env*)param;
-	event = env->editor.event_panel.event;
 	if (env->editor.event_panel.launch_conditions_tab.state == DOWN)
 	{
 		if (env->editor.selected_launch_condition == 0)

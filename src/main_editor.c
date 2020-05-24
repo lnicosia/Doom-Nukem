@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "init.h"
 
 int	main(int ac, char **av)
 {
-	init_editor(ac, av);
-	return (0);
+	return (init_editor(ac, av));
 }

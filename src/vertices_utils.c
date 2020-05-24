@@ -6,15 +6,15 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 15:35:23 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/04 17:22:24 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:58:37 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
 /*
- **	Returns 0 if the given vertex does not belong to any sector
- */
+**	Returns 0 if the given vertex does not belong to any sector
+*/
 
 int		*get_vertex_sectors(t_env *env, int index)
 {
@@ -23,26 +23,23 @@ int		*get_vertex_sectors(t_env *env, int index)
 	int	j;
 	int	k;
 
-	i = 0;
+	i = -1;
 	k = 1;
-	if (!(sectors= (int *)ft_memalloc(sizeof(int) * 2)))
+	if (!(sectors = (int *)ft_memalloc(sizeof(int) * 2)))
 		return (0);
-	while (i < env->nb_sectors)
+	while (++i < env->nb_sectors)
 	{
-		j = 0;
-		while (j < env->sectors[i].nb_vertices)
+		j = -1;
+		while (++j < env->sectors[i].nb_vertices)
 		{
-			if (env->sectors[i].vertices[j] == index)
-			{
-				if (!(sectors = (int *)ft_realloc(sectors,sizeof(int) * k,
-					sizeof(int) * (k + 1))))
-					return (0);
-				sectors[k] = i;
-				k++;
-			}
-			j++;
+			if (env->sectors[i].vertices[j] != index)
+				continue ;
+			if (!(sectors = (int *)ft_realloc(sectors, sizeof(int) * k,
+				sizeof(int) * (k + 1))))
+				return (0);
+			sectors[k] = i;
+			k++;
 		}
-		i++;
 	}
 	sectors[0] = k - 1;
 	return (sectors);

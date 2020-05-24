@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_enemies.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 12:01:37 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/21 10:33:52 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 12:10:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	write_enemy(int fd, t_enemy enemy, t_env *env)
 			enemy.scale);
 	ft_dprintf(fd, "[%d %d %d]\n",
 			enemy.map_hp, enemy.speed, enemy.damage);
-
 }
 
 void		write_enemies(int fd, t_env *env)

@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "parser.h"
+#include "events.h"
 
 int		select_enemy_condition_target3(t_env *env, t_condition_panel *panel,
 t_target_panel *target_panel, int enemy)

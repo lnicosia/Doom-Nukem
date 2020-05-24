@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		new_shoot_event(t_env *env, t_event_trigger trigger, t_event event)
 {
@@ -27,8 +28,8 @@ int		new_shoot_event(t_env *env, t_event_trigger trigger, t_event event)
 	env->sectors[trigger.sector].wall_sprites[trigger.wall].
 	shoot_events[trigger.sprite][env->sectors[trigger.sector].
 	wall_sprites[trigger.wall].nb_shoot_events[trigger.sprite]] = event;
-	env->sectors[trigger.sector].wall_sprites[trigger.wall]
-	.nb_shoot_events[trigger.sprite]++;
+	env->sectors[trigger.sector].wall_sprites[trigger.wall].
+	nb_shoot_events[trigger.sprite]++;
 	return (0);
 }
 

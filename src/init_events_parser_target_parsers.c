@@ -6,11 +6,23 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 08:49:32 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/20 14:53:27 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 14:34:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
+
+void	init_events_parser_target_parsers4(t_events_parser *eparser)
+{
+	eparser->target_parsers[VERTEX_X] = &vertex_parser;
+	eparser->target_parsers[VERTEX_Y] = &vertex_parser;
+	eparser->target_parsers[PLAYER_X] = &no_parser;
+	eparser->target_parsers[PLAYER_Y] = &no_parser;
+	eparser->target_parsers[PLAYER_Z] = &no_parser;
+	eparser->target_parsers[PLAYER_HP] = &no_parser;
+	eparser->target_parsers[PLAYER_ARMOR] = &no_parser;
+}
 
 void	init_events_parser_target_parsers3(t_events_parser *eparser)
 {
@@ -36,10 +48,14 @@ void	init_events_parser_target_parsers3(t_events_parser *eparser)
 	eparser->target_parsers[OBJECT_Y] = &object_parser;
 	eparser->target_parsers[OBJECT_Z] = &object_parser;
 	eparser->target_parsers[WIN] = &no_parser;
+	eparser->target_parsers[DIALOG] = &dialog_parser;
+	init_events_parser_target_parsers4(eparser);
 }
 
 void	init_events_parser_target_parsers2(t_events_parser *eparser)
 {
+	eparser->target_parsers[SECTOR_WALL_SPRITES_SCALE_X] = &wall_sprite_parser;
+	eparser->target_parsers[SECTOR_WALL_SPRITES_SCALE_Y] = &wall_sprite_parser;
 	eparser->target_parsers[SECTOR_FLOOR_SPRITES_SPRITE] = &floor_sprite_parser;
 	eparser->target_parsers[SECTOR_FLOOR_SPRITES_POS_X] = &floor_sprite_parser;
 	eparser->target_parsers[SECTOR_FLOOR_SPRITES_POS_Y] = &floor_sprite_parser;
@@ -61,13 +77,6 @@ void	init_events_parser_target_parsers2(t_events_parser *eparser)
 	eparser->target_parsers[SECTOR_LIGHT_COLOR] = &sector_parser;
 	eparser->target_parsers[SECTOR_INTENSITY] = &sector_parser;
 	eparser->target_parsers[SECTOR_GRAVITY] = &sector_parser;
-	eparser->target_parsers[VERTEX_X] = &vertex_parser;
-	eparser->target_parsers[VERTEX_Y] = &vertex_parser;
-	eparser->target_parsers[PLAYER_X] = &no_parser;
-	eparser->target_parsers[PLAYER_Y] = &no_parser;
-	eparser->target_parsers[PLAYER_Z] = &no_parser;
-	eparser->target_parsers[PLAYER_HP] = &no_parser;
-	eparser->target_parsers[PLAYER_ARMOR] = &no_parser;
 	init_events_parser_target_parsers3(eparser);
 }
 
@@ -96,7 +105,5 @@ void	init_events_parser_target_parsers(t_events_parser *eparser)
 	eparser->target_parsers[SECTOR_WALL_SPRITES_SPRITE] = &wall_sprite_parser;
 	eparser->target_parsers[SECTOR_WALL_SPRITES_POS_X] = &wall_sprite_parser;
 	eparser->target_parsers[SECTOR_WALL_SPRITES_POS_Y] = &wall_sprite_parser;
-	eparser->target_parsers[SECTOR_WALL_SPRITES_SCALE_X] = &wall_sprite_parser;
-	eparser->target_parsers[SECTOR_WALL_SPRITES_SCALE_Y] = &wall_sprite_parser;
 	init_events_parser_target_parsers2(eparser);
 }

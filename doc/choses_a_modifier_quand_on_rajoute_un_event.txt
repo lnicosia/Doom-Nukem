@@ -1,0 +1,21 @@
+events_parser.h (enum, bien mettre A LA FIN)
+MAX_TARGET_TYPES (utils.h)
+MAX_REAL_TARGET_TYPES (utils.h)
+init_event_types.c
+init_event_condition_writers.c
+init_event_writers.c
+init_events_parser_checkers.c
+init_events_parser_updaters.c
+init_events_parser_target_parser.c
+init_events_parser_target_types.c
+set_event_target.c
+Si besoin de parametres:
+creer parser
+creer action panel
+other_panel.c
+set_new_event_target.c
+target_panel_keys.c (augmenter le max pour la bonne phase)
+init_print_target_data.c
+print_event.c (partie action: print les parametres s'il y en a)
+writers?
+update_existing_events.c

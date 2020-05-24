@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "init.h"
 
-void	init_print_condition_target_data3(t_env *env)
+void	init_print_condition_target_data5(t_env *env)
 {
 	env->print_condition_target_data[PLAYER_SPEED] =
 	&print_nothing_condition_target;
@@ -36,48 +37,11 @@ void	init_print_condition_target_data3(t_env *env)
 	&print_enemy_condition_target;
 	env->print_condition_target_data[ENEMY_SPEED] =
 	&print_enemy_condition_target;
-	env->print_condition_target_data[ENEMY_X] =
-	&print_enemy_condition_target;
-	env->print_condition_target_data[ENEMY_Y] =
-	&print_enemy_condition_target;
-	env->print_condition_target_data[ENEMY_Z] =
-	&print_enemy_condition_target;
-	env->print_condition_target_data[OBJECT_SPRITE] =
-	&print_object_condition_target;
-	env->print_condition_target_data[OBJECT_SCALE] =
-	&print_object_condition_target;
-	env->print_condition_target_data[OBJECT_DAMAGE] =
-	&print_object_condition_target;
-	env->print_condition_target_data[OBJECT_HP] =
-	&print_object_condition_target;
-	env->print_condition_target_data[OBJECT_X] =
-	&print_object_condition_target;
-	env->print_condition_target_data[OBJECT_Y] =
-	&print_object_condition_target;
-	env->print_condition_target_data[OBJECT_Z] =
-	&print_object_condition_target;
+	init_print_condition_target_data6(env);
 }
 
-void	init_print_condition_target_data2(t_env *env)
+void	init_print_condition_target_data4(t_env *env)
 {
-	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_SPRITE] =
-	&print_floor_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_POS_X] =
-	&print_floor_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_POS_Y] =
-	&print_floor_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_SCALE_X] =
-	&print_floor_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_SCALE_Y] =
-	&print_floor_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_SPRITES_SPRITE] =
-	&print_ceiling_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_SPRITES_POS_X] =
-	&print_ceiling_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_SPRITES_POS_Y] =
-	&print_ceiling_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_SPRITES_SCALE_X] =
-	&print_ceiling_sprite_condition_target;
 	env->print_condition_target_data[SECTOR_CEILING_SPRITES_SCALE_Y] =
 	&print_ceiling_sprite_condition_target;
 	env->print_condition_target_data[SECTOR_BRIGHTNESS] =
@@ -100,7 +64,62 @@ void	init_print_condition_target_data2(t_env *env)
 	&print_nothing_condition_target;
 	env->print_condition_target_data[PLAYER_ARMOR] =
 	&print_nothing_condition_target;
+	init_print_condition_target_data5(env);
+}
 
+void	init_print_condition_target_data3(t_env *env)
+{
+	env->print_condition_target_data[SECTOR_WALL_SPRITES_SCALE_X] =
+	&print_wall_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_SPRITES_SCALE_Y] =
+	&print_wall_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_SPRITE] =
+	&print_floor_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_POS_X] =
+	&print_floor_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_POS_Y] =
+	&print_floor_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_SCALE_X] =
+	&print_floor_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_FLOOR_SPRITES_SCALE_Y] =
+	&print_floor_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_CEILING_SPRITES_SPRITE] =
+	&print_ceiling_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_CEILING_SPRITES_POS_X] =
+	&print_ceiling_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_CEILING_SPRITES_POS_Y] =
+	&print_ceiling_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_CEILING_SPRITES_SCALE_X] =
+	&print_ceiling_sprite_condition_target;
+	init_print_condition_target_data4(env);
+}
+
+void	init_print_condition_target_data2(t_env *env)
+{
+	env->print_condition_target_data[SECTOR_CEILING_ALIGN_Y] =
+	&print_sector_condition_target;
+	env->print_condition_target_data[SECTOR_CEILING_SCALE_X] =
+	&print_sector_condition_target;
+	env->print_condition_target_data[SECTOR_CEILING_SCALE_Y] =
+	&print_sector_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_TEXTURE] =
+	&print_wall_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_ALIGN_X] =
+	&print_wall_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_ALIGN_Y] =
+	&print_wall_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_SCALE_X] =
+	&print_wall_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_SCALE_Y] =
+	&print_wall_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_PORTAL] =
+	&print_wall_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_SPRITES_SPRITE] =
+	&print_wall_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_SPRITES_POS_X] =
+	&print_wall_sprite_condition_target;
+	env->print_condition_target_data[SECTOR_WALL_SPRITES_POS_Y] =
+	&print_wall_sprite_condition_target;
 	init_print_condition_target_data3(env);
 }
 
@@ -128,33 +147,5 @@ void	init_print_condition_target_data(t_env *env)
 	&print_sector_condition_target;
 	env->print_condition_target_data[SECTOR_CEILING_ALIGN_X] =
 	&print_sector_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_ALIGN_Y] =
-	&print_sector_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_SCALE_X] =
-	&print_sector_condition_target;
-	env->print_condition_target_data[SECTOR_CEILING_SCALE_Y] =
-	&print_sector_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_TEXTURE] =
-	&print_wall_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_ALIGN_X] =
-	&print_wall_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_ALIGN_Y] =
-	&print_wall_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SCALE_X] =
-	&print_wall_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SCALE_Y] =
-	&print_wall_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_PORTAL] =
-	&print_wall_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SPRITES_SPRITE] =
-	&print_wall_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SPRITES_POS_X] =
-	&print_wall_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SPRITES_POS_Y] =
-	&print_wall_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SPRITES_SCALE_X] =
-	&print_wall_sprite_condition_target;
-	env->print_condition_target_data[SECTOR_WALL_SPRITES_SCALE_Y] =
-	&print_wall_sprite_condition_target;
 	init_print_condition_target_data2(env);
 }

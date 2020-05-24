@@ -10,29 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "init.h"
 
-#include "env.h"
-
-void	init_animations(t_env *env)
+void	init_animations2(t_env *env)
 {
 	int i;
 
 	i = 0;
-	env->time.start = 0;
-	env->time.end = 0;
-	env->jump.start = 0;
-	env->jump.nb_frame = 15;
-	env->jump.end = 300;
-	env->crouch.on_going = 0;
-	env->crouch.start = 0;
-	env->crouch.end = 150;
-	env->crouch.nb_frame = 6;
-	env->crouch.tick = env->crouch.end / env->crouch.nb_frame;
-	env->shot.on_going = 0;
-	env->shot.start = 0;
-	env->player_hurt.start = 0;
-	env->weapon_change.on_going = 0;
-	env->weapon_change.start = 0;
 	while (i < env->nb_enemies)
 	{
 		env->enemies[i].death.start = 0;
@@ -50,4 +34,24 @@ void	init_animations(t_env *env)
 		env->objects[i].death.start = 0;
 		i++;
 	}
+}
+
+void	init_animations(t_env *env)
+{
+	env->time.start = 0;
+	env->time.end = 0;
+	env->jump.start = 0;
+	env->jump.nb_frame = 15;
+	env->jump.end = 300;
+	env->crouch.on_going = 0;
+	env->crouch.start = 0;
+	env->crouch.end = 150;
+	env->crouch.nb_frame = 6;
+	env->crouch.tick = env->crouch.end / env->crouch.nb_frame;
+	env->shot.on_going = 0;
+	env->shot.start = 0;
+	env->player_hurt.start = 0;
+	env->weapon_change.on_going = 0;
+	env->weapon_change.start = 0;
+	init_animations2(env);
 }

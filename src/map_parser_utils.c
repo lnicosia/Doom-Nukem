@@ -3,61 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 13:27:53 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/24 17:17:27 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 17:12:59 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_parser.h"
-#include "bmp_parser.h"
 #include "env.h"
-
-char	*skip_number(char *line)
-{
-	if (*line && *line == '-')
-		line++;
-	while (*line && (*line <= '9' && *line >= '0'))
-		line++;
-	if (*line && *line == '.')
-	{
-		line++;
-		while (*line && (*line <= '9' && *line >= '0'))
-			line++;
-	}
-	return (line);
-}
-
-char	*skip_hexa(char *line)
-{
-	while (*line && ((*line <= '9' && *line >= '0')
-		|| (*line >= 'A' && *line <= 'F')
-		|| (*line >= 'a' && *line <= 'f')))
-		line++;
-	return (line);
-}
-
-char	*skip_spaces(char *line)
-{
-	while (*line && *line == ' ')
-		line++;
-	return (line);
-}
-
-/*
-** Checks if a string is a valid number
-*/
-
-int		valid_number(char *line, t_map_parser *parser)
-{
-	(void)parser;
-	if (!*line)
-		return (MISSING_CHAR);
-	if ((*line < '0' || *line > '9') && *line != '-')
-		return (WRONG_CHAR);
-	return (0);
-}
 
 /*
 ** Checks if a string is a valid integer
@@ -65,22 +18,32 @@ int		valid_number(char *line, t_map_parser *parser)
 
 int		valid_int(char *line, t_map_parser *parser)
 {
-	(void)parser;
 	int	nb_digits;
 	int	neg;
 
+	(void)parser;
 	nb_digits = 0;
 	neg = 0;
-	while((*line >= '0' && *line <= '9') || *line == '-')
+	while ((*line >= '0' && *line <= '9') || *line == '-')
 	{
 		if (*line == '-' && !nb_digits)
 			neg = 1;
-		if (nb_digits > 8 + neg)
-			return (ft_printf("Too many digits\n"));
+		else if (*line == '-' && nb_digits)
+			break ;
+		if (nb_digits > 9 + neg)
+			return (custom_error("Too many digits\n"));
 		nb_digits++;
 		line++;
 	}
 	return (0);
+}
+
+void	incr_counts(int *pre_point, int *after_point, int point)
+{
+	if (!point)
+		(*pre_point)++;
+	if (point)
+		(*after_point)++;
 }
 
 /*
@@ -99,21 +62,17 @@ int		valid_double(char *line, t_map_parser *parser)
 	after_point = 0;
 	neg = 0;
 	(void)parser;
-	while((*line >= '0' && *line <= '9')
-	|| (*line == '.' || *line == '-'))
+	while ((*line >= '0' && *line <= '9') || (*line == '.' || *line == '-'))
 	{
 		if (*line == '-' && !pre_point && !after_point)
 			neg = 1;
 		if (*line == '.' && !point)
 			point = 1;
 		else if (*line == '.' && point)
-			return (ft_printf("excessive number of points\n"));
+			return (custom_error("excessive number of points\n"));
 		if (pre_point > 8 + neg || after_point > 5)
-			return (ft_printf("Too many digits\n"));
-		if (!point)
-			pre_point++;
-		if (point)
-			after_point++;
+			return (custom_error("Too many digits\n"));
+		incr_counts(&pre_point, &after_point, point);
 		line++;
 	}
 	return (0);

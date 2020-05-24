@@ -6,7 +6,7 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:36:47 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/01/24 17:09:16 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:15:24 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,12 @@ void		enemy_writer(int fd, t_event event)
 void		object_writer(int fd, t_event event)
 {
 	ft_dprintf(fd, " (%d)", event.update_param.object);
+}
+
+void		dialog_writer(int fd, t_event event)
+{
+	if (!event.exec_param)
+		ft_dprintf(fd, " ()");
+	else
+		ft_dprintf(fd, " (%s)", (char*)event.exec_param);
 }

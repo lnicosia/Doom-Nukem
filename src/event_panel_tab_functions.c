@@ -6,15 +6,15 @@
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 15:24:37 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/17 10:29:15 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/29 18:52:06 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int             action_tab_func(void *param)
+int		action_tab_func(void *param)
 {
-	t_env   *env;
+	t_env	*env;
 
 	env = (t_env*)param;
 	env->editor.event_panel.target_tab.state = UP;
@@ -26,9 +26,9 @@ int             action_tab_func(void *param)
 	return (0);
 }
 
-int             launch_conditions_tab_func(void *param)
+int		launch_conditions_tab_func(void *param)
 {
-	t_env   *env;
+	t_env	*env;
 
 	env = (t_env*)param;
 	env->editor.event_panel.target_tab.state = UP;
@@ -40,9 +40,9 @@ int             launch_conditions_tab_func(void *param)
 	return (0);
 }
 
-int             exec_conditions_tab_func(void *param)
+int		exec_conditions_tab_func(void *param)
 {
-	t_env   *env;
+	t_env	*env;
 
 	env = (t_env*)param;
 	env->editor.event_panel.target_tab.state = UP;

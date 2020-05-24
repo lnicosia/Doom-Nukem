@@ -11,6 +11,25 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
+
+int		modify_condition2(t_env *env)
+{
+	env->editor.event_panel.ok.release_action = &save_condition;
+	env->editor.event_panel.target_tab.state = DOWN;
+	set_condition_panel_buttons_state(env,
+	env->editor.condition_panel.condition.type);
+	if (env->editor.condition_panel.condition.target_type == INT)
+		env->editor.condition_panel.int_value =
+		env->editor.condition_panel.condition.value;
+	else if (env->editor.condition_panel.condition.target_type == DOUBLE)
+		env->editor.condition_panel.double_value =
+		env->editor.condition_panel.condition.value;
+	else if (env->editor.condition_panel.condition.target_type == UINT32)
+		env->editor.condition_panel.uint32_value =
+		env->editor.condition_panel.condition.value;
+	return (0);
+}
 
 int		modify_condition(void *param)
 {
@@ -36,18 +55,5 @@ int		modify_condition(void *param)
 		env->editor.condition_panel.selected_condition =
 		env->editor.selected_exec_condition;
 	}
-	env->editor.event_panel.ok.release_action = &save_condition;
-	env->editor.event_panel.target_tab.state = DOWN;
-	set_condition_panel_buttons_state(env,
-	env->editor.condition_panel.condition.type);
-	if (env->editor.condition_panel.condition.target_type == INT)
-		env->editor.condition_panel.int_value =
-		env->editor.condition_panel.condition.value;
-	else if (env->editor.condition_panel.condition.target_type == DOUBLE)
-		env->editor.condition_panel.double_value =
-		env->editor.condition_panel.condition.value;
-	else if (env->editor.condition_panel.condition.target_type == UINT32)
-		env->editor.condition_panel.uint32_value =
-		env->editor.condition_panel.condition.value;
-	return (0);
+	return (modify_condition2(env));
 }

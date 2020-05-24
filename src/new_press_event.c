@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "events_parser.h"
+#include "parser.h"
 
 int		new_press_event(t_env *env, t_event_trigger trigger, t_event event)
 {
@@ -27,8 +28,8 @@ int		new_press_event(t_env *env, t_event_trigger trigger, t_event event)
 	env->sectors[trigger.sector].wall_sprites[trigger.wall].
 	press_events[trigger.sprite][env->sectors[trigger.sector].
 	wall_sprites[trigger.wall].nb_press_events[trigger.sprite]] = event;
-	env->sectors[trigger.sector].wall_sprites[trigger.wall]
-	.nb_press_events[trigger.sprite]++;
+	env->sectors[trigger.sector].wall_sprites[trigger.wall].
+	nb_press_events[trigger.sprite]++;
 	return (0);
 }
 
@@ -51,7 +52,7 @@ t_events_parser *eparser)
 	press_events[eparser->trigger_sprite][env->sectors[eparser->trigger_sector].
 	wall_sprites[eparser->trigger_wall].nb_press_events[eparser->
 	trigger_sprite]] = eparser->event;
-	env->sectors[eparser->trigger_sector].wall_sprites[eparser->trigger_wall]
-	.nb_press_events[eparser->trigger_sprite]++;
+	env->sectors[eparser->trigger_sector].wall_sprites[eparser->trigger_wall].
+	nb_press_events[eparser->trigger_sprite]++;
 	return (0);
 }

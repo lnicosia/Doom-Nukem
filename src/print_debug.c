@@ -12,13 +12,15 @@
 
 #include "env.h"
 
-void		print_debug(t_env *env)
+int		print_debug(t_env *env)
 {
 	int		h;
 
 	h = env->h;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Player sector = %d",
 	env->player.sector);
-	print_text(new_point(h - 150, 5), new_printable_text(env->snprintf,
-	env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+	if (print_text(new_point(h - 150, 5), new_printable_text(env->snprintf,
+	env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env))
+		return (-1);
+	return (0);
 }

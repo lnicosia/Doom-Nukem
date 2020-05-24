@@ -31,12 +31,12 @@ void		wall_sprite_writer(int fd, t_event event)
 
 void		floor_sprite_writer(int fd, t_event event)
 {
-	ft_dprintf(fd, " (%d %d %d)", event.update_param.sector,
+	ft_dprintf(fd, " (%d %d)", event.update_param.sector,
 	event.update_param.sprite);
 }
 
 void		ceiling_sprite_writer(int fd, t_event event)
 {
-	ft_dprintf(fd, " (%d %d %d)", event.update_param.sector,
+	ft_dprintf(fd, " (%d %d)", event.update_param.sector,
 	event.update_param.sprite);
 }

@@ -14,81 +14,52 @@
 
 int		print_weapon_target(t_env *env, t_event *event, t_point pos, int size)
 {
-	TTF_Font	*font;
-
 	(void)event;
 	(void)pos;
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: %s's %s",
 	env->weapons[event->update_param.weapon].name,
 	env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
 int		print_ceiling_sprite_target(t_env *env, t_event *event, t_point pos,
 int size)
 {
-	TTF_Font	*font;
-
 	(void)event;
+	(void)size;
 	(void)pos;
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Sector %d ceiling sprite"
 	" %d %s", event->update_param.sector, event->update_param.sprite,
 	env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
 int		print_enemy_target(t_env *env, t_event *event, t_point pos, int size)
 {
-	TTF_Font	*font;
-
 	(void)event;
 	(void)pos;
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Enemy %d %s",
 	event->update_param.enemy, env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
 int		print_object_target(t_env *env, t_event *event, t_point pos, int size)
 {
-	TTF_Font	*font;
-
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
 	(void)event;
 	(void)pos;
+	(void)size;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "Target: Object %d %s",
 	event->update_param.object, env->event_types[event->target_index]);
-	//print_text(pos, new_printable_text(env->snprintf, font, 0x333333FF, 0), env);
 	return (pos.y);
 }
 
 int		print_nothing_target(t_env *env, t_event *event, t_point pos, int size)
 {
-	TTF_Font	*font;
-
 	(void)event;
 	(void)pos;
-	if (size == 20)
-		font = env->sdl.fonts.lato20;
-	else
-		font = env->sdl.fonts.lato15;
+	(void)size;
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%s",
 	env->event_types[event->target_index]);
 	return (pos.y);

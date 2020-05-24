@@ -3,103 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:17:30 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/19 13:30:47 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 16:58:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "events.h"
 
-int		init_screen_size(t_env *env)
+int		keyup3(t_env *env)
 {
-	env->screen_w[2] = 2560;
-	env->screen_h[2] = 1440;
-	env->screen_w[1] = 1920;
-	env->screen_h[1] = 1080;
-	env->screen_w[0] = 1600;
-	env->screen_h[0] = 900;
-	if (!(env->res[2] = ft_strdup("2560 x 1440")))
-		return (ft_printf("Could not malloc screen size 0\n"));
-	if (!(env->res[1] = ft_strdup("1920 x 1080")))
-		return (ft_printf("Could not malloc screen size 1\n"));
-	if (!(env->res[0] = ft_strdup("1600 x 900")))
-		return (ft_printf("Could not malloc screen size 2\n"));
-	set_screen_size(env);
-	return (0);
-}
-
-void	set_screen_size(t_env *env)
-{
-	env->w = env->screen_w[env->i];
-	env->h = env->screen_h[env->i];
-	env->h_w = env->w / 2;
-	env->h_h = env->h / 2;
-}
-
-int		keyup(t_env *env)
-{
-	if (env->sdl.event.key.keysym.sym == SDLK_c)
-		env->options.contouring = env->options.contouring ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_r)
-		ft_printf("will reload one day\n");
-	if (env->sdl.event.key.keysym.sym == SDLK_m)
-	{
-		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
-		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
-	}
-	if (env->sdl.event.key.keysym.sym == SDLK_f)
-		env->options.show_fps = env->options.show_fps ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_x)
-		env->options.wall_lover = env->options.wall_lover ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_j)
-		env->options.color_clipping = env->options.color_clipping ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_g)
-		env->options.wall_color = env->options.wall_color ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_t)
-		env->options.test = env->options.test ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_i)
-		env->options.clipping = env->options.clipping ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_n)
-		env->drawing = env->drawing ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_p)
-		env->options.p = env->options.p ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_e
-		&& env->hovered_wall_sprite_sprite != -1
-		&& env->hovered_wall_sprite_wall != -1
-		&& env->hovered_wall_sprite_sector != -1
-		&& env->sectors[env->hovered_wall_sprite_sector]
-		.wall_sprites[env->hovered_wall_sprite_wall]
-		.nb_press_events[env->hovered_wall_sprite_sprite]
-		&& env->sectors[env->hovered_wall_sprite_sector]
-		.wall_sprites[env->hovered_wall_sprite_wall]
-		.press_events[env->hovered_wall_sprite_sprite])
-	{
-		if (start_event(&env->sectors[env->hovered_wall_sprite_sector]
-		.wall_sprites[env->hovered_wall_sprite_wall]
-		.press_events[env->hovered_wall_sprite_sprite],
-		&env->sectors[env->hovered_wall_sprite_sector]
-		.wall_sprites[env->hovered_wall_sprite_wall]
-		.nb_press_events[env->hovered_wall_sprite_sprite], env))
-			return (-1);
-		if (env->sectors[env->hovered_wall_sprite_sector]
-		.wall_sprites[env->hovered_wall_sprite_wall]
-		.nb_press_events[env->hovered_wall_sprite_sprite] == 0)
-		{
-			env->hovered_wall_sprite_wall = -1;
-			env->hovered_wall_sprite_sector = -1;
-			env->hovered_wall_sprite_sprite = -1;
-		}
-	}
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->option = env->option ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
-		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
 	}
 	return (0);
+}
+
+int		start_press_event(t_env *env)
+{
+	if (start_event(&env->sectors[env->hovered_wall_sprite_sector].
+	wall_sprites[env->hovered_wall_sprite_wall].
+	press_events[env->hovered_wall_sprite_sprite],
+	&env->sectors[env->hovered_wall_sprite_sector].
+	wall_sprites[env->hovered_wall_sprite_wall].
+	nb_press_events[env->hovered_wall_sprite_sprite], env))
+		return (-1);
+	if (env->sectors[env->hovered_wall_sprite_sector].
+	wall_sprites[env->hovered_wall_sprite_wall].
+	nb_press_events[env->hovered_wall_sprite_sprite] == 0)
+		reset_hover(env);
+	return (0);
+}
+
+int		keyup2(t_env *env)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_e
+		&& env->hovered_wall_sprite_sprite != -1
+		&& env->hovered_wall_sprite_wall != -1
+		&& env->hovered_wall_sprite_sector != -1
+		&& env->sectors[env->hovered_wall_sprite_sector].
+		wall_sprites[env->hovered_wall_sprite_wall].
+		nb_press_events[env->hovered_wall_sprite_sprite]
+		&& env->sectors[env->hovered_wall_sprite_sector].
+		wall_sprites[env->hovered_wall_sprite_wall].
+		press_events[env->hovered_wall_sprite_sprite])
+	{
+		if (start_press_event(env))
+			return (-1);
+	}
+	return (keyup3(env));
+}
+
+int		keyup(t_env *env)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_m && env)
+		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_f)
+		env->options.show_fps = env->options.show_fps ? 0 : 1;
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN && env->dialog_box
+		&& !env->confirmation_box.state)
+		env->next_dialog = 1;
+	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
+	if (env->sdl.event.key.keysym.sym == SDLK_n)
+		env->drawing = env->drawing ? 0 : 1;
+	return (keyup2(env));
 }

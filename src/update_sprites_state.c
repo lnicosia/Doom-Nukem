@@ -3,44 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   update_sprites_state.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:58 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/03/05 11:48:13 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/01 11:40:02 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+void	update_floor_and_ceiling_sprites_state(t_sector *sector, t_env *env)
+{
+	int		j;
+
+	j = 0;
+	while (j < sector->floor_sprites.nb_sprites)
+	{
+		sector->floor_sprites.sprite[j] =
+		env->object_sprites[sector->floor_sprites.sprite[j]].rest_sprite;
+		j++;
+	}
+	j = 0;
+	while (j < sector->ceiling_sprites.nb_sprites)
+	{
+		sector->ceiling_sprites.sprite[j] =
+		env->object_sprites[sector->ceiling_sprites.sprite[j]].rest_sprite;
+		j++;
+	}
+}
+
+void	update_wall_sprites_state(int j, t_sector *sector, t_env *env)
+{
+	int			k;
+
+	k = -1;
+	while (++k < sector->wall_sprites[j].nb_sprites)
+	{
+		if (sector->wall_sprites[j].sprite[k] == -1)
+			continue;
+		sector->wall_sprites[j].sprite[k] =
+		env->object_sprites[sector->wall_sprites[j].sprite[k]].rest_sprite;
+	}
+}
+
 void	update_walls_sprites_state(t_env *env)
 {
-	t_sector	sector;
 	int			i;
 	int			j;
-	int			k;
-	double		diff;
 
 	i = 0;
 	while (i < env->nb_sectors)
 	{
-		sector = env->sectors[i];
 		j = 0;
-		while (j < sector.nb_vertices)
+		update_floor_and_ceiling_sprites_state(&env->sectors[i], env);
+		while (j < env->sectors[i].nb_vertices)
 		{
-			diff = env->time.milli_s - sector.sprite_time;
-			k = -1;
-			while (++k < sector.wall_sprites[j].nb_sprites)
-			{
-				if (sector.wall_sprites[j].sprite[k] == -1)
-					continue;
-				if (diff > 200)
-				{
-					env->sectors[i].sprite_time = env->time.milli_s;
-					env->sectors[i].wall_sprites[j].sprite[k] =
-					env->object_sprites[env->sectors[i].
-					wall_sprites[j].sprite[k]].rest_sprite;
-				}
-			}
+			update_wall_sprites_state(j, &env->sectors[i], env);
 			j++;
 		}
 		i++;
@@ -49,6 +67,12 @@ void	update_walls_sprites_state(t_env *env)
 
 void	update_sprites_state(t_env *env)
 {
-	(void)env;
-	update_walls_sprites_state(env);
+	double		diff;
+
+	diff = env->time.milli_s - env->sprite_time;
+	if (diff > 200)
+	{
+		update_walls_sprites_state(env);
+		env->sprite_time = env->time.milli_s;
+	}
 }

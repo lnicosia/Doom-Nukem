@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   object_selection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:34:34 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/27 11:38:03 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:43:07 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	object_tab(t_env *env, int nb_slots)
 {
@@ -25,7 +26,7 @@ void	object_tab(t_env *env, int nb_slots)
 	else
 		mod = 5;
 	while (test % mod != 0)
-		test++;	
+		test++;
 	draw_rectangle(env,
 				new_rectangle(0x00000000, 0xFF333333, 1, 5),
 				env->editor.object_selection_pos,

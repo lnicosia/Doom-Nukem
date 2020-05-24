@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_ai.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 10:20:09 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/03/04 10:59:48 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 12:00:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "enemies.h"
 #include "collision.h"
-
-/*
-** Tests a random direction to free the enemy if he's stuck
-*/
-
-t_v3	random_move(t_env *env, int nb, t_motion motion, t_v3 move)
-{
-	env->enemies[nb].dir = rand_dir(env, nb);
-	move.x = (env->enemies[nb].dir) ? move.y : -move.y;
-	move.y = (env->enemies[nb].dir) ? -move.x : move.x;
-	move = check_collision(env, move, motion);
-	return (move);
-}
 
 /*
 ** Manages the ai of a melee enemy
@@ -63,7 +50,21 @@ void	melee_ai(t_env *env, t_enemy foe, int i)
 ** i is the number of the enemy
 */
 
-void	ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
+int		range_enemy_behavior(t_enemy foe, t_env *env, int i)
+{
+	if (create_projectile(env, new_projectile_data(foe.pos,
+		foe.angle * CONVERT_RADIANS, 1, 1),
+		new_projectile_stats(0.6, foe.damage *
+		env->difficulty, 0.8, foe.eyesight - 2.2),
+		new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d, 1, 0)))
+		return (-1);
+	if (play_sound(env, &env->sound.enemies_shots_chan,
+		env->weapons[3].shot, env->sound.ambient_vol))
+		return (-1);
+	return (0);
+}
+
+int		ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 {
 	env->enemies[i].saw_player = 0;
 	enemy_sight(env, i, 1);
@@ -74,17 +75,18 @@ void	ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 		{
 			if (env->enemies[i].behavior == RANGED_PROJECTILE)
 			{
-				create_projectile(env, new_projectile_data(foe.pos,
-					foe.angle * CONVERT_RADIANS, 1, 1),
-					new_projectile_stats(0.6, foe.damage *
-					env->difficulty, 0.8, foe.eyesight - 2.2),
-					new_projectile_data_2(enemy_angle_z(env, i), foe.size_2d));
+				if (range_enemy_behavior(foe, env, i))
+					return (-1);
 			}
 			else if (env->enemies[i].behavior == RANGED_AIMBOT)
-				damage_player(env, foe.damage);
+			{
+				if (damage_player(env, foe.damage))
+					return (-1);
+			}
 		}
 		env->enemies[i].shot = 0;
 	}
+	return (0);
 }
 
 /*
@@ -95,7 +97,7 @@ void	ranged_ai_attack(t_env *env, t_enemy foe, double distance, int i)
 ** i is the number of the enemy
 */
 
-void	ranged_ai(t_env *env, t_enemy foe, double distance, int i)
+int		ranged_ai(t_env *env, t_enemy foe, double distance, int i)
 {
 	t_v3		move;
 	t_motion	motion;
@@ -117,15 +119,17 @@ void	ranged_ai(t_env *env, t_enemy foe, double distance, int i)
 			update_enemy_pos(env, i, move);
 		}
 		update_enemy_angle(env, i);
-		ranged_ai_attack(env, foe, distance, i);
+		if (ranged_ai_attack(env, foe, distance, i))
+			return (-1);
 	}
+	return (0);
 }
 
 /*
 ** Manages all enemies ai
 */
 
-void	enemy_ai(t_env *env)
+int		enemy_ai(t_env *env)
 {
 	int		i;
 	double	distance;
@@ -145,9 +149,11 @@ void	enemy_ai(t_env *env)
 		if (env->enemies[i].behavior == MELEE_KAMIKAZE
 			|| env->enemies[i].behavior == MELEE_FIGHTER)
 			melee_ai(env, env->enemies[i], i);
-		else if (env->enemies[i].behavior == RANGED_AIMBOT
+		else if ((env->enemies[i].behavior == RANGED_AIMBOT
 			|| env->enemies[i].behavior == RANGED_PROJECTILE)
-			ranged_ai(env, env->enemies[i], distance, i);
+			&& ranged_ai(env, env->enemies[i], distance, i))
+			return (-1);
 		i++;
 	}
+	return (0);
 }

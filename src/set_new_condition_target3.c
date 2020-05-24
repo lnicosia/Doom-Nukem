@@ -12,29 +12,31 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
-void		set_condition_buttons_state2(t_env *env)
+void	set_condition_buttons_state2(t_env *env)
 {
 	if (env->editor.condition_panel.target_panel.player_type)
-		set_player_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_player_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.vertex_type)
-		set_vertex_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_vertex_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.sector_other_type)
 		set_sector_other_panel_buttons_state(
 		&env->editor.condition_panel.target_panel,
 		env->editor.condition_panel.condition.target_index);
 }
 
-void		set_condition_buttons_state(t_env *env)
+void	set_condition_buttons_state(t_env *env)
 {
 	if (env->editor.condition_panel.target_panel.floor_type)
-		set_floor_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_floor_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.ceiling_type)
-		set_ceiling_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_ceiling_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.wall_type)
 		set_wall_panel_buttons_state(&env->editor.condition_panel.target_panel,
 		env->editor.condition_panel.condition.target_index);
@@ -43,18 +45,18 @@ void		set_condition_buttons_state(t_env *env)
 		&env->editor.condition_panel.target_panel,
 		env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.weapon_type)
-		set_weapon_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_weapon_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.enemy_type)
-		set_enemy_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_enemy_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	if (env->editor.condition_panel.target_panel.object_type)
-		set_object_panel_buttons_state(&env->editor.condition_panel.target_panel,
-		env->editor.condition_panel.condition.target_index);
+		set_object_panel_buttons_state(&env->editor.condition_panel.
+		target_panel, env->editor.condition_panel.condition.target_index);
 	set_condition_buttons_state2(env);
 }
 
-int			set_condition_wall_sprite2(t_env *env, t_condition_panel *panel,
+int		set_condition_wall_sprite2(t_env *env, t_condition_panel *panel,
 t_target_panel *target_panel, int wall)
 {
 	int	sector;
@@ -80,7 +82,7 @@ t_target_panel *target_panel, int wall)
 	return (0);
 }
 
-int			set_condition_wall_sprite(t_env *env, t_condition_panel *panel,
+int		set_condition_wall_sprite(t_env *env, t_condition_panel *panel,
 t_target_panel *target_panel, int wall)
 {
 	int	sector;
@@ -110,7 +112,7 @@ t_target_panel *target_panel, int wall)
 	return (set_condition_wall_sprite2(env, panel, target_panel, wall));
 }
 
-int			select_wall_sprite_condition_target(t_env *env,
+int		select_wall_sprite_condition_target(t_env *env,
 t_condition_panel *panel, t_target_panel *target_panel)
 {
 	if (env->selected_wall_sprite_wall != -1)

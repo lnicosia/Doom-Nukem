@@ -12,6 +12,8 @@
 
 #include "env.h"
 #include "events_parser.h"
+#include "events.h"
+#include "parser.h"
 
 int		select_player_target2(t_env *env, t_event_panel *panel,
 t_target_panel *target_panel)

@@ -13,7 +13,8 @@
 #include "env.h"
 #include "utils.h"
 
-t_projectile_data		new_projectile_data(t_v3 pos, double angle, double scale, int sprite)
+t_projectile_data	new_projectile_data(t_v3 pos, double angle, double scale,
+int sprite)
 {
 	t_projectile_data new;
 
@@ -24,7 +25,8 @@ t_projectile_data		new_projectile_data(t_v3 pos, double angle, double scale, int
 	return (new);
 }
 
-t_projectile_stats		new_projectile_stats(double size_2d, int damage, double speed, double height)
+t_projectile_stats	new_projectile_stats(double size_2d, int damage,
+double speed, double height)
 {
 	t_projectile_stats new;
 
@@ -35,11 +37,14 @@ t_projectile_stats		new_projectile_stats(double size_2d, int damage, double spee
 	return (new);
 }
 
-t_projectile_data_2		new_projectile_data_2(double angle_z, double radius)
+t_projectile_data_2	new_projectile_data_2(double angle_z, double radius,
+int hurts_player, int hurts_enemies)
 {
 	t_projectile_data_2	new;
 
 	new.angle_z = angle_z;
 	new.radius = radius;
+	new.hurts_player = hurts_player;
+	new.hurts_enemies = hurts_enemies;
 	return (new);
 }

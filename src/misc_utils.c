@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   misc_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 12:11:03 by gaerhard          #+#    #+#             */
-/*   Updated: 2020/02/19 19:03:06 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/30 17:29:12 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <math.h>
 
-void    init_sector_list(t_env *env, int curr)
+void	init_sector_list(t_env *env, int curr)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < env->nb_sectors)
-    {
-        if (i == curr)
-            env->sector_list[i] = 1;
-        else
-            env->sector_list[i] = 0;
-        i++;
-    }
+	i = 0;
+	while (i < env->nb_sectors)
+	{
+		if (i == curr)
+			env->sector_list[i] = 1;
+		else
+			env->sector_list[i] = 0;
+		i++;
+	}
 }
 
 double	distance_two_points_3d(t_v3 p1, t_v3 p2)

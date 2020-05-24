@@ -3,141 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   game_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:53:19 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/13 11:17:08 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/14 14:17:01 by gaerhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
-int		start_game(void	*target)
+int		print_difficulty(t_env *env)
 {
-	t_env *env;
+	int		w;
+	int		h;
+	char	*str;
 
-	env = (t_env*)target;
-	env->menu = 0;
-	env->option = 0;
-	env->in_game = 1;
-	SDL_SetRelativeMouseMode(1);
-	return (1);
-}
-
-int		next_difficulty(void *target)
-{
-	t_env *env;
-
-	env = (t_env*)target;
-	if (env->difficulty < 1.5)
-		env->difficulty += 0.5;
-	return (1);
-}
-
-int		previous_difficulty(void *target)
-{
-	t_env *env;
-
-	env = (t_env*)target;
-	if (env->difficulty > 0.5)
-		env->difficulty -= 0.5;
-	return (1);
-}
-
-int		open_options(void *target)
-{
-	t_env *env;
-
-	env = (t_env*)target;
-	env->menu = 1;
-	env->option = 1;
-	env->in_game = 0;
-	return (1);
-}
-
-int		exit_button_func(void *target)
-{
-	t_env *env;
-
-	env = (t_env*)target;
-	env->running = 0;
-	return (1);
-}
-
-int		start_game_button(t_env *env)
-{
-	env->start_game_button = new_image_button(ON_RELEASE, &start_game,
-		env, env);
-	env->start_game_button.pos =
-		new_point(env->h_w - env->start_game_button.size_down.x / 2,
-		(env->h_h - env->start_game_button.size_down.y / 2) / 2);
-	return (0);
-}
-
-int		option_menu_button(t_env *env)
-{
-	env->option_menu = new_image_button(ON_RELEASE, &open_options,
-		env, env);
-	env->option_menu.pos = new_point(env->h_w - env->option_menu.size_up.x / 2,
-		env->h_h + env->h_h / 4 + env->option_menu.size_up.y);
-	return (0);
-}
-
-int		exit_button(t_env *env)
-{
-	env->exit_button = new_image_button(ON_RELEASE, &exit_button_func,
-		env, env);
-	env->exit_button.pos = new_point(env->h_w - env->exit_button.size_up.x / 2,
-		env->h_h + env->h_h / 2 + env->exit_button.size_up.y);
-	return (0);
-}
-
-int		next_difficulty_button(t_env *env)
-{
-	env->next_difficulty = new_next_button(ON_RELEASE, &next_difficulty, env,
-		env);
-	env->next_difficulty.pos = new_point(env->h_w + env->h_w / 2,
-		env->h_h +env->next_difficulty.size_down.y);
-	return (0);
-}
-
-int		prev_difficulty_button(t_env *env)
-{
-	env->previous_difficulty = new_previous_button(ON_RELEASE,
-		&previous_difficulty, env, env);
-	env->previous_difficulty.pos = new_point(env->h_w - env->h_w / 2,
-		env->h_h + env->previous_difficulty.size_down.y);
-	return (0);
-}
-
-void	print_difficulty(t_env *env)
-{
 	if (env->difficulty == 0.5)
-		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
-			env->h_w), new_printable_text("EASY",
-			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+		str = "EASY";
 	if (env->difficulty == 1)
-		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
-			env->h_w), new_printable_text("NORMAL",
-			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+		str = "NORMAL";
 	if (env->difficulty == 1.5)
-		print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
-			env->h_w), new_printable_text("HARD",
-			env->sdl.fonts.lato30, 0xFFFFFFFF, 30), env);
+		str = "HARD";
+	TTF_SizeText(env->sdl.fonts.lato30, str, &w, &h);
+	print_text(new_point(env->h_h + env->next_difficulty.size_down.y,
+		env->h_w - w / 2), new_printable_text(str,
+		env->sdl.fonts.lato30, 0x222222FF, 30), env);
+	return (0);
 }
 
-void	start_game_menu(t_env *env)
+void	game_menu_hud(t_env *env)
 {
-	clear_image(env);
-	SDL_SetRelativeMouseMode(0);
+	int w;
+	int h;
+
 	apply_surface(env->wall_textures[6].surface, new_point(0, 0),
 		new_point(env->w, env->h), env);
-	draw_button(env, env->start_game_button, "START");
-	draw_button(env, env->next_difficulty, NULL);
-	draw_button(env, env->previous_difficulty, NULL);
-	draw_button(env, env->option_menu, "OPTIONS");
-	draw_button(env, env->exit_button, "EXIT");
-	print_difficulty(env);
+	TTF_SizeText(env->sdl.fonts.amazdoom70, "DOOM NUKEM", &w, &h);
+	print_text(new_point(env->h / 12, env->w / 2 - w / 2),
+		new_printable_text("DOOM NUKEM", env->sdl.fonts.amazdoom70,
+		0xFFFFFFFF, 70), env);
+	draw_rectangle(env,
+		new_rectangle(0xe3e4e8, 0xbdc3c7, 1, 0),
+		new_point(env->w / 3, env->h / 6), new_point(env->w / 3,
+			3 * env->h / 4));
+}
+
+int		draw_menu_buttons(t_env *env)
+{
+	if (draw_button(env, env->start_game_button, "START"))
+		return (-1);
+	if (draw_button(env, env->next_difficulty, NULL))
+		return (-1);
+	if (draw_button(env, env->previous_difficulty, NULL))
+		return (-1);
+	if (draw_button(env, env->option_menu_ig, "OPTIONS"))
+		return (-1);
+	if (draw_button(env, env->exit_button, "EXIT"))
+		return (-1);
+	if (print_difficulty(env))
+		return (-1);
+	return (0);
+}
+
+int		start_game_menu(t_env *env)
+{
+	clear_image(env);
+	game_menu_hud(env);
+	SDL_SetRelativeMouseMode(0);
+	if (draw_menu_buttons(env) == -1)
+		return (-1);
 	while (SDL_PollEvent(&env->sdl.event))
 	{
 		if (env->sdl.event.type == SDL_QUIT ||
@@ -149,5 +84,7 @@ void	start_game_menu(t_env *env)
 			menu_keyup(env);
 		menu_keys(env);
 	}
-	update_screen(env);
+	if (update_screen(env))
+		return (-1);
+	return (0);
 }

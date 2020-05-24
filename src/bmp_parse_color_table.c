@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_parse_color_table.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaerhard <gaerhard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:32:31 by lnicosia          #+#    #+#             */
-/*   Updated: 2019/11/13 16:48:26 by gaerhard         ###   ########.fr       */
+/*   Updated: 2020/04/28 16:56:15 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "bmp_parser.h"
+#include <math.h>
 
 static int	parse_color_table(int fd, t_bmp_parser *parser)
 {
@@ -21,12 +22,12 @@ static int	parse_color_table(int fd, t_bmp_parser *parser)
 
 	if (!(parser->colors = (unsigned int*)ft_memalloc(sizeof(unsigned int)
 					* parser->color_used)))
-		return (ft_printf("Could not malloc colors array\n"));
+		return (ft_perror("Could not malloc colors array\n"));
 	if (!(str = (unsigned char*)ft_memalloc(sizeof(unsigned char)
 					* parser->color_used * 4)))
 	{
 		ft_memdel((void**)&parser->colors);
-		return (ft_printf("Could not malloc buffer for color table\n"));
+		return (ft_perror("Could not malloc buffer for color table\n"));
 	}
 	if ((ret = read(fd, str, parser->color_used * 4)) > 0)
 	{
@@ -75,23 +76,20 @@ static void	set_colors4(unsigned int *colors)
 	colors[15] = 0xFFFFFFFF;
 }
 
-static void	set_colors1(unsigned int *colors)
-{
-	colors[0] = 0xFF;
-	colors[1] = 0xFFFFFFFF;
-}
-
 static int	default_color_table(t_bmp_parser *parser)
 {
 	if (!(parser->colors = (unsigned int*)ft_memalloc(sizeof(unsigned int)
 					* pow(2, parser->bpp))))
-		return (ft_printf("Could not malloc colors array\n"));
+		return (ft_perror("Could not malloc colors array"));
 	if (parser->bpp == 8)
 		set_colors8(parser->colors);
 	if (parser->bpp == 4)
 		set_colors4(parser->colors);
 	if (parser->bpp == 1)
-		set_colors1(parser->colors);
+	{
+		parser->colors[0] = 0xFF;
+		parser->colors[1] = 0xFFFFFFFF;
+	}
 	return (0);
 }
 

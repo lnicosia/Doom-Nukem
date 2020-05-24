@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_and_keyup_delay_functions.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 10:14:35 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/14 11:31:34 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 16:57:25 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,4 @@ int		key_delay(t_env *env, double start)
 	if (env->editor.key_delay > 200)
 		return (-1);
 	return (0);
-} 
+}

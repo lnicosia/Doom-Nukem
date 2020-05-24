@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
 #include "env.h"
 
-void	draw_center(t_env *env)
+void	draw_vertical_axes(t_env *env)
 {
 	int		x;
 	int		y;
@@ -37,6 +38,16 @@ void	draw_center(t_env *env)
 			y--;
 		}
 	}
+}
+
+void	draw_horizontal_axes(t_env *env)
+{
+	int		max;
+	int		y;
+	int		x;
+	Uint32	*pixels;
+
+	pixels = env->sdl.texture_pixels;
 	y = env->editor.center.y;
 	if (y >= 0 && y < env->h)
 	{
@@ -60,5 +71,6 @@ void	draw_grid(t_env *env)
 {
 	draw_hgrid(env);
 	draw_vgrid(env);
-	draw_center(env);
+	draw_vertical_axes(env);
+	draw_horizontal_axes(env);
 }

@@ -17,21 +17,23 @@ int		draw_condition_event_panel(t_env *env)
 	t_point			text_size1;
 	t_point			text_size2;
 	t_event_panel	panel;
-	t_condition		condition;
 
 	panel = env->editor.event_panel;
-	condition = env->editor.condition_panel.condition;
-	TTF_SizeText(env->sdl.fonts.lato_black30, "Choose an event in the bottom",
-	&text_size1.x, &text_size1.y);
-	print_text(new_point(panel.pos.y + panel.top_size + 100 - text_size1.y,
-	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
-	new_printable_text("Choose an event in the bottom",
-	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
-	TTF_SizeText(env->sdl.fonts.lato_black30, "left of the screen",
-	&text_size2.x, &text_size2.y);
-	print_text(new_point(panel.pos.y + panel.top_size + 100,
-	panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size2.x / 2),
-	new_printable_text("left of the screen",
-	env->sdl.fonts.lato_black30, 0x333333FF, 0), env);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30,
+		"Choose an event in the bottom", &text_size1.x, &text_size1.y))
+		return (-1);
+	if (print_text(new_point(panel.pos.y + panel.top_size + 100 - text_size1.y,
+		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size1.x / 2),
+		new_printable_text("Choose an event in the bottom",
+		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
+		return (-1);
+	if (TTF_SizeText(env->sdl.fonts.lato_black30, "left of the screen",
+		&text_size2.x, &text_size2.y))
+		return (-1);
+	if (print_text(new_point(panel.pos.y + panel.top_size + 100,
+		panel.pos.x + 100 + panel.content_panel_size.x / 2 - text_size2.x / 2),
+		new_printable_text("left of the screen",
+		env->sdl.fonts.lato_black30, 0x333333FF, 0), env))
+		return (-1);
 	return (0);
 }

@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "enemies.h"
+#include "draw.h"
 
 void	enemy_tab(t_env *env, int nb_slots)
 {
@@ -32,7 +34,6 @@ void	enemy_tab(t_env *env, int nb_slots)
 				env->editor.enemy_selection_size);
 	while (i < MAX_ENEMIES)
 	{
-		//draw_button(env, env->editor.enemy_tab[i], env->editor.enemy_tab[i].str);
 		apply_sprite(env->enemy_sprites[env->enemies_main_sprites[i]],
 		new_point(380 + 8 + (66 * (i / mod)),
 			280 + 8 + (66 * (i % mod))), new_point(64, 64), env);

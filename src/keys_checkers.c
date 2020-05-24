@@ -3,46 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   keys_checkers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sipatry <sipatry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:17:18 by sipatry           #+#    #+#             */
-/*   Updated: 2020/02/18 14:20:40 by sipatry          ###   ########.fr       */
+/*   Updated: 2020/04/30 16:57:42 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-int		check_height_at_pos(t_env *env, t_sector sector,
-		t_v3 pos, int target_height)
+int		check_start_player_height(t_sector *sector, t_env *env)
 {
-	if (get_floor_at_pos(sector, pos, env) + (double)target_height >=
-	get_ceiling_at_pos(sector, pos, env))
-		return (-1);
+	if (get_sector_no_z(env, env->player.starting_pos) == sector->num)
+	{
+		update_start_player_z(env);
+		if (check_height_at_pos(env, sector,
+			env->player.starting_pos, env->player.eyesight + 1))
+			return (-1);
+	}
 	return (0);
 }
 
-int		check_entities_height(t_env *env)
+int		check_player_height(t_sector *sector, t_env *env)
 {
-	int			i;
-	t_sector	sector;
-	
-	i = 0;
-	if (env->selected_ceiling != -1)
-		sector = env->sectors[env->selected_ceiling];
-	else if (env->selected_floor != -1)
-		sector = env->sectors[env->selected_floor];
-	while (i < env->nb_enemies)
+	if (env->player.sector == sector->num)
 	{
-		if (env->enemies[i].sector == sector.num
-		&& check_height_at_pos(env, sector, env->enemies[i].pos,
-		(env->enemies[i].scale + 1)))
+		if (check_height_at_pos(env, sector, env->player.pos,
+			env->player.eyesight + 1))
 			return (-1);
-		i++;
 	}
-	if (env->player.sector == sector.num
-	&& check_height_at_pos(env, sector, env->player.pos,
-	env->player.eyesight + 1))
-		return (-1);
 	return (0);
 }
 

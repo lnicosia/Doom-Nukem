@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   events_parser.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:45:17 by lnicosia          #+#    #+#             */
-/*   Updated: 2020/02/21 13:38:12 by lnicosia         ###   ########.fr       */
+/*   Updated: 2020/05/22 14:19:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENTS_PARSER_H
 # define EVENTS_PARSER_H
+# include "utils.h"
 # include "map_parser.h"
+
+typedef struct s_env	t_env;
 
 typedef enum		e_trigger
 {
@@ -46,7 +49,7 @@ typedef enum		e_events_targets
 	SECTOR_WALL_TEXTURE,
 	SECTOR_WALL_ALIGN_X,
 	SECTOR_WALL_ALIGN_Y,
-	SECTOR_WALL_SCALE_X,	
+	SECTOR_WALL_SCALE_X,
 	SECTOR_WALL_SCALE_Y,
 	SECTOR_WALL_PORTAL,
 	SECTOR_WALL_SPRITES_SPRITE,
@@ -96,7 +99,8 @@ typedef enum		e_events_targets
 	OBJECT_X,
 	OBJECT_Y,
 	OBJECT_Z,
-	WIN
+	WIN,
+	DIALOG
 }					t_events_targets;
 
 typedef struct		s_events_parser
@@ -116,6 +120,7 @@ typedef struct		s_events_parser
 	int				target_enemy;
 	int				target_weapon;
 	int				target_object;
+	char			*target_str;
 	int				target_index;
 	int				target_type;
 	int				source_type;
@@ -125,6 +130,7 @@ typedef struct		s_events_parser
 	int				source_enemy;
 	int				source_index;
 	int				source_object;
+	char			*source_str;
 	int				current_index;
 	int				current_vertex;
 	int				current_sector;
@@ -133,6 +139,7 @@ typedef struct		s_events_parser
 	int				current_enemy;
 	int				current_weapon;
 	int				current_object;
+	char			*current_str;
 	int				condition_vertex;
 	int				condition_sector;
 	int				condition_wall;
@@ -160,154 +167,4 @@ typedef struct		s_events_parser
 	int				target_types[MAX_TARGET_TYPES + 1];
 }					t_events_parser;
 
-/*
-**	Functions
-*/
-
-int					parse_event_target(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					parse_event_type(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					parse_event_launch_conditions(t_env *env,
-t_map_parser *parser, char **line, t_events_parser *eparser);
-int					parse_event_exec_conditions(t_env *env,
-t_map_parser *parser, char **line, t_events_parser *eparser);
-int					parse_event_various_data(t_env *env,
-t_map_parser *parser, char **line, t_events_parser *eparser);
-void				init_events_parser(t_events_parser *eparser);
-void				init_events_parser_target_parsers(t_events_parser *eparser);
-void				init_events_parser_target_types(t_events_parser *eparser);
-void				init_events_parser_checkers(t_events_parser *eparser);
-void				init_events_parser_updaters(t_events_parser *eparser);
-void				init_events_parser_links_protection(t_events_parser *eparser);
-void				init_events_parser_var(t_events_parser *eparser);
-int					new_parser_global_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_press_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_shoot_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_stand_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_walk_in_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_walk_out_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_death_event(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					new_parser_enemy_collision_event(t_env *env,
-t_map_parser *parser, char **line, t_events_parser *eparser);
-int					new_parser_object_collision_event(t_env *env,
-t_map_parser *parser, char **line, t_events_parser *eparser);
-void				*set_event_target(t_env *env, t_events_parser *parser);
-void				*set_event_target4(t_env *env, t_events_parser *parser);
-void				*set_condition_target(t_env *env, t_events_parser *parser);
-void				*set_condition_target4(t_env *env, t_events_parser *parser);
-void				*set_event_function(t_env *env, t_events_parser *parser);
-int					set_event_target_type(t_env *env, t_events_parser *parser);
-int					set_event_target_type4(t_env *env, t_events_parser *parser);
-int					count_conditions(char *line, t_map_parser *parser);
-int					intersects_with_wall(t_sector *sector, t_v3 pos, int wall,
-t_env *env);
-int					intersects_with_wall_no_portal_check(t_sector *sector,
-t_v3 pos, int wall, t_env *env);
-int					intersects_with_sector(t_sector *sector, t_v3 pos, 
-t_env *env);
-int					pos_changed_sector(t_env *env, t_sector *sector,
-t_point data, t_v3 pos);
-int					parse_events_links(t_env *env, t_map_parser *parser);
-
-/*
-**	Unit parsers
-*/
-
-int					no_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					sector_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					enemy_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					wall_sprite_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					wall_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					floor_sprite_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					ceiling_sprite_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					vertex_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					weapon_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					object_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-int					event_parser(t_env *env, t_map_parser *parser,
-char **line, t_events_parser *eparser);
-
-/*
-**	Unit writers
-*/
-
-void				init_events_writers(void (*writers[])(int, t_event));
-void				no_writer(int fd, t_event event);
-void				sector_writer(int fd, t_event event);
-void				enemy_writer(int fd, t_event event);
-void				wall_sprite_writer(int fd, t_event event);
-void				wall_writer(int fd, t_event event);
-void				floor_sprite_writer(int fd, t_event event);
-void				ceiling_sprite_writer(int fd, t_event event);
-void				vertex_writer(int fd, t_event event);
-void				weapon_writer(int fd, t_event event);
-void				object_writer(int fd, t_event event);
-void				event_writer(int fd, t_event event);
-void				condition_no_writer(int fd, t_condition condition);
-void				condition_sector_writer(int fd, t_condition condition);
-void				condition_enemy_writer(int fd, t_condition condition);
-void				condition_wall_sprite_writer(int fd, t_condition condition);
-void				condition_wall_writer(int fd, t_condition condition);
-void				condition_floor_sprite_writer(int fd, t_condition condition);
-void				condition_ceiling_sprite_writer(int fd,
-t_condition condition);
-void				condition_vertex_writer(int fd, t_condition condition);
-void				condition_weapon_writer(int fd, t_condition condition);
-void				condition_object_writer(int fd, t_condition condition);
-void				condition_event_writer(int fd, t_condition condition);
-void				write_event_conditions(int fd, t_event event);
-void				init_event_conditions_writers(void (*writers[])(int,
-t_condition));
-
-/*
-**	Links
-*/
-
-int					set_event_link(t_env *env, t_events_parser *eparser);
-int					global_event_exists(t_env *env, t_events_parser *eparser);
-int					press_event_exists(t_env *env, t_events_parser *eparser);
-int					shoot_event_exists(t_env *env, t_events_parser *eparser);
-int					stand_event_exists(t_env *env, t_events_parser *eparser);
-int					walk_out_event_exists(t_env *env, t_events_parser *eparser);
-int					walk_in_event_exists(t_env *env, t_events_parser *eparser);
-int					death_event_exists(t_env *env, t_events_parser *eparser);
-int					enemy_collision_event_exists(t_env *env,
-t_events_parser *eparser);
-int					object_collision_event_exists(t_env *env,
-t_events_parser *eparser);
-t_event				*get_global_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_shoot_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_press_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_stand_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_walk_in_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_walk_out_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_death_event(t_env *env, t_events_parser *eparser,
-int mode);
-t_event				*get_enemy_collision_event(t_env *env,
-t_events_parser *eparser, int mode);
-t_event				*get_object_collision_event(t_env *env,
-t_events_parser *eparser, int mode);
 #endif
