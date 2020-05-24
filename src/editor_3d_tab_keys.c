@@ -59,6 +59,8 @@ int		general_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.events_tab, env))
 		return (-1);
+	if (general_selection_buttons_keys(env))
+		return (-1);
 	if (general_music_keys(env))
 		return (-1);
 	return (0);
