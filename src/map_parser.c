@@ -49,6 +49,12 @@ void	init_player(t_env *env)
 	env->player.speed = 0.1;
 	env->player.health = 100;
 	env->player.size_2d = 0.75;
+	env->player.curr_weapon = 0;
+	env->weapons[0].possessed = 1;
+	env->weapons[1].possessed = 0;
+	env->weapons[2].possessed = 0;
+	env->weapons[3].possessed = 0;
+	env->weapons[4].possessed = 0;
 }
 
 int		parse_map2(t_env *env)

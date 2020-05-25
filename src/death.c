@@ -101,6 +101,8 @@ int			respawn(void *param)
 		return (-1);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not malloc sector list"));
+	if (init_mipmap_arrays(env))
+		return (-1);
 	refresh_env(env);
 	return (respawn2(env));
 }
