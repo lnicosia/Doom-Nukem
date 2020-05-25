@@ -25,13 +25,17 @@ int		init_game_ui_textures(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/hud-button-hover.bmp", 41, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/minus-button-up.bmp", 21, env))
+	if (parse_bmp_ui_textures("images/ui/next-up2.bmp", 15, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/minus-button-pressed.bmp", 22, env))
+	if (parse_bmp_ui_textures("images/ui/next-pressed2.bmp", 16, env))
+		return (custom_error("Invalid bmp files"));
+	if (parse_bmp_ui_textures("images/ui/next-hover2.bmp", 17, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/minus-button-hover.bmp", 23, env))
+	if (parse_bmp_ui_textures("images/ui/previous-up2.bmp", 18, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/add_button.bmp", 35, env))
+	if (parse_bmp_ui_textures("images/ui/previous-pressed2.bmp", 19, env))
+		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/previous-hover2.bmp", 20, env))
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/dialog_box.bmp", 60, env))
 		return (custom_error("Invalid bmp files\n"));
@@ -53,7 +57,7 @@ int		init_sprites_textures(t_env *env)
 
 int		init_textures(t_env *env)
 {
-	if (init_ui_textures(env))
+	if (!env->playing && init_ui_textures(env))
 		return (custom_error("Could not init ui textures\n"));
 	if (init_game_ui_textures(env))
 		return (custom_error("Could not init game menu ui textures\n"));
@@ -66,8 +70,6 @@ int		init_textures(t_env *env)
 	if (init_sprites_textures(env))
 		return (custom_error("Could not init sprites tetxures\n"));
 	if (init_hud_textures(env))
-		return (custom_error("Could not init hud textures\n"));
-	if (init_mini_skyboxes_selection(env))
 		return (custom_error("Could not init hud textures\n"));
 	return (0);
 }

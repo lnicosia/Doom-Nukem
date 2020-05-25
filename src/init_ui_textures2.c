@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "init.h"
 
 int	init_ui_textures6(t_env *env)
 {
@@ -22,5 +23,7 @@ int	init_ui_textures6(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/previous-hover2_pink.bmp", 63, env))
 		return (custom_error("Invalid bmp files"));
+	if (init_mini_skyboxes_selection(env))
+		return (custom_error("Could not init hud textures\n"));
 	return (0);
 }

@@ -25,11 +25,13 @@ int		check_ui(t_env *env)
 	env->init.ui_names[0] = "./images/ui/hud-button-up.bmp";
 	env->init.ui_names[1] = "./images/ui/hud-button-pressed.bmp";
 	env->init.ui_names[2] = "./images/ui/hud-button-hover.bmp";
-	env->init.ui_names[3] = "./images/ui/minus-button-up.bmp";
-	env->init.ui_names[4] = "./images/ui/minus-button-pressed.bmp";
-	env->init.ui_names[5] = "./images/ui/minus-button-hover.bmp";
-	env->init.ui_names[6] = "./images/ui/add_button.bmp";
-	env->init.ui_names[7] = "./images/ui/dialog_box.bmp";
+	env->init.ui_names[3] = "./images/ui/next-up2.bmp";
+	env->init.ui_names[4] = "./images/ui/next-pressed2.bmp";
+	env->init.ui_names[5] = "./images/ui/next-hover2.bmp";
+	env->init.ui_names[6] = "./images/ui/previous-up2.bmp";
+	env->init.ui_names[7] = "./images/ui/previous-pressed2.bmp";
+	env->init.ui_names[8] = "./images/ui/previous-hover2.bmp";
+	env->init.ui_names[9] = "./images/ui/dialog_box.bmp";
 	i = 0;
 	while (i < NB_UI_FILES)
 	{

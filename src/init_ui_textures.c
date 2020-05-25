@@ -87,6 +87,8 @@ int		init_ui_textures3(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/background-hover2.bmp", 34, env))
 		return (custom_error("Invalid bmp files\n"));
+	if (parse_bmp_ui_textures("images/ui/add_button.bmp", 35, env))
+		return (custom_error("Invalid bmp files\n"));
 	return (init_ui_textures4(env));
 }
 
@@ -98,17 +100,11 @@ int		init_ui_textures2(t_env *env)
 		return (custom_error("Invalid bmp files\n"));
 	if (parse_bmp_ui_textures("images/ui/plus-button-hover.bmp", 14, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/next-up2.bmp", 15, env))
+	if (parse_bmp_ui_textures("images/ui/minus-button-up.bmp", 21, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/next-pressed2.bmp", 16, env))
-		return (custom_error("Invalid bmp files"));
-	if (parse_bmp_ui_textures("images/ui/next-hover2.bmp", 17, env))
+	if (parse_bmp_ui_textures("images/ui/minus-button-pressed.bmp", 22, env))
 		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/previous-up2.bmp", 18, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/previous-pressed2.bmp", 19, env))
-		return (custom_error("Invalid bmp files\n"));
-	if (parse_bmp_ui_textures("images/ui/previous-hover2.bmp", 20, env))
+	if (parse_bmp_ui_textures("images/ui/minus-button-hover.bmp", 23, env))
 		return (custom_error("Invalid bmp files\n"));
 	return (init_ui_textures3(env));
 }
