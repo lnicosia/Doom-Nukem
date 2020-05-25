@@ -65,10 +65,9 @@ int		check_file_validity(t_map_parser *parser)
 int		parse_file_name(t_map_parser *parser)
 {
 	ft_strdel(&parser->tmp);
+	ft_strdel(&parser->resource_name);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed"));
-	if (parser->resource_name)
-		ft_strdel(&parser->resource_name);
 	if (!(parser->resource_name = ft_strnew(0)))
 		return (ft_perror("Coud not malloc"));
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
@@ -92,6 +91,8 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 		return (custom_error("Error while parsing the file name\n"));
 	if (check_existing_files(env, parser->resource_name))
 	{
+		ft_strdel(&parser->tmp);
+		ft_strdel(&parser->line);
 		if (!(parser->tmp = ft_strnew(1)))
 			return (ft_perror("Memalloc failed\n"));
 		if (!(parser->line = ft_strnew(0)))

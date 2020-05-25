@@ -40,6 +40,8 @@ int	check_sprites_number_validity(t_map_parser *parser, t_env *env)
 
 int	parse_sprites_number(t_map_parser *parser, t_env *env)
 {
+	ft_strdel(&parser->tmp);
+	ft_strdel(&parser->line);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(1)))

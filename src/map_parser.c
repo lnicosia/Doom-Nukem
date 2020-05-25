@@ -12,6 +12,7 @@
 
 #include "init.h"
 #include "parser.h"
+#include "free.h"
 #include <math.h>
 
 void	set_sector_xmax(t_env *env, t_sector *sector)
@@ -90,6 +91,7 @@ int		parse_map(char *file, t_env *env)
 		return (custom_error("Could not open %s\n", file));
 	if (parse_resources(env, &(env->parser)))
 		return (custom_error("Could not parse resources\n"));
+	free_parser(env);
 	if (init_vertices(env, &env->parser))
 		return (custom_error("Could not init vertices\n"));
 	if (parse_vertices(env, &env->parser))

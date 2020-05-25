@@ -67,6 +67,8 @@ int	parse_textures_number(t_map_parser *parser, t_env *env)
 
 int	map_parse_textures(t_env *env, t_map_parser *parser)
 {
+	ft_strdel(&parser->tmp);
+	ft_strdel(&parser->line);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))
