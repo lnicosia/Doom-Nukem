@@ -44,7 +44,9 @@ void	object_collision2(t_env *env, int i)
 	}
 	if (env->objects[i].type == WEAPON)
 	{
-		if (!env->weapons[env->objects[i].weapon].possessed)
+		if (!env->weapons[env->objects[i].weapon].possessed
+			|| env->weapons[env->objects[i].weapon].ammo <
+			env->weapons[env->objects[i].weapon].max_ammo)
 		{
 			env->weapons[env->objects[i].weapon].possessed = 1;
 			env->objects[i].exists = 0;
