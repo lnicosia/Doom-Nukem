@@ -19,7 +19,8 @@ t_env *env)
 	{
 		render->ceiling_height = render->max_ceiling
 		- render->camera->head_y[sector->num];
-		if (sector->ceiling_sprites.nb_sprites > 0)
+		if (sector->ceiling_sprites.nb_sprites > 0
+			|| sector->ceiling_bullet_holes)
 			draw_ceiling_sprites(sector, render, env);
 		draw_ceiling(sector, render, env);
 	}
@@ -27,7 +28,8 @@ t_env *env)
 	{
 		render->floor_height = render->camera->feet_y[sector->num]
 		- render->max_floor;
-		if (sector->floor_sprites.nb_sprites > 0)
+		if (sector->floor_sprites.nb_sprites > 0
+			|| sector->floor_bullet_holes)
 			draw_floor_sprites(sector, render, env);
 		draw_floor(sector, render, env);
 	}

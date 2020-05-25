@@ -91,6 +91,7 @@ t_env *env)
 			draw_floor_sprite_brightness(j, render, &drawer, env);
 			j++;
 		}
+		draw_floor_bullet_holes_brightness(sector, &drawer, env);
 		drawer.i++;
 	}
 }

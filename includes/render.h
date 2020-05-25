@@ -380,6 +380,22 @@ void				draw_ceiling_sprites_brightness(t_sector *sector,
 t_render *render, t_env *env);
 void				draw_ceiling_sprites_both(t_sector *sector,
 t_render *render, t_env *env);
+void				draw_floor_bullet_holes_both(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_floor_bullet_holes_brightness(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_floor_bullet_holes_color(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_floor_bullet_holes_no_light(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_ceiling_bullet_holes_both(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_ceiling_bullet_holes_brightness(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_ceiling_bullet_holes_color(t_sector *sector,
+t_drawer *drawer, t_env *env);
+void				draw_ceiling_bullet_holes_no_light(t_sector *sector,
+t_drawer *drawer, t_env *env);
 void				draw_upper_wall(t_sector *sector, t_render *render,
 t_env *env);
 void				draw_bottom_wall(t_sector *sector, t_render *render,

@@ -91,6 +91,7 @@ void	draw_floor_sprites_color(t_sector *sector, t_render *render, t_env *env)
 			draw_floor_sprite_color(j, render, &drawer, env);
 			j++;
 		}
+		draw_floor_bullet_holes_color(sector, &drawer, env);
 		drawer.i++;
 	}
 }

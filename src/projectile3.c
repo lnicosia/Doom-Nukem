@@ -37,7 +37,8 @@ int		projectile_hits_floor(t_projectile *projectile, t_env *env)
 		env->object_sprites[projectile->sprite].death_counterpart), 1))
 		return (-1);
 	env->nb_explosions++;
-	if (env->sectors[projectile->sector].floor_sprites.nb_sprites
+	if (env->sectors[projectile->sector].floor_sprites.nb_sprites 
+		+ ft_lstlen(env->sectors[projectile->sector].floor_bullet_holes)
 		< env->options.max_floor_sprites)
 	{
 		if (add_floor_projectile_bullet_hole(
@@ -58,6 +59,7 @@ int		projectile_hits_ceiling(t_projectile *projectile, t_env *env)
 		return (-1);
 	env->nb_explosions++;
 	if (env->sectors[projectile->sector].ceiling_sprites.nb_sprites
+		+ ft_lstlen(env->sectors[projectile->sector].ceiling_bullet_holes)
 		< env->options.max_floor_sprites)
 	{
 		if (add_ceiling_projectile_bullet_hole(

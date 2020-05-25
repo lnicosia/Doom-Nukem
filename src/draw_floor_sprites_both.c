@@ -91,6 +91,7 @@ void	draw_floor_sprites_both(t_sector *sector, t_render *render, t_env *env)
 			draw_floor_sprite_both(j, render, &drawer, env);
 			j++;
 		}
+		draw_floor_bullet_holes_both(sector, &drawer, env);
 		drawer.i++;
 	}
 }

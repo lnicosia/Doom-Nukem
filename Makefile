@@ -345,6 +345,12 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_sounds.c check_sounds2.c check_rocket_launcher.c \
 		   sound_misc_functions.c check_wall_sprites_textures.c func_event.c \
 		   event_updaters5.c init_rocket_launcher_sprite.c \
+		   draw_ceiling_bullet_holes_both.c draw_ceiling_bullet_holes_color.c \
+		   draw_ceiling_bullet_holes_no_light.c \
+		   draw_ceiling_bullet_holes_brightness.c \
+		   draw_floor_bullet_holes_both.c draw_floor_bullet_holes_color.c \
+		   draw_floor_bullet_holes_no_light.c \
+		   draw_floor_bullet_holes_brightness.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

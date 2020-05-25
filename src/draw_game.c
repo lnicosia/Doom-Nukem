@@ -13,7 +13,7 @@
 #include "enemies.h"
 #include "draw.h"
 
-int	draw_render(t_camera *camera, t_env *env)
+int		draw_render(t_camera *camera, t_env *env)
 {
 	if (draw_walls(camera, env))
 		return (-1);
@@ -28,27 +28,41 @@ int	draw_render(t_camera *camera, t_env *env)
 	return (0);
 }
 
-int	create_bullet_holes(t_env *env)
+void	reset_new_bullet_hole(t_env *env)
 {
-	if (env->new_wall_bullet_hole && add_wall_hitscan_bullet_hole(
-		&env->sectors[env->new_bullet_hole_sector], env->new_bullet_hole_wall,
-		env))
-		return (-1);
-	if (env->new_floor_bullet_hole && add_floor_hitscan_bullet_hole(
-		&env->sectors[env->new_bullet_hole_sector], env))
-		return (-1);
-	if (env->new_ceiling_bullet_hole && add_ceiling_hitscan_bullet_hole(
-		&env->sectors[env->new_bullet_hole_sector], env))
-		return (-1);
 	env->new_wall_bullet_hole = 0;
 	env->new_floor_bullet_hole = 0;
 	env->new_ceiling_bullet_hole = 0;
 	env->new_bullet_hole_sector = -1;
 	env->new_bullet_hole_wall = -1;
+}
+int		create_bullet_holes(t_env *env)
+{
+	if (env->new_wall_bullet_hole
+		&& env->sectors[env->new_bullet_hole_sector].wall_sprites[env->
+		new_bullet_hole_wall].nb_sprites + ft_lstlen(env->sectors[env->
+		new_bullet_hole_sector].floor_bullet_holes) < env->options.
+		max_floor_sprites && add_wall_hitscan_bullet_hole(
+		&env->sectors[env->new_bullet_hole_sector], env->new_bullet_hole_wall,
+		env))
+		return (-1);
+	if (env->new_floor_bullet_hole
+		&& env->sectors[env->new_bullet_hole_sector].floor_sprites.nb_sprites +
+		ft_lstlen(env->sectors[env->new_bullet_hole_sector].floor_bullet_holes)
+		< env->options.max_floor_sprites && add_floor_hitscan_bullet_hole(
+		&env->sectors[env->new_bullet_hole_sector], env))
+		return (-1);
+	if (env->new_ceiling_bullet_hole
+		&& env->sectors[env->new_bullet_hole_sector].ceiling_sprites.nb_sprites +
+		ft_lstlen(env->sectors[env->new_bullet_hole_sector].ceiling_bullet_holes)
+		< env->options.max_floor_sprites && add_ceiling_hitscan_bullet_hole(
+		&env->sectors[env->new_bullet_hole_sector], env))
+		return (-1);
+	reset_new_bullet_hole(env);
 	return (0);
 }
 
-int	draw_game2(t_env *env)
+int		draw_game2(t_env *env)
 {
 	if (is_player_alive(env))
 		return (-1);
@@ -76,7 +90,7 @@ int	draw_game2(t_env *env)
 	return (0);
 }
 
-int	draw_game(t_env *env)
+int		draw_game(t_env *env)
 {
 	SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	if (draw_render(&env->player.camera, env))

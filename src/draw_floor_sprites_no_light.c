@@ -91,6 +91,7 @@ t_env *env)
 			draw_floor_sprite_no_light(j, render, &drawer, env);
 			j++;
 		}
+		draw_floor_bullet_holes_no_light(sector, &drawer, env);
 		drawer.i++;
 	}
 }

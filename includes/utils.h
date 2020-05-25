@@ -485,6 +485,8 @@ typedef struct		s_sector
 	t_wall_sprites	floor_sprites;
 	t_wall_sprites	ceiling_sprites;
 	t_list			**wall_bullet_holes;
+	t_list			*floor_bullet_holes;
+	t_list			*ceiling_bullet_holes;
 	t_v2			*ceiling_sprites_scale;
 	t_v2			*floor_sprites_scale;
 	t_v2			*align;

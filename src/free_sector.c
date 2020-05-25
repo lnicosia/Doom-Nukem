@@ -26,6 +26,8 @@ void		free_sector5(t_sector *sector)
 		}
 		ft_memdel((void**)&sector->wall_bullet_holes);
 	}
+	ft_lstdelfront(&sector->ceiling_bullet_holes);
+	ft_lstdelfront(&sector->floor_bullet_holes);
 }
 
 void		free_sector4(t_sector *sector)

@@ -89,6 +89,7 @@ t_env *env)
 			draw_ceiling_sprite_no_light(j, render, &drawer, env);
 			j++;
 		}
+		draw_ceiling_bullet_holes_no_light(sector, &drawer, env);
 		drawer.i++;
 	}
 }
