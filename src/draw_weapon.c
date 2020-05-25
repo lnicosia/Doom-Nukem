@@ -48,6 +48,8 @@ void	draw_weapon(t_env *env, int sprite)
 	drawer.texture_w = env->sprite_textures[sprite].surface->w;
 	drawer.texture_h = env->sprite_textures[sprite].surface->h;
 	window_w = (int)(env->w - drawer.texture_w) / 1.5;
+	if (env->player.curr_weapon == ROCKET_LAUNCHER)
+		window_w = env->h_w - drawer.texture_w / 2;
 	window_h = (env->h - drawer.texture_h) + env->weapons[0].weapon_switch;
 	drawer.sector = &env->sectors[env->player.sector];
 	drawer.y = 0;

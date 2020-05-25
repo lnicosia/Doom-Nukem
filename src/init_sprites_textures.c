@@ -59,5 +59,8 @@ int		init_objects_sprites_textures(t_env *env)
 		return (custom_error("Failed to load object sprites\n"));
 	if (parse_bmp("./images/sprites/raygun.bmp", start + 3, env))
 		return (custom_error("Failed to load raygun sprite\n"));
+	if (parse_bmp("./images/sprites/rocket_launcher_sprites.bmp", start + 4,
+		env))
+		return (custom_error("Failed to load rocket launcher sprite\n"));
 	return (0);
 }

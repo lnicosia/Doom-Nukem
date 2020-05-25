@@ -68,7 +68,7 @@ void	init_raygun_weapon(t_env *env)
 void	init_rocket_launcher_weapon(t_env *env)
 {
 	env->weapons[3].name = "Rocket Launcher";
-	env->weapons[3].possessed = 1;
+	env->weapons[3].possessed = 0;
 	env->weapons[3].first_sprite = env->hud_start + 36;
 	env->weapons[3].nb_sprites = 9;
 	env->weapons[3].ammo_type = ROCKET;

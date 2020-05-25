@@ -23,12 +23,14 @@ void	init_object_data14(int i, t_env *env)
 	}
 	else if (env->objects[i].sprite == 34)
 	{
-		env->objects[i].height_ratio = 0.6;
-		env->objects[i].main_sprite = 34;
+		env->objects[i].height_ratio = 2.5;
+		env->objects[i].main_sprite = ROCKET_LAUNCHER_SPRITE;
+		env->objects[i].health = 1;
 		env->objects[i].nb_rest_state = 1;
-		env->objects[i].explodes = 0;
-		env->objects[i].type = DECORATION;
-		env->objects[i].damage = 0;
+		env->objects[i].type = WEAPON;
+		env->objects[i].weapon = ROCKET_LAUNCHER;
+		env->objects[i].ammo_type = ROCKET;
+		env->objects[i].quantity = 5;
 	}
 }
 

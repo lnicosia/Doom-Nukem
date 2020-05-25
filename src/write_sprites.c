@@ -82,5 +82,10 @@ int		write_sprites3(int fd)
 		return (custom_error("Could not open raygun.bmp\n"));
 	if (writing_bmp(file, fd, "./images/sprites/raygun.bmp"))
 		return (-1);
+	if ((file = open("./images/sprites/rocket_launcher_sprites.bmp",
+		O_RDONLY)) < 0)
+		return (custom_error("Could not open rocket_launcher_sprites.bmp\n"));
+	if (writing_bmp(file, fd, "./images/sprites/rocket_launcher_sprites.bmp"))
+		return (-1);
 	return (0);
 }

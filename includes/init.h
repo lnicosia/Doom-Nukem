@@ -92,6 +92,7 @@ void					init_object_lost_soul(t_env *env);
 void					init_object_cyber_demon(t_env *env);
 void					init_shotgun_sprite(t_env *env);
 void					init_raygun_sprite(t_env *env);
+void					init_rocket_launcher_sprite(t_env *env);
 void					init_doom_guy(t_env *env);
 void					init_doom_guy_face(t_env *env);
 int						init_new_sector_arrays(t_sector *sector);

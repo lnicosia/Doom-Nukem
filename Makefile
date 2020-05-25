@@ -344,7 +344,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
 		   check_sounds.c check_sounds2.c check_rocket_launcher.c \
 		   sound_misc_functions.c check_wall_sprites_textures.c func_event.c \
-		   event_updaters5.c
+		   event_updaters5.c init_rocket_launcher_sprite.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\
@@ -723,9 +723,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1XXyY_RRBRTSHtaQ9pdmHTJeLrv-lCbPd' -O- | sed -rn $\
+	1vC7Z9FuTy3tW2X8NHkZ4WXjyBjM2yKXA' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1XXyY_RRBRTSHtaQ9pdmHTJeLrv-lCbPd" -O resources.tar.gz \
+	&id=1vC7Z9FuTy3tW2X8NHkZ4WXjyBjM2yKXA" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	@tar -xf resources.tar.gz
