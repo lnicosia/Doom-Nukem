@@ -17,7 +17,7 @@ int		play_sound(t_env *env, FMOD_CHANNEL **chan, FMOD_SOUND *sound, float v)
 	FMOD_BOOL	is_playing;
 	int			res;
 
-	if (FMOD_Channel_IsPlaying(*chan, &is_playing) != FMOD_OK)
+	if (v != 0 && FMOD_Channel_IsPlaying(*chan, &is_playing) != FMOD_OK)
 	{
 		if ((res = FMOD_System_PlaySound(env->sound.system, sound, 0, 0,
 			chan)) != FMOD_OK)
@@ -32,6 +32,8 @@ int		play_music(t_env *env, FMOD_CHANNEL **chan, FMOD_SOUND *music, float v)
 {
 	int		res;
 
+	if (!v)
+		return (0);
 	if ((res = FMOD_System_PlaySound(env->sound.system, music, 0, 0, chan))
 		!= FMOD_OK)
 		return (custom_error("FMOD_System_PlaySound error %d\n", res));
