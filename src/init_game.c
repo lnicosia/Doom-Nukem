@@ -113,8 +113,8 @@ int		init_game2(char **av, t_env *env)
 	if (parse_map(av[1], env))
 	{
 		if (close(env->parser.fd))
-			return (ft_perror("Map parsing failed and could not close the"
-			" map file\n"));
+			return (crash("Map parsing failed and could not close the"
+			" map file\n", env));
 		return (crash("Error while parsing the map\n", env));
 	}
 	return (init_game3(env, av));
