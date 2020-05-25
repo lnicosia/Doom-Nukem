@@ -54,7 +54,7 @@ void	free_resources_init2(t_env *env)
 		i++;
 	}
 	i = 0;
-	while (i < MAX_OBJECTS)
+	while (i < NB_OBJECTS_SPRITES)
 	{
 		ft_memdel((void**)&env->init.objects_names[i]);
 		i++;

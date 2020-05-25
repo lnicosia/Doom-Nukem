@@ -90,6 +90,8 @@ int	parse_font_file(t_env *env, t_map_parser *parser)
 		return (custom_error("Error while parsing font name\n"));
 	if (check_existing_fonts(env, parser->resource_name))
 	{
+		ft_strdel(&parser->tmp);
+		ft_strdel(&parser->line);
 		if (!(parser->tmp = ft_strnew(1)))
 			return (ft_perror("Memalloc failed\n"));
 		if (!(parser->line = ft_strnew(0)))

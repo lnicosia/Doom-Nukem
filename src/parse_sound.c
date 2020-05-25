@@ -56,6 +56,8 @@ int		parse_sound_name(t_map_parser *parser)
 
 int		create_file_from_map(t_map_parser *parser)
 {
+	ft_strdel(&parser->tmp);
+	ft_strdel(&parser->line);
 	if (!(parser->tmp = ft_strnew(1)))
 		return (ft_perror("Memalloc failed\n"));
 	if (!(parser->line = ft_strnew(0)))

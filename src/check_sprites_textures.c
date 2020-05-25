@@ -54,9 +54,9 @@ int		check_object_sprites_textures2(t_env *env)
 	if (!env->init.objects[4] && close(fd))
 		return (custom_error("Could not close the file in check sprites\n"));
 	if (!(env->init.objects_names[5] =
-	ft_strdup("./images/sprites/rocket_launcher_sprites.bmp")))
+	ft_strdup("./images/sprites/gun_sprite_sheet.bmp")))
 		return (ft_perror("Error while parsing object sprite texture\n"));
-	if ((fd = open("./images/sprites/rocket_launcher_sprites.bmp",
+	if ((fd = open("./images/sprites/gun_sprite_sheet.bmp",
 		O_RDONLY)) == -1)
 		env->init.objects[5] = 1;
 	if (!env->init.objects[5] && close(fd))

@@ -367,7 +367,8 @@ TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \
 			cyber_demon.bmp doom_guy_face.bmp doom_guy.bmp lost_soul.bmp \
 			MIDSPACE.bmp objects_sprites.bmp projectiles_sprites.bmp \
-			raygun.bmp sprite_sheet.bmp
+			raygun.bmp sprite_sheet.bmp gun_sprite_sheet.bmp \
+			rocket_launcher_sprites.bmp \
 
 SKYBOXES =	back.bmp bottom.bmp top.bmp left.bmp right.bmp front.bmp \
 			nebula_back.bmp nebula_bottom.bmp nebula_top.bmp nebula_right.bmp\
@@ -469,8 +470,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  $(OPTI_FLAGS) \
-		  #-fsanitize=address -g3 \
+		  -fsanitize=address -g3 \
+		  #$(OPTI_FLAGS) \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking
