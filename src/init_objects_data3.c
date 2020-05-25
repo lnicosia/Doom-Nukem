@@ -32,6 +32,17 @@ void	init_object_data14(int i, t_env *env)
 		env->objects[i].ammo_type = ROCKET;
 		env->objects[i].quantity = 5;
 	}
+	else if (env->objects[i].sprite == 35)
+	{
+		env->objects[i].height_ratio = 2.5;
+		env->objects[i].main_sprite = GUN_SPRITE;
+		env->objects[i].health = 1;
+		env->objects[i].nb_rest_state = 1;
+		env->objects[i].type = WEAPON;
+		env->objects[i].weapon = GUN;
+		env->objects[i].ammo_type = REGULAR;
+		env->objects[i].quantity = 15;
+	}
 }
 
 void	init_object_data13(int i, t_env *env)

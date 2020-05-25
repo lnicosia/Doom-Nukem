@@ -315,7 +315,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   map_parser_utils2.c modify_event_utils.c movement_utils2.c \
 		   movement_utils3.c parse_floor.c parse_floor2.c parse_ceiling.c \
 		   parse_ceiling2.c init_sector_data.c parse_sector_neighbors.c \
-		   parse_sector_vertices.c parse_sector_portals.c \
+		   parse_sector_vertices.c parse_sector_portals.c init_gun.c \
 		   parse_sector_textures.c parse_sector_wall_sprites.c \
 		   parse_current_sprite.c parse_sector_general.c count_conditions.c \
 		   parse_link_target.c physics2.c int_event.c double_event.c \
@@ -729,9 +729,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1vC7Z9FuTy3tW2X8NHkZ4WXjyBjM2yKXA' -O- | sed -rn $\
+	18z_Jm9gaBqVJ54SZgwoK6lWzbPG1kboS' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1vC7Z9FuTy3tW2X8NHkZ4WXjyBjM2yKXA" -O resources.tar.gz \
+	&id=18z_Jm9gaBqVJ54SZgwoK6lWzbPG1kboS" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	@tar -xf resources.tar.gz

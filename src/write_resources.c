@@ -23,6 +23,8 @@ int		write_sprites(int fd)
 		return (-1);
 	if (write_sprites3(fd))
 		return (-1);
+	if (write_sprites4(fd))
+		return (-1);
 	return (0);
 }
 

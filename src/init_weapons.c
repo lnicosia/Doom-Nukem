@@ -27,7 +27,7 @@ void	init_gun_weapon(t_env *env)
 	env->weapons[0].range = 50;
 	env->weapons[0].frame_speed = 70;
 	env->weapons[0].hole_scale = 0.4;
-	env->weapons[0].sprite = env->object_sprites[SHOTGUN_SPRITE];
+	env->weapons[0].sprite = env->object_sprites[GUN_SPRITE];
 }
 
 void	init_shotgun_weapon(t_env *env)
@@ -79,7 +79,7 @@ void	init_rocket_launcher_weapon(t_env *env)
 	env->weapons[3].range = 30;
 	env->weapons[3].frame_speed = 70;
 	env->weapons[3].hole_scale = 0.4;
-	env->weapons[3].sprite = env->object_sprites[SHOTGUN_SPRITE];
+	env->weapons[3].sprite = env->object_sprites[ROCKET_LAUNCHER_SPRITE];
 }
 
 /*

@@ -89,3 +89,15 @@ int		write_sprites3(int fd)
 		return (-1);
 	return (0);
 }
+
+int		write_sprites4(int fd)
+{
+	int file;
+
+	if ((file = open("./images/sprites/gun_sprite_sheet.bmp",
+		O_RDONLY)) < 0)
+		return (custom_error("Could not open gun_sprite_sheet.bmp\n"));
+	if (writing_bmp(file, fd, "./images/sprites/gun_sprite_sheet.bmp"))
+		return (-1);
+	return (0);
+}

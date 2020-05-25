@@ -28,6 +28,7 @@ int		write_textures3(int fd);
 int		write_sprites1(int fd);
 int		write_sprites2(int fd);
 int		write_sprites3(int fd);
+int		write_sprites4(int fd);
 int		write_skybox1(int fd, int file);
 int		write_skybox2(int fd, int file);
 int		write_skybox3(int fd, int file);

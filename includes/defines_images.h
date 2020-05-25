@@ -13,8 +13,8 @@
 #ifndef DEFINES_IMAGES_H
 # define DEFINES_IMAGES_H
 
-# define AMMO_HUD 48
-# define ARMOR_LIFE_HUD 49
+# define AMMO_HUD 49
+# define ARMOR_LIFE_HUD 50
 # define LOST_SOUL 0
 # define CYBER_DEMON 5
 # define MINIGUN 0
@@ -42,5 +42,6 @@
 # define RAYGUN_SPRITE 32
 # define DOOM_GUY 33
 # define ROCKET_LAUNCHER_SPRITE 34
+# define GUN_SPRITE 35
 
 #endif

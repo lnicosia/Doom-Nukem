@@ -26,5 +26,5 @@ void	init_gatling_weapon(t_env *env)
 	env->weapons[4].range = 50;
 	env->weapons[4].frame_speed = 20;
 	env->weapons[4].hole_scale = 0.4;
-	env->weapons[4].sprite = env->object_sprites[SHOTGUN_SPRITE];
+	env->weapons[4].sprite = env->object_sprites[MINIGUN];
 }

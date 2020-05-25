@@ -35,6 +35,7 @@ int		init_object_sprites(t_env *env)
 	init_shotgun_sprite(env);
 	init_raygun_sprite(env);
 	init_rocket_launcher_sprite(env);
+	init_gun_sprite(env);
 	init_doom_guy(env);
 	init_objects_main_sprites(env);
 	return (0);
