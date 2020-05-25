@@ -89,6 +89,7 @@ t_env *env)
 			draw_ceiling_sprite_brightness(j, render, &drawer, env);
 			j++;
 		}
+		draw_ceiling_bullet_holes_brightness(sector, &drawer, env);
 		drawer.i++;
 	}
 }

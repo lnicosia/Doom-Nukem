@@ -90,6 +90,7 @@ t_env *env)
 			draw_ceiling_sprite_color(j, render, &drawer, env);
 			j++;
 		}
+		draw_ceiling_bullet_holes_color(sector, &drawer, env);
 		drawer.i++;
 	}
 }
