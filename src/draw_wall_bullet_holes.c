@@ -18,7 +18,7 @@ t_env *env)
 {
 	Uint32		*sprite_pixels;
 
-	sprite_pixels = env->sprite_textures[6].str;
+	sprite_pixels = env->sprite_textures[7].str;
 	if (!env->options.lighting
 		|| (!drawer->sector->brightness && !drawer->sector->intensity))
 		env->sdl.texture_pixels[drawer->coord] = sprite_pixels[
@@ -48,10 +48,10 @@ t_render *render, t_env *env)
 	t_drawer	drawer;
 	Uint32		*sprite_pixels;
 
-	sprite_pixels = env->sprite_textures[6].str;
+	sprite_pixels = env->sprite_textures[7].str;
 	drawer.sector = sector;
 	drawer.i = render->current_ceiling - 1;
-	drawer.sprite_w = env->sprite_textures[6].surface->w;
+	drawer.sprite_w = env->sprite_textures[7].surface->w;
 	drawer.pos = curr->pos.y / (sector->ceiling - sector->floor);
 	drawer.start = env->object_sprites[BULLET_HOLE].start[0].y;
 	drawer.end = env->object_sprites[BULLET_HOLE].end[0].y;
