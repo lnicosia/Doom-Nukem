@@ -20,7 +20,7 @@ int		print_hfov_value(t_env *env)
 	if (TTF_SizeText(env->sdl.fonts.lato30, "FOV", &w, &h))
 		return (-1);
 	if (print_text(new_point(env->h_h - env->h_h / 4 +
-		env->fov_increase.size_down.y, env->h_w - w / 2),
+		env->fov_increase.size_down.y - h / 2, env->h_w - w / 2),
 		new_printable_text("FOV", env->sdl.fonts.lato30,
 		0x222222FF, 30), env))
 		return (-1);
@@ -55,8 +55,9 @@ int		fov_increase_button(t_env *env)
 {
 	env->fov_increase = new_next_button(ON_RELEASE,
 		&fov_increase, env, env);
-	env->fov_increase.pos = new_point(env->h_w + env->h_w / 4,
-		env->h_h - env->h_h / 4 + env->fov_increase.size_down.y);
+	env->fov_increase.pos = new_point(env->h_w + env->h_w / 4
+		- env->next_difficulty.size_up.x / 2,
+		env->h_h - env->h_h / 4 + env->fov_increase.size_down.y / 2);
 	return (0);
 }
 
@@ -79,7 +80,8 @@ int		fov_decrease_button(t_env *env)
 {
 	env->fov_decrease = new_previous_button(ON_RELEASE,
 		&fov_decrease, env, env);
-	env->fov_decrease.pos = new_point(env->h_w - env->h_w / 4,
-		env->h_h - env->h_h / 4 + env->fov_decrease.size_down.y);
+	env->fov_decrease.pos = new_point(env->h_w - env->h_w / 4
+		- env->next_difficulty.size_up.x / 2,
+		env->h_h - env->h_h / 4 + env->fov_decrease.size_down.y / 2);
 	return (0);
 }

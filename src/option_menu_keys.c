@@ -28,14 +28,6 @@ int		option_menu_ig_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->fps_option, env))
 		return (-1);
-	if (button_keys(&env->fov_increase, env))
-		return (-1);
-	if (button_keys(&env->fov_decrease, env))
-		return (-1);
-	if (button_keys(&env->next_resolution, env))
-		return (-1);
-	if (button_keys(&env->prev_resolution, env))
-		return (-1);
 	return (0);
 }
 
@@ -54,14 +46,6 @@ int		option_menu_ig_keyup(t_env *env)
 	if (button_keyup(&env->sounds_vol_down, env))
 		return (-1);
 	if (button_keyup(&env->fps_option, env))
-		return (-1);
-	if (button_keyup(&env->fov_increase, env))
-		return (-1);
-	if (button_keyup(&env->fov_decrease, env))
-		return (-1);
-	if (button_keyup(&env->next_resolution, env))
-		return (-1);
-	if (button_keyup(&env->prev_resolution, env))
 		return (-1);
 	return (0);
 }

@@ -27,8 +27,9 @@ int		music_vol_up_button(t_env *env)
 {
 	env->music_vol_up = new_next_button(ON_RELEASE,
 		&music_volume_up, env, env);
-	env->music_vol_up.pos = new_point(env->h_w + env->h_w / 4,
-		env->h_h + env->music_vol_up.size_down.y);
+	env->music_vol_up.pos = new_point(env->h_w + env->h_w / 4
+		- env->next_difficulty.size_up.x / 2,
+		env->h_h + env->music_vol_up.size_down.y / 2);
 	return (0);
 }
 
@@ -36,8 +37,9 @@ int		music_vol_down_button(t_env *env)
 {
 	env->music_vol_down = new_previous_button(ON_RELEASE,
 		&music_volume_down, env, env);
-	env->music_vol_down.pos = new_point(env->h_w - env->h_w / 4,
-		env->h_h + env->music_vol_down.size_down.y);
+	env->music_vol_down.pos = new_point(env->h_w - env->h_w / 4
+		- env->next_difficulty.size_up.x / 2,
+		env->h_h + env->next_difficulty.size_down.y / 2);
 	return (0);
 }
 
@@ -45,8 +47,9 @@ int		sounds_vol_up_button(t_env *env)
 {
 	env->sounds_vol_up = new_next_button(ON_RELEASE,
 		&sounds_volume_up, env, env);
-	env->sounds_vol_up.pos = new_point(env->h_w + env->h_w / 4,
-		env->h_h + env->h_h / 4 + env->sounds_vol_up.size_down.y);
+	env->sounds_vol_up.pos = new_point(env->h_w + env->h_w / 4
+		- env->next_difficulty.size_up.x / 2,
+		env->h_h + env->h_h / 4 + env->sounds_vol_up.size_down.y / 2);
 	return (0);
 }
 
@@ -54,7 +57,8 @@ int		sounds_vol_down_button(t_env *env)
 {
 	env->sounds_vol_down = new_previous_button(ON_RELEASE,
 		&sounds_volume_down, env, env);
-	env->sounds_vol_down.pos = new_point(env->h_w - env->h_w / 4,
-		env->h_h + env->h_h / 4 + env->sounds_vol_down.size_down.y);
+	env->sounds_vol_down.pos = new_point(env->h_w - env->h_w / 4
+		- env->next_difficulty.size_up.x / 2,
+		env->h_h + env->h_h / 4 + env->sounds_vol_down.size_down.y / 2);
 	return (0);
 }
