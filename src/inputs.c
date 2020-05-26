@@ -12,14 +12,6 @@
 
 #include "env.h"
 
-void	set_mouse_inputs(t_env *env, int mode)
-{
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->inputs.left_click = mode;
-	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
-		env->inputs.right_click = mode;
-}
-
 void	set_inputs4(t_env *env, int mode)
 {
 	if (env->sdl.event.key.keysym.sym == env->keys.nb4)

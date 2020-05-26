@@ -243,7 +243,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_ceiling_sprites_both.c get_clockwise_order.c draw_objects3.c \
 		   map_parse_floor_sprites.c map_parse_ceiling_sprites.c \
 		   draw_vline_ceiling.c draw_vline_ceiling_brightness.c \
-		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c \
+		   draw_vline_ceiling_both.c draw_vline_ceiling_color.c mouse_inputs.c \
 		   draw_vline_wall.c draw_vline_wall_brightness.c bmp_parser_utils2.c \
 		   draw_vline_wall_both.c draw_vline_wall_color.c dialog_box_utils.c \
 		   draw_vline_floor.c draw_vline_floor_brightness.c fill_new_sector2.c \

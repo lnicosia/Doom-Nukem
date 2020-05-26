@@ -1042,6 +1042,7 @@ t_env *env);
 t_v2					get_sector_normal(t_sector *sector, t_env *env,
 int start_slope);
 void					update_inputs(t_env *env);
+void					set_mouse_inputs(t_env *env, int mode);
 int						move_player(t_env *env);
 void					update_player_pos(t_env *env);
 void					update_camera_position(t_camera *camera);
