@@ -47,3 +47,17 @@ int		check_scale_event(t_event *event, void *penv)
 		return (1);
 	return (0);
 }
+
+int		check_speed_event(t_event *event, void *penv)
+{
+	Uint32	time;
+
+	(void)penv;
+	time = SDL_GetTicks() - event->start_time;
+	time = time == 0 ? 1 : time;
+	if ((event->incr > 0 && event->start_value + time * event->incr > 1)
+		|| (event->incr < 0 && event->start_value + time * event->incr <= 0)
+		|| (!event->speed && (event->goal > 1 || event->goal <= 0)))
+		return (1);
+	return (0);
+}

@@ -54,7 +54,7 @@ int		change_speed(void *param)
 		button->target))
 		return (-1);
 	env->input_box.check = &check_speed_input_box;
-	env->input_box.error_message = "Error: speed must be between 0 and 100";
+	env->input_box.error_message = "Error: speed must be between 0 and 1";
 	return (0);
 }
 

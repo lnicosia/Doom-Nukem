@@ -15,7 +15,7 @@
 
 void	init_events_parser_checkers3(t_events_parser *eparser)
 {
-	eparser->checkers[PLAYER_SPEED] = &check_double_overflow_event;
+	eparser->checkers[PLAYER_SPEED] = &check_speed_event;
 	eparser->checkers[PLAYER_INVINCIBLE] = &check_true_false_event;
 	eparser->checkers[PLAYER_INFINITE_AMMO] = &check_true_false_event;
 	eparser->checkers[PLAYER_SECTOR] = &check_double_overflow_event;

@@ -12,6 +12,14 @@
 
 #include "env.h"
 
+void	set_mouse_inputs(t_env *env, int mode)
+{
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
+		env->inputs.left_click = mode;
+	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
+		env->inputs.right_click = mode;
+}
+
 void	set_inputs4(t_env *env, int mode)
 {
 	if (env->sdl.event.key.keysym.sym == env->keys.nb4)
@@ -67,10 +75,6 @@ void	set_inputs2(t_env *env, int mode)
 		env->inputs.down = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.option)
 		env->inputs.option = mode;
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
-		env->inputs.left_click = mode;
-	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
-		env->inputs.right_click = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.enter)
 		env->inputs.enter = mode;
 	if (env->sdl.event.key.keysym.sym == env->keys.s)
@@ -121,7 +125,7 @@ void	update_inputs(t_env *env)
 	if (env->sdl.event.type == SDL_KEYUP)
 		set_inputs(env, 0);
 	if (env->sdl.event.type == SDL_MOUSEBUTTONDOWN)
-		set_inputs(env, 1);
+		set_mouse_inputs(env, 1);
 	if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
-		set_inputs(env, 0);
+		set_mouse_inputs(env, 0);
 }

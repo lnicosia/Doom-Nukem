@@ -62,7 +62,7 @@ int		check_speed_input_box(void *penv)
 
 	env = (t_env*)penv;
 	value = ft_atof(env->input_box.str);
-	if (value < 0 || value > 100)
+	if (value <= 0 || value >= 1)
 		return (1);
 	return (0);
 }

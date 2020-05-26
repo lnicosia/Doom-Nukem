@@ -29,6 +29,7 @@ int						check_ceiling_event(t_event *event, void *penv);
 int						check_texture_event(t_event *event, void *penv);
 int						check_sprite_event(t_event *event, void *penv);
 int						check_scale_event(t_event *event, void *penv);
+int						check_speed_event(t_event *event, void *penv);
 int						check_align_event(t_event *event, void *penv);
 int						check_color_event(t_event *event, void *penv);
 int						check_brightness_event(t_event *event, void *penv);
