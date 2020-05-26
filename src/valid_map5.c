@@ -17,17 +17,17 @@ int			check_valid_map_start_data(t_env *env)
 	if (!env->nb_sectors)
 	{
 		ft_printf("You need at least one sector to go in"
-		" 3d mode\n");
+		" 3d mode{reset}\n");
 		return (1);
 	}
 	if (!env->editor.player_exist)
 	{
-		ft_printf("You need to place the player\n");
+		ft_printf("You need to place the player{reset}\n");
 		return (1);
 	}
 	if (env->player.sector == -1 || env->player.starting_sector == -1)
 	{
-		ft_printf("Player position is not valid\n");
+		ft_printf("Player position is not valid{reset}\n");
 		return (1);
 	}
 	return (0);
