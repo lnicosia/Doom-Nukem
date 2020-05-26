@@ -24,10 +24,10 @@ t_env *env)
 		+ drawer->y * env->w] && drawer->texture->str[drawer->textx
 		+ drawer->texty * drawer->texture->surface->w] != 0xFFC10099))
 	{
-		if ((env->editor.select == 1 && drawer->x == env->sdl.mx
-			&& drawer->y == env->sdl.my)
+		if (env->editor.select == 1 && ((env->editor.tab
+			&& drawer->x == env->sdl.mx && drawer->y == env->sdl.my)
 			|| (!env->editor.tab && env->editor.select == 1
-			&& drawer->x == env->h_w && drawer->y == env->h_h))
+			&& drawer->x == env->h_w && drawer->y == env->h_h)))
 		{
 			reset_selection(env);
 			env->editor.selected_start_player = 1;
