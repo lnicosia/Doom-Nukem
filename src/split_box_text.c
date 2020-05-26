@@ -38,15 +38,15 @@ int		box_cursor(t_input_box *box, char *str, char *tmp2, t_env *env)
 	return (0);
 }
 
-int		split_str(char *tmp, char *tmp2)
+int		split_str(char **tmp, char **tmp2)
 {
-	if (!(tmp2 = ft_strsub(tmp, 0,
-	ft_strlen(tmp) - ft_strlen(ft_strrchr(tmp, ' ')))))
+	if (!(*tmp2 = ft_strsub(*tmp, 0,
+	ft_strlen(*tmp) - ft_strlen(ft_strrchr(*tmp, ' ')))))
 	{
-		ft_strdel(&tmp);
+		ft_strdel(tmp);
 		return (0);
 	}
-	ft_strdel(&tmp);
+	ft_strdel(tmp);
 	return (1);
 }
 
@@ -63,7 +63,7 @@ char	*get_current_str(t_input_box *box, char **str)
 		return (0);
 	if (ft_strlen(tmp) < ft_strlen(*str) && ft_strrchr(tmp, ' '))
 	{
-		if (!(split_str(tmp, tmp2)))
+		if (!(split_str(&tmp, &tmp2)))
 			return (0);
 	}
 	else

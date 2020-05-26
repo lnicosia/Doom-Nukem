@@ -12,20 +12,20 @@
 
 #include "env.h"
 
-int	split_line(char *tmp, char *tmp2, char **str)
+int	split_line(char **tmp, char **tmp2, char **str)
 {
-	if (ft_strlen(tmp) < ft_strlen(*str) && ft_strrchr(tmp, ' '))
+	if (ft_strlen(*tmp) < ft_strlen(*str) && ft_strrchr(*tmp, ' '))
 	{
-		if (!(tmp2 = ft_strsub(tmp, 0,
-			ft_strlen(tmp) - ft_strlen(ft_strrchr(tmp, ' ')))))
+		if (!(*tmp2 = ft_strsub(*tmp, 0,
+			ft_strlen(*tmp) - ft_strlen(ft_strrchr(*tmp, ' ')))))
 		{
-			ft_strdel(&tmp);
+			ft_strdel(tmp);
 			return (-1);
 		}
-		ft_strdel(&tmp);
+		ft_strdel(tmp);
 	}
 	else
-		tmp2 = tmp;
+		*tmp2 = *tmp;
 	return (0);
 }
 
@@ -39,7 +39,7 @@ t_env *env)
 	tmp2 = NULL;
 	if (!(tmp = get_current_line(str, env, 1)))
 		return (-1);
-	if (split_line(tmp, tmp2, str))
+	if (split_line(&tmp, &tmp2, str))
 		return (-1);
 	if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2) + 1,
 		ft_strlen(*str) - ft_strlen(tmp2))))
