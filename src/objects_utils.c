@@ -106,7 +106,7 @@ void	objects_collision(t_env *env, t_v3 pos)
 			&& distance_two_points_2d(env->objects[i].pos.x,
 			env->objects[i].pos.y, pos.x, pos.y) < env->objects[i].size_2d
 			&& pos.z <= env->objects[i].height + env->objects[i].pos.z
-			&& pos.z >= env->objects[i].pos.z)
+			&& env->player.head_z >= env->objects[i].pos.z)
 		{
 			object_collision(env, i);
 		}
