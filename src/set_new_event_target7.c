@@ -22,14 +22,14 @@ t_target_panel *target_panel)
 	{
 		panel->event.target = 0;
 		panel->event.exec_func = &win;
-		panel->event.mod_type = FUNC;
+		panel->event.mod_type = FIXED;
 		panel->event.target_index = WIN;
 	}
 	if (target_panel->selected_button == 1)
 	{
 		panel->event.target = 0;
 		panel->event.exec_func = &dialog_event;
-		panel->event.mod_type = FUNC;
+		panel->event.mod_type = FIXED;
 		panel->event.target_index = DIALOG;
 	}
 	return (0);

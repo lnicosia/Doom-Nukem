@@ -78,6 +78,4 @@ void		add_player(t_env *env)
 	env->player.camera.pos.z = 6;
 	env->player.eyesight = 6;
 	add_player2(env);
-	ft_printf("h %d\n", env->player.highest_sect);
-	ft_printf("s %d\n", env->player.sector);
 }
