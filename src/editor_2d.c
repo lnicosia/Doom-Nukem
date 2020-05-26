@@ -40,10 +40,10 @@ int		draw_current_creation(t_env *env)
 
 void	draw_grid_informations(t_env *env)
 {
-	if (env->editor.player_exist || env->editor.dragged_player == 1)
-		draw_grid_player(env);
 	if (env->editor.player_exist || env->editor.dragged_start_player == 1)
 		draw_grid_start_player(env);
+	if (env->editor.player_exist || env->editor.dragged_player == 1)
+		draw_grid_player(env);
 	if (env->editor.dragged_object != -1 || env->nb_objects > 0)
 		draw_grid_objects(env);
 	if (env->editor.dragged_enemy != -1 || env->nb_enemies > 0)

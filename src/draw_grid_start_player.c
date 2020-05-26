@@ -47,6 +47,7 @@ int		click_on_grid_start_player(t_env *env)
 		&& env->editor.start_vertex == -1
 		&& env->editor.dragged_enemy == -1
 		&& env->editor.dragged_object == -1
+		&& env->editor.dragged_start_player == -1
 		&& env->editor.dragged_vertex == -1
 		&& !is_mouse_on_any_selection_tab(env)
 		&& env->editor.dragged_player == -1)
