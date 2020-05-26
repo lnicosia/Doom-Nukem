@@ -19,9 +19,9 @@ t_env *env)
 	if (render->current_ceiling > env->ymin[render->x]
 		|| render->current_floor < env->ymax[render->x])
 		precompute_texels(render);
+	draw_wall_bullet_holes(sector, render, env);
 	if (draw_wall_sprites(sector, render, env))
 		return ;
-	draw_wall_bullet_holes(sector, render, env);
 	draw_floor_and_ceiling(sector, render, env);
 	if (sector->neighbors[render->i] != -1)
 		draw_bottom_and_upper_walls(sector, render, env);

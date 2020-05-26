@@ -96,7 +96,10 @@ int		draw_wall_sprites(t_sector *sector, t_render *render, t_env *env)
 		render->sprite_x = (render->alpha) * render->camera->v[sector->num]
 		[render->i].sprite_scale[i].x * render->z + start.x - pos;
 		if (render->sprite_x >= start.x && render->sprite_x < end.x)
-			draw_vline_sprite(i, sector, render, env);
+		{
+			if (draw_vline_sprite(i, sector, render, env))
+				return (-1);
+		}
 	}
 	return (0);
 }
