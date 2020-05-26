@@ -44,9 +44,9 @@ int     next_resolution(void *target)
 	set_screen_size(env);
 	set_camera(&env->player.camera, env);
 	if (set_sdl(env))
-		return (ft_printf("Could not re load sdl\n"));
+		return (custom_error("Could not re load sdl\n"));
 	if (init_screen_pos(env))
-		return (ft_printf("Could not re load screen pos\n"));
+		return (custom_error("Could not re load screen pos\n"));
     return (0);
 }
 
@@ -61,9 +61,9 @@ int     prev_resolution(void *target)
 	set_screen_size(env);
 	set_camera(&env->player.camera, env);
 	if (set_sdl(env))
-		return (ft_printf("Could not re load sdl\n"));
+		return (custom_error("Could not re load sdl\n"));
 	if (init_screen_pos(env))
-		return (ft_printf("Could not re load screen pos\n"));
+		return (custom_error("Could not re load screen pos\n"));
     return (0);
 }
 
