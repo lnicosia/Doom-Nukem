@@ -20,13 +20,15 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	if (old_size == new_size)
 		return (ptr);
 	if (!(res = malloc(new_size)))
+	{
+		ft_memdel(&ptr);
 		return (NULL);
+	}
 	ft_bzero(res, new_size);
 	if (ptr)
 	{
 		res = ft_memmove(res, ptr, old_size);
 	}
-	if (ptr)
-		ft_memdel(&ptr);
+	ft_memdel(&ptr);
 	return (res);
 }

@@ -75,7 +75,10 @@ int	parse_image_header(int fd, t_bmp_parser *parser)
 	if ((ret = read(fd, image_header, parser->image_header_size - 4)) > 0)
 	{
 		if (get_image_header_data(image_header, parser))
+		{
+			ft_memdel((void**)&image_header);
 			return (custom_error("Image header is not valid\n"));
+		}
 	}
 	else if (!ret)
 	{

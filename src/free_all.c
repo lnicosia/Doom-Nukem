@@ -21,6 +21,8 @@ void		free_parser(t_env *env)
 		ft_strdel(&env->parser.resource_name);
 	if (env->parser.line)
 		ft_strdel(&env->parser.line);
+	if (env->eparser.current_str)
+		ft_strdel(&env->eparser.current_str);
 }
 
 void		free_all2(t_env *env)
@@ -42,6 +44,8 @@ void		free_all2(t_env *env)
 	free_buttons(env);
 	TTF_Quit();
 	SDL_Quit();
+	if (env->editor.events_to_delete)
+		ft_lstdelfront(&env->editor.events_to_delete);
 	ft_printf("Exiting..\n");
 }
 

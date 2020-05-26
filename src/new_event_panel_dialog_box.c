@@ -40,7 +40,10 @@ int	new_event_panel_dialog_box3(t_input_box *box, int type, void *target)
 			return (-1);
 		ft_snprintf(tmp, 15, "0x%X", *box->uint32_target);
 		if (!(box->str = ft_strdup(tmp)))
+		{
+			ft_strdel(&tmp);
 			return (-1);
+		}
 		ft_strdel(&tmp);
 		set_double_stats(box);
 	}

@@ -45,7 +45,7 @@ int		parse_sound_name(t_map_parser *parser)
 			break ;
 		if (!(parser->resource_name = ft_strjoin_free(parser->resource_name,
 			parser->tmp)))
-			return (custom_error("Could not realloc name in parse sound\n"));
+			return (ft_perror("Could not realloc name in parse sound\n"));
 	}
 	if (*(parser->tmp) != '\n')
 		return (custom_error("Expected a '\\n' at the end of sound file"

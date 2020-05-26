@@ -78,7 +78,7 @@ int		add_vertex_to_current_sector(t_env *env, int num)
 	t_list	*new;
 
 	if (!(new = ft_lstnew(&env->vertices[num], sizeof(t_vertex))))
-		return (custom_error("Error when creating new vertex\n"));
+		return (ft_perror("Error when creating new vertex\n"));
 	ft_lstpushback(&env->editor.current_vertices, new);
 	return (0);
 }
@@ -93,7 +93,7 @@ int		add_vertex(t_env *env)
 	if (!(env->vertices = (t_vertex*)ft_realloc(env->vertices,
 		sizeof(t_vertex) * env->nb_vertices,
 		sizeof(t_vertex) * (env->nb_vertices + 1))))
-		return (custom_error("Could not realloc vertices\n"));
+		return (ft_perror("Could not realloc vertices\n"));
 	env->vertices[env->nb_vertices] = vertex;
 	env->nb_vertices++;
 	return (0);

@@ -20,16 +20,16 @@ int		init_screen_pos(t_env *env)
 	env->screen_sectors_size = ft_min(env->nb_sectors, env->w);
 	if (!(env->player.camera.xmin = (int*)malloc(sizeof(int) *
 		(env->screen_sectors_size))))
-		return (custom_error("Could not malloc xmins!\n"));
+		return (ft_perror("Could not malloc xmins!"));
 	if (!(env->player.camera.xmax = (int*)malloc(sizeof(int) *
 		(env->screen_sectors_size))))
-		return (custom_error("Could not malloc xmaxs\n"));
+		return (ft_perror("Could not malloc xmaxs"));
 	if (!(env->player.camera.screen_sectors = (int*)malloc(sizeof(int) *
 		(env->screen_sectors_size))))
-		return (custom_error("Could not malloc screen sectors\n"));
+		return (ft_perror("Could not malloc screen sectors"));
 	if (!(env->player.camera.rendered_sectors = (int*)malloc(sizeof(int) *
 		(env->screen_sectors_size))))
-		return (custom_error("Could not malloc rendered sectors\n"));
+		return (ft_perror("Could not malloc rendered sectors"));
 	return (0);
 }
 

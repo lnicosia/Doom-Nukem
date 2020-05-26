@@ -40,7 +40,10 @@ t_env *env)
 	if (!(tmp = get_current_line(str, env, 1)))
 		return (-1);
 	if (split_line(&tmp, &tmp2, str))
+	{
+		ft_strdel(&tmp);
 		return (-1);
+	}
 	if (!(tmp3 = ft_strsub(*str, ft_strlen(tmp2) + 1,
 		ft_strlen(*str) - ft_strlen(tmp2))))
 	{

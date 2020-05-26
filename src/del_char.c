@@ -41,7 +41,10 @@ int		del_previous_char(t_input_box *box, char **s1, char **s2)
 		return (-1);
 	*s2 = ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor);
 	if (ft_strlen(box->str) - box->cursor > 0 && !*s2)
+	{
+		ft_strdel(s1);
 		return (-1);
+	}
 	if (box->cursor == 1 && box->minus)
 		box->minus--;
 	box->cursor--;
@@ -57,7 +60,10 @@ int		del_next_char(t_input_box *box, char **s1, char **s2)
 	*s2 = ft_strsub(box->str, box->cursor + 1,
 	ft_strlen(box->str) - (box->cursor + 1));
 	if (ft_strlen(box->str) - (box->cursor + 1) > 0 && !*s2)
+	{
+		ft_strdel(s1);
 		return (-1);
+	}
 	if (!box->cursor && box->minus)
 		box->minus--;
 	update_double_box(box);
@@ -85,13 +91,15 @@ int		del_char(t_input_box *box, int mode)
 	else if (del_next_char(box, &s1, &s2))
 		return (-1);
 	if (!(res = ft_strnew(ft_strlen(box->str) - 1)))
+	{
+		ft_strdel(&s1);
+		ft_strdel(&s2);
 		return (-1);
+	}
 	res = ft_strcpy(res, s1);
 	res = ft_strcat(res, s2);
-	if (s1)
-		ft_strdel(&s1);
-	if (s2)
-		ft_strdel(&s2);
+	ft_strdel(&s1);
+	ft_strdel(&s2);
 	if (box->str)
 		ft_strdel(&box->str);
 	box->str = res;

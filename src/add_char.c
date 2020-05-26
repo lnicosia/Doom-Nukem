@@ -58,6 +58,9 @@ int		add_char(t_input_box *box, char c)
 	s2 =
 	ft_strsub(box->str, box->cursor, ft_strlen(box->str) - box->cursor + 1);
 	if (ft_strlen(box->str) - box->cursor + 1 > 0 && !s2)
+	{
+		ft_strdel(&s1);
 		return (-1);
+	}
 	return (add_char2(box, s1, s2, c));
 }

@@ -60,17 +60,25 @@ int			delete_box_selection2(t_input_box *box, size_t start, size_t end)
 	char	*s2;
 
 	s1 = ft_strsub(box->str, 0, start);
-	s2 = ft_strsub(box->str, end, ft_strlen(box->str) - end);
-	if (!(res = ft_strnew(ft_strlen(box->str) - (end - start))))
+	if (start > 0 && !s1)
 		return (-1);
+	s2 = ft_strsub(box->str, end, ft_strlen(box->str) - end);
+	if (ft_strlen(box->str) - end > 0 && !s2)
+	{
+		ft_strdel(&s1);
+		return (-1);
+	}
+	if (!(res = ft_strnew(ft_strlen(box->str) - (end - start))))
+	{
+		ft_strdel(&s1);
+		ft_strdel(&s2);
+		return (-1);
+	}
 	res = ft_strcpy(res, s1);
 	res = ft_strcat(res, s2);
-	if (s1)
-		ft_strdel(&s1);
-	if (s2)
-		ft_strdel(&s2);
-	if (box->str)
-		ft_strdel(&box->str);
+	ft_strdel(&s1);
+	ft_strdel(&s2);
+	ft_strdel(&box->str);
 	box->str = res;
 	box->cursor = start;
 	if (box->type == DOUBLE)

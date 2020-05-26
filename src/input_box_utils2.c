@@ -75,7 +75,10 @@ int		draw_cursor(t_input_box *box, t_point pos, char *sub, t_env *env)
 	if (!sub)
 		return (-1);
 	if (TTF_SizeText(box->font, sub, &size.x, &size.y))
+	{
+		ft_strdel(&sub);
 		return (-1);
+	}
 	y = pos.x;
 	while (y < pos.x + size.y)
 	{
