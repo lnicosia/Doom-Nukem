@@ -14,7 +14,7 @@ NAME = doom-nukem-project
 
 GAME_NAME = doom-nukem
 
-EDITOR_NAME = doom_editor
+EDITOR_NAME = doom-editor
 
 MAKEFILE = Makefile
 

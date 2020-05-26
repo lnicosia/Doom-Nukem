@@ -53,10 +53,10 @@ resources.tar.gz
 *.hex
 doom
 doom-nukem
-doom_editor
+doom-editor
 ./doom
 ./doom-nukem
-./doom_editor
+./doom-editor
 
 # Debug files
 *.dSYM/
