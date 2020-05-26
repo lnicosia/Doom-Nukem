@@ -77,8 +77,11 @@ int		del_char(t_input_box *box, int mode)
 	char	*res;
 
 	box->del_timer = SDL_GetTicks();
-	if (!mode && del_previous_char(box, &s1, &s2))
+	if (!mode)
+	{
+		if (del_previous_char(box, &s1, &s2))
 		return (-1);
+	}
 	else if (del_next_char(box, &s1, &s2))
 		return (-1);
 	if (!(res = ft_strnew(ft_strlen(box->str) - 1)))

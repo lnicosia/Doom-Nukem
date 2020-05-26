@@ -35,7 +35,7 @@ int	parse_ambiant_data(char *line, t_map_parser *parser, t_env *env)
 	if (*(line))
 		return (invalid_char("music number", "a digit", *(line), parser));
 	if (env->sound.ambient_music < 0 || env->sound.ambient_music >= NB_MUSICS)
-		return (custom_error("Music number is invalid"));
+		return (custom_error("Music number is invalid\n"));
 	return (0);
 }
 
@@ -82,7 +82,7 @@ int	parse_fight_data(char *line, t_map_parser *parser, t_env *env)
 	if (*(line))
 		return (invalid_char("music number", "a digit", *(line), parser));
 	if (env->sound.fight_music < 0 || env->sound.fight_music >= NB_MUSICS)
-		return (custom_error("Music number is invalid"));
+		return (custom_error("Music number is invalid\n"));
 	return (0);
 }
 
