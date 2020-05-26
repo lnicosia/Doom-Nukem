@@ -31,7 +31,7 @@ int		music_volume_up(void *target)
 
 	env = (t_env*)target;
 	volume = env->sound.music_vol * 100;
-	if (volume <= 90)
+	if ((int)volume <= 90)
 	{
 		volume += 10;
 		env->sound.music_vol = volume / 100;
@@ -49,7 +49,7 @@ int		music_volume_down(void *target)
 
 	env = (t_env*)target;
 	volume = env->sound.music_vol * 100;
-	if (volume >= 10)
+	if ((int)volume >= 10)
 	{
 		volume -= 10;
 		env->sound.music_vol = volume / 100;
@@ -67,7 +67,7 @@ int		sounds_volume_down(void *target)
 
 	env = (t_env*)target;
 	volume = env->sound.ambient_vol * 100;
-	if (volume >= 10)
+	if ((int)volume >= 10)
 	{
 		volume -= 10;
 		env->sound.ambient_vol = volume / 100;
@@ -82,7 +82,7 @@ int		sounds_volume_up(void *target)
 
 	env = (t_env*)target;
 	volume = env->sound.ambient_vol * 100;
-	if (volume <= 90)
+	if ((int)volume <= 90)
 	{
 		volume += 10;
 		env->sound.ambient_vol = volume / 100;
