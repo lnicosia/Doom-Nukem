@@ -135,9 +135,9 @@ char **line, t_events_parser *eparser)
 		if ((eparser->nb_conditions = count_conditions(*line, parser)) == -1)
 		return (-1);
 	eparser->event.nb_exec_conditions = eparser->nb_conditions;
-	if (!(eparser->event.exec_conditions =
-			(t_condition*)ft_memalloc(sizeof(t_condition)
-			* eparser->nb_conditions)))
+	if (eparser->event.nb_exec_conditions
+		&& !(eparser->event.exec_conditions =
+		(t_condition*)ft_memalloc(sizeof(t_condition) * eparser->nb_conditions)))
 		return (ft_perror("Could not malloc exec conditions"));
 	i = 0;
 	while (i < eparser->nb_conditions)
