@@ -32,7 +32,7 @@ int		keyup3(t_env *env)
 		if ((err = FMOD_Channel_Stop(env->sound.player_shots_chan)) !=
 			FMOD_OK)
 			return (custom_error("Could not stop player shots channel"
-				"(error %d)\n", err));
+				" (error %d)\n", err));
 	}
 	return (0);
 }

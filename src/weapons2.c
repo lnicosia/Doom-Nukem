@@ -49,7 +49,7 @@ int		update_weapons_sound(int nb, t_env *env)
 		if ((err = FMOD_Channel_Stop(env->sound.player_shots_chan)) !=
 			FMOD_OK)
 			return (custom_error("Could not stop player shots channel"
-				"(error %d)\n", err));
+				" (error %d)\n", err));
 	}
 	if (nb == GATLING)
 		env->gatling_sound_playing = 1;
