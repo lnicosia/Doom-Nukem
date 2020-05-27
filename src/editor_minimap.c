@@ -30,9 +30,9 @@ void	draw_enemy_minimap(int i, t_enemy *enemy, t_sprite *sprite, t_env *env)
 	pos.x = env->minimap_pos.y + (enemy->pos.y - env->player.pos.y)
 		* env->options.minimap_scale - size.x / 2;
 	if (pos.y < env->minimap_pos.x - env->minimap_size.y / 2
-		|| pos.y + size.y > env->minimap_pos.x + env->minimap_size.x / 2
+		|| pos.y + size.x > env->minimap_pos.x + env->minimap_size.x / 2
 		|| pos.x < env->minimap_pos.y - env->minimap_size.y / 2
-		|| pos.x + size.x > env->minimap_pos.y + env->minimap_size.y / 2)
+		|| pos.x + size.y > env->minimap_pos.y + env->minimap_size.y / 2)
 		return ;
 	if (env->selected_enemy == i)
 		apply_sprite_selected(*sprite, pos, size, env);
