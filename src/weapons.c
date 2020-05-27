@@ -38,13 +38,26 @@ int		aoe_damage(double distance, double radius, int damage)
 int		next_weapon_wheel_up(t_env *env)
 {
 	int i;
+	int	is_playing;
+	int	err;
 
 	i = (env->player.curr_weapon == NB_WEAPONS - 1) ? 0 :
 	env->player.curr_weapon + 1;
+	if (FMOD_Channel_IsPlaying(env->sound.player_shots_chan, &is_playing)
+		== FMOD_OK && is_playing == 1)
+	{
+		if ((err = FMOD_Channel_Stop(env->sound.player_shots_chan)) !=
+			FMOD_OK)
+			return (custom_error("Could not stop player shots channel"
+				"(error %d)\n", err));
+	}
 	while (i != env->player.curr_weapon)
 	{
 		if (env->weapons[i].possessed)
-			return (i);
+		{
+			env->player.next_weapon = i;
+			return (0);
+		}
 		i++;
 		if (i >= NB_WEAPONS)
 			i = 0;
@@ -55,13 +68,26 @@ int		next_weapon_wheel_up(t_env *env)
 int		next_weapon_wheel_down(t_env *env)
 {
 	int		i;
+	int	is_playing;
+	int	err;
 
 	i = (env->player.curr_weapon == 0) ? NB_WEAPONS - 1 :
 		env->player.curr_weapon - 1;
+	if (FMOD_Channel_IsPlaying(env->sound.player_shots_chan, &is_playing)
+		== FMOD_OK && is_playing == 1)
+	{
+		if ((err = FMOD_Channel_Stop(env->sound.player_shots_chan)) !=
+			FMOD_OK)
+			return (custom_error("Could not stop player shots channel"
+				"(error %d)\n", err));
+	}
 	while (i != env->player.curr_weapon)
 	{
 		if (env->weapons[i].possessed)
-			return (i);
+		{
+			env->player.next_weapon = i;
+			return (0);
+		}
 		i--;
 		if (i < 0)
 			i = NB_WEAPONS - 1;

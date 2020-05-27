@@ -14,12 +14,25 @@
 
 int		keyup3(t_env *env)
 {
+	int	err;
+	int	is_playing;
+
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->option = env->option ? 0 : 1;
 	if (env->confirmation_box.state)
 	{
 		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
+	}
+	if (env->player.curr_weapon == GATLING
+		&& env->sdl.event.type == SDL_MOUSEBUTTONUP
+		&& FMOD_Channel_IsPlaying(env->sound.player_shots_chan, &is_playing)
+		== FMOD_OK && is_playing == 1)
+	{
+		if ((err = FMOD_Channel_Stop(env->sound.player_shots_chan)) !=
+			FMOD_OK)
+			return (custom_error("Could not stop player shots channel"
+				"(error %d)\n", err));
 	}
 	return (0);
 }

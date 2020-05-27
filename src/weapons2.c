@@ -37,6 +37,26 @@ void	weapon_animation2(t_env *env, int nb)
 	}
 }
 
+int		update_weapons_sound(int nb, t_env *env)
+{
+	int	err;
+	int	is_playing;
+
+	if (env->player.curr_weapon != GATLING
+		&& FMOD_Channel_IsPlaying(env->sound.player_shots_chan,
+		&is_playing) == FMOD_OK && is_playing == 1)
+	{
+		if ((err = FMOD_Channel_Stop(env->sound.player_shots_chan)) !=
+			FMOD_OK)
+			return (custom_error("Could not stop player shots channel"
+				"(error %d)\n", err));
+	}
+	if (play_sound(env, &env->sound.player_shots_chan,
+	env->weapons[nb].shot, env->sound.ambient_vol))
+		return (-1);
+	return (0);
+}
+
 int		weapon_animation(t_env *env, int nb)
 {
 	if (env->shot.start == 0)
@@ -47,8 +67,7 @@ int		weapon_animation(t_env *env, int nb)
 		{
 			if (shot(env))
 				return (-1);
-			if (play_sound(env, &env->sound.player_shots_chan,
-			env->weapons[nb].shot, env->sound.ambient_vol))
+			if (update_weapons_sound(nb, env))
 				return (-1);
 			if (!env->player.infinite_ammo)
 				env->weapons[nb].ammo -= 1;

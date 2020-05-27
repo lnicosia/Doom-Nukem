@@ -30,3 +30,14 @@ int		fps_option_button(t_env *env)
 		(env->h_h - env->start_game_button.size_down.y / 2) - env->h_h / 3);
 	return (0);
 }
+
+int		return_button_func(void *target)
+{
+	t_env *env;
+
+	env = (t_env*)target;
+	env->option = 0;
+	if (env->in_game)
+		SDL_SetRelativeMouseMode(1);
+	return (0);
+}

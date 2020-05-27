@@ -13,14 +13,22 @@
 #include "env.h"
 #include "draw.h"
 
-int		return_button_func(void *target)
+int		restart_music(t_env *env)
 {
-	t_env *env;
-
-	env = (t_env*)target;
-	env->option = 0;
-	if (env->in_game)
-		SDL_SetRelativeMouseMode(1);
+	if (env->player.in_combat == 0)
+	{
+		if (play_music(env, &env->sound.music_chan,
+			env->sound.musics[env->sound.ambient_music].music,
+			env->sound.music_vol))
+			return (custom_error("Could not launch ambient music\n"));
+	}
+	else
+	{
+		if (play_music(env, &env->sound.music_chan,
+			env->sound.musics[env->sound.fight_music].music,
+			env->sound.music_vol))
+			return (custom_error("Could not launch fight music\n"));
+	}
 	return (0);
 }
 
@@ -36,8 +44,13 @@ int		music_volume_up(void *target)
 		volume += 10;
 		env->sound.music_vol = volume / 100;
 		if (change_volume_if_playing(env->sound.music_chan,
-			env->sound.music_vol) != FMOD_OK)
+			env->sound.music_vol))
 			return (custom_error("Could not change music volume\n"));
+		if ((int)volume == 10)
+		{
+			if (restart_music(env))
+				return (-1);
+		}
 	}
 	return (0);
 }
@@ -54,7 +67,7 @@ int		music_volume_down(void *target)
 		volume -= 10;
 		env->sound.music_vol = volume / 100;
 		if (change_volume_if_playing(env->sound.music_chan,
-			env->sound.music_vol) != FMOD_OK)
+			env->sound.music_vol))
 			return (custom_error("Could not change music volume\n"));
 	}
 	return (0);
@@ -71,6 +84,8 @@ int		sounds_volume_down(void *target)
 	{
 		volume -= 10;
 		env->sound.ambient_vol = volume / 100;
+		if (change_sounds_volume(env->sound.ambient_vol, env))
+			return (custom_error("Could not change sounds volume\n"));
 	}
 	return (0);
 }
@@ -86,6 +101,8 @@ int		sounds_volume_up(void *target)
 	{
 		volume += 10;
 		env->sound.ambient_vol = volume / 100;
+		if (change_sounds_volume(env->sound.ambient_vol, env))
+			return (custom_error("Could not change sounds volume\n"));
 	}
 	return (0);
 }

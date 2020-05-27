@@ -33,7 +33,8 @@ int		doom_poll_event(t_env *env)
 		if (env->sdl.event.type == SDL_MOUSEWHEEL && !env->weapon_change.
 			on_going && !env->shot.on_going && env->player.health > 0)
 		{
-			env->player.next_weapon = next_possessed_weapon(env);
+			if (next_possessed_weapon(env))
+				return (-1);
 			if (env->player.next_weapon >= 0)
 				weapon_change(env);
 		}
