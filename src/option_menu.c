@@ -135,7 +135,8 @@ int		option_menu_ig(t_env *env)
 			env->sdl.event.key.keysym.sym == SDLK_ESCAPE))
 			env->running = 0;
 		update_inputs(env);
-		if (env->sdl.event.type == SDL_MOUSEBUTTONUP)
+		if (env->sdl.event.type == SDL_MOUSEBUTTONUP
+			|| env->sdl.event.type == SDL_KEYUP)
 		{
 			if (option_menu_ig_keyup(env))
 				return (-1);

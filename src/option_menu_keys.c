@@ -47,5 +47,11 @@ int		option_menu_ig_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->fps_option, env))
 		return (-1);
+	if (env->sdl.event.key.keysym.sym == SDLK_o)
+	{
+		env->option = 0;
+		if (env->in_game)
+			SDL_SetRelativeMouseMode(1);
+	}
 	return (0);
 }

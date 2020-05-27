@@ -180,6 +180,7 @@ typedef struct			s_env
 	int					enemies_start;
 	int					wall_sprites_start;
 	int					objects_sprites_start;
+	int					gatling_sound_playing;
 }						t_env;
 
 /*
