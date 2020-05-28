@@ -14,6 +14,7 @@
 #include "collision.h"
 #include "parser.h"
 #include <math.h>
+#include <sys/sysinfo.h>
 
 int		init_game5(t_env *env)
 {
@@ -133,6 +134,7 @@ int		init_game(int ac, char **av)
 	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
 	env.hud_start = env.editor_start + NB_HUD_SPRITES;
 	env.difficulty = 1;
+	env.nprocs = get_nprocs();
 	env.menu = 1;
 	if (ac == 3)
 	{

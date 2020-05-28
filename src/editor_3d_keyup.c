@@ -114,6 +114,8 @@ int		editor_3d_keyup2(t_env *env)
 
 int		editor_3d_keyup(t_env *env)
 {
+	if (env->sdl.event.key.keysym.sym == SDLK_p)
+		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (wall_edit_keyup(env))
 		return (-1);
 	if (env->sdl.event.key.keysym.sym == env->keys.enter

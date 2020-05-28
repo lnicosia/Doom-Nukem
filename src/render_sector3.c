@@ -51,6 +51,8 @@ void	*wall_loop(void *param)
 	{
 		render.x = x;
 		render_current_wall_vline(sector, &render, env);
+		if (env->options.clipping)
+			update_screen(env);
 		x++;
 	}
 	return (NULL);
@@ -58,21 +60,21 @@ void	*wall_loop(void *param)
 
 int		threaded_wall_loop(t_sector *sector, t_render *render, t_env *env)
 {
-	t_render_thread	rt[THREADS];
-	pthread_t		threads[THREADS];
+	t_render_thread	rt[env->nprocs];
+	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < env->nprocs)
 	{
 		render->thread = i;
 		rt[i].sector = sector;
 		rt[i].render = *render;
 		rt[i].env = env;
 		rt[i].xstart = render->xstart + (render->xend - render->xstart)
-			/ (double)THREADS * i;
+			/ (double)env->nprocs * i;
 		rt[i].xend = render->xstart + (render->xend - render->xstart)
-			/ (double)THREADS * (i + 1);
+			/ (double)env->nprocs * (i + 1);
 		if (pthread_create(&threads[i], NULL, wall_loop, &rt[i]))
 			return (-1);
 		i++;
@@ -85,21 +87,21 @@ int		threaded_wall_loop(t_sector *sector, t_render *render, t_env *env)
 
 int		colorize_selected_portal(t_sector *sector, t_render *render, t_env *env)
 {
-	t_render_thread	rt[THREADS];
-	pthread_t		threads[THREADS];
+	t_render_thread	rt[env->nprocs];
+	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < env->nprocs)
 	{
 		render->thread = i;
 		rt[i].sector = sector;
 		rt[i].render = *render;
 		rt[i].env = env;
 		rt[i].xstart = render->xstart + (render->xend - render->xstart)
-			/ (double)THREADS * i;
+			/ (double)env->nprocs * i;
 		rt[i].xend = render->xstart + (render->xend - render->xstart)
-			/ (double)THREADS * (i + 1) - 1;
+			/ (double)env->nprocs * (i + 1) - 1;
 		if (pthread_create(&threads[i], NULL, portal_loop, &rt[i]))
 			return (-1);
 		i++;
@@ -112,21 +114,21 @@ int		colorize_selected_portal(t_sector *sector, t_render *render, t_env *env)
 
 int		select_portal(t_sector *sector, t_render *render, t_env *env)
 {
-	t_render_thread	rt[THREADS];
-	pthread_t		threads[THREADS];
+	t_render_thread	rt[env->nprocs];
+	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < env->nprocs)
 	{
 		render->thread = i;
 		rt[i].sector = sector;
 		rt[i].render = *render;
 		rt[i].env = env;
 		rt[i].xstart = render->xstart + (render->xend - render->xstart)
-			/ (double)THREADS * i;
+			/ (double)env->nprocs * i;
 		rt[i].xend = render->xstart + (render->xend - render->xstart)
-			/ (double)THREADS * (i + 1);
+			/ (double)env->nprocs * (i + 1);
 		if (pthread_create(&threads[i], NULL, select_portal_loop, &rt[i]))
 			return (-1);
 		i++;

@@ -67,20 +67,20 @@ void		*player_loop(void *param)
 static int	threaded_player_loop(t_object *object, t_render_object *orender,
 		t_env *env)
 {
-	t_object_thread	et[THREADS];
-	pthread_t		threads[THREADS];
+	t_object_thread	et[env->nprocs];
+	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < env->nprocs)
 	{
 		et[i].env = env;
 		et[i].object = object;
 		et[i].orender = orender;
 		et[i].xstart = orender->xstart + (orender->xend - orender->xstart)
-			/ (double)THREADS * i;
+			/ (double)env->nprocs * i;
 		et[i].xend = orender->xstart + (orender->xend - orender->xstart)
-			/ (double)THREADS * (i + 1);
+			/ (double)env->nprocs * (i + 1);
 		if (pthread_create(&threads[i], NULL, player_loop, &et[i]))
 			return (-1);
 		i++;

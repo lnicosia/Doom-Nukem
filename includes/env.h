@@ -18,9 +18,13 @@
 # include "defines_images.h"
 # include "map_parser.h"
 # include "events_parser.h"
+# include "thread_pool.h"
 
 typedef struct			s_env
 {
+	pthread_t			main_threads;
+	pthread_t			*threads;
+	t_thread_pool		thread_pool;
 	t_resource			resource;
 	t_map_parser		parser;
 	t_events_parser		eparser;
@@ -69,6 +73,7 @@ typedef struct			s_env
 	t_event				*ceiling_bullet_holes_events;
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
+	int					nprocs;
 	int					dialog_box;
 	int					climb_sect;
 	int					dialog_box_max_lines;

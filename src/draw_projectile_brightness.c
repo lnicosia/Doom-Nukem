@@ -42,20 +42,20 @@ void	*projectile_loop_brightness(void *param)
 int		threaded_projectile_loop_brightness(t_projectile *projectile,
 t_render_projectile *prender, t_env *env)
 {
-	t_projectile_thread	pt[THREADS];
-	pthread_t			threads[THREADS];
+	t_projectile_thread	pt[env->nprocs];
+	pthread_t			threads[env->nprocs];
 	int					i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < env->nprocs)
 	{
 		pt[i].env = env;
 		pt[i].projectile = projectile;
 		pt[i].prender = prender;
 		pt[i].xstart = prender->xstart + (prender->xend - prender->xstart)
-		/ (double)THREADS * i;
+		/ (double)env->nprocs * i;
 		pt[i].xend = prender->xstart + (prender->xend - prender->xstart)
-		/ (double)THREADS * (i + 1);
+		/ (double)env->nprocs * (i + 1);
 		if (pthread_create(&threads[i], NULL, projectile_loop_brightness,
 			&pt[i]))
 			return (-1);

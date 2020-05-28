@@ -55,6 +55,7 @@ int		editor_render(t_env *env)
 	animations(env);
 	if (draw_walls(&env->player.camera, env))
 		return (-1);
+	ft_printf("\n");
 	if (draw_objects(&env->player.camera, env))
 		return (custom_error("Failed to draw objects\n"));
 	if (draw_enemies(&env->player.camera, env))

@@ -65,20 +65,20 @@ static void	*explosion_loop(void *param)
 static int	threaded_explosion(t_explosion *explosion,
 t_render_explosion *erender, t_env *env)
 {
-	t_explosion_thread	pt[THREADS];
-	pthread_t			threads[THREADS];
+	t_explosion_thread	pt[env->nprocs];
+	pthread_t			threads[env->nprocs];
 	int					i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < env->nprocs)
 	{
 		pt[i].env = env;
 		pt[i].explosion = explosion;
 		pt[i].erender = erender;
 		pt[i].xstart = erender->xstart + (erender->xend - erender->xstart)
-		/ (double)THREADS * i;
+		/ (double)env->nprocs * i;
 		pt[i].xend = erender->xstart + (erender->xend - erender->xstart)
-		/ (double)THREADS * (i + 1);
+		/ (double)env->nprocs * (i + 1);
 		if (pthread_create(&threads[i], NULL, explosion_loop, &pt[i]))
 			return (-1);
 		i++;

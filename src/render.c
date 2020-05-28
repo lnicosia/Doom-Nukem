@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "render.h"
+#include <sys/time.h>
 
 void	*precompute_sectors_loop(void *param)
 {
@@ -30,17 +31,17 @@ void	*precompute_sectors_loop(void *param)
 
 int		precompute_sectors(t_camera *camera, t_env *env)
 {
-	t_precompute_thread	pt[THREADS];
-	pthread_t			threads[THREADS];
+	t_precompute_thread	pt[1];
+	pthread_t			threads[1];
 	int					i;
 
 	i = 0;
-	while (i < THREADS)
+	while (i < 1)
 	{
 		pt[i].env = env;
 		pt[i].camera = camera;
-		pt[i].start = env->nb_sectors / (double)THREADS * i;
-		pt[i].end = env->nb_sectors / (double)THREADS * (i + 1);
+		pt[i].start = env->nb_sectors / (double)1 * i;
+		pt[i].end = env->nb_sectors / (double)1 * (i + 1);
 		if (pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]))
 			return (-1);
 		i++;
@@ -66,6 +67,7 @@ int		render_walls(t_camera *camera, t_env *env)
 	int			i;
 	int			screen_sectors;
 	t_render	render;
+	struct timeval	start, end;
 
 	camera->computed = 1;
 	env->visible_sectors = 0;
@@ -76,6 +78,7 @@ int		render_walls(t_camera *camera, t_env *env)
 	if (precompute_sectors(camera, env))
 		return (-1);
 	i = 0;
+	gettimeofday(&start, NULL);
 	while (i < screen_sectors)
 	{
 		set_render(camera, env, i, &render);
@@ -83,6 +86,9 @@ int		render_walls(t_camera *camera, t_env *env)
 			return (-1);
 		i++;
 	}
+	gettimeofday(&end, NULL);
+	printf("Total rendering time = %ld\n", (end.tv_sec - start.tv_sec)
+	* 1000000 + end.tv_usec - start.tv_usec);
 	return (0);
 }
 

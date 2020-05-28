@@ -86,17 +86,17 @@ int		set_screen_sectors(t_camera *camera, t_env *env)
 
 int		get_screen_sectors(t_camera *camera, t_env *env)
 {
-	t_precompute_thread	pt[THREADS];
-	pthread_t			threads[THREADS];
+	t_precompute_thread	pt[env->nprocs];
+	pthread_t			threads[env->nprocs];
 	int					i;
 
 	i = -1;
-	while (++i < THREADS)
+	while (++i < env->nprocs)
 	{
 		pt[i].env = env;
 		pt[i].camera = camera;
-		pt[i].start = env->w / (double)THREADS * i;
-		pt[i].end = env->w / (double)THREADS * (i + 1);
+		pt[i].start = env->w / (double)env->nprocs * i;
+		pt[i].end = env->w / (double)env->nprocs * (i + 1);
 		if (pthread_create(&threads[i], NULL, get_screen_sectors_loop, &pt[i]))
 			return (-1);
 	}
