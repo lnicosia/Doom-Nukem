@@ -84,8 +84,8 @@ int		render_walls(t_camera *camera, t_env *env)
 		i++;
 	}
 	gettimeofday(&end, NULL);
-	//printf("Total rendering time = %ld\n", (end.tv_sec - start.tv_sec)
-	//* 1000000 + end.tv_usec - start.tv_usec);
+	ft_printf("Total rendering time = %ld\n", (end.tv_sec - start.tv_sec)
+	* 1000000 + end.tv_usec - start.tv_usec);
 	return (0);
 }
 
