@@ -13,7 +13,7 @@
 #include "env.h"
 #include "render.h"
 
-void	*get_enemy_relative_pos(void *param)
+int		get_enemy_relative_pos(void *param)
 {
 	t_env		*env;
 	t_camera	*camera;
@@ -30,7 +30,7 @@ void	*get_enemy_relative_pos(void *param)
 		get_rotated_enemy_pos(camera, &env->enemies[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 void	get_translated_enemy_pos(t_camera *camera, t_enemy *enemy)

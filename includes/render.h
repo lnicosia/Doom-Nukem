@@ -311,7 +311,7 @@ t_render *render, t_env *env);
 void				precompute_texels(t_render *render);
 void				draw_floor_and_ceiling(t_sector *sector,
 t_render *render, t_env *env);
-void				*wall_loop(void *param);
+int					wall_loop(void *param);
 int					render_sector(t_render render, t_env *env);
 void				draw_ceiling(t_sector *sector, t_render *render,
 t_env *env);
@@ -443,8 +443,8 @@ int					get_current_floor_map(int texture, double z,
 t_render *render, t_env *env);
 int					get_current_ceiling_map(int texture, double z,
 t_render *render, t_env *env);
-void				*portal_loop(void *param);
-void				*select_portal_loop(void *param);
+int					portal_loop(void *param);
+int					select_portal_loop(void *param);
 void				get_sprite_x(t_render_object *orender,
 t_sprite_drawer *drawer);
 void				draw_vline_enemy(t_render_object *orender,
@@ -487,13 +487,13 @@ t_sprite_drawer *drawer);
 **	Sprite part
 */
 
-void				*get_enemy_relative_pos(void *param);
+int					get_enemy_relative_pos(void *param);
 void				get_translated_enemy_pos(t_camera *camera, t_enemy *enemy);
 void				get_rotated_enemy_pos(t_camera *camera, t_enemy *enemy);
 void				project_enemy(t_render_object *erender, t_enemy *enemy,
 t_env *env);
 
-void				*get_projectile_relative_pos(t_camera *camera, t_env *env);
+int					get_projectile_relative_pos(t_camera *camera, t_env *env);
 void				get_translated_projectile_pos(t_camera *camera,
 t_projectile *projectile);
 void				get_rotated_projectile_pos(t_camera *camera,
@@ -501,7 +501,7 @@ t_projectile *projectile);
 void				project_projectile(t_render_projectile *prender,
 t_projectile *projectile, t_env *env);
 
-void				*get_explosion_relative_pos(t_camera *camera,
+int					get_explosion_relative_pos(t_camera *camera,
 t_env *env);
 void				get_translated_explosion_pos(t_camera *camera,
 t_explosion *explosion);
@@ -513,13 +513,13 @@ t_explosion *explosion, t_env *env);
 void				get_translated_object_pos(t_camera *camera,
 t_object *object);
 void				get_rotated_object_pos(t_camera *camera, t_object *object);
-void				*get_object_relative_pos(void *param);
+int					get_object_relative_pos(void *param);
 void				project_object(t_render_object *orender, t_object *object,
 t_env *env);
 void				get_neighbor_ceil_floor(t_render *render, t_env *env,
 int x);
-void				*raycasting(void *param);
-void				*skybox_thread(void *param);
+int					raycasting(void *param);
+int					skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
 int					draw_object(t_camera *camera, t_object *object, t_env *env,
 int death_sprite);

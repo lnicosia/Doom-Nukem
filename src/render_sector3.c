@@ -34,7 +34,7 @@ t_env *env)
 	}
 }
 
-void	*wall_loop(void *param)
+int		wall_loop(void *param)
 {
 	t_sector		*sector;
 	t_render		render;
@@ -55,13 +55,12 @@ void	*wall_loop(void *param)
 			update_screen(env);
 		x++;
 	}
-	return (NULL);
+	return (0);
 }
 
 int		threaded_wall_loop(t_sector *sector, t_render *render, t_env *env)
 {
 	t_render_thread	rt[env->nprocs];
-	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
@@ -75,20 +74,17 @@ int		threaded_wall_loop(t_sector *sector, t_render *render, t_env *env)
 			/ (double)env->nprocs * i;
 		rt[i].xend = render->xstart + (render->xend - render->xstart)
 			/ (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, wall_loop, &rt[i]))
-			return (-1);
+		tpool_work(&env->tpool, wall_loop, &rt[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 
 int		colorize_selected_portal(t_sector *sector, t_render *render, t_env *env)
 {
 	t_render_thread	rt[env->nprocs];
-	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
@@ -102,20 +98,17 @@ int		colorize_selected_portal(t_sector *sector, t_render *render, t_env *env)
 			/ (double)env->nprocs * i;
 		rt[i].xend = render->xstart + (render->xend - render->xstart)
 			/ (double)env->nprocs * (i + 1) - 1;
-		if (pthread_create(&threads[i], NULL, portal_loop, &rt[i]))
-			return (-1);
+		tpool_work(&env->tpool, portal_loop, &rt[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 
 int		select_portal(t_sector *sector, t_render *render, t_env *env)
 {
 	t_render_thread	rt[env->nprocs];
-	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
@@ -129,12 +122,10 @@ int		select_portal(t_sector *sector, t_render *render, t_env *env)
 			/ (double)env->nprocs * i;
 		rt[i].xend = render->xstart + (render->xend - render->xstart)
 			/ (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, select_portal_loop, &rt[i]))
-			return (-1);
+		tpool_work(&env->tpool, select_portal_loop, &rt[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }

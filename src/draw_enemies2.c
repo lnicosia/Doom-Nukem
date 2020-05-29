@@ -13,7 +13,7 @@
 #include "render.h"
 #include "enemies.h"
 
-void	*enemy_loop(void *param)
+int		enemy_loop(void *param)
 {
 	t_env			*env;
 	t_render_object	*orender;
@@ -37,7 +37,7 @@ void	*enemy_loop(void *param)
 			drawer.y++;
 		}
 	}
-	return (NULL);
+	return (0);
 }
 
 void	init_enemy_render(t_render_object *orender, t_enemy *enemy,
@@ -66,7 +66,6 @@ int		threaded_enemy_loop(t_enemy *enemy, t_render_object *orender,
 t_env *env)
 {
 	t_enemy_thread	et[env->nprocs];
-	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
@@ -79,13 +78,11 @@ t_env *env)
 		/ (double)env->nprocs * i;
 		et[i].xend = orender->xstart + (orender->xend - orender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, enemy_loop, &et[i]))
-			return (-1);
+		tpool_work(&env->tpool, enemy_loop, &et[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 

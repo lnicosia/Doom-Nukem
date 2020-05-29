@@ -71,7 +71,7 @@ t_env *env)
 	}
 }
 
-void	*object_loop(void *param)
+int		object_loop(void *param)
 {
 	t_env			*env;
 	t_render_object	*orender;
@@ -97,14 +97,13 @@ void	*object_loop(void *param)
 			drawer.x++;
 		}
 	}
-	return (NULL);
+	return (0);
 }
 
 int		threaded_object_loop(t_object *object, t_render_object *orender,
 t_env *env)
 {
 	t_object_thread	ot[env->nprocs];
-	pthread_t		threads[env->nprocs];
 	int				i;
 
 	i = 0;
@@ -117,12 +116,10 @@ t_env *env)
 		/ (double)env->nprocs * i;
 		ot[i].xend = orender->xstart + (orender->xend - orender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, object_loop, &ot[i]))
-			return (-1);
+		tpool_work(&env->tpool, object_loop, &ot[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }

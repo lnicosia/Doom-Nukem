@@ -55,7 +55,7 @@ void	render_vline(t_sector *sector, t_render *render, t_env *env)
 			- render->no_slope_current_ceiling);
 }
 
-void	*portal_loop(void *param)
+int		portal_loop(void *param)
 {
 	t_sector		*sector;
 	t_render		render;
@@ -75,7 +75,7 @@ void	*portal_loop(void *param)
 		colorize_portal(&render, env);
 		x++;
 	}
-	return (NULL);
+	return (0);
 }
 
 void	check_mouse(t_render *render, t_env *env)
@@ -105,7 +105,7 @@ void	check_mouse(t_render *render, t_env *env)
 	}
 }
 
-void	*select_portal_loop(void *param)
+int		select_portal_loop(void *param)
 {
 	t_sector		*sector;
 	t_render		render;
@@ -125,5 +125,5 @@ void	*select_portal_loop(void *param)
 		check_mouse(&render, env);
 		x++;
 	}
-	return (NULL);
+	return (0);
 }

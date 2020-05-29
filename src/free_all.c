@@ -42,6 +42,7 @@ void		free_all2(t_env *env)
 	free_audio(env, 0);
 	free_textures(env);
 	free_buttons(env);
+	free_tpool(&env->tpool);
 	TTF_Quit();
 	SDL_Quit();
 	if (env->editor.events_to_delete)

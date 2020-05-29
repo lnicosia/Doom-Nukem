@@ -116,7 +116,7 @@ t_env *env)
 		ft_printf(">Rendering wall %d neighbors took %ld\n", i,
 		(end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec);*/
 	}
-	draw_limits(render, env);
+	//draw_limits(render, env);
 	//update_screen(env);
 	//getchar();
 	return (0);

@@ -28,7 +28,7 @@ void	get_current_x_sector(int x, t_camera *camera, t_env *env)
 	camera->screen_pos[x] = get_sector(env, curr, env->player.sector);
 }
 
-void	*get_screen_sectors_loop(void *param)
+int		get_screen_sectors_loop(void *param)
 {
 	t_env		*env;
 	t_camera	*camera;
@@ -44,7 +44,7 @@ void	*get_screen_sectors_loop(void *param)
 		get_current_x_sector(x, camera, env);
 		x++;
 	}
-	return (NULL);
+	return (0);
 }
 
 void	set_current_x_sectors(int *count, int x, t_camera *camera, t_env *env)
@@ -87,7 +87,6 @@ int		set_screen_sectors(t_camera *camera, t_env *env)
 int		get_screen_sectors(t_camera *camera, t_env *env)
 {
 	t_precompute_thread	pt[env->nprocs];
-	pthread_t			threads[env->nprocs];
 	int					i;
 
 	i = -1;
@@ -97,11 +96,9 @@ int		get_screen_sectors(t_camera *camera, t_env *env)
 		pt[i].camera = camera;
 		pt[i].start = env->w / (double)env->nprocs * i;
 		pt[i].end = env->w / (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, get_screen_sectors_loop, &pt[i]))
-			return (-1);
+		tpool_work(&env->tpool, get_screen_sectors_loop, &pt[i]);
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (set_screen_sectors(camera, env));
 }

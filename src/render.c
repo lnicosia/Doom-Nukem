@@ -13,7 +13,7 @@
 #include "render.h"
 #include <sys/time.h>
 
-void	*precompute_sectors_loop(void *param)
+int		precompute_sectors_loop(void *param)
 {
 	int			i;
 	int			end;
@@ -26,29 +26,26 @@ void	*precompute_sectors_loop(void *param)
 	camera = ((t_precompute_thread*)param)->camera;
 	while (++i < end)
 		precompute_sector(camera, &env->sectors[i], env);
-	return (NULL);
+	return (0);
 }
 
 int		precompute_sectors(t_camera *camera, t_env *env)
 {
-	t_precompute_thread	pt[1];
-	pthread_t			threads[1];
 	int					i;
+	t_precompute_thread	pt[env->nprocs];
 
 	i = 0;
-	while (i < 1)
+	while (i < env->nprocs)
 	{
 		pt[i].env = env;
 		pt[i].camera = camera;
-		pt[i].start = env->nb_sectors / (double)1 * i;
-		pt[i].end = env->nb_sectors / (double)1 * (i + 1);
-		if (pthread_create(&threads[i], NULL, precompute_sectors_loop, &pt[i]))
-			return (-1);
+		pt[i].start = env->nb_sectors / (double)env->nprocs * i;
+		pt[i].end = env->nb_sectors / (double)env->nprocs * (i + 1);
+		tpool_work(&env->tpool, precompute_sectors_loop, &pt[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 

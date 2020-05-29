@@ -40,7 +40,7 @@ t_v3	sprite_movement(t_env *env, double speed, t_v3 origin, t_v3 destination)
 	return (direction);
 }
 
-void	*get_object_relative_pos(void *param)
+int		get_object_relative_pos(void *param)
 {
 	t_env		*env;
 	t_camera	*camera;
@@ -57,7 +57,7 @@ void	*get_object_relative_pos(void *param)
 		get_rotated_object_pos(camera, &env->objects[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 void	get_translated_object_pos(t_camera *camera, t_object *object)

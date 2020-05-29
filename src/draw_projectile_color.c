@@ -13,7 +13,7 @@
 #include "render.h"
 #include "draw.h"
 
-void	*projectile_loop_color(void *param)
+int		projectile_loop_color(void *param)
 {
 	t_env				*env;
 	t_render_projectile	*prender;
@@ -36,14 +36,13 @@ void	*projectile_loop_color(void *param)
 			drawer.y++;
 		}
 	}
-	return (NULL);
+	return (0);
 }
 
 int		threaded_projectile_loop_color(t_projectile *projectile,
 t_render_projectile *prender, t_env *env)
 {
 	t_projectile_thread	pt[env->nprocs];
-	pthread_t			threads[env->nprocs];
 	int					i;
 
 	i = 0;
@@ -56,13 +55,11 @@ t_render_projectile *prender, t_env *env)
 		/ (double)env->nprocs * i;
 		pt[i].xend = prender->xstart + (prender->xend - prender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, projectile_loop_color, &pt[i]))
-			return (-1);
+		tpool_work(&env->tpool, projectile_loop_color, &pt[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 

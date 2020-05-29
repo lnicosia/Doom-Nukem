@@ -13,7 +13,7 @@
 #include "env.h"
 #include "render.h"
 
-void	*get_explosion_relative_pos(t_camera *camera, t_env *env)
+int		get_explosion_relative_pos(t_camera *camera, t_env *env)
 {
 	t_list		*tmp;
 
@@ -24,7 +24,7 @@ void	*get_explosion_relative_pos(t_camera *camera, t_env *env)
 		get_rotated_explosion_pos(camera, ((t_explosion*)tmp->content));
 		tmp = tmp->next;
 	}
-	return (NULL);
+	return (0);
 }
 
 void	get_translated_explosion_pos(t_camera *camera, t_explosion *explosion)

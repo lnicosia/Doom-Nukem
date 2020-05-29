@@ -13,7 +13,7 @@
 #include "env.h"
 #include "render.h"
 
-void	*get_projectile_relative_pos(t_camera *camera, t_env *env)
+int		get_projectile_relative_pos(t_camera *camera, t_env *env)
 {
 	t_list		*tmp;
 
@@ -30,7 +30,7 @@ void	*get_projectile_relative_pos(t_camera *camera, t_env *env)
 			get_rotated_projectile_pos(camera, ((t_projectile*)tmp->content));
 		}
 	}
-	return (NULL);
+	return (0);
 }
 
 void	get_translated_projectile_pos(t_camera *camera,

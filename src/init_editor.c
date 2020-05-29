@@ -34,6 +34,8 @@ int	init_editor4(t_env *env)
 	env->h_w + 200;
 	env->editor.center.y = -env->player.pos.y * env->editor.scale + env->h_h;
 	new_tabs_position(env);
+	if (init_tpool(&env->tpool, env->nprocs))
+		return (crash("Could not init thread pool\n", env));
 	return (editor(env));
 }
 

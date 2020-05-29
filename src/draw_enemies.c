@@ -70,7 +70,6 @@ static int	threaded_get_relative_pos(t_camera *camera, t_env *env)
 {
 	int				i;
 	t_enemy_thread	enemies_threads[env->nprocs];
-	pthread_t		threads[env->nprocs];
 
 	i = 0;
 	while (i < env->nprocs)
@@ -78,15 +77,14 @@ static int	threaded_get_relative_pos(t_camera *camera, t_env *env)
 		enemies_threads[i].env = env;
 		enemies_threads[i].camera = camera;
 		enemies_threads[i].xstart = env->nb_enemies / (double)env->nprocs * i;
-		enemies_threads[i].xend = env->nb_enemies / (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, get_enemy_relative_pos,
-		&enemies_threads[i]))
-			return (-1);
+		enemies_threads[i].xend = env->nb_enemies
+		/ (double)env->nprocs * (i + 1);
+		tpool_work(&env->tpool, get_enemy_relative_pos,
+		&enemies_threads[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 

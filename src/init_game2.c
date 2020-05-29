@@ -15,6 +15,13 @@
 #include "parser.h"
 #include <math.h>
 
+int		init_game7(t_env *env)
+{
+	if (init_tpool(&env->tpool, env->nprocs))
+		return (crash("Could not init thread pool\n", env));
+	return (doom(env));
+}
+
 int		init_game6(t_env *env)
 {
 	env->fixed_camera.angle_z_cos = cos(env->fixed_camera.angle_z);
@@ -41,5 +48,5 @@ int		init_game6(t_env *env)
 	fov_decrease_button(env);
 	next_resolution_button(env);
 	prev_resolution_button(env);
-	return (doom(env));
+	return (init_game7(env));
 }

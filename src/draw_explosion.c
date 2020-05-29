@@ -41,7 +41,7 @@ t_sprite_drawer *drawer, t_env *env)
 	}
 }
 
-static void	*explosion_loop(void *param)
+static int	explosion_loop(void *param)
 {
 	t_env				*env;
 	t_render_explosion	*erender;
@@ -59,14 +59,13 @@ static void	*explosion_loop(void *param)
 	{
 		draw_vline_explosion(erender, &drawer, env);
 	}
-	return (NULL);
+	return (0);
 }
 
 static int	threaded_explosion(t_explosion *explosion,
 t_render_explosion *erender, t_env *env)
 {
 	t_explosion_thread	pt[env->nprocs];
-	pthread_t			threads[env->nprocs];
 	int					i;
 
 	i = 0;
@@ -79,13 +78,11 @@ t_render_explosion *erender, t_env *env)
 		/ (double)env->nprocs * i;
 		pt[i].xend = erender->xstart + (erender->xend - erender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		if (pthread_create(&threads[i], NULL, explosion_loop, &pt[i]))
-			return (-1);
+		tpool_work(&env->tpool, explosion_loop, &pt[i]);
 		i++;
 	}
-	while (i-- > 0)
-		if (pthread_join(threads[i], NULL))
-			return (-1);
+	if (tpool_wait(&env->tpool))
+		return (-1);
 	return (0);
 }
 
