@@ -22,9 +22,9 @@
 
 typedef struct			s_env
 {
-	pthread_t			main_threads;
+	pthread_t			main_thread;
 	pthread_t			*threads;
-	t_thread_pool		thread_pool;
+	t_tpool				tpool;
 	t_resource			resource;
 	t_map_parser		parser;
 	t_events_parser		eparser;
@@ -74,6 +74,7 @@ typedef struct			s_env
 	size_t				nb_ceiling_bullet_holes_events;
 	char				*snprintf;
 	int					nprocs;
+	int					thread_error;
 	int					dialog_box;
 	int					climb_sect;
 	int					dialog_box_max_lines;
@@ -823,6 +824,7 @@ int						wall_sprite_buttons_up(t_env *env);
 int						doom(t_env *env);
 int						doom_poll_event(t_env *env);
 int						crash(char *str, t_env *env);
+void					*thread_crash(char *str, t_env *env);
 int						first_frame(t_env *env);
 int						launch_events(t_env *env);
 void					reset_render_utils(t_camera *camera, t_env *env);

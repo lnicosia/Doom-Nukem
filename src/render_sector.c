@@ -96,12 +96,12 @@ t_env *env)
 	if (threaded_wall_loop(sector, render, env) || env->fatal_error)
 		return (custom_error("threads crash\n", env));
 	gettimeofday(&end, NULL);
-	int j = -1;
+	/*int j = -1;
 	while (++j < count - 1)
 		ft_printf("----");
-	printf(">Rendering wall %d (from %d to %d) took %ld\n", i,
+	ft_printf(">Rendering wall %d (from %d to %d) took %ld\n", i,
 	render->xstart, render->xend, (end.tv_sec - start.tv_sec)
-	* 1000000 + end.tv_usec - start.tv_usec);
+	* 1000000 + end.tv_usec - start.tv_usec);*/
 	if (env->editor.just_selected)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)
@@ -110,11 +110,11 @@ t_env *env)
 		if (render_neighbor(just_selected, sector, render, env))
 			return (-1);
 		gettimeofday(&end, NULL);
-		j = -1;
+		/*j = -1;
 		while (++j < count - 1)
 			ft_printf("----");
-		printf(">Rendering wall %d neighbors took %ld\n", i,
-		(end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec);
+		ft_printf(">Rendering wall %d neighbors took %ld\n", i,
+		(end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec);*/
 	}
 	draw_limits(render, env);
 	//update_screen(env);
@@ -132,11 +132,11 @@ int		render_sector(t_render render, t_env *env)
 
 	if (render.camera->rendered_sectors[render.sector->num])
 		return (-1);
-	i = -1;
+	/*i = -1;
 	while (++i < count)
 		ft_printf("----");
 	count++;
-	ft_printf("rendering sector %d\n", render.sector->num);
+	ft_printf("rendering sector %d\n", render.sector->num);*/
 	render.camera->rendered_sectors[render.sector->num]++;
 	sector = render.sector;
 	j = -1;
@@ -155,12 +155,12 @@ int		render_sector(t_render render, t_env *env)
 			return (-1);
 	}
 	gettimeofday(&end, NULL);
-	i = -1;
+	/*i = -1;
 	while (++i < count - 1)
 		ft_printf("----");
-	printf("Rendering execution is %ld\n", (end.tv_sec - start.tv_sec)
+	ft_printf("Rendering execution is %ld\n", (end.tv_sec - start.tv_sec)
 	* 1000000 + end.tv_usec - start.tv_usec);
-	count--;
+	count--;*/
 	render.camera->rendered_sectors[render.sector->num]--;
 	return (0);
 }

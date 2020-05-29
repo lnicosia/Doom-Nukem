@@ -7,11 +7,12 @@ fov
 plusieurs resolutions
 changer mur de depart de la pente
 sens de pente different entre sol et plafond
-lancer le jeu via l'editeur (peut etre)
+lancer le jeu via l'editeur
 les textes sont centres dans leur ui respective
 portabilite
-CAMERAS
+Cameras
 resize d'image (avec mipmapping)
+Transparence
 boutons
 input boxes
 Qualite de l'editeur

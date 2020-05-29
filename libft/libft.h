@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include "thread_pool.h"
 
 typedef struct		s_list
 {

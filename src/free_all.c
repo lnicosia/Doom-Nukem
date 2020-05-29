@@ -81,7 +81,15 @@ void		free_all(t_env *env)
 int			crash(char *str, t_env *env)
 {
 	ft_dprintf(STDERR_FILENO, "%s", str);
-	ft_printf("{red}[Critical error]{reset}\n");
+	ft_dprintf(STDERR_FILENO, "{red}[Critical error]{reset}\n");
 	free_all(env);
 	return (-1);
+}
+
+void		*thread_crash(char *str, t_env *env)
+{
+	ft_dprintf(STDERR_FILENO, "%s", str);
+	ft_dprintf(STDERR_FILENO, "{red}[Critical error]{reset}\n");
+	env->thread_error = 1;
+	return (0);
 }

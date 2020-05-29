@@ -38,9 +38,9 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  ft_lstcontains.c vector_utils.c segments_intersect.c \
 		  get_intersection.c ft_lstpopfront.c ft_lstdelfront.c \
 		  ft_lstdelnode.c new_plane.c get_intersection_line_plane.c \
-		  ft_convert_base.c ft_ishexa.c \
+		  ft_convert_base.c ft_ishexa.c thread_pool.c thread_pool_work.c \
 
-HEADERS = libft.h
+HEADERS = libft.h thread_pool.h 
 
 PRINTF_SRC_RAW = ft_printf.c ft_dprintf.c base_utils.c parse_colors.c \
 				 parse_flags.c parse_functions.c pf_atoi.c pf_float_padding.c \
