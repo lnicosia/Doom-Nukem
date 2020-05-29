@@ -44,7 +44,9 @@ int		free_tpool(t_tpool *tpool)
 	t_work	*work;
 	t_work	*tmp;
 	int		i;
-
+	
+	if (!tpool->threads)
+		return (0);
 	pthread_mutex_lock(&tpool->mutex);
 	work = tpool->works;
 	while (work)
@@ -56,22 +58,20 @@ int		free_tpool(t_tpool *tpool)
 	tpool->stop = 1;
 	pthread_cond_broadcast(&tpool->worker_cond);
 	pthread_mutex_unlock(&tpool->mutex);
-	if (!tpool->threads)
-		return (0);
 	i = 0;
 	while (i < tpool->nb_threads)
 	{
 		if (pthread_join(tpool->threads[i], NULL))
-			return (custom_error("Could not join thread %d\n", i));
+			custom_error("Could not join thread %d\n", i);
 		i++;
 	}
 	ft_memdel((void**)&tpool->threads);
 	if (pthread_mutex_destroy(&tpool->mutex))
-		return (custom_error("Could not destroy the mutex\n"));
+		custom_error("Could not destroy the mutex\n");
 	if (pthread_cond_destroy(&tpool->worker_cond))
-		return (custom_error("Could not destroy the worker condition\n"));
+		custom_error("Could not destroy the worker condition\n");
 	if (pthread_cond_destroy(&tpool->main_cond))
-		return (custom_error("Could not destroy the main condition\n"));
+		custom_error("Could not destroy the main condition\n");
 	return (0);
 }
 
@@ -99,11 +99,7 @@ void	*tpool_worker(void *param)
 		tpool->nb_working_threads++;
 		pthread_mutex_unlock(&tpool->mutex);
 		if (work->func(work->param))
-		{
 			tpool->err = 1;
-			tpool->stop = 1;
-			return (NULL);
-		}
 		destroy_work(work);
 		pthread_mutex_lock(&tpool->mutex);
 		tpool->nb_working_threads--;
@@ -135,14 +131,17 @@ void	*tpool_work(t_tpool *tpool, int (*func)(void *), void *param)
 	return (0);
 }
 
-void	tpool_wait(t_tpool *tpool)
+int		tpool_wait(t_tpool *tpool)
 {
 	if (!tpool)
-		return ;
+		return (0);
 	pthread_mutex_lock(&tpool->mutex);
 	while ((!tpool->stop && tpool->nb_working_threads > 0)
 		|| (tpool->stop && tpool->nb_alive_threads > 0)
 		|| tpool->works)
 		pthread_cond_wait(&tpool->main_cond, &tpool->mutex);
 	pthread_mutex_unlock(&tpool->mutex);
+	if (tpool->err)
+		return (-1);
+	return (0);
 }

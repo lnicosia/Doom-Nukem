@@ -22,8 +22,6 @@
 
 typedef struct			s_env
 {
-	pthread_t			main_thread;
-	pthread_t			*threads;
 	t_tpool				tpool;
 	t_resource			resource;
 	t_map_parser		parser;

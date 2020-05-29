@@ -43,6 +43,6 @@ void					destroy_work(t_work *work);
 void					*tpool_worker(void *param);
 void					*tpool_work(t_tpool *tpool,
 int (*func)(void *), void *param);
-void					tpool_wait(t_tpool *tpool);
+int						tpool_wait(t_tpool *tpool);
 
 #endif
