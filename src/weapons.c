@@ -59,10 +59,9 @@ int		next_weapon_wheel_up(t_env *env)
 			return (0);
 		}
 		i++;
-		if (i >= NB_WEAPONS)
-			i = 0;
+		i = i >= NB_WEAPONS ? 0 : i;
 	}
-	return (-1);
+	return (0);
 }
 
 int		next_weapon_wheel_down(t_env *env)
@@ -89,10 +88,9 @@ int		next_weapon_wheel_down(t_env *env)
 			return (0);
 		}
 		i--;
-		if (i < 0)
-			i = NB_WEAPONS - 1;
+		i = i < 0 ? NB_WEAPONS - 1 : i;
 	}
-	return (-1);
+	return (0);
 }
 
 int		next_possessed_weapon(t_env *env)
