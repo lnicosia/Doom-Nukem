@@ -103,6 +103,8 @@ int		draw_grid_sector(t_sector *sector, Uint32 color, t_env *env)
 		i++;
 	}
 	draw_last_wall(i, &drawer, env);
+	if (!drawer.nb_angles)
+		return (0);
 	drawer.center.x /= drawer.nb_angles;
 	drawer.center.y /= drawer.nb_angles;
 	drawer.font_size = env->editor.scale * 2;
