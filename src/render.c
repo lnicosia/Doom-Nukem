@@ -64,7 +64,7 @@ int		render_walls(t_camera *camera, t_env *env)
 	int			i;
 	int			screen_sectors;
 	t_render	render;
-	struct timeval	start, end;
+	//struct timeval	start, end;
 
 	camera->computed = 1;
 	env->visible_sectors = 0;
@@ -75,7 +75,7 @@ int		render_walls(t_camera *camera, t_env *env)
 	if (precompute_sectors(camera, env))
 		return (-1);
 	i = 0;
-	gettimeofday(&start, NULL);
+	//gettimeofday(&start, NULL);
 	while (i < screen_sectors)
 	{
 		set_render(camera, env, i, &render);
@@ -83,9 +83,9 @@ int		render_walls(t_camera *camera, t_env *env)
 			return (-1);
 		i++;
 	}
-	gettimeofday(&end, NULL);
+	/*gettimeofday(&end, NULL);
 	ft_printf("Total rendering time = %ld\n", (end.tv_sec - start.tv_sec)
-	* 1000000 + end.tv_usec - start.tv_usec);
+	* 1000000 + end.tv_usec - start.tv_usec);*/
 	return (0);
 }
 
