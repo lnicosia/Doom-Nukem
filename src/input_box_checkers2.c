@@ -21,17 +21,12 @@ int		check_entities_sprite_scale_input_box(void *penv)
 	env = (t_env*)penv;
 	sector = NULL;
 	scale = ft_atof(env->input_box.str);
-	if (env->selected_object != -1)
-		sector = &env->sectors[env->objects[env->selected_object].sector];
 	if (env->selected_enemy != -1)
 		sector = &env->sectors[env->enemies[env->selected_enemy].sector];
 	if (scale < 0.1 || scale > 100)
 		return (1);
 	else if (env->selected_enemy != -1 && check_height_at_pos(env, sector,
 		env->enemies[env->selected_enemy].pos, scale))
-		return (-1);
-	else if (env->selected_object != -1 && check_height_at_pos(env, sector,
-		env->objects[env->selected_object].pos, scale))
 		return (-1);
 	return (0);
 }

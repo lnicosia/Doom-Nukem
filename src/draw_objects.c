@@ -123,7 +123,7 @@ int		draw_objects(t_camera *camera, t_env *env)
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		if (draw_current_object(camera, i, env))
+		if (env->objects[i].sector != -1 && draw_current_object(camera, i, env))
 			return (-1);
 		i++;
 	}

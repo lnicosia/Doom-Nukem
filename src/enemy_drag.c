@@ -25,7 +25,8 @@ int		enemy_drag(t_env *env)
 	else
 	{
 		update_enemy(env, env->editor.dragged_enemy);
-		if (check_entities_height_in_sector(
+		if (env->enemies[env->editor.dragged_enemy].sector == -1
+			|| check_entities_height_in_sector(
 			&env->sectors[env->enemies[env->editor.dragged_enemy].sector],
 			env))
 		{
