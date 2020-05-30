@@ -43,7 +43,7 @@ int		change_health(void *param)
 	return (0);
 }
 
-int		change_speed(void *param)
+int		change_player_speed(void *param)
 {
 	t_button_tab	*button;
 	t_env			*env;
@@ -53,8 +53,23 @@ int		change_speed(void *param)
 	if (new_input_var(&env->input_box, button->pos, button->type,
 		button->target))
 		return (-1);
-	env->input_box.check = &check_speed_input_box;
+	env->input_box.check = &check_player_speed_input_box;
 	env->input_box.error_message = "Error: speed must be between 0 and 1";
+	return (0);
+}
+
+int		change_enemy_speed(void *param)
+{
+	t_button_tab	*button;
+	t_env			*env;
+
+	button = (t_button_tab*)param;
+	env = button->env;
+	if (new_input_var(&env->input_box, button->pos, button->type,
+		button->target))
+		return (-1);
+	env->input_box.check = &check_enemy_speed_input_box;
+	env->input_box.error_message = "Error: speed must be between 0 and 100";
 	return (0);
 }
 

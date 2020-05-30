@@ -74,7 +74,7 @@ void	init_enemy_general_buttons(t_env *env)
 	env->editor.hud.g_enemy.health.pos = new_point(170, 640);
 	env->editor.hud.g_enemy.t_health.pos = new_point(170, 640);
 	env->editor.hud.g_enemy.speed = new_hud_button(ON_RELEASE,
-	&change_speed, &env->editor.hud.g_enemy.t_speed, env);
+	&change_enemy_speed, &env->editor.hud.g_enemy.t_speed, env);
 	env->editor.hud.g_enemy.speed.pos = new_point(170, 680);
 	env->editor.hud.g_enemy.t_speed.pos = new_point(170, 680);
 	init_enemy_general_buttons2(env);

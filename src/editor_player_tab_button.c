@@ -72,6 +72,6 @@ void	init_player_general_buttons(t_env *env)
 	env->editor.hud.g_player.armor.pos = new_point(170, 680);
 	env->editor.hud.g_player.t_armor.pos = new_point(170, 680);
 	env->editor.hud.g_player.speed = new_hud_button(ON_RELEASE,
-	&change_speed, &env->editor.hud.g_player.t_speed, env);
+	&change_player_speed, &env->editor.hud.g_player.t_speed, env);
 	init_player_general_buttons2(env);
 }

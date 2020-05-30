@@ -47,3 +47,15 @@ int		check_sprite_scale_input_box(void *penv)
 		return (1);
 	return (0);
 }
+
+int		check_enemy_speed_input_box(void *penv)
+{
+	int		value;
+	t_env	*env;
+
+	env = (t_env*)penv;
+	value = ft_atoi(env->input_box.str);
+	if (value < 0 || value >= 100)
+		return (1);
+	return (0);
+}

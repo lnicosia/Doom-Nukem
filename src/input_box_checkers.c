@@ -55,14 +55,14 @@ int		check_health_input_box(void *penv)
 	return (0);
 }
 
-int		check_speed_input_box(void *penv)
+int		check_player_speed_input_box(void *penv)
 {
 	double	value;
 	t_env	*env;
 
 	env = (t_env*)penv;
 	value = ft_atof(env->input_box.str);
-	if (value <= 0 || value >= 1)
+	if (value <= 0 || value > 1)
 		return (1);
 	return (0);
 }
