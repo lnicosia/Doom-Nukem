@@ -38,6 +38,7 @@ int	print_enemy_events_tab(t_env *env)
 {
 	t_point		text_size;
 
+	text_size = new_point(0, 0);
 	if (env->editor.selected_events == 0)
 	{
 		if (collision_event_tab(env, text_size))

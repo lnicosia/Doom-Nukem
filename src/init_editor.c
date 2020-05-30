@@ -12,7 +12,6 @@
 
 #include "init.h"
 #include "parser.h"
-#include <sys/sysinfo.h>
 
 int	init_editor4(t_env *env)
 {
@@ -105,7 +104,8 @@ int	init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
-	env.nprocs = get_nprocs();
+	env.nprocs = sysconf(_SC_NPROCESSORS_CONF);
+	ft_printf("nprocs = %d\n", env.nprocs = sysconf(_SC_NPROCESSORS_CONF));
 	init_editor_data(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));

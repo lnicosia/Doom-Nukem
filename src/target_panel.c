@@ -101,6 +101,7 @@ int	draw_target_panel(t_env *env)
 	t_event_panel	panel;
 
 	panel = env->editor.event_panel;
+	text_size2 = new_point(0, 0);
 	if (TTF_SizeText(env->sdl.fonts.lato_black30, "Choose your event's target",
 	&text_size1.x, &text_size1.y))
 		return (-1);
