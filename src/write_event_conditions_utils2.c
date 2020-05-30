@@ -19,17 +19,17 @@ void		condition_vertex_writer(int fd, t_condition condition)
 
 void		condition_weapon_writer(int fd, t_condition condition)
 {
-	ft_dprintf(fd, " (%d %d)", condition.weapon);
+	ft_dprintf(fd, " (%d)", condition.weapon);
 }
 
 void		condition_enemy_writer(int fd, t_condition condition)
 {
-	ft_dprintf(fd, " (%d %d %d)", condition.enemy);
+	ft_dprintf(fd, " (%d)", condition.enemy);
 }
 
 void		condition_object_writer(int fd, t_condition condition)
 {
-	ft_dprintf(fd, " (%d %d %d)", condition.object);
+	ft_dprintf(fd, " (%d)", condition.object);
 }
 
 void		condition_no_writer(int fd, t_condition condition)
