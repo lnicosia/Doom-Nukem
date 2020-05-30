@@ -81,8 +81,6 @@ int		start_event(t_event **events, size_t *size, t_env *env)
 		{
 			if (update_events_list(events, &i, size, env))
 				return (-1);
-			else
-				i++;
 		}
 		else
 			i++;
