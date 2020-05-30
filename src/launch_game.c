@@ -90,7 +90,10 @@ int		launch_game(void *target)
 	tmp = NULL;
 	map_name = NULL;
 	if (env->editor.in_game)
-		going_in_2d_mode(env);
+	{
+		if (going_in_2d_mode(env))
+			return (-1);
+	}
 	if (env->editor.creating_event)
 	{
 		if (update_confirmation_box(&env->confirmation_box,

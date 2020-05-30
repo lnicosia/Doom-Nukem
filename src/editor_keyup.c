@@ -81,6 +81,9 @@ int	editor_keyup3(t_env *env)
 	if ((ret = space_pressed(env)) != 1)
 		return (ret);
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
+	else if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)
 	{
@@ -88,11 +91,11 @@ int	editor_keyup3(t_env *env)
 		if (ret == -1)
 			return (-1);
 		else if (!ret)
-			going_in_3d_mode(env);
+		{
+			if (going_in_3d_mode(env))
+				return (-1);
+		}
 	}
-	if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& env->editor.enter_locked)
-		env->editor.enter_locked = 0;
 	return (editor_keyup4(env));
 }
 
