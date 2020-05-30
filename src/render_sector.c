@@ -60,15 +60,33 @@ t_env *env)
 	return (0);
 }
 
-void	draw_limits(t_render *render, t_env *env)
+void	set_x_limits(t_render *render, t_env *env)
 {
 	int	x;
 
 	x = render->xstart;
 	while (x <= render->xend)
 	{
+		if (env->ymax[x] == env->ymin[x])
+			render->xstart++;
+		else
+			break ;
+		x++;
+	}
+	x = render->xend;
+	while (x >= render->xstart)
+	{
+		if (env->ymax[x] == env->ymin[x])
+			render->xend--;
+		else
+			break ;
+		x--;
+	}
+	x = render->xstart;
+	while (x <= render->xend)
+	{
 		env->sdl.texture_pixels[x + env->w * env->ymin[x]] = 0xFF00FF00;
-		//env->sdl.texture_pixels[x + env->w * env->ymax[x]] = 0xFFFF0000;
+		env->sdl.texture_pixels[x + env->w * env->ymax[x]] = 0xFFFF0000;
 		x++;
 	}
 }
@@ -77,14 +95,18 @@ int		render_current_wall(int i, t_sector *sector, t_render *render,
 t_env *env)
 {
 	int		just_selected;
-	struct timeval	start, end;
+	//struct timeval	start, end, start2, end2;
 
+	//gettimeofday(&start2, NULL);
 	render->v1 = &render->camera->v[sector->num][i];
 	if (render->v1->clipped_x1 >= render->v1->clipped_x2 || render->v1->
 		clipped_x1 > render->xmax || render->v1->clipped_x2 < render->xmin)
 		return (0);
 	render->xstart = ft_max(render->v1->clipped_x1, render->xmin);
 	render->xend = ft_min(render->v1->clipped_x2, render->xmax);
+	set_x_limits(render, env);
+	if (render->xend <= render->xstart)
+		return (0);
 	render->i = i;
 	render->ceiling_horizon = render->v1->ceiling_horizon;
 	render->floor_horizon = render->v1->floor_horizon;
@@ -92,31 +114,25 @@ t_env *env)
 	set_texture_size(render, env);
 	env->editor.just_selected = 0;
 	just_selected = 0;
-	gettimeofday(&start, NULL);
+	//gettimeofday(&start, NULL);
 	if (threaded_wall_loop(sector, render, env) || env->fatal_error)
-		return (custom_error("threads crash\n", env));
-	gettimeofday(&end, NULL);
-	int j = -1;
-	while (++j < count - 1)
-		ft_printf("----");
-	ft_printf(">Rendering wall %d (from %d to %d) took %ld\n", i,
-	render->xstart, render->xend, (end.tv_sec - start.tv_sec)
-	* 1000000 + end.tv_usec - start.tv_usec);
+		return (custom_error("Threads crash\n", env));
+	//gettimeofday(&end, NULL);
 	if (env->editor.just_selected)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)
 	{
-		gettimeofday(&start, NULL);
+		//gettimeofday(&start, NULL);
 		if (render_neighbor(just_selected, sector, render, env))
 			return (-1);
-		gettimeofday(&end, NULL);
-		j = -1;
-		while (++j < count - 1)
-			ft_printf("----");
-		ft_printf(">Rendering wall %d neighbors took %ld\n", i,
-		(end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec);
+		//gettimeofday(&end, NULL);
 	}
-	draw_limits(render, env);
+	/*gettimeofday(&end2, NULL);
+	int j = -1;
+	while (++j < count - 1)
+		ft_printf("----");
+	ft_printf(">Rendering the whole wall took %ld\n", 
+	(end2.tv_sec - start2.tv_sec) * 1000000 + end2.tv_usec - start2.tv_usec);*/
 	//update_screen(env);
 	//getchar();
 	return (0);
