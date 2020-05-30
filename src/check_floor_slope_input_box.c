@@ -33,6 +33,7 @@ int		check_floor_slope_input_box(void *penv)
 		update_sector_slope(env, sector);
 		update_player_z(env);
 		update_start_player_z(env);
+		update_sector_enemies_z(env, sector->num);
 		return (1);
 	}
 	return (0);
