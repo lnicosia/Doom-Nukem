@@ -134,7 +134,7 @@ int		init_game(int ac, char **av)
 	env.hud_start = env.editor_start + NB_HUD_SPRITES;
 	env.difficulty = 1;
 	env.nprocs = sysconf(_SC_NPROCESSORS_CONF);
-	ft_printf("nprocs = %d\n", env.nprocs = sysconf(_SC_NPROCESSORS_CONF));
+	ft_printf("nprocs = %d\n", env.nprocs);
 	env.menu = 1;
 	if (ac == 3)
 	{

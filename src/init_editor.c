@@ -105,7 +105,7 @@ int	init_editor(int ac, char **av)
 	env.running = 1;
 	env.drawing = 1;
 	env.nprocs = sysconf(_SC_NPROCESSORS_CONF);
-	ft_printf("nprocs = %d\n", env.nprocs = sysconf(_SC_NPROCESSORS_CONF));
+	ft_printf("nprocs = %d\n", env.nprocs);
 	init_editor_data(&env);
 	if (init_screen_size(&env))
 		return (crash("Could not initialize screen sizes\n", &env));
