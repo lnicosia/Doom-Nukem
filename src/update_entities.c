@@ -27,7 +27,8 @@ int		update_entities_sectors2(t_env *env)
 			if (delete_object(env))
 				return (-1);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }
@@ -50,7 +51,8 @@ int		update_entities_sectors(t_env *env)
 			if (delete_enemy(env))
 				return (-1);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (update_entities_sectors2(env));
 }
