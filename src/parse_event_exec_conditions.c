@@ -126,6 +126,7 @@ char **line, t_events_parser *eparser)
 {
 	int	i;
 
+	eparser->condition_count = 0;
 	(*line)++;
 	if (!**line)
 		return (missing_data("event exec conditions", parser));
