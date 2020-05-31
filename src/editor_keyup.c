@@ -15,10 +15,17 @@
 
 int	editor_keyup5(t_env *env)
 {
+	int	ret;
+
 	if ((env->editor.selecting_weapon || env->editor.selecting_condition_weapon)
 		&& !env->confirmation_box.state)
 	{
 		if (weapon_picker_keyup(env))
+			return (-1);
+	}
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
 	}
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
@@ -34,6 +41,22 @@ int	editor_keyup5(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.save, env))
 		return (-1);
+	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->editor.enter_locked)
+		env->editor.enter_locked = 0;
+	else if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& !env->confirmation_box.state && !env->input_box.state
+		&& !env->editor.enter_locked)
+	{
+		ret = valid_map(env);
+		if (ret == -1)
+			return (-1);
+		else if (!ret)
+		{
+			if (going_in_3d_mode(env))
+				return (-1);
+		}
+	}
 	return (editor_keyup6(env));
 }
 
@@ -75,27 +98,6 @@ int	editor_keyup3(t_env *env)
 		env->editor.create_enemy = 0;
 	if ((ret = space_pressed(env)) != 1)
 		return (ret);
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
-	if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& env->editor.enter_locked)
-		env->editor.enter_locked = 0;
-	else if (env->sdl.event.key.keysym.sym == env->keys.enter
-		&& !env->confirmation_box.state && !env->input_box.state
-		&& !env->editor.enter_locked)
-	{
-		ret = valid_map(env);
-		if (ret == -1)
-			return (-1);
-		else if (!ret)
-		{
-			if (going_in_3d_mode(env))
-				return (-1);
-		}
-	}
 	return (editor_keyup4(env));
 }
 
