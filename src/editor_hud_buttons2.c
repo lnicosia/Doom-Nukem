@@ -49,6 +49,7 @@ int		save_button(void *param)
 		if (new_input_box(&env->input_box, new_point(env->h_w, env->h_h),
 		STRING, &env->save_file))
 			return (-1);
+		env->input_box.accept_inputs = 1;
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
