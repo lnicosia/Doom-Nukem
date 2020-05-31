@@ -47,9 +47,11 @@ int		general_keys(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.sprite_tab, env))
 		return (-1);
-	else if (button_keys(&env->editor.general_tab, env))
+	if (button_keys(&env->editor.general_tab, env))
 		return (-1);
-	else if (button_keys(&env->editor.sector_tab, env))
+	if ((env->selected_object == -1
+		|| env->objects[env->selected_object].sector != -1)
+		&& button_keys(&env->editor.sector_tab, env))
 		return (-1);
 	if (button_keys(&env->editor.change_mode, env))
 		return (-1);

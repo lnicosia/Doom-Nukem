@@ -96,7 +96,9 @@ int		editor_keyup7(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.enemy_background, env))
 		return (-1);
-	if (button_keyup(&env->editor.sector_tab, env))
+	if ((env->selected_object == -1
+		|| env->objects[env->selected_object].sector != -1)
+		&& button_keyup(&env->editor.sector_tab, env))
 		return (-1);
 	if (button_keyup(&env->editor.general_tab, env))
 		return (-1);

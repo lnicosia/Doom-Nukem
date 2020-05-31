@@ -82,13 +82,16 @@ int	draw_editor_tabs(t_env *env)
 {
 	if (draw_editor_general_tab(env))
 		return (-1);
-	if (((env->editor.selected_start_player != -1
+	if (env->editor.selected_start_player != -1
 		|| env->selected_enemy != -1
-	|| env->selected_object != -1)) || ((env->selected_object != -1
-		|| env->editor.selected_wall != -1 ||
-	env->editor.selected_wall_sprite != -1 || env->selected_floor_sprite != -1
-	|| env->selected_floor != -1 || env->selected_enemy != -1
-	|| env->selected_ceiling != -1 || env->selected_wall_sprite_sprite != -1)))
+		|| (env->selected_object != -1
+			&& env->objects[env->selected_object].sector != -1)
+		|| env->editor.selected_wall != -1
+		|| env->editor.selected_wall_sprite != -1
+		|| env->selected_floor_sprite != -1
+		|| env->selected_floor != -1
+		|| env->selected_ceiling != -1
+		|| env->selected_wall_sprite_sprite != -1)
 	{
 		if (draw_button(env, env->editor.sector_tab,
 			env->editor.sector_tab.str))

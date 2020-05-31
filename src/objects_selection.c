@@ -21,6 +21,11 @@ void	objects_selection(t_env *env)
 		env->objects[env->editor.dragged_object].pos.y =
 		(env->sdl.my - env->editor.center.y) / env->editor.scale;
 		update_object_light(env, env->editor.dragged_object);
+		if (env->objects[env->editor.dragged_object].sector == -1)
+		{
+			env->editor.sector_tab.state = UP;
+			env->editor.general_tab.state = DOWN;
+		}
 	}
 	else
 		env->editor.dragged_object = -1;

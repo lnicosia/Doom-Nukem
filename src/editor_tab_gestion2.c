@@ -118,10 +118,11 @@ int	general_keyup(t_env *env)
 		return (-1);
 	if (button_keyup(&env->editor.sprite_tab, env))
 		return (-1);
-	else if (button_keyup(&env->editor.general_tab, env))
+	if (button_keyup(&env->editor.general_tab, env))
 		return (-1);
-	else if (button_keyup(&env->editor.sector_tab, env))
-		return (-1);
+	if ((env->selected_object == -1
+		|| env->objects[env->selected_object].sector != -1)
+		&& button_keyup(&env->editor.sector_tab, env))
 	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
 	if (button_keyup(&env->editor.options, env))

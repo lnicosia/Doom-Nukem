@@ -87,5 +87,12 @@ void	tabs_gestion(t_env *env)
 		|| env->selected_ceiling_sprite != -1
 		|| env->selected_floor_sprite != -1)
 		sprite_tab(env);
+	if (env->selected_object != -1
+		&& env->objects[env->selected_object].sector == -1
+		&& env->editor.sector_tab.state == DOWN)
+	{
+		env->editor.sector_tab.state = UP;
+		env->editor.general_tab.state = DOWN;
+	}
 	new_tabs_position(env);
 }

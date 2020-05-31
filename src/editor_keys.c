@@ -64,7 +64,9 @@ int		editor_keys3(t_env *env)
 {
 	if (button_keys(&env->editor.sprite_tab, env))
 		return (-1);
-	if (button_keys(&env->editor.sector_tab, env))
+	if ((env->selected_object == -1
+		|| env->objects[env->selected_object].sector != -1)
+		&& button_keys(&env->editor.sector_tab, env))
 		return (-1);
 	if (button_keys(&env->editor.change_mode, env))
 		return (-1);
