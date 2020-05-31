@@ -21,11 +21,6 @@ int	editor_keyup5(t_env *env)
 		if (weapon_picker_keyup(env))
 			return (-1);
 	}
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
 	{
 		reset_selection(env);
@@ -80,6 +75,11 @@ int	editor_keyup3(t_env *env)
 		env->editor.create_enemy = 0;
 	if ((ret = space_pressed(env)) != 1)
 		return (ret);
+	if (env->confirmation_box.state)
+	{
+		if (confirmation_box_keyup(&env->confirmation_box, env))
+			return (-1);
+	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;

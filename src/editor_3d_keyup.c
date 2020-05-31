@@ -126,13 +126,6 @@ int		editor_3d_keyup(t_env *env)
 			return (-1);
 		return (0);
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_DELETE
-		&& (env->selected_enemy != -1 || env->selected_object != -1
-		|| env->selected_wall_sprite_wall != -1
-		|| env->selected_floor_sprite != -1
-		|| env->selected_ceiling_sprite != -1))
-		if (delete_action(env))
-			return (-1);
 	editor_options_tab_keyup(env);
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 			&& env->editor.event_panel_dragged)
