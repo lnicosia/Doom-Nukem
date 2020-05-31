@@ -39,6 +39,8 @@ void		free_all2(t_env *env)
 		ft_strdel(&env->input_box.str);
 	if (env->snprintf)
 		ft_strdel(&env->snprintf);
+	if (env->editor.add.sector_list)
+		ft_memdel((void**)&env->editor.add.sector_list);
 	free_audio(env, 0);
 	free_textures(env);
 	free_buttons(env);

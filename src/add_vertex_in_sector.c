@@ -80,6 +80,8 @@ int		add_vertex_in_sector(t_env *env)
 	int		i;
 
 	i = 1;
+	if (env->editor.add.sector_list)
+		ft_memdel((void**)&env->editor.add.sector_list);
 	if (!(env->editor.add.sector_list = get_sectors_list(env,
 		env->editor.add.v1, env->editor.add.v2)))
 		return (1);
