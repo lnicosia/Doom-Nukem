@@ -28,11 +28,18 @@ int		lst_contains(t_list *lst, t_read **curr, int fd)
 	return (0);
 }
 
-int		free_link(t_list **datas, t_read *curr)
+int		contains_zero(char *buf, int size)
 {
-	(void)curr;
-	if (*datas == NULL)
-		return (-1);
+	int	i;
+
+	i = 0;
+	ft_printf("Checking for zero until %d\n", size);
+	while (i < size)
+	{
+		if (buf[i] == 0)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -105,7 +112,8 @@ int		get_next_line(const int fd, char **line)
 			return (-1);
 		curr->fd = fd;
 	}
-	while ((!(ft_strchr(curr->str, '\n'))) && (ret = read(fd, buff, BUFF_SIZE)))
+	while (!ft_strchr(curr->str, '\n') && (ret = read(fd, buff, BUFF_SIZE))
+		&& !contains_zero(buff, ret))
 	{
 		buff[ret] = '\0';
 		if (ret < 0 || !(curr->str = ft_strjoin_free(curr->str, buff)))

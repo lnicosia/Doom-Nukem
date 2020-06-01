@@ -55,6 +55,8 @@ int	parse_textures_number(t_map_parser *parser, t_env *env)
 	while ((parser->ret = read(parser->fd, parser->tmp, 1)) > 0
 	&& ft_strlen(parser->line) < 100)
 	{
+		if (!*parser->tmp)
+			return (custom_error("Cannot read zeros\n"));
 		if (*(parser->tmp) == '\n')
 			break ;
 		if (!(parser->line = ft_strjoin_free(parser->line, parser->tmp)))
