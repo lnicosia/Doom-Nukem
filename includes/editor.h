@@ -466,6 +466,10 @@ typedef struct				s_editor
 	int						texture_tab;
 	int						options_from_h;
 	t_list					*events_to_delete;
+	t_condition				*launch_conditions_save;
+	t_condition				*exec_conditions_save;
+	size_t					nb_launch_conditions_save;
+	size_t					nb_exec_conditions_save;
 }							t_editor;
 
 #endif

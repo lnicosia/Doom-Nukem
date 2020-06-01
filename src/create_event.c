@@ -70,6 +70,8 @@ int		save_event(void *param)
 	env->editor.creating_event = 0;
 	env->editor.selecting_target = 0;
 	set_event(env, &panel->event);
+	ft_memdel((void**)&env->editor.launch_conditions_save);
+	ft_memdel((void**)&env->editor.exec_conditions_save);
 	if (panel->trigger.type == GLOBAL)
 		env->global_events[panel->selected_event] = panel->event;
 	else if (panel->trigger.type == PRESS)

@@ -13,11 +13,42 @@
 #include "env.h"
 #include "events.h"
 
+int		save_launch_conditions(t_env *env)
+{
+	if (!(env->editor.launch_conditions_save = (t_condition*)ft_memalloc(
+		env->editor.event_panel.event.nb_launch_conditions
+		* sizeof(t_condition))))
+		return (-1);
+	env->editor.nb_launch_conditions_save = env->editor.event_panel.event.
+	nb_launch_conditions;
+	ft_memmove(env->editor.launch_conditions_save, env->editor.event_panel.
+	event.launch_conditions, env->editor.nb_launch_conditions_save
+	* sizeof(t_condition));
+	return (0);
+}
+
+int		save_exec_conditions(t_env *env)
+{
+	if (!(env->editor.exec_conditions_save = (t_condition*)ft_memalloc(
+		env->editor.event_panel.event.nb_exec_conditions
+		* sizeof(t_condition))))
+		return (-1);
+	env->editor.nb_exec_conditions_save = env->editor.event_panel.event.
+	nb_exec_conditions;
+	ft_memmove(env->editor.exec_conditions_save, env->editor.event_panel.
+	event.exec_conditions, env->editor.nb_exec_conditions_save
+	* sizeof(t_condition));
+	return (0);
+}
+
 int		delete_selected_launch_condition(void *param)
 {
 	t_env	*env;
 
 	env = (t_env*)param;
+	if (!env->editor.launch_conditions_save
+		&& save_launch_conditions(env))
+		return (-1);
 	env->editor.event_panel.event.launch_conditions =
 	(t_condition*)ft_delindex(env->editor.event_panel.event.launch_conditions,
 	sizeof(t_condition) * env->editor.event_panel.event.nb_launch_conditions,
@@ -39,6 +70,9 @@ int		delete_selected_exec_condition(void *param)
 	t_env	*env;
 
 	env = (t_env*)param;
+	if (!env->editor.exec_conditions_save
+		&& save_exec_conditions(env))
+		return (-1);
 	env->editor.event_panel.event.exec_conditions =
 	(t_condition*)ft_delindex(env->editor.event_panel.event.exec_conditions,
 	sizeof(t_condition) * env->editor.event_panel.event.nb_exec_conditions,
