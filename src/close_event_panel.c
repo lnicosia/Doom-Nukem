@@ -39,10 +39,7 @@ t_event	*get_event2(t_env *env, t_event_panel *panel)
 t_event	*get_event(t_env *env, t_event_panel *panel)
 {
 	if (panel->trigger.type == GLOBAL)
-	{
-		ft_printf("returning global event %d\n", panel->selected_event);
 		return (&env->global_events[panel->selected_event]);
-	}
 	else if (panel->trigger.type == PRESS)
 		return (&env->sectors[panel->trigger.sector].wall_sprites[panel->
 		trigger.wall].press_events[panel->trigger.sprite]
