@@ -58,7 +58,9 @@ int	init_array_texture_buttons(t_env *env)
 	int	i;
 	int	mod;
 
-	if (MAX_WALL_TEXTURE > 25)
+	if (MAX_WALL_TEXTURE > 50)
+		mod = 15;
+	else if (MAX_WALL_TEXTURE > 25)
 		mod = 10;
 	else
 		mod = 5;

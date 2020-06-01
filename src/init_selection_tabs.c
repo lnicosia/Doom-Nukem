@@ -18,7 +18,7 @@ void	init_selection_tabs2(t_env *env)
 	int		nb_textures_lines;
 	int		nb_skyboxes_lines;
 
-	textures_per_line = 5;
+	textures_per_line = 15;
 	nb_textures_lines = MAX_WALL_TEXTURE / textures_per_line;
 	if (MAX_WALL_TEXTURE % textures_per_line != 0)
 		nb_textures_lines++;

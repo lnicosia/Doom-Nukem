@@ -49,7 +49,7 @@ int		init_skybox_small(int i, int mod, int mod_e, t_env *env)
 	env->editor.skyboxes[i].size_down = new_point(64, 64);
 	env->editor.skyboxes[i].pos =
 	new_point(300 + (66 * (i % mod)) + 7,
-	(214 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64))
+	(233 + 20 + (((MAX_WALL_TEXTURE / mod_e)) * 64))
 	+ 64 * (i / mod) + 5);
 	return (0);
 }
@@ -60,7 +60,9 @@ int		init_skybox_selection_buttons(t_env *env)
 	int	mod;
 	int	mod_e;
 
-	if (MAX_WALL_TEXTURE > 20)
+	if (MAX_WALL_TEXTURE > 50)
+		mod_e = 15;
+	else if (MAX_WALL_TEXTURE > 25)
 		mod_e = 10;
 	else
 		mod_e = 5;
