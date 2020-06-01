@@ -74,7 +74,7 @@ int		click_on_grid_enemy(t_env *env)
 	return (0);
 }
 
-void	draw_grid_enemy(int i, t_env *env)
+int		draw_grid_enemy(int i, t_env *env)
 {
 	t_point		center;
 	double		scale;
@@ -97,22 +97,26 @@ void	draw_grid_enemy(int i, t_env *env)
 			env->editor.dragged_enemy = i;
 			env->selected_enemy = i;
 			tabs_gestion(env);
-			check_event_creation(env);
+			if (check_event_creation(env))
+				return (-1);
 		}
 	}
 	else
 		scale = env->editor.scale * 2;
 	draw_enemy_sprite(i, scale, center, env);
+	return (0);
 }
 
-void	draw_grid_enemies(t_env *env)
+int		draw_grid_enemies(t_env *env)
 {
 	int			i;
 
 	i = 0;
 	while (i < env->nb_enemies)
 	{
-		draw_grid_enemy(i, env);
+		if (draw_grid_enemy(i, env))
+			return (-1);
 		i++;
 	}
+	return (0);
 }

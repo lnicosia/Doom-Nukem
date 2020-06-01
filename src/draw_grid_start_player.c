@@ -71,7 +71,7 @@ void	draw_start_player_sprite(double scale, t_point pos, t_env *env)
 		apply_sprite(env->object_sprites[DOOM_GUY_FACE], pos, size, env);
 }
 
-void	start_player_not_clicked(t_point *pos, double *scale, t_env *env)
+int		start_player_not_clicked(t_point *pos, double *scale, t_env *env)
 {
 	pos->x = (env->player.starting_pos.x * env->editor.scale)
 	+ env->editor.center.x;
@@ -91,14 +91,16 @@ void	start_player_not_clicked(t_point *pos, double *scale, t_env *env)
 			env->editor.dragged_start_player = 1;
 			env->editor.selected_start_player = 1;
 			tabs_gestion(env);
-			check_event_creation(env);
+			if (check_event_creation(env))
+				return (-1);
 		}
 	}
 	else
 		*scale = env->editor.scale * 2.5;
+	return (0);
 }
 
-void	draw_grid_start_player(t_env *env)
+int		draw_grid_start_player(t_env *env)
 {
 	t_point		pos;
 	double		scale;
@@ -111,7 +113,9 @@ void	draw_grid_start_player(t_env *env)
 	}
 	else
 	{
-		start_player_not_clicked(&pos, &scale, env);
+		if (start_player_not_clicked(&pos, &scale, env))
+			return (-1);
 	}
 	draw_start_player_sprite(scale, pos, env);
+	return (0);
 }

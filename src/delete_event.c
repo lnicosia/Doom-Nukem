@@ -33,6 +33,7 @@ int		delete_event(void *param)
 	if (modify_event(env))
 		return (-1);
 	env->editor.creating_event = 0;
+	env->editor.creating_condition = 0;
 	env->editor.selected_launch_condition = 0;
 	env->editor.selected_exec_condition = 0;
 	if (update_confirmation_box(&env->confirmation_box,

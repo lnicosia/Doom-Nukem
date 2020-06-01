@@ -38,18 +38,31 @@ int		draw_current_creation(t_env *env)
 	return (0);
 }
 
-void	draw_grid_informations(t_env *env)
+int		draw_grid_informations(t_env *env)
 {
 	if (env->editor.player_exist || env->editor.dragged_start_player == 1)
-		draw_grid_start_player(env);
+	{
+		if (draw_grid_start_player(env))
+			return (-1);
+	}
 	if (env->editor.player_exist || env->editor.dragged_player == 1)
-		draw_grid_player(env);
+	{
+		if (draw_grid_player(env))
+			return (-1);
+	}
 	if (env->editor.dragged_object != -1 || env->nb_objects > 0)
-		draw_grid_objects(env);
+	{
+		if (draw_grid_objects(env))
+			return (-1);
+	}
 	if (env->editor.dragged_enemy != -1 || env->nb_enemies > 0)
-		draw_grid_enemies(env);
+	{
+		if (draw_grid_enemies(env))
+			return (-1);
+	}
 	if (env->editor.start_vertex != -1)
 		draw_grid_current_sector(env);
+	return (0);
 }
 
 int		editor_2d(t_env *env)
@@ -65,9 +78,12 @@ int		editor_2d(t_env *env)
 			return (custom_error("Error in inputs\n"));
 	}
 	draw_grid(env);
-	draw_grid_vertices(env);
-	draw_grid_informations(env);
+	if (draw_grid_informations(env))
+		return (-1);
+	draw_grid_current_sector(env);
 	draw_current_creation(env);
+	if (draw_grid_vertices(env))
+		return (-1);
 	if (draw_grid_sectors(env))
 		return (-1);
 	return (0);

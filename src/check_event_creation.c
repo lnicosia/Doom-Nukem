@@ -89,7 +89,8 @@ int		check_event_creation(t_env *env)
 		&& !env->editor.selecting_condition_target
 		&& !env->editor.selecting_condition_weapon)
 		return (0);
-	if (env->editor.selecting_condition_target)
+	if (env->editor.selecting_condition_target
+		|| env->editor.selecting_condition_weapon)
 		panel = env->editor.condition_panel.target_panel;
 	else
 		panel = env->editor.event_panel.target_panel;

@@ -14,7 +14,7 @@
 #include "draw.h"
 #include <math.h>
 
-void	select_grid_vertex(int i, t_env *env)
+int		select_grid_vertex(int i, t_env *env)
 {
 	if (env->inputs.left_click && !env->options.editor_options
 		&& !env->confirmation_box.state
@@ -37,11 +37,13 @@ void	select_grid_vertex(int i, t_env *env)
 		env->editor.start_pos.y =
 		env->vertices[env->editor.selected_vertex].y;
 		tabs_gestion(env);
-		check_event_creation(env);
+		if (check_event_creation(env))
+			return (-1);
 	}
+	return (0);
 }
 
-void	draw_grid_vertex(int i, t_point center, t_env *env)
+int		draw_grid_vertex(int i, t_point center, t_env *env)
 {
 	t_vertex	vertex;
 	double		scale;
@@ -57,7 +59,8 @@ void	draw_grid_vertex(int i, t_point center, t_env *env)
 	{
 		scale = env->editor.scale / 3.0;
 		color = 0xFF00FF00;
-		select_grid_vertex(i, env);
+		if (select_grid_vertex(i, env))
+			return (-1);
 	}
 	else
 	{
@@ -67,9 +70,10 @@ void	draw_grid_vertex(int i, t_point center, t_env *env)
 	if (env->editor.dragged_vertex == i || env->editor.selected_vertex == i)
 		color = 0xFF00FF00;
 	draw_circle(new_circle(color, color, center, scale), env);
+	return (0);
 }
 
-void	draw_grid_vertices(t_env *env)
+int		draw_grid_vertices(t_env *env)
 {
 	int			i;
 	t_point		center;
@@ -88,7 +92,9 @@ void	draw_grid_vertices(t_env *env)
 	}
 	while (i < env->nb_vertices)
 	{
-		draw_grid_vertex(i, center, env);
+		if (draw_grid_vertex(i, center, env))
+			return (-1);
 		i++;
 	}
+	return (0);
 }

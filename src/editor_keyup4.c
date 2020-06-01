@@ -106,7 +106,8 @@ int		select_sector(t_env *env)
 		}
 		env->selected_enemy = -1;
 		tabs_gestion(env);
-		check_event_creation(env);
+		if (check_event_creation(env))
+			return (-1);
 	}
 	return (0);
 }

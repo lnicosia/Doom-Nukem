@@ -33,7 +33,6 @@ int		contains_zero(char *buf, int size)
 	int	i;
 
 	i = 0;
-	ft_printf("Checking for zero until %d\n", size);
 	while (i < size)
 	{
 		if (buf[i] == 0)

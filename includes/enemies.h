@@ -18,7 +18,6 @@
 ** enemies functions
 */
 
-void					draw_grid_enemies(t_env *env);
 int						enemy_drag(t_env *env);
 int						enemy_ai(t_env *env);
 t_v3					random_move(t_env *env, int nb, t_motion motion,

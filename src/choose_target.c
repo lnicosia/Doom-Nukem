@@ -42,7 +42,8 @@ int		choose_target2(t_target_panel *panel, t_env *env)
 	}
 	if (panel->player_type || panel->other_type)
 	{
-		check_event_creation(env);
+		if (check_event_creation(env))
+			return (-1);
 		return (0);
 	}
 	return (choose_target3(env));

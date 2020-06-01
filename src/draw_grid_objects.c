@@ -73,7 +73,7 @@ void	draw_object_sprite(int i, double scale, t_point center, t_env *env)
 		center, size, env);
 }
 
-void	draw_grid_object(int i, t_env *env)
+int		draw_grid_object(int i, t_env *env)
 {
 	t_point		center;
 	double		scale;
@@ -94,22 +94,26 @@ void	draw_grid_object(int i, t_env *env)
 			env->editor.dragged_object = i;
 			env->selected_object = i;
 			tabs_gestion(env);
-			check_event_creation(env);
+			if (check_event_creation(env))
+				return (-1);
 		}
 	}
 	else
 		scale = env->editor.scale * 2.0;
 	draw_object_sprite(i, scale, center, env);
+	return (0);
 }
 
-void	draw_grid_objects(t_env *env)
+int		draw_grid_objects(t_env *env)
 {
 	int			i;
 
 	i = 0;
 	while (i < env->nb_objects)
 	{
-		draw_grid_object(i, env);
+		if (draw_grid_object(i, env))
+			return (-1);
 		i++;
 	}
+	return (0);
 }

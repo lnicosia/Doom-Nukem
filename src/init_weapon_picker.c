@@ -18,7 +18,8 @@ int		weapon_picker_ok(void *param)
 
 	env = (t_env*)param;
 	env->editor.selected_weapon = env->editor.current_weapon;
-	check_event_creation(env);
+	if (check_event_creation(env))
+		return (-1);
 	if (env->editor.selecting_weapon)
 	{
 		env->editor.selecting_weapon = 0;
@@ -28,6 +29,7 @@ int		weapon_picker_ok(void *param)
 	{
 		env->editor.selecting_condition_weapon = 0;
 		env->editor.creating_condition = 1;
+		env->editor.creating_event = 1;
 	}
 	return (0);
 }
