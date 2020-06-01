@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "draw.h"
 
 void	armor_life_hud(t_env *env)
 {
@@ -81,5 +82,6 @@ int		draw_hud(t_env *env)
 		return (-1);
 	if (print_ammo(env))
 		return (-1);
+	draw_inventory(env);
 	return (0);
 }

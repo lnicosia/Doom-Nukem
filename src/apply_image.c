@@ -90,3 +90,33 @@ t_env *env)
 		}
 	}
 }
+/*
+**	Copy a sprite into our main texture
+**	with scaling and a green selection filter
+*/
+
+void	apply_sprite_grey(t_sprite sprite, t_point pos, t_point size,
+t_env *env)
+{
+	int				x;
+	int				y;
+	Uint32			pixel;
+	SDL_Surface		*surface;
+	Uint32			*texture_pixels;
+
+	texture_pixels = env->sdl.texture_pixels;
+	surface = env->sprite_textures[sprite.texture].surface;
+	y = -1;
+	while (++y < size.y)
+	{
+		x = -1;
+		while (++x < size.x)
+		{
+			pixel = get_sprite_pixel(surface, sprite, new_point(x, y), size);
+			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
+				&& pos.x + y < env->h && pixel != 0xFFC10099)
+				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
+				blend_alpha(pixel, 0xFF333333, 128);
+		}
+	}
+}

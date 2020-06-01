@@ -21,6 +21,7 @@ int						draw_button_text(t_button b, char *str, t_env *env);
 void					draw_hgrid(t_env *env);
 void					draw_vgrid(t_env *env);
 void					draw_grid(t_env *env);
+int						draw_inventory(t_env *env);
 int						draw_editor_tabs(t_env *env);
 void					draw_grid_player(t_env *env);
 void					draw_grid_start_player(t_env *env);

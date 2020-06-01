@@ -901,6 +901,8 @@ void					apply_sprite(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
 void					apply_sprite_selected(t_sprite sprite,
 				t_point pos, t_point size, t_env *env);
+void					apply_sprite_grey(t_sprite sprite,
+				t_point pos, t_point size, t_env *env);
 SDL_Surface				*get_closest_mipmap(t_texture texture, t_point size);
 int						print_press_text(t_env *env);
 int						fps(t_env *e);
