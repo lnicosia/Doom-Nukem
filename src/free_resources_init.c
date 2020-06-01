@@ -48,12 +48,6 @@ void	free_resources_init2(t_env *env)
 		i++;
 	}
 	i = 0;
-	while (i < MAX_WALL_TEXTURE)
-	{
-		ft_memdel((void**)&env->init.text_name[i]);
-		i++;
-	}
-	i = 0;
 	while (i < NB_OBJECTS_SPRITES)
 	{
 		ft_memdel((void**)&env->init.objects_names[i]);

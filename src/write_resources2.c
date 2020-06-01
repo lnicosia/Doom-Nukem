@@ -43,11 +43,7 @@ int		write_textures(int fd, t_env *env)
 	(void)env;
 	ft_printf("{reset}Saving textures..\n");
 	ft_dprintf(fd, "T %d\n", MAX_WALL_TEXTURE);
-	if (write_textures1(fd))
-		return (-1);
-	if (write_textures2(fd))
-		return (-1);
-	if (write_textures3(fd))
+	if (write_textures1(env, fd))
 		return (-1);
 	return (0);
 }

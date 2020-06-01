@@ -347,10 +347,10 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   sound_misc_functions.c check_wall_sprites_textures.c func_event.c \
 		   event_updaters5.c init_rocket_launcher_sprite.c \
 		   draw_ceiling_bullet_holes_both.c draw_ceiling_bullet_holes_color.c \
-		   draw_ceiling_bullet_holes_no_light.c \
-		   draw_ceiling_bullet_holes_brightness.c \
+		   draw_ceiling_bullet_holes_no_light.c init_wall_textures2.c \
+		   draw_ceiling_bullet_holes_brightness.c init_wall_textures3.c \
 		   draw_floor_bullet_holes_both.c draw_floor_bullet_holes_color.c \
-		   draw_floor_bullet_holes_no_light.c \
+		   draw_floor_bullet_holes_no_light.c check_walls_textures2.c \
 		   draw_floor_bullet_holes_brightness.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
@@ -358,12 +358,33 @@ HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  wall_sprite_remover.h events_conditions.h \
 		  events_parser.h draw_grid_walls.h valid_map.h events.h free.h\
 		  draw_skybox.h pop_events.h events_protection.h init.h \
-		  parser.h enemies.h draw.h defines_images.h\
+		  parser.h enemies.h draw.h defines_images.h \
 
 TEXTURES =	black_tiles.bmp tiles.bmp floor0.bmp floor1.bmp grass1.bmp \
 			grass2.bmp grass3.bmp grey.bmp magma_rock.bmp rock.bmp \
 			menu_texture.bmp sand.bmp wall0.bmp wall1.bmp wall2.bmp wall3.bmp \
-			wall4.bmp \
+			wall4.bmp bigdoor1.bmp bigdoor2.bmp bigdoor3.bmp bigdoor4.bmp \
+			bigdoor5.bmp bigdoor6.bmp bigdoor7.bmp blood1.bmp blood2.bmp \
+			blood3.bmp bronze1.bmp bronze2.bmp bronze3.bmp bronze4.bmp \
+			brovine2.bmp ceil1_1.bmp ceil1_2.bmp ceil1_3.bmp ceil3_4.bmp \
+			cement1.bmp cement2.bmp cement3.bmp cement4.bmp cement5.bmp \
+			cement6.bmp cement7.bmp cement8.bmp cement9.bmp comptall.bmp \
+			compwerd.bmp cratop1.bmp cratop2.bmp door1.bmp door3.bmp \
+			doorblu.bmp doorblu2.bmp doorred.bmp doorred2.bmp doorstop.bmp \
+			doortrak.bmp dooryel.bmp dooryel2.bmp exitsign.bmp exitston.bmp \
+			flat20.bmp flat23.bmp flat3.bmp flat4.bmp flat5_1.bmp floor3_3.bmp \
+			floor4_8.bmp floor5_1.bmp floor5_2.bmp lite3.bmp lite5.bmp \
+			liteblu1.bmp liteblu4.bmp pancase1.bmp pancase2.bmp panel1.bmp \
+			panel2.bmp panel3.bmp panel4.bmp panel5.bmp panel6.bmp panel9.bmp \
+			panred.bmp rock5.bmp rrock09.bmp slime01.bmp slime02.bmp \
+			slime03.bmp slime04.bmp slime14.bmp slime15.bmp slime16.bmp \
+			spcdoor1.bmp spcdoor2.bmp step4.bmp step6.bmp steplad1.bmp \
+			steptop.bmp stone.bmp sw1cmt.bmp sw2cmt.bmp tlite6_1.bmp \
+			tlite6_4.bmp tlite6_5.bmp tlite6_6.bmp wood1.bmp wood10.bmp \
+			wood12.bmp wood3.bmp wood4.bmp wood5.bmp wood6.bmp wood7.bmp \
+			wood8.bmp wood9.bmp woodgarg.bmp woodmet1.bmp woodmet2.bmp \
+			woodmet3.bmp woodmet4.bmp woodvert.bmp zdoorb1.bmp zdoorf1.bmp \
+			zzwolf11.bmp zzwolf12.bmp zzwolf13.bmp
 
 SPRITES =	bullet_hole.bmp button_off.bmp button_on.bmp camera.bmp \
 			cyber_demon.bmp doom_guy_face.bmp doom_guy.bmp lost_soul.bmp \
@@ -731,9 +752,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	18z_Jm9gaBqVJ54SZgwoK6lWzbPG1kboS' -O- | sed -rn $\
+	1oSuVq3d3JlTyf7IMiEexVT3x_OP9Uq2U' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=18z_Jm9gaBqVJ54SZgwoK6lWzbPG1kboS" -O resources.tar.gz \
+	&id=1oSuVq3d3JlTyf7IMiEexVT3x_OP9Uq2U" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	@tar -xf resources.tar.gz
