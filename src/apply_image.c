@@ -116,7 +116,7 @@ t_env *env)
 			if (pos.y + x >= 0 && pos.y + x < env->w && pos.x + y >= 0
 				&& pos.x + y < env->h && pixel != 0xFFC10099)
 				texture_pixels[pos.y + x + env->w * (pos.x + y)] =
-				blend_alpha(pixel, 0xFF333333, 128);
+				blend_alpha(pixel, 0xFF111111, 200);
 		}
 	}
 }
