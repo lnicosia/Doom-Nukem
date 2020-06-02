@@ -71,6 +71,7 @@ t_env *env)
 	render->neighbor_max_ceiling, env->ymin[render->x], env->ymax[render->x]);
 	render->neighbor_current_floor = ft_clamp(
 		render->neighbor_max_floor, env->ymin[render->x], env->ymax[render->x]);
+	(void)sector;
 	if (render->neighbor_current_ceiling > render->current_ceiling)
 	{
 		if (sector->textures[render->i] < 0)

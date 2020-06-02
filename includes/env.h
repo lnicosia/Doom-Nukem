@@ -185,6 +185,8 @@ typedef struct			s_env
 	int					wall_sprites_start;
 	int					objects_sprites_start;
 	int					gatling_sound_playing;
+	int					nb_threads;
+	struct timeval		threads_time;
 }						t_env;
 
 /*
