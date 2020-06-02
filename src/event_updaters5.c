@@ -12,7 +12,7 @@
 
 #include "env.h"
 
-int			is_player_on_floor(t_env *env)
+int		is_player_on_floor(t_env *env)
 {
 	if (env->player.pos.z == get_floor_at_pos(&env->sectors[env->player.sector],
 		env->player.pos, env))
@@ -20,33 +20,42 @@ int			is_player_on_floor(t_env *env)
 	return (0);
 }
 
-int			update_vertex_event(t_event *event, void *penv)
+int		update_current_sector(int i, int player_is_on_floor, t_event *event,
+t_env *env)
+{
+	int		j;
+
+	j = -1;
+	while (++j < env->sectors[i].nb_vertices)
+	{
+		if (env->sectors[i].vertices[j] != event->update_param.vertex)
+			continue ;
+		update_sector_slope(env, &env->sectors[i]);
+		if (env->player.sector == i && player_is_on_floor)
+		{
+			update_player_pos(env);
+			env->player.pos.z = get_floor_at_pos(&env->
+			sectors[env->player.sector], env->player.pos, env);
+			update_player_pos(env);
+		}
+		break ;
+	}
+	return (0);
+}
+
+int		update_vertex_event(t_event *event, void *penv)
 {
 	t_env	*env;
 	int		i;
 	int		player_is_on_floor;
-	int		j;
 
 	env = (t_env*)penv;
-	i = -1;
+	i = 0;
 	player_is_on_floor = is_player_on_floor(env);
-	while (++i < env->nb_sectors)
+	while (i < env->nb_sectors)
 	{
-		j = -1;
-		while (++j < env->sectors[i].nb_vertices)
-		{
-			if (env->sectors[i].vertices[j] != event->update_param.vertex)
-				continue ;
-			update_sector_slope(env, &env->sectors[i]);
-			if (env->player.sector == i && player_is_on_floor)
-			{
-				update_player_pos(env);
-				env->player.pos.z = get_floor_at_pos(&env->
-				sectors[env->player.sector], env->player.pos, env);
-				update_player_pos(env);
-			}
-			break ;
-		}
+		update_current_sector(i, player_is_on_floor, event, env);
+		i++;
 	}
 	return (0);
 }

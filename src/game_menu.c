@@ -28,7 +28,7 @@ int		print_difficulty(t_env *env)
 	if (TTF_SizeText(env->sdl.fonts.lato30, str, &w, &h))
 		return (-1);
 	if (print_text(new_point(env->h_h + env->next_difficulty.size_down.y
-		- h /2 , env->h_w - w / 2), new_printable_text(str,
+		- h / 2, env->h_w - w / 2), new_printable_text(str,
 		env->sdl.fonts.lato30, 0x222222FF, 30), env))
 		return (-1);
 	return (0);

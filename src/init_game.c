@@ -93,6 +93,7 @@ int		init_game3(t_env *env, char **av)
 
 int		init_game2(char **av, t_env *env)
 {
+	init_player(env);
 	if (init_screen_size(env))
 		return (crash("Could not initialize screen sizes\n", env));
 	init_options(env);
@@ -113,8 +114,7 @@ int		init_game2(char **av, t_env *env)
 	if (parse_map(av[1], env))
 	{
 		if (close(env->parser.fd))
-			return (crash("Map parsing failed and could not close the"
-			" map file\n", env));
+			return (crash("Could not close the map file\n", env));
 		return (crash("Error while parsing the map\n", env));
 	}
 	return (init_game3(env, av));
@@ -127,15 +127,14 @@ int		init_game(int ac, char **av)
 	if (ac < 2)
 		return (custom_error("No map file.\n"));
 	ft_bzero(&env, sizeof(t_env));
-	env.enemies_start = 0;
 	env.objects_sprites_start = MAX_ENEMIES;
 	env.wall_sprites_start = MAX_ENEMIES + NB_OBJECTS_SPRITES;
 	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
 	env.hud_start = env.editor_start + NB_HUD_SPRITES;
-	env.difficulty = 1;
 	env.nprocs = sysconf(_SC_NPROCESSORS_CONF);
 	ft_printf("nprocs = %d\n", env.nprocs);
 	env.menu = 1;
+	env.difficulty = 1;
 	if (ac == 3)
 	{
 		env.menu = 0;
@@ -143,12 +142,9 @@ int		init_game(int ac, char **av)
 	}
 	else if (ac == 2)
 		env.in_game = 0;
-	env.option = 0;
 	env.menu_select = 1;
 	env.running = 1;
 	env.editor.player_exist = 1;
 	env.playing = 1;
-	init_player(&env);
-	env.i = 0;
 	return (init_game2(av, &env));
 }

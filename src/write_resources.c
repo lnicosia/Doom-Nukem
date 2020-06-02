@@ -76,7 +76,7 @@ int		write_hud(int fd, int file)
 		return (-1);
 	if (write_hud10(fd, file))
 		return (-1);
-	return (0);	
+	return (0);
 }
 
 int		write_resources(int fd, t_env *env)

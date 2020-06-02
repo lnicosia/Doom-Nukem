@@ -11,3 +11,4 @@ Suite d'interactions
 Actions avec animations
 Theme/Ambiance/Decors
 Musique = Doom
+zone ou il faut crouch

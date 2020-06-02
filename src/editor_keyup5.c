@@ -33,3 +33,29 @@ int		space_pressed(t_env *env)
 	}
 	return (1);
 }
+
+int		editor_keyup11(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	if (env->editor.draw_enemy_tab)
+	{
+		while (i < MAX_ENEMIES)
+		{
+			if (button_keyup(&env->editor.enemy_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
+	if (env->editor.draw_object_tab)
+	{
+		while (i < MAX_OBJECTS)
+		{
+			if (button_keyup(&env->editor.object_tab[i], env))
+				return (-1);
+			i++;
+		}
+	}
+	return (0);
+}

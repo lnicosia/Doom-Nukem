@@ -79,14 +79,12 @@ int		draw_grid_enemy(int i, t_env *env)
 	t_point		center;
 	double		scale;
 
-	center.x =
-	env->enemies[i].pos.x * env->editor.scale + env->editor.center.x;
-	center.y =
-	env->enemies[i].pos.y * env->editor.scale + env->editor.center.y;
-	if (env->sdl.mx > center.x - env->editor.scale
-			&& env->sdl.mx < center.x + env->editor.scale
-			&& env->sdl.my > center.y - env->editor.scale
-			&& env->sdl.my < center.y + env->editor.scale)
+	center.x = env->enemies[i].pos.x * env->editor.scale + env->editor.center.x;
+	center.y = env->enemies[i].pos.y * env->editor.scale + env->editor.center.y;
+	scale = env->editor.scale * 2;
+	if (env->sdl.mx > center.x - env->editor.scale && env->sdl.mx < center.x
+		+ env->editor.scale && env->sdl.my > center.y - env->editor.scale
+		&& env->sdl.my < center.y + env->editor.scale)
 	{
 		scale = env->editor.scale * 2.5;
 		if (click_on_grid_enemy(env))
@@ -101,8 +99,6 @@ int		draw_grid_enemy(int i, t_env *env)
 				return (-1);
 		}
 	}
-	else
-		scale = env->editor.scale * 2;
 	draw_enemy_sprite(i, scale, center, env);
 	return (0);
 }

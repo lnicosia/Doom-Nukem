@@ -66,7 +66,7 @@ int		next_weapon_wheel_up(t_env *env)
 
 int		next_weapon_wheel_down(t_env *env)
 {
-	int		i;
+	int	i;
 	int	is_playing;
 	int	err;
 

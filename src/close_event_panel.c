@@ -33,7 +33,7 @@ t_event	*get_event2(t_env *env, t_event_panel *panel)
 	else if (panel->trigger.type == OBJECT_COLLISION)
 		return (&env->objects[panel->trigger.object].
 		collision_events[panel->selected_event]);
-	return (0);
+		return (0);
 }
 
 t_event	*get_event(t_env *env, t_event_panel *panel)
@@ -71,7 +71,7 @@ void	restore_conditions(t_env *env)
 
 	if (env->editor.launch_conditions_save)
 	{
-		event = get_event(env, &env->editor.event_panel);	
+		event = get_event(env, &env->editor.event_panel);
 		ft_memdel((void**)&env->editor.event_panel.event.launch_conditions);
 		event->launch_conditions = env->editor.launch_conditions_save;
 		event->nb_launch_conditions = env->editor.nb_launch_conditions_save;
@@ -79,7 +79,7 @@ void	restore_conditions(t_env *env)
 	}
 	if (env->editor.exec_conditions_save)
 	{
-		event = get_event(env, &env->editor.event_panel);	
+		event = get_event(env, &env->editor.event_panel);
 		ft_memdel((void**)&env->editor.event_panel.event.exec_conditions);
 		event->exec_conditions = env->editor.exec_conditions_save;
 		event->nb_exec_conditions = env->editor.nb_exec_conditions_save;

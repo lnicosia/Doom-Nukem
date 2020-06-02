@@ -39,7 +39,6 @@ int	map_parse_ui(t_env *env, t_map_parser *parser)
 {
 	int	i;
 
-	i = 0;
 	ft_strdel(&parser->tmp);
 	ft_strdel(&parser->line);
 	if (!(parser->tmp = ft_strnew(1)))
@@ -57,11 +56,9 @@ int	map_parse_ui(t_env *env, t_map_parser *parser)
 	if (check_ui_format(parser, env))
 		return (custom_error("Error while parsing ui file data\n"));
 	ft_strdel(&parser->line);
-	while (i < env->resource.nb_ui_files)
-	{
+	i = -1;
+	while (++i < env->resource.nb_ui_files)
 		if (parse_bmp_file(env, parser))
 			return (custom_error("Error while parsing ui images\n"));
-		i++;
-	}
 	return (0);
 }

@@ -41,7 +41,7 @@ int		write_hud6(int fd, int file);
 int		write_hud7(int fd, int file);
 int		write_hud8(int fd, int file);
 int		write_hud9(int fd, int file);
-int     write_hud10(int fd, int file);
+int		write_hud10(int fd, int file);
 int		writing_bmp(int file, int fd, char *name);
 void	write_vertices(int fd, t_env *env);
 void	write_sectors(int fd, t_env *env);

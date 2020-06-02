@@ -13,72 +13,26 @@
 #include "thread_pool.h"
 #include "libft.h"
 
-int		init_tpool(t_tpool *tpool, int nb_threads)
-{
-	int	i;
-	
-	ft_bzero(tpool, sizeof(*tpool));
-	pthread_mutex_init(&tpool->mutex, NULL);
-	pthread_cond_init(&tpool->worker_cond, NULL);
-	pthread_cond_init(&tpool->main_cond, NULL);
-	tpool->nb_threads = nb_threads;
-	if (!(tpool->threads = (pthread_t*)ft_memalloc(nb_threads
-		* sizeof(pthread_t))))
-		return (custom_error("Could not init threads array\n"));
-	i = 0;
-	while (i < nb_threads)
-	{
-		if (pthread_create(&tpool->threads[i], NULL, tpool_worker, tpool))
-			return (custom_error("Could not create thread %d\n", i));
-		i++;
-	}
-	pthread_mutex_lock(&tpool->mutex);
-	while (tpool->nb_alive_threads < tpool->nb_threads - 1)
-		pthread_cond_wait(&tpool->main_cond, &tpool->mutex);
-	pthread_mutex_unlock(&tpool->mutex);
-	return (0);
-}
-
-int		free_tpool(t_tpool *tpool)
+void	perform_work(t_tpool *tpool)
 {
 	t_work	*work;
-	t_work	*tmp;
-	int		i;
-	
-	if (!tpool->threads)
-		return (0);
-	pthread_mutex_lock(&tpool->mutex);
-	work = tpool->works;
-	while (work)
-	{
-		tmp = work->next;
-		destroy_work(work);
-		work = tmp;
-	}
-	tpool->stop = 1;
-	pthread_cond_broadcast(&tpool->worker_cond);
+
+	work = get_work(tpool);
+	tpool->nb_working_threads++;
 	pthread_mutex_unlock(&tpool->mutex);
-	i = 0;
-	while (i < tpool->nb_threads)
-	{
-		if (pthread_join(tpool->threads[i], NULL))
-			custom_error("Could not join thread %d\n", i);
-		i++;
-	}
-	ft_memdel((void**)&tpool->threads);
-	if (pthread_mutex_destroy(&tpool->mutex))
-		custom_error("Could not destroy the mutex\n");
-	if (pthread_cond_destroy(&tpool->worker_cond))
-		custom_error("Could not destroy the worker condition\n");
-	if (pthread_cond_destroy(&tpool->main_cond))
-		custom_error("Could not destroy the main condition\n");
-	return (0);
+	if (work->func(work->param))
+		tpool->err = 1;
+	destroy_work(work);
+	pthread_mutex_lock(&tpool->mutex);
+	tpool->nb_working_threads--;
+	if (!tpool->works && tpool->nb_working_threads == 0 && !tpool->stop)
+		pthread_cond_signal(&tpool->main_cond);
+	pthread_mutex_unlock(&tpool->mutex);
 }
 
 void	*tpool_worker(void *param)
 {
 	t_tpool	*tpool;
-	t_work	*work;
 	int		id;
 
 	tpool = (t_tpool*)param;
@@ -95,17 +49,7 @@ void	*tpool_worker(void *param)
 			pthread_cond_wait(&tpool->worker_cond, &tpool->mutex);
 		if (tpool->stop)
 			break ;
-		work = get_work(tpool);
-		tpool->nb_working_threads++;
-		pthread_mutex_unlock(&tpool->mutex);
-		if (work->func(work->param))
-			tpool->err = 1;
-		destroy_work(work);
-		pthread_mutex_lock(&tpool->mutex);
-		tpool->nb_working_threads--;
-		if (!tpool->works && tpool->nb_working_threads == 0 && !tpool->stop)
-			pthread_cond_signal(&tpool->main_cond);
-		pthread_mutex_unlock(&tpool->mutex);
+		perform_work(tpool);
 	}
 	tpool->nb_alive_threads--;
 	if (!tpool->works && tpool->nb_alive_threads == 0 && tpool->stop)

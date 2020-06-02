@@ -43,8 +43,8 @@ int		check_entities_height(t_env *env)
 
 int		check_entities_height_in_sector(t_sector *sector, t_env *env)
 {
-	int			i;
-	
+	int	i;
+
 	i = 0;
 	update_sector_slope(env, sector);
 	update_sector_entities_z(env, sector->num);

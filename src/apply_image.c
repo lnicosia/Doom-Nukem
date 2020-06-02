@@ -90,6 +90,7 @@ t_env *env)
 		}
 	}
 }
+
 /*
 **	Copy a sprite into our main texture
 **	with scaling and a green selection filter

@@ -30,7 +30,7 @@ int		change_volume_if_playing(FMOD_CHANNEL *channel, float volume)
 	return (0);
 }
 
-int     change_sounds_volume(float volume, t_env *env)
+int		change_sounds_volume(float volume, t_env *env)
 {
 	if (change_volume_if_playing(env->sound.player_shots_chan, volume))
 		return (custom_error("Could not update player shots chan volume\n"));
@@ -47,5 +47,5 @@ int     change_sounds_volume(float volume, t_env *env)
 		return (custom_error("Could not update ennemies shots chan volume\n"));
 	if (change_volume_if_playing(env->sound.explosions_chan, volume))
 		return (custom_error("Could not update explosions chan volume\n"));
-    return (0);
+	return (0);
 }

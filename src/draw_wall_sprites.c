@@ -72,34 +72,44 @@ t_env *env)
 	return (0);
 }
 
-int		draw_wall_sprites(t_sector *sector, t_render *render, t_env *env)
+int		draw_current_wall_sprite(int i, t_sector *sector, t_render *render,
+t_env *env)
 {
-	int		i;
 	t_point	start;
 	t_point	end;
 	double	pos;
 
-	i = -1;
-	while (++i < sector->wall_sprites[render->i].nb_sprites)
+	start = env->object_sprites[sector->wall_sprites[render->i].
+	sprite[i]].start[0];
+	end = env->object_sprites[sector->wall_sprites[render->i].
+	sprite[i]].end[0];
+	pos = (sector->wall_sprites[render->i].pos[i].x)
+	/ sector->wall_width[render->i]
+	* render->camera->v[sector->num][render->i].sprite_scale[i].x;
+	if (render->camera->v[sector->num][render->i + 1].vz)
+		pos *= render->camera->v[sector->num][render->i + 1].vz;
+	else
+		pos *= render->camera->v[sector->num][render->i].clipped_vz2;
+	render->sprite_x = (render->alpha) * render->camera->v[sector->num]
+	[render->i].sprite_scale[i].x * render->z + start.x - pos;
+	if (render->sprite_x >= start.x && render->sprite_x < end.x)
 	{
-		start = env->object_sprites[sector->wall_sprites[render->i].
-		sprite[i]].start[0];
-		end = env->object_sprites[sector->wall_sprites[render->i].
-		sprite[i]].end[0];
-		pos = (sector->wall_sprites[render->i].pos[i].x)
-		/ sector->wall_width[render->i]
-		* render->camera->v[sector->num][render->i].sprite_scale[i].x;
-		if (render->camera->v[sector->num][render->i + 1].vz)
-			pos *= render->camera->v[sector->num][render->i + 1].vz;
-		else
-			pos *= render->camera->v[sector->num][render->i].clipped_vz2;
-		render->sprite_x = (render->alpha) * render->camera->v[sector->num]
-		[render->i].sprite_scale[i].x * render->z + start.x - pos;
-		if (render->sprite_x >= start.x && render->sprite_x < end.x)
-		{
-			if (draw_vline_sprite(i, sector, render, env))
-				return (-1);
-		}
+		if (draw_vline_sprite(i, sector, render, env))
+			return (-1);
+	}
+	return (0);
+}
+
+int		draw_wall_sprites(t_sector *sector, t_render *render, t_env *env)
+{
+	int		i;
+
+	i = 0;
+	while (i < sector->wall_sprites[render->i].nb_sprites)
+	{
+		if (draw_current_wall_sprite(i, sector, render, env))
+			return (-1);
+		i++;
 	}
 	return (0);
 }

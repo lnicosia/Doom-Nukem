@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "init.h"
 
 int	init_musics(t_env *env)
 {
@@ -88,44 +89,6 @@ int	init_sounds(t_env *env)
 		FMOD_CREATESAMPLE, 0, &env->sound.player_hit) != FMOD_OK)
 		return (custom_error("Failed to load player hit sound\n"));
 	return (init_sounds2(env));
-}
-
-int	set_channels2(t_env *env)
-{
-	int		err;
-
-	if ((err = FMOD_System_GetChannel(env->sound.system, 7,
-		&env->sound.explosions_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 7. Error %d\n", err));
-	return (0);
-}
-
-int	set_channels(t_env *env)
-{
-	int		err;
-
-	if ((err = FMOD_System_GetChannel(env->sound.system, 0,
-		&env->sound.music_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 0. Error %d\n", err));
-	if ((err = FMOD_System_GetChannel(env->sound.system, 1,
-		&env->sound.player_movement_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 1. Error %d\n", err));
-	if ((err = FMOD_System_GetChannel(env->sound.system, 2,
-		&env->sound.player_reaction_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 2. Error %d\n", err));
-	if ((err = FMOD_System_GetChannel(env->sound.system, 3,
-		&env->sound.player_shots_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 3. Error %d\n", err));
-	if ((err = FMOD_System_GetChannel(env->sound.system, 4,
-		&env->sound.enemies_reaction_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 4. Error %d\n", err));
-	if ((err = FMOD_System_GetChannel(env->sound.system, 5,
-		&env->sound.enemies_shots_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 5. Error %d\n", err));
-	if ((err = FMOD_System_GetChannel(env->sound.system, 6,
-		&env->sound.footstep_chan)) != FMOD_OK)
-		return (custom_error("Could not set channel 6. Error %d\n", err));
-	return (set_channels2(env));
 }
 
 int	init_audio(t_env *env)

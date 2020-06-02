@@ -82,10 +82,10 @@ int		draw_grid_object(int i, t_env *env)
 	env->objects[i].pos.x * env->editor.scale + env->editor.center.x;
 	center.y =
 	env->objects[i].pos.y * env->editor.scale + env->editor.center.y;
-	if (env->sdl.mx > center.x - env->editor.scale
-			&& env->sdl.mx < center.x + env->editor.scale
-			&& env->sdl.my > center.y - env->editor.scale
-			&& env->sdl.my < center.y + env->editor.scale)
+	scale = env->editor.scale * 2.0;
+	if (env->sdl.mx > center.x - env->editor.scale && env->sdl.mx < center.x
+		+ env->editor.scale && env->sdl.my > center.y - env->editor.scale
+		&& env->sdl.my < center.y + env->editor.scale)
 	{
 		scale = env->editor.scale * 2.5;
 		if (click_on_grid_object(env))
@@ -98,8 +98,6 @@ int		draw_grid_object(int i, t_env *env)
 				return (-1);
 		}
 	}
-	else
-		scale = env->editor.scale * 2.0;
 	draw_object_sprite(i, scale, center, env);
 	return (0);
 }

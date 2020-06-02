@@ -50,7 +50,6 @@ t_env *env)
 		draw_current_ceiling_bullet_hole_both(drawer, env);
 }
 
-
 void	draw_ceiling_bullet_holes_both(t_sector *sector, t_drawer *drawer,
 t_env *env)
 {

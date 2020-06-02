@@ -29,6 +29,18 @@ int	split_line(char **tmp, char **tmp2, char **str)
 	return (0);
 }
 
+int	compute_current_line2(t_point *pos, t_point *text_size, char *tmp2,
+t_env *env)
+{
+	if (print_line_text(pos, text_size, tmp2, env))
+	{
+		ft_strdel(&tmp2);
+		return (-1);
+	}
+	ft_strdel(&tmp2);
+	return (0);
+}
+
 int	compute_current_line(char **str, t_point *pos, t_point *text_size,
 t_env *env)
 {
@@ -52,13 +64,7 @@ t_env *env)
 	}
 	ft_strdel(str);
 	*str = tmp3;
-	if (print_line_text(pos, text_size, tmp2, env))
-	{
-		ft_strdel(&tmp2);
-		return (-1);
-	}
-	ft_strdel(&tmp2);
-	return (0);
+	return (compute_current_line2(pos, text_size, tmp2, env));
 }
 
 int	dialog_event(void *param, void *penv)

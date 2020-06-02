@@ -112,6 +112,7 @@ void					init_enemies_data(t_env *env);
 void					init_objects_data(t_env *env);
 void					init_object_data5(int i, t_env *env);
 void					init_object_data10(int i, t_env *env);
+void					init_object_data15(int i, t_env *env);
 void					init_objects_main_sprites(t_env *env);
 void					init_sector_list(t_env *env, int curr);
 void					init_event_types(t_env *env);

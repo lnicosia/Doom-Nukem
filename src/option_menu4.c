@@ -12,13 +12,13 @@
 
 #include "env.h"
 
-int     fps_option_func(void *target)
+int		fps_option_func(void *target)
 {
-    t_env *env;
+	t_env *env;
 
-    env = (t_env*)target;
-    env->options.show_fps = (env->options.show_fps ? 0 : 1);
-    return (0);
+	env = (t_env*)target;
+	env->options.show_fps = (env->options.show_fps ? 0 : 1);
+	return (0);
 }
 
 int		fps_option_button(t_env *env)

@@ -50,7 +50,6 @@ t_drawer *drawer, t_env *env)
 		draw_current_floor_bullet_hole_brightness(drawer, env);
 }
 
-
 void	draw_floor_bullet_holes_brightness(t_sector *sector, t_drawer *drawer,
 t_env *env)
 {

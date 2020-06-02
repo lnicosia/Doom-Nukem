@@ -52,10 +52,9 @@ int		draw_grid_vertex(int i, t_point center, t_env *env)
 	vertex = env->vertices[i];
 	center = new_point(env->editor.center.x + vertex.x * env->editor.scale,
 			env->editor.center.y + vertex.y * env->editor.scale);
-	if (env->sdl.mx > center.x - env->editor.scale / 3.0
-			&& env->sdl.mx < center.x + env->editor.scale / 3.0
-			&& env->sdl.my > center.y - env->editor.scale / 3.0
-			&& env->sdl.my < center.y + env->editor.scale / 3.0)
+	if (env->sdl.mx > center.x - env->editor.scale / 3.0 && env->sdl.mx <
+		center.x + env->editor.scale / 3.0 && env->sdl.my > center.y - env->
+		editor.scale / 3.0 && env->sdl.my < center.y + env->editor.scale / 3.0)
 	{
 		scale = env->editor.scale / 3.0;
 		color = 0xFF00FF00;

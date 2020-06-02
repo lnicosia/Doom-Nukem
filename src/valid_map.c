@@ -12,27 +12,36 @@
 
 #include "env.h"
 
-int			check_vertices(t_sector sector, t_env *env)
+int			check_current_vertex_intersections(int i, t_sector sector,
+t_env *env)
 {
-	int			i;
 	int			j;
 	t_vertex	v1;
 	t_vertex	v2;
+
+	v1 = env->vertices[sector.vertices[i]];
+	v2 = env->vertices[sector.vertices[i + 1]];
+	j = 0;
+	while (j < env->nb_sectors)
+	{
+		if (env->sectors[j].num != sector.num
+			&& check_intersection_with_sector(env->sectors[j], env, v1, v2))
+			return (-1);
+		j++;
+	}
+	return (0);
+}
+
+int			check_vertices(t_sector sector, t_env *env)
+{
+	int			i;
 	int			res;
 
 	i = 0;
 	while (i < sector.nb_vertices)
 	{
-		v1 = env->vertices[sector.vertices[i]];
-		v2 = env->vertices[sector.vertices[i + 1]];
-		j = 0;
-		while (j < env->nb_sectors)
-		{
-			if (env->sectors[j].num != sector.num
-				&& check_intersection_with_sector(env->sectors[j], env, v1, v2))
-				return (-1);
-			j++;
-		}
+		if (check_current_vertex_intersections(i, sector, env))
+			return (-1);
 		i++;
 	}
 	res = is_sector_concave(sector, env);
@@ -56,13 +65,6 @@ int			check_slopes_start(t_sector sector)
 	return (0);
 }
 
-int			distance_bewteen_ceiling_and_floor(t_sector sector)
-{
-	if (sector.ceiling - sector.floor > 1000)
-		return (-1);
-	return (0);
-}
-
 /*
 **	Check sector validity
 */
@@ -81,7 +83,7 @@ int			check_sector(t_sector sector, t_env *env)
 		return (custom_invalid("Vertices are invalid for some reasons\n"));
 	if (check_slopes_start(sector))
 		return (custom_invalid("slope direction isn't valid\n"));
-	if (distance_bewteen_ceiling_and_floor(sector))
+	if (sector.ceiling - sector.floor > 1000)
 		return (custom_invalid("Distance between floor and ceiling"
 		"cannot exceed 1000\n"));
 	if (env->sector_is_straight)

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "env.h"
 #include "free.h"
 #include "init.h"
@@ -33,13 +32,13 @@ int		init_screen_pos(t_env *env)
 	return (0);
 }
 
-int     next_resolution(void *target)
+int		next_resolution(void *target)
 {
-    t_env *env;
+	t_env *env;
 
-    env = (t_env*)target;
-    if (env->i < 2)
-        env->i++;
+	env = (t_env*)target;
+	if (env->i < 2)
+		env->i++;
 	free_all_sdl_relative(env);
 	set_screen_size(env);
 	set_camera(&env->player.camera, env);
@@ -47,16 +46,16 @@ int     next_resolution(void *target)
 		return (custom_error("Could not re load sdl\n"));
 	if (init_screen_pos(env))
 		return (custom_error("Could not re load screen pos\n"));
-    return (0);
+	return (0);
 }
 
-int     prev_resolution(void *target)
+int		prev_resolution(void *target)
 {
-    t_env *env;
+	t_env *env;
 
-    env = (t_env*)target;
-    if (env->i > 0)
-        env->i--;
+	env = (t_env*)target;
+	if (env->i > 0)
+		env->i--;
 	free_all_sdl_relative(env);
 	set_screen_size(env);
 	set_camera(&env->player.camera, env);
@@ -64,7 +63,7 @@ int     prev_resolution(void *target)
 		return (custom_error("Could not re load sdl\n"));
 	if (init_screen_pos(env))
 		return (custom_error("Could not re load screen pos\n"));
-    return (0);
+	return (0);
 }
 
 int		next_resolution_button(t_env *env)

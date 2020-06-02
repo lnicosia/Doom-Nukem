@@ -43,6 +43,10 @@ int		editor_keys5(t_env *env)
 
 int		editor_keys4(t_env *env)
 {
+	if (button_keys(&env->editor.next_ambiance_music, env))
+		return (-1);
+	if (button_keys(&env->editor.next_fighting_music, env))
+		return (-1);
 	if (button_keys(&env->editor.previous_fighting_music, env))
 		return (-1);
 	if (button_keys(&env->editor.previous_ambiance_music, env))
@@ -62,6 +66,8 @@ int		editor_keys4(t_env *env)
 
 int		editor_keys3(t_env *env)
 {
+	if (button_keys(&env->editor.general_tab, env))
+		return (-1);
 	if (button_keys(&env->editor.sprite_tab, env))
 		return (-1);
 	if ((env->selected_object == -1
@@ -84,15 +90,16 @@ int		editor_keys3(t_env *env)
 		return (-1);
 	if (button_keys(&env->editor.enemy_background, env))
 		return (-1);
-	if (button_keys(&env->editor.next_ambiance_music, env))
-		return (-1);
-	if (button_keys(&env->editor.next_fighting_music, env))
-		return (-1);
 	return (editor_keys4(env));
 }
 
 int		editor_keys2(t_env *env)
 {
+	if (env->inputs.right_click)
+	{
+		env->editor.center.x += env->sdl.mouse_x;
+		env->editor.center.y += env->sdl.mouse_y;
+	}
 	if (env->inputs.left && !env->editor.tab && !env->inputs.ctrl)
 		env->editor.center.x -= 3;
 	if (env->inputs.right && !env->editor.tab && !env->inputs.ctrl)
@@ -111,8 +118,6 @@ int		editor_keys2(t_env *env)
 	if (button_keys(&env->editor.add_object, env))
 		return (-1);
 	if (button_keys(&env->editor.save, env))
-		return (-1);
-	if (button_keys(&env->editor.general_tab, env))
 		return (-1);
 	return (editor_keys3(env));
 }
@@ -138,11 +143,6 @@ int		editor_keys(t_env *env)
 	{
 		if (confirmation_box_keys(&env->confirmation_box, env))
 			return (-1);
-	}
-	if (env->inputs.right_click)
-	{
-		env->editor.center.x += env->sdl.mouse_x;
-		env->editor.center.y += env->sdl.mouse_y;
 	}
 	return (editor_keys2(env));
 }

@@ -36,6 +36,7 @@ void	reset_new_bullet_hole(t_env *env)
 	env->new_bullet_hole_sector = -1;
 	env->new_bullet_hole_wall = -1;
 }
+
 int		create_bullet_holes(t_env *env)
 {
 	if (env->new_wall_bullet_hole
@@ -53,9 +54,10 @@ int		create_bullet_holes(t_env *env)
 		&env->sectors[env->new_bullet_hole_sector], env))
 		return (-1);
 	if (env->new_ceiling_bullet_hole
-		&& env->sectors[env->new_bullet_hole_sector].ceiling_sprites.nb_sprites +
-		ft_lstlen(env->sectors[env->new_bullet_hole_sector].ceiling_bullet_holes)
-		< env->options.max_floor_sprites && add_ceiling_hitscan_bullet_hole(
+		&& env->sectors[env->new_bullet_hole_sector].ceiling_sprites.nb_sprites
+		+ ft_lstlen(env->sectors[env->new_bullet_hole_sector].
+		ceiling_bullet_holes) < env->options.max_floor_sprites
+		&& add_ceiling_hitscan_bullet_hole(
 		&env->sectors[env->new_bullet_hole_sector], env))
 		return (-1);
 	reset_new_bullet_hole(env);

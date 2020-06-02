@@ -49,7 +49,6 @@ t_env *env)
 		draw_current_ceiling_bullet_hole_no_light(drawer, env);
 }
 
-
 void	draw_ceiling_bullet_holes_no_light(t_sector *sector, t_drawer *drawer,
 t_env *env)
 {

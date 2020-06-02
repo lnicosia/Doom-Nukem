@@ -37,7 +37,7 @@ int		stop_enemies_reaction_chan(t_env *env)
 		if ((err = FMOD_Channel_Stop(env->sound.enemies_reaction_chan)) !=
 			FMOD_OK)
 			return (custom_error("Could not stop enemies reaction channel"
-				" (error \n"));
+			" (error \n"));
 	}
 	return (0);
 }

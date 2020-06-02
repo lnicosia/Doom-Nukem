@@ -18,7 +18,7 @@ int		allow_portal(t_sector *sector, t_v3 pos, int wall, t_env *env)
 	t_sector	*neighbor;
 
 	neighbor = &env->sectors[sector->neighbors[wall]];
-	if (env->player.pos.z < get_floor_at_pos(neighbor, pos, env) -2
+	if (env->player.pos.z < get_floor_at_pos(neighbor, pos, env) - 2
 		|| env->player.pos.z + env->player.eyesight + 1 >
 		get_ceiling_at_pos(neighbor, pos, env))
 		return (0);

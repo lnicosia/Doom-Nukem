@@ -86,7 +86,7 @@ int		del_char(t_input_box *box, int mode)
 	if (!mode)
 	{
 		if (del_previous_char(box, &s1, &s2))
-		return (-1);
+			return (-1);
 	}
 	else if (del_next_char(box, &s1, &s2))
 		return (-1);
@@ -100,8 +100,7 @@ int		del_char(t_input_box *box, int mode)
 	res = ft_strcat(res, s2);
 	ft_strdel(&s1);
 	ft_strdel(&s2);
-	if (box->str)
-		ft_strdel(&box->str);
+	ft_strdel(&box->str);
 	box->str = res;
 	return (0);
 }

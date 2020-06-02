@@ -39,6 +39,7 @@ SRC_RAW = ft_memccpy.c ft_memcpy.c ft_memset.c ft_bzero.c ft_memmove.c \
 		  get_intersection.c ft_lstpopfront.c ft_lstdelfront.c \
 		  ft_lstdelnode.c new_plane.c get_intersection_line_plane.c \
 		  ft_convert_base.c ft_ishexa.c thread_pool.c thread_pool_work.c \
+		  init_tpool.c free_tpool.c \
 
 HEADERS = libft.h thread_pool.h 
 

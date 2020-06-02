@@ -28,7 +28,7 @@ int		check_hud_weapons(t_env *env)
 	return (0);
 }
 
-int     check_hud_textures(t_env *env)
+int		check_hud_textures(t_env *env)
 {
 	int	fd;
 

@@ -25,7 +25,7 @@ int		write_textures1(t_env *env, int fd)
 			return (custom_error("Could not open %s to save it\n",
 				env->init.text_name[i]));
 			if (writing_bmp(file, fd, env->init.text_name[i]))
-				return (custom_error("Could not write %s\n",
+			return (custom_error("Could not write %s\n",
 				env->init.text_name[i]));
 			i++;
 	}

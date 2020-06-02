@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "render.h"
-#include <sys/time.h>
-
-//int	count = 0;
 
 void	set_texture_size(t_render *render, t_env *env)
 {
@@ -64,6 +61,8 @@ void	set_x_limits(t_render *render, t_env *env)
 {
 	int	x;
 
+	render->xstart = ft_max(render->v1->clipped_x1, render->xmin);
+	render->xend = ft_min(render->v1->clipped_x2, render->xmax);
 	x = render->xstart;
 	while (x <= render->xend)
 	{
@@ -82,77 +81,46 @@ void	set_x_limits(t_render *render, t_env *env)
 			break ;
 		x--;
 	}
-	/*x = render->xstart;
-	while (x <= render->xend)
-	{
-		env->sdl.texture_pixels[x + env->w * env->ymin[x]] = 0xFF00FF00;
-		env->sdl.texture_pixels[x + env->w * env->ymax[x]] = 0xFFFF0000;
-		x++;
-	}*/
 }
 
 int		render_current_wall(int i, t_sector *sector, t_render *render,
 t_env *env)
 {
 	int		just_selected;
-	//struct timeval	start, end, start2, end2;
 
-	//gettimeofday(&start2, NULL);
 	render->v1 = &render->camera->v[sector->num][i];
 	if (render->v1->clipped_x1 >= render->v1->clipped_x2 || render->v1->
 		clipped_x1 > render->xmax || render->v1->clipped_x2 < render->xmin)
 		return (0);
-	render->xstart = ft_max(render->v1->clipped_x1, render->xmin);
-	render->xend = ft_min(render->v1->clipped_x2, render->xmax);
 	set_x_limits(render, env);
 	if (render->xend <= render->xstart)
 		return (0);
-	render->i = i;
 	render->ceiling_horizon = render->v1->ceiling_horizon;
 	render->floor_horizon = render->v1->floor_horizon;
 	render->texture = sector->textures[i];
 	set_texture_size(render, env);
 	env->editor.just_selected = 0;
 	just_selected = 0;
-	//gettimeofday(&start, NULL);
 	if (threaded_wall_loop(sector, render, env) || env->fatal_error)
 		return (custom_error("Threads crash\n", env));
-	//gettimeofday(&end, NULL);
 	if (env->editor.just_selected)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)
 	{
-		//gettimeofday(&start, NULL);
 		if (render_neighbor(just_selected, sector, render, env))
 			return (-1);
-		//gettimeofday(&end, NULL);
 	}
-	/*gettimeofday(&end2, NULL);
-	int j = -1;
-	while (++j < count - 1)
-		ft_printf("----");
-	ft_printf(">Rendering the whole wall took %ld\n", 
-	(end2.tv_sec - start2.tv_sec) * 1000000 + end2.tv_usec - start2.tv_usec);*/
-	//update_screen(env);
-	//getchar();
 	return (0);
 }
-
 
 int		render_sector(t_render render, t_env *env)
 {
 	int			i;
 	int			j;
 	t_sector	*sector;
-	//struct timeval	start, end;
 
 	if (render.camera->rendered_sectors[render.sector->num])
 		return (-1);
-	/*i = -1;
-	while (++i < count)
-		ft_printf("----");
-	count++;
-	ft_printf("rendering sector %d\n", render.sector->num);*/
 	render.camera->rendered_sectors[render.sector->num]++;
 	sector = render.sector;
 	j = -1;
@@ -162,21 +130,14 @@ int		render_sector(t_render render, t_env *env)
 		render.tmp_min[j] = env->ymin[j];
 	}
 	i = -1;
-	//gettimeofday(&start, NULL);
 	while (++i < sector->nb_vertices)
 	{
+		render.i = i;
 		if (!render.camera->v[sector->num][i].draw)
 			continue ;
 		if (render_current_wall(i, sector, &render, env))
 			return (-1);
 	}
-	/*gettimeofday(&end, NULL);
-	i = -1;
-	while (++i < count - 1)
-		ft_printf("----");
-	ft_printf("Rendering execution is %ld\n", (end.tv_sec - start.tv_sec)
-	* 1000000 + end.tv_usec - start.tv_usec);
-	count--;*/
 	render.camera->rendered_sectors[render.sector->num]--;
 	return (0);
 }

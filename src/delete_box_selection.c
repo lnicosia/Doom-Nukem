@@ -53,6 +53,18 @@ int			set_double_stats(t_input_box *box)
 	return (0);
 }
 
+int			delete_box_selection3(t_input_box *box, size_t start, char *res)
+{
+	ft_strdel(&box->str);
+	box->str = res;
+	box->cursor = start;
+	if (box->type == DOUBLE)
+		set_double_stats(box);
+	if (box->minus && !ft_strchr(box->str, '-'))
+		box->minus--;
+	return (0);
+}
+
 int			delete_box_selection2(t_input_box *box, size_t start, size_t end)
 {
 	char	*res;
@@ -78,14 +90,7 @@ int			delete_box_selection2(t_input_box *box, size_t start, size_t end)
 	res = ft_strcat(res, s2);
 	ft_strdel(&s1);
 	ft_strdel(&s2);
-	ft_strdel(&box->str);
-	box->str = res;
-	box->cursor = start;
-	if (box->type == DOUBLE)
-		set_double_stats(box);
-	if (box->minus && !ft_strchr(box->str, '-'))
-		box->minus--;
-	return (0);
+	return (delete_box_selection3(box, start, res));
 }
 
 int			delete_box_selection(t_input_box *box)

@@ -39,7 +39,6 @@ int	map_parse_hud(t_env *env, t_map_parser *parser)
 {
 	int	i;
 
-	i = 0;
 	ft_strdel(&parser->tmp);
 	ft_strdel(&parser->line);
 	if (!(parser->tmp = ft_strnew(1)))
@@ -57,11 +56,9 @@ int	map_parse_hud(t_env *env, t_map_parser *parser)
 	if (check_file_format(parser, env))
 		return (custom_error("Error while parsing hud file data\n"));
 	ft_strdel(&parser->line);
-	while (i < env->resource.nb_hud_files)
-	{
+	i = -1;
+	while (++i < env->resource.nb_hud_files)
 		if (parse_bmp_file(env, parser))
 			return (custom_error("Error while parsing hud images\n"));
-		i++;
-	}
 	return (0);
 }

@@ -108,10 +108,7 @@ int		parse_bmp_file(t_env *env, t_map_parser *parser)
 		if (check_file_validity(parser))
 			return (custom_error("Error while checking and creating file\n"));
 	}
-	else
-	{
-		if (skip_file(parser))
-			return (custom_error("Error while skipping the resource\n"));
-	}
+	else if (skip_file(parser))
+		return (custom_error("Error while skipping the resource\n"));
 	return (0);
 }

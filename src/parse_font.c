@@ -107,10 +107,7 @@ int	parse_font_file(t_env *env, t_map_parser *parser)
 		if (check_font_validity(parser))
 			return (custom_error("Error while checking and creating file\n"));
 	}
-	else
-	{
-		if (skip_file(parser))
-			return (custom_error("Error while skipping the font file\n"));
-	}
+	else if (skip_file(parser))
+		return (custom_error("Error while skipping the font file\n"));
 	return (0);
 }

@@ -288,7 +288,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   event_checkers2.c event_checkers3.c event_updaters2.c \
 		   event_updaters3.c event_updaters4.c events_links_protection2.c \
 		   fill_triangle_minimap.c fill_triangle.c free_sector2.c \
-		   free_fonts.c free_camera.c free_all2.c free_all3.c \
+		   free_fonts.c free_camera.c free_all2.c free_all3.c set_channels.c \
 		   game_menu2.c game_menu3.c generate_mipmaps_utils.c \
 		   get_event_array2.c get_event_array3.c get_event_nb2.c \
 		   update_sector_slope.c init_selection_tabs.c no_parser.c \
@@ -327,7 +327,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_skybox_wall.c draw_skybox_ceiling.c draw_skybox_floor.c \
 		   damage_anim.c del_char.c add_char.c parse_double_input.c \
 		   is_new_vertex_valid2.c is_new_vertex_valid3.c is_new_vertex_valid4.c\
-		   option_menu4.c option_menu5.c option_menu6.c \
+		   option_menu4.c option_menu5.c option_menu6.c option_menu_hud.c \
 		   set_new_string_input_box.c init_ui_textures2.c put_player_pixel.c \
 		   parse_current_floor_sprite.c parse_current_ceiling_sprite.c \
 		   is_new_sector_convex.c check_skyboxes2.c check_directories.c \
@@ -335,7 +335,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   init_hud_textures.c init_wall_textures.c check_entities_height.c \
 		   init_mini_skyboxes.c check_existing_files.c create_sound_file.c\
 		   check_walls_textures.c free_resources_init.c input_box_utils3.c\
-		   check_sprites_textures.c check_hud_textures.c \
+		   check_sprites_textures.c check_hud_textures.c init_objects_data4.c \
 		   check_skyboxes.c parse_resources_utils.c map_parse_hud.c \
 		   init_ttf2.c check_fonts.c free_all4.c split_box_text2.c\
 		   check_ui.c map_parse_ui.c check_existing_files2.c\

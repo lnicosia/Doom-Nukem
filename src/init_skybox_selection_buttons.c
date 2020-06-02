@@ -54,6 +54,18 @@ int		init_skybox_small(int i, int mod, int mod_e, t_env *env)
 	return (0);
 }
 
+int		init_current_skybox_button(int i, int mod, int mod_e, t_env *env)
+{
+	if (i < MAX_SKYBOX)
+	{
+		if (init_skybox_small(i, mod, mod_e, env))
+			return (-1);
+	}
+	else if (init_skybox_big(i, env))
+		return (-1);
+	return (0);
+}
+
 int		init_skybox_selection_buttons(t_env *env)
 {
 	int	i;
@@ -70,17 +82,11 @@ int		init_skybox_selection_buttons(t_env *env)
 		mod = 10;
 	else
 		mod = 5;
-	i = 0;
-	while (i < MAX_SKYBOX + MAX_SKYBOX)
+	i = -1;
+	while (++i < MAX_SKYBOX + MAX_SKYBOX)
 	{
-		if (i < MAX_SKYBOX)
-		{
-			if (init_skybox_small(i, mod, mod_e, env))
-				return (-1);
-		}
-		else if (init_skybox_big(i, env))
+		if (init_current_skybox_button(i, mod, mod_e, env))
 			return (-1);
-		i++;
 	}
 	return (0);
 }

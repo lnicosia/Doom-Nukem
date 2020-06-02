@@ -33,11 +33,8 @@ int		check_enemies_sprites_textures(t_env *env)
 	return (0);
 }
 
-int		check_object_sprites_textures2(t_env *env)
+int		check_object_sprites_textures2(t_env *env, int fd)
 {
-	int	fd;
-
-	fd = 0;
 	if (!(env->init.objects_names[3] =
 	ft_strdup("./images/sprites/raygun.bmp")))
 		return (ft_perror("Error while parsing object sprite texture\n"));
@@ -56,8 +53,7 @@ int		check_object_sprites_textures2(t_env *env)
 	if (!(env->init.objects_names[5] =
 	ft_strdup("./images/sprites/gun_sprite_sheet.bmp")))
 		return (ft_perror("Error while parsing object sprite texture\n"));
-	if ((fd = open("./images/sprites/gun_sprite_sheet.bmp",
-		O_RDONLY)) == -1)
+	if ((fd = open("./images/sprites/gun_sprite_sheet.bmp", O_RDONLY)) == -1)
 		env->init.objects[5] = 1;
 	if (!env->init.objects[5] && close(fd))
 		return (custom_error("Could not close the file in check sprites\n"));
@@ -68,6 +64,7 @@ int		check_object_sprites_textures(t_env *env)
 {
 	int	fd;
 
+	fd = 0;
 	if (!(env->init.objects_names[0] =
 	ft_strdup("./images/sprites/objects_sprites.bmp")))
 		return (ft_perror("Error while parsing object sprite texture\n"));
@@ -89,7 +86,7 @@ int		check_object_sprites_textures(t_env *env)
 		env->init.objects[2] = 1;
 	if (!env->init.objects[2] && close(fd))
 		return (custom_error("Could not close the file in check sprites\n"));
-	return (check_object_sprites_textures2(env));
+	return (check_object_sprites_textures2(env, fd));
 }
 
 int		check_editor_sprites_textures(t_env *env)
