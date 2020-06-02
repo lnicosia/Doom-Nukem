@@ -130,10 +130,11 @@ int		render_sector(t_render render, t_env *env)
 	t_sector	*sector;
 	struct timeval	start, end;
 
-	if (render.camera->rendered_sectors[render.sector->num])
-		return (-1);
+	//if (render.camera->rendered_sectors[render.sector->num])
+		//return (-1);
 	render.camera->rendered_sectors[render.sector->num]++;
 	sector = render.sector;
+	//ft_printf("rendering sector %d\n", sector->num);
 	gettimeofday(&start, NULL);
 	j = -1;
 	while (++j < env->w)

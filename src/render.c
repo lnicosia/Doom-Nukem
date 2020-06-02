@@ -51,8 +51,8 @@ int		precompute_sectors(t_camera *camera, t_env *env)
 
 void	set_render(t_camera *camera, t_env *env, int i, t_render *render)
 {
-	render->xmin = camera->xmin[i];
-	render->xmax = camera->xmax[i];
+	render->xmin = ft_max(camera->xmin[i], render->threadmin);
+	render->xmax = ft_min(camera->xmax[i], render->threadmax);
 	render->sector = &env->sectors[camera->screen_sectors[i]];
 	render->camera = camera;
 	render->ystart = 0;
@@ -105,11 +105,36 @@ void	show_render_time(struct timeval start, struct timeval end, t_env *env)
 	env->threads_time.tv_usec = 0;
 }
 
-int		render_walls(t_camera *camera, t_env *env)
+int		render_walls(void *param)
 {
 	int			i;
 	int			screen_sectors;
 	t_render	render;
+	t_camera	*camera;
+	t_env		*env;
+
+	screen_sectors = ((t_render_thread*)param)->screen_sectors;
+	env = ((t_render_thread*)param)->env;
+	camera = ((t_render_thread*)param)->camera;
+	render.threadmin = ((t_render_thread*)param)->xstart;
+	render.threadmax = ((t_render_thread*)param)->xend;
+	render.thread = ((t_render_thread*)param)->id;
+	i = 0;
+	while (i < screen_sectors)
+	{
+		set_render(camera, env, i, &render);
+		if (render_sector(render, env))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+int		draw_walls(t_camera *camera, t_env *env)
+{
+	int				i;
+	int				screen_sectors;
+	t_render_thread	rt[env->nprocs];
 	struct timeval	start, end;
 
 	camera->computed = 1;
@@ -122,19 +147,24 @@ int		render_walls(t_camera *camera, t_env *env)
 	if (precompute_sectors(camera, env))
 		return (-1);
 	i = 0;
-	while (i < screen_sectors)
+	while (i < env->nprocs)
 	{
-		set_render(camera, env, i, &render);
-		if (render_sector(render, env))
-			return (-1);
+		rt[i].xstart = env->w / (double)env->nprocs * i;
+		rt[i].xend = env->w / (double)env->nprocs * (i + 1);
+		//ft_printf("Thread %d goes from %d to %d\n", i, rt[i].xstart,
+		//rt[i].xend);
+		rt[i].env = env;
+		rt[i].screen_sectors = screen_sectors;
+		rt[i].camera = camera;
+		rt[i].id = i;
+		if (tpool_work(&env->tpool, &render_walls, &rt[i]))
+			return (custom_error("Threads crash\n"));
 		i++;
 	}
+	if (tpool_wait(&env->tpool))
+		return (custom_error("Error in threads\n"));
+	//ft_printf("\n");
 	gettimeofday(&end, NULL);
-	show_render_time(start, end, env);
+	//show_render_time(start, end, env);
 	return (0);
-}
-
-int		draw_walls(t_camera *camera, t_env *env)
-{
-	return (render_walls(camera, env));
 }

@@ -98,6 +98,8 @@ typedef struct		s_render
 	int				texture_h;
 	int				tmp_max[2560];
 	int				tmp_min[2560];
+	int				threadmin;
+	int				threadmax;
 }					t_render;
 
 typedef struct		s_drawer
@@ -218,13 +220,16 @@ typedef struct		s_skybox_data
 
 typedef struct		s_render_thread
 {
-	t_sector		*sector;
 	t_render		render;
+	t_sector		*sector;
+	t_camera		*camera;
 	t_env			*env;
 	int				xstart;
 	int				xend;
 	int				ystart;
 	int				yend;
+	int				screen_sectors;
+	int				id;
 }					t_render_thread;
 
 typedef struct		s_precompute_thread
