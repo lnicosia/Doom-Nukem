@@ -23,8 +23,7 @@ int		going_in_3d_mode(t_env *env)
 	precompute_slopes(env);
 	if (init_camera_arrays(&env->player.camera, env))
 		return (custom_error("Could not init camera arrays\n"));
-	if (env->sector_list)
-		ft_memdel((void**)&env->sector_list);
+	ft_memdel((void**)&env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list\n"));
 	update_camera_position(&env->player.camera);
@@ -36,6 +35,10 @@ int		going_in_3d_mode(t_env *env)
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 		SDL_GetRelativeMouseState(&env->sdl.mouse_x, &env->sdl.mouse_y);
 	}
+	env->editor.draw_enemy_tab = 0;
+	env->editor.draw_object_tab = 0;
+	env->editor.draw_texture_tab = 0;
+	env->editor.draw_sprite_tab = 0;
 	return (0);
 }
 
