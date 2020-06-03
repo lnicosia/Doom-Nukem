@@ -104,7 +104,7 @@ int	init_editor(int ac, char **av)
 	ft_bzero(&env, sizeof(t_env));
 	env.running = 1;
 	env.drawing = 1;
-	env.nprocs = sysconf(_SC_NPROCESSORS_CONF);
+	env.nprocs = ft_min(sysconf(_SC_NPROCESSORS_CONF), MAX_PROC);
 	ft_printf("nprocs = %d\n", env.nprocs);
 	init_editor_data(&env);
 	if (init_screen_size(&env))

@@ -282,6 +282,8 @@ void				precompute_sector(t_camera *camera, t_sector *sector,
 t_env *env);
 void				get_rendered_sectors_list(int screen_sectors,
 t_camera *camera, t_env *env);
+void				set_render(t_camera *camera, t_env *env, int i,
+t_render *render);
 void				get_intersections(int i, t_camera *camera,
 t_sector *sector, t_env *env);
 void				precompute_values(int i, t_camera *camera,

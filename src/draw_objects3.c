@@ -103,7 +103,7 @@ int		object_loop(void *param)
 int		threaded_object_loop(t_object *object, t_render_object *orender,
 t_env *env)
 {
-	t_object_thread	ot[env->nprocs];
+	t_object_thread	ot[MAX_PROC];
 	int				i;
 
 	i = 0;
@@ -116,7 +116,8 @@ t_env *env)
 		/ (double)env->nprocs * i;
 		ot[i].xend = orender->xstart + (orender->xend - orender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, object_loop, &ot[i]);
+		if (tpool_work(&env->tpool, object_loop, &ot[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))

@@ -65,7 +65,7 @@ t_v2 size, t_env *env)
 int		threaded_enemy_loop(t_enemy *enemy, t_render_object *orender,
 t_env *env)
 {
-	t_enemy_thread	et[env->nprocs];
+	t_enemy_thread	et[MAX_PROC];
 	int				i;
 
 	i = 0;
@@ -78,7 +78,8 @@ t_env *env)
 		/ (double)env->nprocs * i;
 		et[i].xend = orender->xstart + (orender->xend - orender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, enemy_loop, &et[i]);
+		if (tpool_work(&env->tpool, enemy_loop, &et[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))

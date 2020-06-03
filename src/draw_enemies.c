@@ -69,7 +69,7 @@ int			get_enemy_direction(t_enemy *enemy)
 static int	threaded_get_relative_pos(t_camera *camera, t_env *env)
 {
 	int				i;
-	t_enemy_thread	enemies_threads[env->nprocs];
+	t_enemy_thread	enemies_threads[MAX_PROC];
 
 	i = 0;
 	while (i < env->nprocs)
@@ -79,8 +79,9 @@ static int	threaded_get_relative_pos(t_camera *camera, t_env *env)
 		enemies_threads[i].xstart = env->nb_enemies / (double)env->nprocs * i;
 		enemies_threads[i].xend = env->nb_enemies
 		/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, get_enemy_relative_pos,
-		&enemies_threads[i]);
+		if (tpool_work(&env->tpool, get_enemy_relative_pos,
+		&enemies_threads[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))

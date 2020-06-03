@@ -31,7 +31,7 @@ int		precompute_sectors_loop(void *param)
 int		precompute_sectors(t_camera *camera, t_env *env)
 {
 	int					i;
-	t_precompute_thread	pt[env->nprocs];
+	t_precompute_thread	pt[MAX_PROC];
 
 	i = 0;
 	while (i < env->nprocs)
@@ -40,22 +40,13 @@ int		precompute_sectors(t_camera *camera, t_env *env)
 		pt[i].camera = camera;
 		pt[i].start = env->nb_sectors / (double)env->nprocs * i;
 		pt[i].end = env->nb_sectors / (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, precompute_sectors_loop, &pt[i]);
+		if (tpool_work(&env->tpool, precompute_sectors_loop, &pt[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))
 		return (-1);
 	return (0);
-}
-
-void	set_render(t_camera *camera, t_env *env, int i, t_render *render)
-{
-	render->xmin = ft_max(camera->xmin[i], render->threadmin);
-	render->xmax = ft_min(camera->xmax[i], render->threadmax);
-	render->sector = &env->sectors[camera->screen_sectors[i]];
-	render->camera = camera;
-	render->ystart = 0;
-	render->yend = env->h - 1;
 }
 
 int		render_walls(void *param)
@@ -83,20 +74,11 @@ int		render_walls(void *param)
 	return (0);
 }
 
-int		draw_walls(t_camera *camera, t_env *env)
+int		multithreaded_render(t_camera *camera, int screen_sectors, t_env *env)
 {
 	int				i;
-	int				screen_sectors;
-	t_render_thread	rt[env->nprocs];
+	t_render_thread	rt[MAX_PROC];
 
-	camera->computed = 1;
-	env->visible_sectors = 0;
-	reset_render_utils(camera, env);
-	if ((screen_sectors = get_screen_sectors(camera, env)) < 0)
-		return (-1);
-	get_rendered_sectors_list(screen_sectors, camera, env);
-	if (precompute_sectors(camera, env))
-		return (-1);
 	i = 0;
 	while (i < env->nprocs)
 	{
@@ -113,4 +95,19 @@ int		draw_walls(t_camera *camera, t_env *env)
 	if (tpool_wait(&env->tpool))
 		return (custom_error("Error in threads\n"));
 	return (0);
+}
+
+int		draw_walls(t_camera *camera, t_env *env)
+{
+	int				screen_sectors;
+
+	camera->computed = 1;
+	env->visible_sectors = 0;
+	reset_render_utils(camera, env);
+	if ((screen_sectors = get_screen_sectors(camera, env)) < 0)
+		return (-1);
+	get_rendered_sectors_list(screen_sectors, camera, env);
+	if (precompute_sectors(camera, env))
+		return (-1);
+	return (multithreaded_render(camera, screen_sectors, env));
 }

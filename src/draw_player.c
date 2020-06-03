@@ -67,7 +67,7 @@ int			player_loop(void *param)
 static int	threaded_player_loop(t_object *object, t_render_object *orender,
 		t_env *env)
 {
-	t_object_thread	et[env->nprocs];
+	t_object_thread	et[MAX_PROC];
 	int				i;
 
 	i = 0;
@@ -80,7 +80,8 @@ static int	threaded_player_loop(t_object *object, t_render_object *orender,
 			/ (double)env->nprocs * i;
 		et[i].xend = orender->xstart + (orender->xend - orender->xstart)
 			/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, player_loop, &et[i]);
+		if (tpool_work(&env->tpool, player_loop, &et[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))

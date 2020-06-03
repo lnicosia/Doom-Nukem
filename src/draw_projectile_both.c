@@ -42,7 +42,7 @@ int		projectile_loop_both(void *param)
 int		threaded_projectile_loop_both(t_projectile *projectile,
 t_render_projectile *prender, t_env *env)
 {
-	t_projectile_thread	pt[env->nprocs];
+	t_projectile_thread	pt[MAX_PROC];
 	int					i;
 
 	i = 0;
@@ -55,7 +55,8 @@ t_render_projectile *prender, t_env *env)
 		/ (double)env->nprocs * i;
 		pt[i].xend = prender->xstart + (prender->xend - prender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, projectile_loop_both, &pt[i]);
+		if (tpool_work(&env->tpool, projectile_loop_both, &pt[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))

@@ -131,7 +131,7 @@ int		init_game(int ac, char **av)
 	env.wall_sprites_start = MAX_ENEMIES + NB_OBJECTS_SPRITES;
 	env.editor_start = env.wall_sprites_start + NB_WALL_SPRITES;
 	env.hud_start = env.editor_start + NB_HUD_SPRITES;
-	env.nprocs = sysconf(_SC_NPROCESSORS_CONF);
+	env.nprocs = ft_min(sysconf(_SC_NPROCESSORS_CONF), MAX_PROC);
 	ft_printf("nprocs = %d\n", env.nprocs);
 	env.menu = 1;
 	env.difficulty = 1;

@@ -65,7 +65,7 @@ static int	explosion_loop(void *param)
 static int	threaded_explosion(t_explosion *explosion,
 t_render_explosion *erender, t_env *env)
 {
-	t_explosion_thread	pt[env->nprocs];
+	t_explosion_thread	pt[MAX_PROC];
 	int					i;
 
 	i = 0;
@@ -78,7 +78,8 @@ t_render_explosion *erender, t_env *env)
 		/ (double)env->nprocs * i;
 		pt[i].xend = erender->xstart + (erender->xend - erender->xstart)
 		/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, explosion_loop, &pt[i]);
+		if (tpool_work(&env->tpool, explosion_loop, &pt[i]))
+			return (-1);
 		i++;
 	}
 	if (tpool_wait(&env->tpool))

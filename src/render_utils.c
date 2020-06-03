@@ -93,3 +93,13 @@ void	reset_render_utils(t_camera *camera, t_env *env)
 	}
 	reset_render_utils2(ymin, ymax, camera, env);
 }
+
+void	set_render(t_camera *camera, t_env *env, int i, t_render *render)
+{
+	render->xmin = ft_max(camera->xmin[i], render->threadmin);
+	render->xmax = ft_min(camera->xmax[i], render->threadmax);
+	render->sector = &env->sectors[camera->screen_sectors[i]];
+	render->camera = camera;
+	render->ystart = 0;
+	render->yend = env->h - 1;
+}
