@@ -23,7 +23,7 @@ int		parse_player_data3(t_env *env, t_map_parser *parser, char **line)
 	if (**(line) && **(line) != ' ')
 		return (invalid_char("player speed", "space or a digit", **(line),
 		parser));
-	if (!**(line))
+		if (!**(line))
 		return (missing_data("player speed", parser));
 	*line = skip_spaces(*line);
 	if (!**(line))
@@ -47,7 +47,7 @@ int		parse_player_data2(t_env *env, t_map_parser *parser, char **line)
 	if (**(line) && **(line) != ' ')
 		return (invalid_char("player armor", "space or a digit", **(line),
 		parser));
-	if (!**(line))
+		if (!**(line))
 		return (missing_data("player armor and speed", parser));
 	*line = skip_spaces(*line);
 	if (!**(line))
@@ -70,7 +70,7 @@ int		parse_player_data(t_env *env, t_map_parser *parser, char **line)
 	if (**(line) && **(line) != ' ')
 		return (invalid_char("player health", "space or a digit", **(line),
 		parser));
-	if (!*(line))
+		if (!*(line))
 		return (missing_data("player health, armor and speed", parser));
 	*line = skip_spaces(*line);
 	if (!**(line))
