@@ -46,10 +46,10 @@ void	init_player_general_env(t_env *env)
 	env->editor.hud.g_player.t_pos_z.type = INT;
 	env->editor.hud.g_player.t_health.env = env;
 	env->editor.hud.g_player.t_health.pos = new_point(0, 0);
-	env->editor.hud.g_player.t_health.type = DOUBLE;
+	env->editor.hud.g_player.t_health.type = INT;
 	env->editor.hud.g_player.t_armor.env = env;
 	env->editor.hud.g_player.t_armor.pos = new_point(0, 0);
-	env->editor.hud.g_player.t_armor.type = DOUBLE;
+	env->editor.hud.g_player.t_armor.type = INT;
 	env->editor.hud.g_player.t_speed.env = env;
 	env->editor.hud.g_player.t_speed.pos = new_point(0, 0);
 	env->editor.hud.g_player.t_speed.type = DOUBLE;

@@ -45,11 +45,13 @@ int		parse_player_line2(t_env *env, t_map_parser *parser, char *line)
 	env->player.camera.perp_cos = cos(env->player.camera.angle - M_PI / 2);
 	env->player.camera.perp_sin = sin(env->player.camera.angle - M_PI / 2);
 	env->editor.player_exist = 1;
+	if (parse_player_data(env, parser, &line))
+		return (-1);
 	line = skip_number(line);
 	if (*(line) && *(line) == ' ')
 		return (extra_data("player declaration", parser));
 	if (*(line))
-		return (invalid_char("player angle", "a digit", *(line), parser));
+		return (invalid_char("player speed", "a digit", *(line), parser));
 	line = skip_spaces(line);
 	return (parse_player_line3(env, parser));
 }
@@ -64,10 +66,10 @@ int		parse_player_line(t_env *env, t_map_parser *parser, char *line)
 	if (*(line) && *(line) != ' ')
 		return (invalid_char("player y", "space or a digit", *(line), parser));
 	if (!*(line))
-		return (missing_data("player x and angle", parser));
+		return (missing_data("player x, angle, armor, life and speed", parser));
 	line = skip_spaces(line);
 	if (!*(line))
-		return (missing_data("player x and angle", parser));
+		return (missing_data("player x, angle, armor, life and speed", parser));
 	if (valid_double(line, parser))
 		return (custom_error("Invalid double for player pos.x\n"));
 	env->player.pos.x = ft_atof(line);
@@ -76,7 +78,7 @@ int		parse_player_line(t_env *env, t_map_parser *parser, char *line)
 	if (*(line) && *(line) != ' ')
 		return (invalid_char("player x", "space or a digit", *(line), parser));
 	if (!*(line))
-		return (missing_data("player angle", parser));
+		return (missing_data("player angle, armor, life and speed", parser));
 	return (parse_player_line2(env, parser, line));
 }
 

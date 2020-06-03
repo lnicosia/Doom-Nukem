@@ -627,6 +627,7 @@ typedef struct		s_player
 	int				prev_sector;
 	double			eyesight;
 	double			speed;
+	double			start_speed;
 	int				hit;
 	double			size_2d;
 	double			rotation_speed;

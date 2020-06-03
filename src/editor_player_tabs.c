@@ -76,8 +76,8 @@ int		print_player_general_tab3(t_env *env)
 		env->sdl.fonts.lato20, 0x333333FF, 30), env))
 		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",
-	get_decimal_len(env->player.speed), env->player.speed);
-	env->editor.hud.g_player.t_speed.target = &env->player.speed;
+	get_decimal_len(env->player.start_speed), env->player.start_speed);
+	env->editor.hud.g_player.t_speed.target = &env->player.start_speed;
 	if (draw_button(env, env->editor.hud.g_player.speed, env->snprintf))
 		return (-1);
 	if (print_text(new_point(760, 60), new_printable_text("Angle ",

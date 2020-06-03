@@ -287,6 +287,8 @@ int						map_parse_sounds(t_env *env, t_map_parser *parser);
 int						map_parse_sprites(t_env *env, t_map_parser *parser);
 int						map_parse_skyboxes(t_env *env, t_map_parser *parser);
 int						map_parse_fonts(t_env *env, t_map_parser *parser);
+int						parse_player_data(t_env *env, t_map_parser *parser,
+char **line);
 int						skip_file(t_map_parser *parser);
 int						init_mipmap_arrays(t_env *env);
 int						create_new_sound_file(t_map_parser *parser, int size);

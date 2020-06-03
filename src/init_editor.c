@@ -28,7 +28,6 @@ int	init_editor4(t_env *env)
 	init_selection_tabs(env);
 	init_weapons(env);
 	env->confirmation_box.font = env->sdl.fonts.lato20;
-	env->player.health = 100;
 	env->editor.center.x = -env->player.pos.x * env->editor.scale +
 	env->h_w + 200;
 	env->editor.center.y = -env->player.pos.y * env->editor.scale + env->h_h;
@@ -81,6 +80,7 @@ int	init_editor2(t_env *env, int ac, char **av)
 			return (crash("Could not malloc save_file name\n", env));
 		ft_printf("{reset}");
 	}
+	env->player.speed = 0.1;
 	return (init_editor3(env));
 }
 
