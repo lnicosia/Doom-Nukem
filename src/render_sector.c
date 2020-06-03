@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "render.h"
-#include <sys/time.h>
 
 void	set_texture_size(t_render *render, t_env *env)
 {
@@ -54,7 +53,6 @@ t_env *env)
 		if (select_portal(sector, render, env))
 			return (-1);
 	}
-	reset_screen_limits(render, env);
 	return (0);
 }
 
@@ -88,7 +86,6 @@ int		render_current_wall(int i, t_sector *sector, t_render *render,
 t_env *env)
 {
 	int		just_selected;
-	struct timeval	start, end;
 
 	render->v1 = &render->camera->v[sector->num][i];
 	if (render->v1->clipped_x1 >= render->v1->clipped_x2 || render->v1->
@@ -103,22 +100,14 @@ t_env *env)
 	set_texture_size(render, env);
 	env->editor.just_selected = 0;
 	just_selected = 0;
-	gettimeofday(&start, NULL);
 	if (threaded_wall_loop(sector, render, env) || env->fatal_error)
 		return (custom_error("Threads crash\n", env));
-	gettimeofday(&end, NULL);
-	sector->walls_time.tv_sec += end.tv_sec - start.tv_sec;
-	sector->walls_time.tv_usec += end.tv_usec - start.tv_usec;
 	if (env->editor.just_selected)
 		just_selected = 1;
 	if (sector->neighbors[i] != -1)
 	{
-		gettimeofday(&start, NULL);
 		if (render_neighbor(just_selected, sector, render, env))
 			return (-1);
-		gettimeofday(&end, NULL);
-		sector->neighbors_time.tv_sec += end.tv_sec - start.tv_sec;
-		sector->neighbors_time.tv_usec += end.tv_usec - start.tv_usec;
 	}
 	return (0);
 }
@@ -126,22 +115,9 @@ t_env *env)
 int		render_sector(t_render render, t_env *env)
 {
 	int			i;
-	int			j;
 	t_sector	*sector;
-	struct timeval	start, end;
 
-	//if (render.camera->rendered_sectors[render.sector->num])
-		//return (-1);
-	render.camera->rendered_sectors[render.sector->num]++;
 	sector = render.sector;
-	//ft_printf("rendering sector %d\n", sector->num);
-	gettimeofday(&start, NULL);
-	j = -1;
-	while (++j < env->w)
-	{
-		render.tmp_max[j] = env->ymax[j];
-		render.tmp_min[j] = env->ymin[j];
-	}
 	i = -1;
 	while (++i < sector->nb_vertices)
 	{
@@ -151,10 +127,5 @@ int		render_sector(t_render render, t_env *env)
 		if (render_current_wall(i, sector, &render, env))
 			return (-1);
 	}
-	gettimeofday(&end, NULL);
-	sector->time.tv_sec += end.tv_sec - start.tv_sec;
-	sector->time.tv_usec += end.tv_usec - start.tv_usec;
-	sector->nb_renders++;
-	render.camera->rendered_sectors[render.sector->num]--;
 	return (0);
 }

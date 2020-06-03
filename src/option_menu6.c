@@ -26,9 +26,6 @@ int		init_screen_pos(t_env *env)
 	if (!(env->player.camera.screen_sectors = (int*)malloc(sizeof(int) *
 		(env->screen_sectors_size))))
 		return (ft_perror("Could not malloc screen sectors"));
-	if (!(env->player.camera.rendered_sectors = (int*)malloc(sizeof(int) *
-		(env->screen_sectors_size))))
-		return (ft_perror("Could not malloc rendered sectors"));
 	return (0);
 }
 

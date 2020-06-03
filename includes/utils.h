@@ -21,7 +21,6 @@
 # include <pthread.h>
 # include "libft.h"
 # include "defines_images.h"
-# include <sys/time.h>
 # define SNPRINTF_SIZE 1024
 # define INPUT_DELAY 500
 # define CONVERT_RADIANS 0.0174532925199432955
@@ -513,13 +512,6 @@ typedef struct		s_sector
 	int				start_floor_slope;
 	int				start_ceiling_slope;
 	int				start_slope;
-	struct timeval	time;
-	struct timeval	walls_time;
-	struct timeval	real_walls_time;
-	struct timeval	neighbors_time;
-	struct timeval	threads_time;
-	int				nb_renders;
-	int				nb_threads;
 }					t_sector;
 
 typedef struct		s_vertex
@@ -577,7 +569,6 @@ typedef struct		s_camera
 	double			*head_y;
 	int				*screen_sectors;
 	int				*screen_pos;
-	int				*rendered_sectors;
 	int				*xmin;
 	int				*xmax;
 	int				computed;

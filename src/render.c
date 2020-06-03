@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "render.h"
-#include <sys/time.h>
 
 int		precompute_sectors_loop(void *param)
 {
@@ -59,52 +58,6 @@ void	set_render(t_camera *camera, t_env *env, int i, t_render *render)
 	render->yend = env->h - 1;
 }
 
-void	show_render_time(struct timeval start, struct timeval end, t_env *env)
-{
-	int		i;
-
-	i = 0;
-	ft_printf("[NEW FRAME]\n");
-	while (i < env->nb_sectors)
-	{
-		printf("Sector %d was rendered %d time",
-		i, env->sectors[i].nb_renders);
-		printf(" and its rendering took %ldµs\n",
-		env->sectors[i].time.tv_sec + env->sectors[i].time.tv_usec);
-		printf("\tWalls took %ldµs\n",
-		env->sectors[i].walls_time.tv_sec + env->sectors[i].walls_time.tv_usec);
-		printf("\tReal walls took %ldµs\n",
-		env->sectors[i].real_walls_time.tv_sec
-		+ env->sectors[i].real_walls_time.tv_usec);
-		printf("\tNeighbors took %ldµs\n",
-		env->sectors[i].neighbors_time.tv_sec
-		+ env->sectors[i].neighbors_time.tv_usec);
-		printf("\t%d threads created for %ldµs\n", env->sectors[i].nb_threads,
-		env->sectors[i].threads_time.tv_sec
-		+ env->sectors[i].threads_time.tv_usec);
-		env->sectors[i].time.tv_sec = 0;
-		env->sectors[i].time.tv_usec = 0;
-		env->sectors[i].threads_time.tv_sec = 0;
-		env->sectors[i].threads_time.tv_usec = 0;
-		env->sectors[i].walls_time.tv_sec = 0;
-		env->sectors[i].walls_time.tv_usec = 0;
-		env->sectors[i].real_walls_time.tv_sec = 0;
-		env->sectors[i].real_walls_time.tv_usec = 0;
-		env->sectors[i].neighbors_time.tv_sec = 0;
-		env->sectors[i].neighbors_time.tv_usec = 0;
-		env->sectors[i].nb_renders = 0;
-		env->sectors[i].nb_threads = 0;
-		i++;
-	}
-	ft_printf("[TOTAL RENDERING TIME = %ld", (end.tv_sec - start.tv_sec)
-	+ end.tv_usec - start.tv_usec);
-	ft_printf(", %d THREADS CREATED FOR %ldµs]\n\n", env->nb_threads,
-	env->threads_time.tv_sec + env->threads_time.tv_usec);
-	env->nb_threads = 0;
-	env->threads_time.tv_sec = 0;
-	env->threads_time.tv_usec = 0;
-}
-
 int		render_walls(void *param)
 {
 	int			i;
@@ -135,11 +88,9 @@ int		draw_walls(t_camera *camera, t_env *env)
 	int				i;
 	int				screen_sectors;
 	t_render_thread	rt[env->nprocs];
-	struct timeval	start, end;
 
 	camera->computed = 1;
 	env->visible_sectors = 0;
-	gettimeofday(&start, NULL);
 	reset_render_utils(camera, env);
 	if ((screen_sectors = get_screen_sectors(camera, env)) < 0)
 		return (-1);
@@ -151,8 +102,6 @@ int		draw_walls(t_camera *camera, t_env *env)
 	{
 		rt[i].xstart = env->w / (double)env->nprocs * i;
 		rt[i].xend = env->w / (double)env->nprocs * (i + 1);
-		//ft_printf("Thread %d goes from %d to %d\n", i, rt[i].xstart,
-		//rt[i].xend);
 		rt[i].env = env;
 		rt[i].screen_sectors = screen_sectors;
 		rt[i].camera = camera;
@@ -163,8 +112,5 @@ int		draw_walls(t_camera *camera, t_env *env)
 	}
 	if (tpool_wait(&env->tpool))
 		return (custom_error("Error in threads\n"));
-	//ft_printf("\n");
-	gettimeofday(&end, NULL);
-	//show_render_time(start, end, env);
 	return (0);
 }

@@ -55,8 +55,6 @@ void		free_camera(t_camera *camera)
 		ft_memdel((void**)&camera->screen_sectors);
 	if (camera->screen_pos)
 		ft_memdel((void**)&camera->screen_pos);
-	if (camera->rendered_sectors)
-		ft_memdel((void**)&camera->rendered_sectors);
 	if (camera->xmin)
 		ft_memdel((void**)&camera->xmin);
 	if (camera->xmax)

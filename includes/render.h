@@ -96,8 +96,6 @@ typedef struct		s_render
 	int				thread;
 	int				texture_w;
 	int				texture_h;
-	int				tmp_max[2560];
-	int				tmp_min[2560];
 	int				threadmin;
 	int				threadmax;
 }					t_render;

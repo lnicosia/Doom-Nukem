@@ -43,9 +43,6 @@ int		init_camera_arrays3(t_camera *camera, t_env *env)
 
 int		init_camera_arrays2(t_camera *camera, t_env *env)
 {
-	if (!(camera->rendered_sectors = (int*)ft_memalloc(sizeof(int)
-		* (env->screen_sectors_size))))
-		return (ft_perror("Could not malloc rendered sectors!"));
 	if (!(camera->v = (t_render_vertex**)
 				ft_memalloc(sizeof(t_render_vertex*) * env->nb_sectors)))
 		return (ft_perror("Could not malloc camera sectors"));

@@ -41,15 +41,12 @@ int		wall_loop(void *param)
 	t_env			*env;
 	int				x;
 	int				xend;
-	struct timeval	start, end;
 
 	sector = ((t_render_thread*)param)->sector;
 	render = ((t_render_thread*)param)->render;
 	env = ((t_render_thread*)param)->env;
 	x = ((t_render_thread*)param)->xstart;
 	xend = ((t_render_thread*)param)->xend;
-	//ft_printf("thread %d from %d to %d\n", render.thread, x, xend);
-	gettimeofday(&start, NULL);
 	while (x <= xend)
 	{
 		render.x = x;
@@ -58,42 +55,11 @@ int		wall_loop(void *param)
 			update_screen(env);
 		x++;
 	}
-	gettimeofday(&end, NULL);
-	sector->real_walls_time.tv_sec += end.tv_sec - start.tv_sec;
-	sector->real_walls_time.tv_usec += end.tv_usec - start.tv_usec;
 	return (0);
 }
 
 int		threaded_wall_loop(t_sector *sector, t_render *render, t_env *env)
 {
-	/*t_render_thread	rt[env->nprocs];
-	struct timeval	start, end;
-	int				i;
-
-	i = 0;
-	while (i < env->nprocs)
-	{
-		render->thread = i;
-		rt[i].sector = sector;
-		rt[i].render = *render;
-		rt[i].env = env;
-		rt[i].xstart = render->xstart + (render->xend - render->xstart)
-			/ (double)env->nprocs * i;
-		rt[i].xend = render->xstart + (render->xend - render->xstart)
-			/ (double)env->nprocs * (i + 1);
-		sector->nb_threads++;
-		env->nb_threads++;
-		gettimeofday(&start, NULL);
-		tpool_work(&env->tpool, wall_loop, &rt[i]);
-		gettimeofday(&end, NULL);
-		sector->threads_time.tv_sec += end.tv_sec - start.tv_sec;
-		sector->threads_time.tv_usec += end.tv_usec - start.tv_usec;
-		env->threads_time.tv_sec += end.tv_sec - start.tv_sec;
-		env->threads_time.tv_usec += end.tv_usec - start.tv_usec;
-		i++;
-	}
-	if (tpool_wait(&env->tpool))
-		return (-1);*/
 	t_render_thread	rt;
 
 	rt.sector = sector;
@@ -107,25 +73,6 @@ int		threaded_wall_loop(t_sector *sector, t_render *render, t_env *env)
 
 int		colorize_selected_portal(t_sector *sector, t_render *render, t_env *env)
 {
-	/**t_render_thread	rt[env->nprocs];
-	int				i;
-
-	i = 0;
-	while (i < env->nprocs)
-	{
-		render->thread = i;
-		rt[i].sector = sector;
-		rt[i].render = *render;
-		rt[i].env = env;
-		rt[i].xstart = render->xstart + (render->xend - render->xstart)
-			/ (double)env->nprocs * i;
-		rt[i].xend = render->xstart + (render->xend - render->xstart)
-			/ (double)env->nprocs * (i + 1) - 1;
-		tpool_work(&env->tpool, portal_loop, &rt[i]);
-		i++;
-	}
-	if (tpool_wait(&env->tpool))
-		return (-1);*/
 	t_render_thread	rt;
 
 	rt.sector = sector;
@@ -139,25 +86,6 @@ int		colorize_selected_portal(t_sector *sector, t_render *render, t_env *env)
 
 int		select_portal(t_sector *sector, t_render *render, t_env *env)
 {
-	/*t_render_thread	rt[env->nprocs];
-	int				i;
-
-	i = 0;
-	while (i < env->nprocs)
-	{
-		render->thread = i;
-		rt[i].sector = sector;
-		rt[i].render = *render;
-		rt[i].env = env;
-		rt[i].xstart = render->xstart + (render->xend - render->xstart)
-			/ (double)env->nprocs * i;
-		rt[i].xend = render->xstart + (render->xend - render->xstart)
-			/ (double)env->nprocs * (i + 1);
-		tpool_work(&env->tpool, select_portal_loop, &rt[i]);
-		i++;
-	}
-	if (tpool_wait(&env->tpool))
-		return (-1);*/
 	t_render_thread	rt;
 
 	rt.sector = sector;

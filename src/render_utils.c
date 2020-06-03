@@ -89,21 +89,7 @@ void	reset_render_utils(t_camera *camera, t_env *env)
 	{
 		camera->xmax[i] = -1;
 		camera->screen_sectors[i] = -1;
-		camera->rendered_sectors[i] = 0;
 		i++;
 	}
 	reset_render_utils2(ymin, ymax, camera, env);
-}
-
-void	reset_screen_limits(t_render *render, t_env *env)
-{
-	int	j;
-
-	j = 0;
-	while (j < env->w)
-	{
-		env->ymax[j] = render->tmp_max[j];
-		env->ymin[j] = render->tmp_min[j];
-		j++;
-	}
 }
