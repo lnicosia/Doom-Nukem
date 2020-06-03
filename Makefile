@@ -59,7 +59,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIB_RAW = libelf-0.8.13 libXrender-0.9.10 libXrandr-1.5.2 libxshmfence-1.3 \
 		   libXxf86vm-1.1.4 xcb-proto-1.14 libxcb-1.14 libXfixes-5.0 \
 		   libXdamage-1.1 libX11-1.6.9 libpciaccess-0.13.4 libdrm-2.4.100 \
-		   zlib-1.2.11 mesa-19.0.8 freetype-2.9
+		   zlib-1.2.11 mesa-19.0.8 freetype-2.9 pkg-config-0.28 libXau-1.0.9 \
+		   libpthread-stubs-0.1 \
 
 SRC_GAME_RAW = main_game.c init_game.c draw_game.c doom.c enemy_utils.c \
 				print_results.c projectile.c projectiles_maths.c \
