@@ -102,6 +102,8 @@ int	init_editor(int ac, char **av)
 	t_env	env;
 
 	ft_bzero(&env, sizeof(t_env));
+	if (ac > 2)
+		return (custom_error("Usage: ./doom-editor or ./doom-editor [map]\n"));
 	env.running = 1;
 	env.drawing = 1;
 	env.nprocs = ft_min(sysconf(_SC_NPROCESSORS_CONF), MAX_PROC);
