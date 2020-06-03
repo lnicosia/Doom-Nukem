@@ -50,6 +50,7 @@ int		save_button(void *param)
 		STRING, &env->save_file))
 			return (-1);
 		env->input_box.accept_inputs = 1;
+		env->input_box.update = &save_map;
 		env->inputs.s = 0;
 		env->inputs.ctrl = 0;
 	}
