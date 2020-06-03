@@ -54,7 +54,7 @@
 # define THREADS 4
 # define MAX_W 2560
 # define MAX_H 1440
-# define MAX_PROC 16
+# define MAX_PROC 128
 # define NB_MUSICS 3
 # define NB_SOUNDS 14
 
