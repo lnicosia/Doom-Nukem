@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "free.h"
 
 int		update_double_tab(int index, double size, double **tab)
 {
@@ -50,6 +51,7 @@ int		update_t_list_tab(int index, int size, t_list ***tab)
 
 int		update_t_wall_sprite_tab(int index, int size, t_wall_sprites **tab)
 {
+	free_wall_sprites(&(*tab)[index]);
 	*tab = (t_wall_sprites*)ft_delindex(*tab,
 		sizeof(t_wall_sprites) * (size),
 		sizeof(t_wall_sprites),

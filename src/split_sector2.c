@@ -74,24 +74,29 @@ void	update_current_wall2(t_env *env, int i, t_sector *sector)
 	&env->sectors[sector->num].wall_bullet_holes);
 	update_t_wall_sprite_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].wall_sprites);
+	ft_memdel((void**)&sector->walls_map_lvl[i]);
+	update_walls_map_lvl_tab(i, sector->nb_vertices + 1,
+	&env->sectors[sector->num].walls_map_lvl);
 	sector->nb_vertices--;
 }
 
 int		update_current_wall(t_env *env, int i, t_sector *sector)
 {
 	update_neighbors(env, i, sector->vertices[i], sector);
-	update_int_tab(i, (int)sector->nb_vertices + 1,
+	update_int_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].vertices);
-	update_int_tab(i, (int)sector->nb_vertices + 1,
+	update_int_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].textures);
-	update_int_tab(i, (int)sector->nb_vertices + 1,
+	update_int_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].selected);
+	update_int_tab(i, sector->nb_vertices + 1,
+	&env->sectors[sector->num].portals);
 	update_double_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].floors);
 	update_double_tab(i, sector->nb_vertices + 1,
 	&env->sectors[sector->num].ceilings);
 	update_current_wall2(env, i, sector);
-	if (!sector->neighbors || !sector->wall_sprites
+	if (!sector->neighbors || !sector->wall_sprites || !sector->walls_map_lvl
 		|| !sector->wall_width || !sector->floors
 		|| !sector->ceilings || !sector->vertices
 		|| !sector->portals || !sector->textures

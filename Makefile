@@ -119,7 +119,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		sprite_selection.c init_sprite_selection_buttons.c \
 		editor_object_tab_button.c print_events_tabs.c condition_panel_keys.c \
 		init_events_selection_buttons.c print_event.c init_event_types.c \
-		are_launch_condition_selection_buttons_visible.c \
+		are_launch_condition_selection_buttons_visible.c split_sector_utils2.c \
 		are_exec_condition_selection_buttons_visible.c next_launch_condition.c \
 		are_exec_condition_selection_buttons_visible2.c save_condition_utils.c \
 		init_event_links_types.c is_event_tabs_visible.c editor_keyup5.c\
@@ -493,8 +493,8 @@ CFLAGS =  -Wall -Wextra -Werror -I $(INCLUDES_DIR) \
 		  -I $(LIBFT_DIR) -I $(SDL2_DIR)/include -I $(SDL2_TTF_DIR) \
 		  -I $(FMOD_INC_DIR) \
           -Wno-unused-result \
-		  -fsanitize=address -g3 \
-		  #$(OPTI_FLAGS) \
+		  $(OPTI_FLAGS) \
+		  #-fsanitize=address -g3 \
 	
 #
 # Flags for FMOD, SDL2 and SDL2_ttf linking

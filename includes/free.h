@@ -38,5 +38,6 @@ void	free_wall_textures(t_env *env);
 void	free_ui_textures(t_env *env);
 void	free_mini_skyboxes_textures(t_env *env);
 void	free_skyboxes(t_env *env);
+void	free_walls_map_lvl_tab(t_sector *sector, int i);
 
 #endif
