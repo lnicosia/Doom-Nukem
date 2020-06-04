@@ -52,7 +52,7 @@ void	click_on_wall(t_drawer *drawer, t_render *render, t_env *env)
 	}
 }
 
-void	get_wall_x(t_drawer *drawer, t_render *render, t_env *env)
+int		get_wall_x(t_drawer *drawer, t_render *render, t_env *env)
 {
 	if (env->options.mipmapping)
 		render->map_lvl = get_current_wall_map(render->texture, render->z,
@@ -68,14 +68,15 @@ void	get_wall_x(t_drawer *drawer, t_render *render, t_env *env)
 		- render->camera->v[render->sector->num][render->i].
 		texture_align[render->map_lvl].x;
 	if (drawer->x != drawer->x)
-		return ;
+		return (1);
 	if (drawer->x >= render->texture_w || drawer->x < 0)
 		drawer->x = ft_abs((int)drawer->x % render->texture_w);
 	drawer->x = ft_fclamp(drawer->x, 0, render->texture_w);
 	drawer->i = drawer->vline.start;
+	return (0);
 }
 
-void	get_wall_y(t_drawer *drawer, t_render *render)
+int		get_wall_y(t_drawer *drawer, t_render *render)
 {
 	drawer->yalpha = (drawer->i - render->no_slope_current_ceiling)
 	/ render->line_height;
@@ -83,6 +84,9 @@ void	get_wall_y(t_drawer *drawer, t_render *render)
 	[render->i].texture_scale[render->map_lvl].y
 	- render->camera->v[render->sector->num][render->i].
 	texture_align[render->map_lvl].y;
+	if (drawer->y != drawer->y)
+		return (1);
 	if (drawer->y >= render->texture_h || drawer->y < 0)
 		drawer->y = ft_abs((int)drawer->y % render->texture_h);
+	return (0);
 }

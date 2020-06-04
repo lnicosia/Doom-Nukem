@@ -409,9 +409,9 @@ void				click_on_wall(t_drawer *drawer, t_render *render,
 t_env *env);
 void				new_wall_bullet_hole(t_drawer *drawer, t_render *render,
 t_env *env);
-void				get_wall_x(t_drawer *drawer, t_render *render,
+int					get_wall_x(t_drawer *drawer, t_render *render,
 t_env *env);
-void				get_wall_y(t_drawer *drawer, t_render *render);
+int					get_wall_y(t_drawer *drawer, t_render *render);
 int					click_on_wall_sprite(t_drawer *drawer, int sprite,
 t_render *render, t_env *env);
 void				apply_wall_sprite_filters(t_drawer *drawer, int sprite,

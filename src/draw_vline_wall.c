@@ -38,7 +38,8 @@ void	draw_vline_wall(t_sector *sector, t_vline vline,
 
 	drawer.sector = sector;
 	drawer.vline = vline;
-	get_wall_x(&drawer, render, env);
+	if (get_wall_x(&drawer, render, env))
+		return ;
 	while (drawer.i < drawer.vline.end)
 	{
 		drawer.coord = drawer.vline.x + env->w * drawer.i;
@@ -48,7 +49,8 @@ void	draw_vline_wall(t_sector *sector, t_vline vline,
 			continue;
 		}
 		click_on_wall(&drawer, render, env);
-		get_wall_y(&drawer, render);
+		if (get_wall_y(&drawer, render))
+			return ;
 		put_wall_pixel_no_light(&drawer, render, env);
 		drawer.i++;
 	}
