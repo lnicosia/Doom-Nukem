@@ -41,6 +41,10 @@ int		editor_3d_tabs_keyup(t_env *env)
 void	editor_show_tab(t_env *env)
 {
 	env->editor.tab = env->editor.tab ? 0 : 1;
+	env->editor.draw_enemy_tab = 0;
+	env->editor.draw_object_tab = 0;
+	env->editor.draw_texture_tab = 0;
+	env->editor.draw_sprite_tab = 0;
 	env->options.editor_options = 0;
 	if (env->editor.tab)
 		SDL_SetRelativeMouseMode(0);

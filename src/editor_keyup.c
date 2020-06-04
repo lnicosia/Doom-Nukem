@@ -78,6 +78,14 @@ int	editor_keyup3(t_env *env)
 	if (env->editor.create_enemy && !env->confirmation_box.state
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 		env->editor.create_enemy = 0;
+	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+	{
+		env->editor.tab = env->editor.tab ? 0 : 1;
+		env->editor.draw_enemy_tab = 0;
+		env->editor.draw_object_tab = 0;
+		env->editor.draw_texture_tab = 0;
+		env->editor.draw_sprite_tab = 0;
+	}
 	if ((ret = space_pressed(env)) != 1)
 		return (ret);
 	return (editor_keyup4(env));
@@ -130,8 +138,6 @@ int	editor_keyup(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_o)
 		env->options.o = env->options.o ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
-		env->editor.tab = env->editor.tab ? 0 : 1;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
