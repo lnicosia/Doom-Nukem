@@ -111,9 +111,11 @@ int		editor_keyup6(t_env *env)
 	int	ret;
 
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->sdl.event.type == SDL_KEYUP
 		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
 	else if (env->sdl.event.key.keysym.sym == env->keys.enter
+		&& env->sdl.event.type == SDL_KEYUP
 		&& !env->confirmation_box.state && !env->input_box.state
 		&& !env->editor.enter_locked)
 	{

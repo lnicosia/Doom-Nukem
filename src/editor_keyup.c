@@ -26,7 +26,8 @@ int	editor_keyup5(t_env *env)
 		if (confirmation_box_keyup(&env->confirmation_box, env))
 			return (-1);
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT)
+	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT
+		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 	{
 		reset_selection(env);
 		tabs_gestion(env);
@@ -44,7 +45,8 @@ int	editor_keyup5(t_env *env)
 
 int	editor_keyup4(t_env *env)
 {
-	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT)
+	if (env->inputs.ctrl && env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 	{
 		if ((is_mouse_on_a_wall(env)))
 		{
@@ -63,7 +65,8 @@ int	editor_keyup4(t_env *env)
 		if (event_panel_keyup(env))
 			return (-1);
 	}
-	if (env->sdl.event.button.button == SDL_BUTTON_LEFT)
+	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
+		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 	{
 		if (editor_left_click_up(env))
 			return (-1);
@@ -76,9 +79,11 @@ int	editor_keyup3(t_env *env)
 	int	ret;
 
 	if (env->editor.create_enemy && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->editor.create_enemy = 0;
-	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+	if (env->sdl.event.key.keysym.sym == SDLK_TAB
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.tab = env->editor.tab ? 0 : 1;
 		env->editor.draw_enemy_tab = 0;
@@ -94,52 +99,62 @@ int	editor_keyup3(t_env *env)
 int	editor_keyup2(t_env *env)
 {
 	if (env->editor.selecting_target && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.selecting_target = 0;
 		env->editor.creating_event = 1;
 	}
 	if (env->editor.selecting_condition_target && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.selecting_condition_target = 0;
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
 	if (env->editor.selecting_event && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.selecting_event = 0;
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
 	if (env->editor.create_object && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->editor.create_object = 0;
 	return (editor_keyup3(env));
 }
 
 int	editor_keyup(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl)
+	ft_printf("event = %d\n", env->sdl.event.key.keysym.sym);
+	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		if (launch_game(env))
 			return (-1);
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_m)
+	if (env->sdl.event.key.keysym.sym == SDLK_m
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_DELETE)
+	if (env->sdl.event.key.keysym.sym == SDLK_DELETE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		if (delete_action(env))
 			return (-1);
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_o)
+	if (env->sdl.event.key.keysym.sym == SDLK_o
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->options.o = env->options.o ? 0 : 1;
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-		&& env->editor.event_panel_dragged)
+		&& env->editor.event_panel_dragged
+		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 		env->editor.event_panel_dragged = -1;
 	return (editor_keyup2(env));
 }

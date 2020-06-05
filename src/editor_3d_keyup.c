@@ -16,14 +16,16 @@
 int		editor_3d_keyup5(t_env *env)
 {
 	if (env->editor.selecting_condition_target && !env->confirmation_box.state
-			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.selecting_condition_target = 0;
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
 	if (env->editor.selecting_event && !env->confirmation_box.state
-			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.selecting_event = 0;
 		env->editor.creating_event = 1;
@@ -52,7 +54,8 @@ int		editor_3d_keyup4(t_env *env)
 			return (-1);
 	}
 	if (env->editor.selecting_target && !env->confirmation_box.state
-			&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		env->editor.selecting_target = 0;
 		env->editor.creating_event = 1;
@@ -91,7 +94,8 @@ int		editor_3d_keyup3(t_env *env)
 
 int		editor_3d_keyup2(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_f)
+	if (env->sdl.event.key.keysym.sym == SDLK_f
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		if (env->player.state.fly == 0)
 			env->player.state.fly = 1;
@@ -100,21 +104,25 @@ int		editor_3d_keyup2(t_env *env)
 		env->player.pos.z += 0.01;
 	}
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-			&& env->editor.enter_locked)
+		&& env->sdl.event.type == SDL_KEYUP
+		&& env->editor.enter_locked)
 		env->editor.enter_locked = 0;
-	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl)
+	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl
+		&& env->sdl.event.type == SDL_KEYUP)
 	{
 		if (launch_game(env))
 			return (-1);
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_TAB)
+	if (env->sdl.event.key.keysym.sym == SDLK_TAB
+		&& env->sdl.event.type == SDL_KEYUP)
 		editor_show_tab(env);
 	return (editor_3d_keyup3(env));
 }
 
 int		editor_3d_keyup(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_p)
+	if (env->sdl.event.key.keysym.sym == SDLK_p
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->options.clipping = env->options.clipping ? 0 : 1;
 	if (wall_edit_keyup(env))
 		return (-1);
@@ -128,7 +136,7 @@ int		editor_3d_keyup(t_env *env)
 	}
 	editor_options_tab_keyup(env);
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
-			&& env->editor.event_panel_dragged)
+		&& env->editor.event_panel_dragged)
 		env->editor.event_panel_dragged = -1;
 	return (editor_3d_keyup2(env));
 }

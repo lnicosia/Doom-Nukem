@@ -101,14 +101,16 @@ int		change_slopes_keyup(t_env *env)
 	if (env->editor.key_delay > INPUT_DELAY
 	|| env->editor.keyup_allowed)
 	{
-		if (env->inputs.plus
+		if ((env->inputs.plus
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_PLUS)
+		&& env->sdl.event.type == SDL_KEYUP)
 		{
 			if (increase_slope_keyup(env))
 				return (-1);
 		}
-		else if (env->inputs.minus
+		else if ((env->inputs.minus
 		|| env->sdl.event.key.keysym.sym == SDLK_KP_MINUS)
+		&& env->sdl.event.type == SDL_KEYUP)
 		{
 			if (decrease_slope_keyup(env))
 				return (-1);

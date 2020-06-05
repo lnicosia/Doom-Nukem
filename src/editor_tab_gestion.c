@@ -14,17 +14,21 @@
 
 void	editor_options_tab_keyup(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_l && env->inputs.ctrl)
+	if (env->sdl.event.key.keysym.sym == SDLK_l && env->inputs.ctrl
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->options.lighting = env->options.lighting ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_z && env->inputs.ctrl)
+	if (env->sdl.event.key.keysym.sym == SDLK_z && env->inputs.ctrl
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->options.zbuffer = env->options.zbuffer ? 0 : 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_m && env->inputs.ctrl)
+	if (env->sdl.event.key.keysym.sym == SDLK_m && env->inputs.ctrl
+		&& env->sdl.event.type == SDL_KEYUP)
 		env->options.show_minimap = env->options.show_minimap ? 0 : 1;
 }
 
 int		editor_3d_tabs_keyup(t_env *env)
 {
-	general_keyup(env);
+	if (general_keyup(env))
+		return (-1);
 	if (env->editor.events_tab.state == DOWN)
 	{
 		if (events_tab_keyup(env))
