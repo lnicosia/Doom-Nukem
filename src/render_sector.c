@@ -32,11 +32,14 @@ int		render_neighbor(int just_selected, t_sector *sector, t_render *render,
 t_env *env)
 {
 	t_render	new;
+	int			ymin[MAX_W];
+	int			ymax[MAX_W];
 
 	new = *render;
 	new.xmin = render->xstart;
 	new.sector = &env->sectors[sector->neighbors[render->i]];
 	new.xmax = render->xend;
+	save_limits(ymin, ymax, render, env);
 	if (render_sector(new, env))
 		return (-1);
 	if (env->editor.selected_wall == render->i && !just_selected

@@ -346,7 +346,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   check_gun.c check_raygun.c check_gatling.c init_mipmap_data.c \
 		   check_sounds.c check_sounds2.c check_rocket_launcher.c \
 		   sound_misc_functions.c check_wall_sprites_textures.c func_event.c \
-		   event_updaters5.c init_rocket_launcher_sprite.c \
+		   event_updaters5.c init_rocket_launcher_sprite.c save_limits.c \
 		   draw_ceiling_bullet_holes_both.c draw_ceiling_bullet_holes_color.c \
 		   draw_ceiling_bullet_holes_no_light.c init_wall_textures2.c \
 		   draw_ceiling_bullet_holes_brightness.c init_wall_textures3.c \

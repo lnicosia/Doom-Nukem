@@ -98,6 +98,8 @@ typedef struct		s_render
 	int				texture_h;
 	int				threadmin;
 	int				threadmax;
+	int				*ymin;
+	int				*ymax;
 }					t_render;
 
 typedef struct		s_drawer
@@ -440,6 +442,8 @@ void				restrict_ceiling(t_render_vertex v1, t_render *render,
 		t_sector *sector, t_env *env);
 void				reset_x_restrictions(t_sector *sector, t_env *env);
 void				reset_screen_limits(t_render *render, t_env *env);
+void				save_limits(int *ymin, int *ymax, t_render *render,
+t_env *env);
 void				get_vline_data(t_render_vertex v1, t_sector *sector,
 		t_render *render, t_env *env);
 int					get_current_wall_map(int texture, double z,

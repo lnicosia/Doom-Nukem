@@ -32,6 +32,7 @@ void	colorize_portal(t_render *render, t_env *env)
 
 void	render_vline(t_sector *sector, t_render *render, t_env *env)
 {
+	(void)env;
 	render->alpha = (render->x - render->v1->x) / render->v1->xrange;
 	render->clipped_alpha = (render->x - render->v1->clipped_x1)
 	/ render->v1->clipped_xrange;
@@ -42,11 +43,11 @@ void	render_vline(t_sector *sector, t_render *render, t_env *env)
 	render->max_ceiling = render->clipped_alpha * render->v1->ceiling_range
 	+ render->v1->c1;
 	render->current_ceiling = ft_clamp(render->max_ceiling,
-			env->ymin[render->x], env->ymax[render->x]);
+			render->ymin[render->x], render->ymax[render->x]);
 	render->max_floor = render->clipped_alpha * render->v1->floor_range
 	+ render->v1->f1;
 	render->current_floor = ft_clamp(render->max_floor,
-			env->ymin[render->x], env->ymax[render->x]);
+			render->ymin[render->x], render->ymax[render->x]);
 	render->no_slope_current_floor = render->clipped_alpha
 		* render->v1->no_slope_floor_range + render->v1->no_slope_f1;
 	render->no_slope_current_ceiling = render->clipped_alpha
