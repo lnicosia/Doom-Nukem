@@ -83,7 +83,7 @@ int		multithreaded_render(t_camera *camera, int screen_sectors, t_env *env)
 	while (i < env->nprocs)
 	{
 		rt[i].xstart = env->w / (double)env->nprocs * i;
-		rt[i].xend = env->w / (double)env->nprocs * (i + 1);
+		rt[i].xend = env->w / (double)env->nprocs * (i + 1) - 1;
 		rt[i].env = env;
 		rt[i].screen_sectors = screen_sectors;
 		rt[i].camera = camera;

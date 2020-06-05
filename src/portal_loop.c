@@ -72,8 +72,12 @@ int		portal_loop(void *param)
 	while (x <= xend)
 	{
 		render.x = x;
-		render_vline(sector, &render, env);
-		colorize_portal(&render, env);
+		if (env->portal_array[x] == 0)
+		{
+			render_vline(sector, &render, env);
+			colorize_portal(&render, env);
+			env->portal_array[x] = 1;
+		}
 		x++;
 	}
 	return (0);

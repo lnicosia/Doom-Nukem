@@ -67,6 +67,7 @@ void	reset_render_utils2(int ymin, int ymax, t_camera *camera, t_env *env)
 	{
 		env->ymin[i] = ymin;
 		env->ymax[i] = ymax;
+		env->portal_array[i] = 0;
 		i++;
 	}
 }
