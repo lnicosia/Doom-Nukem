@@ -127,8 +127,9 @@ int		editor_3d_keyup(t_env *env)
 	if (wall_edit_keyup(env))
 		return (-1);
 	if (env->sdl.event.key.keysym.sym == env->keys.enter
-			&& !env->confirmation_box.state && !env->input_box.state
-			&& !env->editor.enter_locked)
+		&& env->sdl.event.type == SDL_KEYUP
+		&& !env->confirmation_box.state && !env->input_box.state
+		&& !env->editor.enter_locked)
 	{
 		if (going_in_2d_mode(env))
 			return (-1);
