@@ -130,7 +130,6 @@ int	editor_keyup2(t_env *env)
 
 int	editor_keyup(t_env *env)
 {
-	ft_printf("event = %d\n", env->sdl.event.key.keysym.sym);
 	if (env->sdl.event.key.keysym.sym == SDLK_g && env->inputs.ctrl
 		&& env->sdl.event.type == SDL_KEYUP)
 	{
