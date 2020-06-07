@@ -22,8 +22,7 @@ int	delete_object(void *param)
 	free_events(&env->objects[object].collision_events,
 	&env->objects[object].nb_collision_events);
 	env->objects = (t_object*)ft_delindex(env->objects,
-			sizeof(t_object) * env->nb_objects,
-			sizeof(t_object),
+			sizeof(t_object) * env->nb_objects, sizeof(t_object),
 			sizeof(t_object) * object);
 	env->player.colliding_objects = (int*)ft_delindex(
 			env->player.colliding_objects,
@@ -31,7 +30,8 @@ int	delete_object(void *param)
 			sizeof(int),
 			sizeof(int) * object);
 	env->nb_objects--;
-	if (env->nb_objects > 0 && (!env->objects || !env->player.colliding_objects))
+	if (env->nb_objects > 0 && (!env->objects
+		|| !env->player.colliding_objects))
 		return (-1);
 	env->selected_object = -1;
 	free(env->rendered_objects);
