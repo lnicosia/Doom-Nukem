@@ -21,11 +21,9 @@ int	editor_keyup5(t_env *env)
 		if (weapon_picker_keyup(env))
 			return (-1);
 	}
-	if (env->confirmation_box.state)
-	{
-		if (confirmation_box_keyup(&env->confirmation_box, env))
-			return (-1);
-	}
+	if (env->confirmation_box.state
+		&& confirmation_box_keyup(&env->confirmation_box, env))
+		return (-1);
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT
 		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 	{
@@ -60,11 +58,9 @@ int	editor_keyup4(t_env *env)
 	}
 	if (select_sector(env))
 		return (-1);
-	if (env->editor.creating_event && !env->confirmation_box.state)
-	{
-		if (event_panel_keyup(env))
-			return (-1);
-	}
+	if (env->editor.creating_event && !env->confirmation_box.state
+		&& event_panel_keyup(env))
+		return (-1);
 	if (env->sdl.event.button.button == SDL_BUTTON_LEFT
 		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 	{
@@ -78,6 +74,10 @@ int	editor_keyup3(t_env *env)
 {
 	int	ret;
 
+	if (env->editor.create_object && !env->confirmation_box.state
+		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
+		&& env->sdl.event.type == SDL_KEYUP)
+		env->editor.create_object = 0;
 	if (env->editor.create_enemy && !env->confirmation_box.state
 		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
 		&& env->sdl.event.type == SDL_KEYUP)
@@ -121,10 +121,6 @@ int	editor_keyup2(t_env *env)
 		env->editor.creating_event = 1;
 		env->editor.creating_condition = 1;
 	}
-	if (env->editor.create_object && !env->confirmation_box.state
-		&& env->sdl.event.key.keysym.sym == SDLK_BACKSPACE
-		&& env->sdl.event.type == SDL_KEYUP)
-		env->editor.create_object = 0;
 	return (editor_keyup3(env));
 }
 
@@ -143,11 +139,9 @@ int	editor_keyup(t_env *env)
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE
-		&& env->sdl.event.type == SDL_KEYUP)
-	{
-		if (delete_action(env))
-			return (-1);
-	}
+		&& env->sdl.event.type == SDL_KEYUP
+		&& delete_action(env))
+		return (-1);
 	if (env->sdl.event.key.keysym.sym == SDLK_o
 		&& env->sdl.event.type == SDL_KEYUP)
 		env->options.o = env->options.o ? 0 : 1;

@@ -55,6 +55,8 @@ int		editor_keyup9(t_env *env)
 
 int		editor_keyup8(t_env *env)
 {
+	if (button_keyup(&env->editor.texture_background, env))
+		return (-1);
 	if (button_keyup(&env->editor.enemy_background, env))
 		return (-1);
 	if ((env->selected_object == -1
@@ -80,6 +82,8 @@ int		editor_keyup8(t_env *env)
 
 int		editor_keyup7(t_env *env)
 {
+	if (button_keyup(&env->editor.launch_game, env))
+		return (-1);
 	if (!env->editor.texture_selection_just_closed)
 	{
 		if (button_keyup(&env->editor.current_texture_selection, env))
@@ -101,8 +105,6 @@ int		editor_keyup7(t_env *env)
 	}
 	else
 		env->editor.object_selection_just_closed = 0;
-	if (button_keyup(&env->editor.texture_background, env))
-		return (-1);
 	return (editor_keyup8(env));
 }
 
@@ -131,8 +133,6 @@ int		editor_keyup6(t_env *env)
 	if (button_keyup(&env->editor.change_mode, env))
 		return (-1);
 	if (button_keyup(&env->editor.options, env))
-		return (-1);
-	if (button_keyup(&env->editor.launch_game, env))
 		return (-1);
 	return (editor_keyup7(env));
 }

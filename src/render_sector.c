@@ -43,11 +43,9 @@ t_env *env)
 	if (render_sector(new, env))
 		return (-1);
 	if (env->editor.selected_wall == render->i && !just_selected
-		&& env->editor.selected_sector == sector->num)
-	{
-		if (colorize_selected_portal(sector, render, env))
-			return (-1);
-	}
+		&& env->editor.selected_sector == sector->num
+		&& colorize_selected_portal(sector, render, env))
+		return (-1);
 	if (env->editor.select_portal
 		&& ((env->editor.tab && env->sdl.mx >= render->xstart
 		&& env->sdl.mx <= render->xend) || (!env->editor.tab
