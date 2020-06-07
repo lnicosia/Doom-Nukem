@@ -53,7 +53,8 @@ int		player_combat_state(t_env *env)
 	{
 		if (env->enemies[i].exists && env->enemies[i].health > 0)
 		{
-			if (enemy_is_seeing_player(env, i))
+			if (enemy_is_seeing_player(env, i)
+				&& env->sound.ambient_music != env->sound.fight_music)
 			{
 				if (change_music(env, count))
 					return (-1);
