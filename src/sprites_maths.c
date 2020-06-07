@@ -53,8 +53,9 @@ int		get_object_relative_pos(void *param)
 	camera = ((t_object_thread*)param)->camera;
 	while (i < max)
 	{
-		get_translated_object_pos(camera, &env->objects[i]);
-		get_rotated_object_pos(camera, &env->objects[i]);
+		get_translated_object_pos(camera,
+		&env->objects[env->rendered_objects[i]]);
+		get_rotated_object_pos(camera, &env->objects[env->rendered_objects[i]]);
 		i++;
 	}
 	return (0);

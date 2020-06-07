@@ -74,8 +74,9 @@ int		threaded_get_relative_pos(t_camera *camera, t_env *env)
 	{
 		object_threads[i].env = env;
 		object_threads[i].camera = camera;
-		object_threads[i].xstart = env->nb_objects / (double)env->nprocs * i;
-		object_threads[i].xend = env->nb_objects
+		object_threads[i].xstart = env->nb_rendered_objects
+		/ (double)env->nprocs * i;
+		object_threads[i].xend = env->nb_rendered_objects
 		/ (double)env->nprocs * (i + 1);
 		if (tpool_work(&env->tpool, get_object_relative_pos,
 			&object_threads[i]))
@@ -120,14 +121,17 @@ int		draw_objects(t_camera *camera, t_env *env)
 {
 	int	i;
 
+	get_rendered_objects(env);
 	if (threaded_get_relative_pos(camera, env))
 		return (-1);
 	i = 0;
-	while (i < env->nb_objects)
+	while (i < env->nb_rendered_objects)
 	{
-		if (env->objects[i].sector != -1 && draw_current_object(camera, i, env))
+		if (env->objects[i].sector != -1 && draw_current_object(camera,
+			env->rendered_objects[i], env))
 			return (-1);
 		i++;
 	}
+	env->nb_rendered_objects = 0;
 	return (0);
 }

@@ -119,6 +119,12 @@ int		render_sector(t_render render, t_env *env)
 	t_sector	*sector;
 
 	sector = render.sector;
+	if (!sector->rendered)
+	{
+		env->rendered_sectors[env->nb_rendered_sectors] = sector->num;
+		env->nb_rendered_sectors++;
+	}
+	sector->rendered = 1;
 	i = -1;
 	while (++i < sector->nb_vertices)
 	{

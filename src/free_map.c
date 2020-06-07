@@ -26,6 +26,16 @@ void	free_projectiles(t_env *env)
 		ft_lstdelfront(&env->explosions);
 }
 
+void	free_map2(t_env *env)
+{
+	if (env->rendered_sectors)
+		ft_memdel((void**)&env->rendered_sectors);
+	if (env->rendered_enemies)
+		ft_memdel((void**)&env->rendered_enemies);
+	if (env->rendered_objects)
+		ft_memdel((void**)&env->rendered_objects);
+}
+
 void	free_map(t_env *env)
 {
 	if (env->enemies)
@@ -52,4 +62,5 @@ void	free_map(t_env *env)
 		ft_lstdelfront(&env->queued_values);
 	if (env->dialog_box_str)
 		ft_strdel(&env->dialog_box_str);
+	free_map2(env);
 }

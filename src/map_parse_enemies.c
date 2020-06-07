@@ -40,6 +40,9 @@ int	parse_enemies2(t_env *env, t_map_parser *parser)
 	if (!(env->player.colliding_enemies = (int*)ft_memalloc(sizeof(int)
 		* env->nb_enemies)))
 		return (ft_perror("Could not malloc player colliding enemies"));
+	if (!(env->rendered_enemies = (int*)ft_memalloc(sizeof(int)
+		* env->nb_enemies)))
+		return (ft_perror("Could not malloc rendered enemies"));
 	return (0);
 }
 

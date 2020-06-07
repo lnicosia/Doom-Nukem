@@ -26,8 +26,9 @@ int		get_enemy_relative_pos(void *param)
 	camera = ((t_enemy_thread*)param)->camera;
 	while (i < max)
 	{
-		get_translated_enemy_pos(camera, &env->enemies[i]);
-		get_rotated_enemy_pos(camera, &env->enemies[i]);
+		get_translated_enemy_pos(camera,
+		&env->enemies[env->rendered_enemies[i]]);
+		get_rotated_enemy_pos(camera, &env->enemies[env->rendered_enemies[i]]);
 		i++;
 	}
 	return (0);

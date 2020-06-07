@@ -532,5 +532,7 @@ int					skybox_thread(void *param);
 void				threaded_skybox(t_env *env, t_render render);
 int					draw_object(t_camera *camera, t_object *object, t_env *env,
 int death_sprite);
+void				get_rendered_objects(t_env *env);
+void				get_rendered_enemies(t_env *env);
 
 #endif

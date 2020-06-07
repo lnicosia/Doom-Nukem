@@ -513,6 +513,7 @@ typedef struct		s_sector
 	int				start_floor_slope;
 	int				start_ceiling_slope;
 	int				start_slope;
+	int				rendered;
 }					t_sector;
 
 typedef struct		s_vertex

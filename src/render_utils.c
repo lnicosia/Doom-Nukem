@@ -63,6 +63,12 @@ void	reset_render_utils2(int ymin, int ymax, t_camera *camera, t_env *env)
 		i++;
 	}
 	i = 0;
+	while (i < env->nb_sectors)
+	{
+		env->sectors[i].rendered = 0;
+		i++;
+	}
+	i = 0;
 	while (i < env->w)
 	{
 		env->ymin[i] = ymin;
@@ -85,6 +91,7 @@ void	reset_render_utils(t_camera *camera, t_env *env)
 	ymax = ft_min(env->h_h + camera->y2 * env->player.camera.scale,
 			env->h - 1);
 	env->skybox_computed = 0;
+	env->nb_rendered_sectors = 0;
 	i = 0;
 	while (i < max)
 	{

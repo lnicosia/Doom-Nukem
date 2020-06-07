@@ -94,6 +94,10 @@ int			add_sector2(t_sector *sector, t_env *env)
 	free(env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list"));
+	free(env->rendered_sectors);
+	if (!(env->rendered_sectors =
+		(int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (ft_perror("Could not allocate sector list"));
 	get_new_floor_and_ceiling(env);
 	if (check_sector(*sector, env) && !env->editor.split_sector)
 	{

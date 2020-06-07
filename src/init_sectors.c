@@ -21,6 +21,9 @@ int		parse_sectors_init2(t_env *env, t_map_parser *parser)
 	if (!(env->sectors = (t_sector *)ft_memalloc(sizeof(t_sector)
 					* env->nb_sectors)))
 		return (ft_perror("Could not malloc sectors!"));
+	if (!(env->rendered_sectors = (int*)ft_memalloc(sizeof(int)
+		* env->nb_sectors)))
+		return (ft_perror("Could not malloc rendered sectors!"));
 	i = 0;
 	while (i < env->nb_sectors)
 	{

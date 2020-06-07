@@ -42,6 +42,10 @@ int		add_enemy2(t_enemy enemy, t_env *env)
 	env->editor.create_enemy = 0;
 	update_enemy(env, env->nb_enemies);
 	env->nb_enemies++;
+	free(env->rendered_enemies);
+	if (!(env->rendered_enemies =
+		(int*)ft_memalloc(sizeof(int) * env->nb_enemies)))
+		return (custom_error("Could not realloc rendered enemies\n"));
 	env->editor.add_enemy.state = UP;
 	init_enemies_data(env);
 	return (0);

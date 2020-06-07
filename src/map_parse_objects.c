@@ -38,6 +38,9 @@ int		parse_objects2(t_env *env, t_map_parser *parser)
 	if (!(env->player.colliding_objects = (int*)ft_memalloc(sizeof(int)
 		* env->nb_objects)))
 		return (ft_perror("Could not malloc player colliding objects"));
+	if (!(env->rendered_objects = (int*)ft_memalloc(sizeof(int)
+		* env->nb_objects)))
+		return (ft_perror("Could not malloc rendered objects"));
 	return (0);
 }
 

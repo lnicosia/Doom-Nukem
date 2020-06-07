@@ -33,6 +33,15 @@ void	set_object_sector(t_object *object, t_env *env)
 	}
 }
 
+int		add_object2(t_env *env)
+{
+	free(env->rendered_objects);
+	if (!(env->rendered_objects =
+		(int*)ft_memalloc(sizeof(int) * env->nb_objects)))
+		return (custom_error("Could not realloc rendered objects\n"));
+	return (0);
+}
+
 int		add_object(t_env *env)
 {
 	t_object	object;
@@ -59,5 +68,5 @@ int		add_object(t_env *env)
 	env->editor.add_object.state = UP;
 	env->nb_objects++;
 	init_objects_data(env);
-	return (0);
+	return (add_object2(env));
 }

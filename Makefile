@@ -353,6 +353,7 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_floor_bullet_holes_both.c draw_floor_bullet_holes_color.c \
 		   draw_floor_bullet_holes_no_light.c check_walls_textures2.c \
 		   draw_floor_bullet_holes_brightness.c parse_player_data.c \
+		   draw_entities_utils.c \
 
 HEADERS = utils.h render.h collision.h bmp_parser.h map_parser.h object_types.h\
 		  editor.h env.h save.h create_portals.h input_box_utils.h add_vertex.h\

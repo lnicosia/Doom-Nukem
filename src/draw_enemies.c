@@ -76,8 +76,9 @@ static int	threaded_get_relative_pos(t_camera *camera, t_env *env)
 	{
 		enemies_threads[i].env = env;
 		enemies_threads[i].camera = camera;
-		enemies_threads[i].xstart = env->nb_enemies / (double)env->nprocs * i;
-		enemies_threads[i].xend = env->nb_enemies
+		enemies_threads[i].xstart = env->nb_rendered_enemies
+		/ (double)env->nprocs * i;
+		enemies_threads[i].xend = env->nb_rendered_enemies
 		/ (double)env->nprocs * (i + 1);
 		if (tpool_work(&env->tpool, get_enemy_relative_pos,
 		&enemies_threads[i]))
@@ -120,14 +121,16 @@ int			draw_enemies(t_camera *camera, t_env *env)
 {
 	int	i;
 
+	get_rendered_enemies(env);
 	if (threaded_get_relative_pos(camera, env))
 		return (-1);
 	i = 0;
-	while (i < env->nb_enemies)
+	while (i < env->nb_rendered_enemies)
 	{
-		if (draw_current_enemy(camera, i, env))
+		if (draw_current_enemy(camera, env->rendered_enemies[i], env))
 			return (-1);
 		i++;
 	}
+	env->nb_rendered_enemies = 0;
 	return (0);
 }

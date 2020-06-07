@@ -186,6 +186,12 @@ typedef struct			s_env
 	int					wall_sprites_start;
 	int					objects_sprites_start;
 	int					gatling_sound_playing;
+	int					*rendered_sectors;
+	int					nb_rendered_sectors;
+	int					*rendered_enemies;
+	int					nb_rendered_enemies;
+	int					*rendered_objects;
+	int					nb_rendered_objects;
 }						t_env;
 
 /*

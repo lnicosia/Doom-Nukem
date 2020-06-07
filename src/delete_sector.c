@@ -67,6 +67,10 @@ int		delete_sector2(t_env *env)
 		i++;
 	}
 	env->player.sector = get_sector_global(env, env->player.pos);
+	free(env->rendered_sectors);
+	if (!(env->rendered_sectors =
+		(int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
+		return (ft_perror("Could not allocate rendered sector list"));
 	return (0);
 }
 
