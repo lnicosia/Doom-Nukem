@@ -91,10 +91,10 @@ int			add_sector2(t_sector *sector, t_env *env)
 	env->sectors[env->nb_sectors] = *sector;
 	create_portals(env, *sector);
 	env->nb_sectors++;
-	free(env->sector_list);
+	ft_memdel((void**)&env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list"));
-	free(env->rendered_sectors);
+	ft_memdel((void**)&env->rendered_sectors);
 	if (!(env->rendered_sectors =
 		(int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list"));

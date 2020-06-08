@@ -62,18 +62,18 @@ int		set_sector_ceiling_map_array(t_sector *sector, t_texture *texture,
 		t_env *env)
 {
 	if (sector->ceiling_scale)
-		free(sector->ceiling_scale);
+		ft_memdel((void**)&sector->ceiling_scale);
 	if (!(sector->ceiling_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* texture->nb_maps)))
 		return (ft_perror("Could not malloc sector ceiling_scale array"));
 	if (sector->ceiling_align)
-		free(sector->ceiling_align);
+		ft_memdel((void**)&sector->ceiling_align);
 	if (!(sector->ceiling_align = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* texture->nb_maps)))
 		return (ft_perror("Could not malloc sector ceiling_scale array"));
 	compute_ceiling_scales(texture, sector);
 	if (sector->ceiling_map_lvl)
-		free(sector->ceiling_map_lvl);
+		ft_memdel((void**)&sector->ceiling_map_lvl);
 	if (!(sector->ceiling_map_lvl = (double*)ft_memalloc(
 		sizeof(double) * texture->nb_maps)))
 		return (ft_perror("Could not malloc a sector map_lvl array"));

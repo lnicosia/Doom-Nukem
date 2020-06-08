@@ -35,7 +35,7 @@ void	set_object_sector(t_object *object, t_env *env)
 
 int		add_object2(t_env *env)
 {
-	free(env->rendered_objects);
+	ft_memdel((void**)&env->rendered_objects);
 	if (!(env->rendered_objects =
 		(int*)ft_memalloc(sizeof(int) * env->nb_objects)))
 		return (custom_error("Could not realloc rendered objects\n"));

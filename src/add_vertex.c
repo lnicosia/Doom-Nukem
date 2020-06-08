@@ -28,9 +28,9 @@ int		del_last_vertex2(t_env *env)
 		if (delete_vertex(env))
 			return (-1);
 	}
-	free(tmp->next->content);
+	ft_memdel((void**)&tmp->next->content);
 	tmp->next->content = NULL;
-	free(tmp->next);
+	ft_memdel((void**)&tmp->next);
 	tmp->next = NULL;
 	return (0);
 }
@@ -50,8 +50,8 @@ int		del_last_vertex(t_env *env)
 			if (delete_vertex(env))
 				return (-1);
 		}
-		free(env->editor.current_vertices->content);
-		free(env->editor.current_vertices);
+		ft_memdel((void**)&env->editor.current_vertices->content);
+		ft_memdel((void**)&env->editor.current_vertices);
 		env->editor.current_vertices = NULL;
 		env->editor.start_vertex = -1;
 		return (0);
@@ -68,7 +68,7 @@ void	free_current_vertices(t_env *env)
 		tmp = env->editor.current_vertices;
 		env->editor.current_vertices = env->editor.current_vertices->next;
 		ft_memdel(&tmp->content);
-		free(tmp);
+		ft_memdel((void**)&tmp);
 		tmp = NULL;
 	}
 }

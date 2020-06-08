@@ -17,7 +17,7 @@ int		realloc_sector_walls_map_lvl(t_sector *sector, t_texture *texture,
 int i)
 {
 	if (sector->walls_map_lvl[i])
-		free(sector->walls_map_lvl[i]);
+		ft_memdel((void**)&sector->walls_map_lvl[i]);
 	if (!(sector->walls_map_lvl[i] = (double*)ft_memalloc(sizeof(double)
 		* texture->nb_maps)))
 		return (ft_perror("Could not malloc a sector map_lvl array"));

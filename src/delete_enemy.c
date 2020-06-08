@@ -31,7 +31,7 @@ int	delete_enemy(void *param)
 	if (env->nb_enemies > 0 && !env->enemies)
 		return (-1);
 	env->selected_enemy = -1;
-	free(env->rendered_enemies);
+	ft_memdel((void**)&env->rendered_enemies);
 	if (env->nb_enemies > 0 && !(env->rendered_enemies =
 		(int*)ft_memalloc(sizeof(int) * env->nb_enemies)))
 		return (custom_error("Could not realloc rendered enemies\n"));

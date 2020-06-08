@@ -67,7 +67,7 @@ int		delete_sector2(t_env *env)
 		i++;
 	}
 	env->player.sector = get_sector_global(env, env->player.pos);
-	free(env->rendered_sectors);
+	ft_memdel((void**)&env->rendered_sectors);
 	if (!(env->rendered_sectors =
 		(int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate rendered sector list"));
@@ -90,7 +90,7 @@ int		delete_sector(void *param)
 	env->nb_sectors--;
 	if (env->nb_sectors > 0 && !env->sectors)
 		return (-1);
-	free(env->sector_list);
+	ft_memdel((void**)&env->sector_list);
 	if (!(env->sector_list = (int*)ft_memalloc(sizeof(int) * env->nb_sectors)))
 		return (ft_perror("Could not allocate sector list"));
 	i = env->editor.selected_sector;

@@ -22,7 +22,7 @@ int		free_launch_game(char *str, char *map_name, char **tmp)
 		ft_strdel(&tmp[0]);
 		ft_strdel(&tmp[1]);
 	}
-	free(tmp);
+	ft_memdel((void**)&tmp);
 	return (-1);
 }
 

@@ -58,7 +58,7 @@ void	set_camera(t_camera *camera, t_env *env)
 int		set_camera_sprites_array(t_camera *camera, int i, int j, t_env *env)
 {
 	if (camera->v[i][j].sprite_scale)
-		free(camera->v[i][j].sprite_scale);
+		ft_memdel((void**)&camera->v[i][j].sprite_scale);
 	if (!(camera->v[i][j].sprite_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->sectors[i].wall_sprites[j].nb_sprites)))
 		return (ft_perror("Could not malloc camera sprites scales"));
@@ -68,12 +68,12 @@ int		set_camera_sprites_array(t_camera *camera, int i, int j, t_env *env)
 int		set_camera_map_array(t_camera *camera, int i, int j, t_env *env)
 {
 	if (camera->v[i][j].texture_scale)
-		free(camera->v[i][j].texture_scale);
+		ft_memdel((void**)&camera->v[i][j].texture_scale);
 	if (!(camera->v[i][j].texture_scale = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites scales"));
 	if (camera->v[i][j].texture_align)
-		free(camera->v[i][j].texture_align);
+		ft_memdel((void**)&camera->v[i][j].texture_align);
 	if (!(camera->v[i][j].texture_align = (t_v2*)ft_memalloc(sizeof(t_v2)
 		* env->wall_textures[env->sectors[i].textures[j]].nb_maps)))
 		return (ft_perror("Could not malloc camera sprites align"));

@@ -34,7 +34,7 @@ int	delete_object(void *param)
 		|| !env->player.colliding_objects))
 		return (-1);
 	env->selected_object = -1;
-	free(env->rendered_objects);
+	ft_memdel((void**)&env->rendered_objects);
 	if (env->nb_objects > 0 && !(env->rendered_objects =
 		(int*)ft_memalloc(sizeof(int) * env->nb_objects)))
 		return (custom_error("Could not realloc rendered objects\n"));

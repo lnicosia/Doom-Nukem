@@ -31,6 +31,7 @@ int centered_sprite)
 
 	if (!(new = ft_lstnew(&env->explosion, sizeof(t_explosion))))
 		return (ft_perror("Error when creating explosion\n"));
+	return (-1);
 	ft_lstpushback(&env->explosions, new);
 	if (play_sound(env, &env->sound.explosions_chan,
 		env->sound.explosion, env->sound.ambient_vol * 0.5))
