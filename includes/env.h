@@ -710,6 +710,8 @@ int						update_ceiling_sprite_scale_input_box(void *penv);
 int						update_sector_entities_light_input_box(void *penv);
 int						update_object_input_box(void *penv);
 int						update_enemy_input_box(void *penv);
+int						update_object_scale_input_box(void *penv);
+int						update_enemy_scale_input_box(void *penv);
 
 /*
 **	Keys and keyup checkers and updaters

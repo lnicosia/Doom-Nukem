@@ -46,7 +46,7 @@ int		parse_enemy_data2(t_env *env, char **line, t_map_parser *parser)
 		return (custom_error("Invalid int for enemy %d damage\n",
 		parser->enemies_count));
 		env->enemies[parser->enemies_count].damage = ft_atoi(*line);
-	if (env->enemies[parser->enemies_count].damage <= 0)
+	if (env->enemies[parser->enemies_count].damage < 0)
 		return (custom_error_with_line("Enemy must do more than 0 damage",
 		parser));
 		return (parse_enemy_data3(line, parser));

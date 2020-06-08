@@ -67,6 +67,9 @@ void	init_enemies_data(t_env *env)
 		env->enemies[i].dir = 0;
 		env->enemies[i].sector = get_sector_no_z(env, env->enemies[i].pos);
 		env->enemies[i].last_player_pos = env->enemies[i].pos;
+		env->enemies[i].size_2d = env->enemies[i].scale
+		/ (env->enemy_sprites[env->enemies[i].sprite].size[0].y
+		/ (double)env->enemy_sprites[env->enemies[i].sprite].size[0].x) / 2;
 		i++;
 	}
 }

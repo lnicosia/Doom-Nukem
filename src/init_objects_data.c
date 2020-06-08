@@ -114,7 +114,8 @@ void	init_object_data(int i, t_env *env)
 	}
 	init_object_data2(i, env);
 	env->objects[i].size_2d = env->objects[i].scale
-	* env->objects[i].height_ratio;
+	/ (env->object_sprites[env->objects[i].sprite].size[0].y
+	/ (double)env->object_sprites[env->objects[i].sprite].size[0].x) / 2;
 }
 
 void	init_objects_data(t_env *env)

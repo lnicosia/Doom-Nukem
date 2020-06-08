@@ -182,7 +182,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		new_event_panel_box.c event_panel_keyup.c update_existing_events.c \
 		are_events_selection_buttons_visible.c init_editor_options_buttons2.c \
 		new_event_panel_dialog_box.c init_change_slope_direction_buttons.c \
-		init_editor_options_buttons3.c set_trigger.c \
+		init_editor_options_buttons3.c set_trigger.c input_box_updaters2.c \
 		init_editor_tab_buttons2.c init_enemy_selection_button.c \
 		init_object_selection_button.c init_array_texture_buttons.c \
 		change_slope_direction.c next_selected_wall.c save_selection.c \
