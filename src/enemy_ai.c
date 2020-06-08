@@ -30,7 +30,7 @@ void	melee_ai(t_env *env, t_enemy foe, int i)
 			env->enemies[i].state = PURSUING;
 			move = sprite_movement(env, (double)foe.speed / 200, foe.pos,
 				foe.last_player_pos);
-			motion = new_motion(foe.sector, foe.size_2d, foe.eyesight, foe.pos);
+			motion = new_motion(foe.sector, foe.size_2d, foe.scale, foe.pos);
 			motion.flight = foe.type;
 			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 			move = check_collision(env, move, motion);
@@ -110,7 +110,7 @@ int		ranged_ai(t_env *env, t_enemy foe, double distance, int i)
 			env->enemies[i].state = PURSUING;
 			move = sprite_movement(env, (double)foe.speed / 100, foe.pos,
 				foe.last_player_pos);
-			motion = new_motion(foe.sector, foe.size_2d, foe.eyesight, foe.pos);
+			motion = new_motion(foe.sector, foe.size_2d, foe.scale, foe.pos);
 			motion.lowest_ceiling = find_lowest_ceiling(env, motion);
 			motion.flight = foe.type;
 			move = check_collision(env, move, motion);

@@ -20,7 +20,7 @@
 int		check_ceiling(t_env *env, t_motion motion, int sector_dest)
 {
 	if (motion.future.z + motion.eyesight >
-		get_ceiling_at_pos(&env->sectors[sector_dest], motion.future, env) - 1)
+		get_ceiling_at_pos(&env->sectors[sector_dest], motion.future, env))
 		return (0);
 	return (1);
 }
