@@ -192,6 +192,7 @@ typedef struct			s_env
 	int					nb_rendered_enemies;
 	int					*rendered_objects;
 	int					nb_rendered_objects;
+	Uint32				speed_time;
 }						t_env;
 
 /*

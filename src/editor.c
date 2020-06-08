@@ -113,6 +113,7 @@ int		editor(t_env *env)
 		}
 		if (editor1(env))
 			return (crash("editor failed\n", env));
+		env->speed_time = SDL_GetTicks();
 	}
 	free_all(env);
 	return (0);
