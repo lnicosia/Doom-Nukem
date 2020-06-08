@@ -119,12 +119,14 @@ int		render_sector(t_render render, t_env *env)
 	t_sector	*sector;
 
 	sector = render.sector;
+	pthread_mutex_lock(&env->tpool.mutex);
 	if (!sector->rendered)
 	{
 		env->rendered_sectors[env->nb_rendered_sectors] = sector->num;
 		env->nb_rendered_sectors++;
 	}
 	sector->rendered = 1;
+	pthread_mutex_unlock(&env->tpool.mutex);
 	i = -1;
 	while (++i < sector->nb_vertices)
 	{
