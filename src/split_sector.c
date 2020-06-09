@@ -84,9 +84,9 @@ int		split_sector2(int start, int end, t_env *env)
 	free_current_vertices(env);
 	if (update_sector_data(env, start, end, sector))
 		return (-1);
-	free_events(&sector->stand_events, &sector->nb_walk_in_events);
+	free_events(&sector->stand_events, &sector->nb_stand_events);
 	free_events(&sector->walk_in_events, &sector->nb_walk_in_events);
-	free_events(&sector->walk_out_events, &sector->nb_walk_in_events);
+	free_events(&sector->walk_out_events, &sector->nb_walk_out_events);
 	if (set_sector_floor_map_array(&env->sectors[env->nb_sectors - 1],
 		&env->wall_textures[env->sectors[env->nb_sectors - 1].floor_texture],
 		env))
