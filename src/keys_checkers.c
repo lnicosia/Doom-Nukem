@@ -28,6 +28,7 @@ int		check_player_height(t_sector *sector, t_env *env)
 {
 	if (env->player.sector == sector->num)
 	{
+		update_player_z(env);
 		if (check_height_at_pos(env, sector, env->player.pos,
 			env->player.eyesight + 1))
 			return (-1);
