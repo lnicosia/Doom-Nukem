@@ -39,7 +39,6 @@ int		launch_events3(t_env *env)
 	else
 	{
 		env->player.state.fly = 0;
-		init_fall(env);
 	}
 	if (env->player.sector != -1 && env->sectors[env->player.sector]
 		.nb_walk_in_events > 0)
