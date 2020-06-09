@@ -36,8 +36,10 @@ int		launch_events3(t_env *env)
 		reset_state(env);
 		env->player.state.fly = 1;
 	}
-	else
+	else if (env->player.old_sector != -1
+		&& !env->sectors[env->player.old_sector].gravity)
 	{
+		init_fall(env);
 		env->player.state.fly = 0;
 	}
 	if (env->player.sector != -1 && env->sectors[env->player.sector]

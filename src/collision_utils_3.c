@@ -36,7 +36,8 @@ int		check_floor(t_env *env, t_motion motion, int sector_dest)
 	floor = get_floor_at_pos(&env->sectors[sector_dest], motion.future, env);
 	if (floor > motion.future.z + 2 && sector_dest != motion.sector)
 		return (0);
-	else if ((floor > motion.future.z + 0.5 && sector_dest == motion.sector
+	else if ((env->sectors[sector_dest].floor_slope != 0
+		&& floor > motion.future.z + 1 && sector_dest == motion.sector
 		&& !motion.flight)
 		|| (floor > motion.future.z && sector_dest == motion.sector
 		&& motion.flight))
