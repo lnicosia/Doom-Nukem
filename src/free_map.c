@@ -36,6 +36,20 @@ void	free_map2(t_env *env)
 		ft_memdel((void**)&env->rendered_objects);
 }
 
+void	free_on_going_events(t_env *env)
+{
+	t_event	*event;
+
+	ft_printf("Freeing on going event\n");
+	while (env->events)
+	{
+		event = (t_event*)env->events->content;
+		if (event->max_uses > 0 && event->uses >= event->max_uses)
+			free_event(event);
+		ft_lstpopfront(&env->events);
+	}
+}
+
 void	free_map(t_env *env)
 {
 	if (env->enemies)
@@ -57,7 +71,7 @@ void	free_map(t_env *env)
 	free_camera(&env->player.camera);
 	free_camera(&env->fixed_camera);
 	if (env->events)
-		ft_lstdelfront(&env->events);
+		free_on_going_events(env);
 	if (env->queued_values)
 		ft_lstdelfront(&env->queued_values);
 	if (env->dialog_box_str)
