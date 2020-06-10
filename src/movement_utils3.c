@@ -106,7 +106,9 @@ void	update_player_pos2(int new_sector, t_env *env)
 		env->player.pos, env) > env->player.pos.z
 		&& get_floor_at_pos(&env->sectors[env->player.highest_sect],
 		env->player.pos, env) - env->player.pos.z <= 2
-		&& env->player.highest_sect != new_sector && !env->player.state.fly)
+		&& (env->player.highest_sect != new_sector ||
+		!env->sectors[env->player.highest_sect].floor_slope)
+		&& !env->player.state.fly)
 		|| (env->player.state.climb)) && !env->player.state.drop
 		&& !env->player.state.jump && !env->player.state.fly)
 		climb(env);
