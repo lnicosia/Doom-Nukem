@@ -45,6 +45,9 @@ int		copying_original_sector_data(t_env *env)
 	while (i < env->sectors[new].nb_vertices)
 	{
 		env->sectors[new].textures[i] = env->sectors[origin].textures[0];
+		if (set_sector_wall_map_array(&env->sectors[new],
+			&env->wall_textures[env->sectors[new].textures[i]], i, env))
+			return (-1);
 		i++;
 	}
 	env->sectors[new].ceiling_texture = env->sectors[origin].ceiling_texture;
