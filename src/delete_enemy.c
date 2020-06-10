@@ -12,7 +12,19 @@
 
 #include "free.h"
 
-int	delete_enemy(void *param)
+void	update_enemies(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->nb_enemies)
+	{
+		env->enemies[i].num = i;
+		i++;
+	}
+}
+
+int		delete_enemy(void *param)
 {
 	t_env	*env;
 	int		enemy;
@@ -35,5 +47,6 @@ int	delete_enemy(void *param)
 	if (env->nb_enemies > 0 && !(env->rendered_enemies =
 		(int*)ft_memalloc(sizeof(int) * env->nb_enemies)))
 		return (custom_error("Could not realloc rendered enemies\n"));
+	update_enemies(env);
 	return (0);
 }

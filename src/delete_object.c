@@ -12,7 +12,19 @@
 
 #include "free.h"
 
-int	delete_object(void *param)
+void	update_objects(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->nb_objects)
+	{
+		env->objects[i].num = i;
+		i++;
+	}
+}
+
+int		delete_object(void *param)
 {
 	t_env	*env;
 	int		object;
@@ -26,8 +38,7 @@ int	delete_object(void *param)
 			sizeof(t_object) * object);
 	env->player.colliding_objects = (int*)ft_delindex(
 			env->player.colliding_objects,
-			sizeof(int) * env->nb_objects,
-			sizeof(int),
+			sizeof(int) * env->nb_objects, sizeof(int),
 			sizeof(int) * object);
 	env->nb_objects--;
 	if (env->nb_objects > 0 && (!env->objects
@@ -38,5 +49,6 @@ int	delete_object(void *param)
 	if (env->nb_objects > 0 && !(env->rendered_objects =
 		(int*)ft_memalloc(sizeof(int) * env->nb_objects)))
 		return (custom_error("Could not realloc rendered objects\n"));
+	update_objects(env);
 	return (0);
 }
