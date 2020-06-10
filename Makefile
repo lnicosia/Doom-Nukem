@@ -754,9 +754,9 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1D9Y02owFbXyQVbDz08PksOJtZwK5yBrF' -O- | sed -rn $\
+	1wZUnIVES5ZC0_aHNduYaBmSiOjCsho1S' -O- | sed -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
-	&id=1D9Y02owFbXyQVbDz08PksOJtZwK5yBrF" -O resources.tar.gz \
+	&id=1wZUnIVES5ZC0_aHNduYaBmSiOjCsho1S" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
 	@printf $(CYAN)"[INFO] Unarchiving resources\n"$(YELLOW)
 	@tar -xf resources.tar.gz
