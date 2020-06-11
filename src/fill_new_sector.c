@@ -30,9 +30,6 @@ int i, t_env *env)
 	sector->align[index] = new_v2(0, 0);
 	sector->scale[index] = new_v2(10, 10);
 	ft_bzero(&sector->wall_sprites[index], sizeof(t_wall_sprites));
-	if (!(sector->walls_map_lvl[index] = (double*)ft_memalloc(sizeof(double)
-		* env->wall_textures[sector->textures[index]].nb_maps)))
-		return (ft_perror("Could not malloc sector walls map lvl"));
 	if (set_sector_wall_map_array(sector,
 		&env->wall_textures[sector->textures[index]], index, env))
 		return (-1);

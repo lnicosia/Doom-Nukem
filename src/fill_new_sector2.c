@@ -50,6 +50,9 @@ int		fill_sector_first_vertex(t_sector *sector, t_env *env)
 	sector->align[0] = sector->align[sector->nb_vertices];
 	sector->scale[0] = sector->scale[sector->nb_vertices];
 	sector->wall_sprites[0].nb_sprites = 0;
+	if (!(set_sector_wall_map_array(sector,
+		&env->wall_textures[sector->textures[0]], 0, env)))
+		return (-1);
 	(void)env;
 	return (0);
 }
