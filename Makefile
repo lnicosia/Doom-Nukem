@@ -52,6 +52,7 @@ SOURCES_PATH =  /sgoinfre/goinfre/Perso/sipatry
 INSTALL_DIR = install
 INSTALL_TYPE = compile_all
 LIB_INSTALL = $(LIB_DIR)/installed
+SED = sed
 ROOT = sudo
 
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -580,6 +581,7 @@ else
 		INSTALL_SDL_DEPENDENCIES = $(INSTALL_DIR)/install_osx.sh
 		INSTALL_ALL = $(INSTALL_DIR)/install_all_osx.sh
 		OPTI_FLAGS += -flto
+		SED = gsed
     else
 		SDL2_FLAGS += -Wl,-rpath,/usr/local/lib -lm -lpthread
 		SDL2 = $(SDL2_LINUX)
@@ -754,7 +756,7 @@ $(RESOURCES):
 	"https://docs.google.com/uc?export=download&confirm=$$(wget --quiet $\
 	--save-cookies /tmp/cookies.txt --keep-session-cookies $\
 	--no-check-certificate 'https://docs.google.com/uc?export=download&id=$\
-	1W8KleIB3XCQ17qBX6zYg7PP1WoyLyz66' -O- | sed -rn $\
+	1W8KleIB3XCQ17qBX6zYg7PP1WoyLyz66' -O- | $(SED) -rn $\
 	's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')\
 	&id=1W8KleIB3XCQ17qBX6zYg7PP1WoyLyz66" -O resources.tar.gz \
 	&& rm -rf /tmp/cookies.txt
