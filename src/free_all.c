@@ -47,6 +47,8 @@ void		free_all2(t_env *env)
 	free_tpool(&env->tpool);
 	TTF_Quit();
 	SDL_Quit();
+	if (env->editor.current_vertices)
+		ft_lstdelfront(&env->editor.current_vertices);
 	if (env->editor.events_to_delete)
 		ft_lstdelfront(&env->editor.events_to_delete);
 	ft_printf("Exiting..\n");
