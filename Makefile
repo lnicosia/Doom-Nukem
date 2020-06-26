@@ -201,6 +201,7 @@ SRC_EDITOR_RAW = main_editor.c editor.c init_editor.c save_condition.c \
 		draw_editor_sector_tab.c editor_ceiling_tabs3.c editor_hud4.c\
 		editor_object_sector_tabs.c editor_options2.c editor_enemy_tabs2.c \
 		editor_wall_tabs4.c print_events_tabs3.c print_events_tabs4.c \
+		vertices_selection.c is_new_vertex_valid.c 
 
 SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   draw_line.c menu_tools.c screen_utils.c init_ttf.c init_textures.c \
@@ -275,8 +276,8 @@ SRC_ALL_RAW = init_sdl.c clear_image.c init_keys.c update_sprites.c \
 		   precompute_floor_ceiling_sprites_scales.c check_event_validity.c \
 		   menu_keys.c option_menu.c option_menu_keys.c collision_utils_2.c \
 		   collision_maths.c collision_utils.c new_object_event.c \
-		   is_new_vertex_valid.c collision_utils_3.c map_parse_music.c \
-		   init_audio.c vertices_selection.c fill_new_sector.c \
+		   collision_utils_3.c map_parse_music.c \
+		   init_audio.c fill_new_sector.c \
 		   map_parse_resources.c map_parser_bmp.c map_parse_sound.c \
 		   map_parse_fonts.c angles_utils.c add_vertex_in_sector_utils.c \
 		   add_vertex_in_sector_utils2.c add_vertex_in_sector_utils3.c \

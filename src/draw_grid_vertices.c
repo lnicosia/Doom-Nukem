@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnicosia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/25 11:02:08 by sipatry           #+#    #+#             */
+/*   Created: 2020/02/25 11:02:08 by lnicosia          #+#    #+#             */
 /*   Updated: 2020/04/29 16:22:35 by lnicosia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,15 +18,13 @@ int		select_grid_vertex(int i, t_env *env)
 {
 	if (env->inputs.left_click && !env->options.editor_options
 		&& !env->confirmation_box.state
-		&& !env->input_box.state
-		&& env->editor.event_panel_dragged == -1
-		&& env->editor.start_vertex == -1
-		&& env->editor.dragged_vertex == -1
-		&& env->editor.dragged_enemy == -1
-		&& env->editor.dragged_player == -1
+		&& !env->input_box.state && env->editor.event_panel_dragged == -1
+		&& env->editor.start_vertex == -1 && env->editor.dragged_vertex == -1
+		&& env->editor.dragged_enemy == -1 && env->editor.dragged_player == -1
 		&& env->editor.dragged_start_player == -1
 		&& env->editor.dragged_object == -1
 		&& !is_mouse_on_any_selection_tab(env)
+		&& !env->editor.creating_event && !env->editor.creating_condition
 		&& env->sdl.mx > 400)
 	{
 		reset_selection(env);

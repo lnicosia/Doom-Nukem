@@ -43,7 +43,15 @@ Here is a non exhaustive list of the restrictions we had to follow:
 
 This game features two applications: doom-nukem and doom-editor.
 
-The first one is the game executable. It allows you to play any map created with the editor. You play a soldier 
+The first one is the game executable. It allows you to play any map created with the second one, the editor.
+
+#### Game
+
+You play the Doom guy
+
+#### Editor
+
+
 
 ## Installation
 

@@ -23,7 +23,8 @@ int		set_sdl2(t_env *env)
 
 int		set_sdl(t_env *env)
 {
-	if (!(env->sdl.window = SDL_CreateWindow("Dookme", SDL_WINDOWPOS_CENTERED,
+	if (!(env->sdl.window = SDL_CreateWindow("Doom-Nukem",
+		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, env->w, env->h, SDL_WINDOW_MOUSE_FOCUS)))
 		return (custom_error("SDL_CreateWindow error: %s\n", SDL_GetError()));
 	if (!(env->sdl.renderer = SDL_CreateRenderer(env->sdl.window,

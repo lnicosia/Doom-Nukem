@@ -91,7 +91,8 @@ int	editor_keyup3(t_env *env)
 		env->editor.draw_texture_tab = 0;
 		env->editor.draw_sprite_tab = 0;
 	}
-	if ((ret = space_pressed(env)) != 1)
+	if (!env->editor.creating_event && !env->editor.creating_condition
+		&& (ret = space_pressed(env)) != 1)
 		return (ret);
 	return (editor_keyup4(env));
 }
@@ -139,8 +140,8 @@ int	editor_keyup(t_env *env)
 		env->options.mipmapping = env->options.mipmapping ? 0 : 1;
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_DELETE
-		&& env->sdl.event.type == SDL_KEYUP
-		&& delete_action(env))
+		&& env->sdl.event.type == SDL_KEYUP && !env->editor.creating_event
+		&& !env->editor.creating_condition && delete_action(env))
 		return (-1);
 	if (env->sdl.event.key.keysym.sym == SDLK_o
 		&& env->sdl.event.type == SDL_KEYUP)

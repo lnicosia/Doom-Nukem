@@ -83,6 +83,8 @@ int		vertices_selection(t_env *env)
 		return (-1);
 	set_sectors_xmax(env);
 	precompute_slopes(env);
+	if (update_entities_sectors(env))
+		return (-1);
 	env->editor.dragged_vertex = -1;
 	return (0);
 }

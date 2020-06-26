@@ -23,6 +23,8 @@ int		drop_player(t_env *env)
 	{
 		env->player.pos.x = env->editor.start_pos.x;
 		env->player.pos.y = env->editor.start_pos.y;
+		env->player.sector = get_sector_no_z(env, env->player.pos);
+		env->player.highest_sect = env->player.sector;
 		if (update_confirmation_box(&env->confirmation_box,
 			"The player does not fit at this pos", ERROR, env))
 			return (-1);
@@ -62,6 +64,8 @@ int		drop_starting_player(t_env *env)
 	{
 		env->player.starting_pos.x = env->editor.start_pos.x;
 		env->player.starting_pos.y = env->editor.start_pos.y;
+		env->player.starting_sector =
+		get_sector_no_z(env, env->player.starting_pos);
 		if (update_confirmation_box(&env->confirmation_box,
 			"The player does not fit at this pos", ERROR, env))
 			return (-1);

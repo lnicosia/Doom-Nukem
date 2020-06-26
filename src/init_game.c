@@ -57,10 +57,7 @@ int		init_game4(t_env *env, int i)
 		env->enemies[i].health = env->enemies[i].map_hp * env->difficulty;
 	}
 	view(env);
-	setenv("SDL_MOUSE_RELATIVE", "1", 1);
 	update_camera_position(&env->player.camera);
-	SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1",
-	SDL_HINT_OVERRIDE);
 	if (SDL_SetRelativeMouseMode(SDL_TRUE))
 		custom_error("Could not set relative mouse mode\n");
 	init_animations(env);

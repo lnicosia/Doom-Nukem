@@ -30,9 +30,6 @@ int i, t_env *env)
 	sector->align[index] = new_v2(0, 0);
 	sector->scale[index] = new_v2(10, 10);
 	ft_bzero(&sector->wall_sprites[index], sizeof(t_wall_sprites));
-	if (set_sector_wall_map_array(sector,
-		&env->wall_textures[sector->textures[index]], index, env))
-		return (-1);
 	return (0);
 }
 
@@ -106,6 +103,13 @@ int		fill_new_sector(t_sector *sector, t_env *env)
 	}
 	if (fill_sector_extremities(sector, env))
 		return (-1);
+	i = -1;
+	while (++i < sector->nb_vertices)
+	{
+		if (set_sector_wall_map_array(sector,
+			&env->wall_textures[sector->textures[i]], i, env))
+			return (-1);
+	}
 	precompute_floor_scales(sector, env);
 	precompute_ceiling_scales(sector, env);
 	return (0);
