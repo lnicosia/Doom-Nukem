@@ -20,7 +20,7 @@ int		print_wall_sprite_tab3(t_env *env)
 	scale[env->selected_wall_sprite_sprite].x;
 	if (draw_button(env, env->editor.hud.sp_wall_sprite.scale_x, env->snprintf))
 		return (-1);
-	if (print_text(new_point(680, 60), new_printable_text("Scale X",
+	if (print_text(new_point(680, 60), new_printable_text("Scale Y",
 		env->sdl.fonts.lato20, 0x00000000, 30), env))
 		return (-1);
 	ft_snprintf(env->snprintf, SNPRINTF_SIZE, "%.*f",

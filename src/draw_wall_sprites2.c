@@ -85,7 +85,8 @@ t_render *render, t_env *env)
 		env->sdl.texture_pixels[drawer->coord] =
 		blend_alpha(env->sdl.texture_pixels[drawer->coord], 0x1ABC9C, 128);
 	else if (env->playing && env->hovered_wall_sprite_wall == render->i
-			&& env->hovered_wall_sprite_sprite == sprite)
+			&& env->hovered_wall_sprite_sprite == sprite
+			&& render->sector->num == env->hovered_wall_sprite_sector)
 		env->sdl.texture_pixels[drawer->coord] =
 		blend_alpha(env->sdl.texture_pixels[drawer->coord],
 		env->press_wall_sprite_color, env->press_wall_sprite_intensity);

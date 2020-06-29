@@ -79,7 +79,7 @@ int		count_wall_sprites(char *line, t_map_parser *parser)
 		line++;
 		i++;
 	}
-	if (i > 5)
+	if (i > 30)
 		return (sector_error("wall can't exceed 30 sprites",
 		parser->sectors_count, parser));
 		return (i);

@@ -20,9 +20,10 @@ int		editor_keys5(t_env *env)
 	{
 		if (!env->editor.selecting_target && !env->editor.selecting_event
 			&& !env->editor.selecting_condition_target
+			&& !env->confirmation_box.state
 			&& button_keys(&env->editor.new_event, env))
 			return (-1);
-		if (is_modify_event_button_visible(env)
+		if (is_modify_event_button_visible(env) && !env->confirmation_box.state
 			&& (button_keys(&env->editor.modify_event, env)
 			|| button_keys(&env->editor.delete_event, env)))
 			return (-1);

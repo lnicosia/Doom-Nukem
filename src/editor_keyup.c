@@ -25,6 +25,7 @@ int	editor_keyup5(t_env *env)
 		&& confirmation_box_keyup(&env->confirmation_box, env))
 		return (-1);
 	if (env->sdl.event.button.button == SDL_BUTTON_RIGHT
+		&& !env->confirmation_box.state
 		&& env->sdl.event.type == SDL_MOUSEBUTTONUP)
 	{
 		reset_selection(env);

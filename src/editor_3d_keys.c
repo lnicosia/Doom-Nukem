@@ -122,7 +122,8 @@ int		editor_3d_keys(t_env *env)
 		if (move_player(env))
 			return (-1);
 	}
-	if (env->editor.in_game && env->inputs.right_click)
+	if (env->editor.in_game && env->inputs.right_click
+		&& !env->confirmation_box.state)
 	{
 		reset_selection(env);
 		tabs_gestion(env);

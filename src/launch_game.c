@@ -86,6 +86,7 @@ int		launch_game(void *target)
 	char	**tmp;
 	char	*map_name;
 
+	return (0);
 	env = (t_env*)target;
 	tmp = NULL;
 	str = NULL;

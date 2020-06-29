@@ -24,9 +24,6 @@ int		parse_sprite(char *line, t_map_parser *parser, int *open, int *count)
 			parser->sectors_count, parser));
 			(*open)++;
 		(*count)++;
-		if (*count > parser->sector_vertices_count)
-			return (sector_error("can't exceed %d sprites",
-			parser->sector_vertices_count, parser));
 	}
 	if (*line == '}')
 	{

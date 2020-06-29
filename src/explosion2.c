@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "events.h"
 
 t_explosion_data	new_explosion_data(t_v3 pos, double radius, int damage,
 int sprite)
@@ -75,6 +76,12 @@ t_env *env)
 			env->enemies[i].health -= damage;
 			env->enemies[i].hit = 1;
 			if (enemy_hit_sound(i, env))
+				return (-1);
+			if (env->enemies[i].health <= 0
+				&& env->enemies[i].nb_death_events > 0
+				&& env->enemies[i].death_events
+				&& start_event(&env->enemies[i].death_events,
+				&env->enemies[i].nb_death_events, env))
 				return (-1);
 		}
 	}

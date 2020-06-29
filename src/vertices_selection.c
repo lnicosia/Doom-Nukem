@@ -82,9 +82,9 @@ int		vertices_selection(t_env *env)
 	if (check_sector_order(env))
 		return (-1);
 	set_sectors_xmax(env);
-	precompute_slopes(env);
 	if (update_entities_sectors(env))
 		return (-1);
+	precompute_slopes(env);
 	env->editor.dragged_vertex = -1;
 	return (0);
 }

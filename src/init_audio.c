@@ -104,8 +104,8 @@ int	init_audio(t_env *env)
 		return (custom_error("Could not init sounds\n"));
 	if (set_channels(env))
 		return (custom_error("Could not set channels\n"));
-	env->sound.music_vol = 0;
-	env->sound.ambient_vol = 0;
+	env->sound.music_vol = 0.3;
+	env->sound.ambient_vol = 0.3;
 	env->sound.musics[0].music_name = "Mt Erebus";
 	env->sound.musics[1].music_name = "Bim Bam Boum";
 	env->sound.musics[2].music_name = "At Dooms Gate";

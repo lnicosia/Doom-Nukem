@@ -28,7 +28,7 @@ int		set_sdl(t_env *env)
 		SDL_WINDOWPOS_CENTERED, env->w, env->h, SDL_WINDOW_MOUSE_FOCUS)))
 		return (custom_error("SDL_CreateWindow error: %s\n", SDL_GetError()));
 	if (!(env->sdl.renderer = SDL_CreateRenderer(env->sdl.window,
-		-1, SDL_RENDERER_TARGETTEXTURE)))
+		-1, SDL_RENDERER_SOFTWARE)))
 		return (custom_error("SDL_CreateRenderer error: %s\n", SDL_GetError()));
 	if (!(env->sdl.texture = SDL_CreateTexture(env->sdl.renderer,
 		SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, env->w, env->h)))
