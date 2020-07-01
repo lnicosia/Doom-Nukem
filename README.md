@@ -83,39 +83,41 @@ The project also provides a complete level editor.
 
 From a 2D top-view, you can create, edit, modify and remove any shape of a level.
 
-GIF CREATION DE SECTEUR
+![](docs/editor_2D.gif)
 
 ###### Shape modelling
 
  The engine being mostly based on the Build engine from Duke Nukem 3D (even though most of our assets are from Doom), no BSP needs to be computed and everything you create/edit is rendered in real time. 
 
-You need to create sectors by connecting vertices that you place pressing the space key. You can then  join sectors together creating portals 
+You need to create sectors by connecting vertices that you place pressing the space key. You can then join sectors together creating portals between them.
 
-GIF CREATION DE SECTEUR AVEC UN AUTRE PUIS PASSAGE EN 3D
+![](docs/editor_2D_3D.gif)
 
 ###### Real time editing
 
 You can then modify every property of the sectors: height, slope, textures, lighting, even gravity! All of it in 2D and in real time. Editing is made with biding and direct value editing
 
-GIF MODIFICATION DE HAUTEUR PUIS PENTE PUIS CHANGEMENT DE TEXTURE
+![](docs/height_slope_texture.gif)
 
-GIF EDITION EN ECRIVANT LES VALEURS
+![](docs/input_boxes.gif)
 
 ###### Assets addition
 
 When your main architecture is built, you can start adding objects and enemies.
 
-GIF AJOUT OBJET/ENNEMI
+![](docs/assets_addition.gif)
 
 ###### Assets edition
 
 Once more, you can edit almost everything on your sprites: size, health, damage, speed, etc..
 
-GIF MODIFICATION D'OBJET/ENNEMI
+![](docs/assets_edition.gif)
 
 ###### Wall, floor and ceiling sprites
 
+You can also add overprinted sprites on walls, floors and ceilings. This way you can create buttons, carpets, etc..
 
+![](docs/wall_sprites.gif)
 
 ###### Events
 
