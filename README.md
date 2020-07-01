@@ -47,29 +47,29 @@ The first one is the game executable. It allows you to play any map created with
 
 You play the Doom guy in a typical 90's FPS game. You will have to find your way through levels filled with obstacles, enemies, and events, in a 3D-imitation environment, such as the Doom or Duke Nukem 3D video games. In our "Doom-Nukem" world, you control, you can look in every direction using the mouse and move with W, A, S, D or the arrow keys. This means you can strafe.
 
-The game engine allows designers to create complex 2D-based architecture with fully textured rooms of any shapes, elevations, slopes, skyboxes..  and of course, music and sounds!
+The game engine allows designers to create complex 2D-based architecture with fully textured rooms of any shapes, elevations, slopes, skyboxes, lights..  and of course, music and sounds!
 
-PHOTO ARCHITECTURE
+![](docs/demo_city.gif)
 
-To help you throughout those missions, you will start with a simple handgun but you also find different and stronger weapons, ammos, health or armor packs. They will be scattered in the maps and represented as simple or oriented sprites. Objects may also be decorations with solid hitboxes.
+To help you throughout those missions, you will start with a simple handgun but you also find different and stronger weapons, ammos, health or armor packs. They will be scattered in the maps and represented as simple or oriented sprites. Objects may also be decorations with solid hitboxes, and destructible.
 
-PHOTO OBJETS
+![](docs/objects.gif)
 
 The main danger of levels are the enemies, each having its own specific behaviour. For example, you can meet the Doom' Lost Soul. This one flies to you as fast as possible and inflicts damage if it manages to reach you before dying:
 
-PHOTO LOST SOUL QUI ATTAQUE
+![](docs/lost_soul.gif)
 
 You can also find Cyberdemons, who shoot rockets at you:
 
-GIF CYBERDEMON QUI TIRE ROQUETTE
+![](docs/cyberdemon.gif)
 
 Levels can also include architectural obstacles when the designers decide to play with heights differences, creating jumps, platforms, low gravity or even flying rooms
 
-GIF VOL
+![](docs/fly.gif)
 
 The game engine also features a complex system of events, allowing map designers to create infinite possibilities of interactions: buttons to press, plates to triggers, moving doors, lifts, teleporters, etc.. 
 
-GIFS D'EVENTS
+![](docs/door.gif)
 
 For more information about events diversity, check their [editor part](#editor)
 
