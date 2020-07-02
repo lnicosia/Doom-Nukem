@@ -1,5 +1,5 @@
 # Doom-Nukem
-![](docs/Doom-main.png)
+![](docs/doom_main.gif)
 
 This is my Doom-Nukem project from 42.
 
