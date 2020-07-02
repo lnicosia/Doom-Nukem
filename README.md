@@ -137,29 +137,29 @@ An event is made of two parts: the trigger, and the action. There are many way t
 
 To choose your trigger, simply go in the "Event" tab of the wanted trigger and click on "New event"
 
-GIF EVENTS D'UN SECTEUR
+![](docs/events_creation.gif)
 
 The second part of events is the action they will perform. They allow you to modify almost every property of the level, from player's health, enemies' damage, objects' size, to sectors shapes, floors height, ceiling slopes, etc.. with or without animations. You tell what your event will modify by selecting its target:
 
-GIF CHOIX DE LA TARGET
+![](docs/events_target.gif)
 
 Once your target is set, you can chose how your event will affect it. You do this by going into the "Action" tab of the even panel, and specifying the value you want your target to reach, or giving a value to add (or subtract if you put a negative value) to it. If you choose "Go to", your event will stop when the value is reached, but if you chose "Add", your event will stop when the chosen value is added. 
 
-GIF CHOIX DE L'ACTION
+![](docs/events_action.gif)
 
 You also need to indicate the speed of the action. If you let '0', the modification will be performed instantly, but you can create an animation by giving a certain speed (in unit/second).
 
 This may seem complicated, but maybe an example will be easier to understand: if I want to make a door opening upwards, I need to create an event affecting the ceiling's height of a sector. Once if chose what will trigger the event, I create a new one by clicking on the "New event" button. I can then choose my target by clicking on "Sector", then "Ceiling" and finally "Height". Now I need to select which sector's ceiling is to be modified. 
 
-GIF CREATION DE PORTE / CREATION D'UN NOUVEAU EVENT ET SELECTION DE LA CIBLE
+![](docs/door_target.gif)
 
-Once this is done, I can choose how my ceiling's height will change. In our case, I want to see it slowly moving upwards, so I will tell my event to "Add" 10 units at the speed of 5 per second.
+Once this is done, I can choose how my ceiling's height will change. In our case, I want to see it slowly moving upwards, so I will tell my event to "Go to" 10 units at the speed of 5 units per second. It will make my ceiling go from 0 to 10 in 2 seconds.
 
-GIF CREATION DE PORTE / CHOIX DE L'ACTION 
+![](docs/door_action.gif)
 
 Let's see the results!
 
-GIF CREATION DE PORTE / TEST DE L'EVENT
+![](docs/door_test.gif)
 
 As you can see in the "Action" tab, you can also set a delay between the time of the trigger and the start of the event (in milliseconds) and a maximum number of uses (0 = infinite uses).
 
@@ -169,19 +169,23 @@ As for executing condition, if they also permit to prevent your event from start
 
 Creating a condition is simple: you chose a target the same way you did for the events and you chose a value you want to be checked.
 
-GIF CREATION DE CONDITION
+![](docs/condition.gif)
 
 ###### General
 
 You can now choose the "general" properties of your level by selecting the Ambiance and Fights musics, the starting stats of the player (position, health, speed, armor) and finally decide how you want the player to win by creating an event. Just select "Win" in the "Other" category when creating the event. Since you can trigger an event with many different ways, your ways of winning just as diversified.
 
-GIF CHOIX DE LA MUSIQUE
+* Player's stats
 
-GIF STATS DU JOUEUR
+![](docs/player.gif)
 
-GIF CREATION EVENT WIN
+* Win even creation
 
-GIF TEST EVENT WIN
+![](docs/win_creation.gif)
+
+* Win event test
+
+![](docs/win.gif)
 
 ## Installation
 
