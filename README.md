@@ -187,10 +187,6 @@ You can now choose the "general" properties of your level by selecting the Ambia
 
 ![](docs/win.gif)
 
-## Installation
-
-## User guide
-
 ## Authors
 
 Gabriel Erhard
