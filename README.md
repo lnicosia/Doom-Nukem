@@ -1,4 +1,4 @@
-# Doom-Nukem
+# Doom-Nukem [![lnicosia's 42 Doom Nukem Score](https://badge42.vercel.app/api/v2/clatxjb5h00200gl7einwlrff/project/1914621)](https://github.com/JaeSeoKim/badge42)
 ![](docs/doom_main.gif)
 
 This is my Doom-Nukem project from 42.
