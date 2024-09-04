@@ -11,8 +11,6 @@ A game engine similar to the original Doom or Duke Nukem 3D games.
 * [Technologies](#technologies)
 * [Constraints](#contraints)
 * [Features](#features)
-* [Installation](#installation)
-* [How to use](#user%20guide)
 * [Authors](#authors)
 
 ## Introduction
