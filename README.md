@@ -15,7 +15,7 @@ A game engine similar to the original Doom or Duke Nukem 3D games.
 
 ## Introduction
 
-Following the first two graphical projects from 42 ([FdF](https://github.com/lnicosia/Fdf) and [Fract'ol](https://github.com/lnicosia/fractol)), the students must now recreate the legendary Wolfenstein 3D and Doom video games. But of course, it is more fun if they have to do it with the  same conditions John Carmack and his crew had at the time. This means everything in C and only C, no hardware acceleration and a lot of metal music.
+Following the first two graphical projects from 42 ([FdF](https://github.com/lnicosia/Fdf) and [Fract'ol](https://github.com/lnicosia/fractol)), the students must now recreate the legendary Wolfenstein 3D and Doom video games. But of course, it is more fun if we have to do it with the  same conditions John Carmack and his crew had at the time. This means everything in C and only C, no hardware acceleration and a lot of metal music.
 
 ## Technologies
 
@@ -33,8 +33,8 @@ Amongst multiple constraints, here is a non exhaustive list of the restrictions 
 
 * Drawing only by filling a one-dimension array of pixels
 * Computing everything on the CPU (using even 0,001% of the GPU would be flagged as 'cheat') while maintaining a decent framerate, because there was no GPU in 1993
-* Using different libraries for the graphical and sound parts
-* Compiling and linking the graphical l libraries ourselves
+* Not using the same library for the graphical and sound part
+* Compiling and linking the graphical libraries ourselves
 * Of course any crash or memory leak would mean the project has failed
 
 ## Features
@@ -49,11 +49,11 @@ The game engine allows designers to create complex 2D-based architecture with fu
 
 ![](docs/demo_city.gif)
 
-To help you throughout those missions, you will start with a simple handgun but you also find different and stronger weapons, ammos, health or armor packs. They will be scattered in the maps and represented as simple or oriented sprites. Objects may also be decorations with solid hitboxes, and destructible.
+To help you throughout those missions, you will start with a simple handgun but you also find different and stronger weapons, ammos, health or armor packs. They will be scattered in the maps and represented as simple oriented sprites. Objects may also be decorations with solid hitboxes, and destructible.
 
 ![](docs/objects.gif)
 
-The main danger of levels are the enemies, each having its own specific behaviour. For example, you can meet the Doom' Lost Soul. This one flies to you as fast as possible and inflicts damage if it manages to reach you before dying:
+The main danger of levels are the enemies, each having its own specific behaviour. For example, you can meet the Doom's Lost Soul. This one flies to you as fast as possible and inflicts damage if it manages to reach you before dying:
 
 ![](docs/lost_soul.gif)
 
@@ -68,8 +68,6 @@ Levels can also include architectural obstacles when the designers decide to pla
 The game engine also features a complex system of events, allowing map designers to create infinite possibilities of interactions: buttons to press, plates to triggers, moving doors, lifts, teleporters, etc.. 
 
 ![](docs/door.gif)
-
-For more information about events diversity, check their [editor part](#editor)
 
 There will be different ways to succeed a level: reaching a certain location, killing a boss, pressing a button, etc.. once more, let's jump to the editor part to know more about general level rules.
 
